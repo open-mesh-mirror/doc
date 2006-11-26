@@ -1,6 +1,6 @@
 = Welcome to the B.A.T.M.A.N. development site =
 
-This is the home of the B.A.T.M.A.N. development. To get some more general information about this project have a look at [https://open-mesh.org/batman/ https://open-mesh.org/batman/] .
+This is the home of the B.A.T.M.A.N. development. To get some more general information about this project have a look at [https://open-mesh.org/batman/ https://open-mesh.net/batman/] .
 If you find any reproducible bug in our latest release candidate or in the development tree PLEASE add a new ticket. If you simply want to get the latest sources of all branches use:
 [[br]]
 svn co https://dev.open-mesh.org/svn/batman/
@@ -10,9 +10,9 @@ We are currently working on three different branch. Namely
 
  * our stable batman branch (the one currently operating in Berlin and Leipzig). It can be checked out with: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman/
 
- * then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via: svn co https://dev.open-mesh.org/svn/batman/trunk/batman-experimental
+ * then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman-experimental
 
- * in the long term we are envisioning an advanced batman which also enables layer-two routing. This which will be available via: svn co https://dev.open-mesh.org/svn/batman/trunk/batman-advanced
+ * in the long term we are envisioning an advanced batman which also enables layer-two routing. This which will be available via: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman-advanced
 
 
 Have a lot of fun and remember:
