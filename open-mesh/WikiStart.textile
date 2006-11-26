@@ -5,17 +5,13 @@ If you find any reproducible bug in our latest release candidate or in the devel
 svn co https://dev.open-mesh.org/svn/batman/
 
 
-We are currently working on three different branch. 
+We are currently working on three different branch. Namely
 
-Namely, the stable batman branch (the one currently operating in Berlin and Leipzig).
-It can be checked out with:
-svn co https://dev.open-mesh.org/svn/batman/batman
+ * our stable batman branch (the one currently operating in Berlin and Leipzig). It can be checked out with: svn co https://dev.open-mesh.org/svn/batman/batman
 
-Then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via:
-svn co https://dev.open-mesh.org/svn/batman/batman-experimental
+ * then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via: svn co https://dev.open-mesh.org/svn/batman/batman-experimental
 
-In the long term we are envisioning a next-generation-batman which also enables layer-two routing and which will be available via:
-svn co https://dev.open-mesh.org/svn/batman/batman-ng
+ * in the long term we are envisioning a next-generation-batman which also enables layer-two routing and which will be available via: svn co https://dev.open-mesh.org/svn/batman/batman-ng
 
 
 Have a lot of fun and remember:
