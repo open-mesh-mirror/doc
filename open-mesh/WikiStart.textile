@@ -1,10 +1,7 @@
 = Welcome to the B.A.T.M.A.N. development site =
 
-This is the home of the B.A.T.M.A.N. development. To get more general information about this project visit 
-[https://open-mesh.org/batman/ The B.A.T.M.A.N.] -- Trac Open Source Project
-Please add a new ticket if you find any reproducible bug in our latest release candidate or in the development tree.
-
-If you simply want to get the sources form all branches use:
+This is the home of the B.A.T.M.A.N. development. To get some more general information about this project have a look at [https://open-mesh.org/batman/ https://open-mesh.org/batman/] .
+If you find any reproducible bug in our latest release candidate or in the development tree PLEASE add a new ticket. If you simply want to get the latest sources of all branches use:
 svn co https://dev.open-mesh.org/svn/batman/
 
 
