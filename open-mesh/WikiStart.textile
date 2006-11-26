@@ -11,7 +11,8 @@ We are currently working on three different branch. Namely
 
  * then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via: svn co https://dev.open-mesh.org/svn/batman/batman-experimental
 
- * in the long term we are envisioning a next-generation-batman which also enables layer-two routing and which will be available via: svn co https://dev.open-mesh.org/svn/batman/batman-ng
+ * in the long term we are envisioning a next-generation-batman which also enables layer-two routing and which will be available via: 
+svn co https://dev.open-mesh.org/svn/batman/batman-ng
 
 
 Have a lot of fun and remember:
