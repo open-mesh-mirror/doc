@@ -1,4 +1,42 @@
-= Welcome to Trac 0.8.1 =
+= Welcome to the B.A.T.M.A.N. development site =
+
+This is the home of the B.A.T.M.A.N. development. To get more general information about this project visit 
+[https://open-mesh.org/batman/ The B.A.T.M.A.N.] -- Trac Open Source Project
+Please add a new ticket if you find any reproducible bug in our latest release candidate or in the development tree.
+
+If you simply want to get the sources form all branches use:
+svn co https://dev.open-mesh.org/svn/batman/
+
+
+We are currently working on three different branch. 
+
+Namely, the stable batman branch (the one currently operating in Berlin and Leipzig).
+It can be checked out with:
+svn co https://dev.open-mesh.org/svn/batman/batman
+
+Then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via:
+svn co https://dev.open-mesh.org/svn/batman/batman-experimental
+
+In the long term we are envisioning a next-generation-batman which also enables layer-two routing and which will be available via:
+svn co https://dev.open-mesh.org/svn/batman/batman-ng
+
+
+Have a lot of fun and remember:
+We are desperately waiting fo your feedback!
+...the B.A.T.M.A.N. team
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------
+The remainder is temporary left for help...
+
+
+
 
 trac is a '''minimalistic''' approach to '''web-based''' management of
 '''software projects'''. Its goal is to simplify effective tracking and handling of software issues, enhancements and overall progress.
