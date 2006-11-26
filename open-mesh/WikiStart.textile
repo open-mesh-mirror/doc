@@ -2,14 +2,14 @@
 
 This is the home of the B.A.T.M.A.N. development. To get some more general information about this project have a look at [https://open-mesh.org/batman/ https://open-mesh.org/batman/] .
 If you find any reproducible bug in our latest release candidate or in the development tree PLEASE add a new ticket. If you simply want to get the latest sources of all branches use:
-svn co https://dev.open-mesh.org/svn/batman/
+"svn co https://dev.open-mesh.org/svn/batman/"
 
 
 We are currently working on three different branch. Namely
 
- * our stable batman branch (the one currently operating in Berlin and Leipzig). It can be checked out with: svn co https://dev.open-mesh.org/svn/batman/batman
+ * our stable batman branch (the one currently operating in Berlin and Leipzig). It can be checked out with: "svn co https://dev.open-mesh.org/svn/batman/batman"
 
- * then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via: svn co https://dev.open-mesh.org/svn/batman/batman-experimental
+ * then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via: "svn co https://dev.open-mesh.org/svn/batman/batman-experimental"
 
  * in the long term we are envisioning a next-generation-batman which also enables layer-two routing and which will be available via: "svn co https://dev.open-mesh.org/svn/batman/batman-ng"
 
