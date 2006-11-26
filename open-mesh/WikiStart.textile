@@ -14,7 +14,8 @@ We are currently working on three different branch. Namely
  * in the long term we are envisioning a next-generation-batman which also enables layer-two routing and which will be available via: "svn co https://dev.open-mesh.org/svn/batman/batman-ng"
 
 
-Have a lot of fun and remember:[[BR]]
+Have a lot of fun and remember:
+[[BR]]
 We are desperately waiting fo your feedback! 
 [[BR]]
 ...the B.A.T.M.A.N. team
