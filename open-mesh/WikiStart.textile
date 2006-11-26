@@ -8,7 +8,7 @@ svn co https://dev.open-mesh.org/svn/batman/
 
 We are currently working on three different branch. Namely
 
- * our stable batman branch (the one currently operating in Berlin and Leipzig). It can be checked out with: svn co https://dev.open-mesh.org/svn/batman/trunk/batman/
+ * our stable batman branch (the one currently operating in Berlin and Leipzig). It can be checked out with: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman/
 
  * then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via: svn co https://dev.open-mesh.org/svn/batman/trunk/batman-experimental
 
