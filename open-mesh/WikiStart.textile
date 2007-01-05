@@ -1,6 +1,6 @@
 = Welcome to the B.A.T.M.A.N. development site =
 
-This is the home of the B.A.T.M.A.N. development. To get some more general information about this project have a look at [http://open-mesh.org/batman/ open-mesh.net/batman/] .
+This is the home of the B.A.T.M.A.N. development. To get some more general information about this project have a look at [http://open-mesh.org/batman/ http://open-mesh.net/batman/] .
 If you find any reproducible bug in our latest release candidate or in the development tree PLEASE add a new ticket. If you simply want to get the latest sources of all branches use:
 [[br]]
 svn co https://dev.open-mesh.org/svn/batman/
