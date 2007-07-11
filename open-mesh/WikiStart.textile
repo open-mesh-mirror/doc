@@ -8,11 +8,13 @@ svn co https://dev.open-mesh.org/svn/batman/
 
 We are currently working on three different branches. Namely
 
- * our stable batman branch (the one currently operating in Berlin and Leipzig). It can be checked out with: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman/
+ * our stable batman branch (the one currently operating in Berlin, and others). It can be checked out with: [[br]] svn co https://dev.open-mesh.org/svn/batman/branches/batman-0.2.x/
+
+ * our development batman branch. It can be checked out with: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman/
 
  * then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman-experimental
 
- * to build batman advanced which also enables layer-two routing you need to checkout the complete trunk: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/ [[br]] Then change to the batman-advanced folder and compile the sources
+ * to build batman advanced which also enables layer-two routing you need to checkout the complete trunk: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman-advanced [[br]] Then change to the batman-advanced folder and compile the sources
 
 
 Have a lot of fun and remember:
