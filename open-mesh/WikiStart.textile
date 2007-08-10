@@ -14,7 +14,7 @@ We are currently working on three different branches. Namely
 
  * then, we have an experimental branch which implements some new/other algorithms and features referred to as batman-experimental and accessible via: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman-experimental
 
- * to build batman advanced which also enables layer-two routing you need to checkout the complete trunk: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman-advanced [[br]] Then change to the batman-advanced folder and compile the sources
+ * to build batman advanced which also enables layer-two routing you need to checkout the complete trunk: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/ [[br]] Then change to the batman-advanced folder and compile the sources
 
 
 Have a lot of fun and remember:
