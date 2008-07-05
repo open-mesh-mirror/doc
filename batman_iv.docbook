@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<chapter id="batman_iv_tq">
+<title>B.A.T.M.A.N. IV/TQ Meshing</title>
+<sect1 id="batman3">
+<title>BATMAN III</title>
+<para>
+TODO	What is BATMAN III, where was it implemented first?
+ </para>
+
+ <sect2 id="how_works">
+<title>BATMAN III</title>
+<para>
+TODO How does batman III work (briefly, explain bidirectional link checks etc)
+Explain how asymetric links are handled (or rather not handled).
+ </para>
+</sect2>
+ <sect2 id="multiple_interfaces">
+<title>multiple interfaces</title>
+<para>
+TODO Explain multiple interfaces, which interface sends which OGM by which TTL, and why.
+(Maybe move this section somewhere else ... )
+ </para>
+</sect2>
+</sect1>
+
+<sect1 id="batman4">
+<title>BATMAN IV/TQ</title>
+<sect2 id="batman4_tq">
+<title>The Transmit Quality</title>
+<para>
+TODO	BATMAN uses "receive quality", by counting packets, but should use/calculate
+	"transmit quality". Send metric (tq) with batman packets. 
+[ illustration: ... ]
+</para>
+</sect2>
+<sect2 id="batman4_tq_prop">
+<title>Transmit Quality Propagation</title>
+<para>
+TODO 	Each node decreases TQ-field before rebroadcasting the packet.
+Explain how it is done (multiple neihgbours, average over time).
+[ illustration: simple setup with multiple hops]
+</para>
+</sect2>
+<sect2 id="batman4_tq_asymetry">
+<title>Handling asymetric links</title>
+<para>
+TODO 	Only transmit quality is not enough - nothing worth if the receive 
+		direction is too bad to receive WIFI acks.
+[ illustration: bad situation :) ]
+TODO 	Also calculate the receive direction - but weight it.
+[ illustration: how to weight (graph of 1 - (1-x) **3)]
+[ illustration: bad situation after using asym penalty ]
+</para>
+</sect2>
+
+<sect2 id="batman4_tq_hop_penalty">
+<title>Hop penalty - for ethernet networks</title>
+<para>
+	TODO 	There would be loops in "perfect" networks without loss, e.g. ethernet.
+	[ illustration: triangle A,B,C with perfect links ]
+	Explain hop penalty. 
+	[ illustration: triangle A,B,C after hop penalty ]
+</para>
+</sect2>
+
+
+</sect1>
+</chapter>

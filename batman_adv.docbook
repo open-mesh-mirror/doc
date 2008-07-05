@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<chapter id="batman_adv">
+<title>B.A.T.M.A.N. Advanced - Layer 2 Meshing</title>
+<sect1 id="bat_adv_intro">
+<title>Introduction</title>
+ <para>
+	 TODO: check packet types, introduction, ...
+ </para>
+ <para>
+	 Layer 2 in the OSI Model, the Link Layer, gives a lot of new possibilities: we have worldwide unique identifiers.
+	 you can use IPv4, IPv6 or even IPX or DHCP, every Layer 3-protocol. A virtual interface is provided (bat0), which
+	 can be considered as a usual ethernet device (probably with a little more packet loss ;) ). The frames sent on the wire/air
+	 will be much shorter because we save the IP and UDP header.
+ </para>
+ <para>
+	 Of course there are still a few issues: There is no TTL or ICMP, so the protocol has to check on endless loops itself.
+	 There are no lowlevel debug-tools on Layer2, so we have to write our own toolchain to have things like ping and traceroute.
+ </para>
+</sect1>
+<sect1 id="batman_adv_packet_types">
+<title>Packet Types</title>
+<sect2 id="Batman_adv_packet_types_intro">
+	<title>Introduction</title>
+	<para>
+		B.A.T.M.A.N. Advanced assumes a standard Ethernet header as described below. The Linux kernel allows us to
+		talk Ethernet via raw sockets (SOCK_RAW).
+	</para>
+		<table>
+			<title>Ethernet embedding</title>
+			<tgroup cols="9">
+			<colspec colnum="1" colname="colB" colwidth="1*"/>
+			<colspec colnum="2" colname="col0" colwidth="1*"/>
+            <colspec colnum="3" colname="col1" colwidth="1*"/>
+            <colspec colnum="4" colname="col2" colwidth="1*"/>
+            <colspec colnum="5" colname="col3" colwidth="1*"/>
+            <colspec colnum="6" colname="col4" colwidth="1*"/>
+            <colspec colnum="7" colname="col5" colwidth="1*"/>
+            <colspec colnum="8" colname="col6" colwidth="1*"/>
+            <colspec colnum="9" colname="col7" colwidth="1*"/>
+ 			<thead><row>
+				<entry>+</entry>
+				<entry>00</entry>
+				<entry>01</entry>
+				<entry>02</entry>
+				<entry>03</entry>
+				<entry>04</entry>
+				<entry>05</entry>
+				<entry>06</entry>
+				<entry>07</entry>
+			</row>
+			</thead>
+			<tbody>
+			<row>
+				<entry colname="colB">00-07</entry>
+				<entry namest="col0" nameend="col5">Destination MAC</entry>
+				<entry namest="col6" nameend="col7">Source MAC</entry>
+			</row>
+			<row>
+				<entry colname="colB">08-15</entry>
+				<entry namest="col0" nameend="col3">Source MAC</entry>
+				<entry namest="col4" nameend="col5">Ethernet Type</entry>
+				<entry colname="col6"> Batman Type</entry>
+				<entry colname="col7"> (...)</entry>
+			</row>
+
+			</tbody>
+			</tgroup>
+		</table>
+		<para>
+			<itemizedlist>
+				<listitem><para> Destination MAC - The MAC of the neighbour or broadcast</para></listitem>
+				<listitem><para> Source MAC - The MAC of the Network Interface the packet is sent out</para></listitem>
+				<listitem><para> Ethernet Type - The Batman Ethertype (0x0842)</para></listitem>
+				<listitem><para> Batman Type - The different messages (unicast, broadcast, originator, message system) are distinguished in this field, as described in the next secionts</para></listitem>
+			</itemizedlist>
+
+			The Destination MAC is set according to the embedded Ethernet Frame (if there is any), so inner Broadcasts are also
+			Broadcasts outside, and Unicast Frames are Unicast outside. The inner Frame has the real Destination/Source MAC of the
+			virtual Interface which is to receive/send the Frame. The outer Frame contains only the Destination/Source from the router
+			which eventually pass on the frame.
+		</para>
+</sect2>
+<sect2 id="Batman_adv_packet_types_0">
+	<title>Batman Type 0 - Originator</title>
+	<para>
+		Originator packets are the routing protocol messages used to built up the mesh. 
+		They're identified with the value 0 in the batman type field as the first field of the Ethernet payload.
+
+	</para>
+		<table>
+			<title></title>
+			<tgroup cols="9">
+			<colspec colnum="1" colname="colB" colwidth="1*"/>
+			<colspec colnum="2" colname="col0" colwidth="1*"/>
+            <colspec colnum="3" colname="col1" colwidth="1*"/>
+            <colspec colnum="4" colname="col2" colwidth="1*"/>
+            <colspec colnum="5" colname="col3" colwidth="1*"/>
+            <colspec colnum="6" colname="col4" colwidth="1*"/>
+            <colspec colnum="7" colname="col5" colwidth="1*"/>
+            <colspec colnum="8" colname="col6" colwidth="1*"/>
+            <colspec colnum="9" colname="col7" colwidth="1*"/>
+ 			<thead><row>
+				<entry>+</entry>
+				<entry>00</entry>
+				<entry>01</entry>
+				<entry>02</entry>
+				<entry>03</entry>
+				<entry>04</entry>
+				<entry>05</entry>
+				<entry>06</entry>
+				<entry>07</entry>
+			</row>
+			</thead>
+			<tbody>
+			<row>
+				<entry colname="colB">08-15</entry>
+				<entry namest="col0" nameend="col5">(Ethernet header ..)</entry>
+				<entry colname="col6">Batman Type</entry>
+				<entry colname="col7">Version</entry>
+			</row>
+			<row>
+				<entry colname="colB">16-23</entry>
+				<entry colname="col0">Flags</entry>
+				<entry colname="col1">TTL</entry>
+				<entry namest="col2" nameend="col7">Originator MAC</entry>
+			</row>
+			<row>
+				<entry colname="colB">24-31</entry>
+				<entry namest="col0" nameend="col1">Seqno</entry>
+				<entry colname="col2">Gateway Info</entry>
+				<entry namest="col3" nameend="col7">(Ethernet padding ...)</entry>
+			</row>
+
+			</tbody>
+			</tgroup>
+		</table>
+		<para>
+			<itemizedlist>
+				<listitem><para> Batman Type - value 0, this is an Originator packet.</para></listitem>
+				<listitem><para> Version - value 2, only this version is accepted.</para></listitem>
+				<listitem><para> Flags - some Flags which are used in the algorithm:
+						<itemizedlist>
+							<listitem><para>0x80 - Unidirectional Link</para></listitem>
+							<listitem><para>0x40 - Directlink</para></listitem>
+						</itemizedlist>
+				</para></listitem>
+				<listitem><para> TTL - Time to Live, decremented on each Hop. If 0, the packet is dropped. </para></listitem>
+				<listitem><para> Originator MAC - The MAC address of the node which originally released the packet. </para></listitem>
+				<listitem><para> Seqno - The Sequence Number, the Originator increases this number with each new packet. </para></listitem>
+				<listitem><para> Gateway Info - reserved, classification of the gatway capabilities and quality (connection to the internet).</para></listitem>
+			</itemizedlist>
+		</para>
+	</sect2>
+<sect2 id="Batman_adv_packet_types_1">
+	<title>Batman Type 1 - Message System</title>
+	<para>
+		There is no ICMP (we just missed by one layer ;) ), so there is something like "light ICMP", 
+		to make debugging applications like ping traceroute possible.
+
+	</para>
+		<table>
+			<title></title>
+			<tgroup cols="9">
+			<colspec colnum="1" colname="colB" colwidth="1*"/>
+			<colspec colnum="2" colname="col0" colwidth="1*"/>
+            <colspec colnum="3" colname="col1" colwidth="1*"/>
+            <colspec colnum="4" colname="col2" colwidth="1*"/>
+            <colspec colnum="5" colname="col3" colwidth="1*"/>
+            <colspec colnum="6" colname="col4" colwidth="1*"/>
+            <colspec colnum="7" colname="col5" colwidth="1*"/>
+            <colspec colnum="8" colname="col6" colwidth="1*"/>
+            <colspec colnum="9" colname="col7" colwidth="1*"/>
+ 			<thead><row>
+				<entry>+</entry>
+				<entry>00</entry>
+				<entry>01</entry>
+				<entry>02</entry>
+				<entry>03</entry>
+				<entry>04</entry>
+				<entry>05</entry>
+				<entry>06</entry>
+				<entry>07</entry>
+			</row>
+			</thead>
+			<tbody>
+			<row>
+				<entry colname="colB">08-15</entry>
+				<entry namest="col0" nameend="col5">(Ethernet header ..)</entry>
+				<entry colname="col6">Batman Type</entry>
+				<entry colname="col7">message type</entry>
+			</row>
+			<row>
+				<entry colname="colB">16-21</entry>
+				<entry colname="col0">Code</entry>
+				<entry namest="col1" nameend="col7">(Ethernet padding ...)</entry>
+			</row>
+
+			</tbody>
+			</tgroup>
+		</table>
+		<para>
+			<itemizedlist>
+				<listitem><para> Batman Type - value 1, this is a message system packet.</para></listitem>
+				<listitem><para> Message Type - same as in ICMP:
+						<itemizedlist>
+							<listitem><para>0 - Echo Reply</para></listitem>
+							<listitem><para>8 - Echo Request</para></listitem>
+							<listitem><para>11 - TTL Exceeded</para></listitem>
+						</itemizedlist>
+				</para></listitem>
+				<listitem><para> Code - distinction of some messages types. Only value 0 so far.</para></listitem>
+			</itemizedlist>
+		</para>
+	</sect2>
+<sect2 id="Batman_adv_packet_types_2">
+	<title>Batman Type 2 - Unicast</title>
+	<para>
+		Packets received from the virtual Interface are encapsulated and sent in B.A.T.M.A.N.-Frames.
+	</para>
+		<table>
+			<title></title>
+			<tgroup cols="9">
+			<colspec colnum="1" colname="colB" colwidth="1*"/>
+			<colspec colnum="2" colname="col0" colwidth="1*"/>
+            <colspec colnum="3" colname="col1" colwidth="1*"/>
+            <colspec colnum="4" colname="col2" colwidth="1*"/>
+            <colspec colnum="5" colname="col3" colwidth="1*"/>
+            <colspec colnum="6" colname="col4" colwidth="1*"/>
+            <colspec colnum="7" colname="col5" colwidth="1*"/>
+            <colspec colnum="8" colname="col6" colwidth="1*"/>
+            <colspec colnum="9" colname="col7" colwidth="1*"/>
+ 			<thead><row>
+				<entry>+</entry>
+				<entry>00</entry>
+				<entry>01</entry>
+				<entry>02</entry>
+				<entry>03</entry>
+				<entry>04</entry>
+				<entry>05</entry>
+				<entry>06</entry>
+				<entry>07</entry>
+			</row>
+			</thead>
+			<tbody>
+			<row>
+				<entry colname="colB">08-15</entry>
+				<entry namest="col0" nameend="col5">(Ethernet header ..)</entry>
+				<entry colname="col6">Batman Type</entry>
+				<entry colname="col7">TTL</entry>
+			</row>
+			<row>
+				<entry colname="colB">16-21</entry>
+				<entry namest="col0" nameend="col7">(Payload ...)</entry>
+			</row>
+
+			</tbody>
+			</tgroup>
+		</table>
+		<para>
+			<itemizedlist>
+				<listitem><para> Batman Type - value 2, this is a unicast packet.</para></listitem>
+				<listitem><para> TTL - Time to Live, decremented on each Hop. If 0, the packet is dropped. </para></listitem>
+				<listitem><para> Payload - The encapsulated Ethernet Frame, received from the virtual interface</para></listitem>
+			</itemizedlist>
+		</para>
+	</sect2>
+<sect2 id="Batman_adv_packet_types_3">
+	<title>Batman Type 3 - Broadcast</title>
+	<para>
+		Broadcast packets received from the virtual Interface are encapsulated and sent in B.A.T.M.A.N.-Frames.
+
+	</para>
+		<table>
+			<title></title>
+			<tgroup cols="9">
+			<colspec colnum="1" colname="colB" colwidth="1*"/>
+			<colspec colnum="2" colname="col0" colwidth="1*"/>
+            <colspec colnum="3" colname="col1" colwidth="1*"/>
+            <colspec colnum="4" colname="col2" colwidth="1*"/>
+            <colspec colnum="5" colname="col3" colwidth="1*"/>
+            <colspec colnum="6" colname="col4" colwidth="1*"/>
+            <colspec colnum="7" colname="col5" colwidth="1*"/>
+            <colspec colnum="8" colname="col6" colwidth="1*"/>
+            <colspec colnum="9" colname="col7" colwidth="1*"/>
+ 			<thead><row>
+				<entry>+</entry>
+				<entry>00</entry>
+				<entry>01</entry>
+				<entry>02</entry>
+				<entry>03</entry>
+				<entry>04</entry>
+				<entry>05</entry>
+				<entry>06</entry>
+				<entry>07</entry>
+			</row>
+			</thead>
+			<tbody>
+			<row>
+				<entry colname="colB">08-15</entry>
+				<entry namest="col0" nameend="col5">(Ethernet header ..)</entry>
+				<entry colname="col6">Batman Type</entry>
+				<entry colname="col7">(reserved)</entry>
+			</row>
+			<row>
+				<entry colname="colB">16-21</entry>
+				<entry namest="col0" nameend="col5">Originator MAC</entry>
+				<entry namest="col6" nameend="col7">Seqno</entry>
+			</row>
+			<row>
+				<entry colname="colB">22-31</entry>
+				<entry namest="col0" nameend="col7">(Payload ...)</entry>
+			</row>
+
+
+			</tbody>
+			</tgroup>
+		</table>
+		<para>
+			<itemizedlist>
+				<listitem><para> Batman Type - value 2, this is a unicast packet.</para></listitem>
+				<listitem><para> Originator MAC - The MAC address of the node which originally released the packet. </para></listitem>
+				<listitem><para> Seqno - sequence number, the Originator increases this number with each new packet. </para></listitem>
+			</itemizedlist>
+			There is a sequence number and originator MAC to prevent flooding. Each packet is only rebroadcasted once, and there is a Flood history to keep
+			track of already received broadcasts.
+		</para>
+	</sect2>
+
+
+
+</sect1>
+</chapter>

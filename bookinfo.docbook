@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<bookinfo>
+<title>B.A.T.M.A.N. advanced</title>
+<authorgroup>
+<author>
+<firstname>Simon</firstname>
+<surname>Wunderlich</surname>
+</author>
+<author>
+<firstname>Marek</firstname>
+<surname>Lindner</surname>
+</author>
+</authorgroup>
+
+<date>2008</date>
+<releaseinfo>0.1 draft</releaseinfo>
+
+<abstract>
+<para>
+	This Document should give detailed information about the B.A.T.M.A.N. advnced
+	algorithm, data types, packets and implementation.
+	This is a DRAFT, do not refer or cite to this document.
+</para>
+</abstract>
+
+<keywordset>
+<keyword>b.a.t.m.a.n.</keyword>
+<keyword>batman</keyword>
+<keyword>mesh</keyword>
+<keyword>wifi</keyword>
+<keyword>wlan</keyword>
+
+</keywordset>
+
+</bookinfo>
