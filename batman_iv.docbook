@@ -2,16 +2,72 @@
 <chapter id="batman_iv_tq">
 <title>B.A.T.M.A.N. IV/TQ Meshing</title>
 <sect1 id="batman3">
-<title>BATMAN III</title>
+<title>BATMAN III (introduction)</title>
 <para>
-TODO	What is BATMAN III, where was it implemented first?
+
+	[RFC Introduction reused. I think we should do that - it is well
+	written. I would even mention that the RFC introduction has been reused.]
+
+	B.A.T.M.A.N. is a proactive routing protocol for Wireless Ad-hoc Mesh
+	Networks, including (but not limited to) Mobile Ad-hoc Networks
+	(MANETs).  The protocol proactively maintains information about the
+	existence of all nodes in the mesh that are accessible via single-hop
+	or multi-hop communication links.  The strategy of B.A.T.M.A.N. is to
+	determine for each destination in the mesh one single-hop neighbor,
+	which can be utilized as best gateway to communicate with the
+	destination node.  In order to perform multi-hop IP-based routing,
+	the routing table of a node must contain a link-local gateway for
+	each host or network route.  To learn about the best next-hop for
+	each destination is all that the B.A.T.M.A.N. algorithm cares about.
+	There is no need to find out or calculate the complete route, which
+	makes a very fast and efficient implementation possible.
+
  </para>
 
  <sect2 id="how_works">
-<title>BATMAN III</title>
+<title>BATMAN III (brief overview)</title>
 <para>
-TODO How does batman III work (briefly, explain bidirectional link checks etc)
-Explain how asymetric links are handled (or rather not handled).
+
+	[RFC reused - 1.2. Protocol Overview (second paragraph)]
+
+	On a regular basis every B.A.T.M.A.N. node broadcasts an originator 
+	message (or OGM), thereby informing its link-local neighbors about 
+	its existence (first step).  Link-local neighbors which are receiving the
+	Originator messages are relaying them by rebroadcasting it, according
+	to specific B.A.T.M.A.N. forwarding rules.  The B.A.T.M.A.N. mesh
+	network is therefore flooded with Originator messages.  This flooding
+	process will be performed by single-hop neighbors in the second step,
+	by two-hop neighbors in the third step, and so forth.  OGMs are send
+	and repeated as UDP broadcasts, therefore OGMs are flooded until
+	every node has received it at least once, or until they got lost due
+	to packet loss of communication links, or until their TTL (time to
+	live) value has expired.  In practise OGM packet loss caused by
+	interference, collision or congestion is significant.  The number of
+	OGMs received from a given Originator via each link-local neighbor is
+	used to estimate the quality of a (single-hop or multi-hop) route.
+	In order to be able to find the best route to a certain Originator,
+	B.A.T.M.A.N counts the originator-messages received and logs which
+	link-local neighbor relayed the message.  Using this information
+	B.A.T.M.A.N. maintains a table with the best link-local router
+	towards every Originator on the network.  By using a sequence number,
+	embedded in each OGM, B.A.T.M.A.N. can distinguish between new
+	Originator message packets and duplicates ensuring that every OGM
+	gets only counted once.
+
+</para>
+<para>
+	[new text! - may be put this into a different subsection (asymetric links)?]
+
+	Unlike wired networks, WiFi setups often face the problem of asymetric 
+	links (Node A has a better connection towards Node B than vice versa).
+	To ensure that the detected connections allow communication in both
+	directions each B.A.T.M.A.N. node awaits rebroadcasts of its own OGMs
+	from his neighbors within a certain timeframe (bidirectional link check).
+	If the OGMs are not successfully retransmitted the connection is 
+	considered asymetric and therefore ignored.
+
+	[more text needed here ? we can add it later when we work on the IV advantages]
+
  </para>
 </sect2>
  <sect2 id="multiple_interfaces">
@@ -19,18 +75,40 @@ Explain how asymetric links are handled (or rather not handled).
 <para>
 TODO Explain multiple interfaces, which interface sends which OGM by which TTL, and why.
 (Maybe move this section somewhere else ... )
+
+==> why explaining this in this document ? I would refer them to the RFC because this did not change with IV.
  </para>
 </sect2>
 </sect1>
 
 <sect1 id="batman4">
 <title>BATMAN IV/TQ</title>
+<para>
+	The B.A.T.M.A.N. III algorithm has serious problems when it comes to asymetric links. The bidirectional link check tries to limit its impact but the result is far from being perfect. The timeframe in which B.A.T.M.A.N. accepts his own OGMs being rebroadcasted by its neighbor allows to tweak the behaviour. If this timeframe is rather short B.A.T.M.A.N. is very strict on choosing links. This may lead to many ignored links which might be usable in one direction. Only symetric connections will be considered. If the timeframe value is less strict B.A.T.M.A.N. will accept more links but tends to route in the wrong direction.
+</para>
+<para>
+	Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case. [illustration needed]
+</para>
+<para>
+	To overcome this flaw B.A.T.M.A.N. IV has been enhanced with the Transmit Quality (TQ) algorithm. The following section is going to outline its design and how it strengthens B.A.T.M.A.N.'s routing capabilities in asymetric environments.
+</para>
 <sect2 id="batman4_tq">
 <title>The Transmit Quality</title>
 <para>
-TODO	BATMAN uses "receive quality", by counting packets, but should use/calculate
-	"transmit quality". Send metric (tq) with batman packets. 
-[ illustration: ... ]
+	B.A.T.M.A.N. IV divides a given link quality into 2 distinct parts: receiving link quality and transmit link quality. The receiving link quality expresses the propability of a successfull packet transmission towards the node. The transmit link quality describes the probability of a successful transmission towards a neighbor node. Obviously, B.A.T.M.A.N. is more interested in the transmit link quality as the receiving link quality can't be used to influence the routing decision.
+</para>
+<para>
+	As explained in the previous section the packet counting floods the network with receiving link quality rather than transmit link quality. On the link-local level the transmit link quality can be derived from the receiving link quality by applying some calculations on the packet count.
+
+	<orderedlist>
+		<listitem><para>B.A.T.M.A.N. knows the receiving link quality (RQ) by counting the packets of its neighbors.</para></listitem>
+		<listitem><para>B.A.T.M.A.N. knows the echo link quality (EQ) by counting rebroadcasts of its own OGMs from his neighbors.</para></listitem>
+		<listitem><para>B.A.T.M.A.N. can calculate the transmit link quality (TQ) by dividing the echo link quality by the receiving link quality.</para></listitem>
+	</orderedlist>
+
+	As shown above B.A.T.M.A.N. IV is able to retrieve the local transmit quality by using the same mechanisms as B.A.T.M.A.N. III without adding  further overhead.
+
+[4 illustrations needed (for each list item and one for the tq alone)]
 </para>
 </sect2>
 <sect2 id="batman4_tq_prop">
