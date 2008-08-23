@@ -64,7 +64,7 @@
 	directions each B.A.T.M.A.N. node awaits rebroadcasts of its own OGMs
 	from his neighbors within a certain timeframe (bidirectional link check).
 	If the OGMs are not successfully retransmitted the connection is 
-	considered asymetric and therefore ignored.
+	considered too asymetric (unusable) and therefore ignored.
 
 	[more text needed here ? we can add it later when we work on the IV advantages]
 
@@ -106,7 +106,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 		<listitem><para>B.A.T.M.A.N. can calculate the transmit link quality (TQ) by dividing the echo link quality by the receiving link quality.</para></listitem>
 	</orderedlist>
 
-	As shown above B.A.T.M.A.N. IV is able to retrieve the local transmit quality by using the same mechanisms as B.A.T.M.A.N. III without adding  further overhead.
+	As shown above B.A.T.M.A.N. IV is able to retrieve the local transmit quality by using the same mechanisms as B.A.T.M.A.N. III without adding further overhead.
 
 [4 illustrations needed (for each list item and one for the tq alone)]
 </para>
@@ -114,11 +114,33 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <sect2 id="batman4_tq_prop">
 <title>Transmit Quality Propagation</title>
 <para>
-TODO 	Each node decreases TQ-field before rebroadcasting the packet.
-Explain how it is done (multiple neihgbours, average over time).
-[ illustration: simple setup with multiple hops]
+	The local link quality needs to be propagated throughout the network to inform other nodes about the transmit quality. Therefore B.A.TM.A.N. IV introduces a new field called "TQ" which is 1 byte long. This field is added to the known B.A.T.M.A.N. III packet. Whenever the OGM is generated this field is set to maximum length (256) before it is broadcasted. The receiving neighbor will calculate their own local link quality into the received TQ value and rebroadcast the packet. Hence, every node receiving a packet knows about the transmit quality towards the originator node.
+</para>
+<para>
+	To add the local link quality in the TQ value the following calculation is performed: TQ incoming * local TQ towards this node / TQ max.
+</para>
+<para>
+	Example: Node A broadcasts the packet with TQ max. Node B receives it, applies the TQ calculation and rebroadcasts it. When node C gets the packet it knows about the transmit quality towards node A. [illustration needed]
 </para>
 </sect2>
+
+<sect2 id="batman4_local_global_tq">
+<title>local TQ vs global TQ</title>
+<para>
+	A B.A.T.M.A.N. IV node has to keep track of 2 different TQ values:
+	<orderedlist>
+		<listitem><para>The local TQ which represents the transmit quality towards every single hop neighbor (retrieved via the packet count plus TQ calculation).</para></listitem>
+		<listitem><para>The global link quality which describes the link quality towards every multi hop neighbor (received via B.A.T.M.A.N. IV packets).</para></listitem>
+	</orderedlist>
+</para>
+<para>
+	The calculation for the local TQ needs the OGM packet count of the neigbor and the own OGM packet count rebroadcasted by that very neighbor. Therefore a B.A.T.M.A.N. node has keep track of received packets over a certain interval. The slinding window size of these statistics is called TQ_LOCAL_WINDOW_SIZE. [what else shoud be mentioned here ?]
+</para>
+<para>
+	The global TQ is an average of all received TQ values from one originator via a distinct neighbor. Packets with a TQ value of 0 also count as non-received packets. B.A.T.M.A.N. IV uses a sliding window size (TQ_GLOBAL_WINDOW_SIZE) greater than 1 [dat muss noch schöner ...]
+</para>
+</sect2>
+
 <sect2 id="batman4_tq_asymetry">
 <title>Handling asymetric links</title>
 <para>
@@ -132,7 +154,7 @@ TODO 	Also calculate the receive direction - but weight it.
 </sect2>
 
 <sect2 id="batman4_tq_hop_penalty">
-<title>Hop penalty - for ethernet networks</title>
+<title>Hop penalty</title>
 <para>
 	TODO 	There would be loops in "perfect" networks without loss, e.g. ethernet.
 	[ illustration: triangle A,B,C with perfect links ]
@@ -141,6 +163,12 @@ TODO 	Also calculate the receive direction - but weight it.
 </para>
 </sect2>
 
+<sect2 id="batman4_tq_echo_cancellation">
+<title>Echo cancellation</title>
+<para>
+	TODO rebroadcast cancellation by adding IP of previous node because we don't drop packets
+</para>
+</sect2>
 
 </sect1>
 </chapter>
