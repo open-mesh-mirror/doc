@@ -87,7 +87,12 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	The B.A.T.M.A.N. III algorithm has serious problems when it comes to asymetric links. The bidirectional link check tries to limit its impact but the result is far from being perfect. The timeframe in which B.A.T.M.A.N. accepts his own OGMs being rebroadcasted by its neighbor allows to tweak the behaviour. If this timeframe is rather short B.A.T.M.A.N. is very strict on choosing links. This may lead to many ignored links which might be usable in one direction. Only symetric connections will be considered. If the timeframe value is less strict B.A.T.M.A.N. will accept more links but tends to route in the wrong direction.
 </para>
 <para>
-	Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case. [illustration needed]
+		Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case. 
+<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/asymetry" format="EPS"  /> </imageobject>
+		<imageobject> <imagedata fileref="images/asymetry.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>asymetry illustration</phrase> </textobject>
+</inlinemediaobject>
 </para>
 <para>
 	To overcome this flaw B.A.T.M.A.N. IV has been enhanced with the Transmit Quality (TQ) algorithm. The following section is going to outline its design and how it strengthens B.A.T.M.A.N.'s routing capabilities in asymetric environments.
