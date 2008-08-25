@@ -1,17 +1,19 @@
 DIA_IMAGES=asymetry.dia
 PNG_IMAGES=$(DIA_IMAGES:.dia=.png)
-EPS_IMAGES=$(DIA_IMAGES:.dia=.eps)
+PDF_IMAGES=$(DIA_IMAGES:.dia=.pdf)
 
 .PHONY:		clean
-.SUFFIXES:	.dia	.png	.eps
+.SUFFIXES:	.dia	.png	.eps	.pdf
 
 default:	all
-all:	$(EPS_IMAGES) $(PNG_IMAGES)
+all:	$(PDF_IMAGES) $(PNG_IMAGES)
 
 .dia.png:
 	/usr/bin/dia -e $@ $<
 .dia.eps:
 	/usr/bin/dia -e $@ $<
+.eps.pdf:
+	/usr/bin/epstopdf --outfile=$@ $<
 
 clean:
-	rm *.png *.eps
+	rm -f *.png *.eps *.pdf

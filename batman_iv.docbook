@@ -89,7 +89,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <para>
 		Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case. 
 <inlinemediaobject>
-		<imageobject> <imagedata fileref="images/asymetry" format="EPS"  /> </imageobject>
+		<imageobject> <imagedata fileref="images/asymetry.pdf" format="EPS"  /> </imageobject>
 		<imageobject> <imagedata fileref="images/asymetry.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>asymetry illustration</phrase> </textobject>
 </inlinemediaobject>

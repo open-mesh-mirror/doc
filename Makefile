@@ -7,5 +7,5 @@ batman_doc:	Makefile *.docbook images
 images:
 	make -C images/
 clean:
-	rm -rf *.html *.pdf
+	rm -f *.html *.pdf *.log *.refs
 	make -C images clean
