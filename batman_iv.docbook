@@ -89,7 +89,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <para>
 		Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case. 
 <inlinemediaobject>
-		<imageobject> <imagedata fileref="images/asymetry.pdf" format="EPS"  /> </imageobject>
+		<imageobject> <imagedata fileref="images/asymetry.pdf" format="EPS"  scale="50"/> </imageobject>
 		<imageobject> <imagedata fileref="images/asymetry.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>asymetry illustration</phrase> </textobject>
 </inlinemediaobject>
@@ -106,14 +106,38 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	As explained in the previous section the packet counting floods the network with receiving link quality rather than transmit link quality. On the link-local level the transmit link quality can be derived from the receiving link quality by applying some calculations on the packet count.
 
 	<orderedlist>
-		<listitem><para>B.A.T.M.A.N. knows the receiving link quality (RQ) by counting the packets of its neighbors.</para></listitem>
-		<listitem><para>B.A.T.M.A.N. knows the echo link quality (EQ) by counting rebroadcasts of its own OGMs from his neighbors.</para></listitem>
-		<listitem><para>B.A.T.M.A.N. can calculate the transmit link quality (TQ) by dividing the echo link quality by the receiving link quality.</para></listitem>
+		<listitem>
+			<para>B.A.T.M.A.N. knows the receiving link quality (RQ) by counting the packets of its neighbors.</para>
+			<para>
+			<inlinemediaobject>
+				<imageobject> <imagedata fileref="images/rq.pdf" format="EPS" scale="50" /> </imageobject>
+				<imageobject> <imagedata fileref="images/rq.png" format="PNG"  /> </imageobject>
+				<textobject> <phrase>Receive Quality (RQ)</phrase> </textobject>
+			</inlinemediaobject></para>
+		</listitem>
+		<listitem>
+			<para>B.A.T.M.A.N. knows the echo link quality (EQ) by counting rebroadcasts of its own OGMs from his neighbors.</para>
+			<para>
+			<inlinemediaobject>
+				<imageobject> <imagedata fileref="images/eq.pdf" format="EPS" scale="50" /> </imageobject>
+				<imageobject> <imagedata fileref="images/eq.png" format="PNG"  /> </imageobject>
+				<textobject> <phrase>Echo Link Quality (EQ)</phrase> </textobject>
+			</inlinemediaobject></para>
+		</listitem>
+		<listitem>
+			<para>B.A.T.M.A.N. can calculate the transmit link quality (TQ) by dividing the echo link quality by the receiving link quality.</para>
+			<para>
+			<inlinemediaobject>
+				<imageobject> <imagedata fileref="images/tq.pdf" format="EPS" scale="50" /> </imageobject>
+				<imageobject> <imagedata fileref="images/tq.png" format="PNG"  /> </imageobject>
+				<textobject> <phrase>Transmit Link Quality (TQ)</phrase> </textobject>
+			</inlinemediaobject></para>
+		</listitem>
 	</orderedlist>
 
 	As shown above B.A.T.M.A.N. IV is able to retrieve the local transmit quality by using the same mechanisms as B.A.T.M.A.N. III without adding further overhead.
-
 [4 illustrations needed (for each list item and one for the tq alone)]
+[??? what kind of 4th illustration? put the formular in a picture, or in the text?]
 </para>
 </sect2>
 <sect2 id="batman4_tq_prop">
@@ -151,10 +175,25 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <para>
 TODO 	Only transmit quality is not enough - nothing worth if the receive 
 		direction is too bad to receive WIFI acks.
-[ illustration: bad situation :) ]
+		<inlinemediaobject>
+			<imageobject> <imagedata fileref="images/asym_link1.pdf" format="EPS" scale="50" /> </imageobject>
+			<imageobject> <imagedata fileref="images/asym_link1.png" format="PNG"  /> </imageobject>
+			<textobject> <phrase>Asymetry situation without asymetry penalty</phrase> </textobject>
+		</inlinemediaobject>
+
+
 TODO 	Also calculate the receive direction - but weight it.
-[ illustration: how to weight (graph of 1 - (1-x) **3)]
-[ illustration: bad situation after using asym penalty ]
+		<inlinemediaobject>
+			<imageobject> <imagedata fileref="images/asym_penalty.pdf" format="EPS"  /> </imageobject>
+			<imageobject> <imagedata fileref="images/asym_penalty.png" format="PNG"  /> </imageobject>
+			<textobject> <phrase>graph for asymetry penalty</phrase> </textobject>
+		</inlinemediaobject>
+
+		<inlinemediaobject>
+			<imageobject> <imagedata fileref="images/asym_link2.pdf" format="EPS" scale="50" /> </imageobject>
+			<imageobject> <imagedata fileref="images/asym_link2.png" format="PNG"  /> </imageobject>
+			<textobject> <phrase>Asymetry situation with applied asymetry penalty</phrase> </textobject>
+		</inlinemediaobject>
 </para>
 </sect2>
 
@@ -162,9 +201,19 @@ TODO 	Also calculate the receive direction - but weight it.
 <title>Hop penalty</title>
 <para>
 	TODO 	There would be loops in "perfect" networks without loss, e.g. ethernet.
-	[ illustration: triangle A,B,C with perfect links ]
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/hop_penalty1.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/hop_penalty1.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>no hop penalty</phrase> </textobject>
+	</inlinemediaobject>
+
 	Explain hop penalty. 
-	[ illustration: triangle A,B,C after hop penalty ]
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/hop_penalty2.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/hop_penalty2.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>hop penalty applied</phrase> </textobject>
+	</inlinemediaobject>
+
 </para>
 </sect2>
 
