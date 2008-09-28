@@ -146,7 +146,10 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	The local link quality needs to be propagated throughout the network to inform other nodes about the transmit quality. Therefore B.A.TM.A.N. IV introduces a new field called "TQ" which is 1 byte long. This field is added to the known B.A.T.M.A.N. III packet. Whenever the OGM is generated this field is set to maximum length (256) before it is broadcasted. The receiving neighbor will calculate their own local link quality into the received TQ value and rebroadcast the packet. Hence, every node receiving a packet knows about the transmit quality towards the originator node.
 </para>
 <para>
-	To add the local link quality in the TQ value the following calculation is performed: TQ incoming * local TQ towards this node / TQ max.
+	To add the local link quality in the TQ value the following calculation is performed: 
+</para>
+<para>
+	TQ incoming * local TQ towards this node / TQ max.
 </para>
 <para>
 	Example: Node A broadcasts the packet with TQ max. Node B receives it, applies the TQ calculation and rebroadcasts it. When node C gets the packet it knows about the transmit quality towards node A. [illustration needed]
@@ -163,18 +166,17 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	</orderedlist>
 </para>
 <para>
-	The calculation for the local TQ needs the OGM packet count of the neigbor and the own OGM packet count rebroadcasted by that very neighbor. Therefore a B.A.T.M.A.N. node has keep track of received packets over a certain interval. The slinding window size of these statistics is called TQ_LOCAL_WINDOW_SIZE. [what else shoud be mentioned here ?]
+	The calculation for the local TQ needs the OGM packet count of the neigbor and the own OGM packet count rebroadcasted by that very neighbor. Therefore a B.A.T.M.A.N. node has keep track of received packets over a certain interval. The slinding window size of these statistics is called TQ_LOCAL_WINDOW_SIZE.
 </para>
 <para>
-	The global TQ is an average of all received TQ values from one originator via a distinct neighbor. Packets with a TQ value of 0 also count as non-received packets. B.A.T.M.A.N. IV uses a sliding window size (TQ_GLOBAL_WINDOW_SIZE) greater than 1 [dat muss noch schöner ...]
+	The global TQ is an average of all received TQ values from one originator via a distinct neighbor. Packets with a TQ value of 0 also count as non-received packets. B.A.T.M.A.N. IV uses the sliding window size TQ_GLOBAL_WINDOW_SIZE greater than 1 to average the TQ.
 </para>
 </sect2>
 
 <sect2 id="batman4_tq_asymetry">
 <title>Handling asymetric links</title>
 <para>
-TODO 	Only transmit quality is not enough - nothing worth if the receive 
-		direction is too bad to receive WIFI acks.
+	Although the transmit link quality is most important B.A.T.M.A.N. IV also keeps track of the receiving link quality. On the WiFi layer every unicast packet has to be acknowledged by the neighbor node. If this neighbor is not able to sucessfully transmit his ACKs the WiFi layer considers this transmission to be failed.
 		<inlinemediaobject>
 			<imageobject> <imagedata fileref="images/asym_link1.pdf" format="EPS" scale="50" /> </imageobject>
 			<imageobject> <imagedata fileref="images/asym_link1.png" format="PNG"  /> </imageobject>
