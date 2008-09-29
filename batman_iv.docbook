@@ -176,21 +176,29 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <sect2 id="batman4_tq_asymetry">
 <title>Handling asymetric links</title>
 <para>
-	Although the transmit link quality is most important B.A.T.M.A.N. IV also keeps track of the receiving link quality. On the WiFi layer every unicast packet has to be acknowledged by the neighbor node. If this neighbor is not able to sucessfully transmit his ACKs the WiFi layer considers this transmission to be failed.
+	Although the transmit link quality is most important decision factor B.A.T.M.A.N. IV also keeps track of the receiving link quality. On the WiFi layer every unicast packet has to be acknowledged by the neighbor node to approve the transmission. If this neighbor is not able to sucessfully send his ACKs the WiFi layer considers this transmission to be failed and tries to retransmit until it gives up.
+</para>
+<para>
 		<inlinemediaobject>
 			<imageobject> <imagedata fileref="images/asym_link1.pdf" format="EPS" scale="50" /> </imageobject>
 			<imageobject> <imagedata fileref="images/asym_link1.png" format="PNG"  /> </imageobject>
 			<textobject> <phrase>Asymetry situation without asymetry penalty</phrase> </textobject>
 		</inlinemediaobject>
-
-
-TODO 	Also calculate the receive direction - but weight it.
+</para>
+<para>
+	Thus B.A.T.M.A.N. IV needs to penalize links that have have a poor receiving link quality. To avoid a simple hysteresis which completely turns on or off a link B.A.T.M.A.N. IV uses a mathematical function to give the receiving link quality stronger negative impact the weaker the link becomes.
+</para>
+<para>
 		<inlinemediaobject>
 			<imageobject> <imagedata fileref="images/asym_penalty.pdf" format="EPS"  /> </imageobject>
 			<imageobject> <imagedata fileref="images/asym_penalty.png" format="PNG"  /> </imageobject>
 			<textobject> <phrase>graph for asymetry penalty</phrase> </textobject>
 		</inlinemediaobject>
-
+</para>
+<para>
+	This obtained value is calculated into the TQ before it gets rebroadcasted. Neighboring nodes can weight the routing decision based on this information. In some situations the weak link is the only link available, so you want to use it, whereas in other cases better connections may exist.
+</para>
+<para>
 		<inlinemediaobject>
 			<imageobject> <imagedata fileref="images/asym_link2.pdf" format="EPS" scale="50" /> </imageobject>
 			<imageobject> <imagedata fileref="images/asym_link2.png" format="PNG"  /> </imageobject>
