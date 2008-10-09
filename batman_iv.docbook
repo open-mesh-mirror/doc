@@ -152,7 +152,16 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	TQ incoming * local TQ towards this node / TQ max.
 </para>
 <para>
-	Example: Node A broadcasts the packet with TQ max. Node B receives it, applies the TQ calculation and rebroadcasts it. When node C gets the packet it knows about the transmit quality towards node A. [illustration needed]
+	Example: Node A broadcasts the packet with TQ max. Node B receives it, applies the TQ calculation and rebroadcasts it. When node C gets the packet it knows about the transmit quality towards node A.
+</para>
+<para>
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/tq_prop.pdf" format="EPS" scale="40" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>Transmit Link Quality (TQ)</phrase> </textobject>
+	</inlinemediaobject>
+
+
 </para>
 </sect2>
 
