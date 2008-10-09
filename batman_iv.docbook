@@ -131,13 +131,19 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 				<imageobject> <imagedata fileref="images/tq.pdf" format="EPS" scale="50" /> </imageobject>
 				<imageobject> <imagedata fileref="images/tq.png" format="PNG"  /> </imageobject>
 				<textobject> <phrase>Transmit Link Quality (TQ)</phrase> </textobject>
-			</inlinemediaobject></para>
+				</inlinemediaobject></para>
+			<para>
+			<inlinemediaobject>
+				<imageobject> <imagedata fileref="images/compute_tq.pdf" format="EPS"/> </imageobject>
+				<imageobject> <imagedata fileref="images/compute_tq.png" format="PNG"  /> </imageobject>
+				<textobject> <phrase>compute the Transmit Link Quality</phrase> </textobject>
+			</inlinemediaobject>
+			</para>
+
 		</listitem>
 	</orderedlist>
-
-	As shown above B.A.T.M.A.N. IV is able to retrieve the local transmit quality by using the same mechanisms as B.A.T.M.A.N. III without adding further overhead.
-[4 illustrations needed (for each list item and one for the tq alone)]
-[??? what kind of 4th illustration? put the formular in a picture, or in the text?]
+		This shows that B.A.T.M.A.N. IV is able to compute the local Transmit Quality by using the same 
+		mechanisms as B.A.T.M.A.N. III without adding further overhead.
 </para>
 </sect2>
 <sect2 id="batman4_tq_prop">
@@ -149,7 +155,11 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	To add the local link quality in the TQ value the following calculation is performed: 
 </para>
 <para>
-	TQ incoming * local TQ towards this node / TQ max.
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/tq_prop_calc.pdf" format="EPS" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop_calc.png" format="PNG" /> </imageobject>
+		<textobject> <phrase>TQ calcuation</phrase> </textobject>
+	</inlinemediaobject>
 </para>
 <para>
 	Example: Node A broadcasts the packet with TQ max. Node B receives it, applies the TQ calculation and rebroadcasts it. When node C gets the packet it knows about the transmit quality towards node A.
@@ -158,7 +168,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/tq_prop.pdf" format="EPS" scale="40" /> </imageobject>
 		<imageobject> <imagedata fileref="images/tq_prop.png" format="PNG"  /> </imageobject>
-		<textobject> <phrase>Transmit Link Quality (TQ)</phrase> </textobject>
+		<textobject> <phrase>TQ propagation</phrase> </textobject>
 	</inlinemediaobject>
 
 
