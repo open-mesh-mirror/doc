@@ -119,8 +119,8 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 			<para>B.A.T.M.A.N. knows the echo link quality (EQ) by counting rebroadcasts of its own OGMs from his neighbors.</para>
 			<para>
 			<inlinemediaobject>
-				<imageobject> <imagedata fileref="images/eq.pdf" format="EPS" scale="50" /> </imageobject>
-				<imageobject> <imagedata fileref="images/eq.png" format="PNG"  /> </imageobject>
+				<imageobject> <imagedata fileref="images/eq_alt1.pdf" format="EPS" scale="50" /> </imageobject>
+				<imageobject> <imagedata fileref="images/eq_alt1.png" format="PNG"  /> </imageobject>
 				<textobject> <phrase>Echo Link Quality (EQ)</phrase> </textobject>
 			</inlinemediaobject></para>
 		</listitem>
