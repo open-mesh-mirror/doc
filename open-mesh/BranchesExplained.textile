@@ -1,3 +1,4 @@
+= Branches Explained =
 In 2007 many new branches were created and many numbers are floating around which caused much confusion. Here comes a brief summary why these branches and numbers were created, what they are good for and who is behind it:
 
 Whenever we mention Roman numerals (as II or III) we speak of B.A.T.M.A.N.'s routing algorithm version. It describes how the routing information are flooded and how they are handled to make the best routing decission possible.
