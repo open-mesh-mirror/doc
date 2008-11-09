@@ -8,7 +8,7 @@
  * [wiki:BranchesExplained Branches explained] - learn about the B.A.T.M.A.N. flavours
  * [wiki:UserDocs UserDocs]
  * [wiki:FAQ FAQ]
- * [wiki:Experiences Experiences]
+ * [wiki:Patches Patches] - contribution from others related to B.A.T.M.A.N.
  * [wiki:MailingList Mailing List]
 === Other Projects on open-mesh.org ===
  * [wiki:FFTrace FFTrace]
