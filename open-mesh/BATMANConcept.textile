@@ -1,4 +1,4 @@
-'''B.A.T.M.A.N. O V E R V I E W'''
+'''B.A.T.M.A.N. OVERVIEW'''
 
 
 The problem with classical routing protocols is that they are typically not well suited for wireless ad-hoc networks. This is because such networks are unstructured, dynamically change their topology, and are based on an inherently unreliable medium.
