@@ -1,0 +1,38 @@
+= Download B.A.T.M.A.N. =
+We are currently working on different branches. To get the details about the differences of these branches, see our [wiki:BranchesExplained Branches Explained page].
+
+We are offering sources and precompiled binaries and packages for different platforms and for the stable and the development branch. However, please use the stable branch for your public infrastructure unless you know exactly what you are doing and are prepared for the big unknown.
+
+=== B.A.T.M.A.N. web interface package ===
+
+The B.A.T.M.A.N. web interface package for the freifunk firmware as well as the latest stable batmand packages can be found in the ipkg repository at [http://freifunk.schmudde.com/ipkg/ freifunk.schmudde.com]. Therefore, if you are using freifunk firmware, the most convenient way to get B.A.T.M.A.N. running is probably to add the line
+''src lui http://freifunk.schmudde.com/ipkg/'' to the file ''/etc/ipkg.conf'' on your WRT and then do an ''ipkg update'' and ''ipkg install batmand'' and ''ipkg install freifunk-batman'' (if not already installed you may also need the packages kmod-tun and libpthread ). Afterwards you can use the web interface to configure and observe batman.
+
+=== Download Released Source Code ===
+ * '''The latest stable B.A.T.M.A.N. is batman-0.3''': [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz batman-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.sig sig]
+ * The latest version of the vis server is [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz vis-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sig sig]
+ * The latest version of batman-adv is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz batman-adv-kernelland-0.1-beta.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sig sig]
+
+If you find any bugs, please contribute by adding a New Ticket.
+=== SVN Access ===
+You can check out our SVN repository and the various batman branches
+
+ * upcoming B.A.T.M.A.N. 0.3.1 branch: [[BR]]{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}
+ * B.A.T.M.A.N. experimental (BMX) branch: [[BR]]{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-experimental/}}}
+ * B.A.T.M.A.N. advanced: [[BR]]{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/batman-core/}}}
+ * battool (for B.A.T.M.A.N. advanced): [[BR]]{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/battool/}}}
+ * Visualization server: check out the complete repository, cd into vis (we're using symlinks here ...)
+
+=== Download precompiled Binaries ===
+There are various pre-compiled binaries available:
+
+ * [http://downloads.open-mesh.org/batman/stable/wrt-freifunk/batmand_0.3-current_mipsel-wr-elf-32-lsb-dynamic.ipk mipsel OpenWRT/Whiterussian Freifunk]
+ * [http://downloads.open-mesh.org/batman/stable/wrt-freifunk/batmand_0.3-current_mipsel-wr-elf-32-lsb-dynamic.ipk WRT-Freifunk]
+ * [http://downloads.open-mesh.org/batman/stable/zaurus-akita Zaurus-Akita]
+ * [http://downloads.open-mesh.org/batman/stable/netgear-kamikaze Netgear-Kamikaze]
+ * [http://downloads.open-mesh.org/batman/stable/meshcube/ Meshcube (static)]
+ * [http://downloads.open-mesh.org/batman/stable/i386 i386 (static)]
+ * [http://downloads.open-mesh.org/batman/stable/fonera fonera (static)]
+ * [http://downloads.open-mesh.org/batman/stable/fonera-kamikaze fonera-kamikaze]
+ * [http://downloads.open-mesh.org/batman/stable/buffalo-freifunk/batmand_0.3-current_mipsel-wr-elf-32-lsb-dynamic.ipk buffalo-freifunk]
+ * [http://downloads.open-mesh.org/batman/stable/armv5te armv5te (static)]
