@@ -1,81 +1,14 @@
 = Welcome to the B.A.T.M.A.N. development site =
+'''This is the home of the B.A.T.M.A.N. development. B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a new routing protocol for multi-hop ad-hoc mesh networks. '''
 
-This is the home of the B.A.T.M.A.N. development. To get some more general information about this project have a look at [http://open-mesh.org/batman/ http://open-mesh.org/batman/].
-If you find any reproducible bug in our latest release candidate or in the development tree PLEASE add a new ticket. If you simply want to get the latest sources of all branches use:
-[[br]]
-svn co http://downloads.open-mesh.org/svn/batman/
-
-
-We are currently working on different branches. To get the details about the differences of these branches, please visit: [https://www.open-mesh.org/batman/doc/BranchesExplained https://www.open-mesh.org/batman/doc/BranchesExplained]
-
- * our stable batman branch (the one currently operating in Berlin, and others) can be checked out with: [[br]] svn co https://dev.open-mesh.org/svn/batman/branches/batman-0.2.x/
-
- * our development batman branch can be checked out with: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman/
-
- * the experimental branch is accessible via: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/batman-experimental
-
- * to build batman advanced you need to checkout the complete trunk: [[br]] svn co https://dev.open-mesh.org/svn/batman/trunk/ [[br]] Then change to the batman-advanced folder and compile the sources
-
-
-Have a lot of fun and remember:
-[[BR]]
-We are desperately waiting for your feedback! 
-[[BR]]
-...the B.A.T.M.A.N. team
-[[BR]]
-[[BR]]
-[[BR]]
-
-
-
-
-
-
--------------------------------------------------------------------------
-The remainder is temporary left for help...
-
-
-
-
-trac is a '''minimalistic''' approach to '''web-based''' management of
-'''software projects'''. Its goal is to simplify effective tracking and handling of software issues, enhancements and overall progress.
-
-All aspects of Trac have been designed with the single goal to 
-'''help developers write great software''' while '''staying out of the way'''
-and imposing as little as possible on a team's established process and
-culture.
-
-As all Wiki pages, this page is editable, this means that you can
-modify the contents of this page simply by using your
-web-browser. Simply click on the "Edit this page" link at the bottom
-of the page. WikiFormatting will give you a detailed description of
-available Wiki formatting commands.
-
-"[wiki:TracAdmin trac-admin] ''yourenvdir'' initenv" created
-a new Trac environment, containing a default set of wiki pages and some sample
-data. This newly created environment also contains 
-[wiki:TracGuide documentation] to help you get started with your project.
-
-You can use [wiki:TracAdmin trac-admin] to configure
-[http://trac.edgewall.com/ Trac] to better fit your project, especially in
-regard to ''components'', ''versions'' and ''milestones''. 
-
-
-TracGuide is a good place to start.
-
-Enjoy! [[BR]]
-''The Trac Team''
-
-== Starting Points ==
-
- * TracGuide --  Built-in Documentation
- * [http://projects.edgewall.com/trac/ The Trac project] -- Trac Open Source Project
- * [http://projects.edgewall.com/trac/wiki/TracFaq Trac FAQ] -- Frequently Asked Questions
- * TracSupport --  Trac Support
-
-For a complete list of local wiki pages, see TitleIndex.
-
-Trac is brought to you by [http://www.edgewall.com/ Edgewall Software],
-providing professional Linux and software development services to clients
-worldwide. Visit http://www.edgewall.com/ for more information.
-
+=== Getting Started ===
+ * [wiki:Download Download] our latest releases, get access to our SVN repository
+ * [wiki:Contribute How to contribute], how to report bugs, send comments, patches or suggestions
+=== Documentation ===
+ * [wiki:BranchesExplained Branches explained] - learn about the B.A.T.M.A.N. flavours
+ * [wiki:UserDocs UserDocs]
+ * [wiki:FAQ FAQ]
+ * [wiki:Experiences Experiences]
+ * [Wiki:ML Mailing List]
+=== Other Projects on open-mesh.org ===
+ * [wiki:FFTrace FFTrace]
