@@ -2,8 +2,8 @@
 '''This is the home of the B.A.T.M.A.N. development. B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a new routing protocol for multi-hop ad-hoc mesh networks. '''
 
 === Getting Started ===
- * [wiki:Download Download] our latest releases, get access to our SVN repository
- * [wiki:Contribute How to contribute], how to report bugs, send comments, patches or suggestions
+ * [wiki:Download Download] - Get our latest releases, get access to our SVN repository
+ * [wiki:Contribute How to contribute] - How to report bugs, send comments, patches or suggestions
 === Documentation ===
  * [wiki:BranchesExplained Branches explained] - learn about the B.A.T.M.A.N. flavours
  * [wiki:UserDocs UserDocs] - understand how B.A.T.M.A.N.  works
@@ -13,3 +13,4 @@
  * [wiki:MailingList Mailing List]/[wiki:IRC IRC] - contact us
 === Other Projects on open-mesh.org ===
  * [wiki:FFTrace FFTrace] - freifunk traceroute tool
+ * [wiki:MeshLinux MeshLinux] - Linux distribution geared to build mesh supernodes
