@@ -1,5 +1,25 @@
 = How to Contribute =
-Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want to tell us about your experiences or discuss problems the best thing is always to use the [wiki:MailingList Mailing List]. You can always contact us via [wiki:IRC IRC]
+Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want to tell us about your experiences or discuss problems the best thing is always to use the [wiki:MalingList Mailing List]. You can always contact us via [wiki:IRC IRC].
+
+If you like this project and you want to take part and/or give something back, here is a short list of starting points:
+
+=== Documentation / Feedback ===
+
+Write an article about your experience with B.A.T.M.A.N. and have it published here:
+ * How did you find us ?
+ * How does you setup look like ?
+ * Where are you building your mesh ?
+ * What problems did you encounter ?
+ * How did you debug / solve them ?
+ * What did you like / not like ?
+ * How can B.A.T.M.A.N. improve ?
+
+There's lots of people that want to know about B.A.T.M.A.N. - help us to spread the word!
+
+=== Research ===
+
+B.A.T.M.A.N. gives much room for research, especially the layer 2 implementation in the kernel. Get in touch with us to share your ideas. If you write papers we are happy to publish them here or link to your page. If you are looking for the right topic or mentorship feel free to contact us. We have more ideas than time to implement them.
+
 
 === Reporting Bugs ===
 If you find a bug, please see if the problem is already known in the by [https://dev.open-mesh.org/batman/report Reading the Tickets]. If not, please [https://dev.open-mesh.org/batman/report?action=new add a new Ticket].
@@ -13,3 +33,9 @@ Please add as much information as possible. In particular interesting are:
  * command line parameters used
  * iptables/firewall rules
  * your guess what triggered the problem. ;)
+
+=== Development ===
+
+You looked in the code ? Fixed bugs ? Added a cool new function ? Integrated B.A.T.M.A.N. in a distribution ? 
+Don't hesitate to let us and others know! We can avoid duplicated work by publishing it here or linking to your page. Patches are always welcome and can be posted on the mailing list to get integrated. He also hand out SVN access to people that want to get involved.
+
