@@ -9,6 +9,6 @@
  * [wiki:UserDocs UserDocs]
  * [wiki:FAQ FAQ]
  * [wiki:Experiences Experiences]
- * [Wiki:ML Mailing List]
+ * [wiki:MailingList Mailing List]
 === Other Projects on open-mesh.org ===
  * [wiki:FFTrace FFTrace]
