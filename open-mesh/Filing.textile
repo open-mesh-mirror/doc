@@ -1,4 +1,4 @@
-
 === Some documents that might help you ===
  * [wiki:RoutingVodoo Getting behind the routing vodoo] - learn about the B.A.T.M.A.N. routing table manipulation
- * [wiki:UserDocs UserDocs]
+ * [wiki:InternetTuning InternetTuning] - get information how B.A.T.M.A.N. handles internet access and what features it offers
+
