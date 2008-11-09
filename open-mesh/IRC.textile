@@ -1,0 +1,5 @@
+= Contact us on IRC =
+We are waiting for you on IRC. :)
+
+ * Server: '''irc.freenode.org'''
+ * Channel: '''#batman'''
