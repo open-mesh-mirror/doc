@@ -1,0 +1,4 @@
+
+=== Some documents that might help you ===
+ * [wiki:RoutingVodoo Getting behind the routing vodoo] - learn about the B.A.T.M.A.N. routing table manipulation
+ * [wiki:UserDocs UserDocs]
