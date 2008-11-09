@@ -6,9 +6,10 @@
  * [wiki:Contribute How to contribute], how to report bugs, send comments, patches or suggestions
 === Documentation ===
  * [wiki:BranchesExplained Branches explained] - learn about the B.A.T.M.A.N. flavours
- * [wiki:UserDocs UserDocs]
- * [wiki:FAQ FAQ]
+ * [wiki:UserDocs UserDocs] - understand how B.A.T.M.A.N.  works
+ * [wiki:FAQ FAQ] - Frequently Asked Questions
+ * [wiki:Experience Experience] - Projects using B.A.T.M.A.N.
  * [wiki:Patches Patches] - contribution from others related to B.A.T.M.A.N.
- * [wiki:MailingList Mailing List]/[wiki:IRC IRC]
+ * [wiki:MailingList Mailing List]/[wiki:IRC IRC] - contact us
 === Other Projects on open-mesh.org ===
- * [wiki:FFTrace FFTrace]
+ * [wiki:FFTrace FFTrace] - freifunk traceroute tool
