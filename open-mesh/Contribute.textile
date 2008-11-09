@@ -1,0 +1,15 @@
+= How to Contribute =
+Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want to tell us about your experiences or discuss problems the best thing is always to use the [wiki:MalingList Mailing List]. You can always contact us via [wiki:IRC IRC]
+
+=== Reporting Bugs ===
+If you find a bug, please see if the problem is already known in the by [https://dev.open-mesh.org/batman/report Reading the Tickets]. If not, please [https://dev.open-mesh.org/batman/report?action=new add a new Ticket].
+
+Please add as much information as possible. In particular interesting are:
+
+ * Which branch (batman, bmx, batman-advanced)
+ * Which version (0.X, SVN revision number)
+ * kernel version, distribution (and version)
+ * machine type (PC, Linksys WRT, Fon, NS2, ...)
+ * command line parameters used
+ * iptables/firewall rules
+ * your guess what triggered the problem. ;)
