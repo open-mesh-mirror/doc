@@ -1,5 +1,5 @@
 = How to Contribute =
-Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want to tell us about your experiences or discuss problems the best thing is always to use the [wiki:MalingList Mailing List]. You can always contact us via [wiki:IRC IRC]
+Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want to tell us about your experiences or discuss problems the best thing is always to use the [wiki:MailingList Mailing List]. You can always contact us via [wiki:IRC IRC]
 
 === Reporting Bugs ===
 If you find a bug, please see if the problem is already known in the by [https://dev.open-mesh.org/batman/report Reading the Tickets]. If not, please [https://dev.open-mesh.org/batman/report?action=new add a new Ticket].
