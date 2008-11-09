@@ -46,7 +46,7 @@ To see the rules set by batman use the ip command:
 
 ip rule
 
-[..]?
+[..]
 
 6600: from all to 105.0.0.0/8 lookup 66
 
@@ -54,7 +54,7 @@ ip rule
 
 6700: from all to 105.0.0.0/8 lookup 67
 
-[..]?
+[..]
 
 On a minimal setup batman will set the rules shown above.
 
