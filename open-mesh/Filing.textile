@@ -1,4 +1,5 @@
 === Some documents that might help you: ===
+ * [wiki:BATMANConcept B.A.T.M.A.N. Concept] - get an overview about B.A.T.M.A.N.'s main concepts
  * [wiki:RoutingVodoo Getting behind the routing vodoo] - learn about the B.A.T.M.A.N. routing table manipulation
  * [wiki:InternetTuning InternetTuning] - get information how B.A.T.M.A.N. handles internet access and what features it offers
  * [wiki:DebugOutput Understanding the debug output] - documentation that helps you to understand the debug output
