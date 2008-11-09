@@ -5,7 +5,7 @@ We are offering sources and precompiled binaries and packages for different plat
 
 === Download Released Source Code ===
  * '''The latest stable B.A.T.M.A.N. is batman-0.3''': [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz batman-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.sig sig]
- * The latest version of the vis server is [http://downloads.open-mesh.net/batman/stable/sources/vis-0.3.tar.gz vis-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sig sig]
+ * The latest version of the vis server is [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz vis-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sig sig]
  * The latest version of batman-adv is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz batman-adv-kernelland-0.1-beta.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sig sig]
 
 If you find any bugs, please contribute by adding a [https://dev.open-mesh.org/batman/newticket New Ticket].
@@ -35,3 +35,8 @@ There are various pre-compiled binaries available:
 === Building your own distribution ===
 
 B.A.T.M.A.N. is also included in OpenWRT as a package. Download the extra package feed, link the batman folder into your main OpenWRT svn directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly in your builds.
+
+=== Debian ===
+
+Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto your debian machine.
+
