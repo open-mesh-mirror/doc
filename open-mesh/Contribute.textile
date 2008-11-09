@@ -22,7 +22,7 @@ B.A.T.M.A.N. gives much room for research, especially the layer 2 implementation
 
 
 === Reporting Bugs ===
-If you find a bug, please see if the problem is already known in the by [https://dev.open-mesh.org/batman/report Reading the Tickets]. If not, please [https://dev.open-mesh.org/batman/report?action=new add a new Ticket].
+If you find a bug, please see if the problem is already known in the by [https://dev.open-mesh.org/batman/report Reading the Tickets]. If not, please [https://dev.open-mesh.org/batman/newticket add a new Ticket].
 
 Please add as much information as possible. In particular interesting are:
 
