@@ -5,3 +5,5 @@
  * [wiki:DebugOutput Understanding the debug output] - documentation that helps you to understand the debug output
  * [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 B.A.T.M.A.N. RFC Draft] - a draft explaining the routing algorithm used in batman 0.2
  * [https://www.open-mesh.org/batman/doc/batmand_howto.pdf B.A.T.M.A.N. HowTo] - how to compile, install and run batman 0.2
+ * [http://downloads.open-mesh.org/batman/development/sources/batmand_0.3-beta-current_sources/man/batmand.8.html B.A.T.M.A.N. man page] - read the batman man page online
+
