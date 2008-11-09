@@ -17,5 +17,5 @@ an olsr-plugin or the screen-output in something that can be diplayed graphical 
 
 
 
- * Download: [http://downloads.open-mesh.org/fftrace/]
- * Trac: [https://dev.open-mesh.org/fftrace/]
+ * Download: http://downloads.open-mesh.org/fftrace/
+ * Trac: https://dev.open-mesh.org/fftrace/
