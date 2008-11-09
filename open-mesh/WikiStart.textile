@@ -9,6 +9,6 @@
  * [wiki:UserDocs UserDocs]
  * [wiki:FAQ FAQ]
  * [wiki:Patches Patches] - contribution from others related to B.A.T.M.A.N.
- * [https://list.open-mesh.org/mm/listinfo/b.a.t.m.a.n Mailing List]
+ * [wiki:MailingList Mailing List]/[wiki:IRC IRC]
 === Other Projects on open-mesh.org ===
  * [wiki:FFTrace FFTrace]
