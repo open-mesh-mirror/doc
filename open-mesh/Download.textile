@@ -8,7 +8,7 @@ We are offering sources and precompiled binaries and packages for different plat
  * The latest version of the vis server is [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz vis-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sig sig]
  * The latest version of batman-adv is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz batman-adv-kernelland-0.1-beta.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sig sig]
 
-If you find any bugs, please contribute by adding a [https://dev.open-mesh.org/batman/newticket New Ticket].
+If you find any bugs, please [wiki:Contribute let us know]!
 
 === SVN Access ===
 You can check out our SVN repository and the various batman branches
