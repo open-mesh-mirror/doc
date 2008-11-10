@@ -4,7 +4,7 @@ We are currently working on different branches. To get the details about the dif
 We are offering sources and precompiled binaries and packages for different platforms and for the [http://downloads.open-mesh.org/batman/stable/ stable] and the [http://downloads.open-mesh.org/batman/development/ development] branch. However, please use the stable branch for your public infrastructure unless you know exactly what you are doing and are prepared for the big unknown.
 
 === Download Released Source Code ===
- * '''The latest stable B.A.T.M.A.N. is batman-0.3''': [http://downloads.open-mesh.net/batman/stable/sources/batman-0.3.tar.gz batman-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.sig sig]
+ * '''The latest stable B.A.T.M.A.N. is batman-0.3''': [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz batman-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-0.3.tar.gz.sig sig]
  * The latest version of the vis server is [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz vis-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/vis-0.3.tar.gz.sig sig]
  * The latest version of batman-adv is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz batman-adv-kernelland-0.1-beta.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sig sig]
 
@@ -24,7 +24,7 @@ You can check out our SVN repository and the various batman branches
 
 Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto your debian machine. Following packages are available:
  * [http://packages.debian.org/sid/batmand batmand] - batman 0.3
- * [http://packages.debian.org/sid/batman-adv-source batman-adv-source] - batman-advanced kernel module source (installable [http://packages.debian.org/sid/module-assistant module-assistant])
+ * [http://packages.debian.org/sid/batman-adv-source batman-adv-source] - batman-advanced kernel module source (installable via [http://packages.debian.org/sid/module-assistant module-assistant])
  * [http://packages.debian.org/sid/batman-adv-battool batman-adv-battool] - battool
 
 
