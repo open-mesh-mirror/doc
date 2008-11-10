@@ -9,6 +9,7 @@ We are offering sources and precompiled binaries and packages for different plat
  * The latest version of batman-adv is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz batman-adv-kernelland-0.1-beta.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland-0.1-beta.tar.gz.sig sig]
 
 If you find any bugs, please contribute by adding a [https://dev.open-mesh.org/batman/newticket New Ticket].
+
 === SVN Access ===
 You can check out our SVN repository and the various batman branches
 
@@ -17,6 +18,15 @@ You can check out our SVN repository and the various batman branches
  * B.A.T.M.A.N. advanced: [[BR]]{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/batman-core/}}}
  * battool (for B.A.T.M.A.N. advanced): [[BR]]{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/battool/}}}
  * Visualization server: check out the complete repository, cd into vis (we're using symlinks here ...)
+
+=== Debian ===
+
+Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto your debian machine. Following packages are available:
+ * [http://packages.debian.org/sid/batmand batmand] - batman 0.3
+ * [http://packages.debian.org/sid/batman-adv-source batman-adv-source] - batman-advanced kernel module source (installable [http://packages.debian.org/sid/module-assistant module-assistant])
+ * [http://packages.debian.org/sid/batman-adv-battool batman-adv-battool] - battool
+
+
 
 === Download precompiled Binaries ===
 There are various pre-compiled binaries available:
@@ -32,11 +42,8 @@ There are various pre-compiled binaries available:
  * [http://downloads.open-mesh.org/batman/stable/buffalo-freifunk/batmand_0.3-current_mipsel-wr-elf-32-lsb-dynamic.ipk buffalo-freifunk]
  * [http://downloads.open-mesh.org/batman/stable/armv5te armv5te (static)]
 
-=== Building your own distribution ===
+=== Building OpenWRT packages ===
 
 B.A.T.M.A.N. is also included in OpenWRT as a package. Download the extra package feed, link the batman folder into your main OpenWRT svn directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly in your builds.
 
-=== Debian ===
-
-Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto your debian machine.
-
+More information about how to build the OpenWRT toolchain is available [http://wiki.openwrt.org/OpenWrtDocs/BuildingKamikazeHowTo here].
