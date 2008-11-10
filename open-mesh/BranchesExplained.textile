@@ -7,10 +7,11 @@ Arabic numerals are used to distinguish the version of our implementation. Next 
 
 Example: batman 0.2 uses the B.A.T.M.A.N. III routing algorithm.
 
-=== batman-0.3 ===
+=== batman (0.3) ===
 Maintainer: Marek Lindner, Andreas Langer
 
-The 0.3 branch brought a bunch of new features and updates to 0.2, especially the 0.2 routing alorithm was dropped in favor of a newly designed approach. 
+batman 0.3 is the latest stable implementation, using a new version of the algorithm known as the BATMAN IV/TQ algorithm. It features better handling for asymetric links and packet aggregation.
+
 
 === batman-experimental (aka bmx) ===
 Maintainer: Axel Neumann
@@ -33,9 +34,3 @@ batman advanced userspace was the first implementation of the batman-advanced id
 Maintainer: Andreas Langer
 
 The battools are a set of debugging tools which work together with our layer 2 implementation (user space and kernel land). You can use them to debug the mesh which proved to be difficult without them.
-
-=== batman-0.2 (outdated) ===
-Maintainer: Marek Lindner, Axel Neumann
-
-0.2 stable was created last summer and represents our implementation of the BATMAN III routing algorithm. It works quite well and stable but has a major flaw while routing strong asymetric links. That is why we began working on a new algorithm - 0.2 is to be deprecated soon.
-
