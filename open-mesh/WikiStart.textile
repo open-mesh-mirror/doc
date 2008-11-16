@@ -1,5 +1,6 @@
-= Welcome to the B.A.T.M.A.N. development site =
-'''This is the home of the B.A.T.M.A.N. development. B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a new routing protocol for multi-hop ad-hoc mesh networks. '''
+= Welcome to Open Mesh =
+'''This page serves as development platform for a collection of tools to build free and open mesh networks.'''
+
 ----
 == News ==
  * '''16.Nov. 2008''' [wiki:11-16-2008-batman-adv-goes-debian Batman-adv now available in Debian]
