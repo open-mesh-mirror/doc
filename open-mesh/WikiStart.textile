@@ -2,9 +2,10 @@
 '''This page serves as development platform for a collection of tools to build free and open mesh networks.'''
 
 ----
+= B.A.T.M.A.N. =
+''' B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a new routing protocol for multi-hop ad-hoc mesh networks. ''' This is the main development website, we have source code, binary packages, documentation and further information available:
 == News ==
  * '''16.Nov. 2008''' [wiki:11-16-2008-batman-adv-goes-debian Batman-adv now available in Debian]
-----
 == Getting Started ==
  * [wiki:Download Download] - Get our latest releases, get access to our SVN repository
  * [wiki:Contribute How to contribute] - How to report bugs, send comments, patches or suggestions
@@ -15,6 +16,7 @@
  * [wiki:Experience Experience] - Projects using B.A.T.M.A.N.
  * [wiki:Patches Patches] - contribution from others related to B.A.T.M.A.N.
  * [wiki:MailingList Mailing List]/[wiki:IRC IRC] - contact us
+----
 == Other Projects on open-mesh.org ==
  * [wiki:FFTrace FFTrace] - freifunk traceroute tool
  * [wiki:MeshLinux MeshLinux] - Linux distribution geared to build mesh supernodes
