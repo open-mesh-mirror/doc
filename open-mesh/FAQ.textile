@@ -42,3 +42,9 @@ If you use a firewall, NAT or any other problematic network setup you can swap t
 Note: The HOSTS_TO_UPDATE variable in the script expects SSH host names which must be configured in your ~/.ssh/config file.
 
 Tip: Use key based access to authenticate your login request on your machines to avoid typing your passwords too often. If you use encrypted keys you can enable the ssh-agent to manage your passwords.
+
+
+'''What is the batgat kernel module good for?'''
+
+The batman daemon maintains a tunnel connection to every "batman internet client". Every packet that goes to the internet or comes back has to go through this tunnel. As it is a user space tunnel a lot of copying between user space and kernel land is necessary. Depending on the number of clients and the CPU power available this might be a bottleneck.
+The batgat kernel module tries to overcome this limitation. Once loaded the batman daemon will detect its presence automatically on startup. The daemon will activate the kernel module to let it handle the tunneling, hence avoiding the expensive copy operations. There is no difference between the daemon tunneling and the kernel tunneling other than that.
