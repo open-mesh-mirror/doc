@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <chapter id="batman_iv_tq">
-<title>B.A.T.M.A.N. IV/TQ Meshing</title>
+<title>B.A.T.M.A.N. IV (TQ) Meshing</title>
 <sect1 id="batman3">
-<title>BATMAN III (introduction)</title>
+<title>B.A.T.M.A.N. III (introduction)</title>
 <para>
 
 	[RFC Introduction reused. I think we should do that - it is well
@@ -25,7 +25,7 @@
  </para>
 
  <sect2 id="how_works">
-<title>BATMAN III (brief overview)</title>
+<title>B.A.T.M.A.N. III (brief overview)</title>
 <para>
 
 	[RFC reused - 1.2. Protocol Overview (second paragraph)]
@@ -68,7 +68,7 @@
 
 	[more text needed here ? we can add it later when we work on the IV advantages]
 
- </para>
+</para>
 </sect2>
  <sect2 id="multiple_interfaces">
 <title>multiple interfaces</title>
@@ -82,21 +82,73 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </sect1>
 
 <sect1 id="batman4">
-<title>BATMAN IV/TQ</title>
+<title>B.A.T.M.A.N. IV (TQ)</title>
 <para>
 	The B.A.T.M.A.N. III algorithm has serious problems when it comes to asymetric links. The bidirectional link check tries to limit its impact but the result is far from being perfect. The timeframe in which B.A.T.M.A.N. accepts his own OGMs being rebroadcasted by its neighbor allows to tweak the behaviour. If this timeframe is rather short B.A.T.M.A.N. is very strict on choosing links. This may lead to many ignored links which might be usable in one direction. Only symetric connections will be considered. If the timeframe value is less strict B.A.T.M.A.N. will accept more links but tends to route in the wrong direction.
 </para>
 <para>
-		Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case. 
+	Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case. 
 <inlinemediaobject>
-		<imageobject> <imagedata fileref="images/asymetry.pdf" format="EPS"  scale="50"/> </imageobject>
-		<imageobject> <imagedata fileref="images/asymetry.png" format="PNG"  /> </imageobject>
-		<textobject> <phrase>asymetry illustration</phrase> </textobject>
+	<imageobject> <imagedata fileref="images/asymetry.pdf" format="EPS"  scale="50"/> </imageobject>
+	<imageobject> <imagedata fileref="images/asymetry.png" format="PNG"  /> </imageobject>
+	<textobject> <phrase>asymetry illustration</phrase> </textobject>
 </inlinemediaobject>
 </para>
 <para>
-	To overcome this flaw B.A.T.M.A.N. IV has been enhanced with the Transmit Quality (TQ) algorithm. The following section is going to outline its design and how it strengthens B.A.T.M.A.N.'s routing capabilities in asymetric environments.
+	To overcome this flaw B.A.T.M.A.N. IV has been enhanced with the Transmit Quality (TQ) algorithm. The following sections are going to outline its design and how it strengthens B.A.T.M.A.N.'s routing capabilities in asymetric environments.
 </para>
+<sect2 id="batman4_packet_layout">
+<title>The B.A.T.M.A.N. IV Orginator Message format</title>
+<para>
+<table>
+			<title>B.A.T.M.A.N. IV layer 3 packet format</title>
+			<tgroup cols="5">
+			<colspec colnum="1" colname="colB" colwidth="1*"/>
+			<colspec colnum="2" colname="col0" colwidth="1*"/>
+            <colspec colnum="3" colname="col1" colwidth="1*"/>
+            <colspec colnum="4" colname="col2" colwidth="1*"/>
+            <colspec colnum="5" colname="col3" colwidth="1*"/>
+ 			<thead><row>
+				<entry>+</entry>
+				<entry>00</entry>
+				<entry>01</entry>
+				<entry>02</entry>
+				<entry>03</entry>
+			</row>
+			</thead>
+			<tbody>
+			<row>
+				<entry colname="colB">00-03</entry>
+				<entry namest="col0" nameend="col0">Version</entry>
+				<entry namest="col1" nameend="col1">Flags</entry>
+				<entry namest="col2" nameend="col2">TTL</entry>
+				<entry namest="col3" nameend="col3">GW Flags</entry>
+			</row>
+			<row>
+				<entry colname="colB">04-07</entry>
+				<entry namest="col0" nameend="col1">Seqence Number</entry>
+				<entry namest="col2" nameend="col3">GW Port</entry>
+			</row>
+			<row>
+				<entry colname="colB">08-11</entry>
+				<entry namest="col0" nameend="col3">Originator Address</entry>
+			</row>
+			<row>
+				<entry colname="colB">11-15</entry>
+				<entry namest="col0" nameend="col0">TQ</entry>
+				<entry namest="col1" nameend="col3">Old Originator Address</entry>
+			</row>
+			<row>
+				<entry colname="colB">16-19</entry>
+				<entry namest="col0" nameend="col0">Old Originator Address</entry>
+				<entry namest="col1" nameend="col3"> (...)</entry>
+			</row>
+
+			</tbody>
+			</tgroup>
+		</table>
+</para>
+</sect2>
 <sect2 id="batman4_tq">
 <title>The Transmit Quality</title>
 <para>
@@ -229,6 +281,27 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <sect2 id="batman4_tq_hop_penalty">
 <title>Hop penalty</title>
 <para>
+	B.A.T.M.A.N. IV loosens the strict packet drop policy used by B.A.T.M.A.N. III to make the TQ algorithm work. This introduces a new problem: In certain cases B.A.T.M.A.N. IV is unable to detect the 'real' source of an OGM which may lead to temporary routing loops. The following section is going to illustrate the issue and how it is going to be addressed using an Ethernet network as example for the sake of simplicity. WiFi and other mediums are less susceptible as Ethernet but still affected.
+</para>
+<para>
+	Example topology: The node SOURCE has a WiFi connection towards node A but no link to node B at all. Node A and node B are connected via Ethernet. We assume the Ethernet connection to be perfect (no packet loss) whereas the WiFi connection suffers from occasional collisions and interferences. [bild1 hier]
+</para>
+<para>
+	Whenever node A receives a packet via the WiFi connection it will rebroadcast the information on the Ethernet to inform neighbors nodes about the existance of the source node. Node B receive the broadcast and parses the packet before rebroadcasting it. At that point node A will receive that very packet again. [bild2]
+
+	B.A.T.M.A.N. III would have dropped the packet at this point. It has a duplicate packet detection based on sequence numbers. The sequence number is known, hence the packet dropped (the fastest packet wins). In asymetric environments this may lead to suboptimal routing decisions. Therefore B.A.T.M.A.N. IV interprets the arrival of this packet as second path towards the originator. This path transmits the packet slower (due to more hops for example) but but may offer a better transmit quality.
+</para>
+<para>
+	On a lossy medium the TQ value is decreased while travelling from hop to hop (see asymetric link handling). The Ethernet connection does not suffer from packet loss which results in not decreasing the TQ value at all. Node A has 2 possible routes towards the originator: The SOURCE itself and node B (both will advertise the same TQ value). [bild3]
+
+	As B.A.T.M.A.N. IV values TQ and fastest packet the node A's route will point towards the SOURCE node. Once the WiFi link quality drops (for a few moments due to some collisions) the TQ value from the SOURCE node will drop. At that point the B.A.T.M.A.N. IV node A will change its route towards node B which offers a better TQ value. Node A and node B will send packets forth and back in a loop.
+</para>
+<para>
+	To overcome this issue B.A.T.M.A.N. IV introduces a hop penalty: Every time an OGM passes a node the TQ value will be decreased by a fixed value regardless of the asymetric link penalty before rebroadcasting the packet. In the given example it decrease the value of the second route via node B. [bild???]
+</para>
+<para>
+
+ The duplicate packet detection wont drop this packet because it was never received via this neighbor. It 
 	TODO 	There would be loops in "perfect" networks without loss, e.g. ethernet.
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/hop_penalty1.pdf" format="EPS" scale="50" /> </imageobject>
@@ -250,6 +323,13 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <title>Echo cancellation</title>
 <para>
 	TODO rebroadcast cancellation by adding IP of previous node because we don't drop packets
+</para>
+</sect2>
+
+<sect2 id="batman4_packet_aggregation">
+<title>Packet Aggregation</title>
+<para>
+	TODO aggregate packets to reduce overhead and CPU cycles
 </para>
 </sect2>
 
