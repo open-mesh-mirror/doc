@@ -300,10 +300,10 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 		<textobject> <phrase>packet hops</phrase> </textobject>
 	</inlinemediaobject>
 
-	B.A.T.M.A.N. III would have dropped the packet at this point. It has a duplicate packet detection based on sequence numbers. The sequence number is known, hence the packet dropped (the fastest packet wins). In asymetric environments this may lead to suboptimal routing decisions. Therefore B.A.T.M.A.N. IV interprets the arrival of this packet as second path towards the originator. This path transmits the packet slower (due to more hops for example) but but may offer a better transmit quality.
+	B.A.T.M.A.N. III would have dropped the packet at this point. It has a duplicate packet detection based on sequence numbers only. The sequence number is known, hence the packet dropped (the fastest packet wins). In asymetric environments this may lead to suboptimal routing decisions. Therefore B.A.T.M.A.N. IV interprets the arrival of this packet as second path towards the originator. This path transmits the packet slower (due to more hops for example) but but may offer a better transmit quality. Duplicate sequence numbers are dropped if they arrive via the same neighbor.
 </para>
 <para>
-	On a lossy medium the TQ value is decreased while travelling from hop to hop (see asymetric link handling). The Ethernet connection does not suffer from packet loss which results in not decreasing the TQ value at all. Node A has 2 possible routes towards the originator: The node S itself and node B (both will advertise the same TQ value). [bild3]
+	On a lossy medium the TQ value is decreased while travelling from hop to hop (see asymetric link handling). The Ethernet connection does not suffer from packet loss which results in not decreasing the TQ value at all. Node A has 2 possible routes towards the originator: The node S itself and node B (both will advertise the same TQ value).
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/hop_penalty5.pdf" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty5.png" format="PNG"  /> </imageobject>
