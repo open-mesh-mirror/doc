@@ -1,6 +1,8 @@
 GP_IMAGES=asym_penalty.gp
 DIA_IMAGES=asymetry.dia tq.dia eq.dia eq_alt1.dia eq_alt2.dia eq_alt3.dia rq.dia \
-		   hop_penalty1.dia hop_penalty2.dia asym_link1.dia asym_link2.dia tq_prop.dia
+		   hop_penalty1.dia hop_penalty2.dia \
+		   hop_penalty3.dia hop_penalty4.dia hop_penalty5.dia hop_penalty6.dia \
+		   asym_link1.dia asym_link2.dia tq_prop.dia
 TEX_IMAGES=compute_tq.tex tq_prop_calc.tex
 PNG_IMAGES= $(DIA_IMAGES:.dia=.png) 
 PNG_IMAGES+=$(GP_IMAGES:.gp=.png) 
