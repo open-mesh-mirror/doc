@@ -284,7 +284,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	B.A.T.M.A.N. IV loosens the strict packet drop policy used by B.A.T.M.A.N. III to make the TQ algorithm work. This introduces a new problem: In certain cases B.A.T.M.A.N. IV is unable to detect the 'real' source of an OGM which may lead to temporary routing loops. The following section is going to illustrate the issue and how it is going to be addressed using an Ethernet network as example for the sake of simplicity. WiFi and other mediums are less susceptible as Ethernet but still affected.
 </para>
 <para>
-	Example topology: The node SOURCE has a WiFi connection towards node A but no link to node B at all. Node A and node B are connected via Ethernet. We assume the Ethernet connection to be perfect (no packet loss) whereas the WiFi connection suffers from occasional collisions and interferences. 
+	Example topology: The node S (source) has a WiFi connection towards node A but no link to node B at all. Node A and node B are connected via Ethernet. We assume the Ethernet connection to be perfect (no packet loss) whereas the WiFi connection suffers from occasional collisions and interferences. 
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/hop_penalty3.pdf" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty3.png" format="PNG"  /> </imageobject>
@@ -303,7 +303,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	B.A.T.M.A.N. III would have dropped the packet at this point. It has a duplicate packet detection based on sequence numbers. The sequence number is known, hence the packet dropped (the fastest packet wins). In asymetric environments this may lead to suboptimal routing decisions. Therefore B.A.T.M.A.N. IV interprets the arrival of this packet as second path towards the originator. This path transmits the packet slower (due to more hops for example) but but may offer a better transmit quality.
 </para>
 <para>
-	On a lossy medium the TQ value is decreased while travelling from hop to hop (see asymetric link handling). The Ethernet connection does not suffer from packet loss which results in not decreasing the TQ value at all. Node A has 2 possible routes towards the originator: The SOURCE itself and node B (both will advertise the same TQ value). [bild3]
+	On a lossy medium the TQ value is decreased while travelling from hop to hop (see asymetric link handling). The Ethernet connection does not suffer from packet loss which results in not decreasing the TQ value at all. Node A has 2 possible routes towards the originator: The node S itself and node B (both will advertise the same TQ value). [bild3]
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/hop_penalty5.pdf" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty5.png" format="PNG"  /> </imageobject>
@@ -311,7 +311,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	</inlinemediaobject>
 
 
-	As B.A.T.M.A.N. IV values TQ and fastest packet the node A's route will point towards the SOURCE node. Once the WiFi link quality drops (for a few moments due to some collisions) the TQ value from the SOURCE node will drop. At that point the B.A.T.M.A.N. IV node A will change its route towards node B which offers a better TQ value. Node A and node B will send packets forth and back in a loop.
+	As B.A.T.M.A.N. IV values TQ and fastest packet the node A's route will point towards the node S. Once the WiFi link quality drops (for a few moments due to some collisions) the TQ value from the node S will drop. At that point the B.A.T.M.A.N. IV node A will change its route towards node B which offers a better TQ value. Node A and node B will send packets forth and back in a loop.
 </para>
 <para>
 	To overcome this issue B.A.T.M.A.N. IV introduces a hop penalty: Every time an OGM passes a node the TQ value will be decreased by a fixed value regardless of the asymetric link penalty before rebroadcasting the packet. In the given example it decrease the value of the second route via node B.
