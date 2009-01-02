@@ -37,5 +37,5 @@ B.A.T.M.A.N. gives much room for research, especially the layer 2 implementation
 === Development ===
 
 You looked in the code ? Fixed bugs ? Added a cool new function ? Integrated B.A.T.M.A.N. in a distribution ? 
-Don't hesitate to let us and others know! We can avoid duplicated work by publishing it here or linking to your page. Patches are always welcome and can be posted on the [wiki:MailingList mailing list] to get integrated. He also hand out SVN access to people that want to get involved.
+Don't hesitate to let us and others know! We can avoid duplicated work by publishing it here or linking to your page. Patches are always welcome and can be posted on the [wiki:MailingList mailing list] to get integrated. We also hand out SVN access to people that want to get involved.
 
