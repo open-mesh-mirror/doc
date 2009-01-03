@@ -6,8 +6,8 @@ If you have made some experience or even setup a B.A.T.M.A.N. mesh network at so
  * B.A.T.M.A.N. in Leipzig, also providing a huge number of howtos, documentation, and experience reports! Check out: http://wiki.leipzig.freifunk.net/BATMAN
  * And there is the always hyperactive Freifunk-Community in Berlin Nord-Ost with lots of useful information and experience summarized at http://www.freifunk-bno.de/content/view/67/28/
  * [wiki:BerlinExperience B.A.T.M.A.N. in Berlin]
- * B.A.T.M.A.N. flying through Weimar: http://freifunk.net/blog/batman-fliegt-durchs-weimarnetz
- * Latest gossip indicates a quite big B.A.T.M.A.N.-only mesh network in Klein Rodensleben near Magdeburg (http://phantom.port-x.de/forum/)
+ * B.A.T.M.A.N. flying through Weimar: broken?? http://freifunk.net/blog/batman-fliegt-durchs-weimarnetz
+ * Latest gossip indicates a quite big B.A.T.M.A.N.-only mesh network in Klein Rodensleben near Magdeburg (broken?? http://phantom.port-x.de/forum/)
  * Finally the internet revealed some suspicious B.A.T.M.A.N. activities in Bern/Switzerland which can be tracked at http://bern.openwireless.ch/node/1876 )
  * B.A.T.M.A.N. activities also at Rostock/Germany: http://wiki.opennet-initiative.de/index.php/B.A.T.M.A.N.
  * your observations here...? :)
