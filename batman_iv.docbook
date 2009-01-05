@@ -156,46 +156,57 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	As explained in the previous section the packet counting floods the network with receiving link quality rather than transmit link quality. On the link-local level the transmit link quality can be derived from the receiving link quality by applying some calculations on the packet count.
-
+</para>
+<para>
 	<orderedlist>
 		<listitem>
-			<para>B.A.T.M.A.N. knows the receiving link quality (RQ) by counting the packets of its neighbors.</para>
 			<para>
-			<inlinemediaobject>
-				<imageobject> <imagedata fileref="images/rq.pdf" format="EPS" scale="50" /> </imageobject>
-				<imageobject> <imagedata fileref="images/rq.png" format="PNG"  /> </imageobject>
-				<textobject> <phrase>Receive Quality (RQ)</phrase> </textobject>
-			</inlinemediaobject></para>
-		</listitem>
-		<listitem>
-			<para>B.A.T.M.A.N. knows the echo link quality (EQ) by counting rebroadcasts of its own OGMs from his neighbors.</para>
-			<para>
-			<inlinemediaobject>
-				<imageobject> <imagedata fileref="images/eq_alt1.pdf" format="EPS" scale="50" /> </imageobject>
-				<imageobject> <imagedata fileref="images/eq_alt1.png" format="PNG"  /> </imageobject>
-				<textobject> <phrase>Echo Link Quality (EQ)</phrase> </textobject>
-			</inlinemediaobject></para>
-		</listitem>
-		<listitem>
-			<para>B.A.T.M.A.N. can calculate the transmit link quality (TQ) by dividing the echo link quality by the receiving link quality.</para>
-			<para>
-			<inlinemediaobject>
-				<imageobject> <imagedata fileref="images/tq.pdf" format="EPS" scale="50" /> </imageobject>
-				<imageobject> <imagedata fileref="images/tq.png" format="PNG"  /> </imageobject>
-				<textobject> <phrase>Transmit Link Quality (TQ)</phrase> </textobject>
-				</inlinemediaobject></para>
-			<para>
-			<inlinemediaobject>
-				<imageobject> <imagedata fileref="images/compute_tq.pdf" format="EPS"/> </imageobject>
-				<imageobject> <imagedata fileref="images/compute_tq.png" format="PNG"  /> </imageobject>
-				<textobject> <phrase>compute the Transmit Link Quality</phrase> </textobject>
-			</inlinemediaobject>
+				B.A.T.M.A.N. knows the receiving link quality (RQ) by counting the packets of its neighbors.
 			</para>
-
+			<para>
+				<inlinemediaobject>
+					<imageobject> <imagedata fileref="images/rq.pdf" format="EPS" scale="50" /> </imageobject>
+					<imageobject> <imagedata fileref="images/rq.png" format="PNG"  /> </imageobject>
+					<textobject> <phrase>Receive Quality (RQ)</phrase> </textobject>
+				</inlinemediaobject>
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				B.A.T.M.A.N. knows the echo link quality (EQ) by counting rebroadcasts of its own OGMs from his neighbors.
+			</para>
+			<para>
+				<inlinemediaobject>
+					<imageobject> <imagedata fileref="images/eq_alt1.pdf" format="EPS" scale="50" /> </imageobject>
+					<imageobject> <imagedata fileref="images/eq_alt1.png" format="PNG"  /> </imageobject>
+					<textobject> <phrase>Echo Link Quality (EQ)</phrase> </textobject>
+				</inlinemediaobject>
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				B.A.T.M.A.N. can calculate the transmit link quality (TQ) by dividing the echo link quality by the receiving link quality.
+			</para>
+			<para>
+				<inlinemediaobject>
+					<imageobject> <imagedata fileref="images/tq.pdf" format="EPS" scale="50" /> </imageobject>
+					<imageobject> <imagedata fileref="images/tq.png" format="PNG"  /> </imageobject>
+					<textobject> <phrase>Transmit Link Quality (TQ)</phrase> </textobject>
+				</inlinemediaobject>
+			</para>
+			<para>
+				<inlinemediaobject>
+					<imageobject> <imagedata fileref="images/compute_tq.pdf" format="EPS"/> </imageobject>
+					<imageobject> <imagedata fileref="images/compute_tq.png" format="PNG"  /> </imageobject>
+					<textobject> <phrase>compute the Transmit Link Quality</phrase> </textobject>
+				</inlinemediaobject>
+			</para>
 		</listitem>
 	</orderedlist>
-		This shows that B.A.T.M.A.N. IV is able to compute the local Transmit Quality by using the same 
-		mechanisms as B.A.T.M.A.N. III without adding further overhead.
+</para>
+<para>
+	This shows that B.A.T.M.A.N. IV is able to compute the local Transmit Quality by using the same 
+	mechanisms as B.A.T.M.A.N. III without adding further overhead.
 </para>
 </sect2>
 <sect2 id="batman4_tq_prop">
@@ -222,8 +233,18 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 		<imageobject> <imagedata fileref="images/tq_prop.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>TQ propagation</phrase> </textobject>
 	</inlinemediaobject>
-
-
+</para>
+<para>
+	B.A.T.M.A.N. IV can not always rebroadcast the newly calculated TQ that came with the latest OGM. Instead the TQ that was received via the best neighbor is rebroadcasted to support asymetric link scenarios better.
+</para>
+<para>
+	Example: Node A and B are neighbors. Node A has a good connection towards node B but not vice versa. The node C has a good connection towards node A, has a good receiving link quality and bad sending quality towards B. [bild1]
+</para>
+<para>
+	Due to this layout the originator messages from node A have a good chance arriving at B but the TQ value propagated by node B is very low due to the high packet loss towards node A. The messages from node A that travel via node C have a low probablity arriving at node B due to the packet loss towards node B but have a much better TQ value. Node B will propagate many messages with a low TQ value (received from node A directly) and a few messages with a high TQ value (received from node A via node C) although the connection towards node A is very good. [bild2]
+</para>
+<para>
+	Therefore, B.A.T.M.A.N. IV will rebroadcast the received OGM with the TQ value of the best neighbor towards the originator. In the given example node B will place the TQ value received via node C in the message from node A before rebroadcasting it. It will flood its best TQ only. [bild3]
 </para>
 </sect2>
 
@@ -250,31 +271,31 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	Although the transmit link quality is most important decision factor B.A.T.M.A.N. IV also keeps track of the receiving link quality. On the WiFi layer every unicast packet has to be acknowledged by the neighbor node to approve the transmission. If this neighbor is not able to sucessfully send his ACKs the WiFi layer considers this transmission to be failed and tries to retransmit until it gives up.
 </para>
 <para>
-		<inlinemediaobject>
-			<imageobject> <imagedata fileref="images/asym_link1.pdf" format="EPS" scale="50" /> </imageobject>
-			<imageobject> <imagedata fileref="images/asym_link1.png" format="PNG" scale="50" /> </imageobject>
-			<textobject> <phrase>Asymetry situation without asymetry penalty</phrase> </textobject>
-		</inlinemediaobject>
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/asym_link1.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/asym_link1.png" format="PNG" scale="50" /> </imageobject>
+		<textobject> <phrase>Asymetry situation without asymetry penalty</phrase> </textobject>
+	</inlinemediaobject>
 </para>
 <para>
 	Thus B.A.T.M.A.N. IV needs to penalize links that have have a poor receiving link quality. To avoid a simple hysteresis which completely turns on or off a link B.A.T.M.A.N. IV uses a mathematical function to give the receiving link quality stronger negative impact the weaker the link becomes.
 </para>
 <para>
-		<inlinemediaobject>
-			<imageobject> <imagedata fileref="images/asym_penalty.pdf" format="EPS"  /> </imageobject>
-			<imageobject> <imagedata fileref="images/asym_penalty.png" format="PNG"  /> </imageobject>
-			<textobject> <phrase>graph for asymetry penalty</phrase> </textobject>
-		</inlinemediaobject>
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/asym_penalty.pdf" format="EPS"  /> </imageobject>
+		<imageobject> <imagedata fileref="images/asym_penalty.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>graph for asymetry penalty</phrase> </textobject>
+	</inlinemediaobject>
 </para>
 <para>
 	This obtained value is calculated into the TQ before it gets rebroadcasted. Neighboring nodes can weight the routing decision based on this information. In some situations the weak link is the only link available, so you want to use it, whereas in other cases better connections may exist.
 </para>
 <para>
-		<inlinemediaobject>
-			<imageobject> <imagedata fileref="images/asym_link2.pdf" format="EPS" scale="50" /> </imageobject>
-			<imageobject> <imagedata fileref="images/asym_link2.png" format="PNG"  /> </imageobject>
-			<textobject> <phrase>Asymetry situation with applied asymetry penalty</phrase> </textobject>
-		</inlinemediaobject>
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/asym_link2.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/asym_link2.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>Asymetry situation with applied asymetry penalty</phrase> </textobject>
+	</inlinemediaobject>
 </para>
 </sect2>
 
@@ -284,37 +305,45 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	B.A.T.M.A.N. IV loosens the strict packet drop policy used by B.A.T.M.A.N. III to make the TQ algorithm work. This introduces a new problem: In certain cases B.A.T.M.A.N. IV is unable to detect the 'real' source of an OGM which may lead to temporary routing loops. The following section is going to illustrate the issue and how it is going to be addressed using an Ethernet network as example for the sake of simplicity. WiFi and other mediums are less susceptible as Ethernet but still affected.
 </para>
 <para>
-	Example topology: The node S (source) has a WiFi connection towards node A but no link to node B at all. Node A and node B are connected via Ethernet. We assume the Ethernet connection to be perfect (no packet loss) whereas the WiFi connection suffers from occasional collisions and interferences. 
+	Example topology: The node S (source) has a WiFi connection towards node A but no link to node B at all. Node A and node B are connected via Ethernet. We assume the Ethernet connection to be perfect (no packet loss) whereas the WiFi connection suffers from occasional collisions and interferences.
+</para>
+<para>
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/hop_penalty3.pdf" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty3.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>example topology</phrase> </textobject>
 	</inlinemediaobject>
-
 </para>
 <para>
-	Whenever node A receives a packet via the WiFi connection it will rebroadcast the information on the Ethernet to inform neighbor nodes about the existance of the source node. Node B receives the broadcast and parses the packet before rebroadcasting it. At that point node A will receive that very packet again. 
+	Whenever node A receives a packet via the WiFi connection it will rebroadcast the information on the Ethernet to inform neighbor nodes about the existance of the source node. Node B receives the broadcast and parses the packet before rebroadcasting it. At that point node A will receive that very packet again.
+</para>
+<para>
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/hop_penalty4.pdf" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty4.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>packet hops</phrase> </textobject>
 	</inlinemediaobject>
-
+</para>
+<para>
 	B.A.T.M.A.N. III would have dropped the packet at this point. It has a duplicate packet detection based on sequence numbers only. The sequence number is known, hence the packet dropped (the fastest packet wins). In asymetric environments this may lead to suboptimal routing decisions. Therefore B.A.T.M.A.N. IV interprets the arrival of this packet as second path towards the originator. This path transmits the packet slower (due to more hops for example) but but may offer a better transmit quality. Duplicate sequence numbers are dropped if they arrive via the same neighbor.
 </para>
 <para>
 	On a lossy medium the TQ value is decreased while travelling from hop to hop (see asymetric link handling). The Ethernet connection does not suffer from packet loss which results in not decreasing the TQ value at all. Node A has 2 possible routes towards the originator: The node S itself and node B (both will advertise the same TQ value).
+</para>
+<para>
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/hop_penalty5.pdf" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty5.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>route candidates</phrase> </textobject>
 	</inlinemediaobject>
-
-
+</para>
+<para>
 	As B.A.T.M.A.N. IV values TQ and fastest packet the node A's route will point towards the node S. Once the WiFi link quality drops (for a few moments due to some collisions) the TQ value from the node S will drop. At that point the B.A.T.M.A.N. IV node A will change its route towards node B which offers a better TQ value. Node A and node B will send packets forth and back in a loop.
 </para>
 <para>
 	To overcome this issue B.A.T.M.A.N. IV introduces a hop penalty: Every time an OGM passes a node the TQ value will be decreased by a fixed value regardless of the asymetric link penalty before rebroadcasting the packet. In the given example it decrease the value of the second route via node B.
+</para>
+<para>
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/hop_penalty6.pdf" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty6.png" format="PNG"  /> </imageobject>
@@ -327,7 +356,19 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <sect2 id="batman4_tq_echo_cancellation">
 <title>Echo cancellation</title>
 <para>
-	TODO rebroadcast cancellation by adding IP of previous node because we don't drop packets
+	As explained in the hop penalty section B.A.T.M.A.N. IV floods the network with more packets than B.A.T.M.A.N. III due to the less strict duplicate detection mechanism. B.A.T.M.A.N. IV checks for unknown sequence numbers via a specific neighbor. If this combination is "new" the OGM will be accepted, processed and rebroadcasted. This may duplicate known information when the message "comes back" due to rebroadcasting (so called echos). In dense areas without heavy packet loss this leads to increased bandwidth and CPU usage.
+</para>
+<para>
+	Lets consider the following example: 3 nodes (A, B and C) in a row (A can hear B but not C). Node A emits an OGM, B hears and rebroadcasts it. This broadcast from B arrives at C which also rebroadcasts the message. B will receive the very OGM that it sent before and happily rebroadcast again (the echo of its own message). [figure1]
+</para>
+<para>
+	To detect echos (messages that already passed through a node) B.A.T.M.A.N. IV introduces a new protocol field called "old originator" which contains the IP address of the node rebroadcasting the OGM. Whenever a node receives a message from a neighbor it will fill the "old originator" field with the address of this neighbor before rebroadcasting it. If the neighbor recognizes his own IP address in the "old originator" field the packet will be ignored. [figure2]
+</para>
+<para>
+	Back to the example: Node B will ignore (drop) the packet coming back from node C as node C wrote the IP address of node B in the "old originator" field. [figure3]
+</para>
+<para>
+	Even in more sophisticated scenarios with more nodes/hops this concept successfully reduces the packets. It ensures that packet only travels paths which did not see this OGM before. [figure4]
 </para>
 </sect2>
 
