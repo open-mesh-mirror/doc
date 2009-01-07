@@ -1,7 +1,7 @@
 = Mailing List =
-You can subscribe to our Mailing List [https://list.open-mesh.org/mm/listinfo/b.a.t.m.a.n here]. You can also send an E-Mail without subscription to [mailto:b.a.t.m.a.n@open-mesh.org b.a.t.m.a.n@open-mesh.org], but note that this message will have to be accepted manually (and this can take some time). 
+You can subscribe to our Mailing List [https://lists.open-mesh.org/mm/listinfo/b.a.t.m.a.n here]. You can also send an E-Mail without subscription to [mailto:b.a.t.m.a.n@open-mesh.org b.a.t.m.a.n@open-mesh.org], but note that this message will have to be accepted manually (and this can take some time). 
 
-Old messages can be read in the [http://list.open-mesh.org/pipermail/b.a.t.m.a.n/ B.A.T.M.A.N. archives].
+Old messages can be read in the [http://lists.open-mesh.org/pipermail/b.a.t.m.a.n/ B.A.T.M.A.N. archives].
 
 If you prefere a NNTP client, read our Mailing List on [http://dir.gmane.org/gmane.org.freifunk.batman GMANE].
 
