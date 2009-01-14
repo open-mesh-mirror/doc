@@ -16,9 +16,9 @@ You can check out our SVN repository and the various batman branches
  * upcoming B.A.T.M.A.N. 0.3.1 branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
  * B.A.T.M.A.N. experimental (BMX) branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-experimental/}}}''
  * B.A.T.M.A.N. advanced: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/}}}''
- * battool (for B.A.T.M.A.N. advanced): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/battool/}}}''
  * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
- * Visualization server: check out the complete repository, cd into vis (we're using symlinks here ...)
+ * battool (for B.A.T.M.A.N. advanced): check out the complete repository, cd into battool (we're using symlinks here ...)
+ * Visualization server: check out the complete repository, cd into vis
 
 === Debian ===
 
@@ -36,7 +36,7 @@ There are various pre-compiled binaries available:
  * [http://downloads.open-mesh.org/batman/stable/binaries/wrt-freifunk/batmand_0.3-current_mipsel-wr-elf-32-lsb-dynamic.ipk WRT-Freifunk]
  * [http://downloads.open-mesh.org/batman/stable/binaries/zaurus-akita Zaurus-Akita]
  * [http://downloads.open-mesh.org/batman/stable/binaries/netgear-kamikaze Netgear-Kamikaze]
- * [http://downloads.open-mesh.org/batman/stable/binaries/meshcube/ Meshcube (static)]
+ * [http://downloads.open-mesh.net/batman/stable/binaries/meshcube/ Meshcube (static)]
  * [http://downloads.open-mesh.org/batman/stable/binaries/i386 i386 (static)]
  * [http://downloads.open-mesh.org/batman/stable/binaries/fonera fonera (static)]
  * [http://downloads.open-mesh.org/batman/stable/binaries/fonera-kamikaze fonera-kamikaze]
