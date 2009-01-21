@@ -138,9 +138,9 @@ the following we will explain all parameters and how to work with them in a mesh
 network.
 
 \subsection{SYNOPSIS}
-\begin{verb}
+\begin{verbatim}
 batmand [options] interface [interface interface]
-\end{verb}
+\end{verbatim}
 
 
 \subsection{DESCRIPTION}
@@ -175,10 +175,12 @@ The default value is 1000 ms (1 second).
 In a mobile network, you may want to detect network changes very quickly, so you
 need to send message very often, for example, use a value of 500 ms. In a static
 network, you can save bandwidth by using a higher value.
-\begin{verbatim} batmand -o 2000 eth1\end{verbatim}
+\begin{verbatim}
+ $ batmand -o 2000 eth1
+\end{verbatim}
 In this case, batmand will wait 2 second until sending the next OGMs.
 
-\begin{verbatim} -d debug level\end{verbatim}
+\subsubsectionttt{-d debug level}
 The debug level can be set to five values.
 
 \begin{description}
