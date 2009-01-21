@@ -238,14 +238,36 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	B.A.T.M.A.N. IV can not always rebroadcast the newly calculated TQ that came with the latest OGM. Instead the TQ that was received via the best neighbor is rebroadcasted to support asymetric link scenarios better.
 </para>
 <para>
-	Example: Node A and B are neighbors. Node A has a good connection towards node B but not vice versa. The node C has a good connection towards node A, has a good receiving link quality and bad sending quality towards B. [bild1]
+	Example: Node A and B are neighbors. Node A has a good connection towards node B but not vice versa. The node C has a good connection towards node A and a bad connection back, and C has a good receiving link quality and bad sending quality towards B. </para>
+<para>
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/tq_prop_best1.pdf" format="EPS" scale="40" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop_best1.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>TQ propagation - example topology</phrase> </textobject>
+	</inlinemediaobject>
 </para>
 <para>
-	Due to this layout the originator messages from node A have a good chance arriving at B but the TQ value propagated by node B is very low due to the high packet loss towards node A. The messages from node A that travel via node C have a low probablity arriving at node B due to the packet loss towards node B but have a much better TQ value. Node B will propagate many messages with a low TQ value (received from node A directly) and a few messages with a high TQ value (received from node A via node C) although the connection towards node A is very good. [bild2]
+	Due to this layout the originator messages from node A have a good chance arriving at B but the TQ value propagated by node B is very low due to the high packet loss towards node A. The messages from node A that travel via node C have a low probablity arriving at node B due to the packet loss towards node B but have a much better TQ value. Node B will propagate many messages with a low TQ value (received from node A directly) and a few messages with a high TQ value (received from node A via node C) although the connection towards node A is very good. 
 </para>
+<para>
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/tq_prop_best2.pdf" format="EPS" scale="40" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop_best2.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>TQ propagation - different paths for the OGM</phrase> </textobject>
+	</inlinemediaobject>
+</para>
+
 <para>
 	Therefore, B.A.T.M.A.N. IV will rebroadcast the received OGM with the TQ value of the best neighbor towards the originator. In the given example node B will place the TQ value received via node C in the message from node A before rebroadcasting it. It will flood its best TQ only. [bild3]
 </para>
+<para>
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/tq_prop_best3.pdf" format="EPS" scale="40" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop_best3.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>TQ propagation - only the best path is propagated</phrase> </textobject>
+	</inlinemediaobject>
+</para>
+
 </sect2>
 
 <sect2 id="batman4_local_global_tq">
@@ -359,16 +381,32 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	As explained in the hop penalty section B.A.T.M.A.N. IV floods the network with more packets than B.A.T.M.A.N. III due to the less strict duplicate detection mechanism. B.A.T.M.A.N. IV checks for unknown sequence numbers via a specific neighbor. If this combination is "new" the OGM will be accepted, processed and rebroadcasted. This may duplicate known information when the message "comes back" due to rebroadcasting (so called echos). In dense areas without heavy packet loss this leads to increased bandwidth and CPU usage.
 </para>
 <para>
-	Lets consider the following example: 3 nodes (A, B and C) in a row (A can hear B but not C). Node A emits an OGM, B hears and rebroadcasts it. This broadcast from B arrives at C which also rebroadcasts the message. B will receive the very OGM that it sent before and happily rebroadcast again (the echo of its own message). [figure1]
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/echo_cancel1.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/echo_cancel1.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>communication without echo cancellation penalty</phrase> </textobject>
+	</inlinemediaobject>
+
+</para>
+
+<para>
+	Lets consider the following example: 3 nodes (A, B and C) in a row (A can hear B but not C). Node A emits an OGM, B hears and rebroadcasts it. This broadcast from B arrives at C which also rebroadcasts the message. B will receive the very OGM that it sent before and happily rebroadcast again (the echo of its own message).
 </para>
 <para>
-	To detect echos (messages that already passed through a node) B.A.T.M.A.N. IV introduces a new protocol field called "old originator" which contains the IP address of the node rebroadcasting the OGM. Whenever a node receives a message from a neighbor it will fill the "old originator" field with the address of this neighbor before rebroadcasting it. If the neighbor recognizes his own IP address in the "old originator" field the packet will be ignored. [figure2]
+	To detect echos (messages that already passed through a node) B.A.T.M.A.N. IV introduces a new protocol field called "old originator" which contains the IP address of the node rebroadcasting the OGM. Whenever a node receives a message from a neighbor it will fill the "old originator" field with the address of this neighbor before rebroadcasting it. If the neighbor recognizes his own IP address in the "old originator" field the packet will be ignored.
 </para>
 <para>
-	Back to the example: Node B will ignore (drop) the packet coming back from node C as node C wrote the IP address of node B in the "old originator" field. [figure3]
+	Back to the example: Node B will ignore (drop) the packet coming back from node C as node C wrote the IP address of node B in the "old originator" field.
 </para>
 <para>
-	Even in more sophisticated scenarios with more nodes/hops this concept successfully reduces the packets. It ensures that packet only travels paths which did not see this OGM before. [figure4]
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/echo_cancel2.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/echo_cancel2.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>communication without echo cancellation penalty</phrase> </textobject>
+	</inlinemediaobject>
+</para>
+<para>
+	Even in more sophisticated scenarios with more nodes/hops this concept successfully reduces the packets. It ensures that packet only travels paths which did not see this OGM before. 
 </para>
 </sect2>
 
