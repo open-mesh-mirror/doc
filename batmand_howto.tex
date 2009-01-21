@@ -32,7 +32,6 @@
 }
 
 \usepackage[utf8x]{inputenc}
-\usepackage{listings}
 
 \usepackage{graphicx}
 \graphicspath{{../img/}}
@@ -72,26 +71,58 @@
 The following document will explain how to install and use the batman daemon.
 \end{abstract}
 
+
 \section{Installing from source}
-?
-
 \subsection{Prerequirements}
-?
 
-Compile environment and libraries. 1. 2. 3. 4. gcc  libc6 dev build essential  binutils 5. makedev 6. make 7. libpthread
+\begin{itemize}
+ \item Compile environment and libraries.
+       \begin{enumerate}
+        \item gcc
+        \item libc6-dev
+        \item build-essential
+        \item binutils
+        \item makedev
+        \item GNU make
+        \item libpthread
+       \end{enumerate}
+\item Download the batman daemon code from the website
 
-?
+     \url{http://www.open-mesh.net/wiki/Download}
+\end{itemize}
 
-Download the batman daemon code from the website
-
- http://open mesh.net/batman/downloads
-?
 
 \subsection{Compiling}
-All you have to do is untar and make, then you will see the executable file called ?batmand?. \$ wget http://downloads.open mesh.net/batman/stable/sources/batmand\_0.2  current\_sources.tgz \$ tar xzvf batmand\_0.2 current\_sources.tgz \$ cd batmand\_0.2 rv451\_sources \$ make If you want reduce the size of executable file, just strip it by executing:  \$ strip batmand Note that if you want to help us finding a bug in the daemon, please don't strip it.
+All you have to do is untar and make, then you will see the executable file called \emph{batmand}.
+
+{\footnotesize
+\begin{verbatim}
+ $ wget \
+http://downloads.open-mesh.net/batman/stable/sources/batman/batman-0.3.tar.gz
+ $ tar xzvf batman-0.3.tar.gz
+ $ cd batman-0.3
+ $ make
+\end{verbatim}
+}
+
+If you want reduce the size of executable file, just strip it by executing: 
+
+\begin{verbatim}
+ $ strip batmand
+\end{verbatim}
+
+Note that if you want to help us finding a bug in the daemon, please don't strip it.
 
 \subsection{Installing}
-Copy ?batmand? to a location somewhere in your path, for example \$ cp batmand /usr/sbin/ Or start it right from the directory where you compiled it \$ ./batmand
+Copy \emph{batmand} to a location somewhere in your path, for example
+\begin{verbatim}
+ $ cp batmand /usr/sbin/
+\end{verbatim}
+Or start it right from the directory where you compiled it
+\begin{verbatim}
+ $ ./batmand
+\end{verbatim}
+
 
 \section{Usage}
 If you execute batmand  h or  H, you will see the help page, in the following we will explain  all parameters and how to work with them in a mesh network.
