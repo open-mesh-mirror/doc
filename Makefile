@@ -9,6 +9,9 @@ TEXFLAGS += -interaction=batchmode
 all: $(OUTPUT)
 
 $(OUTPUT): $(SOURCE) $(IMAGES)
+	# TOC
+	pdflatex $(TEXFLAGS) $(SOURCE)
+	# actual output
 	pdflatex $(TEXFLAGS) $(SOURCE)
 
 clean:
