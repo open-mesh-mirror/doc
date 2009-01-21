@@ -69,9 +69,12 @@
 \maketitle
 
 \begin{abstract}
- B.A.T.M.A.N stands for ``better approach to mobile ad hoc networking'', this is a new routing protocol for multi-hop ad-hoc mesh networks. Go to \url{http://www.open-mesh.net} to see more information.
+B.A.T.M.A.N stands for ``better approach to mobile ad hoc networking'', this is
+a new routing protocol for multi-hop ad-hoc mesh networks. Go to
+\url{http://www.open-mesh.net} to see more information.
 
-The following document will explain how to install and use the B.A.T.M.A.N. daemon.
+The following document will explain how to install and use the B.A.T.M.A.N.
+daemon.
 \end{abstract}
 
 
@@ -96,7 +99,8 @@ The following document will explain how to install and use the B.A.T.M.A.N. daem
 
 
 \subsection{Compiling}
-All you have to do is untar and make, then you will see the executable file called \emph{batmand}.
+All you have to do is untar and make, then you will see the executable file
+called \emph{batmand}.
 
 {\footnotesize
 \begin{verbatim}
@@ -114,7 +118,8 @@ If you want reduce the size of executable file, just strip it by executing:
  $ strip batmand
 \end{verbatim}
 
-Note that if you want to help us finding a bug in the daemon, please don't strip it.
+Note that if you want to help us finding a bug in the daemon, please don't strip
+it.
 
 \subsection{Installing}
 Copy \emph{batmand} to a location somewhere in your path, for example
@@ -128,7 +133,9 @@ Or start it right from the directory where you compiled it
 
 
 \section{Usage}
-If you execute \verb+batmand -h+ or \verb+-H+, you will see the help page, in the following we will explain all parameters and how to work with them in a mesh network.
+If you execute \verb+batmand -h+ or \verb+-H+, you will see the help page, in
+the following we will explain all parameters and how to work with them in a mesh
+network.
 
 \subsection{SYNOPSIS}
 \begin{verb}
@@ -137,7 +144,8 @@ batmand [options] interface [interface interface]
 
 
 \subsection{DESCRIPTION}
-You can start batmand without specifying options, but you have to choose at least one interface batmand runs on.
+You can start batmand without specifying options, but you have to choose at
+least one interface batmand runs on.
 \begin{verbatim}
  $ batmand eth1
 \end{verbatim}
@@ -145,20 +153,28 @@ If you have more interfaces, then you just add them behind the first.
 \begin{verbatim}
  $ batmand eth1 eth2 eth3
 \end{verbatim}
-The B.A.T.M.A.N. daemon can also run on alias interfaces. Note that we use alias interfaces to separate B.A.T.M.A.N. routing protocol and olsr routing protocol.
+The B.A.T.M.A.N. daemon can also run on alias interfaces. Note that we use alias
+interfaces to separate B.A.T.M.A.N. routing protocol and olsr routing protocol.
 \begin{verbatim}
  $ batmand eth1:test1 eth2:test2 eth3:test3
 \end{verbatim}
-Note that the B.A.T.M.A.N. daemon will take the ip address and the broadcast address from the given interfaces.
+Note that the B.A.T.M.A.N. daemon will take the ip address and the broadcast
+address from the given interfaces.
 
-Note also that you have to check whether your essid, channel or wifi mode is correct or not.
+Note also that you have to check whether your essid, channel or wifi mode is
+correct or not.
 
 \subsubsectionttt{-o originator interval in ms}
- Originator means a node transmits broadcast messages (we call them originator message or OGM) to inform the neighboring nodes about its existence. Originator interval is the time to wait after sending one message and before the B.A.T.M.A.N. daemon sends the next message.
+ Originator means a node transmits broadcast messages (we call them originator
+ message or OGM) to inform the neighboring nodes about its existence. Originator
+ interval is the time to wait after sending one message and before the
+ B.A.T.M.A.N. daemon sends the next message.
 
 The default value is 1000 ms (1 second).
 
-In a mobile network, you may want to detect network changes very quickly, so you need to send message very often, for example, use a value of 500 ms. In a static network, you can save bandwidth by using a higher value.
+In a mobile network, you may want to detect network changes very quickly, so you
+need to send message very often, for example, use a value of 500 ms. In a static
+network, you can save bandwidth by using a higher value.
 \begin{verbatim} batmand -o 2000 eth1\end{verbatim}
 In this case, batmand will wait 2 second until sending the next OGMs.
 
@@ -191,13 +207,23 @@ eth2 105.131.131.175, UT: 0d 0h 3m]
 \end{lstlisting}
 
 \begin{itemize}
-\item In the first line, we will see the version of the B.A.T.M.A.N. daemon, main interface, main IP, and uptime.
+\item In the first line, we will see the version of the B.A.T.M.A.N. daemon,
+      main interface, main IP, and uptime.
 \item In the first column, we can see those IPs which we can reach.
-\item In the second column, we can see those IPs which we sent our packets to when we want to reach the IP of the first column. The number in the parenthesis indicates the link quality of the connection and the \verb|#/128| shows the maximum number of packets.
-\item In the third column, we can see those IPs which are one hop neighbors and rebroadcasted packets from the originator. The B.A.T.M.A.N. daemon will choose the router with the best link quality from the potential router list.
+\item In the second column, we can see those IPs which we sent our packets to
+      when we want to reach the IP of the first column. The number in the
+      parenthesis indicates the link quality of the connection and the
+      \verb|#/128| shows the maximum number of packets.
+\item In the third column, we can see those IPs which are one hop neighbors and
+      rebroadcasted packets from the originator. The B.A.T.M.A.N. daemon will
+      choose the router with the best link quality from the potential router
+      list.
 \end{itemize}
 
-In this case, 105.131.1.2 is a one hop neighbor of 105.131.131.175, because the 105.131.1.2 is originator, router and potential router at the same time. If 105.131.131.175 wants to exchange data with the 105.131.83.2, then it will sent its packets to the 105.131.1.3, because it is the router for this destination.
+In this case, 105.131.1.2 is a one hop neighbor of 105.131.131.175, because the
+105.131.1.2 is originator, router and potential router at the same time. If
+105.131.131.175 wants to exchange data with the 105.131.83.2, then it will sent
+its packets to the 105.131.1.3, because it is the router for this destination.
 
 \paragraph*{Level 2}
 just lists gateways in the B.A.T.M.A.N. network.
@@ -210,17 +236,32 @@ Gateway         Router (#/128)
 
 \begin{itemize}
 \item In the first column, we can see those IPs which are our gateways.
-\item In the second column, we can see those IPs which we sent our packets to when we want to reach the IP of the first column. The number in the parenthesis indicates the link quality of the connection and the \verb|#/128| shows the maximum number of packets. The \verb|gw_class| means gateway class of the gateway and \verb|11 ->6 MBit| means how much bandwidth the gateway owner wants to share. The reliability means how good the quality of the internet connection is. In this case, \verb|0| means this is the best quality. The reliability number will increase if the quality is poor.
+\item In the second column, we can see those IPs which we sent our packets to
+      when we want to reach the IP of the first column. The number in the
+      parenthesis indicates the link quality of the connection and the
+      \verb|#/128| shows the maximum number of packets. The \verb|gw_class|
+      means gateway class of the gateway and \verb|11 ->6 MBit| means how much
+      bandwidth the gateway owner wants to share. The reliability means how good
+      the quality of the internet connection is. In this case, \verb|0| means
+      this is the best quality. The reliability number will increase if the
+      quality is poor.
 \end{itemize}
 
 \paragraph*{Level 3}
-has more information about the neighbors, or shows the error message when you have an incorrect command. Note that if there is no neighbor in the B.A.T.M.A.N. network, then it will display nothing.
+has more information about the neighbors, or shows the error message when you
+have an incorrect command. Note that if there is no neighbor in the B.A.T.M.A.N.
+network, then it will display nothing.
 
 \paragraph*{Level 4}
-has so many information about the B.A.T.M.A.N. network, for example, how many packets you sent, and sent to where, or how many packets you got, and received from where etc.
+has so many information about the B.A.T.M.A.N. network, for example, how many
+packets you sent, and sent to where, or how many packets you got, and received
+from where etc.
 
 \subsubsectionttt{-c connect via unix socket}
-The B.A.T.M.A.N. daemon offers a unix socket interface to which you can connect. First, you have to create a B.A.T.M.A.N. daemon on your host, then use -c to connect to its interface. Note you can create as many client sockets as you like.
+The B.A.T.M.A.N. daemon offers a unix socket interface to which you can connect.
+First, you have to create a B.A.T.M.A.N. daemon on your host, then use -c to
+connect to its interface. Note you can create as many client sockets as you
+like.
 
 \begin{center}
 \includegraphics[scale=0.5]{multiple_clients}
@@ -230,12 +271,14 @@ The B.A.T.M.A.N. daemon offers a unix socket interface to which you can connect.
  $ batmand eth1
  $ batmand -c -d 1
 \end{verbatim}
- In this case, you ask the daemon to output debug level 1 in your current shell. The B.A.T.M.A.N. daemon will update the information after a period of time.
+In this case, you ask the daemon to output debug level 1 in your current shell.
+The B.A.T.M.A.N. daemon will update the information after a period of time.
 
 Note that if you use -c flag, then you only can use -d to see the debug level.
 
 \subsubsectionttt{-b run connection in batch mode}
-The debug information are updated after a period of time by default, so if you use -b it will execute once and then stop.
+The debug information are updated after a period of time by default, so if you
+use -b it will execute once and then stop.
 \begin{verbatim}
  $ batmand eth1
  $ batmand -b -c -d 1
@@ -245,7 +288,8 @@ In this case, it means run debug level 1 once.
 Note that -b can only be used with -c and debug level 1 \& 2.
 
 \subsubsectionttt{-g gateway class}
-Gateway class can set eleven values, it means how much bandwidth you want to share.
+Gateway class can set eleven values, it means how much bandwidth you want to
+share.
 \begin{description}
  \item[0] this is not an internet gateway (default)
  \item[1] modem line
@@ -264,10 +308,13 @@ You only can set the value in a normal start
 \begin{verbatim}
  $ batmand -g 7 -d 3 eth1
 \end{verbatim}
-Note that if you use debug level 3, then you will know whether you succeed setting the gateway class or not.
+Note that if you use debug level 3, then you will know whether you succeed
+setting the gateway class or not.
 
 \subsubsectionttt{-r routing class}
-Routing class can set to four values, it means this node in the B.A.T.M.A.N. network wants to connect the Internet and chooses its internet gateway based on certain criteria:
+Routing class can set to four values, it means this node in the B.A.T.M.A.N.
+network wants to connect the Internet and chooses its internet gateway based on
+certain criteria:
 \begin{description}
 \item[0] set no default route (default)
 \item[1] use fast internet connection
@@ -276,64 +323,88 @@ Routing class can set to four values, it means this node in the B.A.T.M.A.N. net
 \end{description}
 
 \paragraph*{Level 1}
-B.A.T.M.A.N tries to find the best available connection by watching the uplinks throughput and the link quality.
+B.A.T.M.A.N tries to find the best available connection by watching the uplinks
+throughput and the link quality.
 
 \paragraph*{Level 2}
-B.A.T.M.A.N observes the internet nodes and tries to find out which one is the most reliable. This mode is not implemented yet but will follow in batmand 0.3.
+B.A.T.M.A.N observes the internet nodes and tries to find out which one is the
+most reliable. This mode is not implemented yet but will follow in batmand 0.3.
 
 \paragraph*{Level 3}
-B.A.T.M.A.N only compares the link quality of the internet node and chooses the one with the best connection.
+B.A.T.M.A.N only compares the link quality of the internet node and chooses the
+one with the best connection.
 
 \begin{verbatim}
  $ batmand -r 3 -d 3 eth1
 \end{verbatim}
-In this case, the B.A.T.M.A.N. daemon will choose the best statistic internet connection for you. Note that if you use debug level 3, then you will know whether you succeeded setting the routing class or not.
+In this case, the B.A.T.M.A.N. daemon will choose the best statistic internet
+connection for you. Note that if you use debug level 3, then you will know
+whether you succeeded setting the routing class or not.
 
 \subsubsectionttt{-p preferred gateway}
 Set the default gateway by yourself.
 
-Note that you have to use -r to tell B.A.T.M.A.N. daemon you want to set the default gateway, because -r will be used if the preferred gateway is not available.
+Note that you have to use -r to tell B.A.T.M.A.N. daemon you want to set the
+default gateway, because -r will be used if the preferred gateway is not
+available.
 
 \begin{verbatim}
  $ batmand -r 3 -d 3 -p 192.168.1.1 eth1
 \end{verbatim}
-In this case, you set 192.168.1.1 as your preferred gateway, so all of your internet packets will be sent to the 192.168.1.1.
+In this case, you set 192.168.1.1 as your preferred gateway, so all of your
+internet packets will be sent to the 192.168.1.1.
 
 \subsubsectionttt{-a announce network(s)}
-\emph{announce network} means a node announces the connection to another network. For example, if you are the node A, and you can connect to \emph{other network}, then you can execute a to announce the gateway.
+\emph{announce network} means a node announces the connection to another
+network. For example, if you are the node A, and you can connect to \emph{other
+network}, then you can execute a to announce the gateway.
 
 \begin{center}
 \includegraphics[scale=0.8]{announce_networks}
 \end{center}
 
-If the other nodes in the B.A.T.M.A.N. network want to connect to node B after receiving the announce network information form node A, then they will know they can use node A as gateway to reach node B. Now, you know what a announced network is, but executing this command is wrong:
+If the other nodes in the B.A.T.M.A.N. network want to connect to node B after
+receiving the announce network information form node A, then they will know they
+can use node A as gateway to reach node B. Now, you know what a announced
+network is, but executing this command is wrong:
 \begin{verbatim}
  $ batmand -a 192.168.100.101 eth1
 \end{verbatim}
 
-Because you have to specify the netmask parameter and different netmask parameters cause different results. Let's make a example:
+Because you have to specify the netmask parameter and different netmask
+parameters cause different results. Let's make a example:
 \begin{verbatim}
  $ batmand -a 192.168.100.101/32 eth1
 \end{verbatim}
-In this case, it means that node A can only connect to node B, because your parameter is /32.
+In this case, it means that node A can only connect to node B, because your
+parameter is /32.
 
 \begin{verbatim}
  $ batmand -a 192.168.100.101/24 eth1
 \end{verbatim}
-In this case, it means that node A can connect to the whole 192.168.100.x network, because your parameter is /24. So, if you use different netmask values, then the results are different.
+In this case, it means that node A can connect to the whole 192.168.100.x
+network, because your parameter is /24. So, if you use different netmask values,
+then the results are different.
 
 \begin{center}
 \includegraphics[scale=0.8]{multiple_announces}
 \end{center}
 
-Node A can announce more than one network. To announce two networks execute the following command:
+Node A can announce more than one network. To announce two networks execute the
+following command:
 \begin{verbatim}
  $ batmand -a 192.168.100.101/24 -a 192.168.200.201/24 eth1
 \end{verbatim}
 Note that node A has to have a route to connect the node or network.
 
 \subsubsectionttt{-s visualization server}
-Since no topology database is computed by the protocol an additional solution to create topology graphs has been implemented, the Vis-Server. B.A.T.M.A.N. daemons may send their local view about their single hop neighbors to the Vis-server. The Vis-Server collects the information and provides data in a format similar to OLSR's topology information output. Therefore existing solutions to draw topology graphs developed for OLSR can be used to visualize mesh clouds using B.A.T.M.A.N.
+Since no topology database is computed by the protocol an additional solution to
+create topology graphs has been implemented, the Vis-Server. B.A.T.M.A.N.
+daemons may send their local view about their single hop neighbors to the
+Vis-server. The Vis-Server collects the information and provides data in a
+format similar to OLSR's topology information output. Therefore existing
+solutions to draw topology graphs developed for OLSR can be used to visualize
+mesh clouds using B.A.T.M.A.N.
 
 \section{Reference Links}
 \begin{itemize}
@@ -343,14 +414,16 @@ Since no topology database is computed by the protocol an additional solution to
 
 \section{Troubleshooting}
 \subsection{Why the B.A.T.M.A.N. daemon doesn't reload the setting after I fixed the main IP?}
-You have to restart the B.A.T.M.A.N. daemon after you modified any network configuration, otherwise the B.A.T.M.A.N. daemon won't use the new settings.
+You have to restart the B.A.T.M.A.N. daemon after you modified any network
+configuration, otherwise the B.A.T.M.A.N. daemon won't use the new settings.
 \begin{verbatim}
  $ killall batmand
  $ batmand eth1
 \end{verbatim}
 
 \subsection{Why I can't connect to the Internet after setting the default gateway?}
-You have to use NAT on your gateway or firewall if you use the -r or -p options to set default route.
+You have to use NAT on your gateway or firewall if you use the -r or -p options
+to set default route.
 \begin{verbatim}
  $ iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
 \end{verbatim}
@@ -361,6 +434,8 @@ Note that you don't set the default route by yourself.
 \begin{center}
  \includegraphics[scale=0.8]{byncsa30}
 \end{center}
-This work is licensed under the Creative Commons Attribution-Noncommercial-Share Alike 3.0 License. To
-view a copy of this license, visit \url{http://creativecommons.org/licenses/by-nc-sa/3.0/} or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
+This work is licensed under the Creative Commons Attribution-Noncommercial-Share
+Alike 3.0 License. To view a copy of this license, visit
+\url{http://creativecommons.org/licenses/by-nc-sa/3.0/} or send a letter to
+Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
 \end{document}
