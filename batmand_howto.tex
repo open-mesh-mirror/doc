@@ -139,7 +139,7 @@ network.
 
 \subsection{SYNOPSIS}
 \begin{verbatim}
-batmand [options] interface [interface interface]
+batmand [options] interface [interface...]
 \end{verbatim}
 
 
@@ -164,21 +164,78 @@ address from the given interfaces.
 Note also that you have to check whether your essid, channel or wifi mode is
 correct or not.
 
-\subsubsectionttt{-o originator interval in ms}
- Originator means a node transmits broadcast messages (we call them originator
- message or OGM) to inform the neighboring nodes about its existence. Originator
- interval is the time to wait after sending one message and before the
- B.A.T.M.A.N. daemon sends the next message.
+\subsubsectionttt{-a announce network(s)}
+\emph{announce network} means a node announces the connection to another
+network. For example, if you are the node A, and you can connect to \emph{other
+network}, then you can execute a to announce the gateway.
 
-The default value is 1000 ms (1 second).
+\begin{center}
+\includegraphics[scale=0.8]{announce_networks}
+\end{center}
 
-In a mobile network, you may want to detect network changes very quickly, so you
-need to send message very often, for example, use a value of 500 ms. In a static
-network, you can save bandwidth by using a higher value.
+If the other nodes in the B.A.T.M.A.N. network want to connect to node B after
+receiving the announce network information form node A, then they will know they
+can use node A as gateway to reach node B. Now, you know what a announced
+network is, but executing this command is wrong:
 \begin{verbatim}
- $ batmand -o 2000 eth1
+ $ batmand -a 192.168.100.101 eth1
 \end{verbatim}
-In this case, batmand will wait 2 second until sending the next OGMs.
+
+Because you have to specify the netmask parameter and different netmask
+parameters cause different results. Let's make a example:
+\begin{verbatim}
+ $ batmand -a 192.168.100.101/32 eth1
+\end{verbatim}
+In this case, it means that node A can only connect to node B, because your
+parameter is /32.
+
+\begin{verbatim}
+ $ batmand -a 192.168.100.101/24 eth1
+\end{verbatim}
+In this case, it means that node A can connect to the whole 192.168.100.x
+network, because your parameter is /24. So, if you use different netmask values,
+then the results are different.
+
+\begin{center}
+\includegraphics[scale=0.8]{multiple_announces}
+\end{center}
+
+Node A can announce more than one network. To announce two networks execute the
+following command:
+\begin{verbatim}
+ $ batmand -a 192.168.100.101/24 -a 192.168.200.201/24 eth1
+\end{verbatim}
+Note that node A has to have a route to connect the node or network.
+
+\subsubsectionttt{-b run connection in batch mode}
+The debug information are updated after a period of time by default, so if you
+use -b it will execute once and then stop.
+\begin{verbatim}
+ $ batmand eth1
+ $ batmand -b -c -d 1
+\end{verbatim}
+In this case, it means run debug level 1 once.
+
+Note that -b can only be used with -c and debug level 1 \& 2.
+
+\subsubsectionttt{-c connect via unix socket}
+The B.A.T.M.A.N. daemon offers a unix socket interface to which you can connect.
+First, you have to create a B.A.T.M.A.N. daemon on your host, then use -c to
+connect to its interface. Note you can create as many client sockets as you
+like.
+
+\begin{center}
+\includegraphics[scale=0.5]{multiple_clients}
+\end{center}
+
+\begin{verbatim}
+ $ batmand eth1
+ $ batmand -c -d 1
+\end{verbatim}
+In this case, you ask the daemon to output debug level 1 in your current shell.
+The B.A.T.M.A.N. daemon will update the information after a period of time.
+
+Note that if you use -c flag, then you only can use -d to see the debug level.
 
 \subsubsectionttt{-d debug level}
 The debug level can be set to five values.
@@ -259,36 +316,6 @@ has so many information about the B.A.T.M.A.N. network, for example, how many
 packets you sent, and sent to where, or how many packets you got, and received
 from where etc.
 
-\subsubsectionttt{-c connect via unix socket}
-The B.A.T.M.A.N. daemon offers a unix socket interface to which you can connect.
-First, you have to create a B.A.T.M.A.N. daemon on your host, then use -c to
-connect to its interface. Note you can create as many client sockets as you
-like.
-
-\begin{center}
-\includegraphics[scale=0.5]{multiple_clients}
-\end{center}
-
-\begin{verbatim}
- $ batmand eth1
- $ batmand -c -d 1
-\end{verbatim}
-In this case, you ask the daemon to output debug level 1 in your current shell.
-The B.A.T.M.A.N. daemon will update the information after a period of time.
-
-Note that if you use -c flag, then you only can use -d to see the debug level.
-
-\subsubsectionttt{-b run connection in batch mode}
-The debug information are updated after a period of time by default, so if you
-use -b it will execute once and then stop.
-\begin{verbatim}
- $ batmand eth1
- $ batmand -b -c -d 1
-\end{verbatim}
-In this case, it means run debug level 1 once.
-
-Note that -b can only be used with -c and debug level 1 \& 2.
-
 \subsubsectionttt{-g gateway class}
 Gateway class can set eleven values, it means how much bandwidth you want to
 share.
@@ -312,6 +339,35 @@ You only can set the value in a normal start
 \end{verbatim}
 Note that if you use debug level 3, then you will know whether you succeed
 setting the gateway class or not.
+
+\subsubsectionttt{-o originator interval in ms}
+ Originator means a node transmits broadcast messages (we call them originator
+ message or OGM) to inform the neighboring nodes about its existence. Originator
+ interval is the time to wait after sending one message and before the
+ B.A.T.M.A.N. daemon sends the next message.
+
+The default value is 1000 ms (1 second).
+
+In a mobile network, you may want to detect network changes very quickly, so you
+need to send message very often, for example, use a value of 500 ms. In a static
+network, you can save bandwidth by using a higher value.
+\begin{verbatim}
+ $ batmand -o 2000 eth1
+\end{verbatim}
+In this case, batmand will wait 2 second until sending the next OGMs.
+
+\subsubsectionttt{-p preferred gateway}
+Set the default gateway by yourself.
+
+Note that you have to use -r to tell B.A.T.M.A.N. daemon you want to set the
+default gateway, because -r will be used if the preferred gateway is not
+available.
+
+\begin{verbatim}
+ $ batmand -r 3 -d 3 -p 192.168.1.1 eth1
+\end{verbatim}
+In this case, you set 192.168.1.1 as your preferred gateway, so all of your
+internet packets will be sent to the 192.168.1.1.
 
 \subsubsectionttt{-r routing class}
 Routing class can set to four values, it means this node in the B.A.T.M.A.N.
@@ -342,62 +398,6 @@ one with the best connection.
 In this case, the B.A.T.M.A.N. daemon will choose the best statistic internet
 connection for you. Note that if you use debug level 3, then you will know
 whether you succeeded setting the routing class or not.
-
-\subsubsectionttt{-p preferred gateway}
-Set the default gateway by yourself.
-
-Note that you have to use -r to tell B.A.T.M.A.N. daemon you want to set the
-default gateway, because -r will be used if the preferred gateway is not
-available.
-
-\begin{verbatim}
- $ batmand -r 3 -d 3 -p 192.168.1.1 eth1
-\end{verbatim}
-In this case, you set 192.168.1.1 as your preferred gateway, so all of your
-internet packets will be sent to the 192.168.1.1.
-
-\subsubsectionttt{-a announce network(s)}
-\emph{announce network} means a node announces the connection to another
-network. For example, if you are the node A, and you can connect to \emph{other
-network}, then you can execute a to announce the gateway.
-
-\begin{center}
-\includegraphics[scale=0.8]{announce_networks}
-\end{center}
-
-If the other nodes in the B.A.T.M.A.N. network want to connect to node B after
-receiving the announce network information form node A, then they will know they
-can use node A as gateway to reach node B. Now, you know what a announced
-network is, but executing this command is wrong:
-\begin{verbatim}
- $ batmand -a 192.168.100.101 eth1
-\end{verbatim}
-
-Because you have to specify the netmask parameter and different netmask
-parameters cause different results. Let's make a example:
-\begin{verbatim}
- $ batmand -a 192.168.100.101/32 eth1
-\end{verbatim}
-In this case, it means that node A can only connect to node B, because your
-parameter is /32.
-
-\begin{verbatim}
- $ batmand -a 192.168.100.101/24 eth1
-\end{verbatim}
-In this case, it means that node A can connect to the whole 192.168.100.x
-network, because your parameter is /24. So, if you use different netmask values,
-then the results are different.
-
-\begin{center}
-\includegraphics[scale=0.8]{multiple_announces}
-\end{center}
-
-Node A can announce more than one network. To announce two networks execute the
-following command:
-\begin{verbatim}
- $ batmand -a 192.168.100.101/24 -a 192.168.200.201/24 eth1
-\end{verbatim}
-Note that node A has to have a route to connect the node or network.
 
 \subsubsectionttt{-s visualization server}
 Since no topology database is computed by the protocol an additional solution to
