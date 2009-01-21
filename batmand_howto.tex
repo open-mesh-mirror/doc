@@ -344,11 +344,17 @@ Since no topology database is computed by the protocol an additional solution to
 \section{Troubleshooting}
 \subsection{Why the batman daemon doesn't reload the setting after I fixed the main IP?}
 You have to restart the batman daemon after you modified any network configuration,  otherwise the batman daemon won't use the new settings.
-
-\$ killall batmand   \$ batmand eth1
+\begin{verbatim}
+ $ killall batmand
+ $ batmand eth1
+\end{verbatim}
 
 \subsection{Why I can't connect to the Internet after setting the default gateway?}
-You have to use NAT on your gateway or firewall if you use the  r or  p options to set default  route. \$ iptables  t nat  A POSTROUTING  o eth1  j MASQUERADE Note that you don't set the default route by yourself.
+You have to use NAT on your gateway or firewall if you use the -r or -p options to set default route.
+\begin{verbatim}
+ $ iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+\end{verbatim}
+Note that you don't set the default route by yourself.
 
 This work is licensed under the Creative Commons Attribution Noncommercial Share Alike 3.0 License. To 
 view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative  Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
