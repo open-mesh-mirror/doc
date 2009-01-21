@@ -72,10 +72,11 @@ Aug 8, 2007
 B.A.T.M.A.N    Daemon   HowTo
 B.A.T.M.A.N stands for ? better approach to mobile ad hoc networking ?, this is a new  routing protocol for multi hop ad hoc mesh networks. Go to http://open mesh.net to see  more information. The following document will explain how to install and use the batman daemon.
 
-I.  Installing from source
+
+\section{Installing from source}
 ?
 
-Pre requirements
+\subsection{Prerequirements}
 ?
 
 Compile environment and libraries. 1. 2. 3. 4. gcc  libc6 dev build essential  binutils 5. makedev 6. make 7. libpthread
@@ -87,7 +88,7 @@ Download the batman daemon code from the website
  http://open mesh.net/batman/downloads
 ?
 
-Compiling
+\subsection{Compiling}
 All you have to do is untar and make, then you will see the executable file called ?batmand?. \$ wget http://downloads.open mesh.net/batman/stable/sources/batmand\_0.2  current\_sources.tgz \$ tar xzvf batmand\_0.2 current\_sources.tgz \$ cd batmand\_0.2 rv451\_sources \$ make If you want reduce the size of executable file, just strip it by executing:  \$ strip batmand Note that if you want to help us finding a bug in the daemon, please don't strip it.
 
 written by Wesley
@@ -101,19 +102,19 @@ wesleyboy42 AT gmail DOT com
 
 Aug 8, 2007
 
-Installing
+\subsection{Installing}
 Copy ?batmand? to a location somewhere in your path, for example \$ cp batmand /usr/sbin/ Or start it right from the directory where you compiled it \$ ./batmand
 
-II. Usage
+\section{Usage}
 If you execute batmand  h or  H, you will see the help page, in the following we will explain  all parameters and how to work with them in a mesh network.
 ?
 
 batmand [options] interface [interface interface]
 ?
 
-SYNOPSIS
+\subsection{SYNOPSIS}
 
-DESCRIPTION
+\subsection{DESCRIPTION}
 You can start batmand without specifying options, but you have to choose at least one  interface batman runs on. \$ batmand eth1 If you have more interfaces, then you just add them behind the first. \$ batmand eth1 eth2 eth3 The batman daemon can also run on alias interfaces. Note that we use alias interfaces to separate batman routing protocol and olsr routing  protocol. \$ batmand eth1:test1 eth2:test2 eth3:test3 Note that the batman daemon will take the ip address and the broadcast address from the  given interfaces. Note also that you have to check whether your essid, channel or wifi mode is correct or not.
 
 written by Wesley
@@ -187,13 +188,13 @@ Aug 8, 2007
 
 Node A can  announce more than one network. To announce two networks execute the following  command: \$ batmand   a 192.168.100.101/24   a 192.168.200.201/24 eth1  Note that node A has to have a route to connect the node or network.  s visualization server Since no topology database is computed by the protocol an additional solution to create  topology graphs has been implemented, the Vis Server. Batman daemons may send their  local view about their single hop neighbors to the Vis server. The Vis Server collects the  information and provides data in a format similar to OLSR?s topology information output.  Therefore existing solutions to draw topology graphs developed for OLSR can be used to  visualize mesh clouds using B.A.T.M.A.N.
 
-III.  Reference link
+\section{Reference link}
 ? ?
 
 http://open mesh.net/ <== B.A.T.M.A.N http://www.olsr.org/ <== OLSR 
 
-IV.  Troubleshooting
-1.  Why the batman daemon doesn't reload the setting after I fixed the main IP?
+\section{Troubleshooting}
+\subsection{Why the batman daemon doesn't reload the setting after I fixed the main IP?}
 You have to restart the batman daemon after you modified any network configuration,  otherwise the batman daemon won't use the new settings.  written by Wesley 8 wesleyboy42 AT gmail DOT com
 
 B.A.T.M.A.N. document
@@ -202,7 +203,7 @@ Aug 8, 2007
 
 \$ killall batmand   \$ batmand eth1
 
-2.  Why I can't connect to the Internet after setting the default gateway? 
+\subsection{Why I can't connect to the Internet after setting the default gateway?}
 You have to use NAT on your gateway or firewall if you use the  r or  p options to set default  route. \$ iptables  t nat  A POSTROUTING  o eth1  j MASQUERADE Note that you don't set the default route by yourself.
 
 This work is licensed under the Creative Commons Attribution Noncommercial Share Alike 3.0 License. To 
