@@ -164,9 +164,13 @@ address from the given interfaces.
 Note also that you have to check whether your essid, channel or wifi mode is
 correct or not.
 
-\subsubsectionttt{-a announce network(s)}
-\emph{announce network} means a node announces the connection to another
-network. For example, if you are the node A, and you can connect to \emph{other
+\subsubsectionttt{-a add announced network(s)}
+The daemon announces the availability of a connection to another network. This
+option can be used multiple times and can be used to add networks dynamically
+while the daemon is running. The parameter has to be in the form of
+ip-address/netmask.
+
+For example, if you are the node A, and you can connect to \emph{other
 network}, then you can execute a to announce the gateway.
 
 \begin{center}
@@ -207,9 +211,15 @@ following command:
 \end{verbatim}
 Note that node A has to have a route to connect the node or network.
 
+\subsubsectionttt{-A delete announced network(s)}
+Delete networks to the daemons list of available connections to another
+network(s). This option can be used multiple times and can only be used while
+the daemon is running. The parameter has to be in the form of
+ip-address/netmask.
+
 \subsubsectionttt{-b run connection in batch mode}
 The debug information are updated after a period of time by default, so if you
-use -b it will execute once and then stop.
+use "-b" it will execute once and then stop.
 \begin{verbatim}
  $ batmand eth1
  $ batmand -b -c -d 1
@@ -223,6 +233,8 @@ The B.A.T.M.A.N. daemon offers a unix socket interface to which you can connect.
 First, you have to create a B.A.T.M.A.N. daemon on your host, then use -c to
 connect to its interface. Note you can create as many client sockets as you
 like.
+Deploy it without any arguments to get the current configuration even if changed
+at runtime.
 
 \begin{center}
 \includegraphics[scale=0.5]{multiple_clients}
@@ -246,7 +258,9 @@ The debug level can be set to five values.
  \item[2] list gateways
  \item[3] observe batmand
  \item[4] observe batmand (very verbose)
+ \item[5] memory debug / cpu usage
 \end{description}
+Note that debug level 5 can be disabled at compile time.
 
 For example, you can run in normal start:
 \begin{verbatim}
@@ -317,51 +331,47 @@ packets you sent, and sent to where, or how many packets you got, and received
 from where etc.
 
 \subsubsectionttt{-g gateway class}
-Gateway class can set eleven values, it means how much bandwidth you want to
-share.
-\begin{description}
- \item[0] this is not an internet gateway (default)
- \item[1] modem line
- \item[2] ISDN line
- \item[3] double ISDN
- \item[4] 256 KBit
- \item[5] UMTS / 0.5 MBit
- \item[6] 1 MBit
- \item[7] 2 MBit
- \item[8] 3 MBit
- \item[9] 5 MBit
- \item[10] 6 MBit
- \item[11] $>$6 Mbit
-\end{description}
+The gateway class is used to tell other nodes in the network your available
+internet bandwidth. Just enter any number (optionally followed by "kbit" or
+"mbit") and the daemon will guess your appropriate gateway class. Use "/" to
+seperate the down- and upload rates. You can omit the upload rate and batmand
+will assume an upload of $\mathrm{download}\over{5}$.
+
+\begin{itemize}
+\item 5000
+\item 5000kbit
+\item 5mbit
+\item 5mbit/1024
+\item 5mbit/1024kbit
+\item 5mbit/1mbit
+\end{itemize}
 You only can set the value in a normal start
 \begin{verbatim}
- $ batmand -g 7 -d 3 eth1
+ $ batmand -g 5mbit/1024 -d 3 eth1
 \end{verbatim}
 Note that if you use debug level 3, then you will know whether you succeed
 setting the gateway class or not.
 
 \subsubsectionttt{-o originator interval in ms}
- Originator means a node transmits broadcast messages (we call them originator
- message or OGM) to inform the neighboring nodes about its existence. Originator
- interval is the time to wait after sending one message and before the
- B.A.T.M.A.N. daemon sends the next message.
-
-The default value is 1000 ms (1 second).
-
-In a mobile network, you may want to detect network changes very quickly, so you
-need to send message very often, for example, use a value of 500 ms. In a static
-network, you can save bandwidth by using a higher value.
+A node transmits broadcast messages (we call them originator message or OGM) to
+inform the neighboring nodes about it’s existence. Originator interval is the
+time to wait after sending one message and before sending the next message.
+The default value is 1000 ms (1 second). In a mobile network, you may want to
+detect network changes very quickly, so you need to send message very often, for
+example, use a value of 500 ms. In a static network, you can save bandwidth by
+using a higher value. This option is only available in daemon mode.
 \begin{verbatim}
  $ batmand -o 2000 eth1
 \end{verbatim}
 In this case, batmand will wait 2 second until sending the next OGMs.
 
 \subsubsectionttt{-p preferred gateway}
-Set the default gateway by yourself.
+Set the internet gateway by yourself. 
 
-Note that you have to use -r to tell B.A.T.M.A.N. daemon you want to set the
-default gateway, because -r will be used if the preferred gateway is not
-available.
+Note that this automatically switches your B.A.T.M.A.N. daemon to "internet
+search modus" with "-r 1" unless "-r" is given. If the preferred gateway is not
+found the gateway selection will use the current routing class to choose a
+gateway.
 
 \begin{verbatim}
  $ batmand -r 3 -d 3 -p 192.168.1.1 eth1
@@ -370,14 +380,15 @@ In this case, you set 192.168.1.1 as your preferred gateway, so all of your
 internet packets will be sent to the 192.168.1.1.
 
 \subsubsectionttt{-r routing class}
-Routing class can set to four values, it means this node in the B.A.T.M.A.N.
-network wants to connect the Internet and chooses its internet gateway based on
-certain criteria:
+The routing class can be set to four values - it enables "internet search
+modus". The daemon will choose an internet gateway based on certain criteria
+(unless "-p" is specified):
 \begin{description}
 \item[0] set no default route (default)
-\item[1] use fast internet connection
-\item[2] use stable internet connection
-\item[3] use best statistic internet connection
+\item[1] use fast connection
+\item[2] use stable connection
+\item[3] use fast-switch connection
+\item[XX] use late-switch connection
 \end{description}
 
 \paragraph*{Level 1}
@@ -385,12 +396,20 @@ B.A.T.M.A.N tries to find the best available connection by watching the uplinks
 throughput and the link quality.
 
 \paragraph*{Level 2}
-B.A.T.M.A.N observes the internet nodes and tries to find out which one is the
-most reliable. This mode is not implemented yet but will follow in batmand 0.3.
+B.A.T.M.A.N compares the link quality of the internet node and chooses the one
+with the best connection.
 
 \paragraph*{Level 3}
-B.A.T.M.A.N only compares the link quality of the internet node and chooses the
-one with the best connection.
+B.A.T.M.A.N compares the link quality of the internet node and chooses the one
+with the best connection but switches to another gateway as soon as a better
+connection is found.
+
+\paragraph*{Level XX}
+B.A.T.M.A.N compares the link quality of the internet node and chooses the one
+with the best link quality but switches to another gateway as soon as this
+gateway has a TQ value which is XX better than the currently selected gateway.
+
+XX ist a number between 3 and 256
 
 \begin{verbatim}
  $ batmand -r 3 -d 3 eth1
@@ -401,12 +420,19 @@ whether you succeeded setting the routing class or not.
 
 \subsubsectionttt{-s visualization server}
 Since no topology database is computed by the protocol an additional solution to
-create topology graphs has been implemented, the Vis-Server. B.A.T.M.A.N.
-daemons may send their local view about their single hop neighbors to the
-Vis-server. The Vis-Server collects the information and provides data in a
-format similar to OLSR's topology information output. Therefore existing
-solutions to draw topology graphs developed for OLSR can be used to visualize
-mesh clouds using B.A.T.M.A.N.
+create topology graphs has been implemented, the vis server. B.A.T.M.A.N.
+daemons may send their local view about their single-hop neighbors to the vis
+server. It collects the information and provides data in a format similar to
+OLSR's topology information output. Therefore existing solutions to draw
+topology graphs developed for OLSR can be used to visualize mesh-clouds
+using B.A.T.M.A.N.
+
+\subsubsectionttt{--policy-routing-script}
+This option disables the policy routing feature of batmand - all routing changes
+are send to the script which can make use of this information or not. Firmware
+and package maintainers can use this option to tightly integrate batmand into
+their own routing policies. This option is only available in daemon mode.
+
 
 \section{Reference Links}
 \begin{itemize}
