@@ -170,12 +170,13 @@ while the daemon is running. The parameter has to be in the form of
 ip-address/netmask.
 
 For example, if you are the node A, and you can connect to \emph{other
-network}, then you can execute a to announce the gateway.
+network}, then you can execute -a to announce the gateway.
 
 \begin{figure}[H]
  \begin{center}
    \input{img/announce_networks}
   \end{center}
+  \caption{Announce A as gateway to B}
 \end{figure}
 
 If the other nodes in the B.A.T.M.A.N. network want to connect to node B after
@@ -205,6 +206,7 @@ then the results are different.
  \begin{center}
   \input{img/multiple_announces}
  \end{center}
+  \caption{Two announced networks}
 \end{figure}
 
 Node A can announce more than one network. To announce two networks execute the
@@ -243,6 +245,7 @@ at runtime.
  \begin{center}
   \input{img/multiple_clients}
  \end{center}
+  \caption{Multiple clients connected to B.A.T.M.A.N. interface}
 \end{figure}
 
 \begin{verbatim}
