@@ -1,7 +1,7 @@
 *.pdf
-*.eps
 *.aux
 *.log
 *.out
 *~
+img/*.tex
 !img/by-nc-sa.pdf

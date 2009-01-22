@@ -33,8 +33,7 @@
 
 \usepackage[utf8x]{inputenc}
 
-\usepackage{graphicx}
-\graphicspath{{img/}}
+\usepackage{graphicx, tikz}
 \usepackage{hyperref}
 \usepackage{listings}
 
@@ -173,9 +172,11 @@ ip-address/netmask.
 For example, if you are the node A, and you can connect to \emph{other
 network}, then you can execute a to announce the gateway.
 
-\begin{center}
-\includegraphics[scale=0.5]{announce_networks}
-\end{center}
+\begin{figure}[H]
+ \begin{center}
+   \input{img/announce_networks}
+  \end{center}
+\end{figure}
 
 If the other nodes in the B.A.T.M.A.N. network want to connect to node B after
 receiving the announce network information form node A, then they will know they
@@ -200,9 +201,11 @@ In this case, it means that node A can connect to the whole 192.168.100.x
 network, because your parameter is /24. So, if you use different netmask values,
 then the results are different.
 
-\begin{center}
-\includegraphics[scale=0.5]{multiple_announces}
-\end{center}
+\begin{figure}[H]
+ \begin{center}
+  \input{img/multiple_announces}
+ \end{center}
+\end{figure}
 
 Node A can announce more than one network. To announce two networks execute the
 following command:
@@ -236,9 +239,11 @@ like.
 Deploy it without any arguments to get the current configuration even if changed
 at runtime.
 
-\begin{center}
-\includegraphics[scale=0.25]{multiple_clients}
-\end{center}
+\begin{figure}[h]
+ \begin{center}
+  \input{img/multiple_clients}
+ \end{center}
+\end{figure}
 
 \begin{verbatim}
  $ batmand eth1
@@ -460,7 +465,7 @@ Note that you don't set the default route by yourself.
 \vfill
 \section*{Copyright}
 \begin{center}
- \includegraphics[scale=0.5]{by-nc-sa}
+ \includegraphics[scale=0.5]{img/by-nc-sa}
 \end{center}
 This work is licensed under the Creative Commons Attribution-Noncommercial-Share
 Alike 3.0 License. To view a copy of this license, visit

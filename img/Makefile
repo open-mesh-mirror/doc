@@ -1,16 +1,14 @@
 # -*- makefile -*-
 
 DIA_IMAGES = announce_networks.dia multiple_announces.dia multiple_clients.dia
-PDF_IMAGES = $(DIA_IMAGES:.dia=.pdf)
+TEX_IMAGES = $(DIA_IMAGES:.dia=.tex)
 
-all: $(PDF_IMAGES)
+all: $(TEX_IMAGES)
 
-.SUFFIXES: .dia .eps .pdf
+.SUFFIXES: .dia .tex
 
-.dia.eps:
+.dia.tex:
 	/usr/bin/dia -e $@ $<
-.eps.pdf:
-	/usr/bin/epstopdf --outfile=$@ $<
 
 clean:
-	rm -f $(PDF_IMAGES) $(PDF_IMAGES:.pdf=.eps)
+	rm -f $(PDF_IMAGES) $(TEX_IMAGES)
