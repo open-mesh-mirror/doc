@@ -1,0 +1,52 @@
+\section{Installing from source}
+\subsection{Prerequirements}
+
+\begin{itemize}
+ \item Compile environment and libraries.
+       \begin{enumerate}
+        \item gcc
+        \item libc6-dev
+        \item build-essential
+        \item binutils
+        \item makedev
+        \item GNU make
+        \item libpthread
+       \end{enumerate}
+\item Download the B.A.T.M.A.N. daemon code from the website
+
+     \url{http://www.open-mesh.net/wiki/Download}
+\end{itemize}
+
+
+\subsection{Compiling}
+All you have to do is untar and make, then you will see the executable file
+called \emph{batmand}.
+
+{\footnotesize
+\begin{verbatim}
+ $ wget \
+http://downloads.open-mesh.net/batman/stable/sources/batman/batman-0.3.tar.gz
+ $ tar xzvf batman-0.3.tar.gz
+ $ cd batman-0.3
+ $ make
+\end{verbatim}
+}
+
+If you want reduce the size of executable file, just strip it by executing:
+
+\begin{verbatim}
+ $ strip batmand
+\end{verbatim}
+
+Note that if you want to help us finding a bug in the daemon, please don't strip
+it.
+
+\subsection{Installing}
+Copy \emph{batmand} to a location somewhere in your path, for example
+\begin{verbatim}
+ $ cp batmand /usr/sbin/
+\end{verbatim}
+Or start it right from the directory where you compiled it
+\begin{verbatim}
+ $ ./batmand
+\end{verbatim}
