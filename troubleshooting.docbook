@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section>
+  <title>Troubleshooting</title>
+  <section>
+    <title>Why the B.A.T.M.A.N. daemon doesn't reload the setting after I fixed
+    the main IP?</title>
+    <para>You have to restart the B.A.T.M.A.N. daemon after you modified any
+    network configuration, otherwise the B.A.T.M.A.N. daemon won't use the new
+    settings.</para>
+    <programlisting><userinput>$ killall batmand
+$ batmand eth1</userinput></programlisting>
+  </section>
+  <section>
+    <title>Why I can't connect to the Internet after setting the default
+    gateway?</title>
+    <para>You have to use NAT on your gateway or firewall if you use the -r or
+    -p options to set default route.</para>
+    <userinput>$ iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE</userinput>
+    <para>Note that you don't set the default route by yourself.</para>
+  </section>
+</section>

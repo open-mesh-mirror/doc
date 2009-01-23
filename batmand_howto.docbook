@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+ "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
+[
+<!ENTITY articleinfo SYSTEM "articleinfo.docbook">
+<!ENTITY installing SYSTEM "installing.docbook">
+<!ENTITY usage SYSTEM "usage.docbook">
+<!ENTITY references SYSTEM "references.docbook">
+<!ENTITY troubleshooting SYSTEM "troubleshooting.docbook">
+<!ENTITY copyright SYSTEM "copyright.docbook">
+]>
+
+<article>
+&articleinfo;
+&installing;
+&usage;
+&references;
+&troubleshooting;
+&copyright;
+</article>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section>
+  <title>Installing from source</title>
+  <section>
+    <title>Pre-requirements</title>
+    <itemizedlist>
+      <listitem>Compile environment and libraries. 
+      <orderedlist>
+        <listitem>gcc</listitem>
+        <listitem>libc6-dev</listitem>
+        <listitem>build-essential</listitem>
+        <listitem>binutils</listitem>
+        <listitem>makedev</listitem>
+        <listitem>GNU make</listitem>
+        <listitem>libpthread</listitem>
+      </orderedlist></listitem>
+      <listitem>Download the B.A.T.M.A.N. daemon code from the website
+      <ulink url="http://www.open-mesh.net/wiki/Download" /></listitem>
+    </itemizedlist>
+  </section>
+  <section>
+    <title>Compiling</title>
+    <para>All you have to do is untar and make, then you will see the executable
+    file called <emphasis>batmand</emphasis>.</para>
+    <programlisting><userinput>$ wget \
+http://downloads.open-mesh.net/batman/stable/sources/batman/batman-0.3.tar.gz
+$ tar xzvf batman-0.3.tar.gz
+$ cd batman-0.3
+$ make</userinput></programlisting>
+    <para>If you want reduce the size of executable file, just strip it by
+    executing:</para>
+    <userinput>$ strip batmand</userinput>
+    <para>Note that if you want to help us finding a bug in the daemon, please
+    don't strip it.</para>
+  </section>
+  <section>
+    <title>Installing</title>
+    <para>Copy <emphasis>batmand</emphasis> to a location somewhere in your
+    path, for example</para>
+    <userinput>$ cp batmand /usr/sbin/</userinput>
+    <para>Or start it right from the directory where you compiled it</para>
+    <userinput>$ ./batmand</userinput>
+  </section>
+</section>
