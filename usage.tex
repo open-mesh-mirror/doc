@@ -91,7 +91,7 @@ ip-address/netmask.
 
 \subsubsectionttt{-b run connection in batch mode}
 The debug information are updated after a period of time by default, so if you
-use "-b" it will execute once and then stop.
+use ``-b'' it will execute once and then stop.
 \begin{verbatim}
  $ batmand eth1
  $ batmand -b -c -d 1
@@ -207,8 +207,8 @@ from where etc.
 
 \subsubsectionttt{-g gateway class}
 The gateway class is used to tell other nodes in the network your available
-internet bandwidth. Just enter any number (optionally followed by "kbit" or
-"mbit") and the daemon will guess your appropriate gateway class. Use "/" to
+internet bandwidth. Just enter any number (optionally followed by ``kbit'' or
+``mbit'') and the daemon will guess your appropriate gateway class. Use ``/'' to
 seperate the down- and upload rates. You can omit the upload rate and batmand
 will assume an upload of $\mathrm{download}\over{5}$.
 
@@ -243,8 +243,8 @@ In this case, batmand will wait 2 second until sending the next OGMs.
 \subsubsectionttt{-p preferred gateway}
 Set the internet gateway by yourself.
 
-Note that this automatically switches your B.A.T.M.A.N. daemon to "internet
-search modus" with "-r 1" unless "-r" is given. If the preferred gateway is not
+Note that this automatically switches your B.A.T.M.A.N. daemon to ``internet
+search modus'' with ``-r 1'' unless ``-r'' is given. If the preferred gateway is not
 found the gateway selection will use the current routing class to choose a
 gateway.
 
@@ -255,9 +255,9 @@ In this case, you set 192.168.1.1 as your preferred gateway, so all of your
 internet packets will be sent to the 192.168.1.1.
 
 \subsubsectionttt{-r routing class}
-The routing class can be set to four values - it enables "internet search
-modus". The daemon will choose an internet gateway based on certain criteria
-(unless "-p" is specified):
+The routing class can be set to four values - it enables ``internet search
+modus''. The daemon will choose an internet gateway based on certain criteria
+(unless ``-p'' is specified):
 \begin{description}
 \item[0] set no default route (default)
 \item[1] use fast connection
