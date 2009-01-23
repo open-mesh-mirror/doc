@@ -89,7 +89,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <para>
 	Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case. 
 <inlinemediaobject>
-	<imageobject> <imagedata fileref="images/asymetry.pdf" format="EPS"  scale="50"/> </imageobject>
+	<imageobject> <imagedata fileref="images/asymetry.eps" format="EPS"  scale="50"/> </imageobject>
 	<imageobject> <imagedata fileref="images/asymetry.png" format="PNG"  /> </imageobject>
 	<textobject> <phrase>asymetry illustration</phrase> </textobject>
 </inlinemediaobject>
@@ -165,7 +165,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 			</para>
 			<para>
 				<inlinemediaobject>
-					<imageobject> <imagedata fileref="images/rq.pdf" format="EPS" scale="50" /> </imageobject>
+					<imageobject> <imagedata fileref="images/rq.eps" format="EPS" scale="50" /> </imageobject>
 					<imageobject> <imagedata fileref="images/rq.png" format="PNG"  /> </imageobject>
 					<textobject> <phrase>Receive Quality (RQ)</phrase> </textobject>
 				</inlinemediaobject>
@@ -177,7 +177,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 			</para>
 			<para>
 				<inlinemediaobject>
-					<imageobject> <imagedata fileref="images/eq_alt1.pdf" format="EPS" scale="50" /> </imageobject>
+					<imageobject> <imagedata fileref="images/eq_alt1.eps" format="EPS" scale="50" /> </imageobject>
 					<imageobject> <imagedata fileref="images/eq_alt1.png" format="PNG"  /> </imageobject>
 					<textobject> <phrase>Echo Link Quality (EQ)</phrase> </textobject>
 				</inlinemediaobject>
@@ -189,14 +189,14 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 			</para>
 			<para>
 				<inlinemediaobject>
-					<imageobject> <imagedata fileref="images/tq.pdf" format="EPS" scale="50" /> </imageobject>
+					<imageobject> <imagedata fileref="images/tq.eps" format="EPS" scale="50" /> </imageobject>
 					<imageobject> <imagedata fileref="images/tq.png" format="PNG"  /> </imageobject>
 					<textobject> <phrase>Transmit Link Quality (TQ)</phrase> </textobject>
 				</inlinemediaobject>
 			</para>
 			<para>
 				<inlinemediaobject>
-					<imageobject> <imagedata fileref="images/compute_tq.pdf" format="EPS"/> </imageobject>
+					<imageobject> <imagedata fileref="images/compute_tq.eps" format="EPS"/> </imageobject>
 					<imageobject> <imagedata fileref="images/compute_tq.png" format="PNG"  /> </imageobject>
 					<textobject> <phrase>compute the Transmit Link Quality</phrase> </textobject>
 				</inlinemediaobject>
@@ -219,7 +219,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/tq_prop_calc.pdf" format="EPS" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop_calc.eps" format="EPS" /> </imageobject>
 		<imageobject> <imagedata fileref="images/tq_prop_calc.png" format="PNG" /> </imageobject>
 		<textobject> <phrase>TQ calcuation</phrase> </textobject>
 	</inlinemediaobject>
@@ -229,7 +229,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/tq_prop.pdf" format="EPS" scale="40" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop.eps" format="EPS" scale="40" /> </imageobject>
 		<imageobject> <imagedata fileref="images/tq_prop.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>TQ propagation</phrase> </textobject>
 	</inlinemediaobject>
@@ -241,7 +241,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	Example: Node A and B are neighbors. Node A has a good connection towards node B but not vice versa. The node C has a good connection towards node A and a bad connection back, and C has a good receiving link quality and bad sending quality towards B. </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/tq_prop_best1.pdf" format="EPS" scale="40" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop_best1.eps" format="EPS" scale="40" /> </imageobject>
 		<imageobject> <imagedata fileref="images/tq_prop_best1.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>TQ propagation - example topology</phrase> </textobject>
 	</inlinemediaobject>
@@ -251,7 +251,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/tq_prop_best2.pdf" format="EPS" scale="40" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop_best2.eps" format="EPS" scale="40" /> </imageobject>
 		<imageobject> <imagedata fileref="images/tq_prop_best2.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>TQ propagation - different paths for the OGM</phrase> </textobject>
 	</inlinemediaobject>
@@ -262,7 +262,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/tq_prop_best3.pdf" format="EPS" scale="40" /> </imageobject>
+		<imageobject> <imagedata fileref="images/tq_prop_best3.eps" format="EPS" scale="40" /> </imageobject>
 		<imageobject> <imagedata fileref="images/tq_prop_best3.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>TQ propagation - only the best path is propagated</phrase> </textobject>
 	</inlinemediaobject>
@@ -294,7 +294,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/asym_link1.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/asym_link1.eps" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/asym_link1.png" format="PNG" scale="50" /> </imageobject>
 		<textobject> <phrase>Asymetry situation without asymetry penalty</phrase> </textobject>
 	</inlinemediaobject>
@@ -304,7 +304,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/asym_penalty.pdf" format="EPS"  /> </imageobject>
+		<imageobject> <imagedata fileref="images/asym_penalty.eps" format="EPS"  /> </imageobject>
 		<imageobject> <imagedata fileref="images/asym_penalty.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>graph for asymetry penalty</phrase> </textobject>
 	</inlinemediaobject>
@@ -314,7 +314,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/asym_link2.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/asym_link2.eps" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/asym_link2.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>Asymetry situation with applied asymetry penalty</phrase> </textobject>
 	</inlinemediaobject>
@@ -331,7 +331,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/hop_penalty3.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/hop_penalty3.eps" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty3.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>example topology</phrase> </textobject>
 	</inlinemediaobject>
@@ -341,7 +341,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/hop_penalty4.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/hop_penalty4.eps" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty4.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>packet hops</phrase> </textobject>
 	</inlinemediaobject>
@@ -354,7 +354,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/hop_penalty5.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/hop_penalty5.eps" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty5.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>route candidates</phrase> </textobject>
 	</inlinemediaobject>
@@ -367,7 +367,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/hop_penalty6.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/hop_penalty6.eps" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty6.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>applied hop penalty</phrase> </textobject>
 	</inlinemediaobject>
@@ -382,7 +382,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/echo_cancel1.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/echo_cancel1.eps" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/echo_cancel1.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>communication without echo cancellation penalty</phrase> </textobject>
 	</inlinemediaobject>
@@ -400,7 +400,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 <para>
 	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/echo_cancel2.pdf" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/echo_cancel2.eps" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/echo_cancel2.png" format="PNG"  /> </imageobject>
 		<textobject> <phrase>communication without echo cancellation penalty</phrase> </textobject>
 	</inlinemediaobject>

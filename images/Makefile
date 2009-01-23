@@ -9,15 +9,15 @@ TEX_IMAGES=compute_tq.tex tq_prop_calc.tex
 PNG_IMAGES= $(DIA_IMAGES:.dia=.png) 
 PNG_IMAGES+=$(GP_IMAGES:.gp=.png) 
 PNG_IMAGES+=$(TEX_IMAGES:.tex=.png) 
-PDF_IMAGES= $(DIA_IMAGES:.dia=.pdf) 
-PDF_IMAGES+=$(GP_IMAGES:.gp=.pdf) 
-PDF_IMAGES+=$(TEX_IMAGES:.tex=.pdf) 
+EPS_IMAGES= $(DIA_IMAGES:.dia=.eps)
+EPS_IMAGES+=$(GP_IMAGES:.gp=.eps)
+EPS_IMAGES+=$(TEX_IMAGES:.tex=.eps)
 
 .PHONY:		clean
-.SUFFIXES:	.dia	.png	.eps	.pdf	.gp
+.SUFFIXES:	.dia	.png	.eps	.gp
 
 default:	all
-all:	$(PDF_IMAGES) $(PNG_IMAGES)	
+all:	$(EPS_IMAGES) $(PNG_IMAGES)
 
 .gp.png:
 	gnuplot $<
@@ -28,16 +28,13 @@ all:	$(PDF_IMAGES) $(PNG_IMAGES)
 	/usr/bin/dia -e $@ $<
 .dia.eps:
 	/usr/bin/dia -e $@ $<
-.eps.pdf:
-	/usr/bin/epstopdf --outfile=$@ $<
-.tex.pdf:
+.tex.eps:
 	rm -f file_tmp.*
 	cp $< file_tmp.tex
 	latex file_tmp.tex
 	dvips file_tmp.dvi
 	ps2eps -l file_tmp.ps
-	epstopdf file_tmp.eps
-	mv file_tmp.pdf $@
+	mv file_tmp.eps $@
 	rm -f file_tmp.*
 
 .tex.png:
@@ -48,4 +45,4 @@ all:	$(PDF_IMAGES) $(PNG_IMAGES)
 	convert file_tmp.ps $@
 	rm -f file_tmp.*
 clean:
-	rm -f *.png *.eps *.pdf
+	rm -f *.png *.eps
