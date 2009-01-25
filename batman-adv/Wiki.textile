@@ -1,0 +1,43 @@
+= batman-advanced =
+
+Batman-advanced is a new approach to wireless networking which
+does no longer operate on the IP basis. Unlike B.A.T.M.A.N, which exchanges
+information using UDP packets and sets routing tables, batman-advanced operates
+on ISO/OSI Layer 2 only and uses and routes (or better: bridges) Ethernet Frames.
+It emulates a virtual network switch of all nodes participating. Therefore all nodes 
+appear to be link local, thus all higher operating protocols won't be affected 
+by any changes within the network. You can run almost any protocol above B.A.T.M.A.N.
+Advanced, prominent examples are: IPv4, IPv6, DHCP, IPX. 
+
+=== Pros and Cons ===
+Pros:
+ * supports any Ethernet-capable protocol (IPv4, IPv6, ARP, DHCP ...)
+ * no manual IP assignment, just use DHCP
+ * easy integration of attached networks (no manual HNA fiddling), just put the bat0 in the bridge with your other devices. You can for example build a roaming network of Access Points with this technique.
+ * Not affected by your Firewall (but you can secure the payload traffic, of course)
+Cons:
+ * no gateway handling. 
+=== battools ===
+
+Since the nodes participating in the B.A.T.M.A.N. Advanced switch are
+completely transparent for all protocols above layer 2, we needed to build
+our own diagnostic tools, the battools. These tools contain a layer 2 version 
+of ping,  traceroute and tcpdump. Further information can be found in the
+enclosed README file.
+
+=== Userland vs Kernelland ===
+
+The userland implementation of batman-advanced was a proof of concept implementation to verify that the concept is
+working. Unfortunately, switching packets in userland is very expensive in terms of cycles, as each packet has to be
+read() and write() to the kernel and back, which limits the sustainable bandwidth especially on low-end devices. 
+To have good support for these devices as well, we implemented batman-adv as a kernel driver, which is now the 
+preferred version. It can be controlled via the /proc file system and works transparently, offering the same service
+and being compatible to the userland version.
+
+=== Documentation ===
+
+We're working on it. No, really ;).
+
+=== Get it ===
+
+see the [wiki:Download] page
