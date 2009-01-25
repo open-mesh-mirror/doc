@@ -4,8 +4,8 @@ We are currently working on different branches. To get the details about the dif
 We are offering sources and precompiled binaries and packages for different platforms and for the [http://downloads.open-mesh.org/batman/stable/ stable] and the [http://downloads.open-mesh.org/batman/development/ development] branch. However, please use the stable branch for your public infrastructure unless you know exactly what you are doing and are prepared for the big unknown.
 
 === Download Released Source Code ===
- * '''The latest stable B.A.T.M.A.N. is batman-0.3''': [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz batman-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz.asc asc]
- * The latest version of the vis server is [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.tar.gz vis-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.tar.gz.asc asc]
+ * '''The latest stable B.A.T.M.A.N. is batman-0.3.1''': [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.1.tar.gz batman-0.3.1.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.1.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.1.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.1.tar.gz.asc asc]
+ * The latest version of the vis server is [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.1.tar.gz vis-0.3.1.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.1.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.1.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.1.tar.gz.asc asc]
  * The latest version of [wiki:batman-adv batman-adv] is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz batman-adv-kernelland-0.1.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz.asc asc]
 
 If you find any bugs, please [wiki:Contribute let us know]!
@@ -13,7 +13,7 @@ If you find any bugs, please [wiki:Contribute let us know]!
 === Subversion Repository Access ===
 You can check out our SVN repository and the various batman branches
 
- * upcoming B.A.T.M.A.N. 0.3.1 branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
+ * upcoming B.A.T.M.A.N. 0.3.2 branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
  * B.A.T.M.A.N. experimental (BMX) branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-experimental/}}}''
  * [wiki:batman-adv B.A.T.M.A.N. advanced]: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/}}}''
  * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
@@ -32,15 +32,15 @@ Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto 
 === Download precompiled Binaries ===
 There are various pre-compiled binaries available:
 
- * [http://downloads.open-mesh.org/batman/stable/binaries/wrt-freifunk/batmand_0.3-current_mipsel-wr-elf-32-lsb-dynamic.ipk mipsel OpenWRT/Whiterussian Freifunk]
- * [http://downloads.open-mesh.org/batman/stable/binaries/wrt-freifunk/batmand_0.3-current_mipsel-wr-elf-32-lsb-dynamic.ipk WRT-Freifunk]
+ * [http://downloads.open-mesh.org/batman/stable/binaries/wrt-freifunk/batmand_0.3.1-current_mipsel-wr-elf-32-lsb-dynamic.ipk mipsel OpenWRT/Whiterussian Freifunk]
+ * [http://downloads.open-mesh.org/batman/stable/binaries/wrt-freifunk/batmand_0.3.1-current_mipsel-wr-elf-32-lsb-dynamic.ipk WRT-Freifunk]
  * [http://downloads.open-mesh.org/batman/stable/binaries/zaurus-akita Zaurus-Akita]
  * [http://downloads.open-mesh.org/batman/stable/binaries/netgear-kamikaze Netgear-Kamikaze]
- * [http://downloads.open-mesh.net/batman/stable/binaries/meshcube/ Meshcube (static)]
+ * [http://downloads.open-mesh.org/batman/stable/binaries/meshcube/ Meshcube (static)]
  * [http://downloads.open-mesh.org/batman/stable/binaries/i386 i386 (static)]
- * [http://downloads.open-mesh.org/batman/stable/binaries/fonera fonera (static)]
+ * [http://downloads.open-mesh.net/batman/stable/binaries/fonera fonera (static)]
  * [http://downloads.open-mesh.org/batman/stable/binaries/fonera-kamikaze fonera-kamikaze]
- * [http://downloads.open-mesh.org/batman/stable/binaries/buffalo-freifunk/batmand_0.3-current_mipsel-wr-elf-32-lsb-dynamic.ipk buffalo-freifunk]
+ * [http://downloads.open-mesh.org/batman/stable/binaries/buffalo-freifunk/batmand_0.3.1-current_mipsel-wr-elf-32-lsb-dynamic.ipk buffalo-freifunk]
  * [http://downloads.open-mesh.org/batman/stable/binaries/armv5te armv5te (static)]
 
 === Building OpenWRT packages ===
