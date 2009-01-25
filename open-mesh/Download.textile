@@ -6,7 +6,7 @@ We are offering sources and precompiled binaries and packages for different plat
 === Download Released Source Code ===
  * '''The latest stable B.A.T.M.A.N. is batman-0.3''': [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz batman-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz.asc asc]
  * The latest version of the vis server is [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.tar.gz vis-0.3.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/vis/vis-0.3.tar.gz.asc asc]
- * The latest version of batman-adv is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz batman-adv-kernelland-0.1.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz.asc asc]
+ * The latest version of [wiki:batman-adv batman-adv] is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz batman-adv-kernelland-0.1.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.1.tar.gz.asc asc]
 
 If you find any bugs, please [wiki:Contribute let us know]!
 
@@ -15,7 +15,7 @@ You can check out our SVN repository and the various batman branches
 
  * upcoming B.A.T.M.A.N. 0.3.1 branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
  * B.A.T.M.A.N. experimental (BMX) branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-experimental/}}}''
- * B.A.T.M.A.N. advanced: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/}}}''
+ * [wiki:batman-adv B.A.T.M.A.N. advanced]: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/}}}''
  * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
  * battool (for B.A.T.M.A.N. advanced): check out the complete repository, cd into battool (we're using symlinks here ...)
  * Visualization server: check out the complete repository, cd into vis
