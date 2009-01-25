@@ -4,7 +4,8 @@ DIA_IMAGES=asymetry.dia tq.dia eq.dia eq_alt1.dia eq_alt2.dia eq_alt3.dia rq.dia
 		   hop_penalty3.dia hop_penalty4.dia hop_penalty5.dia hop_penalty6.dia \
 		   asym_link1.dia asym_link2.dia tq_prop.dia \
 		   echo_cancel1.dia echo_cancel2.dia \
-		   tq_prop_best1.dia tq_prop_best2.dia tq_prop_best3.dia
+		   tq_prop_best1.dia tq_prop_best2.dia tq_prop_best3.dia \
+		   announce_networks.dia multiple_announces.dia multiple_clients.dia
 TEX_IMAGES=compute_tq.tex tq_prop_calc.tex
 PNG_IMAGES= $(DIA_IMAGES:.dia=.png) 
 PNG_IMAGES+=$(GP_IMAGES:.gp=.png) 

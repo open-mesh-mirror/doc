@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
- "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+ "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
 [
 <!ENTITY bookinfo SYSTEM "bookinfo.docbook">
 <!ENTITY introduction SYSTEM "introduction.docbook">
 <!ENTITY batman_iv SYSTEM "batman_iv.docbook">
 <!ENTITY batman_adv SYSTEM "batman_adv.docbook">
-<!ENTITY usage SYSTEM "usage.docbook">
 ]>
 
 <book id="batman_book" lang="en">

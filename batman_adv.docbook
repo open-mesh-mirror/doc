@@ -83,7 +83,7 @@
 <sect2 id="Batman_adv_packet_types_0">
 	<title>Batman Type 0 - Originator</title>
 	<para>
-		Originator packets are the routing protocol messages used to built up the mesh. 
+		Originator packets are the routing protocol messages used to built up the mesh.
 		They're identified with the value 0 in the batman type field as the first field of the Ethernet payload.
 
 	</para>
@@ -154,7 +154,7 @@
 <sect2 id="Batman_adv_packet_types_1">
 	<title>Batman Type 1 - Message System</title>
 	<para>
-		There is no ICMP (we just missed by one layer ;) ), so there is something like "light ICMP", 
+		There is no ICMP (we just missed by one layer ;) ), so there is something like "light ICMP",
 		to make debugging applications like ping traceroute possible.
 
 	</para>
@@ -328,5 +328,16 @@
 
 
 
+</sect1>
+
+<sect1>
+	<title>Usage</title>
+	<para>
+		TODO	Compilation, Installation of batman-adv-kernelland, batman-adv-userspace, battool
+		TODO	Usage batman-adv-userspace: debug output, command line options
+		TODO 	Usage batman-adv-kernelland: insmod, proc files, log files, visualization
+
+		TODO 	Setup: exmaple setups (e.g. bridging over AP and Adhoc, ...)
+	</para>
 </sect1>
 </chapter>

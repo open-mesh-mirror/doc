@@ -1,0 +1,7 @@
+*.pdf
+*.ps
+*.fo
+*.html
+*~
+images/*.eps
+images/*.png

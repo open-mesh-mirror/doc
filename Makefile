@@ -1,3 +1,6 @@
+#! /usr/bin/make -f
+# -*- makefile -*-
+
 default:	all
 all:		batman_doc
 .PHONY:	clean images batman_doc batman_iv_only_doc
