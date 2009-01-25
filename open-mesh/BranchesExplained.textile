@@ -18,19 +18,19 @@ Maintainer: Axel Neumann
 
 This branch kept the 0.2 routing algorithm and tried to overcome its flaws by extending it. Despite its name it is neither specifically unstable nor contains the latest features for the 0.3 branch (we are not debian ;-) ). Under the hood it shares much code with 0.3 - not more or less.
 
-=== batman-advanced (aka batman-adv-kernelland) ===
+=== [wiki:batman-adv batman-advanced (aka batman-adv-kernelland)] ===
 Maintainer: Marek Lindner, Simon Wunderlich
 
 In April 2007 batman advanced (residing in user space) came to light. It uses the routing algorithm of batman 0.3, but instead of sending UDP packets and manipulating routing tables, it provides a virtual network interface and transparently transports packets on its own. It builds a switch of all your nodes and enables you to run any Layer 3 (and Ethernet Layer 2) protocols, like IPv4, IPv6, DHCP, IPX.., on top of it.
 
 Due to the testing we realized that the layer 2 proof of concept implementation in user space suffered from many performance problems. In late 2007 we ported our layer 2 implementation to kernel space in form of a kernel modul. 
 
-=== batman-adv-userspace ===
+=== [wiki:batman-adv batman-adv-userspace] ===
 Maintainer: Simon Wunderlich, Marek Lindner
 
 batman advanced userspace was the first implementation of the batman-advanced idea, used as proof of concept. However the virtual interface in userspace imposed a significant overhead for low-end wireless access points, so we decided to re-implement batman-advanced as kernel module which is now batman-adv-kernelland.
 
-=== battools ===
+=== [wiki:batman-adv battools] ===
 Maintainer: Andreas Langer
 
 The battools are a set of debugging tools which work together with our layer 2 implementation (user space and kernel land). You can use them to debug the mesh which proved to be difficult without them.
