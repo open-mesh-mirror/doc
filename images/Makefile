@@ -15,7 +15,7 @@ EPS_IMAGES+=$(GP_IMAGES:.gp=.eps)
 EPS_IMAGES+=$(TEX_IMAGES:.tex=.eps)
 
 .PHONY:		clean
-.SUFFIXES:	.dia	.png	.eps	.gp
+.SUFFIXES:	.dia	.png	.eps	.gp	.dvi	.ps
 
 default:	all
 all: stamp
@@ -32,21 +32,18 @@ stamp: $(EPS_IMAGES) $(PNG_IMAGES)
 	/usr/bin/dia -e $@ $<
 .dia.eps:
 	/usr/bin/dia -e $@ $<
-.tex.eps:
-	rm -f file_tmp.*
-	cp $< file_tmp.tex
-	latex file_tmp.tex
-	dvips file_tmp.dvi
-	ps2eps -l file_tmp.ps
-	mv file_tmp.eps $@
-	rm -f file_tmp.*
 
-.tex.png:
-	rm -f file_tmp.*
-	cp $< file_tmp.tex
-	latex file_tmp.tex
-	dvips -x 3000 -y 3000  -E file_tmp.dvi
-	convert file_tmp.ps $@
-	rm -f file_tmp.*
+.tex.dvi:
+	latex $<
+	rm $(<:.tex=.log) $(<:.tex=.aux)
+
+.dvi.ps:
+	dvips $<
+
+.ps.eps:
+	ps2eps -l $<
+
+.eps.png:
+	convert $< $@
 clean:
-	rm -f *.png *.eps stamp
+	rm -f *.png *.eps *.aux *.dvi *.log stamp
