@@ -5,13 +5,13 @@ default:	all
 all:		batman_doc
 .PHONY:	clean images batman_doc batman_iv_only_doc
 .SUFFIXES: .docbook	.fo	.ps	.pdf	.html
-batman_doc:  batman.pdf batman.html
-batman_iv_only_doc: batman_iv_only.pdf batman_iv_only.html
+batman_doc:  images batman.pdf batman.html
+batman_iv_only_doc: images batman_iv_only.pdf batman_iv_only.html
 
-batman_iv_only.html: Makefile *.docbook images
-batman_iv_only.pdf: Makefile *.docbook images
-batman.html: Makefile *.docbook images
-batman.pdf: Makefile *.docbook images
+batman_iv_only.html: Makefile *.docbook images/stamp
+batman_iv_only.pdf: Makefile *.docbook images/stamp
+batman.html: Makefile *.docbook images/stamp
+batman.pdf: Makefile *.docbook images/stamp
 
 .docbook.fo:
 	xmlto fo $<
@@ -25,6 +25,7 @@ batman.pdf: Makefile *.docbook images
 .ps.pdf:
 	ps2pdf $<
 
+images/stamp: images
 images:
 	make -C images/
 clean:

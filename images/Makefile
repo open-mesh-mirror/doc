@@ -18,7 +18,10 @@ EPS_IMAGES+=$(TEX_IMAGES:.tex=.eps)
 .SUFFIXES:	.dia	.png	.eps	.gp
 
 default:	all
-all:	$(EPS_IMAGES) $(PNG_IMAGES)
+all: stamp
+
+stamp: $(EPS_IMAGES) $(PNG_IMAGES)
+	touch $@
 
 .gp.png:
 	gnuplot $<
@@ -46,4 +49,4 @@ all:	$(EPS_IMAGES) $(PNG_IMAGES)
 	convert file_tmp.ps $@
 	rm -f file_tmp.*
 clean:
-	rm -f *.png *.eps
+	rm -f *.png *.eps stamp
