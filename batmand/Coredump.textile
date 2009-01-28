@@ -1,0 +1,54 @@
+
+== What is a coredump ? ==
+
+  A coredump is the state of the programs memory when it crashed. It allows [[BR]]
+  programmers to exactly nail down the line in the code which caused the segfault.[[BR]]
+  See http://en.wikipedia.org/wiki/Coredump for more information. [[BR]]
+
+[[BR]]
+
+== Why do I need ulimit and what does it do ? ==
+
+  As coredumps save the programs memory on the hard disk the coredump files [[BR]]
+  can become quite large because some applications consume a lot of memory. [[BR]]
+  On embedded devices (e.g. small routers) a coredump can fill the entire disk [[BR]]
+  easily. Therefore the tool "ulimit" allows you to control what memory size is too [[BR]]
+  big to be saved on disk. A "ulimit -c 20000" saves coredumps of up to 20MB, [[BR]]
+  "ulimit -c unlimited" saves everything no matter how big it is. You can check [[BR]]
+  your systems default by running "ulimit" without any options. If the value is [[BR]]
+  too small or coredumping is disabled you have to run "ulimit -c <value>" each [[BR]]
+  time before you start batman. [[BR]]
+
+[[BR]]
+
+== How to get a batman coredump ? ==
+
+ * log into a shell on your device [[BR]]
+ * set the ulimit value if necessary (see ulimit section of this document)[[BR]]
+ * start batman in this very shell but don't let it fork into the background [[BR]]
+  using a debug level (-d 3 or -d 4) [[BR]]
+ * do not close the shell as it will kill the running batman [[BR]]
+ * make batman crash (depending on the bug you experience) [[BR]]
+ * retrieve the "core" file from the current directory [[BR]]
+
+'''Don't forget to send the used batman binary along with the coredump.''' [[BR]]
+'''Without the correct binary the coredump is useless! ''' [[BR]]
+
+[[BR]]
+
+== I can't find the coredump ... ==
+
+ * May be batman did not crash but just exited ? A coredump can be created [[BR]]
+  only on a segmentation fault. Your system logs should contain a log entry similar [[BR]]
+  to "Error - SIGSEGV received, trying to clean up ..." otherwise batman did not [[BR]]
+  crash.[[BR]]
+ * Did you check the ulimit section ?
+ * The coredumping behaviour can be modified by changing some /proc parameters like [[BR]]
+  /proc/sys/kernel/core_uses_pid and /proc/sys/kernel/core_pattern. In most cases [[BR]]
+  the defaults are the right choice. Only modify them if you are sure what you are doing! [[BR]]
+ * Some distributions (especially for embedded devices) use busybox which allows to [[BR]]
+  to completely disable coredumping (even if ulimit is set). Look for the [[BR]]
+  CONFIG_FEATURE_INIT_COREDUMPS option to learn more about it. OpenWRT [[BR]]
+  allows to enable it via 'make menuconfig': Base system -> busybox -> [[BR]] 
+  Configuration -> Init Utilities -> Support dumping core for child processes. [[BR]]
+
