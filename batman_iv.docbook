@@ -152,7 +152,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 <sect2 id="batman4_tq">
 <title>The Transmit Quality</title>
 <para>
-	B.A.T.M.A.N. IV divides a given link quality into 2 distinct parts: receiving link quality and transmit link quality. The receiving link quality expresses the propability of a successfull packet transmission towards the node. The transmit link quality describes the probability of a successful transmission towards a neighbor node. Obviously, B.A.T.M.A.N. is more interested in the transmit link quality as the receiving link quality can't be used to influence the routing decision.
+	B.A.T.M.A.N. IV divides a given link quality into 2 distinct parts: receiving link quality and transmit link quality. The receiving link quality expresses the probability of a successful packet transmission towards the node. The transmit link quality describes the probability of a successful transmission towards a neighbor node. Obviously, B.A.T.M.A.N. is more interested in the transmit link quality as the receiving link quality can't be used to influence the routing decision.
 </para>
 <para>
 	As explained in the previous section the packet counting floods the network with receiving link quality rather than transmit link quality. On the link-local level the transmit link quality can be derived from the receiving link quality by applying some calculations on the packet count.
