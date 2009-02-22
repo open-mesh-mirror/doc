@@ -1,0 +1,34 @@
+Requirements
+============
+
+ * GNU make - http://www.gnu.org/software/make/
+ * xmlto - https://fedorahosted.org/xmlto/
+ * docbook-xml (>= 4.5) - http://www.oasis-open.org/docbook/xml/
+ * docbook-xsl - http://wiki.docbook.org/topic/DocBookXslStylesheets
+ * fop - http://xmlgraphics.apache.org/fop/
+ * ghostscript - http://www.ghostscript.com/
+ * coreutils - http://www.gnu.org/software/coreutils/
+ * gnuplot - http://gnuplot.sourceforge.net/
+ * dia - http://live.gnome.org/Dia
+ * texlive-latex-base - http://www.tug.org/texlive/
+ * texlive-base - http://www.tug.org/texlive/
+ * ps2eps - http://www.tm.uka.de/~bless/ps2eps
+ * imagemagick - http://www.imagemagick.org/
+
+
+Supported build targets
+=======================
+
+ $ make batman_doc
+build complete documentation with all chapters
+
+ $ make batman_iv_only_doc
+build only chapter about B.A.T.M.A.N. algorithm
+
+
+Troubleshooting
+===============
+ * libjli.so: cannot open shared object file: No such file or directory
+   Make sure that /proc is mounted and `ls -l /bin/ls -l /proc/self/exe` prints
+   [...] /proc/self/exe -> /bin/ls
+   See http://bugs.debian.org/435293 for more informations
