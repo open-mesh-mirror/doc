@@ -20,7 +20,7 @@ Supported build targets
 =======================
 
  $ make batman_doc
-build complete documentation with all chapters
+build complete documentation with all chapters (default when running `make`)
 
  $ make batman_iv_only_doc
 build only chapter about B.A.T.M.A.N. algorithm
@@ -28,7 +28,7 @@ build only chapter about B.A.T.M.A.N. algorithm
 
 Troubleshooting
 ===============
- * libjli.so: cannot open shared object file: No such file or directory
-   Make sure that /proc is mounted and `ls -l /bin/ls -l /proc/self/exe` prints
+ * "libjli.so: cannot open shared object file: No such file or directory"
+   Make sure that /proc is mounted and `/bin/ls -l /proc/self/exe` prints
    [...] /proc/self/exe -> /bin/ls
    See http://bugs.debian.org/435293 for more informations
