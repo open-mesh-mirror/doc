@@ -9,6 +9,6 @@
  * [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 B.A.T.M.A.N. RFC Draft] - a draft explaining the routing algorithm used in batman 0.2
  * [https://www.open-mesh.org/batman/doc/batmand_howto.pdf B.A.T.M.A.N. HowTo] - how to compile, install and run batman 0.2
  * [https://www.open-mesh.org/batman/doc/batman-status.pdf B.A.T.M.A.N. Status] - read about the B.A.T.M.A.N. (June 2007)
- * [http://downloads.open-mesh.org/batman/development/sources/batmand_0.3.1-beta-current_sources/man/batmand.8.html B.A.T.M.A.N. man page] - read the batman 0.3 man page online
+ * [http://downloads.open-mesh.org/batman/development/sources/batmand_0.3.2-beta-current_sources/man/batmand.8.html B.A.T.M.A.N. man page] - read the current batman man page online
  * [http://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v CCCamp 2007 talk (video)] - Elektra and Marek explain the batman routing algorithm and features of batmand
  * [http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv Wireless Kernel Tweaking (video)] - Introduction to batman-advanced by Marek and Simon (also available at [http://video.google.de/videoplay?docid=1355876033101731617 google video])
