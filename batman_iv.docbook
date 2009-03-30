@@ -4,10 +4,6 @@
 <sect1 id="batman3">
 <title>B.A.T.M.A.N. III (introduction)</title>
 <para>
-
-	[RFC Introduction reused. I think we should do that - it is well
-	written. I would even mention that the RFC introduction has been reused.]
-
 	B.A.T.M.A.N. is a proactive routing protocol for Wireless Ad-hoc Mesh
 	Networks, including (but not limited to) Mobile Ad-hoc Networks
 	(MANETs).  The protocol proactively maintains information about the
@@ -21,17 +17,13 @@
 	each destination is all that the B.A.T.M.A.N. algorithm cares about.
 	There is no need to find out or calculate the complete route, which
 	makes a very fast and efficient implementation possible.
+</para>
 
- </para>
-
- <sect2 id="how_works">
+<sect2 id="how_works">
 <title>B.A.T.M.A.N. III (brief overview)</title>
 <para>
-
-	[RFC reused - 1.2. Protocol Overview (second paragraph)]
-
-	On a regular basis every B.A.T.M.A.N. node broadcasts an originator 
-	message (or OGM), thereby informing its link-local neighbors about 
+	On a regular basis every B.A.T.M.A.N. node broadcasts an originator
+	message (or OGM), thereby informing its link-local neighbors about
 	its existence (first step).  Link-local neighbors which are receiving the
 	Originator messages are relaying them by rebroadcasting it, according
 	to specific B.A.T.M.A.N. forwarding rules.  The B.A.T.M.A.N. mesh
@@ -45,39 +37,19 @@
 	interference, collision or congestion is significant.  The number of
 	OGMs received from a given Originator via each link-local neighbor is
 	used to estimate the quality of a (single-hop or multi-hop) route.
-	In order to be able to find the best route to a certain Originator,
+	In order to be able to find the best route to a certain originator,
 	B.A.T.M.A.N counts the originator-messages received and logs which
 	link-local neighbor relayed the message.  Using this information
 	B.A.T.M.A.N. maintains a table with the best link-local router
-	towards every Originator on the network.  By using a sequence number,
-	embedded in each OGM, B.A.T.M.A.N. can distinguish between new
-	Originator message packets and duplicates ensuring that every OGM
-	gets only counted once.
-
+	towards every originator on the network. Unlike wired networks, WiFi
+	setups often face the problem of asymetric links (Node A has a better
+	connection towards Node B than vice versa). To ensure that the detected
+	connections allow communication in both directions each B.A.T.M.A.N.
+	node awaits rebroadcasts of its own OGMs from his neighbors within a
+	certain timeframe (bidirectional link check). If the OGMs are not
+	successfully retransmitted the connection is considered too asymetric
+	(unusable) and therefore ignored.
 </para>
-<para>
-	[new text! - may be put this into a different subsection (asymetric links)?]
-
-	Unlike wired networks, WiFi setups often face the problem of asymetric 
-	links (Node A has a better connection towards Node B than vice versa).
-	To ensure that the detected connections allow communication in both
-	directions each B.A.T.M.A.N. node awaits rebroadcasts of its own OGMs
-	from his neighbors within a certain timeframe (bidirectional link check).
-	If the OGMs are not successfully retransmitted the connection is 
-	considered too asymetric (unusable) and therefore ignored.
-
-	[more text needed here ? we can add it later when we work on the IV advantages]
-
-</para>
-</sect2>
- <sect2 id="multiple_interfaces">
-<title>multiple interfaces</title>
-<para>
-TODO Explain multiple interfaces, which interface sends which OGM by which TTL, and why.
-(Maybe move this section somewhere else ... )
-
-==> why explaining this in this document ? I would refer them to the RFC because this did not change with IV.
- </para>
 </sect2>
 </sect1>
 
@@ -87,7 +59,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	The B.A.T.M.A.N. III algorithm has serious problems when it comes to asymetric links. The bidirectional link check tries to limit its impact but the result is far from being perfect. The timeframe in which B.A.T.M.A.N. accepts his own OGMs being rebroadcasted by its neighbor allows to tweak the behaviour. If this timeframe is rather short B.A.T.M.A.N. is very strict on choosing links. This may lead to many ignored links which might be usable in one direction. Only symetric connections will be considered. If the timeframe value is less strict B.A.T.M.A.N. will accept more links but tends to route in the wrong direction.
 </para>
 <para>
-	Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case. 
+	Example: OGMs from Node A propagate to B. The link is asymetric, therefore B receives all packets from A in contrast to A which receives almost nothing from B. As all the packets from A get to B the packet count at B's side goes up. B will assume that it has a perfect link towards A which is not the case.
 <inlinemediaobject>
 	<imageobject> <imagedata fileref="images/asymetry.eps" format="EPS"  scale="50"/> </imageobject>
 	<imageobject> <imagedata fileref="images/asymetry.png" format="PNG"  /> </imageobject>
@@ -98,55 +70,55 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	To overcome this flaw B.A.T.M.A.N. IV has been enhanced with the Transmit Quality (TQ) algorithm. The following sections are going to outline its design and how it strengthens B.A.T.M.A.N.'s routing capabilities in asymetric environments.
 </para>
 <sect2 id="batman4_packet_layout">
-<title>The B.A.T.M.A.N. IV Orginator Message format</title>
+<title>The B.A.T.M.A.N. IV originator message format</title>
 <para>
-<table>
-			<title>B.A.T.M.A.N. IV layer 3 packet format</title>
-			<tgroup cols="5">
+	<table>
+		<title>B.A.T.M.A.N. IV (layer 3) packet format</title>
+		<tgroup cols="5">
 			<colspec colnum="1" colname="colB" colwidth="1*"/>
 			<colspec colnum="2" colname="col0" colwidth="1*"/>
-            <colspec colnum="3" colname="col1" colwidth="1*"/>
-            <colspec colnum="4" colname="col2" colwidth="1*"/>
-            <colspec colnum="5" colname="col3" colwidth="1*"/>
- 			<thead><row>
-				<entry>+</entry>
-				<entry>00</entry>
-				<entry>01</entry>
-				<entry>02</entry>
-				<entry>03</entry>
-			</row>
+			<colspec colnum="3" colname="col1" colwidth="1*"/>
+			<colspec colnum="4" colname="col2" colwidth="1*"/>
+			<colspec colnum="5" colname="col3" colwidth="1*"/>
+			<thead>
+				<row>
+					<entry>+</entry>
+					<entry>00</entry>
+					<entry>01</entry>
+					<entry>02</entry>
+					<entry>03</entry>
+				</row>
 			</thead>
 			<tbody>
-			<row>
-				<entry colname="colB">00-03</entry>
-				<entry namest="col0" nameend="col0">Version</entry>
-				<entry namest="col1" nameend="col1">Flags</entry>
-				<entry namest="col2" nameend="col2">TTL</entry>
-				<entry namest="col3" nameend="col3">GW Flags</entry>
-			</row>
-			<row>
-				<entry colname="colB">04-07</entry>
-				<entry namest="col0" nameend="col1">Seqence Number</entry>
-				<entry namest="col2" nameend="col3">GW Port</entry>
-			</row>
-			<row>
-				<entry colname="colB">08-11</entry>
-				<entry namest="col0" nameend="col3">Originator Address</entry>
-			</row>
-			<row>
-				<entry colname="colB">11-15</entry>
-				<entry namest="col0" nameend="col0">TQ</entry>
-				<entry namest="col1" nameend="col3">Old Originator Address</entry>
-			</row>
-			<row>
-				<entry colname="colB">16-19</entry>
-				<entry namest="col0" nameend="col0">Old Originator Address</entry>
-				<entry namest="col1" nameend="col3"> (...)</entry>
-			</row>
-
+				<row>
+					<entry colname="colB">00-03</entry>
+					<entry namest="col0" nameend="col0">Version</entry>
+					<entry namest="col1" nameend="col1">Flags</entry>
+					<entry namest="col2" nameend="col2">TTL</entry>
+					<entry namest="col3" nameend="col3">GW Flags</entry>
+				</row>
+				<row>
+					<entry colname="colB">04-07</entry>
+					<entry namest="col0" nameend="col1">Seqence Number</entry>
+					<entry namest="col2" nameend="col3">GW Port</entry>
+				</row>
+				<row>
+					<entry colname="colB">08-11</entry>
+					<entry namest="col0" nameend="col3">Originator Address</entry>
+				</row>
+				<row>
+					<entry colname="colB">11-15</entry>
+					<entry namest="col0" nameend="col3">Previous Sender Address</entry>
+				</row>
+				<row>
+					<entry colname="colB">16-19</entry>
+					<entry namest="col0" nameend="col0">TQ</entry>
+					<entry namest="col1" nameend="col1">HNA length</entry>
+					<entry namest="col2" nameend="col3"> (...)</entry>
+				</row>
 			</tbody>
-			</tgroup>
-		</table>
+		</tgroup>
+	</table>
 </para>
 </sect2>
 <sect2 id="batman4_tq">
@@ -205,17 +177,17 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	</orderedlist>
 </para>
 <para>
-	This shows that B.A.T.M.A.N. IV is able to compute the local Transmit Quality by using the same 
+	This shows that B.A.T.M.A.N. IV is able to compute the local Transmit Quality by using the same
 	mechanisms as B.A.T.M.A.N. III without adding further overhead.
 </para>
 </sect2>
 <sect2 id="batman4_tq_prop">
 <title>Transmit Quality Propagation</title>
 <para>
-	The local link quality needs to be propagated throughout the network to inform other nodes about the transmit quality. Therefore B.A.TM.A.N. IV introduces a new field called "TQ" which is 1 byte long. This field is added to the known B.A.T.M.A.N. III packet. Whenever the OGM is generated this field is set to maximum length (256) before it is broadcasted. The receiving neighbor will calculate their own local link quality into the received TQ value and rebroadcast the packet. Hence, every node receiving a packet knows about the transmit quality towards the originator node.
+	The local link quality needs to be propagated throughout the network to inform other nodes about the transmit quality. Therefore B.A.TM.A.N. IV introduces a new field called "TQ" which is 1 byte long. This field is added to the known B.A.T.M.A.N. III packet. Whenever the OGM is generated this field is set to maximum length (255) before it is broadcasted. The receiving neighbor will calculate their own local link quality into the received TQ value and rebroadcast the packet. Hence, every node receiving a packet knows about the transmit quality towards the originator node.
 </para>
 <para>
-	To add the local link quality in the TQ value the following calculation is performed: 
+	To add the local link quality in the TQ value the following calculation is performed:
 </para>
 <para>
 	<inlinemediaobject>
@@ -247,7 +219,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	</inlinemediaobject>
 </para>
 <para>
-	Due to this layout the originator messages from node A have a good chance arriving at B but the TQ value propagated by node B is very low due to the high packet loss towards node A. The messages from node A that travel via node C have a low probablity arriving at node B due to the packet loss towards node B but have a much better TQ value. Node B will propagate many messages with a low TQ value (received from node A directly) and a few messages with a high TQ value (received from node A via node C) although the connection towards node A is very good. 
+	Due to this layout the originator messages from node A have a good chance arriving at B but the TQ value propagated by node B is very low due to the high packet loss towards node A. The messages from node A that travel via node C have a low probability arriving at node B due to the packet loss towards node B but have a much better TQ value. Node B will propagate many messages with a low TQ value (received from node A directly) and a few messages with a high TQ value (received from node A via node C) although the connection towards node A is very good.
 </para>
 <para>
 	<inlinemediaobject>
@@ -258,7 +230,7 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 
 <para>
-	Therefore, B.A.T.M.A.N. IV will rebroadcast the received OGM with the TQ value of the best neighbor towards the originator. In the given example node B will place the TQ value received via node C in the message from node A before rebroadcasting it. It will flood its best TQ only. [bild3]
+	Therefore, B.A.T.M.A.N. IV will rebroadcast the received OGM with the TQ value of the best neighbor towards the originator. In the given example node B will place the TQ value received via node C in the message from node A before rebroadcasting it. It will flood its best TQ only.
 </para>
 <para>
 	<inlinemediaobject>
@@ -321,13 +293,42 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 </sect2>
 
-<sect2 id="batman4_tq_hop_penalty">
-<title>Hop penalty</title>
+<sect2 id="batman4_tq_echo_cancellation">
+<title>Echo cancellation</title>
 <para>
-	B.A.T.M.A.N. IV loosens the strict packet drop policy used by B.A.T.M.A.N. III to make the TQ algorithm work. This introduces a new problem: In certain cases B.A.T.M.A.N. IV is unable to detect the 'real' source of an OGM which may lead to temporary routing loops. The following section is going to illustrate the issue and how it is going to be addressed using an Ethernet network as example for the sake of simplicity. WiFi and other mediums are less susceptible as Ethernet but still affected.
+	B.A.T.M.A.N. IV loosens the strict packet drop policy used by B.A.T.M.A.N. III to make the TQ algorithm work. B.A.T.M.A.N. IV checks for unknown sequence numbers via a specific neighbor whereas B.A.T.M.A.N. III checks for known sequence numbers. If this combination is "new" the OGM will be accepted, processed and rebroadcasted. This may duplicate known information when the message "comes back" due to rebroadcasting (so called echos). In dense areas without heavy packet loss this leads to increased bandwidth and CPU usage.
 </para>
 <para>
-	Example topology: The node S (source) has a WiFi connection towards node A but no link to node B at all. Node A and node B are connected via Ethernet. We assume the Ethernet connection to be perfect (no packet loss) whereas the WiFi connection suffers from occasional collisions and interferences.
+	Example: 3 nodes (A, B and C) in a row (A can hear B but not C). Node A emits an OGM, Node B hears and rebroadcasts it. The broadcast from node B arrives at A and C. Node A will drop the message as A detects that it was the originator of this OGM. C will process and rebroadcasts the message. Node B will receive the very OGM that it sent before and happily rebroadcast again (the echo of its own message) because B can't detect that it broadcasted the message before.
+</para>
+<para>
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/echo_cancel1.eps" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/echo_cancel1.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>communication without echo cancellation</phrase> </textobject>
+	</inlinemediaobject>
+</para>
+<para>
+	To detect echos (messages that already passed through a node) B.A.T.M.A.N. IV introduces a new protocol field called "previous sender" which contains the IP address of the node rebroadcasting the OGM. Whenever a node receives a message from a neighbor it will fill the "previous sender" field with the address of the sending neighbor before rebroadcasting it. If a node detects his own IP address in the "previous sender" field the packet will be ignored.
+</para>
+<para>
+	Back to the example: Node B will ignore (drop) the packet coming back from node C as node C wrote the IP address of node B in the "previous sender" field.
+</para>
+<para>
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/echo_cancel2.eps" format="EPS" scale="50" /> </imageobject>
+		<imageobject> <imagedata fileref="images/echo_cancel2.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>communication with echo cancellation</phrase> </textobject>
+	</inlinemediaobject>
+</para>
+<para>
+	Even in more sophisticated scenarios with more nodes/hops this concept successfully reduces the packets. It ensures that packet only travels paths which did not see this OGM before.
+</para>
+<para>
+	In certain cases B.A.T.M.A.N. IV is unable to detect the 'real' source of an OGM which may lead to temporary routing loops. The following section is going to illustrate the issue and how the echo cancellation addresses it using an Ethernet network as example for the sake of simplicity. WiFi and other mediums are less susceptible as Ethernet but still affected.
+</para>
+<para>
+	Example: The node S (source) has a WiFi connection towards node A but no link to node B at all. Node A and node B are connected via Ethernet. We assume the Ethernet connection to be perfect (no packet loss) whereas the WiFi connection suffers from occasional collisions and interferences.
 </para>
 <para>
 	<inlinemediaobject>
@@ -363,9 +364,6 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 	As B.A.T.M.A.N. IV values TQ and fastest packet the node A's route will point towards the node S. Once the WiFi link quality drops (for a few moments due to some collisions) the TQ value from the node S will drop. At that point the B.A.T.M.A.N. IV node A will change its route towards node B which offers a better TQ value. Node A and node B will send packets forth and back in a loop.
 </para>
 <para>
-	To overcome this issue B.A.T.M.A.N. IV introduces a hop penalty: Every time an OGM passes a node the TQ value will be decreased by a fixed value regardless of the asymetric link penalty before rebroadcasting the packet. In the given example it decrease the value of the second route via node B.
-</para>
-<para>
 	<inlinemediaobject>
 		<imageobject> <imagedata fileref="images/hop_penalty6.eps" format="EPS" scale="50" /> </imageobject>
 		<imageobject> <imagedata fileref="images/hop_penalty6.png" format="PNG"  /> </imageobject>
@@ -375,46 +373,135 @@ TODO Explain multiple interfaces, which interface sends which OGM by which TTL, 
 </para>
 </sect2>
 
-<sect2 id="batman4_tq_echo_cancellation">
-<title>Echo cancellation</title>
+<sect2 id="batman4_tq_hop_penalty">
+<title>Hop penalty</title>
 <para>
-	As explained in the hop penalty section B.A.T.M.A.N. IV floods the network with more packets than B.A.T.M.A.N. III due to the less strict duplicate detection mechanism. B.A.T.M.A.N. IV checks for unknown sequence numbers via a specific neighbor. If this combination is "new" the OGM will be accepted, processed and rebroadcasted. This may duplicate known information when the message "comes back" due to rebroadcasting (so called echos). In dense areas without heavy packet loss this leads to increased bandwidth and CPU usage.
+	So far, B.A.T.M.A.N. IV focusses only on the link quality to evaluate paths but not on the number of hops in the path as it is unaware of the topology beyond its horizon. In certain network setups the link quality of the neighbors is very similar whereas the number of hops is not. In these scenarios it is very desirable to choose the shortest path to reduce latency and to safe bandwidth (on wireless mediums). The following section is going to illustrate the issue and how it is going to be addressed using an Ethernet network as example for the sake of simplicity. WiFi and other mediums are less susceptible as Ethernet but still affected.
 </para>
 <para>
-	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/echo_cancel1.eps" format="EPS" scale="50" /> </imageobject>
-		<imageobject> <imagedata fileref="images/echo_cancel1.png" format="PNG"  /> </imageobject>
-		<textobject> <phrase>communication without echo cancellation penalty</phrase> </textobject>
-	</inlinemediaobject>
-
-</para>
-
-<para>
-	Lets consider the following example: 3 nodes (A, B and C) in a row (A can hear B but not C). Node A emits an OGM, B hears and rebroadcasts it. This broadcast from B arrives at C which also rebroadcasts the message. B will receive the very OGM that it sent before and happily rebroadcast again (the echo of its own message).
+	Example: The nodes A, B and C that are connected to a network switch. Node A originates the first message which is received, processed and rebroadcasted by B immediately. The rebroadcast from node B arrives at node C before the message from node A arrives. As the link quality is the same and perfect (in this example) Node C assumes a path towards node A via node B. [penalty1 bild]
 </para>
 <para>
-	To detect echos (messages that already passed through a node) B.A.T.M.A.N. IV introduces a new protocol field called "old originator" which contains the IP address of the node rebroadcasting the OGM. Whenever a node receives a message from a neighbor it will fill the "old originator" field with the address of this neighbor before rebroadcasting it. If the neighbor recognizes his own IP address in the "old originator" field the packet will be ignored.
-</para>
-<para>
-	Back to the example: Node B will ignore (drop) the packet coming back from node C as node C wrote the IP address of node B in the "old originator" field.
-</para>
-<para>
-	<inlinemediaobject>
-		<imageobject> <imagedata fileref="images/echo_cancel2.eps" format="EPS" scale="50" /> </imageobject>
-		<imageobject> <imagedata fileref="images/echo_cancel2.png" format="PNG"  /> </imageobject>
-		<textobject> <phrase>communication without echo cancellation penalty</phrase> </textobject>
-	</inlinemediaobject>
-</para>
-<para>
-	Even in more sophisticated scenarios with more nodes/hops this concept successfully reduces the packets. It ensures that packet only travels paths which did not see this OGM before. 
+	To overcome this issue B.A.T.M.A.N. IV introduces a hop penalty: Every time an OGM passes a node the TQ value will be decreased by a fixed value regardless of the asymetric link penalty before rebroadcasting the packet. In the given example it decrease the value of the route via node B and favors the direct connection. [penalty2 bild]
 </para>
 </sect2>
 
 <sect2 id="batman4_packet_aggregation">
 <title>Packet Aggregation</title>
 <para>
-	TODO aggregate packets to reduce overhead and CPU cycles
+	In dense node areas with low packet loss B.A.T.M.A.N. III generates quite some packets which increases the probability of collisions, wastes air time and causes more CPU load. Each OGM being 20 Bytes small, B.A.T.M.A.N. IV introduces a packet aggregation that combines several distinct OGMs into one packet. To achieve this B.A.T.M.A.N. IV holds back packets that are to be sent and waits for incoming packets to append them before broadcasting the single aggregated packet.
 </para>
+<para>
+	Every OGM consists of the static B.A.T.M.A.N. IV header (see: originator message format) plus the dynamic HNA message part.
+</para>
+<para>
+	<table>
+		<title>HNA (layer 3) message format</title>
+		<tgroup cols="5">
+			<colspec colnum="1" colname="colB" colwidth="1*"/>
+			<colspec colnum="2" colname="col0" colwidth="1*"/>
+			<colspec colnum="3" colname="col1" colwidth="1*"/>
+			<colspec colnum="4" colname="col2" colwidth="1*"/>
+			<colspec colnum="5" colname="col3" colwidth="1*"/>
+			<thead>
+				<row>
+					<entry>+</entry>
+					<entry>00</entry>
+					<entry>01</entry>
+					<entry>02</entry>
+					<entry>03</entry>
+				</row>
+			</thead>
+			<tbody>
+				<row>
+					<entry colname="colB">00-03</entry>
+					<entry namest="col0" nameend="col3">HNA address</entry>
+				</row>
+				<row>
+					<entry colname="colB">04-07</entry>
+					<entry namest="col0" nameend="col0">Subnetmask</entry>
+				</row>
+			</tbody>
+		</tgroup>
+	</table>
+</para>
+<para>
+	B.A.T.M.A.N. IV allows to append none, one or multiple HNA messages. As each OGM may carry multiple HNA information it is necessary to store the number of HNA messages in the newly created HNA length field.
+</para>
+<para>
+	<table>
+		<title>example B.A.T.M.A.N. IV (layer 3) aggregated packet</title>
+		<tgroup cols="5">
+			<colspec colnum="1" colname="colB" colwidth="1*"/>
+			<colspec colnum="2" colname="col0" colwidth="1*"/>
+			<colspec colnum="3" colname="col1" colwidth="1*"/>
+			<colspec colnum="4" colname="col2" colwidth="1*"/>
+			<colspec colnum="5" colname="col3" colwidth="1*"/>
+			<thead>
+				<row>
+					<entry>+</entry>
+					<entry>00</entry>
+					<entry>01</entry>
+					<entry>02</entry>
+					<entry>03</entry>
+				</row>
+			</thead>
+			<tbody>
+				<row>
+					<entry colname="colB">00-03</entry>
+					<entry namest="col0" nameend="col0">Version</entry>
+					<entry namest="col1" nameend="col1">Flags</entry>
+					<entry namest="col2" nameend="col2">TTL</entry>
+					<entry namest="col3" nameend="col3">GW Flags</entry>
+				</row>
+				<row>
+					<entry colname="colB">04-07</entry>
+					<entry namest="col0" nameend="col1">Seqence Number</entry>
+					<entry namest="col2" nameend="col3">GW Port</entry>
+				</row>
+				<row>
+					<entry colname="colB">08-11</entry>
+					<entry namest="col0" nameend="col3">Originator Address</entry>
+				</row>
+				<row>
+					<entry colname="colB">11-15</entry>
+					<entry namest="col0" nameend="col3">Previous Sender Address</entry>
+				</row>
+				<row>
+					<entry colname="colB">16-19</entry>
+					<entry namest="col0" nameend="col0">TQ</entry>
+					<entry namest="col1" nameend="col1">HNA length (2)</entry>
+					<entry namest="col2" nameend="col3">HNA address</entry>
+				</row>
+				<row>
+					<entry colname="colB">20-23</entry>
+					<entry namest="col0" nameend="col1">HNA address</entry>
+					<entry namest="col2" nameend="col2">Subnetmask</entry>
+					<entry namest="col3" nameend="col3">HNA address</entry>
+				</row>
+				<row>
+					<entry colname="colB">24-27</entry>
+					<entry namest="col0" nameend="col2">HNA address</entry>
+					<entry namest="col3" nameend="col3">Subnetmask</entry>
+				</row>
+				<row>
+					<entry colname="colB">28-31</entry>
+					<entry namest="col0" nameend="col3">next B.A.T.M.A.N. IV header</entry>
+				</row>
+			</tbody>
+		</tgroup>
+	</table>
+</para>
+</sect2>
+
+ <sect2 id="multiple_interfaces">
+<title>multiple interfaces</title>
+<para>
+TODO Explain multiple interfaces, which interface sends which OGM by which TTL, and why.
+(Maybe move this section somewhere else ... )
+
+==> why explaining this in this document ? I would refer them to the RFC because this did not change with IV.
+ </para>
 </sect2>
 
 </sect1>

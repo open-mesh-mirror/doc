@@ -30,13 +30,13 @@
 			<tgroup cols="9">
 			<colspec colnum="1" colname="colB" colwidth="1*"/>
 			<colspec colnum="2" colname="col0" colwidth="1*"/>
-            <colspec colnum="3" colname="col1" colwidth="1*"/>
-            <colspec colnum="4" colname="col2" colwidth="1*"/>
-            <colspec colnum="5" colname="col3" colwidth="1*"/>
-            <colspec colnum="6" colname="col4" colwidth="1*"/>
-            <colspec colnum="7" colname="col5" colwidth="1*"/>
-            <colspec colnum="8" colname="col6" colwidth="1*"/>
-            <colspec colnum="9" colname="col7" colwidth="1*"/>
+			<colspec colnum="3" colname="col1" colwidth="1*"/>
+			<colspec colnum="4" colname="col2" colwidth="1*"/>
+			<colspec colnum="5" colname="col3" colwidth="1*"/>
+			<colspec colnum="6" colname="col4" colwidth="1*"/>
+			<colspec colnum="7" colname="col5" colwidth="1*"/>
+			<colspec colnum="8" colname="col6" colwidth="1*"/>
+			<colspec colnum="9" colname="col7" colwidth="1*"/>
  			<thead><row>
 				<entry>+</entry>
 				<entry>00</entry>
