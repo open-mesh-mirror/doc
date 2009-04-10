@@ -308,12 +308,12 @@
         <dia:point val="11.238,6.272"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="11.238,5.5945;15.023,8.767"/>
+        <dia:rectangle val="11.238,5.57325;16.5392,8.8095"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#batman III
+            <dia:string>#B.A.T.M.A.N. III
 metric:
 100% to A#</dia:string>
           </dia:attribute>
@@ -343,12 +343,12 @@ metric:
         <dia:point val="0.3061,6.38"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="0.3061,5.7025;3.9986,8.875"/>
+        <dia:rectangle val="0.3061,5.68125;5.60735,8.9175"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#batman III
+            <dia:string>#B.A.T.M.A.N. III
 metric: 
 5% to B#</dia:string>
           </dia:attribute>
