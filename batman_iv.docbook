@@ -470,19 +470,19 @@
 				<row>
 					<entry colname="colB">16-19</entry>
 					<entry namest="col0" nameend="col0">TQ</entry>
-					<entry namest="col1" nameend="col1">HNA length (2)</entry>
-					<entry namest="col2" nameend="col3">HNA address</entry>
+					<entry namest="col1" nameend="col1">HNA length = 2</entry>
+					<entry namest="col2" nameend="col3">HNA address #1</entry>
 				</row>
 				<row>
 					<entry colname="colB">20-23</entry>
-					<entry namest="col0" nameend="col1">HNA address</entry>
-					<entry namest="col2" nameend="col2">Subnetmask</entry>
-					<entry namest="col3" nameend="col3">HNA address</entry>
+					<entry namest="col0" nameend="col1">HNA address #1 (continued)</entry>
+					<entry namest="col2" nameend="col2">Subnetmask #1</entry>
+					<entry namest="col3" nameend="col3">HNA address #2 </entry>
 				</row>
 				<row>
 					<entry colname="colB">24-27</entry>
-					<entry namest="col0" nameend="col2">HNA address</entry>
-					<entry namest="col3" nameend="col3">Subnetmask</entry>
+					<entry namest="col0" nameend="col2">HNA address #2 (continued)</entry>
+					<entry namest="col3" nameend="col3">Subnetmask #2 </entry>
 				</row>
 				<row>
 					<entry colname="colB">28-31</entry>
