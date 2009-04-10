@@ -185,14 +185,14 @@
         <dia:point val="7,-4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7,-4.6775;13.48,-1.505"/>
+        <dia:rectangle val="7,-4.69875;14.4588,-1.4625"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
             <dia:string>#step1:
 source = A
-old originator = A#</dia:string>
+previous sender = A#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
@@ -281,14 +281,14 @@ old originator = A#</dia:string>
         <dia:point val="18,-4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="18,-4.6775;24.015,-1.505"/>
+        <dia:rectangle val="18,-4.69875;25.4587,-1.4625"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
             <dia:string>#step 2:
 source = B
-old originator=A#</dia:string>
+previous sender = A#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
@@ -316,16 +316,17 @@ old originator=A#</dia:string>
         <dia:point val="7,7"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="7,6.358;15.72,11.596"/>
+        <dia:rectangle val="7,6.33021;14.9744,12.6229"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
             <dia:string>#step 2:
 source = B
-old originator = A
+previous sender = A
 
-A will ignore this packet#</dia:string>
+A will not rebroadcast
+this packet#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
@@ -353,16 +354,17 @@ A will ignore this packet#</dia:string>
         <dia:point val="19,7"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="19,6.358;27.72,11.596"/>
+        <dia:rectangle val="19,6.33021;26.9744,12.6229"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
             <dia:string>#step 3:
 source = C
-old originator = B
+previous sender = B
 
-B will ignore this packet#</dia:string>
+B will not rebroadcast
+this packet#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
@@ -390,14 +392,14 @@ B will ignore this packet#</dia:string>
         <dia:point val="28,-4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="28,-4.6775;34.48,-1.505"/>
+        <dia:rectangle val="28,-4.69875;35.4588,-1.4625"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
             <dia:string>#step 3:
 source = C
-old originator = B#</dia:string>
+previous sender = B#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
