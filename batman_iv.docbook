@@ -73,7 +73,7 @@
 <title>The B.A.T.M.A.N. IV Originator Message Format</title>
 <para>
 	<table>
-		<title>B.A.T.M.A.N. IV (layer 3) Packet Format</title>
+		<title>B.A.T.M.A.N. IV (Layer 3) Packet Format</title>
 		<tgroup cols="5">
 			<colspec colnum="1" colname="colB" colwidth="1*"/>
 			<colspec colnum="2" colname="col0" colwidth="1*"/>
@@ -396,7 +396,7 @@
 </para>
 <para>
 	<table>
-		<title>HNA (layer 3) Message Format</title>
+		<title>HNA (Layer 3) Message Format</title>
 		<tgroup cols="5">
 			<colspec colnum="1" colname="colB" colwidth="1*"/>
 			<colspec colnum="2" colname="col0" colwidth="1*"/>
@@ -430,7 +430,7 @@
 </para>
 <para>
 	<table>
-		<title>Example B.A.T.M.A.N. IV (layer 3) Aggregated Packet</title>
+		<title>Example B.A.T.M.A.N. IV (Layer 3) Aggregated Packet</title>
 		<tgroup cols="5">
 			<colspec colnum="1" colname="colB" colwidth="1*"/>
 			<colspec colnum="2" colname="col0" colwidth="1*"/>
