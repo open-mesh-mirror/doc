@@ -26,7 +26,7 @@
 		talk Ethernet via raw sockets (SOCK_RAW).
 	</para>
 		<table>
-			<title>Ethernet embedding</title>
+			<title>Ethernet Embedding</title>
 			<tgroup cols="9">
 			<colspec colnum="1" colname="colB" colwidth="1*"/>
 			<colspec colnum="2" colname="col0" colwidth="1*"/>

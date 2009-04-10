@@ -2,7 +2,7 @@
 <chapter id="batman_iv_tq">
 <title>B.A.T.M.A.N. IV (TQ) Meshing</title>
 <sect1 id="batman3">
-<title>B.A.T.M.A.N. III (introduction)</title>
+<title>B.A.T.M.A.N. III (Introduction)</title>
 <para>
 	B.A.T.M.A.N. is a proactive routing protocol for Wireless Ad-hoc Mesh
 	Networks, including (but not limited to) Mobile Ad-hoc Networks
@@ -20,7 +20,7 @@
 </para>
 
 <sect2 id="how_works">
-<title>B.A.T.M.A.N. III (brief overview)</title>
+<title>B.A.T.M.A.N. III (Brief Overview)</title>
 <para>
 	On a regular basis every B.A.T.M.A.N. node broadcasts an originator
 	message (or OGM), thereby informing its link-local neighbors about
@@ -70,10 +70,10 @@
 	To overcome this flaw B.A.T.M.A.N. IV has been enhanced with the Transmit Quality (TQ) algorithm. The following sections are going to outline its design and how it strengthens B.A.T.M.A.N.'s routing capabilities in asymetric environments.
 </para>
 <sect2 id="batman4_packet_layout">
-<title>The B.A.T.M.A.N. IV originator message format</title>
+<title>The B.A.T.M.A.N. IV Originator Message Format</title>
 <para>
 	<table>
-		<title>B.A.T.M.A.N. IV (layer 3) packet format</title>
+		<title>B.A.T.M.A.N. IV (layer 3) Packet Format</title>
 		<tgroup cols="5">
 			<colspec colnum="1" colname="colB" colwidth="1*"/>
 			<colspec colnum="2" colname="col0" colwidth="1*"/>
@@ -243,7 +243,7 @@
 </sect2>
 
 <sect2 id="batman4_local_global_tq">
-<title>local TQ vs global TQ</title>
+<title>Local TQ vs Global TQ</title>
 <para>
 	A B.A.T.M.A.N. IV node has to keep track of 2 different TQ values:
 	<orderedlist>
@@ -260,7 +260,7 @@
 </sect2>
 
 <sect2 id="batman4_tq_asymetry">
-<title>Handling asymetric links</title>
+<title>Handling Asymetric Links</title>
 <para>
 	Although the transmit link quality is most important decision factor B.A.T.M.A.N. IV also keeps track of the receiving link quality. On the WiFi layer every unicast packet has to be acknowledged by the neighbor node to approve the transmission. If this neighbor is not able to sucessfully send his ACKs the WiFi layer considers this transmission to be failed and tries to retransmit until it gives up.
 </para>
@@ -294,7 +294,7 @@
 </sect2>
 
 <sect2 id="batman4_tq_echo_cancellation">
-<title>Echo cancellation</title>
+<title>Echo Cancellation</title>
 <para>
 	B.A.T.M.A.N. IV loosens the strict packet drop policy used by B.A.T.M.A.N. III to make the TQ algorithm work. B.A.T.M.A.N. IV checks for unknown sequence numbers via a specific neighbor whereas B.A.T.M.A.N. III checks for known sequence numbers. If this combination is "new" the OGM will be accepted, processed and rebroadcasted. This may duplicate known information when the message "comes back" due to rebroadcasting (so called echos). In dense areas without heavy packet loss this leads to increased bandwidth and CPU usage.
 </para>
@@ -374,7 +374,7 @@
 </sect2>
 
 <sect2 id="batman4_tq_hop_penalty">
-<title>Hop penalty</title>
+<title>Hop Penalty</title>
 <para>
 	So far, B.A.T.M.A.N. IV focusses only on the link quality to evaluate paths but not on the number of hops in the path as it is unaware of the topology beyond its horizon. In certain network setups the link quality of the neighbors is very similar whereas the number of hops is not. In these scenarios it is very desirable to choose the shortest path to reduce latency and to safe bandwidth (on wireless mediums). The following section is going to illustrate the issue and how it is going to be addressed using an Ethernet network as example for the sake of simplicity. WiFi and other mediums are less susceptible as Ethernet but still affected.
 </para>
@@ -396,7 +396,7 @@
 </para>
 <para>
 	<table>
-		<title>HNA (layer 3) message format</title>
+		<title>HNA (layer 3) Message Format</title>
 		<tgroup cols="5">
 			<colspec colnum="1" colname="colB" colwidth="1*"/>
 			<colspec colnum="2" colname="col0" colwidth="1*"/>
@@ -430,7 +430,7 @@
 </para>
 <para>
 	<table>
-		<title>example B.A.T.M.A.N. IV (layer 3) aggregated packet</title>
+		<title>Example B.A.T.M.A.N. IV (layer 3) Aggregated Packet</title>
 		<tgroup cols="5">
 			<colspec colnum="1" colname="colB" colwidth="1*"/>
 			<colspec colnum="2" colname="col0" colwidth="1*"/>
@@ -495,7 +495,7 @@
 </sect2>
 
  <sect2 id="multiple_interfaces">
-<title>multiple interfaces</title>
+<title>Multiple Interfaces</title>
 <para>
 TODO Explain multiple interfaces, which interface sends which OGM by which TTL, and why.
 (Maybe move this section somewhere else ... )

@@ -108,7 +108,7 @@ $ make</userinput></programlisting>
       192.168.100.x network, because your parameter is /24. So, if you use
       different netmask values, then the results are different.</para>
       <figure>
-        <title>Two announced networks</title>
+        <title>Two Announced Networks</title>
         <mediaobject>
          <imageobject><imagedata fileref="images/multiple_announces.eps" format="EPS" scale="50" /></imageobject>
          <imageobject><imagedata fileref="images/multiple_announces.png" format="PNG" /></imageobject>
