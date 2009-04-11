@@ -242,12 +242,12 @@
         <dia:point val="3.03206,-0.834177"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="3.03206,-1.53293;12.7883,-0.296677"/>
+        <dia:rectangle val="3.03206,-1.53293;13.4808,-0.296677"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#24.75 (incoming TQ=95%)#</dia:string>
+            <dia:string>#24.75% (incoming TQ=95%)#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
