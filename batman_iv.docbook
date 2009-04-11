@@ -447,14 +447,20 @@
 </para>
 </sect2>
 
- <sect2 id="multiple_interfaces">
+<sect2 id="multiple_interfaces">
 <title>Multiple Interfaces</title>
 <para>
-TODO Explain multiple interfaces, which interface sends which OGM by which TTL, and why.
-(Maybe move this section somewhere else ... )
-
-==> why explaining this in this document ? I would refer them to the RFC because this did not change with IV.
- </para>
+	In order to support nodes with several network interfaces B.A.T.M.A.N. needs to detect which link connects to what interface. As every incoming packet is rebroadcasted via all existing interfaces B.A.T.M.A.N. IV needs to use a flag (direct link flag) to distinguish between real connections and rebroadcasts.
+</para>
+<para>
+	The detection process: Node A emits an OGM without any enabled flags. The neighbor B receives the message and checks whether the UDP sender address and the originator address are equal. If so it will rebroadcasting the OGM with the direct link flag enabled otherwise the flags are not changed. Once node A receives this rebroadcast of its own OGM it recognizes this neighbor as single-hop neighbor due to the existing direct link flag. If node A received this package via the same interface it was sent out (incoming interface address equals originator address) node A will accept this package and increase the the Echo Quality (EQ) packet count. Its ignored otherwise.
+</para>
+<para>
+	Examples: Node A hast 2 interfaces and broadcasts the OGM of one interface over both interfaces to make it known in the mesh cloud. Node B also has 2 interfaces and receives this broadcast via both. The OGM that orignated via the interface it belongs to is accepted to other one ignored (for further interface detection).
+</para>
+<para>
+	Node B will rebroadcast the message over both interfaces as well but only set the direct link interface flag on the packet that leaves the node via the interface the message came in. Node A will ignore the packet without the direct link flag and only counts the OGM that comes in via the interface it left in the first place.
+</para>
 </sect2>
 
 </sect1>
