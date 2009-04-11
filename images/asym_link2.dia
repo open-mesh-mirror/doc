@@ -239,15 +239,15 @@
     </dia:object>
     <dia:object type="Standard - Text" version="1" id="O6">
       <dia:attribute name="obj_pos">
-        <dia:point val="6.58206,-0.884177"/>
+        <dia:point val="3.03206,-0.834177"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="6.58206,-1.56168;8.20456,-0.389177"/>
+        <dia:rectangle val="3.03206,-1.53293;12.7883,-0.296677"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
           <dia:attribute name="string">
-            <dia:string>#95%#</dia:string>
+            <dia:string>#24.75 (incoming TQ=95%)#</dia:string>
           </dia:attribute>
           <dia:attribute name="font">
             <dia:font family="sans" style="0" name="Helvetica"/>
@@ -256,7 +256,7 @@
             <dia:real val="1"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="6.58206,-0.884177"/>
+            <dia:point val="3.03206,-0.834177"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
