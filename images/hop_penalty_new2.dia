@@ -68,7 +68,7 @@
         <dia:point val="17,-4"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="17,-4.55956;26.6121,-2.76837"/>
+        <dia:rectangle val="17,-4.5425;26.595,-2.8025"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -354,14 +354,14 @@ TQ = 96 % (hop penalty applied)#</dia:string>
         <dia:point val="20,0"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="12.2731,-8.71892;20.0706,0.0706485"/>
+        <dia:rectangle val="11.9263,-8.71892;20.0706,0.0706485"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
         <dia:point val="20,0"/>
         <dia:point val="12.3282,-8.34369"/>
       </dia:attribute>
       <dia:attribute name="curve_distance">
-        <dia:real val="-2.3269140354912046"/>
+        <dia:real val="-1.362060805153245"/>
       </dia:attribute>
       <dia:attribute name="end_arrow">
         <dia:enum val="3"/>
@@ -388,7 +388,7 @@ TQ = 96 % (hop penalty applied)#</dia:string>
         <dia:point val="12.3282,-10.6718"/>
       </dia:attribute>
       <dia:attribute name="curve_distance">
-        <dia:real val="2.1663871418151657"/>
+        <dia:real val="2.4028529138638737"/>
       </dia:attribute>
       <dia:attribute name="end_arrow">
         <dia:enum val="3"/>
@@ -477,7 +477,7 @@ TQ = 100 %#</dia:string>
         <dia:point val="16,-12"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="16,-12.6988;26.5362,-10.4625"/>
+        <dia:rectangle val="16,-12.6775;26.515,-10.505"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
