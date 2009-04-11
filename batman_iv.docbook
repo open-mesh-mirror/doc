@@ -272,7 +272,15 @@
 	</inlinemediaobject>
 </para>
 <para>
-	Thus B.A.T.M.A.N. IV needs to penalize links that have have a poor receiving link quality. To avoid a simple hysteresis which completely turns on or off a link B.A.T.M.A.N. IV uses a mathematical function to give the receiving link quality stronger negative impact the weaker the link becomes.
+	Thus B.A.T.M.A.N. IV needs to penalize links that have have a poor receiving link quality. To avoid a simple hysteresis which completely turns on or off a link, B.A.T.M.A.N. IV uses the function 
+	<inlinemediaobject>
+		<imageobject> <imagedata fileref="images/asym_penalty_formula.eps" format="EPS"/> </imageobject>
+		<imageobject> <imagedata fileref="images/asym_penalty_formula.png" format="PNG"  /> </imageobject>
+		<textobject> <phrase>compute the asymetry penalty factor</phrase> </textobject>
+	</inlinemediaobject>
+	to weight the penalty for the receiving link quality. As visible in the plot below, small packet 
+	loss will influence the link rating only a little, while huge packet loss will still have a severe
+	influence TQ.
 </para>
 <para>
 	<inlinemediaobject>
@@ -282,7 +290,7 @@
 	</inlinemediaobject>
 </para>
 <para>
-	This obtained value is calculated into the TQ before it gets rebroadcasted. Neighboring nodes can weight the routing decision based on this information. In some situations the weak link is the only link available, so you want to use it, whereas in other cases better connections may exist.
+	This obtained value is multiplicated on the TQ before it gets rebroadcasted. Neighboring nodes can weight the routing decision based on this information. In some situations the weak link is the only link available, so you want to use it, whereas in other cases better connections may exist.
 </para>
 <para>
 	<inlinemediaobject>
