@@ -6,7 +6,7 @@ DIA_IMAGES=asymetry.dia tq.dia eq.dia eq_alt1.dia eq_alt2.dia eq_alt3.dia rq.dia
 		   echo_cancel1.dia echo_cancel2.dia \
 		   tq_prop_best1.dia tq_prop_best2.dia tq_prop_best3.dia \
 		   announce_networks.dia multiple_announces.dia multiple_clients.dia
-TEX_IMAGES=compute_tq.tex tq_prop_calc.tex
+TEX_IMAGES=compute_tq.tex tq_prop_calc.tex asym_penalty_formula.tex
 PNG_IMAGES= $(DIA_IMAGES:.dia=.png) 
 PNG_IMAGES+=$(GP_IMAGES:.gp=.png) 
 PNG_IMAGES+=$(TEX_IMAGES:.tex=.png) 
