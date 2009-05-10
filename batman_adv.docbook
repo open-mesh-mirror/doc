@@ -71,7 +71,7 @@
 				<listitem><para> Destination MAC - The MAC of the neighbour or broadcast</para></listitem>
 				<listitem><para> Source MAC - The MAC of the Network Interface the packet is sent out</para></listitem>
 				<listitem><para> Ethernet Type - The Batman Ethertype (0x0842)</para></listitem>
-				<listitem><para> Batman Type - The different messages (unicast, broadcast, originator, message system) are distinguished in this field, as described in the next secionts</para></listitem>
+				<listitem><para> Batman Type - The different messages (unicast, broadcast, originator, message system, visualization) are distinguished in this field, as described in the next sections</para></listitem>
 			</itemizedlist>
 
 			The Destination MAC is set according to the embedded Ethernet Frame (if there is any), so inner Broadcasts are also
@@ -121,23 +121,20 @@
 			<row>
 				<entry colname="colB">16-23</entry>
 				<entry colname="col0">Flags</entry>
-				<entry colname="col1">TTL</entry>
-				<entry colname="col2">Gateway Info</entry>
-				<entry colname="col3">TQ</entry>
-				<entry namest="col4" nameend="col5">seqno</entry>
-				<entry namest="col6" nameend="col7">Originator MAC</entry>
+				<entry colname="col1">TQ</entry>
+				<entry namest="col2" nameend="col3">Seqno</entry>
+				<entry namest="col4" nameend="col7">Originator MAC</entry>
 			</row>
 			<row>
 				<entry colname="colB">24-31</entry>
-				<entry namest="col0" nameend="col3">Originator MAC (cont.)</entry>
-				<entry namest="col4" nameend="col7">previous sender</entry>
+				<entry namest="col0" nameend="col1">Originator MAC (cont.)</entry>
+				<entry namest="col2" nameend="col7">Previous Sender MAC</entry>
 			</row>
 			<row>
 				<entry colname="colB">32-39</entry>
-				<entry namest="col0" nameend="col1">previous sender (cont.)</entry>
-				<entry colname="col2">#HNA entries</entry>
-				<entry colname="col3">padding</entry>
-				<entry namest="col4" nameend="col7">HNA entries ...</entry>
+				<entry colname="col0">TTL</entry>
+				<entry colname="col1">#HNA entries</entry>
+				<entry namest="col2" nameend="col7">HNA entries ...</entry>
 			</row>
 
 
@@ -147,7 +144,7 @@
 		<para>
 			<itemizedlist>
 				<listitem><para> Batman Type - value 0, this is an Originator packet.</para></listitem>
-				<listitem><para> Version - value 6, only this version is accepted.</para></listitem>
+				<listitem><para> Version - value 7, only this version is accepted.</para></listitem>
 				<listitem><para> Flags - some Flags which are used in the algorithm:
 						<itemizedlist>
 							<listitem><para>0x80 - Unidirectional Link</para></listitem>
@@ -155,11 +152,10 @@
 						</itemizedlist>
 				</para></listitem>
 				<listitem><para> TTL - Time to Live, decremented on each Hop. If 0, the packet is dropped. </para></listitem>
-				<listitem><para> Gateway Info - reserved, classification of the gatway capabilities and quality (connection to the internet).</para></listitem>
 				<listitem><para> TQ - transmit quality, connection quality to the originator.</para></listitem>
 				<listitem><para> Seqno - The Sequence Number, the Originator increases this number with each new packet. </para></listitem>
 				<listitem><para> Originator MAC - The MAC address of the node which originally released the packet. </para></listitem>
-				<listitem><para> previous sender MAC - The MAC address of the node which sent the packet before. </para></listitem>
+				<listitem><para> Previous Sender MAC - The MAC address of the node which sent the packet before. </para></listitem>
 			</itemizedlist>
 		</para>
 	</sect2>
@@ -204,19 +200,17 @@
 			<row>
 				<entry colname="colB">16-23</entry>
 				<entry colname="col0">Message Type</entry>
-				<entry namest="col1" nameend="col6">Destination MAC</entry>
-				<entry namest="col7" nameend="col7">Originator MAC</entry>
+				<entry colname="col1">TTL</entry>
+				<entry namest="col2" nameend="col7">Destination MAC</entry>
 			</row>
 			<row>
 				<entry colname="colB">24-31</entry>
-				<entry namest="col0" nameend="col4">Originator MAC (cont.)</entry>
-				<entry colname="col5">TTL</entry>
-				<entry colname="col6">UID</entry>
-				<entry namest="col7" nameend="col7">seqno</entry>
+				<entry namest="col0" nameend="col5">Originator MAC</entry>
+				<entry namest="col6" nameend="col7">Seqno</entry>
 			</row>
 			<row>
 				<entry colname="colB">32-39</entry>
-				<entry namest="col0" nameend="col0">seqno (cont.)</entry>
+				<entry colname="col0">UID</entry>
 				<entry namest="col1" nameend="col7">(Ethernet padding ..)</entry>
 			</row>
 
@@ -226,7 +220,7 @@
 		<para>
 			<itemizedlist>
 				<listitem><para> Batman Type - value 1, this is a message system packet.</para></listitem>
-				<listitem><para> Version - value 6, only this version is accepted.</para></listitem>
+				<listitem><para> Version - value 7, only this version is accepted.</para></listitem>
 				<listitem><para> Message Type - same as in ICMP:
 						<itemizedlist>
 							<listitem><para>0 - Echo Reply</para></listitem>
@@ -239,7 +233,7 @@
 				<listitem><para> Originator MAC - MAC address of the sending node.</para></listitem>
 				<listitem><para> TTL - Time to Live, decremented on each Hop. If 0, the packet is dropped. </para></listitem>
 				<listitem><para> UID - unique number to identify the number of the requesting client. </para></listitem>
-				<listitem><para> seqno - Sequence Number of the request. </para></listitem>
+				<listitem><para> Seqno - Sequence Number of the request. </para></listitem>
 			</itemizedlist>
 		</para>
 	</sect2>
@@ -292,7 +286,7 @@
 		<para>
 			<itemizedlist>
 				<listitem><para> Batman Type - value 2, this is a unicast packet.</para></listitem>
-				<listitem><para> Version - value 6, only this version is accepted.</para></listitem>
+				<listitem><para> Version - value 7, only this version is accepted.</para></listitem>
 				<listitem><para> Destination MAC - MAC address of the node which should receive the frame.</para></listitem>
 				<listitem><para> TTL - Time to Live, decremented on each Hop. If 0, the packet is dropped. </para></listitem>
 			</itemizedlist>
@@ -352,7 +346,7 @@
 		<para>
 			<itemizedlist>
 				<listitem><para> Batman Type - value 2, this is a unicast packet.</para></listitem>
-				<listitem><para> Version - value 6, only this version is accepted.</para></listitem>
+				<listitem><para> Version - value 7, only this version is accepted.</para></listitem>
 				<listitem><para> Originator MAC - The MAC address of the node which originally released the packet. </para></listitem>
 				<listitem><para> Seqno - sequence number, the Originator increases this number with each new packet. </para></listitem>
 			</itemizedlist>
@@ -361,7 +355,12 @@
 		</para>
 	</sect2>
 
-
+<sect2 id="Batman_adv_packet_types_5">
+	<title>Batman Type 5 - Visualization</title>
+	<para>
+		TODO
+	</para>
+</sect2>
 
 </sect1>
 
