@@ -1,3 +1,5 @@
+== Getting behind the routing vodoo ==
+
 With version 0.3 batman became "policy routing" support and thus can use special routing functions provided by the Linux kernel.
 
 This document explains its purpose and tries to point out why batman is doing it. Please keep in mind: Normally, you wont have to to anything about it ! Batman will take care of all the routing work but it might prove helpful to understand what batman does and why. ;-)
