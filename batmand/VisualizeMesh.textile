@@ -32,4 +32,4 @@ Make sure that all mentioned ports are not blocked by a firewall. You can verify
 
 '''Fancy graphics'''
 
-If you intend to create images like [http://downloads.open-mesh.org/batman/misc/wbm2009/08-vis_zoomed.png this one] you need to use one of the many tools available. That screenshot was made by connecting mesh3d (which is part of the [http://s3d.berlios.de/ s3d tools] - debian packages are available) to the vis dot draw output. If you have impressive screenshots don't hesitate to let us know. :-)
+If you intend to create images like [http://downloads.open-mesh.org/batman/misc/wbm2009/08-vis_zoomed.png this one] you need to use one of the many tools available. That screenshot was made by connecting mesh3d (which is part of the [http://s3d.berlios.de/ s3d tools] - debian packages are available) to the vis servers dot draw output (on port 2004). If you have impressive screenshots don't hesitate to let us know. :-)
