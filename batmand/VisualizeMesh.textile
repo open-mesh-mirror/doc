@@ -1,3 +1,5 @@
+== Visualize the mesh ==
+
 '''Concept'''
 
 In contrast to other routing protocols each batman node only knows the path to its single hop neighbors and knows nothing about the topology behind it. In practice it means that a batman node S is aware of node A which is somewhere in the mesh and reachable via neighbor B but it does not know about the number of hops and / or nodes in between. This approach is quite handy with regard to memory footprint, mesh stability and bandwidth friendliness but somewhat hard to visualize. Therefore a small helper was created: the vis server. It gathers the local views of each node and assembles a graph that can be fed into various tools which output an eye-candy graphic of the networks topology.
@@ -30,4 +32,4 @@ Make sure that all mentioned ports are not blocked by a firewall. You can verify
 
 '''Fancy graphics'''
 
-If you intend to create images like [http://downloads.open-mesh.org/batman/misc/wbm2009/08-vis_zoomed.png this one] you need to use one of the many tools available. This very screenshot was made by connecting mesh3d (which is part of the [http://s3d.berlios.de/ s3d tools] - debian packages are available) to the vis dot draw output. If you have impressive screenshots don't hesitate to let us know. :-)
+If you intend to create images like [http://downloads.open-mesh.org/batman/misc/wbm2009/08-vis_zoomed.png this one] you need to use one of the many tools available. That screenshot was made by connecting mesh3d (which is part of the [http://s3d.berlios.de/ s3d tools] - debian packages are available) to the vis dot draw output. If you have impressive screenshots don't hesitate to let us know. :-)
