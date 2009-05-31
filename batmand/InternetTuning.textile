@@ -25,7 +25,7 @@ That behaviour allows the gateway maintainer to distinguish between traffic insi
 Additionally, you have to make sure that the gateway allows forwarding and that the firewall masquerades all traffic coming through gate0.
 
 
-'''GatewayClient'''
+'''!GatewayClient'''
 
 You can tell batman to watch out for announced gateways and connect to them via the routing class option (-r). This option allows you to influence which gateway will be chosen. Currently, there are 3 modes available:
 
@@ -45,9 +45,13 @@ batmand -r (number between 3 and 256) [interface]:
 
 This mode also considers the link quality only but switches to another gateway as soon as this gateway has a TQ value which is $number better than the currently selected gateway (late-switching).
 
-After a gateway is chosen batman will create a gate0 interface and tries to get an IP from the gateway. If you plan to attach non-batman clients to your batman internet client you have to masquerade all outgoing packets on interface gate0.
+After a gateway is chosen batman will create a gate0 interface and tries to get an IP from the gateway. The tunnel architecture allows batman to observe the internet connection because all traffic is going through the tunnel. If batman notices that the currently selected gateway does not forward the traffic into the internet it will disconnect from that gateway and choose another gateway.
 
-The tunnel architecture allows batman to observe the internet connection because all traffic is going through the tunnel. If batman notices that the currently selected gateway does not forward the traffic into the internet it will disconnect from that gateway and choose another gateway.
+batman 0.3.1 and before:
+If you plan to attach non-batman clients to your batman internet client you have to masquerade all outgoing packets on interface gate0 (e.g. iptables).
+
+batman 0.3.2 and later:
+The batman daemon will try to locate the iptables binary to setup the masquerading automatically. This behaviour can be disabled using the "--disable-client-nat" option. If the outgoing packets are not masqueraded (the iptables binary wasn't found / the automatism disabled) batman will switch to the "half tunnel" mode which operates without masquerading. Beware: This mode __requires__ the gateway to have a routing entry for each client that accesses the internet (e.g. non-batman clients may be announced via HNA). Also, batman won't be able to automatically detect whether the chosen gateway is connected to the internet or not as only outgoing packets go through gate0.
 
 
 '''Tuning'''
