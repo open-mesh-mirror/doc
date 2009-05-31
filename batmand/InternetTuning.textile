@@ -18,7 +18,7 @@ The syntax is very flexible and allows all these values to become gateway class 
 
 Of course, you should enter the values which represent your connection speeds.
 
-Your gateway will open a new tunnel interface gate0 and sets up the correct routing entries. All batman internet clients will connect to the gateway which gives them a free IP for their own gate0 interface. The traffic to the gateway is encapsulated in UDP packets and sent to port 4307 (it should not be blocked by the firewall). On the way back from the internet the gateway also encapsulates the traffic.
+Your gateway will open a new tunnel interface gate0 and sets up the correct routing entries. All batman internet clients will connect to the gateway which gives them a free IP for their own gate0 interface. The traffic to the gateway is encapsulated in UDP packets and sent to port 4306 (it should not be blocked by the firewall). On the way back from the internet the gateway also encapsulates the traffic.
 
 That behaviour allows the gateway maintainer to distinguish between traffic inside the mesh and traffic which should go to the internet. All filtering / caching / traffic shaping can be done on the gate0 interface.
 
