@@ -10,10 +10,10 @@ batmand -c -a 192.168.1.0/24
 Adding multiple announcements in one go: 
 batmand -c -a 192.168.1.0/24 -a 192.168.100.123/32
 
-Removing an announcement: 
+Revoking an announcement: 
 batmand -c -A 192.168.1.0/24
 
-Removing multiple announcements in one go: 
+Revoking multiple announcements in one go: 
 batmand -c -A 192.168.1.0/24 -A 192.168.100.123/32
 
 It is worth noting that globally announced networks always give precendece to locally announced networks.
