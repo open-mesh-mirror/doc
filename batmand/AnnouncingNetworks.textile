@@ -1,4 +1,4 @@
-'''Announcing networks'''
+== Announcing networks ==
 
 Under certain circumstances its desirable to make non-batman hosts (such as servers, subnets, other routing domains or simple notebooks) known to the batman network. Batman can announce these network addresses (also known as HNA) which tells every other batman node to send the data for this network segment back to the announcing host (assuming this host knows how to reach the destination). 
 
