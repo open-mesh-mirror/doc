@@ -31,8 +31,7 @@ The userland implementation of batman-advanced was a proof of concept implementa
 working. Unfortunately, switching packets in userland is very expensive in terms of cycles, as each packet has to be
 read() and write() to the kernel and back, which limits the sustainable bandwidth especially on low-end devices. 
 To have good support for these devices as well, we implemented batman-adv as a kernel driver, which is now the 
-preferred version. It can be controlled via the /proc file system and works transparently, offering the same service
-and being compatible to the userland version.
+preferred version. It can be controlled via the /proc file system and works transparently. The userland remains unmaintained and has been removed from the subversion repository.
 
 === Documentation ===
 
