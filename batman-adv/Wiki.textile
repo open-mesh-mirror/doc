@@ -25,6 +25,11 @@ our own diagnostic tools, the battools. These tools contain a layer 2 version
 of ping,  traceroute and tcpdump. Further information can be found in the
 enclosed README file.
 
+=== batctl ===
+
+Is a wrapper script that facilitates working with the /proc/net/batman-adv interface. It can be downloaded [http://downloads.open-mesh.org/batman/useful-scripts-and-tools/batctl here].
+
+
 === Userland vs Kernelland ===
 
 The userland implementation of batman-advanced was a proof of concept implementation to verify that the concept is
