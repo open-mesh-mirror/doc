@@ -7,6 +7,7 @@
  * [wiki:AnnouncingNetworks Announcing networks] - learn how to announce and / or revoke HNA on the fly
  * [wiki:Coredump How to get a coredump] - documentation about coredump configuration & retrieval
  * [wiki:batman-adv B.A.T.M.A.N. Advanced] - information about the Layer 2 version of B.A.T.M.A.N.
+ * [http://wiki.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To B.A.T.M.A.N. Advanced on OpenWRT] - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
  * [wiki:the-olsr-story The OLSR story] - this text explains the roots of B.A.T.M.A.N. (Dec 2006)
  * [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 B.A.T.M.A.N. RFC Draft] - a draft explaining the routing algorithm used in batman 0.2
  * [http://www.open-mesh.org/batman/doc/batmand_howto.pdf B.A.T.M.A.N. HowTo] - how to compile, install and run batman 0.2
