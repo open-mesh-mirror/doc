@@ -40,7 +40,7 @@ preferred version. It can be controlled via the /proc file system and works tran
 
 === Documentation ===
 
-We're working on it. No, really ;).
+See the [wiki:UserDocs UserDocs] page.
 
 === Get it ===
 
