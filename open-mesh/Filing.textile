@@ -1,17 +1,33 @@
 === Some documents that might help you: ===
+
+==== B.A.T.M.A.N. concepts ====
+
  * [wiki:BATMANConcept B.A.T.M.A.N. Concept] - get an overview about B.A.T.M.A.N.'s main concepts
+ * [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 B.A.T.M.A.N. RFC Draft] - a draft explaining the routing algorithm used in batman 0.2
+ * [http://www.open-mesh.org/batman/doc/batman-status.pdf B.A.T.M.A.N. Status] - read about the B.A.T.M.A.N. (June 2007)
+
+
+==== Using the B.A.T.M.A.N. daemon (layer 3) ====
+
  * [wiki:RoutingVodoo Getting behind the routing vodoo] - learn about the B.A.T.M.A.N. routing table manipulation
  * [wiki:InternetTuning InternetTuning] - get information how B.A.T.M.A.N. handles internet access and what features it offers
  * [wiki:DebugOutput Understanding the debug output] - documentation that helps you to understand the debug output
  * [wiki:VisualizeMesh Visualizing the network] - this document explains how to get fancy graphics of the batman mesh
  * [wiki:AnnouncingNetworks Announcing networks] - learn how to announce and / or revoke HNA on the fly
- * [wiki:Coredump How to get a coredump] - documentation about coredump configuration & retrieval
+ * [http://downloads.open-mesh.org/batman/development/sources/batmand_0.4-alpha-current_sources/man/batmand.8.html B.A.T.M.A.N. man page] - read the current batman man page online
+ * [http://www.open-mesh.org/batman/doc/batmand_howto.pdf B.A.T.M.A.N. HowTo] - how to compile, install and run batman 0.2
+ * [http://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v CCCamp 2007 talk (video)] - Elektra and Marek explain the batman routing algorithm and features of batmand
+
+
+==== Using B.A.T.M.A.N. advanced (layer 2) ====
+
  * [wiki:batman-adv B.A.T.M.A.N. Advanced] - information about the Layer 2 version of B.A.T.M.A.N.
  * [http://wiki.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To B.A.T.M.A.N. Advanced on OpenWRT] - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
- * [wiki:the-olsr-story The OLSR story] - this text explains the roots of B.A.T.M.A.N. (Dec 2006)
- * [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 B.A.T.M.A.N. RFC Draft] - a draft explaining the routing algorithm used in batman 0.2
- * [http://www.open-mesh.org/batman/doc/batmand_howto.pdf B.A.T.M.A.N. HowTo] - how to compile, install and run batman 0.2
- * [http://www.open-mesh.org/batman/doc/batman-status.pdf B.A.T.M.A.N. Status] - read about the B.A.T.M.A.N. (June 2007)
- * [http://downloads.open-mesh.org/batman/development/sources/batmand_0.3.2-beta-current_sources/man/batmand.8.html B.A.T.M.A.N. man page] - read the current batman man page online
- * [http://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v CCCamp 2007 talk (video)] - Elektra and Marek explain the batman routing algorithm and features of batmand
  * [http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv Wireless Kernel Tweaking (video)] - Introduction to batman-advanced by Marek and Simon (also available at [http://video.google.de/videoplay?docid=1355876033101731617 google video])
+
+
+==== Misc ====
+
+ * [wiki:Coredump How to get a coredump] - documentation about coredump configuration & retrieval
+ * [wiki:the-olsr-story The OLSR story] - this text explains the roots of B.A.T.M.A.N. (Dec 2006)
+
