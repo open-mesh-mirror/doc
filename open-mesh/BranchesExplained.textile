@@ -25,7 +25,7 @@ In April 2007 batman advanced (residing in user space) came to light. It uses th
 
 Batman advanced was first implemented in userspace as proof of concept.  However the virtual interface in userspace imposed a significant overhead for low-end wireless access points, so we decided to re-implement batman-advanced as kernel module which is now batman-adv-kernelland.
 
-=== [wiki:batman-adv battools] ===
-Maintainer: Andreas Langer
+=== [wiki:batman-adv batctl (former battools)] ===
+Maintainer: Andreas Langer, Marek Lindner
 
-The battools are a set of debugging tools which work together with our layer 2 implementation. You can use them to debug the mesh which proved to be difficult without them.
+The batctl program contains a set of debugging tools which work together with our layer 2 implementation. You can use them to debug the mesh which proved to be difficult without them.
