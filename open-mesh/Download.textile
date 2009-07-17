@@ -13,12 +13,12 @@ If you find any bugs, please [wiki:Contribute let us know]!
 === Subversion Repository Access ===
 You can check out our SVN repository and the various batman branches
 
- * upcoming B.A.T.M.A.N. 0.3.2 branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
+ * upcoming B.A.T.M.A.N. 0.4.0 branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
+ * Visualization server for B.A.T.M.A.N.: check out the complete repository, cd into vis (we're using symlinks here ...): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
  * B.A.T.M.A.N. experimental (BMX) branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-experimental/}}}''
  * [wiki:batman-adv B.A.T.M.A.N. advanced]: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/}}}''
+ * batctl (for B.A.T.M.A.N. advanced): check out the complete repository, cd into batctl (we're using symlinks here ...): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
  * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
- * battool (for B.A.T.M.A.N. advanced): check out the complete repository, cd into battool (we're using symlinks here ...)
- * Visualization server: check out the complete repository, cd into vis
 
 === Debian ===
 
