@@ -17,18 +17,14 @@ Pros:
  * Not affected by your Firewall (but you can secure the payload traffic, of course)
 Cons:
  * no gateway handling. 
-=== battools ===
+=== batctl (former battools) ===
 
 Since the nodes participating in the B.A.T.M.A.N. Advanced switch are
 completely transparent for all protocols above layer 2, we needed to build
-our own diagnostic tools, the battools. These tools contain a layer 2 version 
-of ping,  traceroute and tcpdump. Further information can be found in the
-enclosed README file.
-
-=== batctl ===
-
-Is a wrapper script that facilitates working with the /proc/net/batman-adv interface. It can be downloaded [http://downloads.open-mesh.org/batman/useful-scripts-and-tools/batctl here].
-
+our own diagnostic tool "batctl". This tool contains a layer 2 version 
+of ping,  traceroute and tcpdump. It also offers and configuration interface 
+for the kernel module as well as an integrated log reader.
+Further information can be found in the enclosed README file.
 
 === Userland vs Kernelland ===
 
