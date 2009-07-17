@@ -24,7 +24,8 @@ Please add as much information as possible. In particular interesting are:
 
 === Documentation / Feedback ===
 
-Write an article about your experience with B.A.T.M.A.N. and have it published here:
+Write an article about your experience with B.A.T.M.A.N. and have it published here or ask [[BR]]
+us to link to your site:
  * How did you find us ?
  * How does you setup look like ?
  * Where are you building your mesh ?
@@ -33,7 +34,9 @@ Write an article about your experience with B.A.T.M.A.N. and have it published h
  * What did you like / not like ?
  * How can B.A.T.M.A.N. improve ?
 
-There's lots of people that want to know about B.A.T.M.A.N. - help us to spread the word!
+There's lots of people that want to know about B.A.T.M.A.N. - help us to spread the word! [[BR]]
+We also hand out direct wiki access to those that are interested. Please ask on our  [[BR]]
+[wiki:MailingList mailing list] for the accounts.
 
 === Research ===
 
