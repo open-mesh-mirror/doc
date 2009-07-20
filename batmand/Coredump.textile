@@ -51,4 +51,7 @@
   CONFIG_FEATURE_INIT_COREDUMPS option to learn more about it. OpenWRT [[BR]]
   allows to enable it via 'make menuconfig': Base system -> busybox -> [[BR]] 
   Configuration -> Init Utilities -> Support dumping core for child processes. [[BR]]
+ * OpenWRT also may disable ELF core dumping in the kernel which you can activate [[BR]]
+  by running "make kernel_menuconfig" -> General setup -> Configure standard  [[BR]]
+  kernel features (for small systems) -> Enable ELF core dumps
 
