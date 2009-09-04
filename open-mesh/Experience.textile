@@ -2,6 +2,9 @@
 This page aims to document and link to experience with the B.A.T.M.A.N. protocol in real live scenarios.
 If you have made some experience or even setup a B.A.T.M.A.N. mesh network at someplace in this universe please feel urged to [wiki:MailingList tell us] or drop us a link!
 
+ * building mesh potatoes with B.A.T.M.A.N.: http://villagetelco.org/
+ * B.A.T.M.A.N. performance comparison paper: http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
+
  * An experimental 20-nodes B.A.T.M.A.N and OLSR testbed has been setup at the Wireless Community Weekend 2007 in Graz / Austria. More information is [wiki:WCWGraz2007 here]
  * B.A.T.M.A.N. in Leipzig, also providing a huge number of howtos, documentation, and experience reports! Check out: http://wiki.leipzig.freifunk.net/BATMAN
  * And there is the always hyperactive Freifunk-Community in Berlin Nord-Ost with lots of useful information and experience summarized at http://www.freifunk-bno.de/content/view/67/28/
