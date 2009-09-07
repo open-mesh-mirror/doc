@@ -3,7 +3,8 @@ This page aims to document and link to experience with the B.A.T.M.A.N. protocol
 If you have made some experience or even setup a B.A.T.M.A.N. mesh network at someplace in this universe please feel urged to [wiki:MailingList tell us] or drop us a link!
 
  * building mesh potatoes with B.A.T.M.A.N.: http://villagetelco.org/
- * buying powerful mesh nodes with batman-adv inside: http://www.saxnet.de
+ * powerful mesh nodes with batman-adv inside: http://www.saxnet.de
+ * B.A.T.M.A.N. with dashboard integration on open routers: http://www.open-mesh.com
  * B.A.T.M.A.N. performance comparison paper: http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
 
  * An experimental 20-nodes B.A.T.M.A.N and OLSR testbed has been setup at the Wireless Community Weekend 2007 in Graz / Austria. More information is [wiki:WCWGraz2007 here]
