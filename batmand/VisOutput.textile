@@ -71,3 +71,14 @@ represent gateway functionality in the output.
 
 The 5.174.37.225 announces a connection to the 192.168.15.0/24 network (which does not run [[BR]]
 batman). All nodes that establish a connection to this network use the 5.174.37.225 as gateway.
+
+=== Interfaces belonging to one BATMAN-Node ===
+
+In BATMAN-Advanced since revision 1424, the subgraphing/cluster feature of the dot-file-format has been added to mark interfaces as belonging to the same originator. Every originator the vis-server found has such an additional subgraph block:
+{{{
+subgraph "cluster_00:11:22:33:44:55" {
+	"00:11:22:33:44:55" [peripheries=2]
+	"01:23:45:67:89:AB"
+}
+}}}
+In this example the originator '00:11:22:33:44:55' has two active interfaces, "00:11:22:33:44:55" and "01:23:45:67:89:AB". With 'fdp' from the [http://www.graphviz.org/ graphviz-tools] for instance such interfaces inside of a subgraph would be surrounded by a box. Additionally, the ''primary'' interface gets the extra attribute '[peripheries=2]' which is the only interface known to BATMAN-Nodes, except to direct neighbours (with graphviz, such an interface gets double circled).
