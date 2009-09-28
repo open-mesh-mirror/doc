@@ -2,8 +2,9 @@
 == Working with the vis server output ==
 
 This artcile is for those that intend to write their own visualization tool, combine the vis [[BR]]
-output with a map  or want to understand the vis server output for another reason. If you [[BR]]
-want to setup the vis server have a look at this [wiki:VisualizeMesh article]. [[BR]]
+output with a map  or want to understand the vis server output for another reason. [[BR]]
+''If you want to setup the vis server for the batmand have a look at this [wiki:VisualizeMesh article] or for [[BR]]
+BATMAN-Advanced at [wiki:VisAdv this one]. [[BR]]
 
 
 Here is a sample output from the vis server in the dot draw format. Newer vis versions offer [[BR]]
@@ -81,4 +82,4 @@ subgraph "cluster_00:11:22:33:44:55" {
 	"01:23:45:67:89:AB"
 }
 }}}
-In this example the originator '00:11:22:33:44:55' has two active interfaces, "00:11:22:33:44:55" and "01:23:45:67:89:AB". With 'fdp' from the [http://www.graphviz.org/ graphviz-tools] for instance such interfaces inside of a subgraph would be surrounded by a box. Additionally, the ''primary'' interface gets the extra attribute '[peripheries=2]' which is the only interface known to BATMAN-Nodes, except to direct neighbours (with graphviz, such an interface gets double circled).
+In this example the originator '00:11:22:33:44:55' has two active interfaces, "00:11:22:33:44:55" and "01:23:45:67:89:AB". With 'fdp' from the [http://www.graphviz.org/ graphviz-tools] for instance such interfaces inside of a subgraph would be surrounded by a box. The cluster-prefix is a prerequisite for this tool here to describe the relation between those interfaces and is not being visualized. Additionally, the ''primary'' interface gets the extra attribute '[peripheries=2]' which is the only interface known to BATMAN-Nodes, except to direct neighbours (with graphviz, such an interface gets double circled).
