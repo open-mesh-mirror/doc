@@ -34,4 +34,4 @@
 
  * [wiki:Coredump How to get a coredump] - documentation about coredump configuration & retrieval
  * [wiki:the-olsr-story The OLSR story] - this text explains the roots of B.A.T.M.A.N. (Dec 2006)
-
+ * [wiki:Emulation] - Howto for a Emulation environment using QEMU and VDE
