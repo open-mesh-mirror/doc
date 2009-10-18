@@ -53,7 +53,7 @@ The script above is far from perfect, it takes some minutes after the rc.local f
 
 A sample openwrt image can be found here: 
 
- * TODO
+ * [http://packetmixer.de/openwrt-x86-jffs2-128k.image]
 
 === vde_switch ===
 
@@ -67,11 +67,11 @@ To accomplish this, i've modified the vde_switch to have "coloured" ports. The i
 
 In this concept, the host port can have colour 1 while the interconnection ports have to colour 0. This way, packets can only travel from the host to (all of) the interconnection ports, or from one interconnection port to the host port. However packets can not travel between the the interconnection ports, thus only allowing "one hop" connections and avoiding switch loops and shared broadcast domains. The concept is illustrated below:
 
- * TODO
+ [[Image(wiki:Emulation:vde_switch.png)]]
 
-You can find the patch to add these colour patches here:
+You can find the patch against vde2-2.2.3 (current latest stable version) to add these colour patches here:
 
- * TODO
+ * [attachment:vde2-2.2.3_colour.patch vde2-2.2.3_colour.patch]
 
 === wirefilter ===
 
