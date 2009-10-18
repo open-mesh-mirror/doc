@@ -1,15 +1,15 @@
 = Emulation Setup =
 
-As a lot of people discussed about simulating mesh network protocols, i'd like to share my qemu setup which i used to gather some data for batman-adv. The idea is to use [http://www.qemu.org/ QEMU] or [http://user-mode-linux.sourceforge.net/ UML] (instead of frameworks like they exist for [http://www.isi.edu/nsnam/ns/ NS-2]) to run an unmodified linux system with the unmodified source code. Besides BATMAN, you could evaluate any routing protocol.
+As a lot of people discussed about simulating mesh network protocols at [http://hackerspace.be/Wbm2009v2/ WBMv2], i'd like to share my qemu setup which i used to gather some data for batman-adv. The idea is to use [http://www.qemu.org/ QEMU] or [http://user-mode-linux.sourceforge.net/ UML] (instead of frameworks like they exist for [http://www.isi.edu/nsnam/ns/ NS-2]) to run an unmodified linux system with the unmodified source code. Besides BATMAN, you could evaluate any routing protocol.
 
 == Architecture ==
 
 My system consists of the following components:
 
- * OpenWRT, kamikaze trunk version for x86 with minimal modifications (see below)
- * one (unmodified) QEMU instance per host
- * one (modified, see below) vde_switch per instance. You need multiple instances to allow interconnection with wirefilter
- * one (unmodified) wirefilter per link between host.
+ * [http://openwrt.org/ OpenWRT], kamikaze trunk version for x86 with minimal modifications (see below)
+ * one (unmodified) [http://www.qemu.org/ QEMU] instance per host
+ * one (modified, see below) [http://wiki.virtualsquare.org/index.php/VDE_Basic_Networking vde_switch] per instance. You need multiple instances to allow interconnection with wirefilter
+ * one (unmodified) [http://wiki.virtualsquare.org/index.php/VDE#wirefilter wirefilter] per link between host.
 
 === OpenWRT ===
 
@@ -56,6 +56,8 @@ A sample openwrt image can be found here:
  * [http://packetmixer.de/openwrt-x86-jffs2-128k.image]
 
 === vde_switch ===
+
+The main advantage of [http://wiki.virtualsquare.org/index.php/VDE_Basic_Networking vde_switch] over [http://user-mode-linux.sourceforge.net/old/networking.html uml_switch] is that any clients can be attached to this virtual switch: QEMU, UML, tap interfaces, virtual interconnections, and not just UML instances.
 
 If the vde_switches were just connected with wirefilter "patch cables" without modification, we would end up creating a broadcast domain and switch loops which we don't want: The goal is to allow the packets to travel only from one host to it's neighbor, not farther.
 
