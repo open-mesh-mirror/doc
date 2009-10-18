@@ -1,4 +1,4 @@
-[[TracGuideToc]]
+[[PageOutline]]
 
 = Emulation Setup =
 
