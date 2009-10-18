@@ -96,13 +96,14 @@ The script does:
  * kill old instances
  * start up vde_switch instances for each host
  * start up QEMU hosts (one Ethernet tap device is created per instance to allow logging etc)
- * install the links between the hosts. The topology graphic can be found here: TODO
+ * install the links between the hosts. The resulting topology will be similar to this:
+[[Image(wiki:Emulation:mesh.gif)]]
 
 {{{
 #!/bin/sh
 QEMU=$(which qemu)
-VDESWITCH=/home/dotslash/src/vde2-2.2.3/src/vde_switch/vde_switch
-IMAGE=/home/dotslash/src/openwrt2/kamikaze/bin/openwrt-x86-jffs2-128k.image
+VDESWITCH=~/src/vde2-2.2.3/src/vde_switch/vde_switch
+IMAGE=~/src/openwrt2/kamikaze/bin/openwrt-x86-jffs2-128k.image
 
 # you can set this if you are running as root and don't need sudo:
 # SUDO=
@@ -148,6 +149,19 @@ wirefilter --daemon -v num2.ctl:num4.ctl -l 60
 wirefilter --daemon -v num4.ctl:num6.ctl -l 60
 wirefilter --daemon -v num6.ctl:num8.ctl -l 60
 }}}
+
+The script is using the switch configuration file "colourful.rc". It creates the ports (create more if your topology demands this) and sets the host port (port no. 1) colour to 1. Put the following text in this file:
+
+{{{
+port/setcolourful 1
+port/create 1
+port/create 2
+port/create 3
+port/create 4
+port/create 5
+port/setcolour 1 1
+}}}
+
 
 To collect the batman logs from the individual hosts, you might want to use this script after all nodes have completed booting and started batman:
 
