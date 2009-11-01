@@ -3,7 +3,7 @@
 
 ----
 = B.A.T.M.A.N. =
-B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a routing protocol for multi-hop ad-hoc mesh networks. This is the main development website, we have source code, binary packages, documentation and further information available:Ravi kiran
+B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a routing protocol for multi-hop ad-hoc mesh networks. This is the main development website, we have source code, binary packages, documentation and further information available:
 == News ==
  * '''23.Oct. 2009''' [wiki:2009-10-23-batman-goes-mainline Batman goes mainline]
  * '''13.Jun. 2009''' [wiki:2009-06-13-batman-0-3-2-release Batman 0.3.2 released]
