@@ -13,3 +13,4 @@ Marek:
 Simon:
  * svn tag release
  * build package tar.gz and checksums
+ * inform batman maintainer
