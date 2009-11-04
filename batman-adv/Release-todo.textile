@@ -1,0 +1,15 @@
+for internal use, items to be done for release:
+
+open:
+ * clean up version strings
+ * remove dead code, if any
+ * build changelog
+ * update README
+ * update openwrt package
+ * update copyright years (if needed)
+ * update links in trac
+Marek:
+ * formulate release announcement
+Simon:
+ * svn tag release
+ * build package tar.gz and checksums
