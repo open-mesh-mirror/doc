@@ -1,16 +1,32 @@
-for internal use, items to be done for release:
 
-open:
- * clean up version strings
- * remove dead code, if any
+== Release Checklist ==
+
+This page contains a checklist of things that need to be done for a release.
+
+
+'''Code'''
+
+ * make sure all code contains the release version strings
+ * update copyright years (if needed)
+ * remove dead code (if any)
+ * svn tag release
+ * change version strings inside the trunk
+
+
+'''Documentation'''
+
  * build changelog
  * update README
+ * write release announcement
+
+
+'''Release'''
+
+ * build package tar.gz (replace symlinks with real files) and generate checksums
+ * move packages/checksums to ?? / create symlinks ??
+ * update download links in the trac downloads page
+
+
+'''Distributions'''
  * update openwrt package
- * update copyright years (if needed)
- * update links in trac
-Marek:
- * formulate release announcement
-Simon:
- * svn tag release
- * build package tar.gz and checksums
- * inform batman maintainer
+ * inform batman package maintainer
