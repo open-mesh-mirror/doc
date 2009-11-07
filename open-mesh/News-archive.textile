@@ -1,0 +1,10 @@
+
+= News archive =
+
+This page contains the links to previous news posts for archiving puposes.
+
+[[BR]]
+
+=== 2008 ===
+ * '''28.Dec. 2008''' [wiki:2008-12-28-batman-adv-0-1-release Batman-adv 0.1 released]
+ * '''16.Nov. 2008''' [wiki:2008-11-16-batman-adv-goes-debian Batman-adv now available in Debian]
