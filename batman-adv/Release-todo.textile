@@ -9,15 +9,15 @@ This page contains a checklist of things that need to be done for a release.
  * [x] make sure all code contains the release version strings
  * [x] update copyright years (if needed)
  * [x] remove dead code (if any)
- * [ ] svn tag release
+ * [x] svn tag release
  * [ ] change version strings inside the trunk
 
 
 '''Documentation'''
 
- * [ ] build changelog
+ * [x] build changelog
  * [x] update README
- * [ ] write release announcement
+ * [x] write release announcement
 
 
 '''Release'''
