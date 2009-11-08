@@ -27,7 +27,8 @@ You can check out our SVN repository and the various batman branches
 Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto your debian machine. Following packages are available:
  * [http://packages.debian.org/sid/batmand batmand] - batman 0.3
  * [http://packages.debian.org/sid/batman-adv-source batman-adv-source] - batman-advanced kernel module source (installable via [http://packages.debian.org/sid/module-assistant module-assistant])
- * [http://packages.debian.org/sid/batman-adv-battool batman-adv-battool] - battool
+ * [http://packages.debian.org/sid/batman-adv-dkms batman-adv-dkms] - batman-advanced kernel module dkms package to build new modules dynamically (half-automatic)
+ * [http://packages.debian.org/sid/batman-adv-batctl batman-adv-batctl] - batctl
 
 
 
