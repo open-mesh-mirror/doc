@@ -27,6 +27,7 @@ This page contains a checklist of things that need to be done for a release.
  * [x] move packages/checksums to ?? / create symlinks ??
  * [x] update download links in the trac downloads page
  * [x] send release mail
+ * [x] update IRC channel topic
 
 
 '''Distributions'''
