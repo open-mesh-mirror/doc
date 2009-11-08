@@ -22,12 +22,13 @@ This page contains a checklist of things that need to be done for a release.
 
 '''Release'''
 
- * [ ] build package tar.gz (replace symlinks with real files) and generate checksums
+ * [x] build package tar.gz (replace symlinks with real files) and generate checksums
  * [ ] build stable binary packages
- * [ ] move packages/checksums to ?? / create symlinks ??
- * [ ] update download links in the trac downloads page
+ * [x] move packages/checksums to ?? / create symlinks ??
+ * [x] update download links in the trac downloads page
+ * [x] send release mail
 
 
 '''Distributions'''
  * [ ] update openwrt package
- * [ ] inform batman package maintainer
+ * [x] inform batman package maintainer
