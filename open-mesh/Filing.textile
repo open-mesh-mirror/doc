@@ -27,7 +27,7 @@
  * [http://wiki.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To B.A.T.M.A.N. Advanced on OpenWRT] - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
  * [wiki:VisAdv Visualizing the 2nd layer] - creating graphics of the layer 2 network and differences to the layer 3 vis output explained
  * [wiki:UsingBatmanGit Using the batman git repos] - this page explains how the git repository is structured and how to use it
- * [http://downloads.open-mesh.org/batman/development/sources/batctl_0.2-beta-current_sources/man/batctl.8.html batctl online man page] - read the current batctl man page online
+ * [http://downloads.open-mesh.org/batman/development/sources/batctl_0.2.1-beta-current_sources/man/batctl.8.html batctl online man page] - read the current batctl man page online
  * [http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv Wireless Kernel Tweaking (video)] - Introduction to batman-advanced by Marek and Simon (also available at [http://video.google.de/videoplay?docid=1355876033101731617 google video])
 
 
