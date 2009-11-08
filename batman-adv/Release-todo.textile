@@ -10,7 +10,7 @@ This page contains a checklist of things that need to be done for a release.
  * [x] update copyright years (if needed)
  * [x] remove dead code (if any)
  * [x] svn tag release
- * [ ] change version strings inside the trunk
+ * [x] change version strings inside the trunk
 
 
 '''Documentation'''
