@@ -21,7 +21,7 @@ Cons:
 
 Since the nodes participating in the B.A.T.M.A.N. Advanced switch are
 completely transparent for all protocols above layer 2, we needed to build
-our own diagnostic tool [http://downloads.open-mesh.org/batman/development/sources/batctl_0.2.1-beta-current_sources/man/batctl.8.html batctl]. This tool contains a layer 2 version 
+our own diagnostic tool batctl. This tool contains a layer 2 version 
 of ping,  traceroute and tcpdump. It also offers a configuration interface 
 for the kernel module as well as an integrated log reader.
 Further information can be found in the enclosed README file.
