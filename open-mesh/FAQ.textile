@@ -1,5 +1,9 @@
 == If you are missing a question/answer (quite likely) please use the B.A.T.M.A.N. mailing list to trigger us. ==
 
+'''Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support?'''
+
+At this point none of B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [wiki:Emulation read our emulation document].
+
 
 '''Understanding the version and compatibility number'''
 
