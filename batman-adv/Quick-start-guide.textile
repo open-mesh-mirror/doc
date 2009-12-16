@@ -1,0 +1,44 @@
+This page shall show a couple of easy examples of how to use and setup a mesh network with B.A.T.M.A.N.-Advanced. I'm assuming, that you have installed the tool 'batctl' which allows a more intuitive configuration, though everything can be done by writing things to '/proc/net/batman-adv/...' as well without having to install batctl.
+
+= Overview =
+== Declaring interfaces for B.A.T.M.A.N. ==
+Usually you are giving B.A.T.M.A.N. a couple of devices over which you want to build the mesh network. This can be either wifi devices like wlanX or athX but also common ethernet devices, usually ethX. B.A.T.M.A.N.-Adv is not limited to a certain interface type, therefore you can use any interface you can find with 'ifconfig' (even pan0 for bluetooth if you like B.A.T.M.A.N. more than the normal, build-in 'mesh-protocol' of bluetooth :) ). Those interfaces can be added by using
+{{{
+batctl if eth0
+}}}
+for example. Make sure, this interface is up and running ('ifconfig eth0 up') and that B.A.T.M.A.N.-Adv has no trouble with it; 'batctl if' should say that this interface is active.
+
+Despite being up, those interfaces that have been added with 'batctl if ifname' don't need any ip-address configured as BATMAN-Adv is operating on layer 2 (which is a common mistake by people who are more familiar with the 'old' batmand or olsrd)! Those interfaces can be seen similar to bridge-interfaces - you just shouldn't (have to) use those plain interfaces for routing anymore.
+
+== bat0 ==
+So where are we going to send data packets to if not to those interfaces we had given B.A.T.M.A.N.-Adv? That's where the virtual bat0 interface created by B.A.T.M.A.N. is getting into the game. Usually you are going to assing IP adresses to this one - either manually or via dhcpv4 / avahi autoconfiguration / dhcpv6 / ipv6 autoconfiguration. Any packet that enters this interface will be examined by the B.A.T.M.A.N.-Adv kernel module for its destination mac-adress and it is forwarding the date packet with the help of its routing voodoo then so that finally, magically it pops out at the right destination's bat0 interface :).
+
+= Examples =
+== Laptop-to-Laptop Mesh Network with ==
+On all laptops, install B.A.T.M.A.N.-Adv and enter the following commands:
+{{{
+batctl if wlan0
+ifconfig wlan0 up
+ifconfig bat0 up
+}}}
+You can now use the automatically assigned IPv6 link-local adresses on bat0 (usually starting with fe80::...), modern operating systems should support this. Or you can assign IPv6 adresses manually on all those nodes ('ifconfig bat0 192.168.123.x/24') or one of the laptops in range has to have a DHCP server running on the bat0 interface. As B.A.T.M.A.N.-Adv is operating on layer 2, even dhcp-messages can be send over the mesh network.
+
+== non-BATMAN/non-wifi PCs with Wifi Mesh Access Points ==
+If you have a couple of computers that are not able to / where you don't want run B.A.T.M.A.N.-Adv on, you will have to have a couple of nodes that are able to do so and will be advertising and giving those computers access to the mesh network. Any device running Linux (a laptop, a wifi-router, a pc with a wifi card, ...) can be setup to work as a mesh entry point. The extra step you have to do to provide those other computers access is setting up a bridge over bat0 and the interface those 'dumb' machines are connected to. Let's say eth0 is the interface on a mesh access point where those non-batman, non-wifi computers are connected to and wlan0 is the interface on a mesh access point through which we want to build the mesh network.
+
+On each mesh access point, install B.A.T.M.A.N.-Adv first and enter the following commands:
+{{{
+batctl if wlan0
+ifconfig wlan0 up
+}}}
+{{{
+brctl addbr mesh-bridge
+brctl addif mesh-bridge eth0
+brctl addif mesh-bridge bat0
+ifconfig eth0 up
+ifconfig bat0 up
+ifconfig mesh-bridge up
+}}}
+From now on you won't want to use eth0, wlan0 or bat0 for any routing anymore, instead you are usually just using the new bridge interface 'mesh-bridge'. Any packet our mesh access point receives over eth0 will be forwarded to bat0 because of the bridge. B.A.T.M.A.N.-Adv is having a look at this packet then again and will forward it according to the destination's mac address.
+
+''(How does B.A.T.M.A.N.-Adv know where it has to send a data packet of an external computer, that is not using B.A.T.M.A.N., to another computer that is not using B.A.T.M.A.N.? It is simply having a listening on bat0 and will notice any host mac adress on this interface - which can be the direct mac adress of bat0 but also from hosts that get bridged into this network. Those host's mac addresses will then be announced to other B.A.T.M.A.N. nodes in the mesh network automatically - so called HNA messages - so that every B.A.T.M.A.N. node is going to know behind which other B.A.T.M.A.N. node it can find which mac addresses.)''
