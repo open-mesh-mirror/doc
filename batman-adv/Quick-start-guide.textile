@@ -17,6 +17,9 @@ So where are we going to send data packets to if not to those interfaces we had 
 == Laptop-to-Laptop Mesh Network with ==
 On all laptops, install B.A.T.M.A.N.-Adv and enter the following commands:
 {{{
+iwconfig wlan0 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
+}}}
+{{{
 batctl if wlan0
 ifconfig wlan0 up
 ifconfig bat0 up
@@ -27,6 +30,9 @@ You can now use the automatically assigned IPv6 link-local adresses on bat0 (usu
 If you have a couple of computers that are not able to / where you don't want run B.A.T.M.A.N.-Adv on, you will have to have a couple of nodes that are able to do so and will be advertising and giving those computers access to the mesh network. Any device running Linux (a laptop, a wifi-router, a pc with a wifi card, ...) can be setup to work as a mesh entry point. The extra step you have to do to provide those other computers access is setting up a bridge over bat0 and the interface those 'dumb' machines are connected to. Let's say eth0 is the interface on a mesh access point where those non-batman, non-wifi computers are connected to and wlan0 is the interface on a mesh access point through which we want to build the mesh network.
 
 On each mesh access point, install B.A.T.M.A.N.-Adv first and enter the following commands:
+{{{
+iwconfig wlan0 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
+}}}
 {{{
 batctl if wlan0
 ifconfig wlan0 up
