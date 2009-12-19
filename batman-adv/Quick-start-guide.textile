@@ -14,7 +14,7 @@ batctl if
 }}} 
 to verify its status. Check the system log for hints in case it does not behave as you expect.
 
-Despite being up, those interfaces that have been added using batctl don't need any ip-address configured as batman-adv is operating on layer 2 (which is a common mistake by people who are more familiar with the 'old' batmand or other layer 3 routing protcols)! Those interfaces are bridge-interfaces - you just shouldn't (have to) use those plain interfaces for routing anymore.
+Despite being up, those interfaces that have been added using batctl don't need any ip-address configured as batman-adv is operating on layer 2 (which is a common mistake by people who are more familiar with the 'old' batmand or other layer 3 routing protocols)! Those interfaces are bridge-interfaces - you just must not use those plain interfaces for routing anymore.
 
 === bat0 ===
 So where are we going to send data packets to if not to those interfaces we have given batman-adv? That's where the virtual bat0 interface (created by batman-adv) is getting into the game. Usually you are going to assign IP adresses to this one - either manually or via dhcpv4 / avahi autoconfiguration / dhcpv6 / ipv6 autoconfiguration. Any packet that enters this interface will be examined by the batman-adv kernel module for its destination mac-adress and will be forwarded with the help of B.A.T.M.A.N.'s routing voodoo then, so that finally, magically it pops out at the right destination's bat0 interface :).
