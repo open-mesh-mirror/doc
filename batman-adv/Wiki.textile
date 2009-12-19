@@ -16,7 +16,7 @@ Pros:
  * easy integration of attached networks (no manual HNA fiddling), just put the bat0 in the bridge with your other devices. You can for example build a roaming network of Access Points with this technique.
  * Not affected by your Firewall (but you can secure the payload traffic, of course)
 Cons:
- * no gateway handling. 
+ * no gateway handling inside of B.A.T.M.A.N. (DHCP/IPv6 autoconf/static routes will work but B.A.T.M.A.N. won't help to choose the best gateway for you)
 === batctl (former battools) ===
 
 Since the nodes participating in the B.A.T.M.A.N. Advanced switch are
