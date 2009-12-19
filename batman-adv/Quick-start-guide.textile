@@ -3,12 +3,12 @@
 
 This page shall show a couple of easy examples of how to use and setup a mesh network with B.A.T.M.A.N.-Advanced (further referenced as batman-adv). It is assumed, the tool 'batctl' was installed which allows a more intuitive configuration, though everything can be configured by accessing '/proc/net/batman-adv/...' directly without the need of installing batctl.
 
-=== Adding interfaces ===
-In the first configuraton step you need to tell batman-adv which interfaces it should use to build the mesh network. This can be either wifi devices like wlanX or athX but also common ethernet devices, usually ethX. batman-adv is not limited to a certain interface type, therefore you can use any interface you can find with 'ifconfig' (even pan0 for bluetooth if you like B.A.T.M.A.N. more than the normal, build-in 'mesh-protocol' of bluetooth :-) ). Those interfaces can be added by using
+=== Configuring interfaces ===
+In the first configuraton step you need to tell batman-adv which interfaces it should use to build the mesh network. This can be either wifi devices like wlanX or athX but also common ethernet devices, usually ethX. batman-adv is not limited to a certain interface type, therefore you can use any interface you can find with 'ifconfig' (even pan0 for bluetooth if you like B.A.T.M.A.N. more than the normal, build-in 'mesh-protocol' of bluetooth :-) ). Those interfaces can be added by using 'batctl if ifname', e.g.
 {{{
 batctl if eth0
 }}}
-for example. Make sure, this interface is up and running ('ifconfig eth0 up') and use the command 
+Make sure, this interface is up and running ('ifconfig eth0 up') and use the command 
 {{{
 batctl if
 }}} 
@@ -32,11 +32,11 @@ batctl if wlan0
 ifconfig wlan0 up
 ifconfig bat0 up
 }}}
-You can now use the automatically assigned IPv6 link-local adresses on bat0 (usually starting with fe80::...), modern operating systems should support this. Or you can assign IPv4 adresses manually on all those nodes (i.e. 'ifconfig bat0 192.168.123.x/24') or one of the laptops in range has to have a DHCP server running on the bat0 interface. As batman-adv is operating on layer 2, even dhcp-messages can be send over the mesh network.
+You can now use the automatically assigned IPv6 link-local adresses on bat0 (usually starting with fe80::...), modern operating systems should support this. Or you can assign IPv4 addresses manually on all those nodes (i.e. 'ifconfig bat0 192.168.123.x/24') or one of the laptops in range has to have a DHCP server running on the bat0 interface. As batman-adv is operating on layer 2, even dhcp-messages can be send over the mesh network.
 
-'''mixing non-B.A.T.M.A.N./non-wifi PCs with batman-adv'''[[BR]]
+'''mixing non-B.A.T.M.A.N. systems with batman-adv'''[[BR]]
 
-If you have a couple of computers that you don't want to run batman-adv on but you still want make use of the mesh network, you will need to configure an entry point for them on a node running batman-adv. Any device running Linux (a notebook, a wifi-router, a pc with a wifi card, ...) can be setup to work as a mesh entry point. In addition to the usual mesh setup steps mentioned above it is necessary to configure a bridge over bat0 and the interface those 'non-B.A.T.M.A.N.' machines are connected to. Let's say eth0 is the interface on a mesh access point where those non-batman, non-wifi computers are connected to and wlan0 is the interface on a mesh access point through which we want to build the mesh network.
+If you have a couple of computers that you don't want to run batman-adv on but you still want make use of the mesh network, you will need to configure an entry point for them on a node running batman-adv. Any device running Linux (a notebook, a wifi-router, a pc with a wifi card, ...) can be setup to work as a mesh entry point. In addition to the usual mesh setup steps mentioned above it is necessary to configure a bridge over bat0 and the interface those 'non-B.A.T.M.A.N.' machines are connected to. Let's say eth0 is the interface on a mesh access point where those non-B.A.T.M.A.N. systems are attached to and wlan0 is the interface on a mesh access point through which we want to build the mesh network.
 
 On each mesh access point, install batman-adv first, load the module and enter the following commands:
 {{{
@@ -56,4 +56,4 @@ ifconfig mesh-bridge up
 }}}
 From now on you won't want to use eth0, wlan0 or bat0 for any routing anymore, instead you are just using the new bridge interface 'mesh-bridge'. Any packet our mesh access point receives over eth0 will be forwarded to bat0 because of the bridge. batman-adv will forward it through the mesh according to the destination's mac address.
 
-''(How does batman-adv know where it has to send a data packet of an external computer, that is not using B.A.T.M.A.N., to another computer that is not using B.A.T.M.A.N. either? It is automatically listening on bat0 and will keep track any host mac address passing this interface. Those host's mac addresses will then be announced to other B.A.T.M.A.N. nodes in the mesh network automatically - so called HNA messages - so that every B.A.T.M.A.N. node is going to know behind which other B.A.T.M.A.N. node it can find which mac addresses.)''
+''(How does batman-adv know where it has to send a data packet of an external computer, that is not using batman-adv, to another computer that is not using batman-adv either? It is automatically listening on bat0 and will keep track of any host mac address passing by this interface. Those host's mac addresses will then be announced to other batman-adv nodes in the mesh network automatically - so called HNA messages - so that every batman-adv node is going to know behind which other batman-adv node it can find which mac addresses.)''
