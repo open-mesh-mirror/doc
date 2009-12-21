@@ -63,13 +63,13 @@ If you intend to send us patches, please consider the following guidelines:
    it easier to distinguish between patches and discussions.
  * The mail's subject will become the first line in the commit message. The body [[BR]]
    contains the longer patch description and the patch (unified format) itself. [[BR]]
-   Please also specify the target branch (e.g. batman:, batctl:, etc) at the [[BR]]
+   Please also specify the target branch (e.g. batctl, batman-adv, etc) at the [[BR]]
    beginning of the subject line. See the [http://www.open-mesh.org/timeline timeline] for more examples.
  * Add a "Signed-off-by: Your Name <!you@example.com>" line to the patch [[BR]]
    message to make the ownership of the patch clear.
  * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style[[BR]]
    closely (use checkpatch.pl to verify your patch) as well as the linux "how to [[BR]]
-   submit patches" guidelines (search for the term !SubmitPatches to find thourough[[BR]]
+   submit patches" guidelines (search for the term !SubmitPatches to find thorough[[BR]]
    documentation).
  * An exemplary good submission you may want to look at can be found here:[[BR]]
    https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2009-December/002033.html
