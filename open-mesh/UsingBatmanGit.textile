@@ -28,22 +28,42 @@ time.[[BR]]
 
 In fact you will never work with this branch itself but one of the other branches.[[BR]]
 
+'''maint branch'''
+
+The maint is a branch only maintained in git to gather bug fixes for the latest [[BR]]
+release. Cherry-pick is used to get commits from the master branch and git-am[[BR]]
+to insert patches from mailboxes.
+
+Create tracking branch after cloning the repository
+
+{{{
+git checkout -b maint --track origin/maint
+}}}
+
+Cherry-picking a commit from master branch
+
+{{{
+git checkout maint
+git cherry-pick $SHA1
+}}}
+
+
 '''linux branch'''
 
 The linux branch is a clone of Linus Torvalds developer branch. With the help[[BR]]
-of some git vodoo the master branch is merged with this branch in the folder:[[BR]]
-drivers/staging/batman-adv/. If you wish to merge the latest master branch [[BR]]
+of some git voodoo the maint branch is merged with this branch in the folder:[[BR]]
+drivers/staging/batman-adv/. If you wish to merge the latest maint branch [[BR]]
 changes into the linux branch you need to switch to the linux branch:[[BR]]
 
 {{{
 git checkout linux
 }}}
 
-and merge the master branch into this one:
+and merge the maint branch into this one:
 
 {{{
 git fetch origin
-git merge -s subtree origin/master
+git merge -s subtree origin/maint
 }}}
 
 If you wish to pull Linus latest changes and merge it you need to add the remote[[BR]]
@@ -74,7 +94,7 @@ If you need to see the difference between the SVN repos and the batman-adv[[BR]]
 driver in drivers/staging/batman-adv/ you can run this command:
 
 {{{
-git diff origin/master: linux:drivers/staging/batman-adv/
+git diff origin/maint: linux:drivers/staging/batman-adv/
 }}}
 
 
@@ -89,7 +109,7 @@ git fetch $remote_name
 
 git checkout -b $new_branch_name $remote_name/master
 git merge -s ours --no-commit master
-git read-tree --prefix=drivers/staging/batman-adv/ -u master
+git read-tree --prefix=drivers/staging/batman-adv/ -u maint
 git commit -m "Add batman-adv to my new branch"
 }}}
 
