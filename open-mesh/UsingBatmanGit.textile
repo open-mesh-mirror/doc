@@ -34,7 +34,7 @@ The maint is a branch only maintained in git to gather bug fixes for the latest 
 release. Cherry-pick is used to get commits from the master branch and git-am[[BR]]
 to insert patches from mailboxes.
 
-Create tracking branch after cloning the repository
+Create branch associated with the remote-tracking branch after cloning the repository
 
 {{{
 git checkout -b maint --track origin/maint
