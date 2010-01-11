@@ -25,6 +25,7 @@ So where are we going to send data packets to if not to those interfaces we have
 
 On all nodes, install batman-adv, load the module and enter the following commands:
 {{{
+ifconfig wlan0 mtu 1524
 iwconfig wlan0 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
 }}}
 {{{
@@ -34,12 +35,15 @@ ifconfig bat0 up
 }}}
 You can now use the automatically assigned IPv6 link-local adresses on bat0 (usually starting with fe80::...), modern operating systems should support this. Or you can assign IPv4 addresses manually on all those nodes (i.e. 'ifconfig bat0 192.168.123.x/24') or one of the laptops in range has to have a DHCP server running on the bat0 interface. As batman-adv is operating on layer 2, even dhcp-messages can be send over the mesh network.
 
+'''Note:''' batman-adv inserts an additional header of 24 bytes into each data packet being send over the mesh. Therefore we are increasing the maximum size of a packet over the plain interfaces to 1524, so that packets with the standard MTU of 1500 can pass normaly through bat0. You might also decrease the MTU to 1476 on all hosts but is usually just do-able in more or less static- and small-scaled mesh-networks.
+
 '''mixing non-B.A.T.M.A.N. systems with batman-adv'''[[BR]]
 
 If you have a couple of computers that you don't want to run batman-adv on but you still want make use of the mesh network, you will need to configure an entry point for them on a node running batman-adv. Any device running Linux (a notebook, a wifi-router, a pc with a wifi card, ...) can be setup to work as a mesh entry point. In addition to the usual mesh setup steps mentioned above it is necessary to configure a bridge over bat0 and the interface those 'non-B.A.T.M.A.N.' machines are connected to. Let's say eth0 is the interface on a mesh access point where those non-B.A.T.M.A.N. systems are attached to and wlan0 is the interface on a mesh access point through which we want to build the mesh network.
 
 On each mesh access point, install batman-adv first, load the module and enter the following commands:
 {{{
+ifconfig wlan0 mtu 1524
 iwconfig wlan0 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
 }}}
 {{{
@@ -55,5 +59,7 @@ ifconfig bat0 up
 ifconfig mesh-bridge up
 }}}
 From now on you won't want to use eth0, wlan0 or bat0 for any routing anymore, instead you are just using the new bridge interface 'mesh-bridge'. Any packet our mesh access point receives over eth0 will be forwarded to bat0 because of the bridge. batman-adv will forward it through the mesh according to the destination's mac address.
+
+For the MTU-part have a look at the note above.
 
 ''(How does batman-adv know where it has to send a data packet of an external computer, that is not using batman-adv, to another computer that is not using batman-adv either? It is automatically listening on bat0 and will keep track of any host mac address passing by this interface. Those host's mac addresses will then be announced to other batman-adv nodes in the mesh network automatically - so called HNA messages - so that every batman-adv node is going to know behind which other batman-adv node it can find which mac addresses.)''
