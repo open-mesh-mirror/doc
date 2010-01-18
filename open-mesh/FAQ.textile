@@ -4,6 +4,29 @@
 
 At this point no B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [wiki:Emulation read our emulation document].
 
+'''How to make my mesh network secure ?'''
+
+What kind of security do you need? Security is a big field. Maybe you just 
+mean encryption and authentication.....
+
+When you only want to make the whole wlan stuff unreadable for the outside, 
+you could just use WPA_NONE. But this doesn't resolve the problem that the key 
+could leak and make the mesh attackable - but that is something which could 
+always happen. So it is probably not a solution for wifi community projects, but for 
+mesh networks controlled by a company.
+
+There are other ideas for traffic over batman-adv. Just forget about 
+encrypting your data on the wifi layer, but instead do everything some layers above. 
+Some people experimented with the idea of implementing the needed authentication and 
+encryption over IPsec. 
+
+And most of the encryption and authentication stuff has to be resolved by the 
+user and not by the network provider. This means https for sensible data 
+instead of http, ssh instead of telnet, pop3s instead of pop3 and so on.
+
+So it really depends what you want and cannot be resolved in a "security for 
+everything, against any attack and for every purpose" blob.
+
 
 '''Understanding the version and compatibility number'''
 
