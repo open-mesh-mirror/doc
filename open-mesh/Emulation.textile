@@ -28,7 +28,7 @@ Furthermore, to allow automatic network device setup on boot i'm using the follo
 # kill default openwrt network config
 
 NUM=$(ifconfig eth0| grep HWaddr | sed 's/:01[\n\ ]*$//' | sed 's/.*://'| sed 's/[\n\ ].*//')
-ifconfig eth1 inet 192.168.${NUM}.2 up
+ifconfig eth1 inet 192.168.$((0x$NUM)).2 up
 ifconfig br-lan down
 brctl delbr br-lan
 
