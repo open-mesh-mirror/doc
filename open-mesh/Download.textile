@@ -6,9 +6,11 @@ We are offering sources and precompiled batmand binaries and packages for differ
 === Download Released Source Code ===
  * The latest version of [wiki:batman-adv batman-adv] is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.2.tar.gz batman-adv-kernelland-0.2.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.2.tar.gz.asc asc]
  * The latest version of batctl (management and control tool for batman-adv) is [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-0.2.tar.gz batctl-0.2.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-0.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-0.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-0.2.tar.gz.asc asc]
- * The latest stable version of batmand is [http://downloads.open-mesh.net/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz batman-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.asc asc]
- * The latest version of the vis server is [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz vis-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.asc asc]
 
+ * The latest stable version of batmand is [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz batman-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.asc asc]
+ * The latest version of the vis server for the batmand (package not needed for batman-adv) is [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz vis-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.asc asc]
+
+If you are wondering whether batman-adv or batmand might suite your setup better, have a look at [/wiki/batman-adv this] page. Please note that the development is focusing on batman-adv at the moment.
 
 If you find any bugs, please [wiki:Contribute let us know]!
 
@@ -30,7 +32,7 @@ Since we started integrating the batman-adv kernel module into the mainline Linu
 
 Since linux 2.6.33 batman-adv is part of the official linux tree. You can build batman-adv along with your linux binary by simply selecting batman-adv in the Linux drivers section. If you use an older kernel or want to have access to the latest features you can checkout our SVN or git repository which still are backward compatible until 2.6.20.
 
-It follows an overview about which linux version contains which batman-adv, so that you easily can pick the compatible batctl packages:
+It follows an overview of linux versions and the batman-adv version they contain, so that you can easily pick the compatible batctl packages:
  * linux 2.6.33 => batman-adv 0.2 (get batctl 0.2 from [http://downloads.open-mesh.org/batman/stable/sources/batctl/ here])
 
 === Debian ===
