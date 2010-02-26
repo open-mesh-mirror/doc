@@ -1,13 +1,13 @@
 = batman-advanced =
 
 Batman-advanced is a new approach to wireless networking which
-does no longer operate on the IP basis. Unlike B.A.T.M.A.N, which exchanges
+does no longer operate on the IP basis. Unlike the layer 3 batman-daemon, which exchanges
 information using UDP packets and sets routing tables, batman-advanced operates
 on ISO/OSI Layer 2 only and uses and routes (or better: bridges) Ethernet Frames.
 It emulates a virtual network switch of all nodes participating. Therefore all nodes 
 appear to be link local, thus all higher operating protocols won't be affected 
-by any changes within the network. You can run almost any protocol above B.A.T.M.A.N.
-Advanced, prominent examples are: IPv4, IPv6, DHCP, IPX. 
+by any changes within the network. You can run almost any protocol above B.A.T.M.A.N.-Advanced,
+prominent examples are: IPv4, IPv6, DHCP, IPX. 
 
 === Pros and Cons ===
 Pros:
