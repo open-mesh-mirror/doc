@@ -3,7 +3,7 @@
  * Routing and networking knowledge in general
  * Programming language: C
 = Recommended and/or useful =
-These things are not a prerequisite but might be very useful and/or have to be learned turing the GSoC anyway.
+These things are not a prerequisite but might be very useful and/or have to be learned during the GSoC anyway.
  * [[http://www.kernel.org/doc/Documentation/CodingStyle Linux kernel coding style]]
  * Reading the documentation of the algorithms: [[http://gitorious.org/batman-adv-doc batman-adv-doc]] [[http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 batman-rfc-draft]] (used in the 'old' batmand)
  * Being able to use virtual machines for debugging (i.e. qemu)
