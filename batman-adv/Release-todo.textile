@@ -11,11 +11,11 @@ This page contains a checklist of things that need to be done for a release.
  * [x] remove dead code (if any)
  * [ ] svn/git tag release
  * [ ] change version strings inside the trunk
- * [ ] check against kernel versions
+ * [x] check against kernel versions
 
 '''Documentation'''
 
- * [ ] build changelog
+ * [x] build changelog
  * [ ] update README
  * [ ] write release announcement
 
