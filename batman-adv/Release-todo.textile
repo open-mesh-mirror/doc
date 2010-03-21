@@ -9,9 +9,9 @@ This page contains a checklist of things that need to be done for a release.
  * [ ] make sure all code contains the release version strings
  * [ ] update copyright years (if needed)
  * [ ] remove dead code (if any)
- * [ ] svn tag release
- * [ ] change version strings inside the trunk
-
+ * [ ] svn/git tag release
+ * [-] change version strings inside the trunk
+ * [ ] check against kernel versions
 
 '''Documentation'''
 
