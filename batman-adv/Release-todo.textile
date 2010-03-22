@@ -9,7 +9,7 @@ This page contains a checklist of things that need to be done for a release.
  * [x] make sure all code contains the release version strings
  * [x] update copyright years (if needed)
  * [x] remove dead code (if any)
- * [ ] svn/git tag release
+ * [x] svn/git tag release
  * [x] change version strings inside the trunk
  * [x] check against kernel versions
 
@@ -22,10 +22,10 @@ This page contains a checklist of things that need to be done for a release.
 
 '''Release'''
 
- * [ ] build package tar.gz (replace symlinks with real files) and generate checksums
+ * [x] build package tar.gz (replace symlinks with real files) and generate checksums
  * [ ] build stable binary packages
- * [ ] move packages/checksums to ?? / create symlinks ??
- * [ ] update download links in the trac downloads page
+ * [x] move packages/checksums to ?? / create symlinks ??
+ * [x] update download links in the trac downloads page
  * [ ] send release mail
  * [ ] update IRC channel topic
 
