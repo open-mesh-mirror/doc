@@ -16,7 +16,7 @@ Pros:
  * easy integration of attached networks (no manual HNA fiddling), just put the bat0 in the bridge with your other devices. You can for example build a roaming network of Access Points with this technique.
  * Not affected by your Firewall (but you can secure the payload traffic, of course)
 Cons:
- * no gateway handling inside of B.A.T.M.A.N. (DHCP/IPv6 autoconf/static routes will work but B.A.T.M.A.N. won't help to choose the best gateway for you)
+ * ~~no gateway handling inside of B.A.T.M.A.N. (DHCP/IPv6 autoconf/static routes will work but B.A.T.M.A.N. won't help to choose the best gateway for you)~~ (the upcoming batman-adv 0.3 supports advanced gateway handling)
 === batctl (former battools) ===
 
 Since the nodes participating in the B.A.T.M.A.N. Advanced switch are
@@ -29,7 +29,7 @@ Further information can be found in the enclosed README file.
 === Userland vs Kernelland ===
 
 The userland implementation of batman-advanced was a proof of concept implementation to verify that the concept is
-working. Unfortunately, switching packets in userland is very expensive in terms of cycles, as each packet has to be
+working. Unfortunately, switching packets in userland is very expensive in terms of CPU cycles, as each packet has to be
 read() and write() to the kernel and back, which limits the sustainable bandwidth especially on low-end devices. 
 To have good support for these devices as well, we implemented batman-adv as a kernel driver, which is now the 
 preferred version. It can be controlled via the /proc file system and works transparently. The userland remains unmaintained and has been removed from the subversion repository.
