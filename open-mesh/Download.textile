@@ -10,7 +10,7 @@ We are offering sources and precompiled batmand binaries and packages for differ
  * The latest stable version of batmand is [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz batman-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.asc asc]
  * The latest version of the vis server for the batmand (package not needed for batman-adv) is [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz vis-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.asc asc]
 
-If you are wondering whether batman-adv or batmand might suite your setup better, have a look at [/wiki/batman-adv this] page. Please note that the development is focusing on batman-adv at the moment.
+If you are wondering whether batman-adv or batmand might suit your setup better, have a look at [wiki:batman-adv this page]. Please note that the development is focusing on batman-adv at the moment.
 
 If you find any bugs, please [wiki:Contribute let us know]!
 
