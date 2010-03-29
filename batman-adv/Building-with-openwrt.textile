@@ -2,7 +2,7 @@
 = Building B.A.T.M.A.N. Advanced on OpenWRT =
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 Many tutorials assume that you have batman-adv running on an OpenWRT system without going into detail how to get the system built and configured. This documents aims to fill the gap by providing a step-by-step explanation how to get your OpenWRT system up & running.
 
@@ -16,7 +16,7 @@ svn co svn://svn.openwrt.org/openwrt/tags/8.09.2 openwrt-kamikaze
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 Change into the openwrt-kamikaze directory and configure the system to meet you needs (e.g. choose the platform and additional packages you intend to use).
 }}}
@@ -27,7 +27,7 @@ make menuconfig
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 __Note__: The batman-adv package is not there yet because it needs to be activated seperately (see the following steps). [[BR]]
 
@@ -40,7 +40,7 @@ make
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your OpenWRT system, please see [http://www.openwrt.org the OpenWRT project website].
 
@@ -66,7 +66,7 @@ svn co svn://svn.openwrt.org/openwrt/packages openwrt-packages
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 The batman-adv package can be found in the "net" subfolder of the package repository. Now, it needs to be linked into your main package folder, so that OpenWRT can find it:
 }}}
@@ -77,7 +77,7 @@ ln -sf ../../openwrt-packages/net/batman-advanced/ .
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 === Configuring the batman-adv package ===
 
@@ -89,7 +89,7 @@ Kernel modules ---> Network Support ---> kmod-batman-adv-kernelland
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 Once the package had been selected a number of suboptions will become visible. The branch option decides whether OpenWRT should build the latest stable batman-adv release or the bleeding edge development version. You also can enable/disable the verbose debug logging as well as choose whether or not to include the batctl tool.
 
