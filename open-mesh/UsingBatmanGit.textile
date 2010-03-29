@@ -1,40 +1,41 @@
 
 = Using the batman git repository =
 
+{{{
+#!div style="width: 40em"
+
 If you want to find out why we also have a git repository now, please read [wiki:2009-10-23-batman-goes-mainline here].
 
 === Checkout ===
 
-To retrieve the latest changes you can pull from the read-only http frontend.[[BR]]
-Your are about to download 300MB of sources - that may take a while!
+To retrieve the latest changes you can pull from the read-only http frontend. Your are about to download 300MB of sources - that may take a while!
+}}}
 
 {{{
 git clone http://git.open-mesh.org/batman-adv/ batman-adv-git
 }}}
 
+{{{
+#!div style="width: 40em"
+
 === Branches ===
 
-The git repository is divided into several branches to make working easier.[[BR]]
+The git repository is divided into several branches to make working easier.
 
 '''master branch'''
 
-The master branch is a clone of the batman kernel module SVN found at [[BR]]
-http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/ [[BR]]
+The master branch is a clone of the batman kernel module SVN found at http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/
 
-The idea is that all kernel changes are built on top of the SVN, so that[[BR]]
-changes which affect all branches can easily trickle down. A post-commit[[BR]]
-script makes sure that the SVN  is in sync with the git master branch all the[[BR]]
-time.[[BR]]
+The idea is that all kernel changes are built on top of the SVN, so that changes which affect all branches can easily trickle down. A post-commit script makes sure that the SVN  is in sync with the git master branch all the time.
 
-In fact you will never work with this branch itself but one of the other branches.[[BR]]
+In fact you will never work with this branch itself but one of the other branches.
 
 '''maint branch'''
 
-The maint is a branch only maintained in git to gather bug fixes for the latest [[BR]]
-release. Cherry-pick is used to get commits from the master branch and git-am[[BR]]
-to insert patches from mailboxes.
+The maint is a branch only maintained in git to gather bug fixes for the latest release. Cherry-pick is used to get commits from the master branch and git-am to insert patches from mailboxes.
 
 Create branch associated with the remote-tracking branch after cloning the repository
+}}}
 
 {{{
 git checkout -b maint --track origin/maint
@@ -47,13 +48,13 @@ git checkout maint
 git cherry-pick $SHA1
 }}}
 
+{{{
+#!div style="width: 40em"
 
 '''linux branch'''
 
-The linux branch is a clone of Linus Torvalds developer branch. With the help[[BR]]
-of some git voodoo the maint branch is merged with this branch in the folder:[[BR]]
-drivers/staging/batman-adv/. If you wish to merge the latest maint branch [[BR]]
-changes into the linux branch you need to switch to the linux branch:[[BR]]
+The linux branch is a clone of Linus Torvalds developer branch. With the help of some git voodoo the maint branch is merged with this branch in the folder: drivers/staging/batman-adv/. If you wish to merge the latest maint branch changes into the linux branch you need to switch to the linux branch:
+}}}
 
 {{{
 git checkout linux
@@ -66,8 +67,11 @@ git fetch origin
 git merge -s subtree origin/maint
 }}}
 
-If you wish to pull Linus latest changes and merge it you need to add the remote[[BR]]
-branch first (you can omit that step if you already have it).
+{{{
+#!div style="width: 40em"
+
+If you wish to pull Linus latest changes and merge it you need to add the remote branch first (you can omit that step if you already have it).
+}}}
 
 {{{
 git remote add torvalds git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git
@@ -87,21 +91,25 @@ git checkout linux
 git push origin linux
 }}}
 
+{{{
+#!div style="width: 40em"
 
 '''difference between SVN and git'''
 
-If you need to see the difference between the SVN repos and the batman-adv[[BR]]
-driver in drivers/staging/batman-adv/ you can run this command:
+If you need to see the difference between the SVN repos and the batman-adv driver in drivers/staging/batman-adv/ you can run this command:
+}}}
 
 {{{
 git diff origin/maint: linux:drivers/staging/batman-adv/
 }}}
 
+{{{
+#!div style="width: 40em"
 
 '''adding a branch'''
 
-In case you want to add your own branch for testing purposes or simply wish[[BR]]
-to understand the magic.
+In case you want to add your own branch for testing purposes or simply wish to understand the magic.
+}}}
 
 {{{
 git remote add $remote_name $git_url
