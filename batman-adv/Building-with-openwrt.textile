@@ -87,3 +87,18 @@ As soon as the batman-adv package has been added, it will show up in the OpenWRT
 {{{
 Kernel modules ---> Network Support ---> kmod-batman-adv-kernelland
 }}}
+
+{{{
+#!div style="width: 40em"
+
+Once the package had been selected a number of suboptions will become visible. The branch option decides whether OpenWRT should build the latest stable batman-adv release or the bleeding edge development version. You also can enable/disable the verbose debug logging as well as choose whether or not to include the batctl tool.
+
+In addition, the batman-adv package comes with an init script which is installed per default. This script will run at boot time and can be used to configure your desired batman-adv options. It reads the batman-adv-kernelland uci file to retrieve the settings which allows to specify interfaces, intervals, log level and more.
+
+=== Advanced configuration features ===
+
+patches ??
+
+make package/batman-adv/clean V=99 ??
+
+}}}
