@@ -2,7 +2,7 @@
 = The OLSR.ORG story =
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 Proactive protocols (Link State Routing Protocols) generate a lot of
 overhead because they have to keep topoloy information and routing
