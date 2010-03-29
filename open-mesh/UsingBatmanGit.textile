@@ -2,7 +2,7 @@
 = Using the batman git repository =
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 If you want to find out why we also have a git repository now, please read [wiki:2009-10-23-batman-goes-mainline here].
 
@@ -16,7 +16,7 @@ git clone http://git.open-mesh.org/batman-adv/ batman-adv-git
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 === Branches ===
 
@@ -49,7 +49,7 @@ git cherry-pick $SHA1
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 '''linux branch'''
 
@@ -68,7 +68,7 @@ git merge -s subtree origin/maint
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 If you wish to pull Linus latest changes and merge it you need to add the remote branch first (you can omit that step if you already have it).
 }}}
@@ -92,7 +92,7 @@ git push origin linux
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 '''difference between SVN and git'''
 
@@ -104,7 +104,7 @@ git diff origin/maint: linux:drivers/staging/batman-adv/
 }}}
 
 {{{
-#!div style="width: 40em"
+#!div style="width: 40em; text-align: justify"
 
 '''adding a branch'''
 
