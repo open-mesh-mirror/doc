@@ -1,14 +1,16 @@
 
-= The OLSR.ORG story =
 
-{{{
-#!div style="width: 40em; text-align: justify"
+h1. The OLSR.ORG story
+
+
+<pre>
+<code class="div">
 
 Proactive protocols (Link State Routing Protocols) generate a lot of
 overhead because they have to keep topoloy information and routing
 tables in sync amongst all or at least amongst adjacent nodes. If the
 protocol does not manage to keep the routing tables synced it is likely
-that the payload will spin in routing loops until the !TimeToLive (TTL)
+that the payload will spin in routing loops until the TimeToLive (TTL)
 is expired. Apart from high traffic-overhead and CPU-Load this is the
 biggest issue for Link State Routing Protocols.  We were actively
 involved in the evolution of olsrd from olsr.org. Actually we were the
@@ -23,36 +25,40 @@ that the inital designers of olsr thought was smart and replaced it with
 the LQ/ETX-Mechanism and Fish-Eye Mechanism tp update topology
 information.
 
-What we did to improve olsr (in historical order):  [[BR]]
+What we did to improve olsr (in historical order):  
 
-''Test OLSR according to RFC3626 at the conference Wizards of OS III in 2004 - Meshcloud with 25 Nodes''
 
-Results: [[BR]] 
- * Routing tables take long time to build and no time to break down.
- * Routes flap. 
- * Routing loops. 
- * No throughput.
- * Gateway switches all the time - so stateful connections to the Internet
+_Test OLSR according to RFC3626 at the conference Wizards of OS III in 2004 - Meshcloud with 25 Nodes_
+
+Results: 
+ 
+* Routing tables take long time to build and no time to break down.
+* Routes flap. 
+* Routing loops. 
+* No throughput.
+* Gateway switches all the time - so stateful connections to the Internet
    will brake down all the time 
 
-Conclusion:  [[BR]]
- * Hysteresis mechanism frequently kicks Multi Point Relays (MPRs) out  of
+Conclusion:  
+
+* Hysteresis mechanism frequently kicks Multi Point Relays (MPRs) out  of
    the routing table --> Infrastructure to broadcast topology information
    breaks down all the time and MPRs have to be negotiated again...
- * Multipoint relay selection selects nodes far away to keep the number of
+* Multipoint relay selection selects nodes far away to keep the number of
    necessary Multi Point Relays low --> Links to MPRs are weak, so 
    hysteresis kicks them out of the routing table more often than not
    Multipoint relay selection reduces protocol overhead and prevents 
    topology  information from being in sync --> Routing loops 
- * Routes are unstable --> No throughput 
- * Routes selected on minimum Hop-count maximises packetloss --> No throughput
- * Routing loops --> No throughput 
- * Dynamic gateway selection --> Stateful connections get interrupted when 
+* Routes are unstable --> No throughput 
+* Routes selected on minimum Hop-count maximises packetloss --> No throughput
+* Routing loops --> No throughput 
+* Dynamic gateway selection --> Stateful connections get interrupted when 
    a  different gateway is selected 
 
-What we did:  [[BR]]
- * Disable hysteresis.
- * Disable MPRs - all nodes forward topology information.
+What we did:  
+
+* Disable hysteresis.
+* Disable MPRs - all nodes forward topology information.
 
 Now almost everything that was meant to optimize Link State Routing was
 disabled - a simple proactive link-state routing protocol with support
@@ -67,19 +73,22 @@ configuration file that is shipped with olsr.org, olsrd will still
 behave according to RFC3626. So if you want to see how miserable RFC3626
 works - try it with the default configuration file.
 
-[[BR]]
 
-''Deployment of OLSR (with 'Optimizations' removed) in the Berlin Freifunk  mesh cloud - 2004''
 
-Results:  [[BR]]
- * Works much better than RFC3626. Still it was hardly usable. 
- * Throughput very low and unstable. 
- * Routing table doesn't break down anymore 
- * Dynamic gateway selection --> Stateful connections get interrupted when a different gateway is selected
+
+_Deployment of OLSR (with 'Optimizations' removed) in the Berlin Freifunk  mesh cloud - 2004_
+
+Results:  
+
+* Works much better than RFC3626. Still it was hardly usable. 
+* Throughput very low and unstable. 
+* Routing table doesn't break down anymore 
+* Dynamic gateway selection --> Stateful connections get interrupted when a different gateway is selected
     
-Conclusion:  [[BR]]
- * We knew routes based on minimum hopcount will likely have very low throughput.
- * Dynamic gateway selection is a tradeoff of automatic gateway selection by the protocol
+Conclusion:  
+
+* We knew routes based on minimum hopcount will likely have very low throughput.
+* Dynamic gateway selection is a tradeoff of automatic gateway selection by the protocol
 
 I knew from my first experience with Mobilemesh (another Link State 
 Routing Protocol that we tried at the very beginning of the Freifunk  
@@ -104,20 +113,23 @@ a big barrel of beer at the c-base to celebrate the moment :)  There was
 one tradeoff, however. We had to break compatibility with RFC3626. But 
 since RFC3626 wasn't usable in real-life we didn't bother much. 
 
-[[BR]]
 
-''Deployment of olsr-0.4.8 in the Freifunk-Mesh with ETX/LQ-Mechanism''
 
-Results:  [[BR]]
 
- * Probably bugs in the huge amount of new program-code  
- * Good routing decisions on wireless links operating at the same speed as long as the network is idle
- * Throughput improved - but throughput is interrupted by routing loops as soon as heavy network load is introduced
- * Payload runs for a while at high speed, then the traffic is interrupted, comes back after a while at slow speed - caused by routing loops
- * Dynamic gateway selection --> Stateful connections get interrupted when a different gateway is selected
+_Deployment of olsr-0.4.8 in the Freifunk-Mesh with ETX/LQ-Mechanism_
 
-Conclusion:   [[BR]]
- * This was a mayor improvement, but...
+Results:  
+
+
+* Probably bugs in the huge amount of new program-code  
+* Good routing decisions on wireless links operating at the same speed as long as the network is idle
+* Throughput improved - but throughput is interrupted by routing loops as soon as heavy network load is introduced
+* Payload runs for a while at high speed, then the traffic is interrupted, comes back after a while at slow speed - caused by routing loops
+* Dynamic gateway selection --> Stateful connections get interrupted when a different gateway is selected
+
+Conclusion:   
+
+* This was a mayor improvement, but...
 
 Payload traffic in the mesh causes interference and alters LQ/ETX-Values 
 - interference causes lost LQ-Messages, so LQ/ETX-Values in topology 
@@ -166,41 +178,47 @@ neighbours, etc.
 TC messages with small TTLs are sent more frequently than TC messages
 with higher TTLs, such that immediate neighbours are more up to date
 with respect to our links than the rest of the mesh.  The following
-sequence of TTL values is used by olsrd: [[BR]]
-      
-255 3 2 1 2 1 1 3 2 1 2 1 1  [[BR]]
+sequence of TTL values is used by olsrd: 
 
-Hence, a TC interval of 0.5 seconds leads to the following TC broadcast scheme. [[BR]]
- * Out of 13 TC messages, all 13 are seen by one-hop neighbours (TTL 1, 2, 3, or 255), i.e. a one-hop neighbour sees a TC message every  0.5 seconds.
- * Two-hop neighbours (TTL 2, 3, or 255) see 7 out of 13 TC messages, i.e. about one message per 0.9 seconds.
- * Three-hop neighbours (TTL 3 or 255) see 3 out of 13 TC messages,  i.e. about one message per 2.2 seconds.
- * All other nodes in the mesh (TTL 255) see 1 out of 13 TC messages, i.e. one message per 6.5 seconds.
+      
+255 3 2 1 2 1 1 3 2 1 2 1 1  
+
+
+Hence, a TC interval of 0.5 seconds leads to the following TC broadcast scheme. 
+
+* Out of 13 TC messages, all 13 are seen by one-hop neighbours (TTL 1, 2, 3, or 255), i.e. a one-hop neighbour sees a TC message every  0.5 seconds.
+* Two-hop neighbours (TTL 2, 3, or 255) see 7 out of 13 TC messages, i.e. about one message per 0.9 seconds.
+* Three-hop neighbours (TTL 3 or 255) see 3 out of 13 TC messages,  i.e. about one message per 2.2 seconds.
+* All other nodes in the mesh (TTL 255) see 1 out of 13 TC messages, i.e. one message per 6.5 seconds.
  
 The sequence of TTL values is hard-coded in lq_packet.c and can be 
 altered easily for further experiments.  The implementation of Link
 Quality Fish Eye mechanism took Thomas only a few minutes - and it was
 the second major improvement.
 
-Thomas also introduced a new switch, called !LinkQualityDjikstraLimit.
+Thomas also introduced a new switch, called LinkQualityDjikstraLimit.
 The slow CPUs of embedded routers have serious problems to recalculate
 the routing tables in a mesh-cloud with more than 100 nodes. Every
 incoming TC-Message would trigger another recalculation of the
-Djikstra-Table - this would be far too often. !LinkQualityDjikstraLimit
+Djikstra-Table - this would be far too often. LinkQualityDjikstraLimit
 allows to set an interval for recalculating the Djikstra-Table.
 
-[[BR]]
 
-''Deployment of olsr-0.4.10''
+
+
+_Deployment of olsr-0.4.10_
  
-Results:   [[BR]]
- * Now it is really working and usable :) 
- * It's still not absolutely loop-free under heavy payload (sometimes loops for 3-10 seconds)
- * Multihop-Links with 10 Hops work and are stable as long as the wireless links work 
- * !LinkQualityDjikstraLimit allows to run olsr even on a relatively slow CPU in a big mesh-cloud -   but the routing-table becomes very very static
- * Gateway-Switching is still a constant annoyance if a mesh has more than one Internet-Gateway 
+Results:   
 
-Conclusions:   [[BR]]
- * Apart from the problems with Gateway-Switching it is now a well behaving routing protocol.
+* Now it is really working and usable :) 
+* It's still not absolutely loop-free under heavy payload (sometimes loops for 3-10 seconds)
+* Multihop-Links with 10 Hops work and are stable as long as the wireless links work 
+* LinkQualityDjikstraLimit allows to run olsr even on a relatively slow CPU in a big mesh-cloud -   but the routing-table becomes very very static
+* Gateway-Switching is still a constant annoyance if a mesh has more than one Internet-Gateway 
+
+Conclusions:   
+
+* Apart from the problems with Gateway-Switching it is now a well behaving routing protocol.
 
 But still... Thomas and I agreed that we could cope with the increasing
 size of the Freifunk networks only by making the protocol more and more
@@ -241,10 +259,13 @@ We both lost interest in Olsr development in spring 2006 and Thomas
 implemented a quick and dirty version of Batman-I in one night to see if
 the new algorithm was viable. It is - but that's a whole different story...
 
-Written by Elektra and published at www.open-mesh.org [[BR]]
+Written by Elektra and published at www.open-mesh.org 
 
-Copyleft: [[BR]]
-(CC) Creative Commons Attribution-Noncommercial-Share Alike 3.0 [[BR]]
 
-}}}
+Copyleft: 
+
+(CC) Creative Commons Attribution-Noncommercial-Share Alike 3.0 
+
+
+</code></pre>
 
