@@ -1,0 +1,89 @@
+
+= Building B.A.T.M.A.N. Advanced on OpenWRT =
+
+{{{
+#!div style="width: 40em"
+
+Many tutorials assume that you have batman-adv running on an OpenWRT system without going into detail how to get the system built and configured. This documents aims to fill the gap by providing a step-by-step explanation how to get your OpenWRT system up & running.
+
+=== Getting the OpenWRT build environment ===
+
+First, you need to obtain a copy of the OpenWRT build system which contains all the build information to compile & package a complete linux system. You can either checkout the last stable or the trunk directly from the OpenWRT SVN repository or get tarballs from the OpenWRT project website. We assume you intend to download the latest stable (8.09.2 at the point of writing this document) via SVN:
+}}}
+
+{{{
+svn co svn://svn.openwrt.org/openwrt/tags/8.09.2 openwrt-kamikaze
+}}}
+
+{{{
+#!div style="width: 40em"
+
+Change into the openwrt-kamikaze directory and configure the system to meet you needs (e.g. choose the platform and additional packages you intend to use).
+}}}
+
+{{{
+cd openwrt-kamikaze
+make menuconfig
+}}}
+
+{{{
+#!div style="width: 40em"
+
+__Note__: The batman-adv package is not there yet because it needs to be activated seperately (see the following steps). [[BR]]
+
+To build your images you always have to invoke the "make" command from within the openwrt-kamikaze folder:
+}}}
+
+{{{
+cd openwrt-kamikaze
+make
+}}}
+
+{{{
+#!div style="width: 40em"
+
+The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your OpenWRT system, please see [http://www.openwrt.org the OpenWRT project website].
+
+=== Adding the batman-adv package ===
+
+There are 2 ways to add the batman-adv package:
+ * downloading the OpenWRT package repository and adding the package to your OpenWRT build system (the manual way)
+ * using scripts provided by OpenWRT to download the whole package repository and adding all packages to your OpenWRT build system (the easy way)
+
+Downloading and adding all packages might clutter your OpenWRT package menu with hundreds of packages which you have no need for. If you don't care you should go with the easy way otherwise the manual way is what you are looking for.
+
+__The easy way__: [[BR]]
+
+TBD
+
+__The manual way__: [[BR]]
+
+Download the OpenWRT package repository via SVN next to your openwrt-kamikaze folder (not inside!):
+}}}
+
+{{{
+svn co svn://svn.openwrt.org/openwrt/packages openwrt-packages
+}}}
+
+{{{
+#!div style="width: 40em"
+
+The batman-adv package can be found in the "net" subfolder of the package repository. Now, it needs to be linked into your main package folder, so that OpenWRT can find it:
+}}}
+
+{{{
+cd openwrt-kamikaze/package
+ln -sf ../../openwrt-packages/net/batman-advanced/ .
+}}}
+
+{{{
+#!div style="width: 40em"
+
+=== Configuring the batman-adv package ===
+
+As soon as the batman-adv package has been added, it will show up in the OpenWRT package menu:
+}}}
+
+{{{
+Kernel modules ---> Network Support ---> kmod-batman-adv-kernelland
+}}}
