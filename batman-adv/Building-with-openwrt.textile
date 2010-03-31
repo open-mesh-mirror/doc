@@ -38,15 +38,13 @@ There are 2 ways to add the batman-adv package:
  * downloading the OpenWRT package repository and adding the package to your OpenWRT build system (the manual way)
  * using scripts provided by OpenWRT to download the whole package repository and adding all packages to your OpenWRT build system (the easy way)
 
-Downloading and adding all packages might clutter your OpenWRT package menu with hundreds of packages which you have no need for. If you don't care you should go with the easy way otherwise the manual way is what you are looking for.
-
 __The easy way__: [[BR]]
 
 {{{
 scripts/feeds update
 scripts/feeds install kmod-batman-adv-kernelland
 }}}
-''Note'': If you want to build a current version of batman-adv, make sure you have ''"svn-src packages !svn://svn.openwrt.org/openwrt/packages"'' in your feeds.conf(.default)
+''Note'': If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have ''"svn-src packages !svn://svn.openwrt.org/openwrt/packages"'' instead of e.g. ''"src-svn packages !svn://svn.openwrt.org/openwrt/branches/packages_8.09"''.
 
 __The manual way__: [[BR]]
 
@@ -75,10 +73,22 @@ Once the package had been selected a number of suboptions will become visible. T
 
 In addition, the batman-adv package comes with an init script which is installed per default. This script will run at boot time and can be used to configure your desired batman-adv options. It reads the batman-adv-kernelland uci file to retrieve the settings which allows to specify interfaces, intervals, log level and more.
 
-=== Advanced configuration features ===
+=== Advanced features ===
 
-patches ??
+The package offers an easy way to apply custom patches whenever batman-adv is built. Next to the standard OpenWRT method of having a "patches" folder you also can apply patches depending on the branch you chose. Order in which patches are applied:
 
-make package/batman-adv/clean V=99 ??
+{{{
+patches/*
+patches/maint/*   # if the maint branch was chosen
+patches/dev/*     # if the dev branch was chosen
+}}}
+
+If you experience build problems or simply intend to rebuild the batman-adv package only you can encourage make to build a specific package and enable the debugging mode as follows:
+
+{{{
+cd openwrt-kamikaze
+make package/batman-advanced/clean
+make package/batman-advanced/compile V=99
+}}}
 
 }}}
