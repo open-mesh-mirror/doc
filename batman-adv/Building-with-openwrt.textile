@@ -66,7 +66,9 @@ ln -sf ../../openwrt-packages/net/batman-advanced/ .
 As soon as the batman-adv package has been added, it will show up in the OpenWRT package menu:
 
 {{{
-Kernel modules ---> Network Support ---> kmod-batman-adv-kernelland
+Kernel modules ---> 
+   Network Support ---> 
+      kmod-batman-adv-kernelland
 }}}
 
 Once the package had been selected a number of suboptions will become visible. The branch option decides whether OpenWRT should build the latest stable batman-adv release or the bleeding edge development version. You also can enable/disable the verbose debug logging as well as choose whether or not to include the batctl tool.
@@ -89,6 +91,23 @@ If you experience build problems or simply intend to rebuild the batman-adv pack
 cd openwrt-kamikaze
 make package/batman-advanced/clean
 make package/batman-advanced/compile V=99
+}}}
+
+In case you experience kernel oopses it might prove helpful to enable the kernel symbol table which translates the cryptic numbers which are part of each kernel oops log into readable function names. This calltrace can help developers to analyze the problem. Use OpenWRT's config menu to enable the kernel symbol table and rebuild your image:
+
+{{{
+make menuconfig
+Global build settings --->
+   Compile the kernel with symbol table information
+}}}
+
+If you can't find this option you are using an older OpenWRT version which doesn't offer this config switch in the main menu. You have to modify the kernel settings directly:
+
+{{{
+make kernel_menuconfig
+General setup --->
+   Configure standard kernel features (for small systems) --->
+      Load all symbols for debugging/ksymoops
 }}}
 
 }}}
