@@ -6,7 +6,7 @@ First, try to minimise the complexity of your setup, i.e. just try to build a si
 If you still can't get any setup working at all, go through this checklist:
 
 === Any warnings or errors in the kernel log? ===
-Check 'dmesg' for warnings, errors or crashes.
+Check 'dmesg' for warnings, errors or crashes. If you are seeing a crash, write a [/report ticket] and post the log their, describe your setup and hardware, and ideally how this crash could be reproduced. If the kernel log is just showing cryptic numbers and you are building the kernel(-module) yourself (i.e. OpenWRT distro with [/wiki/building-batman-adv-with-openwrt this] article), enable kernel symbol table please (see its advanced section for enabling this)!
 
 === Are both nodes having the same cell id? ===
 Check with 'iwconfig'. Some wifi drivers are a little buggy and do not always merge two ad-hoc cells, therefore you're usually best advised to chose and configure one manually (i.e. 'iwconfig wlan0 ap 02:XX:XX:XX:XX:XX'). If configuring a cell-id manually, you should set the 7th bit of the first byte - or start it with "02:" in other words. To keep this id (mostly) unique, using one of the routers mac-address for the rest is usually the safest way to go.
