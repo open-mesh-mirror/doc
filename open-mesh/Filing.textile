@@ -25,6 +25,7 @@
 
  * [wiki:batman-adv B.A.T.M.A.N. Advanced overview] - information about the Layer 2 version of B.A.T.M.A.N.
  * [wiki:batman-adv-quick-start-guide B.A.T.M.A.N. Advanced quick start guide] - or: what the hell is bat0 for?
+ * [wiki:building-batman-adv-with-openwrt Building B.A.T.M.A.N. Advanced with OpenWRT] - how to download and configure your OpenWRT build environment to compile batman-adv
  * [http://pizza.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To B.A.T.M.A.N. Advanced on OpenWRT] - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
  * [wiki:VisAdv Visualizing the 2nd layer] - creating graphics of the layer 2 network and differences to the layer 3 vis output explained
  * [wiki:UsingBatmanGit Using the batman git repos] - this page explains how the git repository is structured and how to use it
