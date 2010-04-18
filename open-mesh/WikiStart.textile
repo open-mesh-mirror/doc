@@ -5,7 +5,7 @@
 = B.A.T.M.A.N. =
 B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a routing protocol for multi-hop ad-hoc mesh networks. This is the main development website, we have source code, binary packages, documentation and further information available:
 == News ==
- * '''22.Mar. 2009''' [wiki:2010-03-22-batman-adv-0-2-1-release Batman-adv 0.2.1 released]
+ * '''22.Mar. 2010''' [wiki:2010-03-22-batman-adv-0-2-1-release Batman-adv 0.2.1 released]
  * '''02.Mar. 2010''' [wiki:2010-03-02-batman-at-wbmv3 B.A.T.M.A.N. at WBMv3]
  * '''26.Dec. 2009''' [wiki:2009-12-26-retrospect-batman-in-2009 Retrospect 2009]
  * '''18.Dec. 2009''' [wiki:2009-12-18-batman-v-outlook B.A.T.M.A.N. V outlook]
