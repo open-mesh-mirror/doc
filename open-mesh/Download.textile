@@ -58,7 +58,7 @@ There are various pre-compiled binaries available:
  * [http://downloads.open-mesh.org/batman/stable/binaries/fonera-kamikaze fonera-kamikaze]
  * [http://downloads.open-mesh.org/batman/stable/binaries/buffalo-freifunk/batmand_0.3.2-current_mipsel-wr-elf-32-lsb-dynamic.ipk buffalo-freifunk]
  * [http://downloads.open-mesh.org/batman/stable/binaries/armv5te armv5te (static)]
-
+ * [http://zolpo.com/ Insurance Quotes]
 === Building OpenWRT packages ===
 
 B.A.T.M.A.N. is also included in OpenWRT as a package. Download the extra package feed, link the batman folder into your main OpenWRT svn directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly into your builds.
