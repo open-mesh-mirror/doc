@@ -4,7 +4,7 @@
 {{{
 #!div style="width: 46em; text-align: justify"
 
-This document aims to provide a high level overview about the invidual settings batman-adv allows you to make, in order to tweak its behaviour. If you are trying to find out what these various sysfs files or batctl options are good for, this is the right document for you. Some of the features require extended explanation & examples which is not the scope of this document. Links to complementary documents will be provided if available.[[BR]]
+This document aims to provide a high level overview about the individual settings batman-adv allows you to make, in order to tweak its behaviour. If you are trying to find out what these various sysfs files or batctl options are good for, this is the right document for you. Some of the features require extended explanation & examples which is not the scope of this document. Links to complementary documents will be provided if available.[[BR]]
 
 __Note__: Although this document focusses on the "raw" /sys/ configuration interface you always can use batctl for a more convenient access to the settings.
 
@@ -43,7 +43,7 @@ echo none > /sys/class/net/eth0/batman_adv/mesh_iface
 
 === Mesh cloud handling ===
 
-After having interfaces added to a mesh cloud, batman-adv automatically creates the appropiate batX mesh interface(s). Each of those interfaces receives a special "mesh" subfolder within their standard /sys/class/net/<iface> folder, e.g.
+After having added interfaces to a mesh cloud, batman-adv automatically creates the appropriate batX mesh interface(s). Each of those interfaces receives a special "mesh" subfolder within their standard /sys/class/net/<iface> folder, e.g.
 
 {{{
 ls  /sys/class/net/bat0/mesh/
@@ -72,7 +72,7 @@ status: 1000
 
 '''originator table'''
 
-Each batman node maintains a list of all other nodes in the network and remembers in which direction to send the packets if data should be transmitted. The direction manifests itself in the form of the "best next neighbor" which basically is the the next step towards the destination. You can retrieve batman's internal originator table by reading the originators file. The printed table begins with a header line with some more or less useful status data, followed by the data. Each line contains information regarding a specific originator: 
+Each batman node maintains a list of all other nodes in the network and remembers in which direction to send the packets if data should be transmitted. The direction manifests itself in the form of the "best next neighbor" which basically is the next step towards the destination. You can retrieve batman's internal originator table by reading the originators file. The printed table begins with a header line with some more or less useful status data, followed by the data. Each line contains information regarding a specific originator: 
 
 {{{
 <originator> 
