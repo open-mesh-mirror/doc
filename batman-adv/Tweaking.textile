@@ -70,9 +70,53 @@ cat /sys/class/net/bat0/mesh/orig_interval
 status: 1000
 }}}
 
+'''originator table'''
+
+Each batman node maintains a list of all other nodes in the network and remembers in which direction to send the packets if data should be transmitted. The direction manifests itself in the form of the "best next neighbor" which basically is the the next step towards the destination. You can retrieve batman's internal originator table by reading the originators file. The printed table begins with a header line with some more or less useful status data, followed by the data. Each line contains information regarding a specific originator: 
+
+{{{
+<originator> 
+   <TQ (transmit quality) value towards the originator> 
+      <next best hop> 
+         <outgoing iface> 
+            <alternative best next hops>
+}}}
+
+Sample output:
+{{{
+cat /sys/class/net/bat0/mesh/originators
+Originator       (#/255)           Nexthop [outgoingIF]:   Potential nexthops ... [B.A.T.M.A.N. adv 0.3.0-alpha, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0)] 
+fe:fe:00:00:02:01  (133) fe:fe:00:00:02:01 [      eth0]: fe:fe:00:00:02:01 (133)
+}}}
+
+'''translation tables'''
+
+To let non-batman nodes use the mesh infrastructure easily, batman-adv introduced mac translation tables: When a batman-adv node detects that a client wishes to communicate over the mesh it will store the client's mac address in the local translation table and flood the network with the information that this mac address / client is attached to this batman-adv node. As soon as other nodes wish to send data to the client, they will search the client's mac in the mesh-wide (global) translation table, to find the corresponding batman-adv node. Then the data gets transmitted to the batman node first which then relays it to the client.
+
+The local translation table (mac addresses announced by this host) can be found in the transtable_local file:
+
+{{{
+cat /sys/class/net/bat0/mesh/transtable_local 
+Locally retrieved addresses (from bat0) announced via HNA:
+ * a2:e1:e8:69:cf:bc
+}}}
+
+Every batman node announces at least one mac address - the mac of the batX interface. [[BR]]
+
+The global translation table (mac addresses announced by other hosts) can be found in the transtable_global file:
+
+{{{
+cat /sys/class/net/bat0/mesh/transtable_global 
+Globally announced HNAs received via the mesh bat0:
+ * fe:29:b9:c2:93:6a via fe:fe:00:00:02:01
+}}}
+
+Each line contains the announced mac address and the mac of the batman node announcing it.
+
+
 '''visualizing the topology'''
 
-The vis_mode and vis_data files provide a system to visualize the batman-adv network. The [wiki:VisAdv visualizing the 2nd layer] document describes this system in detail, therefore no in depth explanation is given here. [[BR]]
+The vis_mode and vis_data files provide a system to visualize the batman-adv network. The [wiki:VisAdv visualizing the 2nd layer] and [wiki:VisOutput vis output] documents describes this system in detail, therefore no in-depth explanation is given here. [[BR]]
 
 The default vis mode is "client"
 
