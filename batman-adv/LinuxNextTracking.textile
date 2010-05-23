@@ -43,7 +43,7 @@ git rev-list --reverse $oldrev..$newrev -- drivers/staging/batman-adv
 
 The next step is to add it to batman crontab
 {{{
-15 0   *   *   *     /home/batman/linux-next.git/sync-git
+15 0   *   *   *     /home/batman/linux-next.git/sync-git >& /dev/null
 }}}
 
 To get it really to send something we have to add the mail information to the hooks section of linux-next.git/config
