@@ -53,5 +53,8 @@ Globally announced HNAs received via the mesh bat0:
 
 Each line contains the announced mac address and the mac of the batman node announcing it.
 
+=== ICMP ===
+
+Traditional network debugging tools based on the ICMP protocol such as ping or traceroute won't be able to perform their duties as expected. All traffic in the mesh will be transported to the destination transparently, so that higher protocols do not notice the number of hops or the route. This is one of the main reasons why you can roam around without breaking your connection. To provide the same type of diagnosis tools, batman-adv has an own simplified version of ICMP integrated in the protocol. Via debugfs it is possible to inject IMCP packets which behave very similar to their layer3 counterpart. The icmp socket file /sys/kernel/debug/batman_adv/bat0/icmp_socket can't be used with cat/echo directly, since it expects binary data. The batctl tool offers a ping / traceroute like interface that make use of this icmp socket interface. Please read the batctl manpage or the README file to learn how to use it or to see examples.
 
 }}}
