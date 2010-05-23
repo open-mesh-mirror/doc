@@ -17,7 +17,9 @@ cp /srv/git/batman-adv/hooks/post-receive linux-next.git/hooks/manual-hook
 chmod +x linux-next.git/hooks/manual-hook
 cat << 'EOF' > linux-next.git/sync-git
 #! /bin/sh
-MY_REV="refs/heads/master"
+export MY_REV="refs/heads/master"
+export GIT_DIR=/home/batman/linux-next.git
+cd "$GIT_DIR"
 cd /home/batman/linux-next.git
 oldrev="`git rev-parse $MY_REV`"
 git fetch
