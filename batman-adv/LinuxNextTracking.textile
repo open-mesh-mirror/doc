@@ -12,6 +12,7 @@ The new approach is to create a mirror of linux-next on our server, install a sm
 su batman -
 cd $HOME
 git clone --mirror git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+echo "LinuxNextTracking" >  linux-next.git/description
 cp /srv/git/batman-adv/hooks/post-receive linux-next.git/hooks/manual-hook
 chmod +x linux-next.git/hooks/manual-hook
 cat << 'EOF' > linux-next.git/sync-git
