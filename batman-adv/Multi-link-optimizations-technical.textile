@@ -1,0 +1,29 @@
+= Bonding and interface alternating =
+
+On mesh nodes with multiple wifi radios (or even other interfaces) participating in the mesh network, we can use these multiple interfaces to gain more bandwidth or more stability in the links. The standard BATMAN algorithm considers all neighbors equally, and does not distinguish whether neighbors belong to the same physical nodes or not. The bonding and interface alternating mechanisms detect that some neighbors belong to the same physical node and use this information. 
+
+== multiple interface detection ==
+
+The first step is to detect that a peer has multiple interfaces, and we have multiple connections to it.
+
+As seen in the illustration, we have a node A with 2 interfaces A1,A2. Both of its interfaces can reach different neighbors. By evaluating OGM packets from B with a new "PRIMARIES FIRST HOP" flag (which is only set in the first hop, obviously), we recognize that B2 is belonging to the same node B1. OGMs from the primary interface (B1) are sent on all available interfaces (B1 and B2), and we can therefore detect that the B2 is a secondary interface and B1 is the primary interface of the node it belongs to.
+
+With this information, we know that we can send packets via each links (A1->B1 or A2->B2) without disturbing or changing the routing algorithm - we send from and to the same nodes after all. We call these possible links "candidates" internally. Links are only considered as candidates if the TQ (transmit quality) are nearly equally good as the best link.
+
+== interface alternating ==
+
+One application for our multiple detection is interface alternating. The idea is to avoid forwarding packets on the same interface as they were received. 
+
+In the illustration, we can see 4 nodes with 2 interfaces each. A stream is sent from node A to node D. There are 2 candidates for each node to reach the next hop, but only one is used - if possible, not the one where we received the packets. 
+
+If one packet comes in, we have two links available for the next hop. We can now search through the list of candidates and can choose a candidate which is not using the receiving interface. 
+
+This mechanism should avoid interferences and too much packet in one wifi channel, and thus should avoid problems with the half-duplex nature of WiFi hardware. As we currently don't see any scenarios where the interface alternating could cause disadvantages, we set it to default in the upcoming batman-adv 0.3.0 release.
+
+== bonding ==
+
+In bonding, we split a single stream and distribute the packets over multiple links. Packets are sent in a round-robin fashion over the available candidates. This can be used to increase the throughput for data streams from node A to node B. In best case the throughput is n times higher, where n is the number of candidates. 
+
+However, with the round-robin way of sending packets, the actual throughput is limited by the link with the worst bandwidth. Also the errors and instabilities of all links are aggregated, which makes the link more fragile. For this reason, the bonding feature can be enabled optionally, and should be enabled in setups with high quality links.
+
+There are already ideas how to improve the situation with links of differend bandwidth, e.g. sending packets packets on interfaces where the queue has the least packets. Comments and patches [MailingList are appreciated].
