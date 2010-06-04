@@ -25,7 +25,7 @@ In the illustration, we can see 4 nodes with 2 interfaces each. A stream is sent
 
 If a packet comes in, we have two links available for the next hop. We can now search through the list of candidates and can choose a candidate which is not going over the receiving interface. 
 
-This mechanism should avoid interferences and congestion of a wifi channel, and thus should avoid problems with the half-duplex nature of WiFi hardware. As we currently don't see any scenarios where the interface alternating could cause disadvantages, we set it to default in the upcoming batman-adv 0.3.0 release.
+This mechanism should avoid interferences and congestion of a wifi channel, and thus should avoid problems with the half-duplex nature of !WiFi hardware. As we currently don't see any scenarios where the interface alternating could cause disadvantages, we set it to default in the upcoming batman-adv 0.3.0 release.
 
 == Bonding ==
 
