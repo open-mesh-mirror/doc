@@ -6,6 +6,7 @@ This page contains the links to previous news posts for archiving puposes.
 [[BR]]
 
 === 2009 ===
+ * '''18.Dec. 2009''' [wiki:2009-12-18-batman-v-outlook B.A.T.M.A.N. V outlook]
  * '''18.Nov. 2009''' [wiki:2009-11-18-wbm2009-2nd-encounter WirelessBattleMesh2009v2]
  * '''09.Nov. 2009''' [wiki:2009-11-08-batman-adv-0-2-release Batman-adv 0.2 released]
  * '''23.Oct. 2009''' [wiki:2009-10-23-batman-goes-mainline Batman goes mainline]
