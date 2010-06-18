@@ -23,7 +23,7 @@ This page contains a checklist of things that need to be done for a release.
 
 '''Release'''
 
- * [ ] build package tar.gz (replace symlinks with real files) and generate checksums
+ * [x] build package tar.gz (replace symlinks with real files) and generate checksums
  * [ ] ~~build stable binary packages~~
  * [ ] move packages/checksums to stable/sources / create symlinks from releases
  * [ ] update download links in the trac downloads page
