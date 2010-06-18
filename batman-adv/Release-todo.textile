@@ -12,7 +12,7 @@ This page contains a checklist of things that need to be done for a release.
  * [ ] svn/git tag release
  * [-] change version strings inside the trunk (strip beta etc)
  * [-] change version strings after release to next version
- * [ ] check against kernel versions
+ * [x] check against kernel versions
 
 '''Documentation'''
 
