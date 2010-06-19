@@ -1,5 +1,5 @@
 
-= Using the batman git repository =
+= Using the batman git repositories =
 
 {{{
 #!div style="width: 40em; text-align: justify"
@@ -8,7 +8,7 @@ If you want to find out why we also have a git repository now, please read [wiki
 
 === Checkout ===
 
-To retrieve the latest changes you can pull from the read-only http frontend. Your are about to download 300MB of sources - that may take a while!
+To retrieve the latest changes you can pull from the read-only http frontend.
 }}}
 
 {{{
@@ -18,21 +18,31 @@ git clone http://git.open-mesh.org/batman-adv/ batman-adv-git
 {{{
 #!div style="width: 40em; text-align: justify"
 
+There is also a repository for kernel integration. You are about to download 300MB of sources - that may take a while!
+}}}
+
+{{{
+git clone http://git.open-mesh.org/ecsv/linux-merge.git/
+}}}
+
+{{{
+#!div style="width: 40em; text-align: justify"
+
 === Branches ===
 
-The git repository is divided into several branches to make working easier.
+The main git repository is divided into several branches to make working easier.
 
 '''master branch'''
 
 The master branch is a clone of the batman kernel module SVN found at http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/
 
-The idea is that all kernel changes are built on top of the SVN, so that changes which affect all branches can easily trickle down. A post-commit script makes sure that the SVN  is in sync with the git master branch all the time.
+The idea is that all upcoming changes are built on top of the SVN, so that changes which affect all branches can easily trickle down. A post-commit script makes sure that the SVN  is in sync with the git master branch all the time.
 
 In fact you will never work with this branch itself but one of the other branches.
 
 '''maint branch'''
 
-The maint is a branch only maintained in git to gather bug fixes for the latest release. Cherry-pick is used to get commits from the master branch and git-am to insert patches from mailboxes.
+The maint is a branch only maintained in git to gather bug fixes for the latest release and well tested features taken from the master branch. Cherry-pick is used to get commits from the master branch and git-am to insert patches from mailboxes.
 
 Create branch associated with the remote-tracking branch after cloning the repository
 }}}
@@ -51,20 +61,21 @@ git cherry-pick $SHA1
 {{{
 #!div style="width: 40em; text-align: justify"
 
-'''linux branch'''
+=== Linux integration ===
 
-The linux branch is a clone of Linus Torvalds developer branch. With the help of some git voodoo the maint branch is merged with this branch in the folder: drivers/staging/batman-adv/. If you wish to merge the latest maint branch changes into the linux branch you need to switch to the linux branch:
+The linux-merge repository is a clone of Linus Torvalds developer branch. With the help of some git voodoo the maint branch is merged with this branch in the folder: drivers/staging/batman-adv/. If you wish to merge the latest maint branch changes into the linux branch you need to pull the newest changes in maint from the batman-adv-git repository (we assume that you created the maint branch in your local linux-merge repsitory as explained above):
 }}}
 
 {{{
-git checkout linux
+git checkout maint
+git pull http://git.open-mesh.org/batman-adv/ maint
 }}}
 
 and merge the maint branch into this one:
 
 {{{
-git fetch origin
-git merge -s subtree origin/maint
+git checkout master
+git merge -s subtree maint
 }}}
 
 {{{
@@ -80,27 +91,26 @@ git remote add torvalds git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/l
 Fetch its content and merge it:
 
 {{{
-git checkout linux
+git checkout master
 git fetch torvalds
 git merge torvalds/master
 }}}
 
 To upload your changes you need to run:
 {{{
-git checkout linux
-git push origin linux
+git push
 }}}
 
 {{{
 #!div style="width: 40em; text-align: justify"
 
-'''difference between SVN and git'''
+'''difference between maint and linux-integration'''
 
-If you need to see the difference between the SVN repos and the batman-adv driver in drivers/staging/batman-adv/ you can run this command:
+If you need to see the difference between the maint branch and the batman-adv driver in drivers/staging/batman-adv/ you can run this command:
 }}}
 
 {{{
-git diff origin/maint: linux:drivers/staging/batman-adv/
+git diff maint: master:drivers/staging/batman-adv/
 }}}
 
 {{{
@@ -116,7 +126,7 @@ git remote add $remote_name $git_url
 git fetch $remote_name
 
 git checkout -b $new_branch_name $remote_name/master
-git merge -s ours --no-commit master
+git merge -s ours --no-commit maint
 git read-tree --prefix=drivers/staging/batman-adv/ -u maint
 git commit -m "Add batman-adv to my new branch"
 }}}
