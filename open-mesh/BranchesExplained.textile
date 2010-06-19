@@ -13,10 +13,10 @@ Maintainer: Marek Lindner, Andreas Langer
 batman 0.3 is the latest stable implementation, using a new version of the algorithm known as the BATMAN IV/TQ algorithm. It features better handling for asymetric links and packet aggregation.
 
 
-=== [wiki:BMX batman-experimental (aka bmx)] ===
+=== [wiki:BMX bmx] ===
 Maintainer: Axel Neumann
 
-This branch kept the 0.2 routing algorithm and tried to overcome its flaws by extending it. Despite its name it is neither specifically unstable nor contains the latest features for the 0.3 branch (we are not debian ;-) ). Under the hood it shares much code with 0.3 - not more or less.
+This branch kept the 0.2 routing algorithm and tried to overcome its flaws by extending it. Under the hood it shares much code with 0.3 - not more or less.
 
 === [wiki:batman-adv batman-advanced (aka batman-adv-kernelland)] ===
 Maintainer: Marek Lindner, Simon Wunderlich
