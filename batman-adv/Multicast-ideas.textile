@@ -1,0 +1,37 @@
+= BATMAN-Adv Multicast Awareness =
+
+== Idea ==
+The intention is to decrease the broadcast domain for multicast packets, especially large multicast data packets should not be broadcasted through the whole mesh.
+
+== Concepts and classifications ==
+=== Reactive, multicast group specific, sender-based distribution infrastructure initiation ===
+Similar to batman-adv's current HNA sensing mechanisms, batman-adv would look for multicast packets going into its bat0 interface and memorize the according multicast MAC addresses which represent one multicast group id each in IPv6 or a small set of multicast group ids in IPv4. On sensing, the according batman-adv node will add MCA (= multicast sender announcements) entries to each OGM.
+
+=== Proactive, periodic distribution infrastructure maintenance ===
+A batman-adv node receiving an OGM with MCA entries will check its local multicast group table. If it is a member of the same multicast group fetched from the received OGM's MCAs, it will start a periodic unicast stream to the other member(s) of the same multicast group (packet type description, see mcast_pathsel_packet). This technique for maintenance is similar to the one used in ODMRP. The default interval would/should be 500ms for them, the purge timeout about 3 to 5 times higher - the higher the purge timeout, the more robust the infrastrucutre in a very mobile environment would be, but the larger the distribution infrastructure / broadcast domain would become.
+
+=== multicast data packet delivery ===
+In the beginning when an optimised distribution infrastructure has just started to build up, multicast data packets should still be broadcasted. The advantage of this would be, that no buffering or packet dropping would have to be done. After for about 5 seconds (then all nodes with a reasonable ogm receiving quality should have gotten the MCA), multicast data packets would still be encapsulated in a batman bcast_packet, but with the packet type set to BAT_MCAST. Another node will receiving this on-link broadcasted packet, will check if it got a mcast_pathsel_packet before which did not time out yet. The receiver will have to compare the mcast destination mac address and the ethernet frame source mac of the encapsulated multicast data packet with the mcast_pathsel src field and its ethernet frame source field. The latter is important to make the marked path unidirectional and the whole algorithm aware of asymmetric links.
+
+== New batman-adv packet types ==
+=== BAT_MCAST ===
+A multicast data packet that shall use an optimized path will still use a batman bcast_packet header, but set packet_type to BAT_MCAST.
+
+=== mcast_pathsel_packet ===
+
+== Pros/Cons ==
+
+
+== Smaller/Easier optimizations ==
+=== Distribution infrastructure initiation - bursting ===
+=== still broadcast smaller, but important multicast packets ===
+=== broadcasting in dense multicast networks ===
+=== multicast sender announcement threshold ===
+=== multicast group id differentiation for IPv4 ===
+=== converting BAT_MCAST to unicast if just one member on path left ===
+
+Resources:
+* ADAMA
+* ODMRP
+* SMA
+* ...
