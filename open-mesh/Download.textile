@@ -19,10 +19,12 @@ You can check out our SVN repository and the various batman branches
 
  * [wiki:batman-adv B.A.T.M.A.N. advanced]: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/}}}''
  * batctl (for B.A.T.M.A.N. advanced): check out the complete repository, cd into batctl (we're using symlinks here ...): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
- * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
+ * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.net/svn/batman/trunk/}}}''
  * upcoming B.A.T.M.A.N. 0.4.0 branch '''(maintainer needed!)''': [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
  * Visualization server for B.A.T.M.A.N.: check out the complete repository, cd into vis (we're using symlinks here ...): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
- * B.A.T.M.A.N. experimental (BMX) branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-experimental/}}}''
+ * '''BMX'''-0.3.x branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/branches/bmx-0.3.x/}}}''
+ * upcoming BMX-0.4 branch (unstable): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/bmx/}}}''
+
 
 === Git Repository Access ===
 Since we started integrating the batman-adv kernel module into the mainline Linux tree, we also maintain a git repository which contains the batman-adv maintenance branches. More information can be found [wiki:UsingBatmanGit on our git page].
@@ -54,7 +56,7 @@ There are various pre-compiled binaries available:
  * [http://downloads.open-mesh.org/batman/stable/binaries/zaurus-akita Zaurus-Akita]
  * [http://downloads.open-mesh.org/batman/stable/binaries/netgear-kamikaze Netgear-Kamikaze]
  * [http://downloads.open-mesh.org/batman/stable/binaries/meshcube/ Meshcube (static)]
- * [http://downloads.open-mesh.org/batman/stable/binaries/i386 i386 (static)]
+ * [http://downloads.open-mesh.net/batman/stable/binaries/i386 i386 (static)]
  * [http://downloads.open-mesh.org/batman/stable/binaries/fonera fonera (static)]
  * [http://downloads.open-mesh.org/batman/stable/binaries/fonera-kamikaze fonera-kamikaze]
  * [http://downloads.open-mesh.org/batman/stable/binaries/buffalo-freifunk/batmand_0.3.2-current_mipsel-wr-elf-32-lsb-dynamic.ipk buffalo-freifunk]
