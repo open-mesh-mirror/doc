@@ -18,7 +18,17 @@ In the beginning when an optimised distribution infrastructure has just started 
 A multicast data packet that shall use an optimized path will still use a batman bcast_packet header, but set packet_type to BAT_MCAST.
 
 === mcast_pathsel_packet ===
-
+{{{
+/* marks the path for multicast streams */                                                                                                                   
+struct mcast_pathsel_packet {                                                                                                                                
+        uint8_t  packet_type;  /* BAT_MCAST_PSEL */
+        uint8_t  version;  /* batman version field */                                                                                                        
+        uint8_t  src[6];   /* multicast mac address */                                                                                                       
+        uint8_t  dest[6];                                                                                                                                    
+        uint8_t  ttl;                                                                                                                                        
+        uint8_t  align;                                                                                                                                      
+} __attribute__((packed));
+}}}
 == Pros/Cons ==
 
 
@@ -31,7 +41,7 @@ A multicast data packet that shall use an optimized path will still use a batman
 === converting BAT_MCAST to unicast if just one member on path left ===
 
 Resources:
-* ADAMA
-* ODMRP
-* SMA
-* ...
+ * ADAMA
+ * ODMRP
+ * SMA
+ * ...
