@@ -1,11 +1,11 @@
 = Download B.A.T.M.A.N. =
 We are currently working on different branches. To get the details about the differences of these branches, see our [wiki:BranchesExplained Branches Explained page].
 
-We are offering sources and precompiled batmand binaries and packages for different platforms and for the [http://downloads.open-mesh.org/batman/stable/ stable] and the [http://downloads.open-mesh.net/batman/development/ development] branch. However, please use the stable branch for your public infrastructure unless you know exactly what you are doing and are prepared for the big unknown. A kernel module needs to be linked against the exact kernel headers you are using, therefore we are unable to provide precompiled binaries for batman-adv.
+We are offering sources and precompiled batmand binaries and packages for different platforms and for the [http://downloads.open-mesh.org/batman/stable/ stable] and the [http://downloads.open-mesh.org/batman/development/ development] branch. However, please use the stable branch for your public infrastructure unless you know exactly what you are doing and are prepared for the big unknown. A kernel module needs to be linked against the exact kernel headers you are using, therefore we are unable to provide precompiled binaries for batman-adv.
 
 === Download Released Source Code ===
- * The latest version of [wiki:batman-adv batman-adv] is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.2.1.tar.gz batman-adv-kernelland-0.2.1.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.2.1.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.2.1.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv-kernelland/batman-adv-kernelland-0.2.1.tar.gz.asc asc]
- * The latest version of batctl (management and control tool for batman-adv) is [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-0.2.1.tar.gz batctl-0.2.1.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-0.2.1.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-0.2.1.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-0.2.1.tar.gz.asc asc]
+ * The latest version of [wiki:batman-adv batman-adv] is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2010.0.0.tar.gz batman-adv-2010.0.0.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2010.0.0.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2010.0.0.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2010.0.0.tar.gz.asc asc]
+ * The latest version of batctl (management and control tool for batman-adv) is [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz batctl-2010.0.0.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz.asc asc]
 
  * The latest stable version of batmand is [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz batman-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.asc asc]
  * The latest version of the vis server for the batmand (package not needed for batman-adv) is [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz vis-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.asc asc]
@@ -17,12 +17,12 @@ If you find any bugs, please [wiki:Contribute let us know]!
 === Subversion Repository Access ===
 You can check out our SVN repository and the various batman branches
 
- * [wiki:batman-adv B.A.T.M.A.N. advanced]: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/}}}''
+ * [wiki:batman-adv B.A.T.M.A.N. advanced]: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv/}}}''
  * batctl (for B.A.T.M.A.N. advanced): check out the complete repository, cd into batctl (we're using symlinks here ...): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
- * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.net/svn/batman/trunk/}}}''
+ * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
  * upcoming B.A.T.M.A.N. 0.4.0 branch '''(maintainer needed!)''': [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
  * Visualization server for B.A.T.M.A.N.: check out the complete repository, cd into vis (we're using symlinks here ...): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
- * '''BMX'''-0.3.x branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/branches/bmx-0.3.x/}}}''
+ * BMX-0.3.x branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/branches/bmx-0.3.x/}}}''
  * upcoming BMX-0.4 branch (unstable): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/bmx/}}}''
 
 
@@ -37,14 +37,15 @@ Since linux 2.6.33 batman-adv is part of the official linux tree. You can build 
 It follows an overview of linux versions and the batman-adv version they contain, so that you can easily pick the compatible batctl packages:
  * linux 2.6.33 => batman-adv 0.2.0 (get batctl 0.2.0 from [http://downloads.open-mesh.org/batman/stable/sources/batctl/ here])
  * linux 2.6.34 => batman-adv 0.2.1 (get batctl 0.2.1 from [http://downloads.open-mesh.org/batman/stable/sources/batctl/ here])
+ * linux 2.6.35 => batman-adv 2010.0.0 (get batctl 2010.0.0 from [http://downloads.open-mesh.org/batman/stable/sources/batctl/ here])
 
 === Debian ===
 
 Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto your debian machine. Following packages are available:
  * [http://packages.debian.org/sid/batmand batmand] - batman 0.3.2
- * [http://packages.debian.org/sid/batman-adv-source batman-adv-source] - batman-advanced kernel 0.2.1 module source (installable via [http://packages.debian.org/sid/module-assistant module-assistant])
- * [http://packages.debian.org/sid/batman-adv-dkms batman-adv-dkms] - batman-advanced kernel module 0.2.1 dkms package to build new modules dynamically (half-automatic)
- * [http://packages.debian.org/sid/batctl batctl] - batctl 0.2.1
+ * [http://packages.debian.org/sid/batman-adv-source batman-adv-source] - batman-advanced kernel 2010.0.0 module source (installable via [http://packages.debian.org/sid/module-assistant module-assistant])
+ * [http://packages.debian.org/sid/batman-adv-dkms batman-adv-dkms] - batman-advanced kernel module 2010.0.0 dkms package to build new modules dynamically (half-automatic)
+ * [http://packages.debian.org/sid/batctl batctl] - batctl 2010.0.0
 
 
 
