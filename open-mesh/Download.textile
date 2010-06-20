@@ -5,7 +5,7 @@ We are offering sources and precompiled batmand binaries and packages for differ
 
 === Download Released Source Code ===
  * The latest version of [wiki:batman-adv batman-adv] is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2010.0.0.tar.gz batman-adv-2010.0.0.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2010.0.0.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2010.0.0.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2010.0.0.tar.gz.asc asc]
- * The latest version of batctl (management and control tool for batman-adv) is [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz batctl-2010.0.0.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz.asc asc]
+ * The latest version of batctl (management and control tool for batman-adv) is [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz batctl-2010.0.0.tar.gz] [http://downloads.open-mesh.net/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2010.0.0.tar.gz.asc asc]
 
  * The latest stable version of batmand is [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz batman-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.asc asc]
  * The latest version of the vis server for the batmand (package not needed for batman-adv) is [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz vis-0.3.2.tar.gz] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.asc asc]
@@ -17,7 +17,7 @@ If you find any bugs, please [wiki:Contribute let us know]!
 === Subversion Repository Access ===
 You can check out our SVN repository and the various batman branches
 
- * [wiki:batman-adv B.A.T.M.A.N. advanced]: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv/}}}''
+ * [wiki:batman-adv B.A.T.M.A.N. advanced]: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv-kernelland/}}}''
  * batctl (for B.A.T.M.A.N. advanced): check out the complete repository, cd into batctl (we're using symlinks here ...): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
  * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
  * upcoming B.A.T.M.A.N. 0.4.0 branch '''(maintainer needed!)''': [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
