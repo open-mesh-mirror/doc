@@ -6,11 +6,11 @@
 
 If you are missing a question/answer (quite likely) please use the [wiki:MailingList B.A.T.M.A.N. mailing list] or [wiki:IRC IRC channel] to trigger us.
 
-'''Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support?'''
+=== Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support? ===
 
 At this point no B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [wiki:Emulation read our emulation document].
 
-'''How to make my mesh network secure ?'''
+=== How to make my mesh network secure ? ===
 
 What kind of security do you need? Security is a big field. Maybe you just 
 mean encryption and authentication.....
@@ -34,21 +34,21 @@ So it really depends what you want and cannot be resolved in a "security for
 everything, against any attack and for every purpose" blob.
 
 
-'''Understanding the version and compatibility number'''
+=== Understanding the version and compatibility number ===
 
 The version number (defined as SOURCE_VERSION in the source)is the one displayed when launching the batmand in debug mode. It indicates the state of your code.
 
 The compatibility number (defined as COMPAT_VERSION in the source) is transmitted with every broadcasted OGM to guide other batmand instances receiving this OGM whith the decision about incompatible protocol versions.
 
 
-'''Why are multiple interfaces problematic?'''
+=== Why are multiple interfaces problematic? ===
 
 The internet (and most network technology today) was designed with the idea that every interface on a given system has a unique broadcast adress. When a packet enters a system the kernel has to decide where it should be routed to. While using the same broadcast adresses on different interfaces you provoke an undefined situation as this should not happen (by design) and the result is unpredictable. In that case the Linux kernel will send all your packages to the first interface (in the routing table) with that broadcast address.
 
 A solution to that problem is the usage of the Linux kernel option "BINDTODEVICE" which allows to specify an outgoing interface for a packet. Unfortunatly this option is a Linux-only feature (as far as we know). Therefore you won't be able to use multiple interfaces with the same broadcast addresses on other operation systems than Linux.
 
 
-'''Log larger amounts of debug messages'''
+=== Log larger amounts of debug messages ===
 
 First, install netcat on your device. On a OpenWRT based distro you can try this (packet version may vary):
 
@@ -71,7 +71,7 @@ nc <IP_of_your_device> <your_unused_port_from_step_2> > batman.log
 If you use a firewall, NAT or any other problematic network setup you can swap the netcat server position. Beware: Your netcat server has to be started before you start your netcat client.
 
 
-'''Update many Openwrt based systems'''
+=== Update many Openwrt based systems ===
 
    1. Download the update script: [http://downloads.open-mesh.org/batman/useful-scripts-and-tools/update_batman.sh update script]
    2. Edit the the variables in the configuration section of the script to match your needs.
@@ -83,7 +83,7 @@ Note: The HOSTS_TO_UPDATE variable in the script expects SSH host names which mu
 Tip: Use key based access to authenticate your login request on your machines to avoid typing your passwords too often. If you use encrypted keys you can enable the ssh-agent to manage your passwords.
 
 
-'''What is the batgat kernel module good for?'''
+=== What is the batgat kernel module good for? ===
 
 The batman daemon maintains a tunnel connection to every "batman internet client". Every packet that goes to the internet or comes back has to go through this tunnel. As it is a user space tunnel a lot of copying between user space and kernel land is necessary. Depending on the number of clients and the CPU power available this might be a bottleneck.
 The batgat kernel module tries to overcome this limitation. Once loaded the batman daemon will detect its presence automatically on startup. The daemon will activate the kernel module to let it handle the tunneling, hence avoiding the expensive copy operations. There is no difference between the daemon tunneling and the kernel tunneling other than that.
