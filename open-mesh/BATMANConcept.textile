@@ -1,8 +1,8 @@
 
  = B.A.T.M.A.N. protocol concept =
 
-{{{
-#!div style="width: 46em; text-align: justify"
+<pre>
+<code class="div">
 
 The problem with classical routing protocols is that they are typically not well suited for wireless ad-hoc networks. This is because such networks are unstructured, dynamically change their topology, and are based on an inherently unreliable medium.
 
@@ -19,4 +19,4 @@ In order to tell if a OGM has been received once or more than once it contains a
 This way the OGMs are flooded selectively through the mesh and inform the receiving nodes about other node's existence. A node X will learn about the existence of a node Y in the distance by receiving it's OGMs, when OGMs of node Y are rebroadcasted by it's single hop neighbors. If node X has more than one neighbor, it can tell by the number of originator messages it receives quicker and more reliable via one of its single hop neighbors, which neighbor it has to choose to send data to the distant node.
 
 The algorithm then selects this neighbor as the currently best next hop to the originator of the message and configures its routing table respectively.
-}}}
+</code></pre>
