@@ -1,61 +1,43 @@
+= B.A.T.M.A.N.-Adv Troubleshooting =
+''B.A.T.M.A.N.-Adv does net work as expected, what can I do now?''
 
-h1. B.A.T.M.A.N.-Adv Troubleshooting
+{{{
+#!div style="width: 46em; text-align: justify"
 
-_B.A.T.M.A.N.-Adv does net work as expected, what can I do now?_
-
-<pre>
-<code class="div">
-
-First, try to minimise the complexity of your setup, i.e. just try to build a simple mesh network between two devices. Usually just following the [[batman-adv-quick-start-guide|quick-start-guide]] is a good way to start with.
+First, try to minimise the complexity of your setup, i.e. just try to build a simple mesh network between two devices. Usually just following the [wiki:batman-adv-quick-start-guide quick-start-guide] is a good way to start with.
 
 If you still can't get any setup working at all, go through this checklist:
 
+=== Any warnings or errors in the kernel log? ===
 
-h3. Any warnings or errors in the kernel log?
+Check dmesg/logread/syslog for warnings, errors or kernel oopses. If you are seeing a kernel oops, write a [/report ticket] and post the log there, describe your setup and hardware, and ideally how this crash could be reproduced. If the kernel log is just showing cryptic numbers it will be difficult to help you. You can increase the chances of finding the bug by enabling the kernel symbol table which will translate these numbers to function names that can help developers to see what is happening. Please check the "advanced" section of [wiki:building-batman-adv-with-openwrt this article] to learn how to enable this functionality on OpenWRT.
 
-
-Check dmesg/logread/syslog for warnings, errors or kernel oopses. If you are seeing a kernel oops, write a [/report ticket] and post the log there, describe your setup and hardware, and ideally how this crash could be reproduced. If the kernel log is just showing cryptic numbers it will be difficult to help you. You can increase the chances of finding the bug by enabling the kernel symbol table which will translate these numbers to function names that can help developers to see what is happening. Please check the "advanced" section of [[building-batman-adv-with-openwrt|this article]] to learn how to enable this functionality on [[OpenWRT]].
-
-
-h3. Are both nodes having the same cell id?
-
+=== Are both nodes having the same cell id? ===
 
 Check with 'iwconfig'. Some wifi drivers are a little buggy and do not always merge two ad-hoc cells, therefore you're usually best advised to choose and configure one manually (i.e. 'iwconfig wlan0 ap 02:XX:XX:XX:XX:XX'). While configuring a cell-id manually, you should set the 7th bit of the first byte - or start it with "02:" in other words. To keep this id (mostly) unique, using one of the routers mac-address for the rest is usually the safest way to go.
 
-
-h3. Is 'batctl if' showing the used interfaces as active?
-
+=== Is 'batctl if' showing the used interfaces as active? ===
 
 If batman-adv is saying "inactive" for one of the mesh-port interfaces, make sure this one is up (i.e. 'ifconfig wlan0 up')
 
-
-h3. Is 'batctl o' showing the other node?
-
+=== Is 'batctl o' showing the other node? ===
 
 Make sure, that they see each other with a reasonable TQ quality (i.e. > 200). Be aware, that a full TQ update in a dynamic environment but still with the default ogm-interval setting can be delayed for up to 64 seconds. If they are not seeing each other, check your wifi settings twice, try ad-hoc meshing without batman-adv or any bridges first to make sure, that the ad-hoc wifi layer itself works fine and allows any kinds of packets (ad-hoc mode is usually not the best implemented and well tested wifi mode in a lot of wifi drivers).
 
-
-h3. Are those tq-values rather stable or acting crazy?
-
+=== Are those tq-values rather stable or acting crazy? ===
 
 If they are acting crazy, check if the mesh-port interfaces used by batman-adv all have a different mac addresses. Otherwise this could break the routing algorithm in some scenarios.
 
-
-h3. Does a ping to the other node via the mesh work?
-
+=== Does a ping to the other node via the mesh work? ===
 
 Set static ipv4-addresses (or (autoconfigured) ipv6 addresses) not being used on any other interfaces on bat0 and check if those two nodes can ping each other. If this works, but large pings do not (i.e. ping -s 1700), then check the MTU settings. All mesh hosts need an MTU of 24 Bytes less (i.e. on bat0 or any host bridged into the mesh) than on their mesh-port interfaces' MTU (the interfaces you've added via 'batctl if'). For instance you could chose to increase the MTU on all mesh-port interfaces to 1524 (or decrease it on all hosts, bat0 or any host interface being bridged into the mesh, to 1476 which is usually harder to maintain when having 'foreign' hosts).
 
-
-h3. Does 'batctl ping' to the other node work?
-
+=== Does 'batctl ping' to the other node work? ===
 
 If you can see the other node but can't send any packets through the mesh network, check whether you can ping it with batman-adv's internal echoing packets (see 'batctl ping -h' for usage info). If this works, check your layer 3 settings, in general your routes and IP adresses - don't use the same routes/addresses on different interfaces, don't set any ip-addresses on the mesh-port interfaces. Just use bat0 or the bridge you might have created on top of it.
 
-
-h3. Are the wifi/lan LEDs blinking like crazy?
-
+=== Are the wifi/lan LEDs blinking like crazy? ===
 
 Make sure you DON'T bridge any mesh-port-interfaces with your bat0 interface!
 
-</code></pre>
+}}}
