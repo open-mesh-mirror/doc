@@ -58,6 +58,8 @@ The 5.224.160.202 announces a connection to the internet: "0.0.0.0/0.0.0.0" and 
 
 The 5.174.37.225 announces a connection to the 192.168.15.0/24 network (which does not run batman). All nodes that establish a connection to this network use the 5.174.37.225 as gateway.
 
+[[BR]]
+
 === Interfaces belonging to one BATMAN-Adv node ===
 
 In BATMAN-Advanced since revision 1424, the subgraphing/cluster feature of the dot-file-format has been added to mark interfaces as belonging to the same originator. Every originator the vis-server found has such an additional subgraph block:
