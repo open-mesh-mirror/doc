@@ -1,20 +1,23 @@
-= How to Contribute =
-Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want to tell us [[BR]]
-about your experiences or discuss problems the best thing is always to use the [[BR]]
-[wiki:MailingList Mailing List]. You can always contact us via [wiki:IRC IRC].
 
-If you like this project and you want to take part and/or give something back, [[BR]]
-here is a short list of starting points:
+= How to Contribute =
+
+{{{
+#!div style="width: 46em; text-align: justify"
+
+Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want to tell us about your experiences or discuss problems the best thing is always to use the [wiki:MailingList Mailing List]. You can always contact us via [wiki:IRC IRC].
+
+If you like this project and you want to take part and/or give something back, here is a short list of starting points:
 
 
 === Reporting Bugs ===
+
 If you find a bug, please see if the problem is already known in the by [https://dev.open-mesh.org/batman/report Reading the Tickets]. [[BR]]
 If not, please [https://dev.open-mesh.org/batman/newticket add a new Ticket].
 
 Please add as much information as possible. In particular interesting are:
 
  * Which branch (batman, bmx, batman-advanced)
- * Which version (0.X, SVN revision number)
+ * Which version (0.X, SVN/git revision number)
  * kernel version, distribution (and version)
  * machine type (PC, Linksys WRT, Fon, NS2, ...)
  * command line parameters used
@@ -24,8 +27,7 @@ Please add as much information as possible. In particular interesting are:
 
 === Documentation / Feedback ===
 
-Write an article about your experience with B.A.T.M.A.N. and have it published here or ask [[BR]]
-us to link to your site:
+Write an article about your experience with B.A.T.M.A.N. and have it published here or ask us to link to your site:
  * How did you find us ?
  * How does you setup look like ?
  * Where are you building your mesh ?
@@ -34,43 +36,27 @@ us to link to your site:
  * What did you like / not like ?
  * How can B.A.T.M.A.N. improve ?
 
-There's lots of people that want to know about B.A.T.M.A.N. - help us to spread the word! [[BR]]
-We also hand out direct wiki access to those that are interested. Please ask on our  [[BR]]
-[wiki:MailingList mailing list] for the accounts.
+There's lots of people that want to know about B.A.T.M.A.N. - help us to spread the word! You also can create a wiki account and improve the documentation.
 
 === Research ===
 
-B.A.T.M.A.N. gives much room for research, especially the layer 2 implementation in the [[BR]]
-kernel. Get in touch with us to share your ideas. If you write papers we are happy to [[BR]]
-publish them here or link to your page. If you are looking for the right topic or [[BR]]
-mentorship feel free to contact us. We have more ideas than time to implement them.
+B.A.T.M.A.N. gives much room for research, especially the layer 2 implementation in the kernel. Get in touch with us to share your ideas. If you write papers we are happy to publish them here or link to your page. If you are looking for the right topic or mentorship feel free to contact us. We have more ideas than time to implement them.
 
 === Development ===
 
-You looked in the code ? Fixed bugs ? Added a cool new function ? Integrated B.A.T.M.A.N.[[BR]]
-in a distribution ? Don't hesitate to let us and others know! We can avoid duplicated [[BR]]
-work by publishing it here or linking to your page. Patches are always welcome and can [[BR]]
-be posted on the [wiki:MailingList mailing list] to get integrated. We also hand out SVN [[BR]]
-access to people that want to get involved.
+You looked in the code ? Fixed bugs ? Added a cool new function ? Integrated B.A.T.M.A.N. in a distribution ? Don't hesitate to let us and others know! We can avoid duplicated work by publishing it here or linking to your page. Patches are always welcome and can be posted on the [wiki:MailingList mailing list] to get integrated. We also hand out SVN/git access to people that want to get involved.
 
 === Submitting patches ===
 
 If you intend to send us patches, please consider the following guidelines:
 
  * Prefer small & digestible over long "all in one" patches.
- * No MIME, no links, no compression, no attachments.  Just plain text.
- * Patches sent to the mailing list should include "PATCH" in the subject to make[[BR]]
-   it easier to distinguish between patches and discussions.
- * The mail's subject will become the first line in the commit message. The body [[BR]]
-   contains the longer patch description and the patch (unified format) itself. [[BR]]
-   Please also specify the target branch (e.g. batctl, batman-adv, etc) at the [[BR]]
-   beginning of the subject line. See the [http://www.open-mesh.org/timeline timeline] for more examples.
- * Add a "Signed-off-by: Your Name <!you@example.com>" line to the patch [[BR]]
-   message to make the ownership of the patch clear.
- * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style[[BR]]
-   closely (use checkpatch.pl to verify your patch) as well as the linux "how to [[BR]]
-   submit patches" guidelines (search for the term !SubmitPatches to find thorough[[BR]]
-   documentation).
- * An exemplary good submission you may want to look at can be found here:[[BR]]
-   https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2009-December/002033.html
+ * No MIME, no links, no compression, no attachments.  Just plain text (patches are to be sent inline).
+ * Patches sent to the mailing list should include "PATCH" in the subject to make it easier to distinguish between patches and discussions.
+ * The mail's subject will become the first line in the commit message. The body contains the longer patch description and the patch (unified format) itself. Please also specify the target branch (e.g. batctl, batman-adv, etc) at the beginning of the subject line. See the [http://www.open-mesh.org/timeline timeline] for more examples.
+ * Add a "Signed-off-by: Your Name <!you@example.com>" line to the patch message to make the ownership of the patch clear.
+ * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style closely (use checkpatch.pl to verify your patch) as well as the linux "how to submit patches" guidelines (search for the term !SubmitPatches to find thorough documentation).
+ * An exemplary good submission you may want to look at can be found here: https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2009-December/002033.html
+
+}}}
 
