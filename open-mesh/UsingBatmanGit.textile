@@ -110,7 +110,7 @@ If you need to see the difference between the maint branch and the batman-adv dr
 }}}
 
 {{{
-git diff maint: master:drivers/staging/batman-adv/
+git diff maint: linux:drivers/staging/batman-adv/
 }}}
 
 {{{
