@@ -1,0 +1,376 @@
+= Submitting Patches to Linux =
+
+We currently submit patches for Linux from our maint branch. I try to give a short overview about it using some patches submitted to GregKH.
+
+Following steps must always be done:
+ * get the linux-integration repository (we assume that the linux branch is up to date)
+ * get the newest patches from maint
+ * merge maint into linux
+ * check for compat code
+ * check difference with maint
+ * tag the current commit
+ * rebase on top of previous tag
+ * squash/cleanup patches
+ * check if all versions compile cleanly against a current version of linux-next and sparse (cgcc)
+ * format patches
+ * check commit messages author/signed-off-by of patches
+ * Add "Staging: batman-adv: " before each commit subject
+ * get current version of linux-next
+ * create working branch on linux-next
+ * apply all patches on linux next
+ * check if all patches build again with linux next
+ * format patches on top of linux-next master
+ * check if all patches are checkpatch.pl clean
+ * submit patches
+
+
+== get the linux-integration repository ==
+
+{{{
+'-(%25)-> git clone git+ssh://git@open-mesh.org/srv/git/ecsv/linux-merge.git
+Initialized empty Git repository in /home/sven/tmp/linux-merge/.git/
+remote: Counting objects: 1544059, done.
+remote: Compressing objects: 100%25 (252781/252781), done.
+....
+'-(%25)-> cd linux-merge
+}}}
+
+== get the newest patches from maint ==
+
+{{{
+'-(%25)-(linux)> git checkout -b maint --track origin/maint
+Branch maint set up to track remote branch maint from origin.
+Switched to a new branch 'maint'
+'-(%25)-(maint)> git pull http://git.open-mesh.org/batman-adv/ maint
+From http://git.open-mesh.org/batman-adv
+ * branch            maint      -> FETCH_HEAD
+Updating 1a0a622..9ec2d8f
+Fast-forward
+ Makefile            |   34 +++++++++++++++++++++-------------
+ Makefile.kbuild     |    2 +-
+ aggregation.h       |    5 +++++
+ bat_debugfs.h       |    6 +++---
+ bat_sysfs.h         |    6 +++---
+ bitarray.h          |    4 ++++
+ compat.h            |    5 +++++
+ hard-interface.h    |    5 +++++
+ hash.h              |    8 +++++---
+ icmp_socket.h       |    5 +++++
+ main.c              |    2 +-
+ main.h              |   13 +++++++++----
+ originator.c        |    6 ++----
+ originator.h        |    5 +++++
+ packet.h            |    5 +++++
+ ring_buffer.h       |    5 +++++
+ routing.c           |    6 +++---
+ routing.h           |    5 +++++
+ send.c              |   14 +++++++-------
+ send.h              |    5 +++++
+ soft-interface.c    |    6 +++---
+ soft-interface.h    |    7 ++++++-
+ translation-table.c |    3 +--
+ translation-table.h |    5 +++++
+ types.h             |    6 +++---
+ vis.c               |   14 +++++++-------
+ vis.h               |    7 ++++++-
+ 27 files changed, 135 insertions(+), 59 deletions(-)
+'-(%25)-(maint)> git push origin maint
+Counting objects: 80, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100%25 (52/52), done.
+Writing objects: 100%25 (52/52), 8.32 KiB, done.
+Total 52 (delta 43), reused 0 (delta 0)
+Generating commit mails...done
+fatal: Not a valid object name master:drivers/staging/batman-adv/TODO
+To git+ssh://git@open-mesh.org/srv/git/ecsv/linux-merge.git
+   1a0a622..9ec2d8f  maint -> maint
+}}}
+
+== merge maint into linux ==
+
+{{{
+'-(%25)-(maint)> git checkout linux
+Checking out files: 100%25 (32337/32337), done.
+Switched to branch 'linux'
+'-(%25)-(linux)> git merge -s subtree maint
+Auto-merging drivers/staging/batman-adv/Makefile
+CONFLICT (content): Merge conflict in drivers/staging/batman-adv/Makefile
+CONFLICT (delete/modify): drivers/staging/batman-adv/Makefile.kbuild deleted in HEAD and modified in maint. Version maint of drivers/staging/batman-adv/Makefile.kbuild left in tree.
+CONFLICT (delete/modify): drivers/staging/batman-adv/compat.h deleted in HEAD and modified in maint. Version maint of drivers/staging/batman-adv/compat.h left in tree.
+Auto-merging drivers/staging/batman-adv/main.c
+Auto-merging drivers/staging/batman-adv/originator.c
+Auto-merging drivers/staging/batman-adv/routing.c
+Auto-merging drivers/staging/batman-adv/send.c
+Auto-merging drivers/staging/batman-adv/soft-interface.c
+Auto-merging drivers/staging/batman-adv/translation-table.c
+Auto-merging drivers/staging/batman-adv/vis.c
+Automatic merge failed; fix conflicts and then commit the result.
+'-(%25)-(linux)> git rm drivers/staging/batman-adv/Makefile.kbuild drivers/staging/batman-adv/compat.h
+drivers/staging/batman-adv/Makefile: needs merge
+drivers/staging/batman-adv/Makefile.kbuild: needs merge
+drivers/staging/batman-adv/compat.h: needs merge
+rm 'drivers/staging/batman-adv/Makefile.kbuild'
+rm 'drivers/staging/batman-adv/compat.h'
+'-(%25)-(linux)> vim drivers/staging/batman-adv/Makefile
+'-(%25)-(linux)> git add drivers/staging/batman-adv/Makefile
+'-(%25)-(linux)> git commit
+[linux f2204f0] Merge branch 'maint' into linux
+}}}
+
+== check for compat code ==
+
+{{{
+git grep compat.h drivers/staging/batman-adv/
+drivers/staging/batman-adv/CHANGELOG:* all kernel version compatibility functions has been moved to compat.h
+}}}
+
+== check difference with maint ==
+
+{{{
+git diff maint: linux:drivers/staging/batman-adv/
+}}}
+
+Here you should see the
+ * new added Kconfig, TODO, sysfs-class-net-batman-adv and sysfs-class-net-mesh
+ * A special Makefile which only contains obj-m and a batman-adv-objs line
+ * removed Makefile.kbuild, bat_printk.c and compat.h
+ * removed references to compat.h from each file
+ * README file with removed parts about how it can be compiled outside of the kernel, against which version it compiles and information how you compile the module outside of the kernel with debugging support
+
+== tag the current commit ==
+
+{{{
+'-(%25)-(linux)> git describe --tags
+GregKH-20100618-10-gf2204f0
+'-(%25)-(linux)> git tag GregKH-20100625
+'-(%25)-(linux)> git push origin GregKH-20100625
+Counting objects: 24, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100%25 (12/12), done.
+Writing objects: 100%25 (12/12), 1.75 KiB, done.
+Total 12 (delta 11), reused 0 (delta 0)
+Generating commit mails...done
+fatal: Not a valid object name master:drivers/staging/batman-adv/TODO
+To git+ssh://git@open-mesh.org/srv/git/ecsv/linux-merge.git
+ * [new tag]         GregKH-20100625 -> GregKH-20100625
+}}}
+
+== rebase on top of previous tag  ==
+
+{{{
+'-(%25)-(linux)> git checkout -b patches
+'-(%25)-(patches)> git rebase -s subtree GregKH-20100618
+First, rewinding head to replay your work on top of it...
+Auto-merging drivers/staging/batman-adv/main.c
+Auto-merging drivers/staging/batman-adv/routing.c
+Auto-merging drivers/staging/batman-adv/send.c
+Auto-merging drivers/staging/batman-adv/soft-interface.c
+Auto-merging drivers/staging/batman-adv/vis.c
+[detached HEAD 166b2ca] batman-adv: Convert names from Java to C style
+ Author: Antonio Quartulli <ordex@ritirata.org>
+ 7 files changed, 18 insertions(+), 18 deletions(-)
+Committed: 0001 batman-adv: Convert names from Java to C style
+Auto-merging drivers/staging/batman-adv/translation-table.c
+[detached HEAD 5cd6523] batman-adv: Avoid rounding issues for local hna timeout
+ Author: Linus Lüssing <linus.luessing@web.de>
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+Committed: 0002 batman-adv: Avoid rounding issues for local hna timeout
+Auto-merging drivers/staging/batman-adv/originator.c
+Auto-merging drivers/staging/batman-adv/translation-table.c
+Auto-merging drivers/staging/batman-adv/vis.c
+[detached HEAD 83d1bc8] batman-adv: Lower resolution for timeouts
+ Author: Simon Wunderlich <siwu@hrz.tu-chemnitz.de>
+ 5 files changed, 7 insertions(+), 10 deletions(-)
+Committed: 0003 batman-adv: Lower resolution for timeouts
+Auto-merging drivers/staging/batman-adv/send.c
+[detached HEAD 9e9605f] batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+ Author: Marek Lindner <lindner_marek@yahoo.de>
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+Committed: 0004 batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+[detached HEAD 043aa9a] Staging: batman-adv: Add sysfs abi documentation about bonding
+ Author: Marek Lindner <lindner_marek@yahoo.de>
+ 1 files changed, 8 insertions(+), 0 deletions(-)
+Committed: 0005 Staging: batman-adv: Add sysfs abi documentation about bonding
+[detached HEAD f6d8bab] batman-adv: adapting source version to revised versioning scheme
+ Author: Marek Lindner <lindner_marek@yahoo.de>
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+Committed: 0006 batman-adv: adapting source version to revised versioning scheme
+Auto-merging drivers/staging/batman-adv/Makefile
+CONFLICT (content): Merge conflict in drivers/staging/batman-adv/Makefile
+
+When you have resolved this problem run "git rebase --continue".
+If you would prefer to skip this patch, instead run "git rebase --skip".
+To restore the original branch and stop rebasing run "git rebase --abort".
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> vim drivers/staging/batman-adv/Makefile
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git add drivers/staging/batman-adv/Makefile
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rebase -s subtree --continue           
+Already applied: 0007 batman-adv: Use nproc to get number of available processors
+CONFLICT (delete/modify): drivers/staging/batman-adv/compat.h deleted in GregKH-20100618 and modified in HEAD~1. Version HEAD~1 of drivers/staging/batman-adv/compat.h left in tree.
+
+When you have resolved this problem run "git rebase --continue".
+If you would prefer to skip this patch, instead run "git rebase --skip".
+To restore the original branch and stop rebasing run "git rebase --abort".
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rm drivers/staging/batman-adv/compat.h
+drivers/staging/batman-adv/compat.h: needs merge
+rm 'drivers/staging/batman-adv/compat.h'
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rebase -s subtree --continue          
+[detached HEAD a85d1b4] batman-adv: Add include guards to all header files
+ 17 files changed, 78 insertions(+), 12 deletions(-)
+Committed: 0008 batman-adv: Add include guards to all header files
+Auto-merging drivers/staging/batman-adv/Makefile
+CONFLICT (content): Merge conflict in drivers/staging/batman-adv/Makefile
+CONFLICT (delete/modify): drivers/staging/batman-adv/Makefile.kbuild deleted in GregKH-20100618 and modified in HEAD~0. Version HEAD~0 of drivers/staging/batman-adv/Makefile.kbuild left in tree.
+
+When you have resolved this problem run "git rebase --continue".
+If you would prefer to skip this patch, instead run "git rebase --skip".
+To restore the original branch and stop rebasing run "git rebase --abort".
+'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git rm drivers/staging/batman-adv/Makefile.kbuild
+drivers/staging/batman-adv/Makefile: needs merge
+drivers/staging/batman-adv/Makefile.kbuild: needs merge
+rm 'drivers/staging/batman-adv/Makefile.kbuild'
+'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> vim drivers/staging/batman-adv/Makefile
+'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git add drivers/staging/batman-adv/Makefile
+'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git rebase -s subtree --continue
+Already applied: 0009 batman-adv: Add support for git revision string
+All done.
+'-(%25)-(patches)> git diff linux
+}}}
+
+The last diff must be empty or we did something wrong.
+
+== squash/cleanup patches ==
+
+{{{
+'-(%25)-(patches)> git rebase -i GregKH-20100618
+Successfully rebased and updated refs/heads/patches
+}}}
+
+== check if all versions compile cleanly against a current version of linux-next and sparse (cgcc)  ==
+
+{{{
+'-(%25)-(patches)> git rev-list --reverse GregKH-20100618..
+166b2caa61fce5260aed4e119671764331fdc62a
+5cd65234b12021fe1f28e28e455a6b6a06712ec2
+83d1bc8bb328bcfa42be492fe0e2648b77c18af2
+9e9605f0fe000f1097cb43271540ab2b76b2a782
+043aa9a54a5296c6027a5bcd808b8d29cea8a474
+f6d8baba5fce6161bc2cee9c97e0afbc139942c0
+a85d1b45e4cde0c882a41baaefeec0cd5502416f
+'-(%25)-(patches)> cd drivers/staging/batman-adv/
+'-(%25)-(patches)> git checkout 166b2caa61fce5260aed4e119671764331fdc62a
+Previous HEAD position was a85d1b4... batman-adv: Avoid rounding issues for local hna timeout
+HEAD is now at 166b2ca... batman-adv: Convert names from Java to C style
+'-(%25)-(166b2caa61fce5260aed4e119671764331fdc62a)> make CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+...
+'-(%25)-(166b2caa61fce5260aed4e119671764331fdc62a)> git checkout 5cd65234b12021fe1f28e28e455a6b6a06712ec2
+Previous HEAD position was 166b2ca... batman-adv: Convert names from Java to C style
+HEAD is now at 5cd6523... batman-adv: Avoid rounding issues for local hna timeout
+'-(%25)-(83d1bc8bb328bcfa42be492fe0e2648b77c18af2)> make CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+....
+'-(%25)-(83d1bc8bb328bcfa42be492fe0e2648b77c18af2)> git checkout 9e9605f0fe000f1097cb43271540ab2b76b2a782
+Previous HEAD position was 83d1bc8... batman-adv: Lower resolution for timeouts
+HEAD is now at 9e9605f... batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+'-(%25)-(9e9605f0fe000f1097cb43271540ab2b76b2a782)> make CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+....
+'-(%25)-(9e9605f0fe000f1097cb43271540ab2b76b2a782)> git checkout 043aa9a54a5296c6027a5bcd808b8d29cea8a474
+Previous HEAD position was 9e9605f... batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+HEAD is now at 043aa9a... Staging: batman-adv: Add sysfs abi documentation about bonding
+'-(%25)-(043aa9a54a5296c6027a5bcd808b8d29cea8a474)> make CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+...
+'-(%25)-(043aa9a54a5296c6027a5bcd808b8d29cea8a474)> git checkout f6d8baba5fce6161bc2cee9c97e0afbc139942c0
+Previous HEAD position was 043aa9a... Staging: batman-adv: Add sysfs abi documentation about bonding
+HEAD is now at f6d8bab... batman-adv: adapting source version to revised versioning scheme
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> make CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+...
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git checkout a85d1b45e4cde0c882a41baaefeec0cd5502416f
+Previous HEAD position was f6d8bab... batman-adv: adapting source version to revised versioning scheme
+HEAD is now at a85d1b4... batman-adv: Add include guards to all header files
+'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> make CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+...
+'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git checkout patches
+Switched to branch 'patches'
+'-(%25)-(patches)> cd ../../../
+}}}
+
+== format patches ==
+
+{{{
+'-(%25)-(patches)> git format-patch --patience -s -M GregKH-20100618
+0001-batman-adv-Convert-names-from-Java-to-C-style.patch
+0002-batman-adv-Avoid-rounding-issues-for-local-hna-timeo.patch
+0003-batman-adv-Lower-resolution-for-timeouts.patch
+0004-batman-adv-replace-manual-calculation-by-msecs_to_ji.patch
+0005-Staging-batman-adv-Add-sysfs-abi-documentation-about.patch
+0006-batman-adv-adapting-source-version-to-revised-versio.patch
+0007-batman-adv-Add-include-guards-to-all-header-files.patch
+'-(%25)-(patches)> vim 00*.patch
+}}}
+
+Usually I add "Staging: batman: " right when checking the signed-off-by and author (from) line.
+
+== apply all patches on linux next ==
+
+{{{
+'-(%25)-(patches)> cd ../linux-next
+'-(%25)-(master)> git fetch
+'-(%25)-(master)> git reset --hard origin/master  
+HEAD is now at c3116ae Add linux-next specific files for 20100625
+'-(%25)-(master)> git checkout -b greg
+Switched to a new branch 'greg'
+'-(%25)-(greg)> git am -3 ../linux-merge/00*.patch
+Applying: Staging: batman-adv: Convert names from Java to C style
+Applying: Staging: batman-adv: Avoid rounding issues for local hna timeout
+Applying: Staging: batman-adv: Lower resolution for timeouts
+Applying: Staging: batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+Applying: Staging: batman-adv: Add sysfs abi documentation about bonding
+Applying: Staging: batman-adv: adapting source version to revised versioning scheme
+Applying: Staging: batman-adv: Add include guards to all header files
+}}}
+
+== check if all patches build again with linux next ==
+
+{{{
+'-(%25)-(greg)> make
+....
+}}}
+
+== format patches on top of linux-next master ==
+
+{{{
+'-(%25)-(greg)> git format-patch -s --patience -M master         
+0001-Staging-batman-adv-Convert-names-from-Java-to-C-styl.patch
+0002-Staging-batman-adv-Avoid-rounding-issues-for-local-h.patch
+0003-Staging-batman-adv-Lower-resolution-for-timeouts.patch
+0004-Staging-batman-adv-replace-manual-calculation-by-mse.patch
+0005-Staging-batman-adv-Add-sysfs-abi-documentation-about.patch
+0006-Staging-batman-adv-adapting-source-version-to-revise.patch
+0007-Staging-batman-adv-Add-include-guards-to-all-header-.patch
+'-(%25)-(greg)> ./scripts/checkpatch.pl --strict 00*.patch
+total: 0 errors, 0 warnings, 0 checks, 135 lines checked
+
+0001-Staging-batman-adv-Convert-names-from-Java-to-C-styl.patch has no obvious style problems and is ready for submission.
+total: 0 errors, 0 warnings, 0 checks, 8 lines checked
+
+0002-Staging-batman-adv-Avoid-rounding-issues-for-local-h.patch has no obvious style problems and is ready for submission.
+total: 0 errors, 0 warnings, 0 checks, 55 lines checked
+
+0003-Staging-batman-adv-Lower-resolution-for-timeouts.patch has no obvious style problems and is ready for submission.
+total: 0 errors, 0 warnings, 0 checks, 19 lines checked
+
+0004-Staging-batman-adv-replace-manual-calculation-by-mse.patch has no obvious style problems and is ready for submission.
+total: 0 errors, 0 warnings, 0 checks, 14 lines checked
+
+0005-Staging-batman-adv-Add-sysfs-abi-documentation-about.patch has no obvious style problems and is ready for submission.
+total: 0 errors, 0 warnings, 0 checks, 8 lines checked
+
+0006-Staging-batman-adv-adapting-source-version-to-revise.patch has no obvious style problems and is ready for submission.
+total: 0 errors, 0 warnings, 0 checks, 239 lines checked
+
+0007-Staging-batman-adv-Add-include-guards-to-all-header-.patch has no obvious style problems and is ready for submission.
+}}}
+
+== submit patches ==
+
+{{{
+'-(%25)-(greg)> git send-email --compose 00*.patch
+}}}
