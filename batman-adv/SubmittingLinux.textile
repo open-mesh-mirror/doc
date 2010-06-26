@@ -372,5 +372,78 @@ total: 0 errors, 0 warnings, 0 checks, 239 lines checked
 == submit patches ==
 
 {{{
-'-(%25)-(greg)> git send-email --compose 00*.patch
+'-(%25)-(greg)> git shortlog master.. > shortlog
+'-(%25)-(greg)> git diff --stat master.. >> shortlog
+'-(%25)-(greg)> git send-email --cc=b.a.t.m.a.n@lists.open-mesh.org --to greg@kroah.com --compose 00*.patch
+}}}
+
+Now I will write something like
+
+{{{
+From Sven Eckelmann <sven.eckelmann@gmx.de> # This line is ignored.
+GIT: Lines beginning in "GIT:" will be removed.
+GIT: Consider including an overall diffstat or table of contents
+GIT: for the patch you are writing.
+GIT:
+GIT: Clear the body content if you don't wish to send a summary.
+From: Sven Eckelmann <sven.eckelmann@gmx.de>
+Subject: Staging: batman-adv for 2.6.36 (3)
+In-Reply-To: 
+
+Hi,
+
+here are patches targeted for 2.6.36. All patches needed for that patchset are
+already part of your staging-next tree.
+
+All patches are cleanup patches and no new feature is added.
+
+thanks,
+	Sven
+
+Antonio Quartulli (1):
+      Staging: batman-adv: Convert names from Java to C style
+
+Linus Lüssing (1):
+      Staging: batman-adv: Avoid rounding issues for local hna timeout
+
+Marek Lindner (4):
+      Staging: batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+      Staging: batman-adv: Add sysfs abi documentation about bonding
+      Staging: batman-adv: adapting source version to revised versioning scheme
+      Staging: batman-adv: fix early debugfs deinitialization
+
+Simon Wunderlich (1):
+      Staging: batman-adv: Lower resolution for timeouts
+
+Sven Eckelmann (1):
+      Staging: batman-adv: Add include guards to all header files
+
+ drivers/staging/batman-adv/aggregation.h        |    5 +++++
+ drivers/staging/batman-adv/bat_debugfs.h        |    6 +++---
+ drivers/staging/batman-adv/bat_sysfs.h          |    6 +++---
+ drivers/staging/batman-adv/bitarray.h           |    4 ++++
+ drivers/staging/batman-adv/hard-interface.h     |    5 +++++
+ drivers/staging/batman-adv/hash.h               |    8 +++++---
+ drivers/staging/batman-adv/icmp_socket.h        |    5 +++++
+ drivers/staging/batman-adv/main.c               |    4 ++--
+ drivers/staging/batman-adv/main.h               |   13 +++++++++----
+ drivers/staging/batman-adv/originator.c         |    6 ++----
+ drivers/staging/batman-adv/originator.h         |    5 +++++
+ drivers/staging/batman-adv/packet.h             |    5 +++++
+ drivers/staging/batman-adv/ring_buffer.h        |    5 +++++
+ drivers/staging/batman-adv/routing.c            |    6 +++---
+ drivers/staging/batman-adv/routing.h            |    5 +++++
+ drivers/staging/batman-adv/send.c               |   14 +++++++-------
+ drivers/staging/batman-adv/send.h               |    5 +++++
+ drivers/staging/batman-adv/soft-interface.c     |    6 +++---
+ drivers/staging/batman-adv/soft-interface.h     |    7 ++++++-
+ drivers/staging/batman-adv/sysfs-class-net-mesh |    8 ++++++++
+ drivers/staging/batman-adv/translation-table.c  |    3 +--
+ drivers/staging/batman-adv/translation-table.h  |    5 +++++
+ drivers/staging/batman-adv/types.h              |    6 +++---
+ drivers/staging/batman-adv/vis.c                |   14 +++++++-------
+ drivers/staging/batman-adv/vis.h                |    7 ++++++-
+ 25 files changed, 117 insertions(+), 46 deletions(-)
+
+
 }}}
