@@ -11,7 +11,12 @@ Similar to batman-adv's current HNA sensing mechanisms, batman-adv would look fo
 A batman-adv node receiving an OGM with MCA entries will check its local multicast group table. If it is a member of the same multicast group fetched from the received OGM's MCAs, it will start a periodic unicast stream to the other member(s) of the same multicast group (packet type description, see mcast_pathsel_packet). This technique for maintenance is similar to the one used in ODMRP. The default interval would/should be 500ms for them, the purge timeout about 3 to 5 times higher - the higher the purge timeout, the more robust the infrastrucutre in a very mobile environment would be, but the larger the distribution infrastructure / broadcast domain would become.
 
 === multicast data packet delivery ===
-In the beginning when an optimised distribution infrastructure has just started to build up, multicast data packets should still be broadcasted. The advantage of this would be, that no buffering or packet dropping would have to be done. After for about 5 seconds (then all nodes with a reasonable ogm receiving quality should have gotten the MCA), multicast data packets would still be encapsulated in a batman bcast_packet, but with the packet type set to BAT_MCAST. Another node will receiving this on-link broadcasted packet, will check if it got a mcast_pathsel_packet before which did not time out yet. The receiver will have to compare the mcast destination mac address and the ethernet frame source mac of the encapsulated multicast data packet with the mcast_pathsel src field and its ethernet frame source field. The latter is important to make the marked path unidirectional and the whole algorithm aware of asymmetric links.
+In the beginning when an optimised distribution infrastructure has just started to build up, multicast data packets should still be broadcasted. The advantage of this would be, that no buffering or packet dropping would have to be done.
+
+After about 5 seconds (then all nodes with a reasonable ogm receiving quality should have gotten the MCA), multicast data packets would still be encapsulated in a batman bcast_packet, but with the packet type set to BAT_MCAST. Another, intermediate node receiving this on-link broadcasted packet only rebroadcasts the packet if the following checks apply:
+ * Is this a multicast packet which shall take an optimised path (bcast_packet.packet_type == BAT_MCAST)?
+ * Did I receive a mcast_pathsel_packet for the same multicast group before (mcast_pathsel_packet.src == ethhdr.dst)?
+ * Did I receive the matching mcast_pathsel_packet(s) via the same neighbor (ethhdr(mcast_pathsel_packet).src == ethhdr.src)?
 
 == New batman-adv packet types ==
 === BAT_MCAST ===
@@ -30,18 +35,35 @@ struct mcast_pathsel_packet {
 } __attribute__((packed));
 }}}
 == Pros/Cons ==
+ * As the mcast_path_sel packets are being forwarded via unicast, they'd create a multicast topology with determining shortest, direct paths according to BATMAN's unicast metric. ADAMA-SM for instance is not optimising in this way, instead it tries to reduce the number of forwarding nodes in general (which is nice for the mesh burdon itself, but might create unusable / too long paths for certain multicast receivers in real wireless networks).
 
-
-== Smaller/Easier optimizations ==
+== Further Extensions ==
 === Distribution infrastructure initiation - bursting ===
-=== still broadcast smaller, but important multicast packets ===
-=== broadcasting in dense multicast networks ===
-=== multicast sender announcement threshold ===
-=== multicast group id differentiation for IPv4 ===
-=== converting BAT_MCAST to unicast if just one member on path left ===
+To decrease the time needed for the initial infrastructure creation, the multicast announcements could be send with their own packet type instead of being attached to OGMs. They could then be send in a burst of for instance 5 identical packets. Furthermore, these packets could have a rebroadcast-count which means, that also every intermediate node would rebreadcast for instance 5 identical packets again. The wait-time to switch from pure flooding of the multicast packets to the optimised path selection could then for instance be set to 1 instead of the 5 seconds.
 
-Resources:
- * ADAMA
- * ODMRP
- * SMA
- * ...
+=== still broadcast smaller/rare, but important multicast packets ===
+The smaller the packets, the less harmful the broadcasting would be for the mesh itself. However, the broadcasting would make the transportation of these packtes more robust in most topologies. The critirea for a "small" multicast packet could be:
+ * An IPv4 multicast packet from the "Local Network and Internet Work Control Blocks" (224.0.0.0/24, 224.0.1.0/24 - [[http://tools.ietf.org/html/rfc3171|RFC3171]]). These are for instance IGMP- or mDNS-packets.
+ * Well-known IPv6 multicast addresses, having the transient-flag unset. These are for instance the important IPv6 neighbor- and router-discovery packets or mDNS- or DHCPv6-packets.
+ * Threshold-triggering: Only if there've been sent for instance 5KB/s during the last second to the same multicast group destination, start building the optimised multicast distribution infrastructure.
+
+For a nice table of multicast IP- and MAC-address ranges, also see [[http://en.wikipedia.org/wiki/Multicast_address|this]] nice wikipedia-article 
+
+=== broadcasting in dense multicast networks ===
+If already about 50%25 of the nodes are part of the same multicast group, then such an optimised multicast distribution infrastructure's gain by minimising the number of forwarding nodes is not that much and because of the very high maintenance overhead the total-"gain" would even be negative. Therefore, if a multicast member notices that there are about 50%25 of the nodes in the originator table in the same multicast group, this node would not start sending mcast_pathsel packets and send the multicast data packets via BAT_BCAST instead.
+
+Another optimization for this broadcasting approach in dense multicast networks would be for a node to still check the following:
+ * Are all other multicast members I know of behind the same neighbor I just received the multicast data packet from?
+If so, the intermediate node could drop this multicast data packet. For this approach multicast packets should never be forwarded as BAT_BCAST packets, a dense/sparse-flag in the batman packet header would be needed instead.
+
+=== converting BAT_MCAST to unicast if just one member on path left ===
+A node knows, whether there might be a single multicast member of the same group on the forwarding path left (or better: whether all but one multicast members are behind the neighbor we just received the multicast-data packet from) because of the previously received, broadcasted OGMs (+ MCA entries). In this case, the forwarding node can unwrapp the multicast data packet and wrap it into a batman unicast-header to this single destination instead. This will greatly increase the reliability and throughput to such a remote multicast member because the rate selection algorithms being able to select an optimal value instead of just broadcasting it with the default value of 11MBit/s on the one hand and the now acknowledged transfer for the rest of the path on the other.
+
+=== NAKs  between neighbors ===
+In wireless networks all unicast traffic is being acknowledged and in case of a loss resend until a certain amount of times. We usually don't have this feature for broadcasted packets, especially because of the mobile characteristics of the mesh it can be quite tough to tell on link layer if there was no ACK because of interference or because the neighbor got out of range. It is therefore a lot easier to use NAKs in this case - if a neigbor who is part of the distribution infrastructure detects a missing sequence number, it could request it again and receive it via unicast from the according neighbor. PGM ([[http://tools.ietf.org/html/rfc3208|RFC3208]])is also using the NAK approach on the transport layer for multicast packets for instance.
+
+=== Resources: ===
+ * ADAMA (-SM/DM - sparse and dense mode) - "Multicast-Routing in mobilen Ad-hoc-Netzen", Oliver Stanze, ISBN-13: 978-3832266141
+ * ODMRP [[http://tools.ietf.org/html/draft-ietf-manet-odmrp-04|draft-ietf-manet-odmrp-04]],[[http://www.hpl.hp.com/personal/Sung-Ju_Lee/abstracts/papers/wcnc99.pdf|wcnc99.pdf]], 
+ * SMF [[http://tools.ietf.org/html/draft-ietf-manet-smf-10|draft-ietf-manet-smf-10]]
+ * PGM [[http://tools.ietf.org/html/rfc3208|rfc3208]]
