@@ -56,7 +56,7 @@ If already about 50%25 of the nodes are part of the same multicast group, then s
 
 Another optimization for this broadcasting approach in dense multicast networks would be for a node to still check the following:
  * Are all other multicast members I know of behind the same neighbor I just received the multicast data packet from?
-If so, the intermediate node could drop this multicast data packet. For this approach multicast packets should never be forwarded as BAT_BCAST packets, a dense/sparse-flag in the batman packet header would be needed instead.
+If so, the intermediate node should not rebroadcast this multicast data packet. For this approach multicast packets should never be forwarded as BAT_BCAST packets, a dense/sparse-flag in the batman packet header would be needed instead.
 
 === converting BAT_MCAST to unicast if just one member on path left ===
 A node knows, whether there might be a single multicast member of the same group on the forwarding path left (or better: whether all but one multicast members are behind the neighbor we just received the multicast-data packet from) because of the previously received, broadcasted OGMs (+ MCA entries). In this case, the forwarding node can unwrapp the multicast data packet and wrap it into a batman unicast-header to this single destination instead. This will greatly increase the reliability and throughput to such a remote multicast member because the rate selection algorithms being able to select an optimal value instead of just broadcasting it with the default value of 11MBit/s on the one hand and the now acknowledged transfer for the rest of the path on the other.
