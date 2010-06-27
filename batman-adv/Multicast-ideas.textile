@@ -1,22 +1,35 @@
-= BATMAN-Adv Multicast Awareness =
 
-== Idea ==
-The intention is to decrease the broadcast domain for multicast packets, especially large multicast data packets should not be broadcasted through the whole mesh.
+= B.A.T.M.A.N.-Adv Multicast Awareness =
 
-== Concepts and classifications ==
-=== Reactive, multicast group specific, sender-based distribution infrastructure initiation ===
-Similar to batman-adv's current HNA sensing mechanisms, batman-adv would look for multicast packets going into its bat0 interface and memorize the according multicast MAC addresses which represent one multicast group id each in IPv6 or a small set of multicast group ids in IPv4. On sensing, the according batman-adv node will add MCA (= multicast sender announcements) entries to each OGM.
+{{{
+#!div style="width: 40em; text-align: justify"
 
-=== Proactive, periodic distribution infrastructure maintenance ===
-A batman-adv node receiving an OGM with MCA entries will check its local multicast group table. If it is a member of the same multicast group fetched from the received OGM's MCAs, it will start a periodic unicast stream to the other member(s) of the same multicast group (packet type description, see mcast_pathsel_packet). This technique for maintenance is similar to the one used in ODMRP. The default interval would/should be 500ms for them, the purge timeout about 3 to 5 times higher - the higher the purge timeout, the more robust the infrastrucutre in a very mobile environment would be, but the larger the distribution infrastructure / broadcast domain would become.
+As batman-adv has full control over all data traffic flowing through the mesh network multicast traffic also falls under its jurisdiction. At the time of writing this document batman-adv handles the multicast traffic by flooding the whole network with it. Although this approach is suitable for common multicast groups sending a small number of packets (e.g. IPv6 neighbor announcements) it fails its purpose when it comes to large multicast data packets (e.g. multimedia streaming). This document aims to provide a concept for multicast optimizations, especially when it comes to these large data packets.
 
-=== multicast data packet delivery ===
-In the beginning when an optimised distribution infrastructure has just started to build up, multicast data packets should still be broadcasted. The advantage of this would be, that no buffering or packet dropping would have to be done.
+=== The concept ===
 
-After about 5 seconds (then all nodes with a reasonable ogm receiving quality should have gotten the MCA), multicast data packets would still be encapsulated in a batman bcast_packet, but with the packet type set to BAT_MCAST. Another, intermediate node receiving this on-link broadcasted packet only rebroadcasts the packet if the following checks apply:
- * Is this a multicast packet which shall take an optimised path (bcast_packet.packet_type == BAT_MCAST)?
+To be truly multicast aware each batman-adv node needs to perform the following tasks:
+
+ * detection of own multicast groups
+ * let the network know which multicast groups this node is belonging to and also learn who else is part of this group
+ * deliver the data to the entire mutlicast group in the most efficient way
+
+'''multicast group sensing'''
+
+Similar to batman-adv's current HNA sensing mechanisms, batman-adv would look for multicast packets going into its bat0 interface and memorize the according multicast MAC addresses which represent one multicast group id each in IPv6 or a small set of multicast group ids in IPv4. (Reactive, multicast group specific, sender-based distribution infrastructure initiation)
+
+'''multicast group participation'''
+
+A batman-adv node will flood the whole mesh network with the multicast groups it belongs to (it further will be referenced as MCA - multicast sender announcements). 
+When A batman-adv node receiving an OGM with MCA entries will check its local multicast group table. If it is a member of the same multicast group fetched from the received OGM's MCAs, it will start a periodic unicast stream to the other member(s) of the same multicast group (packet type description, see mcast_pathsel_packet). This technique for maintenance is similar to the one used in ODMRP. The default interval would/should be 500ms for them, the purge timeout about 3 to 5 times higher - the higher the purge timeout, the more robust the infrastrucutre in a very mobile environment would be, but the larger the distribution infrastructure / broadcast domain would become. (Proactive, periodic distribution infrastructure maintenance)
+
+'''multicast data packet delivery'''
+
+Multicast data packets would still be treated as standard batman-adv data broadcast packet, but receives an additional flag to mark it as optimized multicast traffic (the flag is called BAT_MCAST). This packet type will only be rebroadcasted if the following conditions are met:
  * Did I receive a mcast_pathsel_packet for the same multicast group before (mcast_pathsel_packet.src == ethhdr.dst)?
  * Did I receive the matching mcast_pathsel_packet(s) via the same neighbor (ethhdr(mcast_pathsel_packet).src == ethhdr.src)?
+
+This mechanism requires the multicast group infrastructure to be known. Shortly after creating/joining a new group this won't be the case. During the build up phase multicast data packets should still be broadcasted to ensure fast delivery.
 
 == New batman-adv packet types ==
 === BAT_MCAST ===
@@ -78,3 +91,5 @@ A node can easily detect a receiver-host on its local network by listening to IG
  * ODMRP [[http://tools.ietf.org/html/draft-ietf-manet-odmrp-04|draft-ietf-manet-odmrp-04]],[[http://www.hpl.hp.com/personal/Sung-Ju_Lee/abstracts/papers/wcnc99.pdf|wcnc99.pdf]], 
  * SMF [[http://tools.ietf.org/html/draft-ietf-manet-smf-10|draft-ietf-manet-smf-10]]
  * PGM [[http://tools.ietf.org/html/rfc3208|rfc3208]]
+
+}}}
