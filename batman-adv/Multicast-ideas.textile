@@ -36,7 +36,7 @@ struct mcast_pathsel_packet {
 }}}
 == Pros/Cons ==
  * As the mcast_path_sel packets are being forwarded via unicast, they'd create a multicast topology with determining shortest, direct paths according to BATMAN's unicast metric. ADAMA-SM for instance is not optimising in this way, instead it tries to reduce the number of forwarding nodes in general (which is nice for the mesh burdon itself, but might create unusable / too long paths for certain multicast receivers in real wireless networks).
-
+----
 == Further Extensions ==
 === Distribution infrastructure initiation - bursting ===
 To decrease the time needed for the initial infrastructure creation, the multicast announcements could be send with their own packet type instead of being attached to OGMs. They could then be send in a burst of for instance 5 identical packets. Furthermore, these packets could have a rebroadcast-count which means, that also every intermediate node would rebreadcast for instance 5 identical packets again. The wait-time to switch from pure flooding of the multicast packets to the optimised path selection could then for instance be set to 1 instead of the 5 seconds. After that, such designated multicast annuncement packets could be send at a much slower interval as the OGM packets (something like 5-10 seconds for instance).
