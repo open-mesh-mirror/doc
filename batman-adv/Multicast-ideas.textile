@@ -39,7 +39,9 @@ struct mcast_pathsel_packet {
 
 == Further Extensions ==
 === Distribution infrastructure initiation - bursting ===
-To decrease the time needed for the initial infrastructure creation, the multicast announcements could be send with their own packet type instead of being attached to OGMs. They could then be send in a burst of for instance 5 identical packets. Furthermore, these packets could have a rebroadcast-count which means, that also every intermediate node would rebreadcast for instance 5 identical packets again. The wait-time to switch from pure flooding of the multicast packets to the optimised path selection could then for instance be set to 1 instead of the 5 seconds.
+To decrease the time needed for the initial infrastructure creation, the multicast announcements could be send with their own packet type instead of being attached to OGMs. They could then be send in a burst of for instance 5 identical packets. Furthermore, these packets could have a rebroadcast-count which means, that also every intermediate node would rebreadcast for instance 5 identical packets again. The wait-time to switch from pure flooding of the multicast packets to the optimised path selection could then for instance be set to 1 instead of the 5 seconds. After that, such designated multicast annuncement packets could be send at a much slower interval as the OGM packets (something like 5-10 seconds for instance).
+
+(Or if there'd be the planned NDP(neighbor discovery protocol) - HELLOs - as well as optional HNA entries (so a missing HNA in an OGM not causing it to be purged on other nodes in the mesh, a designated multicast announcement packet type would not be needed for this. We could just use a small OGM with less information, but still the TQ-value and sequence numbers, too, then as otherwise the ethernet frames' payload would be zero-padded to 46 Bytes anyway which would be a waste.)
 
 === still broadcast smaller/rare, but important multicast packets ===
 The smaller the packets, the less harmful the broadcasting would be for the mesh itself. However, the broadcasting would make the transportation of these packtes more robust in most topologies. The critirea for a "small" multicast packet could be:
@@ -61,6 +63,15 @@ A node knows, whether there might be a single multicast member of the same group
 
 === NAKs  between neighbors ===
 In wireless networks all unicast traffic is being acknowledged and in case of a loss resend until a certain amount of times. We usually don't have this feature for broadcasted packets, especially because of the mobile characteristics of the mesh it can be quite tough to tell on link layer if there was no ACK because of interference or because the neighbor got out of range. It is therefore a lot easier to use NAKs in this case - if a neigbor who is part of the distribution infrastructure detects a missing sequence number, it could request it again and receive it via unicast from the according neighbor. PGM ([[http://tools.ietf.org/html/rfc3208|RFC3208]])is also using the NAK approach on the transport layer for multicast packets for instance.
+
+=== Only send MCAs as a receiver(/sender), if there is a sender(/receiver) too ===
+If there is no multicast sender available anyway, then a receiver does not have to announce its multicast member presence because there'd be no need for the distribution infrastructure with no sender anyway. Especially if the multicast sender might not be statically, permanently but adhoc, temporarily available instead, this can reduce the burdon on the mesh network quite a lot if there are also a lot of multicast receivers.
+
+Of course, the other way round, the benefits would be greater if doing it the other way round - receiver-based - if there'd be more multiple senders in the same multicast group and only one receiver there at a time with a very dynamic uptime.
+
+This probably depends on the usage scenarion, but the first option should be the default.
+
+A node can easily detect a receiver-host on its local network by listening to IGMP- or ICMPv6-MDN packets. A sender could be detected by the multicast-destination mac of data packets - however this should not initiate the path maintenance for all kinds of multicast packets as stated above (also IGMP/ICMPv6 are being send via multicast for instance - effectively making any node receiver a sender as well otherwise).
 
 === Resources: ===
  * ADAMA (-SM/DM - sparse and dense mode) - "Multicast-Routing in mobilen Ad-hoc-Netzen", Oliver Stanze, ISBN-13: 978-3832266141
