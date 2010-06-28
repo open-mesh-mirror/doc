@@ -58,11 +58,11 @@ To decrease the time needed for the initial infrastructure creation, the multica
 
 === still broadcast smaller/rare, but important multicast packets ===
 The smaller the packets, the less harmful the broadcasting would be for the mesh itself. However, the broadcasting would make the transportation of these packtes more robust in most topologies. The critirea for a "small" multicast packet could be:
- * An IPv4 multicast packet from the "Local Network and Internet Work Control Blocks" (224.0.0.0/24, 224.0.1.0/24 - [[http://tools.ietf.org/html/rfc3171|RFC3171]]). These are for instance IGMP- or mDNS-packets.
+ * An IPv4 multicast packet from the "Local Network and Internet Work Control Blocks" (224.0.0.0/24, 224.0.1.0/24 - [http://tools.ietf.org/html/rfc3171 RFC3171]). These are for instance IGMP- or mDNS-packets.
  * Well-known IPv6 multicast addresses, having the transient-flag unset. These are for instance the important IPv6 neighbor- and router-discovery packets or mDNS- or DHCPv6-packets.
  * Threshold-triggering: Only if there've been sent for instance 5KB/s during the last second to the same multicast group destination, start building the optimised multicast distribution infrastructure.
 
-For a nice table of multicast IP- and MAC-address ranges, also see [[http://en.wikipedia.org/wiki/Multicast_address|this]] nice wikipedia-article 
+For a nice table of multicast IP- and MAC-address ranges, also see [http://en.wikipedia.org/wiki/Multicast_address this] nice wikipedia-article 
 
 === broadcasting in dense multicast networks ===
 If already about 50%25 of the nodes are part of the same multicast group, then such an optimised multicast distribution infrastructure's gain by minimising the number of forwarding nodes is not that much and because of the very high maintenance overhead the total-"gain" would even be negative. Therefore, if a multicast member notices that there are about 50%25 of the nodes in the originator table in the same multicast group, this node would not start sending mcast_pathsel packets and send the multicast data packets via BAT_BCAST instead.
@@ -75,7 +75,7 @@ If so, the intermediate node should not rebroadcast this multicast data packet. 
 A node knows, whether there might be a single multicast member of the same group on the forwarding path left (or better: whether all but one multicast members are behind the neighbor we just received the multicast-data packet from) because of the previously received, broadcasted OGMs (+ MCA entries). In this case, the forwarding node can unwrapp the multicast data packet and wrap it into a batman unicast-header to this single destination instead. This will greatly increase the reliability and throughput to such a remote multicast member because the rate selection algorithms being able to select an optimal value instead of just broadcasting it with the default value of 11MBit/s on the one hand and the now acknowledged transfer for the rest of the path on the other.
 
 === NAKs  between neighbors ===
-In wireless networks all unicast traffic is being acknowledged and in case of a loss resend until a certain amount of times. We usually don't have this feature for broadcasted packets, especially because of the mobile characteristics of the mesh it can be quite tough to tell on link layer if there was no ACK because of interference or because the neighbor got out of range. It is therefore a lot easier to use NAKs in this case - if a neigbor who is part of the distribution infrastructure detects a missing sequence number, it could request it again and receive it via unicast from the according neighbor. PGM ([[http://tools.ietf.org/html/rfc3208|RFC3208]])is also using the NAK approach on the transport layer for multicast packets for instance.
+In wireless networks all unicast traffic is being acknowledged and in case of a loss resend until a certain amount of times. We usually don't have this feature for broadcasted packets, especially because of the mobile characteristics of the mesh it can be quite tough to tell on link layer if there was no ACK because of interference or because the neighbor got out of range. It is therefore a lot easier to use NAKs in this case - if a neigbor who is part of the distribution infrastructure detects a missing sequence number, it could request it again and receive it via unicast from the according neighbor. PGM ([http://tools.ietf.org/html/rfc3208 RFC3208])is also using the NAK approach on the transport layer for multicast packets for instance.
 
 === Only send MCAs as a receiver(/sender), if there is a sender(/receiver) too ===
 If there is no multicast sender available anyway, then a receiver does not have to announce its multicast member presence because there'd be no need for the distribution infrastructure with no sender anyway. Especially if the multicast sender might not be statically, permanently but adhoc, temporarily available instead, this can reduce the burdon on the mesh network quite a lot if there are also a lot of multicast receivers.
@@ -88,8 +88,8 @@ A node can easily detect a receiver-host on its local network by listening to IG
 
 === Resources: ===
  * ADAMA (-SM/DM - sparse and dense mode) - "Multicast-Routing in mobilen Ad-hoc-Netzen", Oliver Stanze, ISBN-13: 978-3832266141
- * ODMRP [[http://tools.ietf.org/html/draft-ietf-manet-odmrp-04|draft-ietf-manet-odmrp-04]],[[http://www.hpl.hp.com/personal/Sung-Ju_Lee/abstracts/papers/wcnc99.pdf|wcnc99.pdf]], 
- * SMF [[http://tools.ietf.org/html/draft-ietf-manet-smf-10|draft-ietf-manet-smf-10]]
- * PGM [[http://tools.ietf.org/html/rfc3208|rfc3208]]
+ * ODMRP [http://tools.ietf.org/html/draft-ietf-manet-odmrp-04 draft-ietf-manet-odmrp-04],[http://www.hpl.hp.com/personal/Sung-Ju_Lee/abstracts/papers/wcnc99.pdf wcnc99.pdf], 
+ * SMF [http://tools.ietf.org/html/draft-ietf-manet-smf-10 draft-ietf-manet-smf-10]
+ * PGM [http://tools.ietf.org/html/rfc3208 rfc3208]
 
 }}}
