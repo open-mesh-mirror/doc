@@ -93,6 +93,13 @@ This probably depends on the usage scenarion, but the first option should be the
 
 A node can easily detect a receiver-host on its local network by listening to IGMP- or ICMPv6-MDN packets. A sender could be detected by the multicast-destination mac of data packets - however this should not initiate the path maintenance for all kinds of multicast packets as stated above (also IGMP/ICMPv6 are being send via multicast for instance - effectively making any node receiver a sender as well otherwise).
 
+=== Only build paths from senders to receivers ===
+In most cases, a multicast member won't be a sender and receiver at the same time. In such a case, a selected multicast path from the receiver to the sender is not necessary. Two additional flags MCAST_SENDER and MCAST_RECEIVER could be attached to an MCA. A node receiving an MCA, would then only start the unicasted mcast_pathsel stream if the following requirements are matched:
+ * I belong to the same multicast group stated in the received MCA.
+ * I am a sender of the MCA's multicast group.
+ * The received MCA has the MCAST_RECEIVER flag set.
+Only then an optimised multicast path would be established to the MCA's originator.
+
 === Resources: ===
  * ADAMA (-SM/DM - sparse and dense mode) - "Multicast-Routing in mobilen Ad-hoc-Netzen", Oliver Stanze, ISBN-13: 978-3832266141
  * ODMRP [http://tools.ietf.org/html/draft-ietf-manet-odmrp-04 draft-ietf-manet-odmrp-04],[http://www.hpl.hp.com/personal/Sung-Ju_Lee/abstracts/papers/wcnc99.pdf wcnc99.pdf], 
