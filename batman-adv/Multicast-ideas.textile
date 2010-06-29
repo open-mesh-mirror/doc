@@ -16,18 +16,17 @@ To be truly multicast aware each batman-adv node needs to perform the following 
 
 '''multicast group sensing'''
 
-Similar to batman-adv's current HNA sensing mechanisms, batman-adv would look for multicast packets going into its bat0 interface and memorize the according multicast MAC addresses which represent one multicast group id each in IPv6 or a small set of multicast group ids in IPv4. (Reactive, multicast group specific, sender-based distribution infrastructure initiation)
+Similar to batman-adv's current HNA sensing mechanisms, batman-adv would look for multicast packets going into its bat0 interface and memorize the according multicast MAC addresses which represent one multicast group id each in IPv6 or a small set of multicast group ids in IPv4.
 
 '''multicast group participation'''
 
-A batman-adv node will flood the whole mesh network with the multicast groups it belongs to (it further will be referenced as MCA - multicast sender announcements). 
-When A batman-adv node receiving an OGM with MCA entries will check its local multicast group table. If it is a member of the same multicast group fetched from the received OGM's MCAs, it will start a periodic unicast stream to the other member(s) of the same multicast group (packet type description, see mcast_pathsel_packet). This technique for maintenance is similar to the one used in ODMRP. The default interval would/should be 500ms for them, the purge timeout about 3 to 5 times higher - the higher the purge timeout, the more robust the infrastrucutre in a very mobile environment would be, but the larger the distribution infrastructure / broadcast domain would become. (Proactive, periodic distribution infrastructure maintenance)
+Each batman-adv node floods the whole mesh network with the multicast groups it belongs to (it further will be referenced as MCA - multicast sender announcements) and also maintains a list of other nodes in the network belonging to the same multicast groups. In regular intervals unicast "breadcrump" packets are sent to all members of multicats groups this node is part of. These "breadcrump" packets are used to inform intermediate nodes which may or may not be part of the multicast group that they are "in the path" of a multicast group.
 
 '''multicast data packet delivery'''
 
-Multicast data packets would still be treated as standard batman-adv data broadcast packet, but receives an additional flag to mark it as optimized multicast traffic (the flag is called BAT_MCAST). This packet type will only be rebroadcasted if the following conditions are met:
- * Did I receive a mcast_pathsel_packet for the same multicast group before (mcast_pathsel_packet.src == ethhdr.dst)?
- * Did I receive the matching mcast_pathsel_packet(s) via the same neighbor (ethhdr(mcast_pathsel_packet).src == ethhdr.src)?
+Multicast data packets would still be treated as standard batman-adv data broadcast packets, but receive an additional flag to mark them as optimized multicast traffic (the flag is called BAT_MCAST). This packet type will only be rebroadcasted if all of the following conditions are met:
+ * the node was marked by a "breadcrump" packet from the same originator for this specific mutlicast group
+ * the sequence number of this multicast packet is a new one
 
 This mechanism requires the multicast group infrastructure to be known. Shortly after creating/joining a new group this won't be the case. During the build up phase multicast data packets should still be broadcasted to ensure fast delivery.
 
