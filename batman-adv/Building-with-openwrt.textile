@@ -8,25 +8,25 @@ Many tutorials assume that you have batman-adv running on an OpenWRT system with
 
 === Getting the OpenWRT build environment ===
 
-First, you need to obtain a copy of the OpenWRT build system which contains all the build information to compile & package a complete linux system. You can either checkout the last stable or the trunk directly from the OpenWRT SVN repository or get tarballs from the OpenWRT project website. We assume you intend to download the latest stable (8.09.2 at the point of writing this document) via SVN:
+First, you need to obtain a copy of the OpenWRT build system which contains all the build information to compile & package a complete linux system. You can either checkout the last stable or the trunk directly from the OpenWRT SVN repository or get tarballs from the OpenWRT project website. We assume you intend to download the latest stable (backfire 10.03 at the point of writing this document) via SVN:
 
 {{{
-svn co svn://svn.openwrt.org/openwrt/tags/8.09.2 openwrt-kamikaze
+svn co svn://svn.openwrt.org/openwrt/tags/backfire_10.03 openwrt
 }}}
 
 Change into the openwrt-kamikaze directory and configure the system to meet you needs (e.g. choose the platform and additional packages you intend to use).
 
 {{{
-cd openwrt-kamikaze
+cd openwrt
 make menuconfig
 }}}
 
 __Note__: The batman-adv package is not there yet because it needs to be activated seperately (see the following steps). [[BR]]
 
-To build your images you always have to invoke the "make" command from within the openwrt-kamikaze folder:
+To build your images you always have to invoke the "make" command from within the openwrt folder:
 
 {{{
-cd openwrt-kamikaze
+cd openwrt
 make
 }}}
 
@@ -34,32 +34,31 @@ The rest of the document will focus on the batman-adv package. It is assumed tha
 
 === Adding the batman-adv package ===
 
-There are 2 ways to add the batman-adv package:
- * downloading the OpenWRT package repository and adding the package to your OpenWRT build system (the manual way)
- * using scripts provided by OpenWRT to download the whole package repository and adding all packages to your OpenWRT build system (the easy way)
+The standard OpenWRT package feed contains a batman-adv package which is intended to be used on a day to day basis, therefore it retrieves the latest batman-adv stable release. Since a lot of people want to experiment with the latest features or use OpenWRT to test their own batman-adv patches we also provide an openwrt package feed which contains the batman-adv development version.
 
-__The easy way__: [[BR]]
+__Adding the stable version__: [[BR]]
 
 {{{
 scripts/feeds update
-scripts/feeds install kmod-batman-adv-kernelland
+scripts/feeds install kmod-batman-adv
 }}}
 ''Note'': If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have ''"svn-src packages !svn://svn.openwrt.org/openwrt/packages"'' instead of e.g. ''"src-svn packages !svn://svn.openwrt.org/openwrt/branches/packages_8.09"''.
 
-__The manual way__: [[BR]]
+__Adding the developer version__: [[BR]]
 
-Download the OpenWRT package repository via SVN next to your openwrt-kamikaze folder (not inside!):
-
-{{{
-svn co svn://svn.openwrt.org/openwrt/packages openwrt-packages
-}}}
-
-The batman-adv package can be found in the "net" subfolder of the package repository. Now, it needs to be linked into your main package folder, so that OpenWRT can find it:
+Append the following line to your openwrt feed configuration file (either feeds.conf or feeds.conf.default):
 
 {{{
-cd openwrt-kamikaze/package
-ln -sf ../../openwrt-packages/net/batman-advanced/ .
+src-svn batman http://downloads.open-mesh.org/svn/openwrt-feed/
 }}}
+
+Update the package information and add the development package:
+
+{{{
+scripts/feeds update
+scripts/feeds install kmod-batman-adv-devel
+}}}
+
 
 === Configuring the batman-adv package ===
 
@@ -68,27 +67,19 @@ As soon as the batman-adv package has been added, it will show up in the OpenWRT
 {{{
 Kernel modules ---> 
    Network Support ---> 
-      kmod-batman-adv-kernelland
+      kmod-batman-adv
 }}}
 
-Once the package had been selected a number of suboptions will become visible. The branch option decides whether OpenWRT should build the latest stable batman-adv release or the bleeding edge development version. You also can enable/disable the verbose debug logging as well as choose whether or not to include the batctl tool.
+Once the package had been selected a number of suboptions will become visible. You can enable/disable the verbose debug logging as well as choose whether or not to include the batctl tool.
 
 In addition, the batman-adv package comes with an init script which is installed per default. This script will run at boot time and can be used to configure your desired batman-adv options. It reads the batman-adv uci file to retrieve the settings which allows to specify interfaces, intervals, log level and more.
 
 === Advanced features ===
 
-The package offers an easy way to apply custom patches whenever batman-adv is built. Next to the standard OpenWRT method of having a "patches" folder you also can apply patches depending on the branch you chose. Order in which patches are applied:
-
-{{{
-patches/*
-patches/maint/*   # if the maint branch was chosen
-patches/dev/*     # if the dev branch was chosen
-}}}
-
 If you experience build problems or simply intend to rebuild the batman-adv package only, you can tell OpenWRT to build a specific package and enable the debugging mode as follows:
 
 {{{
-cd openwrt-kamikaze
+cd openwrt
 make package/batman-advanced/clean
 make package/batman-advanced/compile V=99
 }}}
