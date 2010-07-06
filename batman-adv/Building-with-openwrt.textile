@@ -64,10 +64,18 @@ scripts/feeds install kmod-batman-adv-devel
 
 As soon as the batman-adv package has been added, it will show up in the OpenWRT package menu:
 
+__stable version__: [[BR]]
 {{{
 Kernel modules ---> 
    Network Support ---> 
       kmod-batman-adv
+}}}
+
+__developer version__: [[BR]]
+{{{
+Kernel modules ---> 
+   Network Support ---> 
+      kmod-batman-adv-devel
 }}}
 
 Once the package had been selected a number of suboptions will become visible. You can enable/disable the verbose debug logging as well as choose whether or not to include the batctl tool.
@@ -78,10 +86,30 @@ In addition, the batman-adv package comes with an init script which is installed
 
 If you experience build problems or simply intend to rebuild the batman-adv package only, you can tell OpenWRT to build a specific package and enable the debugging mode as follows:
 
+__stable version__: [[BR]]
 {{{
 cd openwrt
 make package/batman-advanced/clean
 make package/batman-advanced/compile V=99
+}}}
+
+__developer version__: [[BR]]
+{{{
+cd openwrt
+make package/batman-adv-devel/clean
+make package/batman-adv-devel/compile V=99
+}}}
+
+The package offers an easy way to apply custom patches whenever batman-adv is built. Simply copy your patches into the "patches" folder inside the package directory (you have to create the folder in case it does not exist yet). The location of the folder depends on which package you want to patch:
+
+__stable version__: [[BR]]	 
+{{{
+openwrt/feeds/packages/net/batman-advanced/patches
+}}}
+
+__developer version__: [[BR]]
+{{{
+openwrt/feeds/batman/batman-adv-devel/patches
 }}}
 
 In case you experience kernel oopses it might prove helpful to enable the kernel symbol table which translates the cryptic numbers which are part of each kernel oops log into readable function names. This calltrace can help developers to analyze the problem. Use OpenWRT's config menu to enable the kernel symbol table and rebuild your image:
