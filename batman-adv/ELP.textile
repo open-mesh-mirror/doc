@@ -1,0 +1,53 @@
+= Neighbourhood Discovery Protocol =
+B.A.T.M.A.N., no matter if batmand or batman-adv are not relying on a specific set of drivers to determine the link qualities towards neighbors. Instead, it counts the neighbors' originator messages and the own originator messages rebroadcasted its neighbors to calculate the tx-quality. So basically, OGMs are doing two jobs, calculating the link qualities and spreading topology information through the whole mesh.
+
+However, this also has three major drawbacks: 
+ * You usually should set the originator interval to a value suiting the most mobile node on all nodes, having a homogeneous interval. This means, that even if you have a very static neighbourhood with lots of nodes (so resulting to a lot of rebroadcasts, which can be the case on VPN- or ethernet interfaces used by batman-adv), you can't lower the interval for that one because very mobile nodes far away might than not be able to reach you anymore.
+ * A OGM should not be rebroadcasted by the same node more than once because that could falsify the link-quality calculations. However you might want to do this to speed the convergence at more distant and/or weaker links.
+ * It might be generally desireable to use quite fast probing intervals for link-quality calculations, as the local link can change quite quickly, but not propagating at the same speed yet because it might still be changing. For instance, a link could go down from 100%25 to 50%25. batman would go down and propagate this step by step, linearly within ~30 seconds (at default intervals), For instance, detecting the break-down from 100%25 to 50%25 might better be noticed in less than a second, and propagating changes still every second. However such an interval-split is not possible with OGMs having two purposes right now.
+
+The idea is to strip the link-quality calculations from the normal originator-messages and use a seperate packet type (basically hello-messages) and mechanism for this. Which would allow us to develop (convergence) optimization strategies for both jobs independently.
+
+== packet type: BAT_PACKET_NDP ==
+{{{
+/* Neighbor discovery packet */                                                                                                                              struct batman_packet_ndp {
+    uint8_t  packet_type;
+    uint8_t  version;  /* batman version field */
+    uint8_t  orig[6];
+    uint32_t seqno;
+    uint8_t  num_neighbors;
+    uint8_t  align[3];
+} __attribute__((packed));
+}}}
+
+== RQ calculation ==
+In periodic intervals, customizable per interface, a ndp packet gets broadcasted on each interface. As it has been done with the normal OGMs before, the rq-value is being calculated with a sliding window and counting the number of received ndp packets, but on a per interface basis now.
+
+== local TQ propagation ==
+Additionally, a 2-tupel of neighbor-adresses and rq-values of neighbors on a certain interface will be attached to each ndp packet of the according interface. A neighbor will then pick the rq-value which the other node determined from the received ndp packets and insert this value as its own tq-value towards that node.
+
+== global TQ propagation ==
+A node receiving an OGM will reduce its global TQ field by the local TQ fitting the neighbor and interface before processing/rebroadcasting (but after validation/duplicate checks).
+
+== Data packet forwarding ==
+This will still be done according to the received global TQ.
+
+----
+
+== Further optimizations ==
+
+=== Consider local-TQ for a final forwarding ===
+It might happen, that a node rapidly moves towards the sender of a data packet. If so, a forwarding node can notice, that the local TQ value towards the final destination of the data packet is suddenly better than the global TQ via another hop. This forwarding node can then forward the packet to its final destination instead of forwarding it to the other next-hop according to the global TQ.
+
+=== Rebroadcast OGM X times instead of once ===
+Every node could rebroadcast an OGM i.e. 3 times instead of just once to increase the probability of an OGM reaching every node in the mesh, resulting in a much better convergence speed (getting closer to linear convergence speed) for the trade-off of control overhead (getting closer to squared).
+
+=== Unscheduled OGM rebroadcasts ===
+
+
+=== Adaptive ndp interval ===
+
+=== Probablistic flooding ===
+Although this does not optimize the convergence speed, it could greatly increase the efficiency of the flooding of broadcast/mulitcast-data packets. With ndp we now also know our neighbors' TQ-values on the same interface. With this information a node A can determine the probability, that a broadcast of node B has already reached all of A's neighbors: P(|N| = |N^{+}|) = \prod_{n \in N} TQ(B, iface, n) with N being the set of A's neighbors and N^{+} the set of neighbors successfully receiving the broadcast.
+
+A node could then either decide with a threshold, if it might not rebroadcast (rebroadcast, if P(|N| = |N^{+}|) < 0.9 i.e.). Or more elegantly rebroadcast to a certain probability: 1 - P(|N| = |N^{+}|) (or 1 - P(|N| = |N^{+}|)^3 for a more conservative decision i.e.).
