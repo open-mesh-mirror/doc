@@ -10,7 +10,8 @@ The idea is to strip the link-quality calculations from the normal originator-me
 
 == packet type: BAT_PACKET_NDP ==
 {{{
-/* Neighbor discovery packet */                                                                                                                              struct batman_packet_ndp {
+/* Neighbor discovery packet */
+struct batman_packet_ndp {
     uint8_t  packet_type;
     uint8_t  version;  /* batman version field */
     uint8_t  orig[6];
@@ -48,6 +49,6 @@ Every node could rebroadcast an OGM i.e. 3 times instead of just once to increas
 === Adaptive ndp interval ===
 
 === Probablistic flooding ===
-Although this does not optimize the convergence speed, it could greatly increase the efficiency of the flooding of broadcast/mulitcast-data packets. With ndp we now also know our neighbors' TQ-values on the same interface. With this information a node A can determine the probability, that a broadcast of node B has already reached all of A's neighbors: P(|N| = |N^{+}|) = \prod_{n \in N} TQ(B, iface, n) with N being the set of A's neighbors and N^{+} the set of neighbors successfully receiving the broadcast.
+Although this does not optimize the convergence speed, it could greatly increase the efficiency of the flooding of broadcast/mulitcast-data packets. With ndp we now also know our neighbors' TQ-values on the same interface. With this information a node A can determine the probability, that a broadcast of node B has already reached all of A's neighbors: P(|N| = |N^+^|) = ∏_{n ∈ N} TQ(B, iface, n) with N being the set of A's neighbors and N^+^ the set of neighbors successfully receiving the broadcast.
 
-A node could then either decide with a threshold, if it might not rebroadcast (rebroadcast, if P(|N| = |N^{+}|) < 0.9 i.e.). Or more elegantly rebroadcast to a certain probability: 1 - P(|N| = |N^{+}|) (or 1 - P(|N| = |N^{+}|)^3 for a more conservative decision i.e.).
+A node could then either decide with a threshold, if it might not rebroadcast (rebroadcast, if P(|N| = |N^+^|) < 0.9 i.e.). Or more elegantly rebroadcast to a certain probability: 1 - P(|N| = |N^+^|) (or 1 - P(|N| = |N^+^|)^3^ for a more conservative decision i.e.).
