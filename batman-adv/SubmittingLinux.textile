@@ -306,7 +306,7 @@ Switched to branch 'patches'
 '-(%25)-(patches)> vim 00*.patch
 }}}
 
-Usually I add "Staging: batman: " right when checking the signed-off-by and author (from) line.
+Usually I add "Staging: batman-adv: " right when checking the signed-off-by and author (from) line.
 
 == apply all patches on linux next ==
 
