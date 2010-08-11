@@ -1,16 +1,14 @@
 
+== Mailing List ==
 
-h2. Mailing List
+{{{
+#!div style="width: 46em; text-align: justify"
 
+You can subscribe to our Mailing Lists [https://lists.open-mesh.org/ here]. You can also send an E-Mail without subscription to [mailto:b.a.t.m.a.n@open-mesh.org b.a.t.m.a.n@open-mesh.org], but keep in mind that this message will have to be accepted manually (and this can take some time).
 
-<pre>
-<code class="div">
+__Note__: HTML email will be rejected - just plain text is allowed!
 
-You can subscribe to our Mailing Lists "here":https://lists.open-mesh.org/. You can also send an E-Mail without subscription to [mailto:b.a.t.m.a.n@open-mesh.org b.a.t.m.a.n@open-mesh.org], but keep in mind that this message will have to be accepted manually (and this can take some time).
+Old messages can be read in the [http://lists.open-mesh.org/pipermail/b.a.t.m.a.n/ B.A.T.M.A.N. archives].
 
-+Note+: HTML email will be rejected - just plain text is allowed!
-
-Old messages can be read in the "B.A.T.M.A.N. archives":http://lists.open-mesh.org/pipermail/b.a.t.m.a.n/.
-
-If you prefer a NNTP client, read our Mailing List on "GMANE":http://dir.gmane.org/gmane.org.freifunk.batman.
-</code></pre>
+If you prefer a NNTP client, read our Mailing List on [http://dir.gmane.org/gmane.org.freifunk.batman GMANE].
+}}}
