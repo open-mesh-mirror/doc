@@ -20,7 +20,7 @@ Similar to batman-adv's current HNA sensing mechanisms, batman-adv would look fo
 
 '''multicast group participation'''
 
-Each batman-adv node floods the whole mesh network with the multicast groups it belongs to (it further will be referenced as MCA - multicast sender announcements) and also maintains a list of other nodes in the network belonging to the same multicast groups. In regular intervals unicast "breadcrump" packets are sent to all members of multicats groups this node is part of. These "breadcrump" packets are used to inform intermediate nodes which may or may not be part of the multicast group that they are "in the path" of a multicast group.
+Each batman-adv node floods the whole mesh network with the multicast groups it belongs to (it further will be referenced as MCA - multicast sender announcements) and also maintains a list of other nodes in the network belonging to the same multicast groups. In regular intervals unicast "breadcrump" packets are sent to all members of the multicast groups this node is part of unless the other member is not a next hop (these unicast packets just need to mark the forwarding nodes). These "breadcrump" packets are used to inform intermediate nodes which may or may not be part of the multicast group that they are "in the path" of a multicast group.
 
 '''multicast data packet delivery'''
 
