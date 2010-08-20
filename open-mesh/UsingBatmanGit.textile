@@ -58,6 +58,9 @@ git checkout next
 git cherry-pick $SHA1
 }}}
 
+{{{
+#!div style="width: 40em; text-align: justify"
+
 '''maint branch'''
 
 The maint is a branch only maintained in git to gather bug fixes and only bugfixes for the last release which were usually picked from next.
