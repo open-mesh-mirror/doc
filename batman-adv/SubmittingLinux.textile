@@ -1,13 +1,13 @@
 = Submitting Patches to Linux =
 
-We currently submit patches for Linux from our maint branch. I try to give a short overview about it using some patches submitted to GregKH.
+We currently submit patches for Linux from our next branch. I try to give a short overview about it using some patches submitted to GregKH.
 
 Following steps must always be done:
  * get the linux-integration repository (we assume that the linux branch is up to date)
- * get the newest patches from maint
- * merge maint into linux
+ * get the newest patches from next
+ * merge next into linux
  * check for compat code
- * check difference with maint
+ * check difference with next
  * tag the current commit
  * rebase on top of previous tag
  * squash/cleanup patches
@@ -35,15 +35,15 @@ remote: Compressing objects: 100%25 (252781/252781), done.
 '-(%25)-> cd linux-merge
 }}}
 
-== get the newest patches from maint ==
+== get the newest patches from next ==
 
 {{{
-'-(%25)-(linux)> git checkout -b maint --track origin/maint
-Branch maint set up to track remote branch maint from origin.
-Switched to a new branch 'maint'
-'-(%25)-(maint)> git pull http://git.open-mesh.org/batman-adv.git maint
+'-(%25)-(linux)> git checkout -b next --track origin/next
+Branch next set up to track remote branch next from origin.
+Switched to a new branch 'next'
+'-(%25)-(next)> git pull http://git.open-mesh.org/batman-adv.git next
 From http://git.open-mesh.org/batman-adv.git
- * branch            maint      -> FETCH_HEAD
+ * branch            next      -> FETCH_HEAD
 Updating 1a0a622..9ec2d8f
 Fast-forward
  Makefile            |   34 +++++++++++++++++++++-------------
@@ -74,7 +74,7 @@ Fast-forward
  vis.c               |   14 +++++++-------
  vis.h               |    7 ++++++-
  27 files changed, 135 insertions(+), 59 deletions(-)
-'-(%25)-(maint)> git push origin maint
+'-(%25)-(next)> git push origin next
 Counting objects: 80, done.
 Delta compression using up to 2 threads.
 Compressing objects: 100%25 (52/52), done.
@@ -83,20 +83,20 @@ Total 52 (delta 43), reused 0 (delta 0)
 Generating commit mails...done
 fatal: Not a valid object name master:drivers/staging/batman-adv/TODO
 To git+ssh://git@open-mesh.org/srv/git/ecsv/linux-merge.git
-   1a0a622..9ec2d8f  maint -> maint
+   1a0a622..9ec2d8f  next -> next
 }}}
 
-== merge maint into linux ==
+== merge next into linux ==
 
 {{{
-'-(%25)-(maint)> git checkout linux
+'-(%25)-(next)> git checkout linux
 Checking out files: 100%25 (32337/32337), done.
 Switched to branch 'linux'
-'-(%25)-(linux)> git merge -s subtree maint
+'-(%25)-(linux)> git merge -s subtree next
 Auto-merging drivers/staging/batman-adv/Makefile
 CONFLICT (content): Merge conflict in drivers/staging/batman-adv/Makefile
-CONFLICT (delete/modify): drivers/staging/batman-adv/Makefile.kbuild deleted in HEAD and modified in maint. Version maint of drivers/staging/batman-adv/Makefile.kbuild left in tree.
-CONFLICT (delete/modify): drivers/staging/batman-adv/compat.h deleted in HEAD and modified in maint. Version maint of drivers/staging/batman-adv/compat.h left in tree.
+CONFLICT (delete/modify): drivers/staging/batman-adv/Makefile.kbuild deleted in HEAD and modified in next. Version next of drivers/staging/batman-adv/Makefile.kbuild left in tree.
+CONFLICT (delete/modify): drivers/staging/batman-adv/compat.h deleted in HEAD and modified in next. Version next of drivers/staging/batman-adv/compat.h left in tree.
 Auto-merging drivers/staging/batman-adv/main.c
 Auto-merging drivers/staging/batman-adv/originator.c
 Auto-merging drivers/staging/batman-adv/routing.c
@@ -114,7 +114,7 @@ rm 'drivers/staging/batman-adv/compat.h'
 '-(%25)-(linux)> vim drivers/staging/batman-adv/Makefile
 '-(%25)-(linux)> git add drivers/staging/batman-adv/Makefile
 '-(%25)-(linux)> git commit
-[linux f2204f0] Merge branch 'maint' into linux
+[linux f2204f0] Merge branch 'next' into linux
 }}}
 
 == check for compat code ==
@@ -124,10 +124,10 @@ git grep compat.h drivers/staging/batman-adv/
 drivers/staging/batman-adv/CHANGELOG:* all kernel version compatibility functions has been moved to compat.h
 }}}
 
-== check difference with maint ==
+== check difference with next ==
 
 {{{
-git diff maint: linux:drivers/staging/batman-adv/
+git diff next: linux:drivers/staging/batman-adv/
 }}}
 
 Here you should see the
