@@ -41,8 +41,8 @@ remote: Compressing objects: 100%25 (252781/252781), done.
 '-(%25)-(linux)> git checkout -b maint --track origin/maint
 Branch maint set up to track remote branch maint from origin.
 Switched to a new branch 'maint'
-'-(%25)-(maint)> git pull http://git.open-mesh.org/batman-adv/ maint
-From http://git.open-mesh.org/batman-adv
+'-(%25)-(maint)> git pull http://git.open-mesh.org/batman-adv.git maint
+From http://git.open-mesh.org/batman-adv.git
  * branch            maint      -> FETCH_HEAD
 Updating 1a0a622..9ec2d8f
 Fast-forward
