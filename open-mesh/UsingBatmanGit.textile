@@ -40,21 +40,21 @@ The idea is that all upcoming changes are built on top of the SVN, so that chang
 
 In fact you will never work with this branch itself but one of the other branches.
 
-'''maint branch'''
+'''next branch'''
 
-The maint is a branch only maintained in git to gather bug fixes for the latest release and well tested features taken from the master branch. Cherry-pick is used to get commits from the master branch and git-am to insert patches from mailboxes.
+The next is a branch only maintained in git to gather bug fixes for the latest release and well tested features taken from the master branch. Cherry-pick is used to get commits from the master branch and git-am to insert patches from mailboxes.
 
 Create branch associated with the remote-tracking branch after cloning the repository
 }}}
 
 {{{
-git checkout -b maint --track origin/maint
+git checkout -b next --track origin/next
 }}}
 
 Cherry-picking a commit from master branch
 
 {{{
-git checkout maint
+git checkout next
 git cherry-pick $SHA1
 }}}
 
@@ -63,19 +63,19 @@ git cherry-pick $SHA1
 
 === Linux integration ===
 
-The linux-merge repository is a clone of Linus Torvalds developer branch. With the help of some git voodoo the maint branch is merged with this branch in the folder: drivers/staging/batman-adv/. If you wish to merge the latest maint branch changes into the linux branch you need to pull the newest changes in maint from the batman-adv-git repository (we assume that you created the maint branch in your local linux-merge repsitory as explained above):
+The linux-merge repository is a clone of Linus Torvalds developer branch. With the help of some git voodoo the next branch is merged with this branch in the folder: drivers/staging/batman-adv/. If you wish to merge the latest next branch changes into the linux branch you need to pull the newest changes in next from the batman-adv-git repository (we assume that you created the next branch in your local linux-merge repsitory as explained above):
 }}}
 
 {{{
-git checkout maint
-git pull http://git.open-mesh.org/batman-adv.git maint
+git checkout next
+git pull http://git.open-mesh.org/batman-adv.git next
 }}}
 
-and merge the maint branch into this one:
+and merge the next branch into this one:
 
 {{{
 git checkout master
-git merge -s subtree maint
+git merge -s subtree next
 }}}
 
 {{{
@@ -104,13 +104,13 @@ git push
 {{{
 #!div style="width: 40em; text-align: justify"
 
-'''difference between maint and linux-integration'''
+'''difference between next and linux-integration'''
 
-If you need to see the difference between the maint branch and the batman-adv driver in drivers/staging/batman-adv/ you can run this command:
+If you need to see the difference between the next branch and the batman-adv driver in drivers/staging/batman-adv/ you can run this command:
 }}}
 
 {{{
-git diff maint: linux:drivers/staging/batman-adv/
+git diff next: linux:drivers/staging/batman-adv/
 }}}
 
 {{{
@@ -126,8 +126,8 @@ git remote add $remote_name $git_url
 git fetch $remote_name
 
 git checkout -b $new_branch_name $remote_name/master
-git merge -s ours --no-commit maint
-git read-tree --prefix=drivers/staging/batman-adv/ -u maint
+git merge -s ours --no-commit next
+git read-tree --prefix=drivers/staging/batman-adv/ -u next
 git commit -m "Add batman-adv to my new branch"
 }}}
 
