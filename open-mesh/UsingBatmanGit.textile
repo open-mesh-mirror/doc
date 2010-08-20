@@ -12,7 +12,7 @@ To retrieve the latest changes you can pull from the read-only http frontend.
 }}}
 
 {{{
-git clone http://git.open-mesh.org/batman-adv/ batman-adv-git
+git clone http://git.open-mesh.org/batman-adv.git batman-adv-git
 }}}
 
 {{{
@@ -68,7 +68,7 @@ The linux-merge repository is a clone of Linus Torvalds developer branch. With t
 
 {{{
 git checkout maint
-git pull http://git.open-mesh.org/batman-adv/ maint
+git pull http://git.open-mesh.org/batman-adv.git maint
 }}}
 
 and merge the maint branch into this one:
