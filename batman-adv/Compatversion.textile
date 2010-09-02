@@ -19,3 +19,29 @@ Following changes were identified and documented. The changes are to the last CO
 (* means future version with already defined feature set)
 
 There is a special COMPAT_VERSION 200 which is only used by saxnet. This version is v6 with bcast seqno protection added.
+
+== COMPAT_VERSION size problem ==
+
+Currently the size of the version field in all packets is a single byte. This means that after COMPAT_VERSION 255 no new version can be assigned. Thus a variable-length number must be used. 
+
+=== 255-COMPAT_VERSION for second byte indicator ===
+
+The solution by dotslash is to use a second byte after the current version field when the first version field reaches 255. The COMPAT_VERSION_2 field is now increased as usual and keep COMPAT_VERSION as 255.
+
+This seems to be ineffective as only 510 numbers can be encoded that way with two bytes, 765 with three bytes and so on. The used bytes are not limited.
+
+So the amount of information per bit converges against 0.
+
+=== MSB as indicator for new byte ===
+
+The most significant bit in each byte is used to determine if the next byte should also be read. 127 would be encoded as 0x7F and 128 as 0x8000. This means that we can encode every number in its little bit encoding with the maximum overhead of 1 byte. So "only" 2**(bytes*8-1) numbers are stored for each amount of bytes. This means every second number needs an extra byte.
+
+So the amount of information per bit is 1. The average amount of overhead against a method which magically know the needed amount of bytes to encode/decode a number is 1/2 byte, but the size of the number is not limited by the encoding.
+
+=== EBML encoding ===
+
+Not usable because the most significant 1 and the leading zeros define the amount of bytes. Thus we had to use that 1 as MSB already for our one byte version.
+
+=== Leading bits define number of bytes ===
+
+The leading 4 bit (as example) in the first byte can be used to encode the length of the data. So the maximum of 2**4 byte can be used when 0000 means 1 byte to use. This has the problem that 0 for example could be encoded in 2**4 ways.
