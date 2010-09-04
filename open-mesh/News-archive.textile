@@ -1,10 +1,13 @@
-
 = News archive =
 
 This page contains the links to previous news posts for archiving puposes.
 
 [[BR]]
 
+=== 2010 ===
+ * '''02.Mar. 2010''' [wiki:2010-03-02-batman-at-wbmv3 B.A.T.M.A.N. at WBMv3]
+
+[[BR]]
 === 2009 ===
  * '''26.Dec. 2009''' [wiki:2009-12-26-retrospect-batman-in-2009 Retrospect 2009]
  * '''18.Dec. 2009''' [wiki:2009-12-18-batman-v-outlook B.A.T.M.A.N. V outlook]
