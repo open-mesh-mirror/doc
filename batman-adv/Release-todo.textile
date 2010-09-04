@@ -1,4 +1,3 @@
-
 == Release Checklist ==
 
 This page contains a checklist of things that need to be done for a release.
@@ -20,6 +19,7 @@ This page contains a checklist of things that need to be done for a release.
  * [x] build changelog
  * [x] update README
  * [x] write release announcement
+ * [ ] update wiki documentation
 
 
 '''Release'''
