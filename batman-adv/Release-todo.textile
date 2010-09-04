@@ -8,7 +8,7 @@ This page contains a checklist of things that need to be done for a release.
 
  * [ ] make sure all code contains the release version strings
  * [x] update copyright years (if needed)
- * [ ] remove dead code (if any)
+ * [x] remove dead code (if any)
  * [x] check against kernel versions
  * [ ] check that maint branch is merged in next
  * [ ] check for open patches on the ml
