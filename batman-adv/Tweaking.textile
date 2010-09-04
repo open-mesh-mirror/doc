@@ -1,4 +1,3 @@
-
 = Tweaking B.A.T.M.A.N. Advanced =
 
 {{{
@@ -10,7 +9,7 @@ __Note__: Although this document focusses on the "raw" /sys/ configuration inter
 
 === Interface handling ===
 
-To better understand the background of the new interface configuration concept (as of batman-adv 0.2.2), it is helpful to see in which direction batman-adv is heading: Until now, batman aggregated all configured interface into a single mesh cloud (manifested in a single bat0 interface). In the future it will be possible to let a single mesh node participate in mutliple mesh clouds at the same time which makes it necessary to assign interfaces to individual mesh clouds and having multiple batX interfaces. Although the "multiple mesh cloud" feature is not complete yet, the configuration interface support is already available.
+To better understand the background of the new interface configuration concept (as of batman-adv 2010.0.0), it is helpful to see in which direction batman-adv is heading: Until now, batman aggregated all configured interface into a single mesh cloud (manifested in a single bat0 interface). In the future it will be possible to let a single mesh node participate in mutliple mesh clouds at the same time which makes it necessary to assign interfaces to individual mesh clouds and having multiple batX interfaces. Although the "multiple mesh cloud" feature is not complete yet, the configuration interface support is already available.
 
 After loading batman-adv, it will scan your systems interfaces to search for compatible interfaces. Once found, it will create subfolders in the /sys/class/net/<iface> directories of each supported interface, e.g.
 
@@ -47,10 +46,12 @@ After having added interfaces to a mesh cloud, batman-adv automatically creates 
 
 {{{
 ls  /sys/class/net/bat0/mesh/
-aggregated_ogms   orig_interval   vis_mode
+aggregated_ogms   bonding   orig_interval   vis_mode
 }}}
 
 '''aggregate originator messages'''
+
+Available since: batman-adv 2010.0.0
 
 In order to reduce the protocol overhead created to find all the participants in the network, batman has the ability to collect & aggregate these protocol messages (called originator messages or ogm) and sending them in a single packet instead of several small packets. This feature is enabled by default, since it is helpful in most cases. If you intend to run batman-adv in a highly mobile environment (for example cars) you might want to turn it off as it introduces a (normally negligible) network update delay.
 
@@ -59,7 +60,20 @@ cat /sys/class/net/bat0/mesh/aggregated_ogms
 enabled
 }}}
 
+'''bonding mode'''
+
+Available since: batman-adv 2010.1.0
+
+When running the mesh over multiple !WiFi interfaces per node batman-adv is capable of optimizing the traffic flow to gain maximum performance. Per default it operates in the "interface alternating" mode (which is suitable for most situations) that switches the !WiFi interface with each hop to avoid store & forward. Alternatively, batman-adv can be switched into "bonding mode" in which batman-adv is using all interfaces at the same time to send & receive data. However, this mode is only recommended in special one-hop cases. You can read about our [wiki:2010-06-13-wbm2010-bracciano alternate/bonding test results] to see what suits you best.
+
+{{{
+cat /sys/class/net/bat0/mesh/bonding 
+disabled
+}}}
+
 '''originator interval'''
+
+Available since: batman-adv 2010.0.0
 
 The value specifies interval (milliseconds) in which batman-adv floods the network with its protocol information. The default value of one message per second allows batman to recognize a route change (in its near neighborhood) within a timeframe of maximal one minute (most likely much sooner). In a very static environment (batman nodes are not moving, rare ups & downs of nodes) you might want to increase the value to save bandwidth. On the other hand, it might prove helpful to decrease the value in a highly mobile environment (e.g. the aforementioned cars) but keep in mind that this will drastically increase the traffic. Unless you experience problems with your setup, it is suggested you keep the default value.
 
@@ -69,6 +83,8 @@ cat /sys/class/net/bat0/mesh/orig_interval
 }}}
 
 '''visualizing the topology'''
+
+Available since: batman-adv 2010.0.0
 
 The vis_mode and vis_data files provide a system to visualize the batman-adv network. The [wiki:VisAdv visualizing the 2nd layer] and [wiki:VisOutput vis output] documents describes this system in detail, therefore no in-depth explanation is given here. [[BR]]
 
