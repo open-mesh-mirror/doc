@@ -1,4 +1,3 @@
-
 = Understand your B.A.T.M.A.N. Advanced network =
 
 {{{
@@ -15,18 +14,19 @@ __Note__: Although this document focusses on the "raw" debugfs interface you alw
 Each batman node maintains a list of all other nodes in the network and remembers in which direction to send the packets if data should be transmitted. The direction manifests itself in the form of the "best next neighbor" which basically is the next step towards the destination. You can retrieve batman's internal originator table by reading the originators file. The printed table begins with a header line with some more or less useful status data, followed by the data. Each line contains information regarding a specific originator: 
 
 {{{
-<originator> 
-   <TQ (transmit quality) value towards the originator> 
-      <next best hop> 
-         <outgoing iface> 
-            <alternative best next hops>
+<originator>
+   <last-seen> 
+      <TQ (transmit quality) value towards the originator> 
+         <next best hop> 
+            <outgoing iface> 
+               <alternative best next hops>
 }}}
 
 Sample output:
 {{{
 cat /sys/kernel/debug/batman_adv/bat0/originators
-Originator       (#/255)           Nexthop [outgoingIF]:   Potential nexthops ... [B.A.T.M.A.N. adv 0.3.0-alpha, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0)] 
-fe:fe:00:00:02:01  (133) fe:fe:00:00:02:01 [      eth0]: fe:fe:00:00:02:01 (133)
+Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ... [B.A.T.M.A.N. adv 0.3.0-alpha, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0)] 
+fe:fe:00:00:02:01  0.360s   (133) fe:fe:00:00:02:01 [      eth0]: fe:fe:00:00:02:01 (133)
 }}}
 
 '''translation tables'''
@@ -57,8 +57,21 @@ Each line contains the announced mac address and the mac of the batman node anno
 
 Traditional network debugging tools based on the ICMP protocol such as ping or traceroute won't be able to perform their duties as expected. All traffic in the mesh will be transported to the destination transparently, so that higher protocols do not notice the number of hops or the route. This is one of the main reasons why you can roam around without breaking your connection. To provide the same type of diagnosis tools, batman-adv has an own simplified version of ICMP integrated in the protocol. Via debugfs it is possible to inject IMCP packets which behave very similar to their layer3 counterpart. The icmp socket file /sys/kernel/debug/batman_adv/bat0/icmp_socket can't be used with cat/echo directly, since it expects binary data. The batctl tool offers a ping / traceroute like interface that make use of this icmp socket interface. Please read the batctl manpage or the README file to learn how to use it or to see examples.
 
+=== Logging ===
+
+Batman-adv offers extended logging to understand & debug the routing protocol internals. After you activated debugging at compile time (instructions can be found in [http://www.open-mesh.org/browser/trunk/batman-adv/README the README file]) and the appropriate log level has been set (read about the log levels [wiki:tweaking-batman-adv here]) you can retrieve the logs by simply reading the 'log' file:
+
+{{{
+cat /sys/kernel/debug/batman_adv/bat0/log
+[       418] Sending own packet (originator fe:fe:00:00:02:01, seqno 643, TQ 255, TTL 50, IDF off) on interface eth0 [fe:fe:00:00:02:01]
+[       418] Received BATMAN packet via NB: fe:fe:00:00:01:01, IF: eth0 [fe:fe:00:00:02:01] (from OG: fe:fe:00:00:02:01, via prev OG: fe:fe:00:00:02:01, seqno 643, tq 245, TTL 49, V 12, IDF 1)
+[       418] Drop packet: originator packet from myself (via neighbor)
+[..]
+}}}
+
+The log is a circular ring buffer and will continue writing messages as soon as they become available. 
+
 === Visualization ===
 
 Despite its decentral nature batman-adv offers an easy way to access topology information that can be visualized. The [wiki:VisAdv visualization document] covers the necessary steps in detail.
-
 }}}
