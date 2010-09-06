@@ -46,7 +46,7 @@ After having added interfaces to a mesh cloud, batman-adv automatically creates 
 
 {{{
 ls  /sys/class/net/bat0/mesh/
-aggregated_ogms   bonding   orig_interval   vis_mode
+aggregated_ogms   bonding   log_level   orig_interval   vis_mode
 }}}
 
 '''aggregate originator messages'''
@@ -69,6 +69,17 @@ When running the mesh over multiple !WiFi interfaces per node batman-adv is capa
 {{{
 cat /sys/class/net/bat0/mesh/bonding 
 disabled
+}}}
+
+'''log level'''
+
+Available since: batman-adv 2010.1.0 (if debugging has been compiled-in)
+
+The standard warning and error messages which help to setup & operate batman-adv are sent to the kernel log. However, batman-adv also offers extended logs that can be used to understand and/or debug the routing protocol. Keep in mind that it is necessary to activate debugging at compile time before you can use these facilities (consult [http://www.open-mesh.org/browser/trunk/batman-adv/README the README file] to learn how to set the compile option). Per default, the logging is deactivated (log level: 0), Enable log level '1' to log messages related to routing / flooding / broadcasting. Log level '2' only shows messages related to route or hna added / changed / deleted. Switch to log level '3' to get all log messages.
+
+{{{
+cat /sys/class/net/bat0/mesh/log_level 
+0
 }}}
 
 '''originator interval'''
