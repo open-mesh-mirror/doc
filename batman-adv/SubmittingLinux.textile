@@ -38,61 +38,25 @@ remote: Compressing objects: 100%25 (252781/252781), done.
 == get the newest patches from next ==
 
 {{{
-'-(%25)-(linux)> git checkout -b next --track origin/next
-Branch next set up to track remote branch next from origin.
-Switched to a new branch 'next'
-'-(%25)-(next)> git pull http://git.open-mesh.org/batman-adv.git next
-From http://git.open-mesh.org/batman-adv.git
- * branch            next      -> FETCH_HEAD
-Updating 1a0a622..9ec2d8f
-Fast-forward
- Makefile            |   34 +++++++++++++++++++++-------------
- Makefile.kbuild     |    2 +-
- aggregation.h       |    5 +++++
- bat_debugfs.h       |    6 +++---
- bat_sysfs.h         |    6 +++---
- bitarray.h          |    4 ++++
- compat.h            |    5 +++++
- hard-interface.h    |    5 +++++
- hash.h              |    8 +++++---
- icmp_socket.h       |    5 +++++
- main.c              |    2 +-
- main.h              |   13 +++++++++----
- originator.c        |    6 ++----
- originator.h        |    5 +++++
- packet.h            |    5 +++++
- ring_buffer.h       |    5 +++++
- routing.c           |    6 +++---
- routing.h           |    5 +++++
- send.c              |   14 +++++++-------
- send.h              |    5 +++++
- soft-interface.c    |    6 +++---
- soft-interface.h    |    7 ++++++-
- translation-table.c |    3 +--
- translation-table.h |    5 +++++
- types.h             |    6 +++---
- vis.c               |   14 +++++++-------
- vis.h               |    7 ++++++-
- 27 files changed, 135 insertions(+), 59 deletions(-)
-'-(%25)-(next)> git push origin next
-Counting objects: 80, done.
-Delta compression using up to 2 threads.
-Compressing objects: 100%25 (52/52), done.
-Writing objects: 100%25 (52/52), 8.32 KiB, done.
-Total 52 (delta 43), reused 0 (delta 0)
-Generating commit mails...done
-fatal: Not a valid object name master:drivers/staging/batman-adv/TODO
-To git+ssh://git@open-mesh.org/srv/git/ecsv/linux-merge.git
-   1a0a622..9ec2d8f  next -> next
+'-(%25)-(linux)> git remote update
+Fetching origin
+remote: Counting objects: 1387, done.
+remote: Compressing objects: 100%25 (211/211), done.
+remote: Total 823 (delta 651), reused 762 (delta 602)
+Receiving objects: 100%25 (823/823), 136.90 KiB | 254 KiB/s, done.
+Resolving deltas: 100%25 (651/651), completed with 228 local objects.
+From git+ssh://open-mesh.org/srv/git/ecsv/linux-merge
+   bfa88ea..151b6a5  master     -> origin/master
+   c9f7cbe..078eb6a  next       -> origin/next
 }}}
 
 == merge next into linux ==
 
 {{{
-'-(%25)-(next)> git checkout linux
+'-(%25)-(xyz)> git checkout linux
 Checking out files: 100%25 (32337/32337), done.
 Switched to branch 'linux'
-'-(%25)-(linux)> git merge -s subtree next
+'-(%25)-(linux)> git merge -s subtree origin/next
 Auto-merging drivers/staging/batman-adv/Makefile
 CONFLICT (content): Merge conflict in drivers/staging/batman-adv/Makefile
 CONFLICT (delete/modify): drivers/staging/batman-adv/Makefile.kbuild deleted in HEAD and modified in next. Version next of drivers/staging/batman-adv/Makefile.kbuild left in tree.
@@ -114,7 +78,7 @@ rm 'drivers/staging/batman-adv/compat.h'
 '-(%25)-(linux)> vim drivers/staging/batman-adv/Makefile
 '-(%25)-(linux)> git add drivers/staging/batman-adv/Makefile
 '-(%25)-(linux)> git commit
-[linux f2204f0] Merge branch 'next' into linux
+[linux f2204f0] Merge remote branch 'origin/next' into linux
 }}}
 
 == check for compat code ==
@@ -127,20 +91,20 @@ drivers/staging/batman-adv/CHANGELOG:* all kernel version compatibility function
 == check difference with next ==
 
 {{{
-git diff next: linux:drivers/staging/batman-adv/
+git diff origin/next: linux:drivers/staging/batman-adv/
 }}}
 
 Here you should see the
  * new added Kconfig, TODO, sysfs-class-net-batman-adv and sysfs-class-net-mesh
  * A special Makefile which only contains obj-m and a batman-adv-objs line
- * removed Makefile.kbuild, bat_printk.c and compat.h
+ * removed CHANGELOG, Makefile.kbuild, bat_printk.c and compat.h
  * removed references to compat.h from each file
  * README file with removed parts about how it can be compiled outside of the kernel, against which version it compiles and information how you compile the module outside of the kernel with debugging support
 
 == tag the current commit ==
 
 {{{
-'-(%25)-(linux)> git describe --tags
+'-(%25)-(linux)> git describe --tags --match "Greg*"
 GregKH-20100618-10-gf2204f0
 '-(%25)-(linux)> git tag GregKH-20100625
 '-(%25)-(linux)> git push origin GregKH-20100625
@@ -312,7 +276,7 @@ Usually I add "Staging: batman-adv: " right when checking the signed-off-by and 
 
 {{{
 '-(%25)-(patches)> cd ../linux-next
-'-(%25)-(master)> git fetch
+'-(%25)-(master)> git remote update
 '-(%25)-(master)> git reset --hard origin/master  
 HEAD is now at c3116ae Add linux-next specific files for 20100625
 '-(%25)-(master)> git checkout -b greg
