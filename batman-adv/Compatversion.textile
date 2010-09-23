@@ -12,7 +12,7 @@ Following changes were identified and documented. The changes are to the last CO
 ||    8    || trunk, v0.2, v0.2.1, v2010.0.0 || source field introduced in vis packets ||
 ||    9    || trunk                          || Gateway flags added to batman_packet, primaries_first_hop flag added for bonding, special icmp messages for route record added ||
 ||   10    || trunk                          || 32 bit sequence numbers added/changed, ttl were added to broadcasts ||
-||   11    || next, v2010.1.0*               || gateway flags were removed ||
+||   11    || next, v2010.1.0                || gateway flags were removed ||
 ||   12    || trunk                          || unicast fragmentation added, gateway flags were readded ||
 ||   13    || next, v2010.2.0*               || gateway flags were removed ||
 
