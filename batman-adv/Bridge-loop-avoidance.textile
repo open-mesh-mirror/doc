@@ -31,6 +31,8 @@ In practice this means the following:
 
 To keep things simple the node with the smallest mac address becomes the gateway to the LAN.
 
+[[Image(wiki:lan-loop-avoidance:lanloop3.png)]]
+
 
 === How to activate the lan loop avoidance ? ===
 
