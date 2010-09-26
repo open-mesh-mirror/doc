@@ -51,7 +51,7 @@ brctl addif br-lan eth0
 brctl addif br-lan bat0
 }}}
 
- * activate batman on the lan
+ * activate batman on the bridge
 {{{
 batctl if add br-lan
 }}}
