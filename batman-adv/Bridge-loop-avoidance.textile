@@ -8,11 +8,13 @@ This document explains how batman-adv is able to detect & avoid loops that are c
 
 === Where does the loop come from ? ===
 
-To better understand what creates the loop it is helpful to focus on a sample topology. The simplest case involves only 2 nodes that are connected via with wifi and ethernet at the same time. 
+To better understand what creates the loop it is helpful to focus on a sample topology. The simplest case involves only 2 nodes that are connected via with wifi and ethernet at the same time.
 
-Here, the wifi interfaces (W1 & W2) have a decent link quality and the LAN interfaces (L1 & L2) are bridged with the batX interface. Let's assume a broadcast packet from the LAN arrives at node1 which then floods the mesh with that new packet. Node2 receives the packet via the mesh and forwards it to the LAN where node1 receives it ...
+[[Image(wiki:lan-loop-avoidance:lanloop1.png)]] 
 
+Here, the wifi interfaces (W1 & W2) have a decent link quality and the LAN interfaces (L1 & L2) are bridged with the batX interface. Let's assume a simple ARP broadcast from the LAN arrives at node1 which then floods the mesh with that new packet. Node2 receives the packet via the mesh and forwards it to the LAN where node1 receives it ...
 
+[[Image(wiki:lan-loop-avoidance:lanloop2.png)]]
 
 If there wasn't the LAN connection this would not happen because batman-adv provides a flood/loop protection inside the batman header but as soon as the packet gets bridged this information is stripped from the packet. Every batman node connected to the LAN will think: Hey, it is a new packet!
 
