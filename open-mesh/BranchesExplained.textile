@@ -23,7 +23,7 @@ Maintainer: Marek Lindner, Simon Wunderlich
 
 In April 2007 batman advanced (residing in user space) came to light. It uses the routing algorithm of batman 0.3, but instead of sending UDP packets and manipulating routing tables, it provides a virtual network interface and transparently transports packets on its own. It builds a switch of all your nodes and enables you to run any Layer 3 (and Ethernet Layer 2) protocols, like IPv4, IPv6, DHCP, IPX.., on top of it.
 
-Batman advanced was first implemented in userspace as proof of concept.  However the virtual interface in userspace imposed a significant overhead for low-end wireless access points, so we decided to re-implement batman-advanced as kernel module which is now batman-adv-kernelland.
+Batman advanced was first implemented in userspace as proof of concept.  However the virtual interface in userspace imposed a significant overhead for low-end wireless access points, so we decided to re-implement batman-advanced as kernel module which is now batman-adv.
 
 === [wiki:batman-adv batctl (former battools)] ===
 Maintainer: Andreas Langer, Marek Lindner
