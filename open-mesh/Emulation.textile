@@ -15,7 +15,7 @@ My system consists of the following components:
 
 === OpenWRT ===
 
-OpenWRT has been used for this test. Some packages (tcpdump, netcat, batman-adv-kernelland...) were added and kernel commandline parameters were modified to make sure that qemu boots up properly:
+OpenWRT has been used for this test. Some packages (tcpdump, netcat, batman-adv...) were added and kernel commandline parameters were modified to make sure that qemu boots up properly:
 {{{
 noapic acpi=off
 }}}
