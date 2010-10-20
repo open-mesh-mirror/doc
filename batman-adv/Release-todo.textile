@@ -6,9 +6,9 @@ This page contains a checklist of things that need to be done for a release.
 
 [[Image(wiki:release-todo:release_scheduling.svg)]]
 
- * next branch is released as feature release 20_ _.a.0 after linux 2.6.x-rc3 is released
+ * next branch is released as feature release 20_ _.a.0 after linux 2.6.x-rc3 is tagged
  * maint branch is released on demand (for example after security issues)
- * a feature release __must__ be done before 2.6.x-rc6 to allow upcoming features merged after the release into next to enter the linux-next repository for 2.6.y before 2.6.x-rc7
+ * a feature release __must__ be done before 2.6.x-rc6. The time till 2.6.x-rc7 is needed to merge new features into next and submit them to the linux maintainers for 2.6.y
 
 
 '''Code'''
