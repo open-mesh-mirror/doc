@@ -1,31 +1,47 @@
 = Branches Explained =
-In 2007 many new branches were created and many numbers are floating around which caused much confusion. Here comes a brief summary why these branches and numbers were created, what they are good for and who is behind it:
 
-Whenever we mention Roman numerals (as II or III) we speak of B.A.T.M.A.N.'s routing algorithm version. It describes how the routing information are flooded and how they are handled to make the best routing decission possible.
+{{{
+#!div style="width: 46em; text-align: justify"
 
-Arabic numerals are used to distinguish the version of our implementation. Next to the routing algorithm many features and goodies are added to simplify the users life.
-
-Example: batman 0.2 uses the B.A.T.M.A.N. III routing algorithm.
-
-=== batman (0.3) ===
-Maintainer: Marek Lindner, Andreas Langer
-
-batman 0.3 is the latest stable implementation, using a new version of the algorithm known as the BATMAN IV/TQ algorithm. It features better handling for asymetric links and packet aggregation.
+The batman project that started with a basic protocol and a single userspace routing daemon, attracted quite some attention over the years which led to many new ideas and concepts meant to improve the project. These ideas often resulted in proof-of-concept "branches" of which some turned out to be impractical and disappeared but others came to stay. As a consequence different names were created to distinguish these concepts as the name "batman" became a broader term for everything around the project. This page aims to shed some light on all these different names to make it easier to understand the differences.
 
 
-=== [wiki:BMX bmx] ===
-Maintainer: Axel Neumann
+=== numbers, numbers ===
 
-This branch kept the 0.2 routing algorithm and tried to overcome its flaws by extending it. Under the hood it shares much code with 0.3 - not more or less.
+Whenever Roman numerals (as III or IV) are mentioned they refer to the version of B.A.T.M.A.N.'s routing algorithm and thus describe how the routing information are flooded and how they are handled to make the best routing decision possible.
 
-=== [wiki:batman-adv batman-advanced (aka batman-adv-kernelland)] ===
-Maintainer: Marek Lindner, Simon Wunderlich
+Arabic numerals are used to distinguish the implementation's version. Next to the routing algorithm many features and goodies are added to simplify the users life.
 
-In April 2007 batman advanced (residing in user space) came to light. It uses the routing algorithm of batman 0.3, but instead of sending UDP packets and manipulating routing tables, it provides a virtual network interface and transparently transports packets on its own. It builds a switch of all your nodes and enables you to run any Layer 3 (and Ethernet Layer 2) protocols, like IPv4, IPv6, DHCP, IPX.., on top of it.
+Example: batmand 0.2 uses the B.A.T.M.A.N. III routing algorithm.
 
-Batman advanced was first implemented in userspace as proof of concept.  However the virtual interface in userspace imposed a significant overhead for low-end wireless access points, so we decided to re-implement batman-advanced as kernel module which is now batman-adv.
 
-=== [wiki:batman-adv batctl (former battools)] ===
-Maintainer: Andreas Langer, Marek Lindner
 
-The batctl program contains a set of debugging tools which work together with our layer 2 implementation. You can use them to debug the mesh which proved to be difficult without them.
+=== batmand ===
+
+The batman userspace daemon has been the first implementation of the B.A.T.M.A.N. routing protocol. In the early stages of the project it allowed us to easily experiment with the design of the protocol but also to be used in real world deployments. It operates on layer 3 (IP layer) and offers everything you would expect from a standard routing daemon. Check our [wiki:UserDocs docs] section if you want to learn more about is capabilities.[[BR]]
+
+At the moment the batman daemon lacks development power (this branch is unmaintained since a while) as most developers moved on to one of the following branches. If you are interested to maintain the code base, feel free to contact us.
+
+
+=== bmx ===
+
+Initially, this branch was used to experiment with new approaches to overcome certain limitations of the routing algorithm. It started on the code base of batmand 0.3 but, over time, developed into a completely different direction, so that a re-integration became impossible. Nowadays, it is considered an independent project. [[BR]]
+
+Some documentation can be found [wiki:BMX here].
+
+
+=== batman-adv ===
+
+Early 2007 some developers started experimenting with the idea of routing on layer 2 (Ethernet layer) instead of layer 3. As only little knowledge about routing on this low level was available at that time, a first prototype was developed, operating in userspace in form of a daemon but already using layer 2. To differentiate from the layer 3 routing daemon the suffix "adv" (spoken: advanced) was chosen - the batman-adv userspace daemon was born. It uses the routing algorithm of batman 0.3, but instead of sending UDP packets and manipulating routing tables, it provides a virtual network interface and transparently transports packets on its own. 
+
+However, the virtual interface in userspace imposed a significant overhead for low-end wireless access points which led to a re-implementation as a kernel module. The batman-adv userspace daemon has been removed, so today "batman-adv" refers to the kernel module only. Currently, most of the development happens around batman-adv.
+
+To understand the implications of routing on layer 2, the [wiki:batman-adv batman-adv page] should be a good starting point. Further documentation is available in our [wiki:UserDocs docs] section.
+
+
+=== batctl ===
+
+As batman-adv operates in kernelland a handy tool to manage the module and debug the network became necessary. The batctl tool was created to fill that gap and, since then, has become a valuable companion of batman-adv.
+
+}}}
+
