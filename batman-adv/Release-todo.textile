@@ -1,3 +1,5 @@
+[[Image(wiki:release-todo:release_scheduling.svg)]]
+
 == Release Checklist ==
 
 This page contains a checklist of things that need to be done for a release.
@@ -5,41 +7,41 @@ This page contains a checklist of things that need to be done for a release.
 
 '''Code'''
 
- * [x] make sure all code contains the release version strings
- * [x] update copyright years (if needed)
- * [x] remove dead code (if any)
- * [x] check against kernel versions
- * [x] check that maint branch is merged in next
- * [x] check for open patches on the ml
- * [x] git tag release
+ * [ ] make sure all code contains the release version strings
+ * [ ] update copyright years (if needed)
+ * [ ] remove dead code (if any)
+ * [ ] check against kernel versions
+ * [ ] check that maint branch is merged in next
+ * [ ] check for open patches on the ml
+ * [ ] git tag release
 
 
 '''Documentation'''
 
- * [x] build changelog
- * [x] update README
- * [x] write release announcement
- * [x] update wiki documentation
+ * [ ] build changelog
+ * [ ] update README
+ * [ ] write release announcement
+ * [ ] update wiki documentation
 
 
 '''Release'''
 
- * [x] build package tar.gz and generate checksums
- * [x] move packages/checksums to stable/sources / create symlinks from releases
- * [x] update download links in the trac downloads page
- * [x] send release mail
- * [x] update IRC channel topic
+ * [ ] build package tar.gz and generate checksums
+ * [ ] move packages/checksums to stable/sources / create symlinks from releases
+ * [ ] update download links in the trac downloads page
+ * [ ] send release mail
+ * [ ] update IRC channel topic
 
 
 '''Distributions'''
 
- * [x] update openwrt package
- * [x] update debian package
+ * [ ] update openwrt package
+ * [ ] update debian package
 
 
 '''Aftershow'''
 
- * [x] Merge differences (README, CHANGELOG, ...) into master branch
- * [x] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
- * [x] Get patches for next release from master-rebase/batctl-rebase repository
- * [x] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels
+ * [ ] Merge differences (README, CHANGELOG, ...) into master branch
+ * [ ] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
+ * [ ] Get patches for next release from master-rebase/batctl-rebase repository
+ * [ ] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels
