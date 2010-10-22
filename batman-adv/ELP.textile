@@ -15,12 +15,20 @@ In the following 4 node scenario, the parameters are as follows:
  * NDP interval: ε (very fast)
 Now node R moves from B to A within the first second, so he'll arrive at B before it schedules its next OGM. Also this next OGM after this first second already uses the new link qualities due to the fast NDP interval.
 
-The following table holds the following information:
+'''t = 0:'''
+
+[[Image(NDP-mobile-loop-0s.png, 20%25)]]
+
+'''t = 1:'''
+
+[[Image(NDP-mobile-loop-1s.png, 20%25)]]
+
+After about 10 seconds average, there will be a loop with S sending packets to B, and B sending them back to S. This loop will last for about 3.3 seconds average.
+
+The following [[http://x-realis.dyndns.org/freifunk/scan.pdf table]] will hold some more in detail information with the times and events that will change BATMAN nodes topology knowledge. It holds the following information:
  * The times t in the table are the average times of arrival of an OGM at a node in seconds.
  * The table shows the TQ values towards R. The first six of these rows are from a nodes perspective, the last two ones the actual, real TQ values for the chosen path.
  * Time span with loops is marked with YES in the 'loops' row.
-
-[[http://x-realis.dyndns.org/freifunk/scan.pdf Table]]
 
 ''Result:'' In this quite typical and small-scale scenario, we already have an average time with looping packets of '''3.3''' seconds.
 
