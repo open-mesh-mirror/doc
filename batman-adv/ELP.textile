@@ -8,6 +8,21 @@ However, this also has three major drawbacks:
 
 The idea is to strip the link-quality calculations from the normal originator-messages and use a seperate packet type (basically hello-messages) and mechanism for this. Which would allow us to develop (convergence) optimization strategies for both jobs independently.
 
+== Looping problems ==
+However, there seems to be a looping problem? (or do sequence numbers or global TQ window fix this?)
+In the following 4 node scenario, the parameters are as follows:
+ * OGM interval: 1000
+ * NDP interval: ε (very fast)
+Now node R moves from B to A within the first second, so he'll arrive at B before it schedules its next OGM. Also this next OGM after this first second already uses the new link qualities due to the fast NDP interval.
+
+The following table holds the following information:
+ * The times t in the table are the average times of arrival of an OGM at a node in seconds.
+ * The table shows the TQ values towards R. The first six of these rows are from a nodes perspective, the last two ones the actual, real TQ values for the chosen path.
+ * Time span with loops is marked with YES in the 'loops' row.
+
+
+''Result:'' In this quite typical and small-scale scenario, we already have an average time with looping packets of '''3.3''' seconds.
+
 == packet type: BAT_PACKET_NDP ==
 {{{
 /* Neighbor discovery packet */
