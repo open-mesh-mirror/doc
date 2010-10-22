@@ -20,6 +20,7 @@ The following table holds the following information:
  * The table shows the TQ values towards R. The first six of these rows are from a nodes perspective, the last two ones the actual, real TQ values for the chosen path.
  * Time span with loops is marked with YES in the 'loops' row.
 
+[[http://x-realis.dyndns.org/freifunk/scan.pdf Table]]
 
 ''Result:'' In this quite typical and small-scale scenario, we already have an average time with looping packets of '''3.3''' seconds.
 
