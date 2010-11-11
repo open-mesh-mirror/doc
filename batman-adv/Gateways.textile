@@ -7,7 +7,7 @@ Often batman-adv is used to cover a bigger area with wireless access to the inte
 
 === The default route ===
 
-The subject of manipulating the IP (layer 3) default route with a layer 2 routing protocol has stirred up controversy between those who believe in a clean network layer separation and those who need this functionality. The former claim that a well-designed protocol should not mess with other layers but instead collaborates with tools made for higher layers. The later group has pointed out that the rule of network layer separation can be bent in real world applications and to improve usability. To achieve a compromise the gateway mechanism is disabled per default and only operates on top of DHCP (details below). Feel free to contact us in case you want to propose alternative ideas.
+The subject of manipulating the IP (layer 3) default route with a layer 2 routing protocol has stirred up controversy between those who believe in a clean network layer separation and those who need this functionality. The former claim that a well-designed protocol should not mess with other layers but instead collaborate with tools made for higher layers. The latter group has pointed out that the rule of network layer separation can be bent in real world applications and to improve usability. To achieve a compromise the gateway mechanism is disabled per default and only operates on top of DHCP (details below). Feel free to contact us in case you want to propose alternative ideas.
 
 
 === The concept ===
