@@ -1,28 +1,34 @@
 [[PageOutline]]
 
-= Emulation Setup =
 
-As a lot of people discussed about simulating mesh network protocols at [http://hackerspace.be/Wbm2009v2/ WBMv2], i'd like to share my qemu setup which i used to gather some data for batman-adv. The idea is to use [http://www.qemu.org/ QEMU] or [http://user-mode-linux.sourceforge.net/ UML] (instead of frameworks like they exist for [http://www.isi.edu/nsnam/ns/ NS-2]) to run an unmodified linux system with the unmodified source code. Besides BATMAN, you could evaluate any routing protocol.
+h1. Emulation Setup
 
-== Architecture ==
+
+As a lot of people discussed about simulating mesh network protocols at "WBMv2":http://hackerspace.be/Wbm2009v2/, i'd like to share my qemu setup which i used to gather some data for batman-adv. The idea is to use "QEMU":http://www.qemu.org/ or "UML":http://user-mode-linux.sourceforge.net/ (instead of frameworks like they exist for "NS-2":http://www.isi.edu/nsnam/ns/) to run an unmodified linux system with the unmodified source code. Besides BATMAN, you could evaluate any routing protocol.
+
+
+h2. Architecture
+
 
 My system consists of the following components:
 
- * [http://openwrt.org/ OpenWRT], kamikaze trunk version for x86 with minimal modifications (see below)
- * one (unmodified) [http://www.qemu.org/ QEMU] instance per host
- * one (modified, see below) [http://wiki.virtualsquare.org/index.php/VDE_Basic_Networking vde_switch] per instance. You need multiple instances to allow interconnection with wirefilter.
- * one (unmodified) [http://wiki.virtualsquare.org/index.php/VDE#wirefilter wirefilter] per link between hosts.
+* "OpenWRT":http://openwrt.org/, kamikaze trunk version for x86 with minimal modifications (see below)
+* one (unmodified) "QEMU":http://www.qemu.org/ instance per host
+* one (modified, see below) "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking per instance. You need multiple instances to allow interconnection with wirefilter.
+* one (unmodified) "wirefilter":http://wiki.virtualsquare.org/wiki/index.php/VDE#wirefilter per link between hosts.
 
-=== OpenWRT ===
 
-OpenWRT has been used for this test. Some packages (tcpdump, netcat, batman-adv...) were added and kernel commandline parameters were modified to make sure that qemu boots up properly:
-{{{
+h3. [[OpenWRT]]
+
+
+[[OpenWRT]] has been used for this test. Some packages (tcpdump, netcat, batman-adv...) were added and kernel commandline parameters were modified to make sure that qemu boots up properly:
+<pre>
 noapic acpi=off
-}}}
+</pre>
 
-Furthermore, to allow automatic network device setup on boot i'm using the following script which is located in /etc/rc.local ( ./files/etc/rc.local in OpenWRT build directory):
+Furthermore, to allow automatic network device setup on boot i'm using the following script which is located in /etc/rc.local ( ./files/etc/rc.local in [[OpenWRT]] build directory):
 
-{{{
+<pre>
 #!/bin/sh
 
 # kill default openwrt network config
@@ -49,25 +55,24 @@ echo "" > /proc/net/batman-adv/interfaces
 echo eth0 > /proc/net/batman-adv/interfaces
 echo 15 > /proc/net/batman-adv/log_level
 ifconfig bat0 inet 192.168.0.${NUM} up
-}}}
+</pre>
 
 The script above is far from perfect, it takes some minutes after the rc.local file is finally started. Suggestions welcome.
 
 A sample openwrt image can be found here: 
 
- * [http://packetmixer.de/openwrt-x86-jffs2-128k.image]
+* "h3. vde_switch
 
-=== vde_switch ===
 
-The main advantage of [http://wiki.virtualsquare.org/index.php/VDE_Basic_Networking vde_switch] over [http://user-mode-linux.sourceforge.net/old/networking.html uml_switch] is that any clients can be attached to this virtual switch: QEMU, UML, tap interfaces, virtual interconnections, and not just UML instances.
+The main advantage of [http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking vde_switch":http://packetmixer.de/openwrt-x86-jffs2-128k.image] over "uml_switch":http://user-mode-linux.sourceforge.net/old/networking.html is that any clients can be attached to this virtual switch: QEMU, UML, tap interfaces, virtual interconnections, and not just UML instances.
 
 If the vde_switches were just connected with wirefilter "patch cables" without modification, we would end up creating a broadcast domain and switch loops which we don't want: The goal is to allow the packets to travel only from one host to it's neighbor, not farther.
 
 To accomplish this, i've modified the vde_switch to have "coloured" ports. The idea is:
 
- * each port has a "colour" (an integer number)
- * packets are only passed from ports to others with DIFFERENT colours.
- * packets are dropped on outgoing ports if it has the SAME colour as the incoming port.
+* each port has a "colour" (an integer number)
+* packets are only passed from ports to others with DIFFERENT colours.
+* packets are dropped on outgoing ports if it has the SAME colour as the incoming port.
 
 In this concept, the host port can have colour 1 while the interconnection ports have to colour 0. This way, packets can only travel from the host to (all of) the interconnection ports, or from one interconnection port to the host port. However packets can not travel between the the interconnection ports, thus only allowing "one hop" connections and avoiding switch loops and shared broadcast domains. The concept is illustrated below:
 
@@ -75,35 +80,39 @@ In this concept, the host port can have colour 1 while the interconnection ports
 
 You can find the patch against vde2-2.2.3 (current latest stable version) to add these colour patches here:
 
- * [attachment:vde2-2.2.3_colour.patch vde2-2.2.3_colour.patch]
+* [attachment:vde2-2.2.3_colour.patch vde2-2.2.3_colour.patch]
 
-=== wirefilter ===
+
+h3. wirefilter
+
 
 wirefilter is a tool where you can simulate various link defects and limits: 
 
- * packet loss
- * burst loss
- * delay
- * duplicates
- * bandwidth
- * noise (damage to packets)
- * mtu
- * ...
+* packet loss
+* burst loss
+* delay
+* duplicates
+* bandwidth
+* noise (damage to packets)
+* mtu
+* ...
 
 However as the links are only set up bidirectional, interferences can unfortunately not be simulated with this system.
 
-== Scripts ==
+
+h2. Scripts
+
 
 The following script is used to start up all the qemus. It is a good idea to start the script inside a screen to have the QEMU instances in screen windows (which can be switch with ctrl+a n, ctrl+a p). Make sure that you have the correct sudo priveleges or alternatively run this script as root.
 
 The script does:
- * kill old instances
- * start up vde_switch instances for each host
- * start up QEMU hosts (one Ethernet tap device is created per instance to allow logging etc)
- * install the links between the hosts. The resulting topology will be similar to this:
+* kill old instances
+* start up vde_switch instances for each host
+* start up QEMU hosts (one Ethernet tap device is created per instance to allow logging etc)
+* install the links between the hosts. The resulting topology will be similar to this:
 [[Image(wiki:Emulation:mesh.gif)]]
 
-{{{
+<pre>
 #!/bin/sh
 QEMU=$(which qemu)
 VDESWITCH=~/src/vde2-2.2.3/src/vde_switch/vde_switch
@@ -152,11 +161,11 @@ wirefilter --daemon -v num7.ctl:num9.ctl -l 60
 wirefilter --daemon -v num2.ctl:num4.ctl -l 60
 wirefilter --daemon -v num4.ctl:num6.ctl -l 60
 wirefilter --daemon -v num6.ctl:num8.ctl -l 60
-}}}
+</pre>
 
 The script is using the switch configuration file "colourful.rc". It creates the ports (create more if your topology demands this) and sets the host port (port no. 1) colour to 1. Put the following text in this file:
 
-{{{
+<pre>
 port/setcolourful 1
 port/create 1
 port/create 2
@@ -164,15 +173,15 @@ port/create 3
 port/create 4
 port/create 5
 port/setcolour 1 1
-}}}
+</pre>
 
 
 To collect the batman logs from the individual hosts, you might want to use this script after all nodes have completed booting and started batman:
 
-{{{
+<pre>
 #!/bin/sh
 for i in $(seq 1 9)
 do
 	nc 192.168.${i}.2 2050 > num$i.log &
 done
-}}}
+</pre>
