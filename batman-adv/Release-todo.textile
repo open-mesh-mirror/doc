@@ -15,7 +15,7 @@ This page contains a checklist of things that need to be done for a release.
 
  * [x] make sure all code contains the release version strings
  * [x] update copyright years (if needed)
- * [ ] remove dead code (if any)
+ * [x] remove dead code (if any)
  * [x] check against kernel versions
  * [x] check that maint branch is merged in next
  * [x] check for open patches on the ml
@@ -36,18 +36,18 @@ This page contains a checklist of things that need to be done for a release.
  * [x] move packages/checksums to stable/sources / create symlinks from releases
  * [x] update download links in the trac downloads page
  * [ ] send release mail
- * [ ] update IRC channel topic
+ * [x] update IRC channel topic
 
 
 '''Distributions'''
 
  * [ ] update openwrt package
- * [ ] update debian package
+ * [x] update debian package
 
 
 '''Aftershow'''
 
- * [ ] Merge differences (README, CHANGELOG, ...) into master branch
- * [ ] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
+ * [x] Merge differences (README, CHANGELOG, ...) into master branch
+ * [x] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
  * [ ] Get patches for next release from master-rebase/batctl-rebase repository
  * [ ] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels
