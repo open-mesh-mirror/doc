@@ -41,7 +41,7 @@ This page contains a checklist of things that need to be done for a release.
 
 '''Distributions'''
 
- * [ ] update openwrt package
+ * [x] update openwrt package
  * [x] update debian package
 
 
