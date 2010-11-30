@@ -1,4 +1,3 @@
-
 = B.A.T.M.A.N. advanced =
 
 {{{
@@ -8,7 +7,7 @@ B.A.T.M.A.N. advanced (often referenced as batman-adv) is an implementation of t
 
 === Layer 2 ? ===
 
-Most other wireless routing protocol implementations (e.g. the batman daemon) operate on layer 3 which means they exchange routing information by sending UDP packets and bring their routing decision into effect by manipulating the kernel routing table. Batman-adv operates entirely on ISO/OSI Layer 2 - not only the routing information is transported using raw ethernet frames but also the data traffic is handled by batman-adv. It encapsulates and forwards all traffic until it reaches the destination, hence emulating a virtual network switch of all nodes participating. Therefore all nodes appear to be link local and unaware of the network's topology as well as unaffected by any network changes. 
+Most other wireless routing protocol implementations (e.g. the batman daemon) operate on layer 3 which means they exchange routing information by sending UDP packets and bring their routing decision into effect by manipulating the kernel routing table. Batman-adv operates entirely on ISO/OSI Layer 2 - not only the routing information is transported using raw ethernet frames but also the data traffic is handled by batman-adv. It encapsulates and forwards all traffic until it reaches the destination, hence emulating a virtual network switch of all nodes participating. Therefore all nodes appear to be link local and are unaware of the network's topology as well as unaffected by any network changes. 
 
 This design bears some interesting characteristics:
  * network-layer agnostic - you can run whatever you wish on top of batman-adv: IPv4, IPv6, DHCP, IPX ..
