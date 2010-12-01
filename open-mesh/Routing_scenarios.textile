@@ -1,0 +1,15 @@
+= Branches Explained =
+
+{{{
+#!div style="width: 46em; text-align: justify"
+
+This page contains a collection of routing scenarios which all routing protocol changes have to go through to estimate its impact.
+
+=== Convergence speed ===
+
+==== The circle ====
+
+In this scenario A and B have 2 possible paths to communicate with each other. One of the nodes that is part of the currently used path dies and the protocol needs to detect the unavailability of the path to switch as fast as possible to the other one.
+
+
+}}}
