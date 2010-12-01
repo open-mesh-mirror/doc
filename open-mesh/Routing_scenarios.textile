@@ -11,7 +11,16 @@ This page contains a collection of routing scenarios which all routing protocol 
 
 In this scenario A and B have 2 possible paths to communicate with each other. One of the nodes that is part of the currently used path dies and the protocol needs to detect the unavailability of the path to switch as fast as possible to the other one.
 
-[[Image(wiki:routing_scenarios:alternativ_path.png, 100%25)]]
+[[Image(wiki:routing_scenarios:alternative_path.png, 100%25)]]
+
+
+=== Mobility ===
+
+==== New neighbor ====
+
+While A is moving through the mesh the route between A and B shall recover as fast as possible.
+
+[[Image(wiki:routing_scenarios:new_neigh.png, 100%25)]]
 
 
 }}}
