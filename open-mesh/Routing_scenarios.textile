@@ -5,6 +5,14 @@
 
 This page contains a collection of routing scenarios which all routing protocol changes have to go through to estimate its impact.
 
+=== Best route ===
+
+==== Asymmetric link ====
+
+The nodes A, B and C are connected via asymmetric links - every node has a good transmit connection to one neighbor and a good receiving connection from the other. The protocol has to detect that the best neighbor towards any destination is the one it rarely gets routing information from.
+
+[[Image(wiki:routing_scenarios:asym_link.png, 100%25)]]
+
 === Convergence speed ===
 
 ==== The circle ====
