@@ -15,12 +15,16 @@ The nodes A, B and C are connected via asymmetric links - every node has a good 
 
 === Convergence speed ===
 
+A and B have 2 possible paths to communicate with each other. One of the nodes that is part of the currently used path dies and the protocol needs to detect the unavailability of the path to switch as fast as possible to the other one.
+
 ==== The circle ====
 
-In this scenario A and B have 2 possible paths to communicate with each other. One of the nodes that is part of the currently used path dies and the protocol needs to detect the unavailability of the path to switch as fast as possible to the other one.
+[[Image(wiki:routing_scenarios:circle.png, 100%25)]]
 
-[[Image(wiki:routing_scenarios:alternative_path.png, 100%25)]]
+==== The bottle ====
 
+
+[[Image(wiki:routing_scenarios:bottle.png, 100%25)]]
 
 === Mobility ===
 
