@@ -13,6 +13,12 @@ The nodes A, B and C are connected via asymmetric links - every node has a good 
 
 [[Image(wiki:routing_scenarios:asym_link.png, 70%25)]]
 
+==== Asymmetric path ====
+
+Node A and B are connected via multiple paths with different characteristics: a short asymmetric path and a long path without packet loss. The protocol should choose the long path for traffic traveling from A to B and the short path in the opposite direction.
+
+[[Image(wiki:routing_scenarios:asym_path.png, 100%25)]]
+
 === Convergence speed ===
 
 A and B have 2 possible paths to communicate with each other. One of the nodes that is part of the currently used path dies and the protocol needs to detect the unavailability of the path to switch as fast as possible to the other one.
