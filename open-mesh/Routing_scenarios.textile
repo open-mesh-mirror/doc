@@ -34,11 +34,14 @@ A and B have 2 possible paths to communicate with each other. One of the nodes t
 
 === Mobility ===
 
-==== New neighbor ====
-
 While A is moving through the mesh the route between A and B shall recover as fast as possible.
+
+==== New neighbor ====
 
 [[Image(wiki:routing_scenarios:new_neigh.png, 100%25)]]
 
+==== Mobile Node ====
+
+[[Image(wiki:routing_scenarios:mob_node.png, 100%25)]]
 
 }}}
