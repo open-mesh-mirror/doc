@@ -5,6 +5,7 @@ This page contains the links to previous news posts for archiving puposes.
 [[BR]]
 
 === 2010 ===
+ * '''19.Apr. 2010''' [wiki:2010-04-19-scheduled-server-downtime Scheduled server downtime]
  * '''22.Mar. 2010''' [wiki:2010-03-22-batman-adv-0-2-1-release Batman-adv 0.2.1 released]
  * '''02.Mar. 2010''' [wiki:2010-03-02-batman-at-wbmv3 B.A.T.M.A.N. at WBMv3]
 
