@@ -40,6 +40,10 @@ While A is moving through the mesh the route between A and B shall recover as fa
 
 [[Image(wiki:routing_scenarios:new_neigh.png, 100%25)]]
 
+==== New distant neighbor ====
+
+[[Image(wiki:routing_scenarios:new_dist_neigh.png, 100%25)]]
+
 ==== Mobile Node ====
 
 [[Image(wiki:routing_scenarios:mob_node.png, 100%25)]]
