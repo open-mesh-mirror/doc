@@ -23,11 +23,11 @@ The batman userspace daemon has been the first implementation of the B.A.T.M.A.N
 At the moment the batman daemon lacks development power (this branch is unmaintained since a while) as most developers moved on to one of the following branches. If you are interested to maintain the code base, feel free to contact us.
 
 
-=== bmx ===
+=== BMX ===
 
-Initially, this branch was used to experiment with new approaches to overcome certain limitations of the routing algorithm. It started on the code base of batmand 0.3 but, over time, developed into a completely different direction, so that a re-integration became impossible. Nowadays, it is considered an independent project. [[BR]]
+Initially, the BMX branch was used to implement and test new features and concepts to overcome certain limitations of the routing algorithm. It started on the code base of batmand 0.3 but, over time, developed into a completely different direction, so that a re-integration became impossible. 
+Today, it is an independent project hosted at http://www.bmx6.net. [[BR]]
 
-Some documentation can be found [wiki:BMX here].
 
 
 === batman-adv ===
