@@ -22,8 +22,8 @@ You can check out our SVN repository and the various batman branches
  * complete repository: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
  * upcoming B.A.T.M.A.N. 0.4.0 branch '''(maintainer needed!)''': [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/}}}''
  * Visualization server for B.A.T.M.A.N.: check out the complete repository, cd into vis (we're using symlinks here ...): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/}}}''
- * BMX-0.3.x branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/branches/bmx-0.3.x/}}}''
- * upcoming BMX-0.4 branch (unstable): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/bmx/}}}''
+ * BMX-0.3.x branch: [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/branches/bmx-0.3.x/}}}'' and http://git.bmx6.net/?p=bmxd.git;a=summary
+ * upcoming BMX6-0.1 branch (unstable): [[BR]]''{{{svn co http://downloads.open-mesh.org/svn/batman/trunk/bmx/}}}'' also check new website at http://www.bmx6.net
 
 
 === Git Repository Access ===
