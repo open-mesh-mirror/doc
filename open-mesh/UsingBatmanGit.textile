@@ -1,4 +1,3 @@
-
 = Using the batman git repositories =
 
 {{{
@@ -84,7 +83,7 @@ git cherry-pick $SHA1
 
 === Linux integration ===
 
-The linux-merge repository is a clone of Linus Torvalds developer branch. With the help of some git voodoo the next branch is merged with this branch in the folder: drivers/staging/batman-adv/. If you wish to merge the latest next branch changes into the linux branch you need to pull the newest changes in next from the batman-adv-git repository (we assume that you created the next branch in your local linux-merge repsitory as explained above):
+The linux-merge repository is a clone of Linus Torvalds developer branch. With the help of some git voodoo the next branch is merged with this branch in the folder: net/batman-adv/. If you wish to merge the latest next branch changes into the linux branch you need to pull the newest changes in next from the batman-adv-git repository (we assume that you created the next branch in your local linux-merge repsitory as explained above):
 }}}
 
 {{{
@@ -127,11 +126,11 @@ git push
 
 '''difference between next and linux-integration'''
 
-If you need to see the difference between the next branch and the batman-adv driver in drivers/staging/batman-adv/ you can run this command:
+If you need to see the difference between the next branch and the batman-adv driver in net/batman-adv/ you can run this command:
 }}}
 
 {{{
-git diff next: linux:drivers/staging/batman-adv/
+git diff next: linux:net/batman-adv/
 }}}
 
 {{{
@@ -148,15 +147,6 @@ git fetch $remote_name
 
 git checkout -b $new_branch_name $remote_name/master
 git merge -s ours --no-commit next
-git read-tree --prefix=drivers/staging/batman-adv/ -u next
+git read-tree --prefix=net/batman-adv/ -u next
 git commit -m "Add batman-adv to my new branch"
 }}}
-
-=== TODO ===
-
-We maintain a TODO file in the git repository that you can see here: 
-
-[[Include(http://git.open-mesh.org/TODO.html)]]
-
-If you are interested in helping us out you can grab one item, make a patch[[BR]]
-and send it to our [wiki:MailingList Mailinglist].
