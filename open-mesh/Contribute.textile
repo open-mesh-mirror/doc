@@ -1,4 +1,3 @@
-
 = How to Contribute =
 
 {{{
@@ -56,6 +55,11 @@ If you intend to send us patches, please consider the following guidelines:
  * The mail's subject will become the first line in the commit message. The body contains the longer patch description and the patch (unified format) itself. Please also specify the target branch (e.g. batctl, batman-adv, etc) at the beginning of the subject line. See the [http://www.open-mesh.org/timeline timeline] for more examples.
  * Add a "Signed-off-by: Your Name <!you@example.com>" line to the patch message to make the ownership of the patch clear.
  * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style closely (use checkpatch.pl to verify your patch) as well as the linux "how to submit patches" guidelines (search for the term !SubmitPatches to find thorough documentation).
+ * Patches must be against trunk and have an additional prefix before the actual project subdirectory. It must be possible to apply those patches on top of a checkout of the svn trunk directory using {{{patch -p1 -i $PATCH}}}
+ * Patches against the batman-adv master branch must be formated using
+{{{
+git format-patch -M --patience --src-prefix=a/batman-adv/ --dst-prefix=b/batman-adv/ $BASECOMMIT
+}}}
  * An exemplary good submission you may want to look at can be found here: https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2009-December/002033.html
 
 }}}
