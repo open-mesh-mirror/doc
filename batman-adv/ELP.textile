@@ -8,6 +8,14 @@ However, this also has three major drawbacks:
 
 The idea is to strip the link-quality calculations from the normal originator-messages and use a seperate packet type (basically hello-messages) and mechanism for this. Which would allow us to develop (convergence) optimization strategies for both jobs independently.
 
+== Definitions ==
+
+'''duplicate'''
+ * seqno X from originator Y
+
+'''out of order'''
+ * seqno X + 1 received before seqno X 
+
 == Looping problems ==
 However, there seems to be a looping problem? (or do sequence numbers or global TQ window fix this?)
 In the following 4 node scenario, the parameters are as follows:
