@@ -8,6 +8,10 @@ However, this also has three major drawbacks:
 
 The idea is to strip the link-quality calculations from the normal originator-messages and use a seperate packet type (basically hello-messages) and mechanism for this. Which would allow us to develop (convergence) optimization strategies for both jobs independently.
 
+== Pros of NDP == 
+ * 
+ * 
+
 == Definitions ==
 
 '''duplicate'''
