@@ -8,54 +8,54 @@ However, this also has three major drawbacks:
 
 The idea is to strip the link-quality calculations from the normal originator-messages and use a seperate packet type (basically hello-messages) and mechanism for this. Which would allow us to develop (convergence) optimization strategies for both jobs independently.
 
-== Pros of NDP == 
- * 
- * 
+== Pros of NDP ==
+ * Modularization of the code 
+ * The delta changes between two OGMs can be increased with an NDP interval faster than the OGM interval, resulting in a higher influence of a single OGM. 
+ * Seperate optimization strategies can be used for NDP and OGMs individually then. 
+ * The more sparse the network is (number of single hop neighbors significantly smaller than the number of all nodes), the faster the NDP interval can be chosen relative to the OGM interval, resulting in major convergence speed improvements in sparse networks. 
+  * As NDP messages are never rebroadcasted it also helps to reduce the overhead in dense networks (many single hop neighbors).  
+   * (Mobile nodes can chose a faster OGM + NDP interval then. It directly improves their transmit path - which was not the case with the OGM LQ measurements due to the echo-quality dependency, and indirectly improves their receive path a little, due to the asymmetric penalty) 
+   * Less overhead: no rebroadcasts
+   * More acuracy in case of medium/bad links
 
 == Definitions ==
 
-'''duplicate'''
- * seqno X from originator Y
+ * duplicate
+ * out of order
+ * LQ / RQ -> in percent
+ * bidrectional link
 
-'''out of order'''
- * seqno X + 1 received before seqno X 
+== Protocol Procedure ==
+every node broadcasts a NDP packet which contains a seqno and the list of neighbors it can hear.
+[Picture of NDP packet] (not struct definition)
 
-== Looping problems ==
-However, there seems to be a looping problem? (or do sequence numbers or global TQ window fix this?)
-In the following 4 node scenario, the parameters are as follows:
- * OGM interval: 1000
- * NDP interval: ε (very fast)
-Now node R moves from B to A within the first second, so he'll arrive at B before it schedules its next OGM. Also this next OGM after this first second already uses the new link qualities due to the fast NDP interval.
+=== Calculating Receive Quality ===
+ * Counting NDP packets
+ -> duplicate, abort proceding
 
-'''t = 0:'''
+=== Calculating Transmit Quality ===
+ * don't attach neighbor if RQ == 0
+ * 
+ 
+== Misc ==
 
-[[Image(NDP-mobile-loop-0s.png, 20%25)]]
+=== Route switching ===
+NDP does not directly change routing decisions on its own, to keep a clean separation between OGMs and NDP and to reduce side effects.
 
-'''t = 1:'''
+=== Interface down ===
+ * Clear LQ table
 
-[[Image(NDP-mobile-loop-1s.png, 20%25)]]
+== Extensions ==
+=== Threshholds ===
+=== EWMA ===
+=== Weighted Window ===
+=== Auto RQ window sliding ===
+=== Fixed minimum NDP packet size? ===
+=== Sometimes maximum packet size packets? ===
 
-After about 10 seconds average, there will be a loop with S sending packets to B, and B sending them back to S. This loop will last for about 3.3 seconds average.
 
-The following [[http://x-realis.dyndns.org/freifunk/scan.pdf table]] will hold some more in detail information with the times and events that will change BATMAN nodes topology knowledge. It holds the following information:
- * The times t in the table are the average times of arrival of an OGM at a node in seconds.
- * The table shows the TQ values towards R. The first six of these rows are from a nodes perspective, the last two ones the actual, real TQ values for the chosen path.
- * Time span with loops is marked with YES in the 'loops' row.
 
-''Result:'' In this quite typical and small-scale scenario, we already have an average time with looping packets of '''3.3''' seconds.
-
-== packet type: BAT_PACKET_NDP ==
-{{{
-/* Neighbor discovery packet */
-struct batman_packet_ndp {
-    uint8_t  packet_type;
-    uint8_t  version;  /* batman version field */
-    uint8_t  orig[6];
-    uint32_t seqno;
-    uint8_t  num_neighbors;
-    uint8_t  align[3];
-} __attribute__((packed));
-}}}
+----
 
 == RQ calculation ==
 In periodic intervals, customizable per interface, a ndp packet gets broadcasted on each interface. As it has been done with the normal OGMs before, the rq-value is being calculated with a sliding window and counting the number of received ndp packets, but on a per interface basis now.
@@ -90,3 +90,33 @@ Although this does not optimize the convergence speed, it could greatly increase
 P(|N| = |N^+^|) = ∏_{n ∈ N} TQ(B, iface, n) with N being the set of A's neighbors and N^+^ the set of neighbors successfully receiving the broadcast.
 
 A node could then either decide with a threshold, if it might not rebroadcast (rebroadcast, if P(|N| = |N^+^|) < 0.9 i.e.). Or more elegantly rebroadcast to a certain probability: 1 - P(|N| = |N^+^|) (or 1 - P(|N| = |N^+^|)^3^ for a more conservative decision i.e.).
+
+----
+
+
+==== Looping problems ====
+
+''Not an NDP issue, also present for current OGM mechanism - moved it to a different page later''
+
+However, there seems to be a looping problem? (or do sequence numbers or global TQ window fix this?)
+In the following 4 node scenario, the parameters are as follows:
+ * OGM interval: 1000
+ * NDP interval: ε (very fast)
+Now node R moves from B to A within the first second, so he'll arrive at B before it schedules its next OGM. Also this next OGM after this first second already uses the new link qualities due to the fast NDP interval.
+
+'''t = 0:'''
+
+[[Image(NDP-mobile-loop-0s.png, 20%25)]]
+
+'''t = 1:'''
+
+[[Image(NDP-mobile-loop-1s.png, 20%25)]]
+
+After about 10 seconds average, there will be a loop with S sending packets to B, and B sending them back to S. This loop will last for about 3.3 seconds average.
+
+The following [[http://x-realis.dyndns.org/freifunk/scan.pdf table]] will hold some more in detail information with the times and events that will change BATMAN nodes topology knowledge. It holds the following information:
+ * The times t in the table are the average times of arrival of an OGM at a node in seconds.
+ * The table shows the TQ values towards R. The first six of these rows are from a nodes perspective, the last two ones the actual, real TQ values for the chosen path.
+ * Time span with loops is marked with YES in the 'loops' row.
+
+''Result:'' In this quite typical and small-scale scenario, we already have an average time with looping packets of '''3.3''' seconds.
