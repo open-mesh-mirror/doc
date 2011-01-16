@@ -13,37 +13,53 @@ The idea is to strip the link-quality calculations from the normal originator-me
  * The delta changes between two OGMs can be increased with an NDP interval faster than the OGM interval, resulting in a higher influence of a single OGM. 
  * Seperate optimization strategies can be used for NDP and OGMs individually then. 
  * The more sparse the network is (number of single hop neighbors significantly smaller than the number of all nodes), the faster the NDP interval can be chosen relative to the OGM interval, resulting in major convergence speed improvements in sparse networks. 
-  * As NDP messages are never rebroadcasted it also helps to reduce the overhead in dense networks (many single hop neighbors).  
-   * (Mobile nodes can chose a faster OGM + NDP interval then. It directly improves their transmit path - which was not the case with the OGM LQ measurements due to the echo-quality dependency, and indirectly improves their receive path a little, due to the asymmetric penalty) 
-   * Less overhead: no rebroadcasts
-   * More acuracy in case of medium/bad links
+ * As NDP messages are never rebroadcasted it also helps to reduce the overhead in dense networks (many single hop neighbors).  
+ * (Mobile nodes can chose a faster OGM + NDP interval then. It directly improves their transmit path - which was not the case with the OGM LQ measurements due to the echo-quality dependency, and indirectly improves their receive path a little, due to the asymmetric penalty) 
+ * Less overhead: With the classic LQ measurements with NDP, the overhead increases in a squared way immediately due to the OGM rebroadcast mechanism. The squared factor in NDP has a very low base however, therefore it only applies at a large amount of neighbors. This means, that when having i.e. 10 neighbors (or probably even 50), you can select a 10 (or 50x) faster NDP interval compared to the LQ measurements with the classic OGMs.
+ * More accuracy in case of medium/bad links: The EQ mechanism "reduces" the effective window for the EQ measurements. So when having a TQ of 50%25, the effective EQ window will be only ~32 bits large instead of the 64, leading to many more TQ/RQ fluctuations on links with a low transmit quality.
 
 == Definitions ==
 
- * duplicate
+ * duplicate (match of (neigh_addr, seqno) tuple, not originator related)
  * out of order
  * LQ / RQ -> in percent
  * bidrectional link
 
 == Protocol Procedure ==
-every node broadcasts a NDP packet which contains a seqno and the list of neighbors it can hear.
+Every node broadcasts an NDP packet which contains a seqno and the list of neighbors it can hear. This is done periodically after each NDP interval + jitter.
 [Picture of NDP packet] (not struct definition)
 
 === Calculating Receive Quality ===
- * Counting NDP packets
- -> duplicate, abort proceding
+The first step for a node is to calculate its receive quality from every neighbor. Therefore it:
+ * checks whether the NDP packet is a duplicate. If so, abort processing of NDP packet
+ * checks whether the NDP packet is too old? (TODO: Simon, add/describe the protected window mechanism)
+ * Inserts the seqno it receives in a window (default size: 64), if it is newer than XXX and moves the window
+   accordingly. Or inserts the seqno without moving the window if it is in range of the current window
+ * Calculates the new percentage of received packets in the window and memorizes this value for the according neighbor.
+
 
 === Calculating Transmit Quality ===
- * don't attach neighbor if RQ == 0
- * 
- 
-== Misc ==
+However, we are not directly interested in the local RQ value, but the local TQ instead as the routing protocol is usually
+interested in calculating the best transmission and not reception path. Therefore the calculated local RQ towards a neighbor
+needs to be published to this neighbor as it is the local TQ from this neighbor's point of view. That is where the
+neighbor entries attached to the own NDP packets are used for, in the following procedure:
+ * Do not attach a neighbor entry if the RQ is 0. If so, skip the following steps.
+ * Check if there is enough space for another neighbor entry in the packet left. Otherwise abort and skip the following steps.
+ * Attach the (neigh_if_mac, local RQ) tuple (4 Byte aligned) to the NDP packet.
+ * Increase the counter for the number of neighbor entries in the NDP packet header.
+The neighbor receiving an NDP packet then has to go through the following steps to obtain its new TQ information:
+ * Traverse the NDP packet's attached neighbor entries.
+ * If an entry matches the mac address of the receiving interface and if the seqno is a new one,
+   then update/memorize the local TQ towards that neighbor with this value.
+   (TODO: does it make sense to not only check if the incoming interface mac matches, but also for other interfaces? Which would be
+    the case if a node uses two interfaces sharing somehow the same broadcast domain... rare, but possible... example: two wifi interfaces,
+    using channels 1 and 3)
+ * If a match has been found, do not further procede the traversal of neighbor entries
 
-=== Route switching ===
-NDP does not directly change routing decisions on its own, to keep a clean separation between OGMs and NDP and to reduce side effects.
-
-=== Interface down ===
- * Clear LQ table
+== Misc Notes ==
+ * NDP has no knowledge about originator addresses. It especially does not treat NDP packets of the same originator but different interfaces in any way special. For determining link qualities it is sufficient to treat NDP packets of the same originator over different interfaces as separate neighbors.
+ * When an interface is being set down, the LQ table is cleared
+ * Route switching: NDP does not directly change routing decisions on its own, to keep a clean separation between OGMs and NDP and to reduce side effects.
 
 == Extensions ==
 === Threshholds ===
