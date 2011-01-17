@@ -1,22 +1,29 @@
-= Neighbourhood Discovery Protocol =
-B.A.T.M.A.N., no matter if batmand or batman-adv are not relying on a specific set of drivers to determine the link qualities towards neighbors. Instead, it counts the neighbors' originator messages and the own originator messages rebroadcasted its neighbors to calculate the tx-quality. So basically, OGMs are doing two jobs, calculating the link qualities and spreading topology information through the whole mesh.
+= Neighbourhood Discovery Protocol (NDP) =
 
-However, this also has three major drawbacks: 
- * You usually should set the originator interval to a value suiting the most mobile node on all nodes, having a homogeneous interval. This means, that even if you have a very static neighbourhood with lots of nodes (so resulting to a lot of rebroadcasts, which can be the case on VPN- or ethernet interfaces used by batman-adv), you can't lower the interval for that one because very mobile nodes far away might than not be able to reach you anymore.
- * A OGM should not be rebroadcasted by the same node more than once because that could falsify the link-quality calculations. However you might want to do this to speed the convergence at more distant and/or weaker links.
- * It might be generally desireable to use quite fast probing intervals for link-quality calculations, as the local link can change quite quickly, but not propagating at the same speed yet because it might still be changing. For instance, a link could go down from 100%25 to 50%25. batman would go down and propagate this step by step, linearly within ~30 seconds (at default intervals), For instance, detecting the break-down from 100%25 to 50%25 might better be noticed in less than a second, and propagating changes still every second. However such an interval-split is not possible with OGMs having two purposes right now.
+{{{
+#!div style="width: 46em; text-align: justify"
 
-The idea is to strip the link-quality calculations from the normal originator-messages and use a seperate packet type (basically hello-messages) and mechanism for this. Which would allow us to develop (convergence) optimization strategies for both jobs independently.
+The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link qualities information through the whole mesh. This procedure is summarized on the [wiki:BATMANConcept B.A.T.M.A.N. concept page] and explained in details in [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 the RFC draft] published in 2008.
+
+This approach was chosen for its simplicity during the protocol design phase and the implementation. However, it also bears some drawbacks: 
+ * Wireless interfaces usually come with some packet loss, therefore a higher broadcast rate is desirable to allow a fast reaction on flaky connections. Other interfaces of the same host might be connected to Ethernet LANs / VPNs / etc which rarely exhibit packet loss would benefit from a lower broadcast rate to reduce overhead.
+ * It generally is more desirable to detect local link quality changes at a faster rate than propagating all these changes through the entire mesh (the far end of the mesh does not need to care about local link quality changes that much). Other optimizations strategies, like reducing overhead, might be possible if OGMs weren't used for all tasks in the mesh at the same time. 
+
+As a result detecting local link qualities shall be handled by an independent message type, NDP, whereas the OGM message type remains responsible for flooding the mesh with these link quality information.
+
 
 == Pros of NDP ==
  * Modularization of the code 
  * The delta changes between two OGMs can be increased with an NDP interval faster than the OGM interval, resulting in a higher influence of a single OGM. 
- * Seperate optimization strategies can be used for NDP and OGMs individually then. 
+ * Separate optimization strategies can be used for NDP and OGMs individually then. 
  * The more sparse the network is (number of single hop neighbors significantly smaller than the number of all nodes), the faster the NDP interval can be chosen relative to the OGM interval, resulting in major convergence speed improvements in sparse networks. 
  * As NDP messages are never rebroadcasted it also helps to reduce the overhead in dense networks (many single hop neighbors).  
  * (Mobile nodes can chose a faster OGM + NDP interval then. It directly improves their transmit path - which was not the case with the OGM LQ measurements due to the echo-quality dependency, and indirectly improves their receive path a little, due to the asymmetric penalty) 
  * Less overhead: With the classic LQ measurements with NDP, the overhead increases in a squared way immediately due to the OGM rebroadcast mechanism. The squared factor in NDP has a very low base however, therefore it only applies at a large amount of neighbors. This means, that when having i.e. 10 neighbors (or probably even 50), you can select a 10 (or 50x) faster NDP interval compared to the LQ measurements with the classic OGMs.
  * More accuracy in case of medium/bad links: The EQ mechanism "reduces" the effective window for the EQ measurements. So when having a TQ of 50%25, the effective EQ window will be only ~32 bits large instead of the 64, leading to many more TQ/RQ fluctuations on links with a low transmit quality.
+
+ * You usually should set the originator interval to a value suiting the most mobile node on all nodes, having a homogeneous interval. This means, that even if you have a very static neighbourhood with lots of nodes (so resulting to a lot of rebroadcasts, which can be the case on VPN- or ethernet interfaces used by batman-adv), you can't lower the interval for that one because very mobile nodes far away might than not be able to reach you anymore.
+ * A OGM should not be rebroadcasted by the same node more than once because that could falsify the link-quality calculations. However you might want to do this to speed the convergence at more distant and/or weaker links.
 
 == Definitions ==
 
@@ -136,3 +143,4 @@ The following [[http://x-realis.dyndns.org/freifunk/scan.pdf table]] will hold s
  * Time span with loops is marked with YES in the 'loops' row.
 
 ''Result:'' In this quite typical and small-scale scenario, we already have an average time with looping packets of '''3.3''' seconds.
+}}}
