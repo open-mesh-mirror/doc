@@ -1,4 +1,4 @@
-= Neighbourhood Discovery Protocol (NDP) =
+= Neighborhood Discovery Protocol (NDP) =
 
 {{{
 #!div style="width: 46em; text-align: justify"
@@ -22,23 +22,64 @@ As a result detecting local link qualities shall be handled by an independent me
  * Less overhead: With the classic LQ measurements with NDP, the overhead increases in a squared way immediately due to the OGM rebroadcast mechanism. The squared factor in NDP has a very low base however, therefore it only applies at a large amount of neighbors. This means, that when having i.e. 10 neighbors (or probably even 50), you can select a 10 (or 50x) faster NDP interval compared to the LQ measurements with the classic OGMs.
  * More accuracy in case of medium/bad links: The EQ mechanism "reduces" the effective window for the EQ measurements. So when having a TQ of 50%25, the effective EQ window will be only ~32 bits large instead of the 64, leading to many more TQ/RQ fluctuations on links with a low transmit quality.
 
- * You usually should set the originator interval to a value suiting the most mobile node on all nodes, having a homogeneous interval. This means, that even if you have a very static neighbourhood with lots of nodes (so resulting to a lot of rebroadcasts, which can be the case on VPN- or ethernet interfaces used by batman-adv), you can't lower the interval for that one because very mobile nodes far away might than not be able to reach you anymore.
+ * You usually should set the originator interval to a value suiting the most mobile node on all nodes, having a homogeneous interval. This means, that even if you have a very static neighborhood with lots of nodes (so resulting to a lot of rebroadcasts, which can be the case on VPN- or ethernet interfaces used by batman-adv), you can't lower the interval for that one because very mobile nodes far away might than not be able to reach you anymore.
  * A OGM should not be rebroadcasted by the same node more than once because that could falsify the link-quality calculations. However you might want to do this to speed the convergence at more distant and/or weaker links.
 
-== Definitions ==
+=== Definitions ===
 
  * duplicate (match of (neigh_addr, seqno) tuple, not originator related)
  * out of order
  * LQ / RQ -> in percent
  * bidrectional link
 
-== Protocol Procedure ==
-Every node broadcasts an NDP packet which contains a seqno and the list of neighbors it can hear. This is done periodically after each NDP interval + jitter.
-[Picture of NDP packet] (not struct definition)
+=== Protocol Procedure ===
+
+==== Broadcasting own Neighborhood Discovery Messages (NDP) ====
+
+Each node periodically (NDP interval) generates and broadcast NDP messages for each interface B.A.T.M.A.N. is running on. A jitter may be applied to avoid collisions. The NDP message must be initialized as follows:
+
+ * Packet type: Initialize this field with the NDP packet type.
+ * Version: Set your internal compatibility version.
+ * Originator Address: Set this field to the MAC address of this B.A.T.M.A.N. interface.
+ * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
+ * Number of neighbors: The number of neighbors that are announced with this message.
+
+If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should append a neighbor message for each neighbor to be announced and fill the "number of neighbors" field accordingly.
+
+The Neighborhood Discovery Protocol (NDP) Format:
+{{{
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Packet type |    Version      |      Originator Address       |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                      Originator Address                       |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Num neigh   |                  Alignment                      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+}}}
+
+The Neighborhood Format:
+
+{{{
+???
+}}}
+
+==== Receiving Neighborhood Discovery Messages (NDP) ====
+
+Upon receiving a NDP packet a Node must perform the following preliminary checks before the packet is further processed:
+
+ * If the NDP contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
+ * why orig field if we have sender address ??
+ * If the sender address of the NDP belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this NDP message originated from this node.
+ * what happens if the NDP message from interface1 is received on interface2 ???
+ * If the NDP message is a duplicate the message must be silently dropped.
+ * out of order to be dropped ?
+
+
 
 === Calculating Receive Quality ===
 The first step for a node is to calculate its receive quality from every neighbor. Therefore it:
- * checks whether the NDP packet is a duplicate. If so, abort processing of NDP packet
  * checks whether the NDP packet is too old? (TODO: Simon, add/describe the protected window mechanism)
  * Inserts the seqno it receives in a window (default size: 64), if it is newer than XXX and moves the window
    accordingly. Or inserts the seqno without moving the window if it is in range of the current window
