@@ -3,27 +3,13 @@
 {{{
 #!div style="width: 46em; text-align: justify"
 
-The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link qualities information through the whole mesh. This procedure is summarized on the [wiki:BATMANConcept B.A.T.M.A.N. concept page] and explained in details in [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 the RFC draft] published in 2008.
+The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [wiki:BATMANConcept B.A.T.M.A.N. concept page] and explained in details in [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 the RFC draft] published in 2008.
 
 This approach was chosen for its simplicity during the protocol design phase and the implementation. However, it also bears some drawbacks: 
  * Wireless interfaces usually come with some packet loss, therefore a higher broadcast rate is desirable to allow a fast reaction on flaky connections. Other interfaces of the same host might be connected to Ethernet LANs / VPNs / etc which rarely exhibit packet loss would benefit from a lower broadcast rate to reduce overhead.
  * It generally is more desirable to detect local link quality changes at a faster rate than propagating all these changes through the entire mesh (the far end of the mesh does not need to care about local link quality changes that much). Other optimizations strategies, like reducing overhead, might be possible if OGMs weren't used for all tasks in the mesh at the same time. 
 
 As a result detecting local link qualities shall be handled by an independent message type, NDP, whereas the OGM message type remains responsible for flooding the mesh with these link quality information.
-
-
-== Pros of NDP ==
- * Modularization of the code 
- * The delta changes between two OGMs can be increased with an NDP interval faster than the OGM interval, resulting in a higher influence of a single OGM. 
- * Separate optimization strategies can be used for NDP and OGMs individually then. 
- * The more sparse the network is (number of single hop neighbors significantly smaller than the number of all nodes), the faster the NDP interval can be chosen relative to the OGM interval, resulting in major convergence speed improvements in sparse networks. 
- * As NDP messages are never rebroadcasted it also helps to reduce the overhead in dense networks (many single hop neighbors).  
- * (Mobile nodes can chose a faster OGM + NDP interval then. It directly improves their transmit path - which was not the case with the OGM LQ measurements due to the echo-quality dependency, and indirectly improves their receive path a little, due to the asymmetric penalty) 
- * Less overhead: With the classic LQ measurements with NDP, the overhead increases in a squared way immediately due to the OGM rebroadcast mechanism. The squared factor in NDP has a very low base however, therefore it only applies at a large amount of neighbors. This means, that when having i.e. 10 neighbors (or probably even 50), you can select a 10 (or 50x) faster NDP interval compared to the LQ measurements with the classic OGMs.
- * More accuracy in case of medium/bad links: The EQ mechanism "reduces" the effective window for the EQ measurements. So when having a TQ of 50%25, the effective EQ window will be only ~32 bits large instead of the 64, leading to many more TQ/RQ fluctuations on links with a low transmit quality.
-
- * You usually should set the originator interval to a value suiting the most mobile node on all nodes, having a homogeneous interval. This means, that even if you have a very static neighborhood with lots of nodes (so resulting to a lot of rebroadcasts, which can be the case on VPN- or ethernet interfaces used by batman-adv), you can't lower the interval for that one because very mobile nodes far away might than not be able to reach you anymore.
- * A OGM should not be rebroadcasted by the same node more than once because that could falsify the link-quality calculations. However you might want to do this to speed the convergence at more distant and/or weaker links.
 
 === Definitions ===
 
@@ -40,7 +26,7 @@ Each node periodically (NDP interval) generates and broadcast NDP messages for e
 
  * Packet type: Initialize this field with the NDP packet type.
  * Version: Set your internal compatibility version.
- * Originator Address: Set this field to the MAC address of this B.A.T.M.A.N. interface.
+ * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
  * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
  * Number of neighbors: The number of neighbors that are announced with this message.
 
@@ -51,11 +37,13 @@ The Neighborhood Discovery Protocol (NDP) Format:
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Packet type |    Version      |      Originator Address       |
+ | Packet Type |    Version      |      Originator Address       |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                      Originator Address                       |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Num neigh   |                  Alignment                      |
+ |                       Sequence Number                         |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Num Neigh   |                  Alignment                      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 }}}
 
@@ -67,16 +55,12 @@ The Neighborhood Format:
 
 ==== Receiving Neighborhood Discovery Messages (NDP) ====
 
-Upon receiving a NDP packet a Node must perform the following preliminary checks before the packet is further processed:
+Upon receiving a NDP packet a node must perform the following preliminary checks before the packet is further processed:
 
  * If the NDP contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
- * why orig field if we have sender address ??
- * If the sender address of the NDP belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this NDP message originated from this node.
- * what happens if the NDP message from interface1 is received on interface2 ???
- * If the NDP message is a duplicate the message must be silently dropped.
- * out of order to be dropped ?
-
-
+ * If the sender address of the NDP message belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this NDP message originated from this node.
+ * If the sender address of the NDP message is a broadcast address of an own B.A.T.M.A.N. interface the message must be silently dropped.
+ * If the NDP message is a duplicate or does not contain a newer sequence number (out-of-order) the message must be silently dropped.
 
 === Calculating Receive Quality ===
 The first step for a node is to calculate its receive quality from every neighbor. Therefore it:
@@ -120,6 +104,20 @@ The neighbor receiving an NDP packet then has to go through the following steps 
 
 
 ----
+
+
+== examples of NDP advantages ==
+ * Modularization of the code 
+ * The delta changes between two OGMs can be increased with an NDP interval faster than the OGM interval, resulting in a higher influence of a single OGM. 
+ * Separate optimization strategies can be used for NDP and OGMs individually then. 
+ * The more sparse the network is (number of single hop neighbors significantly smaller than the number of all nodes), the faster the NDP interval can be chosen relative to the OGM interval, resulting in major convergence speed improvements in sparse networks. 
+ * As NDP messages are never rebroadcasted it also helps to reduce the overhead in dense networks (many single hop neighbors).  
+ * (Mobile nodes can chose a faster OGM + NDP interval then. It directly improves their transmit path - which was not the case with the OGM LQ measurements due to the echo-quality dependency, and indirectly improves their receive path a little, due to the asymmetric penalty) 
+ * Less overhead: With the classic LQ measurements with NDP, the overhead increases in a squared way immediately due to the OGM rebroadcast mechanism. The squared factor in NDP has a very low base however, therefore it only applies at a large amount of neighbors. This means, that when having i.e. 10 neighbors (or probably even 50), you can select a 10 (or 50x) faster NDP interval compared to the LQ measurements with the classic OGMs.
+ * More accuracy in case of medium/bad links: The EQ mechanism "reduces" the effective window for the EQ measurements. So when having a TQ of 50%25, the effective EQ window will be only ~32 bits large instead of the 64, leading to many more TQ/RQ fluctuations on links with a low transmit quality.
+
+ * You usually should set the originator interval to a value suiting the most mobile node on all nodes, having a homogeneous interval. This means, that even if you have a very static neighborhood with lots of nodes (so resulting to a lot of rebroadcasts, which can be the case on VPN- or ethernet interfaces used by batman-adv), you can't lower the interval for that one because very mobile nodes far away might than not be able to reach you anymore.
+ * A OGM should not be rebroadcasted by the same node more than once because that could falsify the link-quality calculations. However you might want to do this to speed the convergence at more distant and/or weaker links.
 
 == RQ calculation ==
 In periodic intervals, customizable per interface, a ndp packet gets broadcasted on each interface. As it has been done with the normal OGMs before, the rq-value is being calculated with a sliding window and counting the number of received ndp packets, but on a per interface basis now.
