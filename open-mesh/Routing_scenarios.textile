@@ -1,55 +1,79 @@
-= Routing scenarios =
 
-{{{
-#!div style="width: 46em; text-align: justify"
+h1. Routing scenarios
+
+
+<pre>
+<code class="div">
 
 This page contains a collection of routing scenarios which all routing protocol changes have to go through to estimate its impact.
 
-=== Best route ===
 
-==== Asymmetric link ====
+h3. Best route
+
+
+
+h4. Asymmetric link
+
 
 The nodes A, B and C are connected via asymmetric links - every node has a good transmit connection to one neighbor and a good receiving connection from the other. The protocol has to detect that the best neighbor towards any destination is the one it rarely gets routing information from.
 
 [[Image(wiki:routing_scenarios:asym_link.png, 70%25)]]
 
-==== Asymmetric path ====
+
+h4. Asymmetric path
+
 
 Node A and B are connected via multiple paths with different characteristics: a short asymmetric path and a long path without packet loss. The protocol should choose the long path for traffic traveling from A to B and the short path in the opposite direction.
 
 [[Image(wiki:routing_scenarios:asym_path.png, 100%25)]]
 
-=== Convergence speed ===
+
+h3. Convergence speed
+
 
 A and B have 2 possible paths to communicate with each other. One of the nodes that is part of the currently used path dies or one of the links breaks down and the protocol needs to detect the unavailability of the path to switch as fast as possible to the other one.
 
-==== The triangle ====
 
-[[Image(wiki:routing_scenarios:triangle.png, 100%25)]]
+h4. The triangle
 
-==== The circle ====
+
+[[Image(wiki:routing_scenarios:triangle.png, 70%25)]]
+
+
+h4. The circle
+
 
 [[Image(wiki:routing_scenarios:circle.png, 100%25)]]
 
-==== The bottle ====
+
+h4. The bottle
+
 
 
 [[Image(wiki:routing_scenarios:bottle.png, 100%25)]]
 
-=== Mobility ===
+
+h3. Mobility
+
 
 While A is moving through the mesh the route between A and B shall recover as fast as possible.
 
-==== New neighbor ====
+
+h4. New neighbor
+
 
 [[Image(wiki:routing_scenarios:new_neigh.png, 100%25)]]
 
-==== New distant neighbor ====
+
+h4. New distant neighbor
+
 
 [[Image(wiki:routing_scenarios:new_dist_neigh.png, 100%25)]]
 
-==== Mobile Node ====
+
+h4. Mobile Node
+
 
 [[Image(wiki:routing_scenarios:mob_node.png, 100%25)]]
 
-}}}
+</code></pre>
