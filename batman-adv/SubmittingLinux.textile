@@ -274,14 +274,14 @@ Applying: batman-adv: Add include guards to all header files
 == check if all patches build again with linux next ==
 
 {{{
-'-(%25)-(greg)> make
+'-(%25)-(davem)> make
 ....
 }}}
 
 == format patches on top of linux-next master ==
 
 {{{
-'-(%25)-(greg)> git format-patch -s --patience -M master
+'-(%25)-(davem)> git format-patch -s --patience -M master
 0001-batman-adv-Convert-names-from-Java-to-C-styl.patch
 0002-batman-adv-Avoid-rounding-issues-for-local-h.patch
 0003-batman-adv-Lower-resolution-for-timeouts.patch
@@ -289,7 +289,7 @@ Applying: batman-adv: Add include guards to all header files
 0005-batman-adv-Add-sysfs-abi-documentation-about.patch
 0006-batman-adv-adapting-source-version-to-revise.patch
 0007-batman-adv-Add-include-guards-to-all-header-.patch
-'-(%25)-(greg)> ./scripts/checkpatch.pl --strict 00*.patch
+'-(%25)-(davem)> ./scripts/checkpatch.pl --strict 00*.patch
 total: 0 errors, 0 warnings, 0 checks, 135 lines checked
 
 0001-batman-adv-Convert-names-from-Java-to-C-styl.patch has no obvious style problems and is ready for submission.
@@ -316,12 +316,10 @@ total: 0 errors, 0 warnings, 0 checks, 239 lines checked
 == submit patches ==
 
 {{{
-'-(%25)-(greg)> ../linux-merge/
+'-(%25)-(davem)> ../linux-merge/
 '-(%25)-(patches)> git checkout batman-adv/next
-'-(%25)-(batman-adv/next)> git diff merge/master -- net/batman-adv/
 '-(%25)-(batman-adv/next)> git rev-parse batman-adv/next
 12513b76a021e5b41a9d5d5981da75dfd6480890
-'-(%25)-(batman-adv/next)> git push
 '-(%25)-(batman-adv/next)> git am -3 00*.patch
 Applying: batman-adv: Convert names from Java to C style
 Applying: batman-adv: Avoid rounding issues for local hna timeout
@@ -330,6 +328,8 @@ Applying: batman-adv: replace manual calculation by msecs_to_jiffies() for bette
 Applying: batman-adv: Add sysfs abi documentation about bonding
 Applying: batman-adv: adapting source version to revised versioning scheme
 Applying: batman-adv: Add include guards to all header files
+'-(%25)-(batman-adv/next)> git diff merge/master -- net/batman-adv/
+'-(%25)-(batman-adv/next)> git push
 '-(%25)-(batman-adv/next)> git request-pull 12513b76a021e5b41a9d5d5981da75dfd6480890 git://git.open-mesh.org/ecsv/linux-merge.git > shortlog
 '-(%25)-(batman-adv/next)> git send-email --compose --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 }}}
