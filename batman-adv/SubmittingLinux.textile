@@ -1,6 +1,6 @@
 = Submitting Patches to Linux =
 
-We currently submit patches for Linux from our next branch. I try to give a short overview about it using some patches submitted to GregKH.
+We currently submit patches for Linux from our next branch. I try to give a short overview about it using some patches submitted to DaveM.
 
 Following steps must always be done:
  * get the linux-integration repository (we assume that the linux branch is up to date)
@@ -8,8 +8,7 @@ Following steps must always be done:
  * merge next into linux
  * check for compat code
  * check difference with next
- * tag the current commit
- * rebase on top of previous tag
+ * rebase on top of previous version
  * squash/cleanup patches
  * check if all versions compile cleanly against a current version of linux-next and sparse (cgcc)
  * format patches
@@ -19,7 +18,6 @@ Following steps must always be done:
  * create working branch on linux-next
  * apply all patches on linux next
  * check if all patches build again with linux next
- * format patches on top of linux-next master
  * check if all patches are checkpatch.pl clean
  * submit patches
 
@@ -38,7 +36,7 @@ remote: Compressing objects: 100%25 (252781/252781), done.
 == get the newest patches from next ==
 
 {{{
-'-(%25)-(linux)> git remote update
+'-(%25)-(merge/master)> git remote update
 Fetching origin
 remote: Counting objects: 1387, done.
 remote: Compressing objects: 100%25 (211/211), done.
@@ -53,10 +51,10 @@ From git+ssh://open-mesh.org/srv/git/ecsv/linux-merge
 == merge next into linux ==
 
 {{{
-'-(%25)-(xyz)> git checkout linux
+'-(%25)-(xyz)> git checkout merge/master
 Checking out files: 100%25 (32337/32337), done.
 Switched to branch 'linux'
-'-(%25)-(linux)> git merge -s subtree origin/next
+'-(%25)-(merge/master)> git merge -s subtree origin/standalone/next
 Auto-merging net/batman-adv/Makefile
 CONFLICT (content): Merge conflict in net/batman-adv/Makefile
 CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in HEAD and modified in next. Version next of net/batman-adv/Makefile.kbuild left in tree.
@@ -69,16 +67,16 @@ Auto-merging net/batman-adv/soft-interface.c
 Auto-merging net/batman-adv/translation-table.c
 Auto-merging net/batman-adv/vis.c
 Automatic merge failed; fix conflicts and then commit the result.
-'-(%25)-(linux)> git rm net/batman-adv/Makefile.kbuild net/batman-adv/compat.h
+'-(%25)-(merge/master)> git rm net/batman-adv/Makefile.kbuild net/batman-adv/compat.h
 net/batman-adv/Makefile: needs merge
 net/batman-adv/Makefile.kbuild: needs merge
 net/batman-adv/compat.h: needs merge
 rm 'net/batman-adv/Makefile.kbuild'
 rm 'net/batman-adv/compat.h'
-'-(%25)-(linux)> vim net/batman-adv/Makefile
-'-(%25)-(linux)> git add net/batman-adv/Makefile
-'-(%25)-(linux)> git commit
-[linux f2204f0] Merge remote branch 'origin/next' into linux
+'-(%25)-(merge/master)> vim net/batman-adv/Makefile
+'-(%25)-(merge/master)> git add net/batman-adv/Makefile
+'-(%25)-(merge/master)> git commit
+[linux f2204f0] Merge remote branch 'origin/standalone/next' into merge/master
 }}}
 
 == check for compat code ==
@@ -91,39 +89,21 @@ net/batman-adv/CHANGELOG:* all kernel version compatibility functions has been m
 == check difference with next ==
 
 {{{
-git diff origin/next: linux:net/batman-adv/
+git diff origin/standalone/next: merge/master:net/batman-adv/
 }}}
 
 Here you should see the
- * new added Kconfig, TODO, sysfs-class-net-batman-adv and sysfs-class-net-mesh
+ * new added Kconfig
  * A special Makefile which only contains obj-m and a batman-adv-objs line
- * removed CHANGELOG, Makefile.kbuild, bat_printk.c and compat.h
- * removed references to compat.h from each file
- * README file with removed parts about how it can be compiled outside of the kernel, against which version it compiles and information how you compile the module outside of the kernel with debugging support
+ * removed CHANGELOG, Makefile.kbuild, bat_printk.c, README, sysfs-class-net-batman-adv, sysfs-class-net-mesh and compat.h
+ * removed references to compat.h from main.h
 
-== tag the current commit ==
-
-{{{
-'-(%25)-(linux)> git describe --tags --match "Greg*"
-GregKH-20100618-10-gf2204f0
-'-(%25)-(linux)> git tag GregKH-20100625
-'-(%25)-(linux)> git push origin GregKH-20100625
-Counting objects: 24, done.
-Delta compression using up to 2 threads.
-Compressing objects: 100%25 (12/12), done.
-Writing objects: 100%25 (12/12), 1.75 KiB, done.
-Total 12 (delta 11), reused 0 (delta 0)
-Generating commit mails...done
-fatal: Not a valid object name master:net/batman-adv/TODO
-To git+ssh://git@open-mesh.org/srv/git/ecsv/linux-merge.git
- * [new tag]         GregKH-20100625 -> GregKH-20100625
-}}}
 
 == rebase on top of previous tag  ==
 
 {{{
-'-(%25)-(linux)> git checkout -b patches
-'-(%25)-(patches)> git rebase -s subtree GregKH-20100618
+'-(%25)-(merge/master)> git checkout -b patches
+'-(%25)-(patches)> git rebase -s subtree origin/merge/master
 First, rewinding head to replay your work on top of it...
 Auto-merging net/batman-adv/main.c
 Auto-merging net/batman-adv/routing.c
@@ -197,7 +177,7 @@ rm 'net/batman-adv/Makefile.kbuild'
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git rebase -s subtree --continue
 Already applied: 0009 batman-adv: Add support for git revision string
 All done.
-'-(%25)-(patches)> git diff linux
+'-(%25)-(patches)> git diff origin/merge/master
 }}}
 
 The last diff must be empty or we did something wrong.
@@ -205,14 +185,14 @@ The last diff must be empty or we did something wrong.
 == squash/cleanup patches ==
 
 {{{
-'-(%25)-(patches)> git rebase -i GregKH-20100618
+'-(%25)-(patches)> git rebase -i origin/merge/master
 Successfully rebased and updated refs/heads/patches
 }}}
 
 == check if all versions compile cleanly against a current version of linux-next and sparse (cgcc)  ==
 
 {{{
-'-(%25)-(patches)> git rev-list --reverse GregKH-20100618..
+'-(%25)-(patches)> git rev-list --reverse origin/merge/master..
 166b2caa61fce5260aed4e119671764331fdc62a
 5cd65234b12021fe1f28e28e455a6b6a06712ec2
 83d1bc8bb328bcfa42be492fe0e2648b77c18af2
@@ -259,7 +239,7 @@ Switched to branch 'patches'
 == format patches ==
 
 {{{
-'-(%25)-(patches)> git format-patch --patience -s -M GregKH-20100618
+'-(%25)-(patches)> git format-patch --patience -s -M origin/merge/master
 0001-batman-adv-Convert-names-from-Java-to-C-style.patch
 0002-batman-adv-Avoid-rounding-issues-for-local-hna-timeo.patch
 0003-batman-adv-Lower-resolution-for-timeouts.patch
@@ -279,9 +259,9 @@ Usually I add "batman-adv: " right when checking the signed-off-by and author (f
 '-(%25)-(master)> git remote update
 '-(%25)-(master)> git reset --hard origin/master
 HEAD is now at c3116ae Add linux-next specific files for 20100625
-'-(%25)-(master)> git checkout -b greg
-Switched to a new branch 'greg'
-'-(%25)-(greg)> git am -3 ../linux-merge/00*.patch
+'-(%25)-(master)> git checkout -b davem
+Switched to a new branch 'davem'
+'-(%25)-(davem)> git am -3 ../linux-merge/00*.patch
 Applying: batman-adv: Convert names from Java to C style
 Applying: batman-adv: Avoid rounding issues for local hna timeout
 Applying: batman-adv: Lower resolution for timeouts
@@ -336,33 +316,47 @@ total: 0 errors, 0 warnings, 0 checks, 239 lines checked
 == submit patches ==
 
 {{{
-'-(%25)-(greg)> git shortlog master.. > shortlog
-'-(%25)-(greg)> git diff --stat master.. >> shortlog
-'-(%25)-(greg)> git send-email --cc=b.a.t.m.a.n@lists.open-mesh.org --to greg@kroah.com --compose 00*.patch
+'-(%25)-(greg)> ../linux-merge/
+'-(%25)-(patches)> git checkout batman-adv/next
+'-(%25)-(batman-adv/next)> git diff merge/master -- net/batman-adv/
+'-(%25)-(batman-adv/next)> git rev-parse batman-adv/next
+12513b76a021e5b41a9d5d5981da75dfd6480890
+'-(%25)-(batman-adv/next)> git push
+'-(%25)-(batman-adv/next)> git am -3 00*.patch
+Applying: batman-adv: Convert names from Java to C style
+Applying: batman-adv: Avoid rounding issues for local hna timeout
+Applying: batman-adv: Lower resolution for timeouts
+Applying: batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+Applying: batman-adv: Add sysfs abi documentation about bonding
+Applying: batman-adv: adapting source version to revised versioning scheme
+Applying: batman-adv: Add include guards to all header files
+'-(%25)-(batman-adv/next)> git request-pull 12513b76a021e5b41a9d5d5981da75dfd6480890 git://git.open-mesh.org/ecsv/linux-merge.git > shortlog
+'-(%25)-(batman-adv/next)> git send-email --compose --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 }}}
 
 Now I will write something like
 
 {{{
-From Sven Eckelmann <sven.eckelmann@gmx.de> # This line is ignored.
+From Sven Eckelmann <sven@narfation.org> # This line is ignored.
 GIT: Lines beginning in "GIT:" will be removed.
 GIT: Consider including an overall diffstat or table of contents
 GIT: for the patch you are writing.
 GIT:
 GIT: Clear the body content if you don't wish to send a summary.
-From: Sven Eckelmann <sven.eckelmann@gmx.de>
-Subject: batman-adv for 2.6.36 (3)
+From: Sven Eckelmann <sven@narfation.org>
+Subject: pull request: batman-adv 2010-06-26
 In-Reply-To:
 
 Hi,
 
-here are patches targeted for 2.6.36. All patches needed for that patchset are
-already part of your net-next tree.
+I would like tp propose following corrections for net-next-2.6.
 
-All patches are cleanup patches and no new feature is added.
+The following changes since commit 12513b76a021e5b41a9d5d5981da75dfd6480890:
 
-thanks,
-	Sven
+  Staging: dt3155: remove unused 32-bit and 8-bit global registers (2010-06-25 11:18:34 -0700)
+
+are available in the git repository at:
+  git://git.open-mesh.org/ecsv/linux-merge.git batman-adv/next
 
 Antonio Quartulli (1):
       batman-adv: Convert names from Java to C style
@@ -370,11 +364,10 @@ Antonio Quartulli (1):
 Linus Lüssing (1):
       batman-adv: Avoid rounding issues for local hna timeout
 
-Marek Lindner (4):
+Marek Lindner (3):
       batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
-      batman-adv: Add sysfs abi documentation about bonding
       batman-adv: adapting source version to revised versioning scheme
-      batman-adv: fix early debugfs deinitialization
+      batman-adv: Add sysfs abi documentation about bonding
 
 Simon Wunderlich (1):
       batman-adv: Lower resolution for timeouts
@@ -389,7 +382,7 @@ Sven Eckelmann (1):
  net/batman-adv/hard-interface.h     |    5 +++++
  net/batman-adv/hash.h               |    8 +++++---
  net/batman-adv/icmp_socket.h        |    5 +++++
- net/batman-adv/main.c               |    4 ++--
+ net/batman-adv/main.c               |    2 +-
  net/batman-adv/main.h               |   13 +++++++++----
  net/batman-adv/originator.c         |    6 ++----
  net/batman-adv/originator.h         |    5 +++++
@@ -407,7 +400,5 @@ Sven Eckelmann (1):
  net/batman-adv/types.h              |    6 +++---
  net/batman-adv/vis.c                |   14 +++++++-------
  net/batman-adv/vis.h                |    7 ++++++-
- 25 files changed, 117 insertions(+), 46 deletions(-)
-
-
+ 25 files changed, 116 insertions(+), 45 deletions(-)
 }}}
