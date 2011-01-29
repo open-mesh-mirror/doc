@@ -26,7 +26,7 @@ This page contains a checklist of things that need to be done for a release.
 
  * [x] build changelog
  * [x] update README
- * [ ] write release announcement
+ * [x] write release announcement
  * [ ] update wiki documentation
 
 
@@ -34,20 +34,20 @@ This page contains a checklist of things that need to be done for a release.
 
  * [x] build package tar.gz and generate checksums
  * [x] move packages/checksums to stable/sources / create symlinks from releases
- * [ ] update download links in the trac downloads page
- * [ ] send release mail
- * [ ] update IRC channel topic
+ * [x] update download links in the trac downloads page
+ * [x] send release mail
+ * [x] update IRC channel topic
 
 
 '''Distributions'''
 
  * [ ] update openwrt package
- * [ ] update debian package
+ * [x] update debian package
 
 
 '''Aftershow'''
 
  * [x] Merge differences (README, CHANGELOG, ...) into master branch
  * [x] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
- * [ ] Get patches for next release from master-rebase/batctl-rebase repository
- * [ ] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels
+ * [x] Get patches for next release from master-rebase/batctl-rebase repository
+ * [x] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels
