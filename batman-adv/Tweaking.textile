@@ -46,7 +46,9 @@ After having added interfaces to a mesh cloud, batman-adv automatically creates 
 
 {{{
 ls  /sys/class/net/bat0/mesh/
-aggregated_ogms   bonding   fragmentation   log_level   orig_interval   vis_mode
+aggregated_ogms  gw_bandwidth     hop_penalty      vis_mode
+bonding          gw_mode          log_level
+fragmentation    gw_sel_class     orig_interval
 }}}
 
 '''aggregate originator messages'''
