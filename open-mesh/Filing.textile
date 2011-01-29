@@ -29,6 +29,8 @@
  * [http://pizza.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To B.A.T.M.A.N. Advanced on OpenWRT] - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
  * [wiki:tweaking-batman-adv Tweaking the B.A.T.M.A.N. Advanced behaviour] - get an overview about the various settings batman-adv offers
  * [wiki:understand-your-batman-adv-network Understand your B.A.T.M.A.N. Advanced network] - learn what network debug interfaces batman-adv offers
+ * [wiki:batman-adv-gateways B.A.T.M.A.N. gateway support] - how batman-adv can be used to choose the nearest internet gateway node
+ * [wiki:bridge-loop-avoidance B.A.T.M.A.N. bridge loop avoidance] - document explaining the bridge loop avoidance implemented in batman-adv
  * [wiki:VisAdv Visualizing the 2nd layer] - creating graphics of the layer 2 network and differences to the layer 3 vis output explained
  * [wiki:UsingBatmanGit Using the batman git repos] - this page explains how the git repository is structured and how to use it
  * [http://downloads.open-mesh.org/batman/development/sources/batctl_devel-current_sources/man/batctl.8.html batctl online man page] - read the current batctl man page online
