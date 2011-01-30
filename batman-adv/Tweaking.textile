@@ -86,6 +86,57 @@ cat /sys/class/net/bat0/mesh/fragmentation
 enabled
 }}}
 
+
+'''gateway bandwidth'''
+
+Available since: batman-adv 2011.0.0
+
+The [wiki:batman-adv-gateways internet gateway support] allows each gateway to also announce its available internet bandwidth. Clients looking for the most suitable gateway to connect to receive this bandwidth announcement and can make use of it while choosing their gateway. Per default a bandwidth of 2048KBit/512KBit is assumed. Details regarding the syntax of the bandwidth setting can be found in the [http://downloads.open-mesh.org/batman/development/sources/batctl_devel-current_sources/man/batctl.8.html batctl manpage].
+
+__Note__: If a batman-adv node has not activated the gateway server mode this setting has no effect.
+
+{{{
+cat /sys/class/net/bat0/mesh/gw_bandwidth 
+2048KBit/512KBit
+}}}
+
+'''gateway mode'''
+
+Available since: batman-adv 2011.0.0
+
+A batman-adv node can either run in server mode (sharing its internet connection with the mesh) or in client mode (searching for the most suitable internet connection in the mesh) or having the gateway support disabled entirely (which is the default setting). Gateways can tweak the announced internet bandwidth via the gw_bandwidth sysfs file whereas clients can configure the manner in which batman-adv chooses its gateway via the gw_sel_class sysfs file.
+
+__Note__: Please read the [wiki:batman-adv-gateways internet gateway documentation] to understand its interaction with DHCP.
+
+{{{
+cat /sys/class/net/bat0/mesh/gw_mode 
+off
+}}}
+
+'''gateway selection class'''
+
+Available since: batman-adv 2011.0.0
+
+If multiple batman-adv gateways are available a batman-adv client node selects its best gateway based on certain criteria such as link quality / announced bandwidth / etc. The selection algorithm can be modified to best serve the requirements. The gateway selection class of '20' is the default value. All available gateway selection classes are thoroughly explained in the [http://downloads.open-mesh.org/batman/development/sources/batctl_devel-current_sources/man/batctl.8.html batctl manpage].
+
+__Note__: If a batman-adv node has not activated the gateway client mode this setting has no effect.
+
+{{{
+cat /sys/class/net/bat0/mesh/gw_sel_class 
+20
+}}}
+
+'''hop penalty'''
+
+Available since: batman-adv 2011.0.0
+
+The hop penalty setting allows to modify batman-adv's preference for multihop routes vs. short routes. The value is applied to the TQ of each forwarded OGM, thereby propagating the cost of an extra hop (the packet has to be received and retransmitted which costs airtime). A higher hop penalty will make it more unlikely that other nodes will choose this node as intermediate hop towards any given destination. On the hand, a lower hop penalty will result in longer routes because retransmissions are not penalized. The default hop penalty of '10' is a reasonable value for most setups and probably does not need to be changed. However, mobile nodes could choose a value of 255 (maximum value) to avoid being chosen as a router by other nodes.
+
+{{{
+cat /sys/class/net/bat0/mesh/hop_penalty 
+10
+}}}
+
 '''log level'''
 
 Available since: batman-adv 2010.1.0 (if debugging has been compiled-in)
