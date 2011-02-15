@@ -2,22 +2,22 @@
 
 == batman-adv ==
 Categories + Usecases to improve:
-* Increasing Robustness
-* Improving Mobility / Convergence Speed
-* Improving Indoor performance
-* Improving VoIP group multicast performance
-* ...
+ * Increasing Robustness
+ * Improving Mobility / Convergence Speed
+ * Improving Indoor performance
+ * Improving VoIP group multicast performance
+ * ...
 
 
 Tasks:
-* Improve broadcast data performance (dynamic number of rebroadcast, MPR like optimizations, ...)
-* (link layer?) FEC, ARQ module (maybe create a separate kernel module, port also the link layer fragmentation to this module so other protocols might use it?)
-* Dynamic OGM/NDP intervals
-* Dead-node fast path switching
-* Link quality / Packet delivery ratio measurement improvements
+ * Improve broadcast data performance (dynamic number of rebroadcast, MPR like optimizations, ...)
+ * (link layer?) FEC, ARQ module (maybe create a separate kernel module, port also the link layer fragmentation to this module so other protocols might use it?)
+ * Dynamic OGM/NDP intervals
+ * Dead-node fast path switching
+ * Link quality / Packet delivery ratio measurement improvements
   -> weighted/exponential moving average
   -> testing / performance measurements of / improving NDP, find and improve "performance bottlenecks"
-* Multicast Optimization Algorithm enhancements
+ * Multicast Optimization Algorithm enhancements
   -> implement reactive tracker packet mode
   -> decrease latency of reactive tracker packet mode: attaching small data packets to tracker packet, if MTU fits (otherwise broadcast) in react. mode? ...?
   -> ultimately, make proactive tracker mode obsolete
@@ -25,25 +25,25 @@ Tasks:
   -> don't send tracker packets if <= 1 destination or > 50%25 of all nodes are destinations
   -> Enhance HNA, host network announcements, improvement scheme to also support MCAs, multicast announcements
   -> ...
-* Implement a suitable solution against hidden node broadcast packet problem (time slots, multiple interfaces, channel switching (extra module?), ...)
-* Implement a suitable congestion avoidance mechanism for batman's control packets (different queues for control and data packets, time slots, ...)
-* Unit test infrastructure (Implementation centric tesitng, simulator using Linux VMs to test different topologies or administrative changes? Code centric unit tests ...)
-* Separate routing algorithm from routing infrastructure (ultimately, allow user space routing protocols to interact with kernel routing framework)
-* Bonding improvements:
+ * Implement a suitable solution against hidden node broadcast packet problem (time slots, multiple interfaces, channel switching (extra module?), ...)
+ * Implement a suitable congestion avoidance mechanism for batman's control packets (different queues for control and data packets, time slots, ...)
+ * Unit test infrastructure (Implementation centric tesitng, simulator using Linux VMs to test different topologies or administrative changes? Code centric unit tests ...)
+ * Separate routing algorithm from routing infrastructure (ultimately, allow user space routing protocols to interact with kernel routing framework)
+ * Bonding improvements:
   -> Add checks for links' capacities (detect full queues etc.) to gain performance of IF1 + IF2 + ... instead of min(IF1, IF2, ...) (example to have 1gbit/s (ethernet) + 100mbit/s (802.11n wifi) instead of just the minimum of all interfaces)
   -> Improve bonding mode gain (seems to be just 66%25 efficiency with TCP due to reordering problem?)
-* IPv6 stateless autoconf GW solution (playing with TTL of broadcast packets, use router preference option in RA (RFC4191)?)
-* Further HNA roaming improvements
-* Network Coding?
+ * IPv6 stateless autoconf GW solution (playing with TTL of broadcast packets, use router preference option in RA (RFC4191)?)
+ * Further HNA roaming improvements
+ * Network Coding?
 
 == batctl ==
-* Enhance live link quality monitoring: bisect -> dot-files -> graphs -> to (live) video? (+ adding horst tool information, wifi interface stats?)
-* Add further info to batman-adv vis servers/clients for debugging networks
-* bisect, include initial state
-* live vis in map (HTML5 + Openstreetmap?)
+ * Enhance live link quality monitoring: bisect -> dot-files -> graphs -> to (live) video? (+ adding horst tool information, wifi interface stats?)
+ * Add further info to batman-adv vis servers/clients for debugging networks
+ * bisect, include initial state
+ * live vis in map (HTML5 + Openstreetmap?)
 
 == misc ==
-* multiple interface support in Mesh 3D
-* ap51flash GUI; ap51flash multi-flash on single interface
-* Android/Maemo/Meego porting + _maintenance_!
-* Cooperative work with Pidgin guys? (video/audio/file-transfer/bonjour in pidgin and improving its + batman-adv's combined performance in a mesh network?)
+ * multiple interface support in Mesh 3D
+ * ap51flash GUI; ap51flash multi-flash on single interface
+ * !Android/Maemo/Meego porting + _maintenance_!
+ * Cooperative work with Pidgin guys? (video/audio/file-transfer/bonjour in pidgin and improving its + batman-adv's combined performance in a mesh network?)
