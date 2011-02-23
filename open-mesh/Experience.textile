@@ -1,20 +1,19 @@
+
 = Experience =
-This page aims to document and link to experience with the B.A.T.M.A.N. protocol in real live scenarios.
-If you have made some experience or even setup a B.A.T.M.A.N. mesh network at someplace in this universe please feel urged to [wiki:MailingList tell us] or drop us a link!
 
- * building mesh potatoes with B.A.T.M.A.N.: http://villagetelco.org/
+{{{
+#!div style="width: 40em; text-align: justify"
+
+This page aims to provide a collection of links towards documents & papers related to B.A.T.M.A.N. as well as projects using the B.A.T.M.A.N. protocol in real live scenarios. This collection only reflects a small percentage of the things out there because not everybody contacts us to share his experience. If you have made some experience or even setup a B.A.T.M.A.N. mesh network at someplace in this universe please feel urged to [wiki:MailingList tell us] or drop us a link!
+
+__Projects:__
+ * building mesh potatoes with B.A.T.M.A.N.: http://villagetelco.org
  * powerful mesh nodes with batman-adv inside: http://www.saxnet.de
- * B.A.T.M.A.N. with dashboard integration on open routers: http://www.open-mesh.com
- * B.A.T.M.A.N. performance comparison paper: http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
- * B.A.T.M.A.N. / BABEL / OLSR performance comparison: http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1747&amp;context=infopapers
- * mesh performance analysis with B.A.T.M.A.N.: http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf
+ * B.A.T.M.A.N. with dashboard integration: http://www.open-mesh.com
 
- * An experimental 20-nodes B.A.T.M.A.N and OLSR testbed has been setup at the Wireless Community Weekend 2007 in Graz / Austria. More information is [wiki:WCWGraz2007 here]
- * B.A.T.M.A.N. in Leipzig, also providing a huge number of howtos, documentation, and experience reports! Check out: http://wiki.leipzig.freifunk.net/BATMAN
- * And there is the always hyperactive Freifunk-Community in Berlin Nord-Ost with lots of useful information and experience summarized at http://www.freifunk-bno.de/content/view/67/28/
- * [wiki:BerlinExperience B.A.T.M.A.N. in Berlin]
- * B.A.T.M.A.N. flying through Weimar: http://global.freifunk.net/?q=item/b_a_t_m_a_n_fliegt_durchs_weimarnetz
- * Latest gossip indicates a quite big B.A.T.M.A.N.-only mesh network in Klein Rodensleben near Magdeburg (broken?? http://phantom.port-x.de/forum/)
- * Finally the internet revealed some suspicious B.A.T.M.A.N. activities in Bern/Switzerland which can be tracked at http://bern.openwireless.ch/node/1876 )
- * B.A.T.M.A.N. activities also at Rostock/Germany: http://wiki.opennet-initiative.de/index.php/B.A.T.M.A.N.
- * your observations here...? :)
+__Documents:__
+ * [http://lwn.net/Articles/426947/ Mesh networking with batman-adv]
+ * [http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf B.A.T.M.A.N. performance comparison paper]
+ * [http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1747&amp;context=infopapers B.A.T.M.A.N. / BABEL / OLSR performance comparison]
+ * [http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf mesh performance analysis with B.A.T.M.A.N.]
+}}}
