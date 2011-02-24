@@ -56,6 +56,7 @@ Therefore checks for links' capacities (detect full queues etc.) to gain perform
  * Network Coding?
  * Packet signing: Add a signing mechanism to identify OGM's sender and drop malicious nodes
  * reduce latency by ARP buffering ?
+ * built-in bandwidth test tool ?
 
 == batctl ==
  * Enhance live link quality monitoring: bisect -> dot-files -> graphs -> to (live) video? (+ adding horst tool information, wifi interface stats?)
