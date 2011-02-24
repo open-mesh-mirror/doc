@@ -19,7 +19,7 @@ B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a routing protocol
  * [wiki:BranchesExplained Branches explained] - learn about the B.A.T.M.A.N. flavours
  * [wiki:UserDocs UserDocs] - understand how B.A.T.M.A.N.  works
  * [wiki:FAQ FAQ] - Frequently Asked Questions
- * [wiki:Experience Experience] - Collection of links to B.A.T.M.A.N. papers / projects using B.A.T.M.A.N.
+ * [wiki:Experience Experience] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
  * [wiki:Patches Patches] - contribution from others related to B.A.T.M.A.N.
  * [wiki:batman-adv B.A.T.M.A.N. Advanced] - information about the Layer 2 version of B.A.T.M.A.N.
  * [wiki:MailingList Mailing List]/[wiki:IRC IRC] - contact us
