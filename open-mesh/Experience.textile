@@ -13,10 +13,10 @@ __Projects:__
  * The Batphone (VOIP + Mesh on your device): http://www.servalproject.org
 
 __Press:__
- * [http://www.heise.de/open/artikel/Kernel-Log-Was-2-6-38-bringt-3-Netzwerk-1195394.html Kernel-Log: Netzwerk-Treiber und -Infrastruktur], Heise (February 2011)
+ * [http://www.h-online.com/open/features/Kernel-Log-Coming-in-2-6-38-Part-3-Network-drivers-and-infrastructure-1197480.html Kernel Log: Network drivers and infrastructure], The H Open (February 2011)
  * [http://lwn.net/Articles/426947/ Mesh networking with batman-adv], LWN.net (February 2011)
- * [http://www.h-online.com/open/features/What-s-new-in-Linux-2-6-37-1163376.html?page=6 Kernel trends: Outlook on 2.6.38], The H Open (January 2011)
- * [http://www.h-online.com/open/news/item/Kernel-Log-Coming-in-2-6-33-Part-5-Drivers-931993.html Kernel-Log: Coming in 2.6.33 - Drivers], The H Open (February 2010)
+ * [http://www.h-online.com/open/features/What-s-new-in-Linux-2-6-37-1163376.html?page=6 Kernel Trends: Outlook on 2.6.38], The H Open (January 2011)
+ * [http://www.h-online.com/open/news/item/Kernel-Log-Coming-in-2-6-33-Part-5-Drivers-931993.html Kernel Log: Coming in 2.6.33 - Drivers], The H Open (February 2010)
  * [http://www.linuxjournal.com/magazine/mesh-potato The Mesh Potato], Linux Journal (December 2009)
 
 __Papers:__
