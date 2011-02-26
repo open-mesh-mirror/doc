@@ -31,13 +31,13 @@ __The Neighborhood Discovery Protocol (NDP) Format:__
  * Version: Set your internal compatibility version.
  * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
  * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
- * Number of neighbors: The number of neighbors that are announced with this message.
+ * Num Neigh: The number of neighbors that are announced with this message.
 
 If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should append a neighbor entry message for each neighbor to be announced and fill the "number of neighbors" field accordingly.
 
 {{{
  0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | Packet Type |    Version    |      Originator Address         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -58,7 +58,7 @@ Note: See 'Neighbor Ranking' to get a detailed description of how to count/obtai
 
 {{{
  0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                       Neighbor Address                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
