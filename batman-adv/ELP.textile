@@ -9,21 +9,22 @@ This approach was chosen for its simplicity during the protocol design phase and
  * Wireless interfaces usually come with some packet loss, therefore a higher broadcast rate is desirable to allow a fast reaction on flaky connections. Other interfaces of the same host might be connected to Ethernet LANs / VPNs / etc which rarely exhibit packet loss would benefit from a lower broadcast rate to reduce overhead.
  * It generally is more desirable to detect local link quality changes at a faster rate than propagating all these changes through the entire mesh (the far end of the mesh does not need to care about local link quality changes that much). Other optimizations strategies, like reducing overhead, might be possible if OGMs weren't used for all tasks in the mesh at the same time. 
 
-As a result detecting local link qualities shall be handled by an independent message type, NDP, whereas the OGM message type remains responsible for flooding the mesh with these link quality information.
+As a result detecting local link qualities shall be handled by an independent message type, NDP, whereas the OGM message type remains responsible for flooding the mesh with these link quality information and determening the overall path transmit qualities.
 
 === Definitions ===
 
- * node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface.
- * B.A.T.M.A.N. interface - Network interface utilized by B.A.T.M.A.N. This is also a synonym for an Originator.
+ * node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
+ * originator - An addressable entity within one mesh network routing layer. An originator's address has to be unique within a mesh network routing layer and unique on a node. A node's hard-interface may only be utilized by zero or one originator.
+ * B.A.T.M.A.N./hard interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames. 
  * sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
  * duplicate - A received NDP message from a neighbor containing an already received sequence number.
  * out of order - A received NDP message from a neighbor containing a sequence number that is older than the newest sequence number ever received from this neighbor.
 
 === Protocol Procedure ===
 
-==== Broadcasting own Neighborhood Discovery Messages (NDP) ====
+==== Broadcasting own Neighborhood Discovery Protocol (NDP) Messages ====
 
-Each node periodically (NDP interval) generates and broadcast NDP messages for each interface B.A.T.M.A.N. is running on. A jitter may be applied to avoid collisions. 
+Each node periodically (NDP interval) generates and broadcasts NDP messages for each interface B.A.T.M.A.N. is running on. A jitter may be applied to avoid collisions. 
 
 __The Neighborhood Discovery Protocol (NDP) Format:__
 
@@ -36,23 +37,23 @@ __The Neighborhood Discovery Protocol (NDP) Format:__
 If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should append a neighbor entry message for each neighbor to be announced and fill the "number of neighbors" field accordingly.
 
 {{{
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Packet Type |    Version    |      Originator Address         |
+ | Packet Type   |    Version    |      Originator Address       |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                     Originator Address                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                       Sequence Number                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Num Neigh   |                  Alignment                      |
+ |   Num Neigh   |                  Alignment                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 }}}
 
 __The Neighbor Entry Format:__
 
  * Neighbor Address: This field contains the MAC address of the neighbor to be announced.
- * RQ Value: Fill this field with the total of the received sequence numbers (in percent) within the sliding sequence number window from this neighbor.
+ * Link RQ: Fill this field with the total of the received sequence numbers (in percent) within the sliding sequence number window from this neighbor.
 
 Note: See 'Neighbor Ranking' to get a detailed description of how to count/obtain the RQ value. Neighbors with an RQ value of 0 are not to be appended.
 
@@ -62,7 +63,7 @@ Note: See 'Neighbor Ranking' to get a detailed description of how to count/obtai
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                       Neighbor Address                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |      Neighbor Address       |   RQ Value    |    Alignment    |
+ |      Neighbor Address       |    Link RQ    |    Alignment    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 }}}
 
@@ -72,7 +73,7 @@ Upon receiving a NDP packet a node must perform the following preliminary checks
 
  * If the NDP contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
  * If the sender address of the NDP message belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this NDP message originated from this node.
- * If the sender address of the NDP message is a broadcast address of an own B.A.T.M.A.N. interface the message must be silently dropped.
+ * If the sender address of the NDP message is an ethernet multicast (including broadcast) address the message must be silently dropped.
  * If the NDP message is a duplicate or does not contain a newer sequence number (out-of-order) the message must be silently dropped.
 
 ==== Neighbor Ranking ====
@@ -80,16 +81,16 @@ Upon receiving a NDP packet a node must perform the following preliminary checks
 For each NDP message having passed the preliminary checks the following must be performed:
  
  * The sliding window to the sender of the NDP message must be updated (purged) to reflect the new upper and lower boundaries of the ranking range. The sequence number of the received NDP message must be added to the sliding window representing the link via which the NDP message has been received.
- * The new resulting RQ value is calculated by counting all sequence numbers that are to be found in the recently adjusted sliding window.
+ * The new resulting link RQ value is calculated by counting all sequence numbers that are to be found in the recently adjusted sliding window.
  * The new current sequence number must be set to the sequence number contained in the received NDP message.
- * All appended neighbor entries must be parsed to search for all MAC addresses belonging to one of the B.A.T.M.A.N. interfaces. If a match is found then save the received RQ value towards that neighbor as TQ value.
+ * All appended neighbor entries must be parsed to search for all MAC addresses belonging to one of the B.A.T.M.A.N. interfaces. If a match is found then save the received link RQ value towards that neighbor as link TQ value.
 
 
 ==== Questions ====
 
  * checks whether the NDP packet is too old? (TODO: Simon, add/describe the protected window mechanism) 
  * If an entry matches the mac address of the receiving interface and if the seqno is a new one,
-   then update/memorize the local TQ towards that neighbor with this value.
+   then update/memorize the link TQ towards that neighbor with this value.
    (TODO: does it make sense to not only check if the incoming interface mac matches, but also for other interfaces? Which would be the case if a node uses two interfaces sharing somehow the same broadcast domain... rare, but possible... example: two wifi interfaces,  using channels 1 and 3)
  * If a match has been found, do not further procede the traversal of neighbor entries
 
