@@ -21,21 +21,40 @@ Especially in indoor scenarios where corners and thick walls are involved, hidde
 
 A suitable solution shall be implemented. This might be based on time slots, multiple interfaces or channel switching and might be implemented within batman-adv or an extra module. See [http://www.open-mesh.org/wiki/bcast-hidden-node here] for a more detailed description of the problem and a solution proposal.
 
-==== !OpenMesh Routing Framework ====
+==== OGM/NDP Congestion Avoidance ====
+'''Brief description:''' Implement a congestion avoidance mechanism for batman-adv's routing control packets against congestion caused by high data transfer rates.
+
+In case of a mesh network congested due to e.g. a lot of UDP packets, the packet loss rate of batman's OGMs or NDP packets increases severely, as neither OGMs/NDP nor UDP have a congestion control mechanism. For one thing, lost OGMs lead to a high degradation of batman's convergence speed. For another, lost NDP packets lead to route flipping; in the worst case some of these chosen routes are not usable. batman-adv has the advantage of being able to control the whole packet, both data and control packets, within the mesh network. Therefore time spaces for OGMs/NDP packets could be allocated, as already described in "OGM/NDP Hidden Node Problem Avoidance" / [http://www.open-mesh.org/wiki/bcast-hidden-node]. Or prioritized queues could be introduced.
+
+==== B.A.T.M.A.N. Routing Framework ====
 '''Brief description:''' Separate B.A.T.M.A.N. routing algorithm from routing infrastructure in batman-adv.
 
 Many features in batman-adv are routing algorithm independent: Link layer routing, link layer fragmentation, multicast optimizations, NDP, interface bonding. To allow other routing algorithms to use this already well tested infrastructure, the B.A.T.M.A.N. routing algorithm shall be separated more clearly from the routing infrastructure. Ultimately, other routing protocols shall be able to control the kernel space mesh routing infrastructure from userspace.
 
 ==== Improve Throughput Bonding ====
-'''Brief description:''' Improve performance gain of the throughput bonding mode
+'''Brief description:''' Improve performance gain of the throughput bonding mode.
 
 The current bonding mode implementation simply sends a data packet in a round robin fashion to the interfaces available for bonding. However, the throughput gain seems to be only about 66%25 instead of doubling the throughput in case of TCP, even if there is no other interference involved. This seems to be the case due to a heavy reordering issue.
 Furthermore, the interface with the lowest capacity is a bottleneck for the throughput bonding performance: In case of one interface of 1MBit/s throughput and five more with 2MBit/s throughput, the actual throughput will be just 6x 1MBit/s. However in mixed wireless and wired networks, it might be desirable to accumulate the throughput of a Gigabit-Ethernet interface and a 802.11g interface.
 Therefore checks for links' capacities (detect full queues etc.) to gain performance of IF1 + IF2 + ... instead of min(IF1, IF2, ...) shall be implemented. If an interface is busy, it shall be skipped in this round robin cycle. Furthermore simple per hop pre-ordering on batman-adv's layer shall be implemented to increase the TCP performance.
 
+==== Unit Test Infrastructure ====
+'''Brief description:''' Create a flexible unit test infrastructure to increase batman-adv's stability.
+
+As batman-adv resides in the Linux kernel any crash in batman-adv has severe consequences for the whole system. For instance a deadlock or aceesing invalid memory in batman-adv will freeze the whole system. Typically most embedded routers have a watchdog to restart the device automatically in such situations. However in critical usage scenarios, a reboot of the device might not be tolerable. Therefore a unit test infrastructure shall be created which for one thing tests and verifies single functions and functionalities within the batman-adv code base. And for another it shall stress test the complete software for different virtualized, static and dynamic topologies.
+
+==== IPv6 Stateless Autoconf Gateway Solution ====
+'''Brief description:''' Implement a gateway solution for IPv6 stateless autoconfiguration
+
+batman-adv operates on layer 2, therefore intelligent layer 3 gateway handling is not straightforward. batman-adv currently supports intelligent gateway handling for DHCP (both IPv4 and IPv6), in that it forwards any DHCP discovery or request packet to the best (according to batman's metric) gateway available only, via unicast. However, this is not doable for IPv6 stateless autoconfiguration, as usually not the client is not actively requesting an IP address, but the router is advertising it's gateway capabilities periodically. However, such a stateless configuration is usually more desirable than a stateful configuration as in DHCP in dynamic mesh networks as it allows smoother transitions between subnets and is not as prone to packet loss. Therefore a solution for IPv6 Stateless autoconfiguration shall be implemented. This may be done by exploiting the router preference fields in the router advertisement messages, [http://tools.ietf.org/html/rfc4191 RFC4191], and/or by limiting the range of router advertisements with the help of batman-adv's broadcast packet's TTL field or by introducing a new TQ limit field. A TQ limit field could be dynamically adapted to minimze the overhead of such router advertisements in case of many gateways but ensuring the availability of the best/closest of all gateways in the mesh network.
+
+==== Improve Broadcast Data Performance ====
+'''Brief description:''' Optimize the flooding of broadcast data to reduce overhead and increase its packet delivery ratio.
+
+So far broadcast data packets are flooded through the whole mesh network. As broadcast packets do not have an ARQ mechanism to reduce packet losses like unicast data transfer has, batman-adv (re)transmits broadcast packets on each hop by default. In dense topologies this can introduce unnecessary overhead, in sparse topologies the packet delivery ratio might be too low. Therefore a smarter mechanism than classic flooding shall be implemented to improve batman-adv's performance for broadcast data packets. This may done taking link qualities in the local neighborhood into account and adjusting the number of rebroadcasts dynamically. Or by introducing [http://en.wikipedia.org/wiki/Multipoint_relay MPR]-like mechanisms.
+
 === Further Tasks ===
 
- * Improve broadcast data performance (dynamic number of rebroadcast, MPR like optimizations, ...)
  * (link layer?) FEC, ARQ module (maybe create a separate kernel module, port also the link layer fragmentation to this module so other protocols might use it?)
  * Dead-node fast path switching
  * Link quality / Packet delivery ratio measurement improvements
@@ -49,9 +68,6 @@ Therefore checks for links' capacities (detect full queues etc.) to gain perform
   -> don't send tracker packets if <= 1 destination or > 50%25 of all nodes are destinations
   -> Enhance HNA, host network announcements, improvement scheme to also support MCAs, multicast announcements
   -> ...
- * Implement a suitable congestion avoidance mechanism for batman's control packets (different queues for control and data packets, time slots, ...)
- * Unit test infrastructure (Implementation centric tesitng, simulator using Linux VMs to test different topologies or administrative changes? Code centric unit tests ...)
- * IPv6 stateless autoconf GW solution (playing with TTL of broadcast packets, use router preference option in RA (RFC4191)?)
  * Further HNA roaming improvements
  * Network Coding?
  * Packet signing: Add a signing mechanism to identify OGM's sender and drop malicious nodes
