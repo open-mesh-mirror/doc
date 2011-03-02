@@ -1,4 +1,3 @@
-
 = B.A.T.M.A.N. Advanced quick start guide =
 
 {{{
@@ -71,6 +70,8 @@ ifconfig mesh-bridge up
 }}}
 
 From now on you won't want to use eth0, wlan0 or bat0 for any routing anymore, instead you are just using the new bridge interface 'mesh-bridge'. Any packet our mesh access point receives over eth0 will be forwarded to bat0 because of the bridge. batman-adv will forward it through the mesh according to the destination's mac address.
+
+'''Note:''' Assign the IP Address to mesh-bridge in this case, not bat0.
 
 For the MTU-part have a look at the note above.
 
