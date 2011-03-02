@@ -1,54 +1,46 @@
+= Originator Message (OGM) =
 
-h1. Originator Message (OGM)
+{{{
+#!div style="width: 46em; text-align: justify"
 
+The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [wiki:BATMANConcept B.A.T.M.A.N. concept page] and explained in details in [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 the RFC draft] published in 2008.
 
-<pre>
-<code class="div">
-
-The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
-
-With the new concept of a separate [[batman-adv-ndp|NDP]] the tasks performed by OGMs becomes way simpler: While local work is done by NDP, information gets distributed in the mesh network with the OGM protocol, in that OGMs' primary task is to advertise path qualities, without determening link qualities. OGMs also still have the important task to distribute Host Network Annoncements, HNA for short.
+With the new concept of a separate [wiki:batman-adv-ndp NDP] the tasks performed by OGMs becomes way simpler: While local work is done by NDP, information gets distributed in the mesh network with the OGM protocol, in that OGMs' primary task is to advertise path qualities, without determening link qualities. OGMs also still have the important task to distribute Host Network Annoncements, HNA for short.
 
 This bears the following advantages from the OGM point of view:
-* Reduced overhead, as OGMs can then be send with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desireable.
-* The BATMAN core routing protocol becomes less entangled with other mechanisms and features, making it easier understand and to perform theoretical analysis on.
-* Easier to optimize the OGMs convergence speed.
+ * Reduced overhead, as OGMs can then be send with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desireable.
+ * The BATMAN core routing protocol becomes less entangled with other mechanisms and features, making it easier understand and to perform theoretical analysis on.
+ * Easier to optimize the OGMs convergence speed.
 
+== Definitions ==
+ * node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
+ * originator - An addressable entity within one mesh network routing layer. An originator's address has to be unique within a mesh network routing layer and unique on a node. A node's hard-interface may only be utilized by zero or one originator.
+ * B.A.T.M.A.N./hard interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames.
+ * sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
+ * duplicate - A received NDP message from a neighbor containing an already received sequence number.
+ * out of order - A received NDP message from a neighbor containing a sequence number that is older than the newest sequence number ever received from this neighbor.
+ * HNA - Host Network Announcement, a host's MAC address which is addressable on the mesh layer and which this originator is responsible for. This may be either the originator itself (bat0's MAC) or a bridged in host.
+ * Router:
+ * Sender: The originator belonging to a received OGM's ethernet frame source address.
+ * global TQ value: The linear mapping of an OGM's global TQ field to a value between 0 and 1 (global TQ / TQ_MAX = global TQ value).
 
-h2. Definitions
+== Protocol Procedure ==
 
-* node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
-* originator - An addressable entity within one mesh network routing layer. An originator's address has to be unique within a mesh network routing layer and unique on a node. A node's hard-interface may only be utilized by zero or one originator.
-* B.A.T.M.A.N./hard interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames.
-* sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
-* duplicate - A received NDP message from a neighbor containing an already received sequence number.
-* out of order - A received NDP message from a neighbor containing a sequence number that is older than the newest sequence number ever received from this neighbor.
-* HNA - Host Network Announcement, a host's MAC address which is addressable on the mesh layer and which this originator is responsible for. This may be either the originator itself (bat0's MAC) or a bridged in host.
-* Router:
-* Sender: The originator belonging to a received OGM's ethernet frame source address.
-* global TQ value: The linear mapping of an OGM's global TQ field to a value between 0 and 1 (global TQ / TQ_MAX = global TQ value).
-
-
-h2. Protocol Procedure
-
-
-
-h4. Broadcasting own Originator Message (OGM)
-
+==== Broadcasting own Originator Message (OGM) ====
 Each node periodically (OGM interval) generates and broadcasts a single OGM on each interface B.A.T.M.A.N. is running on if at least one HNA is present. A jitter may be applied to avoid collisions.
 
-+The Originator Message (OGM) Format:+
+__The Originator Message (OGM) Format:__
 
-* Packet type: Initialize this field with the OGM packet type.
-* Version: Set your internal compatibility version.
-* flags: Indicates certain attributes of this originator. So far 0x01 is reserved for VIS_SERVER (see [[VisAdv]])
-* global TQ: Is initially set to TQ_MAX by the originator.
-* Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
-* Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
-* Previous Sender: Indicates the originator address of the sender that routed the OGM to our sender. Initially, the originator of the OGM sets it to its originator address.
-* Number of HNAs: The number of hosts that are announced with this message.
+ * Packet type: Initialize this field with the OGM packet type.
+ * Version: Set your internal compatibility version.
+ * flags: Indicates certain attributes of this originator. So far 0x01 is reserved for VIS_SERVER (see [wiki:VisAdv])
+ * global TQ: Is initially set to TQ_MAX by the originator.
+ * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
+ * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
+ * Previous Sender: Indicates the originator address of the sender that routed the OGM to our sender. Initially, the originator of the OGM sets it to its originator address.
+ * Number of HNAs: The number of hosts that are announced with this message.
 
-<pre>
+{{{
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -64,13 +56,13 @@ Each node periodically (OGM interval) generates and broadcasts a single OGM on e
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |      TTL      |    Num HNA    |   GW flags    |  Alignment    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</code></pre>
+}}}
 
 A B.A.T.M.A.N. originator has to advertise at least one HNA. Otherwise no OGM shall be scheduled for sending.
 
-+The Host Network Announcement (HNA) Message Format:+
+__The Host Network Announcement (HNA) Message Format:__
 
-<pre>
+{{{
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -78,71 +70,59 @@ A B.A.T.M.A.N. originator has to advertise at least one HNA. Otherwise no OGM sh
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |  Host Network Announcement    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</code></pre>
+}}}
 
 Note: An HNA entry is not 4 Byte aligned, as two 6 Bytes entries are.
 
-
-h2. Receiving Originator Messages
-
+== Receiving Originator Messages ==
 
 Upon receiving a general B.A.T.M.A.N. packet a Node must perform the
 following preliminary checks before the packet is further processed:
 
-* If the OGM contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
-* If the sender address of the OGM's ethernet frame belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this OGM originated from this node.
-* If the sender address of the OGM's ethernet frame is a multicast address the message must be silently dropped.
-* If the previous sender address of the OGM's ethernet frame is a multicast address the message must be silently dropped.
-* If the OGM's sequence number is smaller (TODO: describe somewhere what "smaller" means here) or equal to Sender's Router Sequence Number for the OGM's Originator the message must be silently dropped. (TODO: does this make the Previous Sender field obsolete?)
-* If the tuple of the origantor address, the sender's originator address and sequence number of the OGM are a duplicate the message must be silently dropped.
-* If an OGM with a newer sequence number of the same originator address and sender's originator address has been received before, the message must be silently dropped.
+ * If the OGM contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
+ * If the sender address of the OGM's ethernet frame belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this OGM originated from this node.
+ * If the sender address of the OGM's ethernet frame is a multicast address the message must be silently dropped.
+ * If the previous sender address of the OGM's ethernet frame is a multicast address the message must be silently dropped.
+ * If the OGM's sequence number is smaller (TODO: describe somewhere what "smaller" means here) or equal to Sender's Router Sequence Number for the OGM's Originator the message must be silently dropped. (TODO: does this make the Previous Sender field obsolete?)
+ * If the tuple of the origantor address, the sender's originator address and sequence number of the OGM are a duplicate the message must be silently dropped.
+ * If an OGM with a newer sequence number of the same originator address and sender's originator address has been received before, the message must be silently dropped.
 
 If the OGM has not been dropped after these preliminary checks, the OGM will be modified in the following way:
 
-* The OGM's global TQ field needs to be multiplied with the best link TQ value towards the sender.
-* This new OGM's global TQ field needs to be multiplied with the asymmetric penalty of the link with the best link TQ value towards the sender. See 'TODO' for the asymmetric penalty.
-* The Neighbor Ranking needs to be performed.
+ * The OGM's global TQ field needs to be multiplied with the best link TQ value towards the sender.
+ * This new OGM's global TQ field needs to be multiplied with the asymmetric penalty of the link with the best link TQ value towards the sender. See 'TODO' for the asymmetric penalty.
+ * The Neighbor Ranking needs to be performed.
 
-
-h2. Router Ranking
-
+== Router Ranking ==
 When a new neighbor ranking needs to be performed for an OGM the following steps need to be undertaken:
 
-* If the OGM's Sequence Number is newer than the Originator's Sequence Number:
-*** The new Originator's Sequence Number must be set to the Sequence Number contained in the received OGM.
-*** for all Routers of the OGM's originator: if (Originator's Sequence Number - Router's Sequence Number) < OGM_SEQ_DIFF_LIMIT, purge the Neighbor Originator from the OGM's originator's Router List. (TODO: check whether this could introduce routing loops? Any additional checks for purging needed?)
-* If a matching Router entry for the OGM's Sender and OGM's Originator exist, the global TQ value and Router Sequence Number in this Router entry need to be updated with the OGM's global TQ value and OGM's Sequence Number. Otherwise a Router entry with these values needs to be created.
-* If the OGM's global TQ value is the best of all other Router's global TQ values, the OGM needs to be re-broadcasted.
+ * If the OGM's Sequence Number is newer than the Originator's Sequence Number:
+   * The new Originator's Sequence Number must be set to the Sequence Number contained in the received OGM.
+   * for all Routers of the OGM's originator: if (Originator's Sequence Number - Router's Sequence Number) < OGM_SEQ_DIFF_LIMIT, purge the Neighbor Originator from the OGM's originator's Router List. (TODO: check whether this could introduce routing loops? Any additional checks for purging needed?)
+ * If a matching Router entry for the OGM's Sender and OGM's Originator exist, the global TQ value and Router Sequence Number in this Router entry need to be updated with the OGM's global TQ value and OGM's Sequence Number. Otherwise a Router entry with these values needs to be created.
+ * If the OGM's global TQ value is the best of all other Router's global TQ values, the OGM needs to be re-broadcasted.
 
 TODO: Add a picture of the automata? (If that's not easily doable, simplify the Neighbor Ranking section, and out-source certain things to Pre/Post-Checks that do not modify the Originator List)
 
-
-h2. Re-broadcasting other nodes' OGMs
-
+== Re-broadcasting other nodes' OGMs ==
 
 When an OGM is to be re-broadcasted some of the message fields must be changed others must be left unchanged.  All fields not mentioned in the following section remain untouched:
 
-* The TTL must be decremented by one. If the TTL becomes zero (after the decrementation) the packet must be dropped.
-* The OGMs global TQ field needs to be multiplied with the hop penalty. See 'TODO' for the hop penalty.
-* 
+ * The TTL must be decremented by one. If the TTL becomes zero (after the decrementation) the packet must be dropped.
+ * The OGMs global TQ field needs to be multiplied with the hop penalty. See 'TODO' for the hop penalty.
+ * 
 
+== Originator List ==
+ * Originator:
+ * Originator's Sequence Number: The newest OGM Sequence Number that has been accepted from the given Originator. This is described in 'TODO'
+ * Router List: A list of possible routers towards an originator
 
-h2. Originator List
+=== Router List ===
+ * Originator:
+ * global TQ value: The global TQ value towards the
+ * Router's Sequence Number:
 
-* Originator:
-* Originator's Sequence Number: The newest OGM Sequence Number that has been accepted from the given Originator. This is described in 'TODO'
-* Router List: A list of possible routers towards an originator
-
-
-h3. Router List
-
-* Originator:
-* global TQ value: The global TQ value towards the
-* Router's Sequence Number:
-
-
-h2. Proposed Values for Constants
-
+== Proposed Values for Constants ==
 
 OGM_SEQ_DIFF_LIMIT: 5
 
