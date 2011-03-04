@@ -10,6 +10,7 @@ Celebrate batman-adv 2.6.38 Linux kernel integration
  * Making fragmentation more generic, adding Fragmentation header/layer?
  * Reviewing OGM protocol specification proposal
  * reviewing the new papers related to B.A.T.M.A.N. (Simon brings printed versions)
+ * discuss switching to git 
 
 == Testing ==
  * NDP
