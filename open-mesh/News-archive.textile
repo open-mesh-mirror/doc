@@ -1,29 +1,40 @@
-= News archive =
+
+h1. News archive
+
 
 This page contains the links to previous news posts for archiving puposes.
 
-[[BR]]
 
-=== 2010 ===
- * '''04.Sep. 2010''' [wiki:2010-09-04-batman-adv-2010-1-0-release Batman-adv 2010.1.0 released]
- * '''19.Jun. 2010''' [wiki:2010-06-19-batman-adv-2010-0-0-release Batman-adv 2010.0.0 released]
- * '''13.Jun. 2010''' [wiki:2010-06-13-wbm2010-bracciano WBMv3 in Bracciano]
- * '''19.Apr. 2010''' [wiki:2010-04-19-scheduled-server-downtime Scheduled server downtime]
- * '''22.Mar. 2010''' [wiki:2010-03-22-batman-adv-0-2-1-release Batman-adv 0.2.1 released]
- * '''02.Mar. 2010''' [wiki:2010-03-02-batman-at-wbmv3 B.A.T.M.A.N. at WBMv3]
 
-[[BR]]
-=== 2009 ===
- * '''26.Dec. 2009''' [wiki:2009-12-26-retrospect-batman-in-2009 Retrospect 2009]
- * '''18.Dec. 2009''' [wiki:2009-12-18-batman-v-outlook B.A.T.M.A.N. V outlook]
- * '''18.Nov. 2009''' [wiki:2009-11-18-wbm2009-2nd-encounter WirelessBattleMesh2009v2]
- * '''09.Nov. 2009''' [wiki:2009-11-08-batman-adv-0-2-release Batman-adv 0.2 released]
- * '''23.Oct. 2009''' [wiki:2009-10-23-batman-goes-mainline Batman goes mainline]
- * '''13.Jun. 2009''' [wiki:2009-06-13-batman-0-3-2-release Batman 0.3.2 released]
- * '''19.Apr. 2009''' [wiki:2009-04-19-wbm2009-aftermath WirelessBattleMesh2009]
- * '''25.Jan. 2009''' [wiki:2009-01-25-batman-0-3-1-release Batman 0.3.1 released]
 
-[[BR]]
-=== 2008 ===
- * '''28.Dec. 2008''' [wiki:2008-12-28-batman-adv-0-1-release Batman-adv 0.1 released]
- * '''16.Nov. 2008''' [wiki:2008-11-16-batman-adv-goes-debian Batman-adv now available in Debian]
+
+h3. 2010
+
+* *04.Sep. 2010* [[2010-09-04-batman-adv-2010-1-0-release|Batman-adv 201010 released]]
+* *19.Jun. 2010* [[2010-06-19-batman-adv-2010-0-0-release|Batman-adv 201000 released]]
+* *13.Jun. 2010* [[2010-06-13-wbm2010-bracciano|WBMv3 in Bracciano]]
+* *19.Apr. 2010* [[2010-04-19-scheduled-server-downtime|Scheduled server downtime]]
+* *22.Mar. 2010* [[2010-03-22-batman-adv-0-2-1-release|Batman-adv 021 released]]
+* *02.Mar. 2010* [[2010-03-02-batman-at-wbmv3|BATMAN at WBMv3]]
+
+
+
+
+h3. 2009
+
+* *26.Dec. 2009* [[2009-12-26-retrospect-batman-in-2009|Retrospect 2009]]
+* *18.Dec. 2009* [[2009-12-18-batman-v-outlook|BATMAN V outlook]]
+* *18.Nov. 2009* [[2009-11-18-wbm2009-2nd-encounter|WirelessBattleMesh2009v2]]
+* *09.Nov. 2009* [[2009-11-08-batman-adv-0-2-release|Batman-adv 02 released]]
+* *23.Oct. 2009* [[2009-10-23-batman-goes-mainline|Batman goes mainline]]
+* *13.Jun. 2009* [[2009-06-13-batman-0-3-2-release|Batman 032 released]]
+* *19.Apr. 2009* [[2009-04-19-wbm2009-aftermath|WirelessBattleMesh2009]]
+* *25.Jan. 2009* [[2009-01-25-batman-0-3-1-release|Batman 031 released]]
+
+
+
+
+h3. 2008
+
+* *28.Dec. 2008* [[2008-12-28-batman-adv-0-1-release|Batman-adv 01 released]]
+* *16.Nov. 2008* [[2008-11-16-batman-adv-goes-debian|Batman-adv now available in Debian]]
