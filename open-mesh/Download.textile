@@ -1,7 +1,7 @@
 = Download B.A.T.M.A.N. =
 We are currently working on different branches. To get the details about the differences of these branches, see our [wiki:BranchesExplained Branches Explained page].
 
-We are offering sources and precompiled batmand binaries and packages for different platforms and for the [http://downloads.open-mesh.org/batman/stable/ stable] and the [http://downloads.open-mesh.org/batman/development/ development] branch. However, please use the stable branch for your public infrastructure unless you know exactly what you are doing and are prepared for the big unknown. A kernel module needs to be linked against the exact kernel headers you are using, therefore we are unable to provide precompiled binaries for batman-adv.
+Please use the maint branch for your public infrastructure unless you know exactly what you are doing and are prepared for the big unknown.
 
 === Download Released Source Code ===
  * The latest version of [wiki:batman-adv batman-adv] is [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2011.0.0.tar.gz batman-adv-2011.0.0.tar.gz] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2011.0.0.tar.gz.md5 md5] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2011.0.0.tar.gz.sha1 sha1] [http://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2011.0.0.tar.gz.asc asc]
@@ -44,25 +44,9 @@ It follows an overview of linux versions and the batman-adv version they contain
 
 Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto your debian machine. Following packages are available:
  * [http://packages.debian.org/sid/batmand batmand] - batman 0.3.2
- * [http://packages.debian.org/sid/batman-adv-source batman-adv-source] - batman-advanced kernel 2010.0.0 module source (installable via [http://packages.debian.org/sid/module-assistant module-assistant])
- * [http://packages.debian.org/sid/batman-adv-dkms batman-adv-dkms] - batman-advanced kernel module 2010.0.0 dkms package to build new modules dynamically (half-automatic)
- * [http://packages.debian.org/sid/batctl batctl] - batctl 2010.0.0
-
-
-
-=== Download precompiled binaries for batmand ===
-There are various pre-compiled binaries available:
-
- * [http://downloads.open-mesh.org/batman/stable/binaries/wrt-freifunk/batmand_0.3.2-current_mipsel-wr-elf-32-lsb-dynamic.ipk mipsel OpenWRT/Whiterussian Freifunk]
- * [http://downloads.open-mesh.org/batman/stable/binaries/wrt-freifunk/batmand_0.3.2-current_mipsel-wr-elf-32-lsb-dynamic.ipk WRT-Freifunk]
- * [http://downloads.open-mesh.org/batman/stable/binaries/zaurus-akita Zaurus-Akita]
- * [http://downloads.open-mesh.org/batman/stable/binaries/netgear-kamikaze Netgear-Kamikaze]
- * [http://downloads.open-mesh.org/batman/stable/binaries/meshcube/ Meshcube (static)]
- * [http://downloads.open-mesh.net/batman/stable/binaries/i386 i386 (static)]
- * [http://downloads.open-mesh.org/batman/stable/binaries/fonera fonera (static)]
- * [http://downloads.open-mesh.org/batman/stable/binaries/fonera-kamikaze fonera-kamikaze]
- * [http://downloads.open-mesh.org/batman/stable/binaries/buffalo-freifunk/batmand_0.3.2-current_mipsel-wr-elf-32-lsb-dynamic.ipk buffalo-freifunk]
- * [http://downloads.open-mesh.org/batman/stable/binaries/armv5te armv5te (static)]
+ * [http://packages.debian.org/sid/batman-adv-source batman-adv-source] - batman-advanced kernel 2011.0.0 module source (installable via [http://packages.debian.org/sid/module-assistant module-assistant])
+ * [http://packages.debian.org/sid/batman-adv-dkms batman-adv-dkms] - batman-advanced kernel module 2011.0.0 dkms package to build new modules dynamically (half-automatic)
+ * [http://packages.debian.org/sid/batctl batctl] - batctl 2011.0.0
 
 === Building OpenWRT packages ===
 
