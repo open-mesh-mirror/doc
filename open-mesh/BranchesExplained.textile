@@ -34,7 +34,7 @@ Today, it is an independent project hosted at http://www.bmx6.net. [[BR]]
 
 Early 2007 some developers started experimenting with the idea of routing on layer 2 (Ethernet layer) instead of layer 3. As only little knowledge about routing on this low level was available at that time, a first prototype was developed, operating in userspace in form of a daemon but already using layer 2. To differentiate from the layer 3 routing daemon the suffix "adv" (spoken: advanced) was chosen - the batman-adv userspace daemon was born. It uses the routing algorithm of batman 0.3, but instead of sending UDP packets and manipulating routing tables, it provides a virtual network interface and transparently transports packets on its own. 
 
-However, the virtual interface in userspace imposed a significant overhead for low-end wireless access points which led to a re-implementation as a kernel module. The batman-adv userspace daemon has been removed, so today "batman-adv" refers to the kernel module only. Currently, most of the development happens around batman-adv.
+However, the virtual interface in userspace imposed a significant overhead for low-end wireless access points which led to a re-implementation as a kernel module. The batman-adv userspace daemon has been removed, so today "batman-adv" refers to the kernel module only. Currently, most of the development happens around batman-adv which is part of the official Linux kernel since 2.6.38.
 
 To understand the implications of routing on layer 2, the [wiki:batman-adv batman-adv page] should be a good starting point. Further documentation is available in our [wiki:UserDocs docs] section.
 
