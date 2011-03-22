@@ -16,7 +16,7 @@
  * [wiki:DebugOutput Understanding the debug output] - documentation that helps you to understand the debug output
  * [wiki:VisualizeMesh Visualizing the network] - this document explains how to get fancy graphics of the batman mesh
  * [wiki:AnnouncingNetworks Announcing networks] - learn how to announce and / or revoke HNA on the fly
- * [http://downloads.open-mesh.org/batman/development/sources/batmand_0.4-alpha-current_sources/man/batmand.8.html B.A.T.M.A.N. online man page] - read the current batman man page online
+ * [http://downloads.open-mesh.org/batman/manpages/batmand.8.html B.A.T.M.A.N. online man page] - read the current batman man page online
  * [http://www.open-mesh.org/batman/doc/batmand_howto.pdf B.A.T.M.A.N. HowTo] - how to compile, install and run batman 0.2
  * [http://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v CCCamp 2007 talk (video)] - Elektra and Marek explain the batman routing algorithm and features of batmand
 
@@ -33,7 +33,7 @@
  * [wiki:bridge-loop-avoidance B.A.T.M.A.N. bridge loop avoidance] - document explaining the bridge loop avoidance implemented in batman-adv
  * [wiki:VisAdv Visualizing the 2nd layer] - creating graphics of the layer 2 network and differences to the layer 3 vis output explained
  * [wiki:UsingBatmanGit Using the batman git repos] - this page explains how the git repository is structured and how to use it
- * [http://downloads.open-mesh.org/batman/development/sources/batctl_devel-current_sources/man/batctl.8.html batctl online man page] - read the current batctl man page online
+ * [http://downloads.open-mesh.org/batman/manpages/batctl.8.html batctl online man page] - read the current batctl man page online
  * [http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv Wireless Kernel Tweaking (video)] - Introduction to batman-advanced by Marek and Simon (also available at [http://video.google.de/videoplay?docid=1355876033101731617 google video])
  * [wiki:batman-adv-troubleshooting B.A.T.M.A.N. Advanced troubleshooting] - What if my batman-adv setup does not behave as expected ?
  * [wiki:bonding-alternating Bonding and Interface Alternating] - Use multiple links in batman-adv for fun and profit.
