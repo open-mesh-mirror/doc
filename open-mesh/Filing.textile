@@ -1,48 +1,58 @@
-=== Some documents that might help you: ===
 
-==== B.A.T.M.A.N. concepts ====
-
- * [wiki:why-starting-batman Why starting B.A.T.M.A.N.] - Why we started the B.A.T.M.A.N. project instead of continuing to work with OLSR
- * [wiki:BATMANConcept B.A.T.M.A.N. Concept] - get an overview about B.A.T.M.A.N.'s main concepts
- * [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 B.A.T.M.A.N. RFC Draft] - a draft explaining the routing algorithm used in batman 0.2
- * [http://www.open-mesh.org/batman/doc/batman-status.pdf B.A.T.M.A.N. Status] - read about the B.A.T.M.A.N. (June 2007)
- * [wiki:VisOutput Vis output] - working with the vis server output
+h3. Some documents that might help you:
 
 
-==== Using the B.A.T.M.A.N. daemon (layer 3) ====
 
- * [wiki:RoutingVodoo Getting behind the routing vodoo] - learn about the B.A.T.M.A.N. routing table manipulation
- * [wiki:InternetTuning InternetTuning] - get information how B.A.T.M.A.N. handles internet access and what features it offers
- * [wiki:DebugOutput Understanding the debug output] - documentation that helps you to understand the debug output
- * [wiki:VisualizeMesh Visualizing the network] - this document explains how to get fancy graphics of the batman mesh
- * [wiki:AnnouncingNetworks Announcing networks] - learn how to announce and / or revoke HNA on the fly
- * [http://downloads.open-mesh.org/batman/manpages/batmand.8.html B.A.T.M.A.N. online man page] - read the current batman man page online
- * [http://www.open-mesh.org/batman/doc/batmand_howto.pdf B.A.T.M.A.N. HowTo] - how to compile, install and run batman 0.2
- * [http://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v CCCamp 2007 talk (video)] - Elektra and Marek explain the batman routing algorithm and features of batmand
+h4. B.A.T.M.A.N. concepts
 
 
-==== Using B.A.T.M.A.N. advanced (layer 2) ====
-
- * [wiki:batman-adv B.A.T.M.A.N. Advanced overview] - information about the Layer 2 version of B.A.T.M.A.N.
- * [wiki:batman-adv-quick-start-guide B.A.T.M.A.N. Advanced quick start guide] - or: what the hell is bat0 for?
- * [wiki:building-batman-adv-with-openwrt Building B.A.T.M.A.N. Advanced with OpenWRT] - how to download and configure your OpenWRT build environment to compile batman-adv
- * [http://pizza.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To B.A.T.M.A.N. Advanced on OpenWRT] - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
- * [wiki:tweaking-batman-adv Tweaking the B.A.T.M.A.N. Advanced behaviour] - get an overview about the various settings batman-adv offers
- * [wiki:understand-your-batman-adv-network Understand your B.A.T.M.A.N. Advanced network] - learn what network debug interfaces batman-adv offers
- * [wiki:batman-adv-gateways B.A.T.M.A.N. gateway support] - how batman-adv can be used to choose the nearest internet gateway node
- * [wiki:bridge-loop-avoidance B.A.T.M.A.N. bridge loop avoidance] - document explaining the bridge loop avoidance implemented in batman-adv
- * [wiki:VisAdv Visualizing the 2nd layer] - creating graphics of the layer 2 network and differences to the layer 3 vis output explained
- * [wiki:UsingBatmanGit Using the batman git repos] - this page explains how the git repository is structured and how to use it
- * [http://downloads.open-mesh.org/batman/manpages/batctl.8.html batctl online man page] - read the current batctl man page online
- * [http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv Wireless Kernel Tweaking (video)] - Introduction to batman-advanced by Marek and Simon (also available at [http://video.google.de/videoplay?docid=1355876033101731617 google video])
- * [wiki:batman-adv-troubleshooting B.A.T.M.A.N. Advanced troubleshooting] - What if my batman-adv setup does not behave as expected ?
- * [wiki:bonding-alternating Bonding and Interface Alternating] - Use multiple links in batman-adv for fun and profit.
+* [[why-starting-batman|Why starting BATMAN]] - Why we started the B.A.T.M.A.N. project instead of continuing to work with OLSR
+* [[BATMANConcept|BATMAN Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
+* "B.A.T.M.A.N. RFC Draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 - a draft explaining the routing algorithm used in batman 0.2
+* "B.A.T.M.A.N. Status":http://www.open-mesh.org/batman/doc/batman-status.pdf - read about the B.A.T.M.A.N. (June 2007)
+* [[VisOutput|Vis output]] - working with the vis server output
 
 
-==== Misc ====
 
- * [wiki:routing_scenarios Routing scenarios] - a collection of routing scenarios a routing protocol should be able to handle
- * [wiki:Coredump How to get a coredump] - documentation about coredump configuration & retrieval
- * [wiki:the-olsr-story The OLSR story] - this text explains the roots of B.A.T.M.A.N. (Dec 2006)
- * [wiki:Emulation Emulation HowTo] - how to create an environment to emulate wireless setups using QEMU and VDE
- * [http://maps.google.com/maps?q=26.358298,127.78389&num=1&t=h&sll=26.356526,127.779526&sspn=0.00473,0.007972&hl=en&ie=UTF8&ll=26.358083,127.784042&spn=0.00473,0.007972&z=17 Ultimate B.A.T.M.A.N. Analysis/Documentations/Descriptions] - Anything you couldn't find an answer for yet is securely archived here.
+h4. Using the B.A.T.M.A.N. daemon (layer 3)
+
+
+* [[RoutingVodoo|Getting behind the routing vodoo]] - learn about the B.A.T.M.A.N. routing table manipulation
+* [[InternetTuning|InternetTuning]] - get information how B.A.T.M.A.N. handles internet access and what features it offers
+* [[DebugOutput|Understanding the debug output]] - documentation that helps you to understand the debug output
+* [[VisualizeMesh|Visualizing the network]] - this document explains how to get fancy graphics of the batman mesh
+* [[AnnouncingNetworks|Announcing networks]] - learn how to announce and / or revoke HNA on the fly
+* "B.A.T.M.A.N. online man page":http://downloads.open-mesh.org/batman/manpages/batmand.8.html - read the current batman man page online
+* "B.A.T.M.A.N. [[HowTo]]":http://www.open-mesh.org/batman/doc/batmand_howto.pdf - how to compile, install and run batman 0.2
+* "CCCamp 2007 talk (video)":http://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v - Elektra and Marek explain the batman routing algorithm and features of batmand
+
+
+
+h4. Using B.A.T.M.A.N. advanced (layer 2)
+
+
+* [[batman-adv|BATMAN Advanced overview]] - information about the Layer 2 version of B.A.T.M.A.N.
+* [[batman-adv-quick-start-guide|BATMAN Advanced quick start guide]] - or: what the hell is bat0 for?
+* [[building-batman-adv-with-openwrt|Building BATMAN Advanced with [[OpenWRT]]]] - how to download and configure your [[OpenWRT]] build environment to compile batman-adv
+* "B.A.T.M.A.N. Advanced on [[OpenWRT]]":http://pizza.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To - a tutorial for using B.A.T.M.A.N. Advanced on [[OpenWRT]]
+* [[tweaking-batman-adv|Tweaking the BATMAN Advanced behaviour]] - get an overview about the various settings batman-adv offers
+* [[understand-your-batman-adv-network|Understand your BATMAN Advanced network]] - learn what network debug interfaces batman-adv offers
+* [[batman-adv-gateways|BATMAN gateway support]] - how batman-adv can be used to choose the nearest internet gateway node
+* [[bridge-loop-avoidance|BATMAN bridge loop avoidance]] - document explaining the bridge loop avoidance implemented in batman-adv
+* [[VisAdv|Visualizing the 2nd layer]] - creating graphics of the layer 2 network and differences to the layer 3 vis output explained
+* [[UsingBatmanGit|Using the batman git repos]] - this page explains how the git repository is structured and how to use it
+* "batctl online man page":http://downloads.open-mesh.org/batman/manpages/batctl.8.html - read the current batctl man page online
+* "Wireless Kernel Tweaking (video)":http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv - Introduction to batman-advanced by Marek and Simon (also available at "google video":http://video.google.de/videoplay?docid=1355876033101731617)
+* [[batman-adv-troubleshooting|BATMAN Advanced troubleshooting]] - What if my batman-adv setup does not behave as expected ?
+* [[bonding-alternating|Bonding and Interface Alternating]] - Use multiple links in batman-adv for fun and profit.
+
+
+
+h4. Misc
+
+
+* [[routing_scenarios|Routing scenarios]] - a collection of routing scenarios a routing protocol should be able to handle
+* [[Coredump|How to get a coredump]] - documentation about coredump configuration & retrieval
+* [[the-olsr-story|The OLSR story]] - this text explains the roots of B.A.T.M.A.N. (Dec 2006)
+* [[Emulation|Emulation [[HowTo]]]] - how to create an environment to emulate wireless setups using QEMU and VDE
+* "Ultimate B.A.T.M.A.N. Analysis/Documentations/Descriptions":http://maps.google.com/maps?q=26.358298,127.78389&num=1&t=h&sll=26.356526,127.779526&sspn=0.00473,0.007972&hl=en&ie=UTF8&ll=26.358083,127.784042&spn=0.00473,0.007972&z=17 - Anything you couldn't find an answer for yet is securely archived here.
