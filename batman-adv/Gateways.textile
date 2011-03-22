@@ -1,16 +1,22 @@
-= Batman-adv gateways =
 
-{{{
-#!div style="width: 46em; text-align: justify"
+h1. Batman-adv gateways
+
+
+<pre>
+<code class="div">
 
 Often batman-adv is used to cover a bigger area with wireless access to the internet where several nodes have internet access while the other nodes try to find the best route towards one of the gateways. In this case it is desirable that the routing protocol helps with the decision to find the best path since it already knows the topology of the network.
 
-=== The default route ===
+
+h3. The default route
+
 
 The subject of manipulating the IP (layer 3) default route with a layer 2 routing protocol has stirred up controversy between those who believe in a clean network layer separation and those who need this functionality. The former claim that a well-designed protocol should not mess with other layers but instead collaborate with tools made for higher layers. The latter group has pointed out that the rule of network layer separation can be bent in real world applications and to improve usability. To achieve a compromise the gateway mechanism is disabled per default and only operates on top of DHCP (details below). Feel free to contact us in case you want to propose alternative ideas.
 
 
-=== The concept ===
+
+h3. The concept
+
 
 As the whole gateway functionality is based on DHCP, the protocol assumes each gateway runs its own DHCP server and each client runs a DHCP client. When a DHCP client is started it will issue a DHCP request which is broadcasted in the entire network. Every DHCP server will send a reply via unicast back to the client which then has to choose one of the responding DHCP servers as its gateway.
 
@@ -25,44 +31,46 @@ Once the gateway feature has been activated batman-adv floods the networks with 
 The DHCP client will then select the gateway batman-adv prefers as only this gateway replied to the request.
 
 
-=== The configuration ===
 
-'''gateway server'''
+h3. The configuration
+
+
+*gateway server*
 
 Activate the gateway announcements on a node that has a DHCP server running:
 
-{{{
+<pre>
 batctl gw_mode server
-}}}
+</code></pre>
 
 Batman-adv always announces the gateway's internet bandwidth, so that clients can base their decision on the link quality towards the gateway as well as on the available bandwidth. Per default a bandwidth of 2048KBit/512KBit is assumed. To configure a download bandwidth of 5Mbit with an upload of 1Mbit run the following command:
 
-{{{
+<pre>
 batctl gw_mode server 5mbit/1mbit
-}}}
+</code></pre>
 
-Details regarding the syntax of the bandwidth setting can be found in the [http://downloads.open-mesh.org/batman/development/sources/batctl_devel-current_sources/man/batctl.8.html batctl manpage].
+Details regarding the syntax of the bandwidth setting can be found in the "batctl manpage":http://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
-'''gateway client'''
+*gateway client*
 
 The client can be activated with the following command:
 
-{{{
+<pre>
 batctl gw_mode client
-}}}
+</code></pre>
 
 If multiple gateways are available batman-adv selects its best gateway based on certain criteria such as link quality / bandwidth / etc. The selection algorithm can be changed by appending the appropriate gateway selection class to the aforementioned command. To let batman-adv switch the gateway as soon as any gateway becomes 20TQ points better than the currently selected gateway:
 
-{{{
+<pre>
 batctl gw_mode client 20
-}}}
+</code></pre>
 
-All available gateway selection classes are thoroughly explained in the [http://downloads.open-mesh.org/batman/development/sources/batctl_devel-current_sources/man/batctl.8.html batctl manpage].
+All available gateway selection classes are thoroughly explained in the "batctl manpage":http://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
 To see all available gateways and their announced throughput run:
 
-{{{
+<pre>
 batctl gwl
-}}}
+</code></pre>
 
-}}}
+</code></pre>
