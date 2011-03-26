@@ -7,7 +7,7 @@ If you like this project and you want to take part and/or give something back, h
 
 
 
-h3. Reporting Bugs
+h2. Reporting Bugs
 
 
 If you find a bug, please see if the problem is already known in the by Reading the Tickets:
@@ -32,7 +32,7 @@ Please add as much information as possible. In particular interesting are:
 * your guess what triggered the problem. ;)
 
 
-h3. Documentation / Feedback
+h2. Documentation / Feedback
 
 
 Write an article about your experience with B.A.T.M.A.N. and have it published here or ask us to link to your site:
@@ -47,19 +47,19 @@ Write an article about your experience with B.A.T.M.A.N. and have it published h
 There's lots of people that want to know about B.A.T.M.A.N. - help us to spread the word! You also can create a wiki account and improve the documentation.
 
 
-h3. Research
+h2. Research
 
 
 B.A.T.M.A.N. gives much room for research, especially the layer 2 implementation in the kernel. Get in touch with us to share your ideas. If you write papers we are happy to publish them here or link to your page. If you are looking for the right topic or mentorship feel free to contact us. We have more ideas than time to implement them.
 
 
-h3. Development
+h2. Development
 
 
 You looked in the code ? Fixed bugs ? Added a cool new function ? Integrated B.A.T.M.A.N. in a distribution ? Don't hesitate to let us and others know! We can avoid duplicated work by publishing it here or linking to your page. Patches are always welcome and can be posted on the [[MailingList|mailing list]] to get integrated. We also hand out git access to people that want to get involved.
 
 
-h3. Submitting patches
+h2. Submitting patches
 
 
 If you intend to send us patches, please consider the following guidelines:
@@ -67,12 +67,12 @@ If you intend to send us patches, please consider the following guidelines:
 * Prefer small & digestible over long "all in one" patches.
 * No MIME, no links, no compression, no attachments.  Just plain text (patches are to be sent inline).
 * Patches sent to the mailing list should include "PATCH" in the subject to make it easier to distinguish between patches and discussions.
-* The mail's subject will become the first line in the commit message. The body contains the longer patch description and the patch (unified format) itself. Please also specify the target branch (e.g. batctl, batman-adv, etc) at the beginning of the subject line. See the "timeline":http://www.open-mesh.org/timeline for more examples.
+* The mail's subject will become the first line in the commit message. The body contains the longer patch description and the patch (unified format) itself. Please also specify the target branch (e.g. batctl, batman-adv, etc) at the beginning of the subject line.
 * Add a "Signed-off-by: Your Name <you@example.com>" line to the patch message to make the ownership of the patch clear.
 * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style closely (use checkpatch.pl to verify your patch) as well as the linux "how to submit patches" guidelines (search for the term SubmitPatches to find thorough documentation).
 * Patches against the batman-adv master branch must be formated using
 <pre>
-git format-patch -M --patience --src-prefix=a/batman-adv/ --dst-prefix=b/batman-adv/ $BASECOMMIT
+git format-patch -M --patience $BASECOMMIT
 </pre>
 * An exemplary good submission you may want to look at can be found here: https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2009-December/002033.html
 
