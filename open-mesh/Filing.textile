@@ -3,8 +3,8 @@ h1. Some documents that might help you:
 h2. B.A.T.M.A.N. concepts
 
 
-* [[why-starting-batman|Why starting BATMAN]] - Why we started the B.A.T.M.A.N. project instead of continuing to work with OLSR
-* [[BATMANConcept|BATMAN Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
+* [[why-starting-batman|Why starting B.A.T.M.A.N.]] - Why we started the B.A.T.M.A.N. project instead of continuing to work with OLSR
+* [[BATMANConcept|B.A.T.M.A.N. Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
 * "B.A.T.M.A.N. RFC Draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 - a draft explaining the routing algorithm used in batman 0.2
 * "B.A.T.M.A.N. Status":http://www.open-mesh.org/batman/doc/batman-status.pdf - read about the B.A.T.M.A.N. (June 2007)
 * [[VisOutput|Vis output]] - working with the vis server output
@@ -28,19 +28,19 @@ h2. Using the B.A.T.M.A.N. daemon (layer 3)
 h2. Using B.A.T.M.A.N. advanced (layer 2)
 
 
-* [[batman-adv|BATMAN Advanced overview]] - information about the Layer 2 version of B.A.T.M.A.N.
-* [[batman-adv-quick-start-guide|BATMAN Advanced quick start guide]] - or: what the hell is bat0 for?
-* [[building-batman-adv-with-openwrt|Building BATMAN Advanced with OpenWRT]] - how to download and configure your OpenWRT build environment to compile batman-adv
+* [[batman-adv|B.A.T.M.A.N. Advanced overview]] - information about the Layer 2 version of B.A.T.M.A.N.
+* [[batman-adv-quick-start-guide|B.A.T.M.A.N. Advanced quick start guide]] - or: what the hell is bat0 for?
+* [[building-batman-adv-with-openwrt|Building B.A.T.M.A.N. Advanced with OpenWRT]] - how to download and configure your OpenWRT build environment to compile batman-adv
 * "B.A.T.M.A.N. Advanced on OpenWRT":http://pizza.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
-* [[tweaking-batman-adv|Tweaking the BATMAN Advanced behaviour]] - get an overview about the various settings batman-adv offers
-* [[understand-your-batman-adv-network|Understand your BATMAN Advanced network]] - learn what network debug interfaces batman-adv offers
-* [[batman-adv-gateways|BATMAN gateway support]] - how batman-adv can be used to choose the nearest internet gateway node
-* [[bridge-loop-avoidance|BATMAN bridge loop avoidance]] - document explaining the bridge loop avoidance implemented in batman-adv
+* [[tweaking-batman-adv|Tweaking the B.A.T.M.A.N. Advanced behaviour]] - get an overview about the various settings batman-adv offers
+* [[understand-your-batman-adv-network|Understand your B.A.T.M.A.N. Advanced network]] - learn what network debug interfaces batman-adv offers
+* [[batman-adv-gateways|B.A.T.M.A.N. gateway support]] - how batman-adv can be used to choose the nearest internet gateway node
+* [[bridge-loop-avoidance|B.A.T.M.A.N. bridge loop avoidance]] - document explaining the bridge loop avoidance implemented in batman-adv
 * [[VisAdv|Visualizing the 2nd layer]] - creating graphics of the layer 2 network and differences to the layer 3 vis output explained
 * [[UsingBatmanGit|Using the batman git repos]] - this page explains how the git repository is structured and how to use it
 * "batctl online man page":http://downloads.open-mesh.org/batman/manpages/batctl.8.html - read the current batctl man page online
 * "Wireless Kernel Tweaking (video)":http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv - Introduction to batman-advanced by Marek and Simon (also available at "google video":http://video.google.de/videoplay?docid=1355876033101731617)
-* [[batman-adv-troubleshooting|BATMAN Advanced troubleshooting]] - What if my batman-adv setup does not behave as expected ?
+* [[batman-adv-troubleshooting|B.A.T.M.A.N. Advanced troubleshooting]] - What if my batman-adv setup does not behave as expected ?
 * [[bonding-alternating|Bonding and Interface Alternating]] - Use multiple links in batman-adv for fun and profit.
 
 
