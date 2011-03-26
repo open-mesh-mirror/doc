@@ -1,30 +1,31 @@
 This is just a list of papers which need a review before going to the experience site:
 
 
-h1. "free" papers =
- Wi-Me - Wireless Mesh Network Implementation (K. Babu, L.M. Cortes-Pena, P. Shah, S.S. Krishnan) ===
+h1. "free" papers
 
- Compares BATMAN and OLSR with a static routing scheme in a small test bed.
+h2. Wi-Me - Wireless Mesh Network Implementation (K. Babu, L.M. Cortes-Pena, P. Shah, S.S. Krishnan)
+
+Compares BATMAN and OLSR with a static routing scheme in a small test bed.
 
 * http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf
 
 
-h3. Experimental evaluation of two open source solutions for wireless mesh routing at layer two (R.G. Garroppo, S. Giordano, L. Tavanti)
+h2. Experimental evaluation of two open source solutions for wireless mesh routing at layer two (R.G. Garroppo, S. Giordano, L. Tavanti)
 
 
- Compares batman-adv and open80211s in a small testbed.
+Compares batman-adv and open80211s in a small testbed.
 
 * http://wwwtlc.iet.unipi.it/research/ggt-iswpc10.pdf
 
 
-h3. WMM - Wireless Mesh Monitoring
+h2. WMM - Wireless Mesh Monitoring
 
+Introduction to WMMs and some implementations like AODV, OLSR, BATMAN ...
 
- Introduction to WMMs and some implementations like AODV, OLSR, BATMAN ...
 * http://www.gsd.inesc-id.pt/~ler/reports/ricardopinto-midterm.pdf
 
 
-h3. more resources
+h2. more resources
 
 * find some more: http://scholar.google.com/scholar?start=20&q=BATMAN+OLSR&hl=en&as_sdt=2000
 
