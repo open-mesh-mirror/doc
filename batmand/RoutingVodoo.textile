@@ -1,5 +1,4 @@
-
-h2. Getting behind the routing vodoo
+h1. Getting behind the routing vodoo
 
 
 With version 0.3 batman became "policy routing" support and thus can use special routing functions provided by the Linux kernel.
@@ -7,7 +6,7 @@ With version 0.3 batman became "policy routing" support and thus can use special
 This document explains its purpose and tries to point out why batman is doing it. Please keep in mind: Normally, you wont have to to anything about it ! Batman will take care of all the routing work but it might prove helpful to understand what batman does and why. ;-)
 
 
-*Routing tables*
+h2. Routing tables
 
 Linux provides much more routing tables than just the one you can see with the "route" command. Batman makes use of the feature to spread its routing entries over 4 routing tables. To find out which routing tables are used issue "batmand -i" and watch out for the "rt_table" information:
 
@@ -34,7 +33,7 @@ The "route" command provides access to routing table 254. To see or manipulate t
 ip route ls table 66
 
 
-*Routing rules*
+h2. Routing rules
 
 Additionally to more routing tables, Linux offers to set routing rules which opens the possibility to control the packet flow. A rule can be based on certain criteria as source IP / destination IP / incoming interface / etc and will always target a routing table. When a new packet comes in, the kernel will follow the rules from the smallest available rule number until a rule is matched. Then the kernel jumps to the routing table which is pointed to by the rule and tries to find a routing entry there. If nothing is found the routing table will be left and the kernel proceeds with the next rule. Issue "batmand -i" to get the rule numbers used by batman:
 
@@ -69,7 +68,7 @@ The next rule means: All packets should go through our "network" (HNA) table.
 The last rule is similar to the first rule but the kernel will jump to our "unreachable" table.
 
 
-*What is the purpose of all this ?*
+h2. What is the purpose of all this ?
 
 * Batman can clearly seperate hosts from announced networks. With a simple lookup you can see whether a node is announced or runs batman.
 * It allows you and batman to easily delete all batman related table entries because the batman tables are well known and distinct.
