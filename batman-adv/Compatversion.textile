@@ -1,30 +1,35 @@
-= batman-adv COMPAT_VERSION =
+h1. batman-adv COMPAT_VERSION
+
 
 COMPAT_VERSION in packet.h is used to identify an incoming packet and check if it can processed by the current version. The packet structure should be identified by this version. The stuff which appears in a packet jumps a little bit with each version because we change stuff in trunk/master and in next and import those changes to the packet structure out-of-order.
 
 Following changes were identified and documented. The changes are to the last COMPAT_VERSION and not to the last change in a branch. So "added xyz on master, removed xyz on next and re-added xyz on master" does only mean that xyz was always there in master, but the version in next dropped that change and thus generated a new COMPAT_VERSION.
 
-|| Version || Branch                         || Changes ||
-||    1    || trunk                          || Initial definitions of batman_packet, icmp_packet, unicast_packet, bcast_packet, ethernet type 0x0842 ||
-||    5    || trunk                          || information in batman_packet was reordered, tq, old_orig and hnas were added ||
-||    6    || trunk, v0.1                    || vis_packet type added, version fields added to each packet, ethernet type changed to 0x4305 ||
-||    7    || trunk                          || unused gw flags removed, reordered icmp and batman packet ||
-||    8    || trunk, v0.2, v0.2.1, v2010.0.0 || source field introduced in vis packets ||
-||    9    || trunk                          || Gateway flags added to batman_packet, primaries_first_hop flag added for bonding, special icmp messages for route record added ||
-||   10    || trunk                          || 32 bit sequence numbers added/changed, ttl were added to broadcasts ||
-||   11    || next, v2010.1.0                || gateway flags were removed ||
-||   12    || trunk, v2011.0.0*              || unicast fragmentation added, gateway flags were readded ||
-||   13    || next, v2010.2.0                || gateway flags were removed ||
+| Version | Branch                        | Changes |
+|    1    | trunk                          | Initial definitions of batman_packet, icmp_packet, unicast_packet, bcast_packet, ethernet type 0x0842 |
+|    5    | trunk                          | information in batman_packet was reordered, tq, old_orig and hnas were added |
+|    6    | trunk, v0.1                    | vis_packet type added, version fields added to each packet, ethernet type changed to 0x4305 |
+|    7    | trunk                          | unused gw flags removed, reordered icmp and batman packet |
+|    8    | trunk, v0.2, v0.2.1, v2010.0.0 | source field introduced in vis packets |
+|    9    | trunk                          | Gateway flags added to batman_packet, primaries_first_hop flag added for bonding, special icmp messages for route record added |
+|   10    | trunk                          | 32 bit sequence numbers added/changed, ttl were added to broadcasts |
+|   11    | next, v2010.1.0                | gateway flags were removed |
+|   12    | trunk, v2011.0.0              | unicast fragmentation added, gateway flags were readded |
+|   13    | next, v2010.2.0                | gateway flags were removed |
 
 (* means future version with already defined feature set)
 
 There is a special COMPAT_VERSION 200 which is only used by saxnet. This version is v6 with bcast seqno protection added.
 
-== COMPAT_VERSION size problem ==
+
+h2. COMPAT_VERSION size problem
+
 
 Currently the size of the version field in all packets is a single byte. This means that after COMPAT_VERSION 255 no new version can be assigned. Thus a variable-length number must be used. 
 
-=== 255-COMPAT_VERSION for second byte indicator ===
+
+h3. 255-COMPAT_VERSION for second byte indicator
+
 
 The solution by dotslash is to use a second byte after the current version field when the first version field reaches 255. The COMPAT_VERSION_2 field is now increased as usual and keep COMPAT_VERSION as 255.
 
@@ -32,16 +37,22 @@ This seems to be ineffective as only 510 numbers can be encoded that way with tw
 
 So the amount of information per bit converges against 0.
 
-=== MSB as indicator for new byte ===
+
+h3. MSB as indicator for new byte
+
 
 The most significant bit in each byte is used to determine if the next byte should also be read. 127 would be encoded as 0x7F and 128 as 0x8000. This means that we can encode every number in its little bit encoding with the maximum overhead of 1 byte. So "only" 2**(bytes*8-1) numbers are stored for each amount of bytes. This means every second number needs an extra byte.
 
 So the amount of information per bit is 1. The average amount of overhead against a method which magically know the needed amount of bytes to encode/decode a number is 1/2 byte, but the size of the number is not limited by the encoding.
 
-=== EBML encoding ===
+
+h3. EBML encoding
+
 
 Not usable because the most significant 1 and the leading zeros define the amount of bytes. Thus we had to use that 1 as MSB already for our one byte version.
 
-=== Leading bits define number of bytes ===
+
+h3. Leading bits define number of bytes
+
 
 The leading 4 bit (as example) in the first byte can be used to encode the length of the data. So the maximum of 2**4 byte can be used when 0000 means 1 byte to use. This has the problem that 0 for example could be encoded in 2**4 ways.
