@@ -164,7 +164,7 @@ h3. visualizing the topology
 
 Available since: batman-adv 2010.0.0
 
-The vis_mode and vis_data files provide a system to visualize the batman-adv network. The [[VisAdv|visualizing the 2nd layer] and [wikiVisOutput vis output]] documents describes this system in detail, therefore no in-depth explanation is given here. 
+The vis_mode and vis_data files provide a system to visualize the batman-adv network. The [[VisAdv|visualizing the 2nd layer] and [[VisOutput|vis output]] documents describes this system in detail, therefore no in-depth explanation is given here. 
 
 
 The default vis mode is "client"
