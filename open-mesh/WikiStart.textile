@@ -1,29 +1,39 @@
-= Welcome to Open Mesh =
-'''This page serves as development platform for a collection of tools to build free and open mesh networks.'''
+h1. Welcome to Open Mesh
+
+*This page serves as development platform for a collection of tools to build free and open mesh networks.*
 
 ----
-= B.A.T.M.A.N. =
+
+h1. B.A.T.M.A.N.
+
 B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a routing protocol for multi-hop ad-hoc mesh networks. This is the main development website, we have source code, binary packages, documentation and further information available:
-== News ==
- * '''17.Mar. 2011''' [wiki:2011-03-17-batman-adv-and-the-penguin Batman-adv and the Penguin join forces]
- * '''29.Jan. 2011''' [wiki:2011-01-29-batman-adv-2011-0-0-release Batman-adv 2011.0.0 released]
- * '''18.Jan. 2011''' [wiki:2011-01-18-wbmv4-announcement WBMv4 Announcement]
- * '''12.Dec. 2010''' [wiki:2010-12-12-batman-v-status-update B.A.T.M.A.N. V status update]
- * '''22.Nov. 2010''' [wiki:2010-11-21-batman-adv-2010-2-0-release Batman-adv 2010.2.0 released]
 
- * [wiki:news-archive news archive]
-== Getting Started ==
- * [wiki:Download Download] - Get our latest releases, get access to our SVN repository
- * [wiki:Contribute How to contribute] - How to report bugs, send comments, patches or suggestions
-== Documentation ==
- * [wiki:BranchesExplained Branches explained] - learn about the B.A.T.M.A.N. flavours
- * [wiki:UserDocs UserDocs] - understand how B.A.T.M.A.N.  works
- * [wiki:FAQ FAQ] - Frequently Asked Questions
- * [wiki:Experience Experience] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
- * [wiki:Patches Patches] - contribution from others related to B.A.T.M.A.N.
- * [wiki:batman-adv B.A.T.M.A.N. Advanced] - information about the Layer 2 version of B.A.T.M.A.N.
- * [wiki:MailingList Mailing List]/[wiki:IRC IRC] - contact us
-----
-== Other Projects on open-mesh.org ==
- * [wiki:FFTrace FFTrace] - freifunk traceroute tool
- * [wiki:MeshLinux MeshLinux] - Linux distribution geared to build mesh supernodes
+h2. News
+
+* *17.Mar. 2011* [[2011-03-17-batman-adv-and-the-penguin|Batman-adv and the Penguin join forces]]
+* *29.Jan. 2011* [[2011-01-29-batman-adv-2011-0-0-release|Batman-adv 201100 released]]
+* *18.Jan. 2011* [[2011-01-18-wbmv4-announcement|WBMv4 Announcement]]
+* *12.Dec. 2010* [[2010-12-12-batman-v-status-update|BATMAN V status update]]
+* *22.Nov. 2010* [[2010-11-21-batman-adv-2010-2-0-release|Batman-adv 201020 released]]
+
+* [[news-archive|news archive]]
+
+h2. Getting Started
+
+* [[Download|Download]] - Get our latest releases, get access to our SVN repository
+* [[Contribute|How to contribute]] - How to report bugs, send comments, patches or suggestions
+
+h2. Documentation
+
+* [[BranchesExplained|Branches explained]] - learn about the B.A.T.M.A.N. flavours
+* [[UserDocs|UserDocs]] - understand how B.A.T.M.A.N.  works
+* [[FAQ|FAQ]] - Frequently Asked Questions
+* [[Experience|Experience]] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
+* [[Patches|Patches]] - contribution from others related to B.A.T.M.A.N.
+* [[batman-adv|BATMAN Advanced]] - information about the Layer 2 version of B.A.T.M.A.N.
+* [[MailingList|Mailing List]]/[[IRC|IRC]] - contact us
+
+h2. Other Projects on open-mesh.org
+
+* [[FFTrace|FFTrace]] - freifunk traceroute tool
+* [[MeshLinux|MeshLinux]] - Linux distribution geared to build mesh supernodes
