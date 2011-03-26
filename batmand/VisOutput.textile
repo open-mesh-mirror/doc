@@ -1,4 +1,3 @@
-
 h1. Working with the vis server output
 
 
@@ -25,7 +24,7 @@ Each "digraph { ... }" block contains a complete dump of the vis servers interna
 
 
 
-h3. Batman to batman connection
+h2. Batman to batman connection
 
 
 <pre>
@@ -43,7 +42,7 @@ While looking at originator tables, debug logs or other batman output you might 
 
 
 
-h3. Internet gateways
+h2. Internet gateways
 
 
 <pre>
@@ -56,7 +55,7 @@ The 5.224.160.202 announces a connection to the internet: "0.0.0.0/0.0.0.0" and 
 
 
 
-h3. Announced networks
+h2. Announced networks
 
 
 <pre>
@@ -69,7 +68,7 @@ The 5.174.37.225 announces a connection to the 192.168.15.0/24 network (which do
 
 
 
-h3. Interfaces belonging to one BATMAN-Adv node
+h2. Interfaces belonging to one BATMAN-Adv node
 
 
 In BATMAN-Advanced since revision 1424, the subgraphing/cluster feature of the dot-file-format has been added to mark interfaces as belonging to the same originator. Every originator the vis-server found has such an additional subgraph block:
@@ -82,5 +81,3 @@ subgraph "cluster_00:11:22:33:44:55" {
 </code></pre>
 
 In this example the originator '00:11:22:33:44:55' has two active interfaces, "00:11:22:33:44:55" and "01:23:45:67:89:AB". With 'fdp' from the "graphviz-tools":http://www.graphviz.org/ for instance such interfaces inside of a subgraph would be surrounded by a box. The cluster-prefix is a prerequisite for this tool here to describe the relation between those interfaces and is not a label being visualized. Additionally, the _primary_ interface gets the extra attribute '[peripheries=2]' which is the only interface known to other BATMAN-Nodes, except to direct neighbours (with graphviz, such an interface gets double circled).
-
-</code></pre>
