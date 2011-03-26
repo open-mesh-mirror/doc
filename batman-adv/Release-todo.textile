@@ -5,7 +5,7 @@ This page contains a checklist of things that need to be done for a release.
 
 *Release Scheduling*
 
-!release-todo:release_scheduling.svg!
+!:release_scheduling.svg!
 
 * next branch is released as feature release 20_ _.a.0 after linux 2.6.x-rc3 is tagged
 * maint branch is released on demand (for example after security issues)
