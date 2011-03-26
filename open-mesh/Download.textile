@@ -18,34 +18,9 @@ If you are wondering whether batman-adv or batmand might suit your setup better,
 If you find any bugs, please [[Contribute|let us know]]!
 
 
-h3. Subversion Repository Access
-
-You can check out our SVN repository and the various batman branches
-
-* [[batman-adv|BATMAN advanced]]: 
-> <pre>
-svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv/
-</pre>
-* batctl (for B.A.T.M.A.N. advanced): check out the complete repository, cd into batctl (we're using symlinks here ...): 
-> <pre>
-svn co http://downloads.open-mesh.org/svn/batman/trunk/
-</pre>
-* complete repository: 
-> <pre>
-svn co http://downloads.open-mesh.org/svn/batman/trunk/
-</pre>
-* upcoming B.A.T.M.A.N. 0.4.0 branch *(maintainer needed!)*: 
-> <pre>
-svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/
-</pre>
-* Visualization server for B.A.T.M.A.N.: check out the complete repository, cd into vis (we're using symlinks here ...): 
-> <pre>
-svn co http://downloads.open-mesh.org/svn/batman/trunk/
-</pre>
-
 h3. Git Repository Access
 
-Since we started integrating the batman-adv kernel module into the mainline Linux tree, we also maintain a git repository which contains the batman-adv maintenance branches. More information can be found [[UsingBatmanGit|on our git page]].
+Since we started integrating the batman-adv kernel module into the mainline Linux tree, we maintain a git repository which contains the batman-adv maintenance branches. More information can be found [[UsingBatmanGit|on our git page]].
 
 
 
