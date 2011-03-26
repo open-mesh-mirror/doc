@@ -10,14 +10,20 @@ If you like this project and you want to take part and/or give something back, h
 h3. Reporting Bugs
 
 
-If you find a bug, please see if the problem is already known in the by "Reading the Tickets":http://open-mesh.org/projects/open-mesh/issues. 
+If you find a bug, please see if the problem is already known in the by Reading the Tickets:
+* for "batman-adv":http://www.open-mesh.org/projects/batman-adv/issues
+* for "batctl":http://www.open-mesh.org/projects/batctl/issues
+* for "other things":http://www.open-mesh.org/projects/open-mesh/issues
 
 If not, please "add a new Ticket":http://open-mesh.org/projects/open-mesh/issues/new.
+* for "batman-adv":http://www.open-mesh.org/projects/batman-adv/issues/new
+* for "batctl":http://www.open-mesh.org/projects/batctl/issues/new
+* for "other things":http://www.open-mesh.org/projects/open-mesh/issues/new
 
 Please add as much information as possible. In particular interesting are:
 
 * Which branch (batman, batctl, batman-adv)
-* Which version (0.X, SVN/git revision number)
+* Which version (0.X, git revision number)
 * kernel version, distribution (and version)
 * machine type (PC, Linksys WRT, Fon, NS2, ...)
 * command line parameters used
@@ -50,7 +56,7 @@ B.A.T.M.A.N. gives much room for research, especially the layer 2 implementation
 h3. Development
 
 
-You looked in the code ? Fixed bugs ? Added a cool new function ? Integrated B.A.T.M.A.N. in a distribution ? Don't hesitate to let us and others know! We can avoid duplicated work by publishing it here or linking to your page. Patches are always welcome and can be posted on the [[MailingList|mailing list]] to get integrated. We also hand out SVN/git access to people that want to get involved.
+You looked in the code ? Fixed bugs ? Added a cool new function ? Integrated B.A.T.M.A.N. in a distribution ? Don't hesitate to let us and others know! We can avoid duplicated work by publishing it here or linking to your page. Patches are always welcome and can be posted on the [[MailingList|mailing list]] to get integrated. We also hand out git access to people that want to get involved.
 
 
 h3. Submitting patches
