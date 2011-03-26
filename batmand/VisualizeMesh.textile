@@ -1,12 +1,12 @@
 h1. Visualize the mesh
 
 
-h3. Concept
+h2. Concept
 
 In contrast to other routing protocols each batman node only knows the path to its single hop neighbors and knows nothing about the topology behind it. In practice it means that a batman node S is aware of node A which is somewhere in the mesh and reachable via neighbor B but it does not know about the number of hops and / or nodes in between. This approach is quite handy with regard to memory footprint, mesh stability and bandwidth friendliness but somewhat hard to visualize. Therefore a small helper was created: the vis server. It gathers the local views of each node and assembles a graph that can be fed into various tools which output an eye-candy graphic of the networks topology.
 
 
-h3. Batman nodes
+h2. Batman nodes
 
 Each batman node needs to know the IP address of the vis server it should send the vis packets to. This packet is sent every few seconds containing various information about the local neighbors (including their link qualities), secondary interfaces and announced networks.
 
@@ -17,7 +17,7 @@ batmand -s visIP [interface]
 
 The vis server can run in the mesh itself or somewhere in the internet, just make sure that batman can reach the given vis IP.
 
-h3. Vis server
+h2. Vis server
 
 The vis server can run on multiple interfaces and expects incoming vis packets on UDP port 4307. Per default it sends the assembled graph to all clients connected to TCP port 2004 every few seconds. It uses the standardized dot draw format to express the relationships among the nodes.
 
@@ -37,7 +37,7 @@ Make sure that all mentioned ports are not blocked by a firewall. You can verify
 
 
 
-h3. Fancy graphics
+h2. Fancy graphics
 
 If you intend to create images like the one below you need to use one of the many tools available. That screenshot was made by connecting mesh3d (which is part of the "s3d tools":http://s3d.berlios.de/ - debian packages are available) to the vis servers dot draw output (on port 2004).
 
