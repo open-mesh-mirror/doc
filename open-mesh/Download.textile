@@ -27,7 +27,7 @@ Since we started integrating the batman-adv kernel module into the mainline Linu
 h3. batman-adv in the Linux tree
 
 
-Since linux 2.6.33 batman-adv is part of the official linux tree. You can build batman-adv along with your linux binary by simply selecting batman-adv in the Linux drivers section. If you use an older kernel or want to have access to the latest features you can checkout our SVN or git repository which still are backward compatible until 2.6.21.
+Since linux 2.6.33 batman-adv is part of the official linux tree. You can build batman-adv along with your linux binary by simply selecting batman-adv in the Linux drivers section. If you use an older kernel or want to have access to the latest features you can checkout our git repository which still are backward compatible until 2.6.21.
 
 It follows an overview of linux versions and the batman-adv version they contain, so that you can easily pick the compatible batctl packages:
 * linux 2.6.33 => batman-adv 0.2.0 (get batctl 0.2.0 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
