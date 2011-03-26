@@ -39,4 +39,4 @@ In bonding, we split a single stream and distribute the packets over multiple li
 
 However, with the round-robin way of sending packets, the actual throughput is limited by the link with the worst bandwidth. Also the errors and instabilities of all links are aggregated, which makes the link more fragile. For this reason, the bonding feature can be enabled optionally, and should be enabled in setups with high quality links.
 
-There are already ideas how to improve the situation with links of differend bandwidth, e.g. sending packets packets on interfaces where the queue has the least packets. Comments and patches [[MailingList| are appreciated]].
+There are already ideas how to improve the situation with links of differend bandwidth, e.g. sending packets packets on interfaces where the queue has the least packets. Comments and patches [[open-mesh:MailingList| are appreciated]].
