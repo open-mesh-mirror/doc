@@ -4,7 +4,7 @@ h1. B.A.T.M.A.N.-Adv Multicast Awareness
 As batman-adv has full control over all data traffic flowing through the mesh network multicast traffic also falls under its jurisdiction. At the time of writing this document batman-adv handles the multicast traffic by flooding the whole network with it. Although this approach is suitable for common multicast groups sending a small number of packets (e.g. IPv6 neighbor announcements) it fails its purpose when it comes to large multicast data packets (e.g. multimedia streaming). This document aims to provide a concept for multicast optimizations, especially when it comes to these large data packets.
 
 
-h3. The concept
+h2. The concept
 
 
 To be truly multicast aware each batman-adv node needs to perform the following tasks:
