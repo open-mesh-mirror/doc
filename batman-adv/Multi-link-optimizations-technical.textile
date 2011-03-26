@@ -1,9 +1,5 @@
-
 h1. Bonding and interface alternating
 
-
-<pre>
-<code class="div">
 
 On mesh nodes with multiple wifi radios (or even other interfaces) participating in the mesh network, we can use these multiple interfaces to gain more bandwidth or more stability in the links. The standard BATMAN algorithm considers all neighbors equally, and does not distinguish whether neighbors belong to the same physical nodes or not. The bonding and interface alternating mechanisms detect that some neighbors belong to the same physical node and use this information. 
 
@@ -13,7 +9,7 @@ h2. Multiple interface detection
 
 The first step is to detect that a peer has multiple interfaces, and we have multiple connections to it.
 
- [[Image(wiki:bonding-alternating:interface_detection.dia.jpg)]]
+!bonding-alternating:interface_detection.dia.jpg!
 
 As seen in the illustration, we have a node A with 2 interfaces A1,A2. Both of its interfaces can reach different neighbors. By evaluating OGM packets from B with a new "PRIMARIES FIRST HOP" flag (which is only set in the first hop, obviously), we recognize that B2 is belonging to the same node B1. OGMs from the primary interface (B1) are sent on all available interfaces (B1 and B2), and we can therefore detect that the B2 is a secondary interface and B1 is the primary interface of the node it belongs to.
 
@@ -25,7 +21,7 @@ h2. Interface alternating
 
 One application for our multiple detection is "interface alternating": The algorithm tries to avoid forwarding packets on the interface which just received the packet. That way the typical store & forward mechanism of wifi which halfs the bandwidth with each hop can be worked around.
 
- [[Image(wiki:bonding-alternating:alternation_chain.dia.jpg)]]
+!bonding-alternating:alternation_chain.dia.jpg!
 
 In the illustration, we can see 4 nodes with 2 interfaces each. A stream is sent from node A to node D. There are 2 candidates for each node to reach the next hop, but only one is used - if possible, not the one which received the packets in the first place. 
 
@@ -39,10 +35,10 @@ h2. Bonding
 
 In bonding, we split a single stream and distribute the packets over multiple links. Packets are sent in a round-robin fashion over the available candidates. This can be used to increase the throughput for data streams from node A to node B. In a perfect environemt the throughput is n times higher, where n is the number of candidates. 
 
- [[Image(wiki:bonding-alternating:bonding_roundrobin.dia.jpg)]]
+!bonding-alternating:bonding_roundrobin.dia.jpg!
 
 However, with the round-robin way of sending packets, the actual throughput is limited by the link with the worst bandwidth. Also the errors and instabilities of all links are aggregated, which makes the link more fragile. For this reason, the bonding feature can be enabled optionally, and should be enabled in setups with high quality links.
 
-There are already ideas how to improve the situation with links of differend bandwidth, e.g. sending packets packets on interfaces where the queue has the least packets. Comments and patches [MailingList are appreciated].
+There are already ideas how to improve the situation with links of differend bandwidth, e.g. sending packets packets on interfaces where the queue has the least packets. Comments and patches [[MailingList| are appreciated]].
 
 </code></pre>
