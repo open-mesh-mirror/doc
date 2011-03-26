@@ -142,7 +142,7 @@ h3. log level
 
 Available since: batman-adv 2010.1.0 (if debugging has been compiled-in)
 
-The standard warning and error messages which help to setup & operate batman-adv are sent to the kernel log. However, batman-adv also offers extended logs that can be used to understand and/or debug the routing protocol. Keep in mind that it is necessary to activate debugging at compile time before you can use these facilities (consult "the README file":http://www.open-mesh.org/browser/trunk/batman-adv/README to learn how to set the compile option). Per default, the logging is deactivated (log level: 0), Enable log level '1' to log messages related to routing / flooding / broadcasting. Log level '2' only shows messages related to route or hna added / changed / deleted. Switch to log level '3' to get all log messages.
+The standard warning and error messages which help to setup & operate batman-adv are sent to the kernel log. However, batman-adv also offers extended logs that can be used to understand and/or debug the routing protocol. Keep in mind that it is necessary to activate debugging at compile time before you can use these facilities (consult "the README file":http://open-mesh.org/projects/batman-adv/repository/revisions/master/entry/README to learn how to set the compile option). Per default, the logging is deactivated (log level: 0), Enable log level '1' to log messages related to routing / flooding / broadcasting. Log level '2' only shows messages related to route or hna added / changed / deleted. Switch to log level '3' to get all log messages.
 
 <pre>
 cat /sys/class/net/bat0/mesh/log_level 
