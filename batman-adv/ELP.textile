@@ -9,7 +9,7 @@ This approach was chosen for its simplicity during the protocol design phase and
 As a result detecting local link qualities shall be handled by an independent message type, NDP, whereas the OGM message type remains responsible for flooding the mesh with these link quality information and determening the overall path transmit qualities.
 
 
-h3. Definitions
+h2. Definitions
 
 
 * node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
@@ -20,16 +20,16 @@ h3. Definitions
 * out of order - A received NDP message from a neighbor containing a sequence number that is older than the newest sequence number ever received from this neighbor.
 
 
-h3. Protocol Procedure
+h2. Protocol Procedure
 
 
 
-h4. Broadcasting own Neighborhood Discovery Protocol (NDP) Messages
+h3. Broadcasting own Neighborhood Discovery Protocol (NDP) Messages
 
 
 Each node periodically (NDP interval) generates and broadcasts NDP messages for each interface B.A.T.M.A.N. is running on. A jitter may be applied to avoid collisions. 
 
-+The Neighborhood Discovery Protocol (NDP) Format:+
+h4. The Neighborhood Discovery Protocol (NDP) Format:
 
 * Packet type: Initialize this field with the NDP packet type.
 * Version: Set your internal compatibility version.
@@ -53,7 +53,7 @@ If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should app
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </code></pre>
 
-+The Neighbor Entry Format:+
+h4. The Neighbor Entry Format:
 
 * Neighbor Address: This field contains the MAC address of the neighbor to be announced.
 * Link RQ: Fill this field with the total of the received sequence numbers (in percent) within the sliding sequence number window from this neighbor.
@@ -71,7 +71,7 @@ Note: See 'Neighbor Ranking' to get a detailed description of how to count/obtai
 </code></pre>
 
 
-h4. Receiving Neighborhood Discovery Messages (NDP)
+h3. Receiving Neighborhood Discovery Messages (NDP)
 
 
 Upon receiving a NDP packet a node must perform the following preliminary checks before the packet is further processed:
@@ -82,7 +82,7 @@ Upon receiving a NDP packet a node must perform the following preliminary checks
 * If the NDP message is a duplicate or does not contain a newer sequence number (out-of-order) the message must be silently dropped.
 
 
-h4. Neighbor Ranking
+h3. Neighbor Ranking
 
 
 For each NDP message having passed the preliminary checks the following must be performed:
@@ -94,7 +94,7 @@ For each NDP message having passed the preliminary checks the following must be 
 
 
 
-h4. Questions
+h3. Questions
 
 
 * checks whether the NDP packet is too old? (TODO: Simon, add/describe the protected window mechanism)
