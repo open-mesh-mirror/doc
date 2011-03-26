@@ -20,7 +20,7 @@ h2. News
 
 h2. Getting Started
 
-* [[Download|Download]] - Get our latest releases, get access to our SVN repository
+* [[Download|Download]] - Get our latest releases, get access to our Git repositories
 * [[Contribute|How to contribute]] - How to report bugs, send comments, patches or suggestions
 
 h2. Documentation
