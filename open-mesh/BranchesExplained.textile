@@ -1,24 +1,14 @@
-
 h1. Branches Explained
-
-
-<pre>
-<code class="div">
 
 The batman project that started with a basic protocol and a single userspace routing daemon, attracted quite some attention over the years which led to many new ideas and concepts meant to improve the project. These ideas often resulted in proof-of-concept "branches" of which some turned out to be impractical and disappeared but others came to stay. As a consequence different names were created to distinguish these concepts as the name "batman" became a broader term for everything around the project. This page aims to shed some light on all these different names to make it easier to understand the differences.
 
-
-
 h3. numbers, numbers
-
 
 Whenever Roman numerals (as III or IV) are mentioned they refer to the version of B.A.T.M.A.N.'s routing algorithm and thus describe how the routing information are flooded and how they are handled to make the best routing decision possible.
 
 Arabic numerals are used to distinguish the implementation's version. Next to the routing algorithm many features and goodies are added to simplify the users life.
 
 Example: batmand 0.2 uses the B.A.T.M.A.N. III routing algorithm.
-
-
 
 
 h3. batmand
@@ -48,7 +38,7 @@ Early 2007 some developers started experimenting with the idea of routing on lay
 
 However, the virtual interface in userspace imposed a significant overhead for low-end wireless access points which led to a re-implementation as a kernel module. The batman-adv userspace daemon has been removed, so today "batman-adv" refers to the kernel module only. Currently, most of the development happens around batman-adv which is part of the official Linux kernel since 2.6.38.
 
-To understand the implications of routing on layer 2, the [[batman-adv|batman-adv page] should be a good starting point Further documentation is available in our [wikiUserDocs docs]] section.
+To understand the implications of routing on layer 2, the [[batman-adv|batman-adv page]] should be a good starting point Further documentation is available in our [[wikiUserDocs|docs]] section.
 
 
 
@@ -57,5 +47,4 @@ h3. batctl
 
 As batman-adv operates in kernelland a handy tool to manage the module and debug the network became necessary. The batctl tool was created to fill that gap and, since then, has become a valuable companion of batman-adv.
 
-</code></pre>
 
