@@ -214,11 +214,11 @@ Now node R moves from B to A within the first second, so he'll arrive at B befor
 
 *t = 0:*
 
-[[Image(NDP-mobile-loop-0s.png, 20%25)]]
+!NDP-mobile-loop-0s.png!
 
 *t = 1:*
 
-[[Image(NDP-mobile-loop-1s.png, 20%25)]]
+!NDP-mobile-loop-1s.png!
 
 After about 10 seconds average, there will be a loop with S sending packets to B, and B sending them back to S. This loop will last for about 3.3 seconds average.
 
@@ -228,4 +228,3 @@ The following [[table]] will hold some more in detail information with the times
 * Time span with loops is marked with YES in the 'loops' row.
 
 _Result:_ In this quite typical and small-scale scenario, we already have an average time with looping packets of *3.3* seconds.
-</code></pre>
