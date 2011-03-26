@@ -25,15 +25,11 @@ The main git repository is divided into several branches to make working easier.
 
 h3. master branch
 
-The master branch is a clone of the batman kernel module SVN found at http://downloads.open-mesh.org/svn/batman/trunk/batman-adv/
-
-The idea is that all upcoming changes are built on top of the SVN, so that changes which affect all branches can easily trickle down. A post-commit script makes sure that the SVN  is in sync with the git master branch all the time.
-
-In fact you will never work with this branch itself but one of the other branches.
+The master branch will have all upcoming changes
 
 h3. next branch
 
-The next is a branch only maintained in git to gather bug fixes for the latest release and well tested features taken from the master branch. Cherry-pick is used to get commits from the master branch and git-am to insert patches from mailboxes.
+The next gathers bug fixes for the latest release and well tested features taken from the master branch. Cherry-pick is used to get commits from the master branch and git-am to insert patches from mailboxes.
 
 Create branch associated with the remote-tracking branch after cloning the repository
 
@@ -51,7 +47,7 @@ git cherry-pick $SHA1
 
 h3. maint branch
 
-The maint is a branch only maintained in git to gather bug fixes and only bugfixes for the last release which were usually picked from next.
+The maint only gathers bug fixes for the last release. Bugfixes are usually picked from next.
 
 Create branch associated with the remote-tracking branch after cloning the repository
 
