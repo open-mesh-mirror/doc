@@ -43,5 +43,5 @@ If you intend to create images like the one below you need to use one of the man
 
 If you have impressive screenshots don't hesitate to let us know. :-)
 
-!Image(08-vis_zoomed.png)!
+!08-vis_zoomed.png!
 
