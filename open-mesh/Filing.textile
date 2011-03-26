@@ -1,4 +1,3 @@
-
 h3. Some documents that might help you:
 
 
@@ -33,8 +32,8 @@ h4. Using B.A.T.M.A.N. advanced (layer 2)
 
 * [[batman-adv|BATMAN Advanced overview]] - information about the Layer 2 version of B.A.T.M.A.N.
 * [[batman-adv-quick-start-guide|BATMAN Advanced quick start guide]] - or: what the hell is bat0 for?
-* [[building-batman-adv-with-openwrt|Building BATMAN Advanced with [[OpenWRT]]]] - how to download and configure your [[OpenWRT]] build environment to compile batman-adv
-* "B.A.T.M.A.N. Advanced on [[OpenWRT]]":http://pizza.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To - a tutorial for using B.A.T.M.A.N. Advanced on [[OpenWRT]]
+* [[building-batman-adv-with-openwrt|Building BATMAN Advanced with OpenWRT]] - how to download and configure your OpenWRT build environment to compile batman-adv
+* "B.A.T.M.A.N. Advanced on OpenWRT":http://pizza.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
 * [[tweaking-batman-adv|Tweaking the BATMAN Advanced behaviour]] - get an overview about the various settings batman-adv offers
 * [[understand-your-batman-adv-network|Understand your BATMAN Advanced network]] - learn what network debug interfaces batman-adv offers
 * [[batman-adv-gateways|BATMAN gateway support]] - how batman-adv can be used to choose the nearest internet gateway node
