@@ -2,7 +2,7 @@ h1. Branches Explained
 
 The batman project that started with a basic protocol and a single userspace routing daemon, attracted quite some attention over the years which led to many new ideas and concepts meant to improve the project. These ideas often resulted in proof-of-concept "branches" of which some turned out to be impractical and disappeared but others came to stay. As a consequence different names were created to distinguish these concepts as the name "batman" became a broader term for everything around the project. This page aims to shed some light on all these different names to make it easier to understand the differences.
 
-h3. numbers, numbers
+h2. numbers, numbers
 
 Whenever Roman numerals (as III or IV) are mentioned they refer to the version of B.A.T.M.A.N.'s routing algorithm and thus describe how the routing information are flooded and how they are handled to make the best routing decision possible.
 
@@ -11,7 +11,7 @@ Arabic numerals are used to distinguish the implementation's version. Next to th
 Example: batmand 0.2 uses the B.A.T.M.A.N. III routing algorithm.
 
 
-h3. batmand
+h2. batmand
 
 
 The batman userspace daemon has been the first implementation of the B.A.T.M.A.N. routing protocol. In the early stages of the project it allowed us to easily experiment with the design of the protocol but also to be used in real world deployments. It operates on layer 3 (IP layer) and offers everything you would expect from a standard routing daemon. Check our [[UserDocs|docs]] section if you want to learn more about is capabilities.
@@ -21,7 +21,7 @@ At the moment the batman daemon lacks development power (this branch is unmainta
 
 
 
-h3. BMX
+h2. BMX
 
 
 Initially, the BMX branch was used to implement and test new features and concepts to overcome certain limitations of the routing algorithm. It started on the code base of batmand 0.3 but, over time, developed into a completely different direction, so that a re-integration became impossible. 
@@ -31,7 +31,7 @@ Today, it is an independent project hosted at http://www.bmx6.net.
 
 
 
-h3. batman-adv
+h2. batman-adv
 
 
 Early 2007 some developers started experimenting with the idea of routing on layer 2 (Ethernet layer) instead of layer 3. As only little knowledge about routing on this low level was available at that time, a first prototype was developed, operating in userspace in form of a daemon but already using layer 2. To differentiate from the layer 3 routing daemon the suffix "adv" (spoken: advanced) was chosen - the batman-adv userspace daemon was born. It uses the routing algorithm of batman 0.3, but instead of sending UDP packets and manipulating routing tables, it provides a virtual network interface and transparently transports packets on its own. 
@@ -42,7 +42,7 @@ To understand the implications of routing on layer 2, the [[batman-adv|batman-ad
 
 
 
-h3. batctl
+h2. batctl
 
 
 As batman-adv operates in kernelland a handy tool to manage the module and debug the network became necessary. The batctl tool was created to fill that gap and, since then, has become a valuable companion of batman-adv.
