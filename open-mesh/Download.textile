@@ -1,4 +1,3 @@
-
 h1. Download B.A.T.M.A.N.
 
 We are currently working on different branches. To get the details about the differences of these branches, see our [[BranchesExplained|Branches Explained page]].
@@ -24,16 +23,25 @@ h3. Subversion Repository Access
 You can check out our SVN repository and the various batman branches
 
 * [[batman-adv|BATMAN advanced]]: 
-<pre>
+> <pre>
+svn co http://downloads.open-mesh.org/svn/batman/trunk/batman-adv/
+</pre>
 * batctl (for B.A.T.M.A.N. advanced): check out the complete repository, cd into batctl (we're using symlinks here ...): 
-<pre>
+> <pre>
+svn co http://downloads.open-mesh.org/svn/batman/trunk/
+</pre>
 * complete repository: 
-<pre>
+> <pre>
+svn co http://downloads.open-mesh.org/svn/batman/trunk/
+</pre>
 * upcoming B.A.T.M.A.N. 0.4.0 branch *(maintainer needed!)*: 
-<pre>
+> <pre>
+svn co http://downloads.open-mesh.org/svn/batman/trunk/batman/
+</pre>
 * Visualization server for B.A.T.M.A.N.: check out the complete repository, cd into vis (we're using symlinks here ...): 
-<pre>
-
+> <pre>
+svn co http://downloads.open-mesh.org/svn/batman/trunk/
+</pre>
 
 h3. Git Repository Access
 
@@ -66,9 +74,9 @@ Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto 
 * "batctl":http://packages.debian.org/sid/batctl - batctl 2011.0.0
 
 
-h3. Building [[OpenWRT]] packages
+h3. Building OpenWRT packages
 
 
-B.A.T.M.A.N. is also included in [[OpenWRT]] as a package. Download the extra package feed, link the batman folder into your main [[OpenWRT]] svn directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly into your builds (see [[building-batman-adv-with-openwrt|this page]] for a detailed explanation).
+B.A.T.M.A.N. is also included in OpenWRT as a package. Download the extra package feed, link the batman folder into your main OpenWRT svn directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly into your builds (see [[building-batman-adv-with-openwrt|this page]] for a detailed explanation).
 
-More information about how to build the [[OpenWRT]] toolchain is available "here":http://wiki.openwrt.org/OpenWrtDocs/BuildingKamikazeHowTo.
+More information about how to build the OpenWRT toolchain is available "here":http://wiki.openwrt.org/OpenWrtDocs/BuildingKamikazeHowTo.
