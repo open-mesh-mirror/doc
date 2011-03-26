@@ -1,4 +1,3 @@
-
 h1. Building B.A.T.M.A.N. Advanced with OpenWRT
 
 Many tutorials assume that you have batman-adv running on an OpenWRT system without going into detail how to get the system built and configured. This documents aims to fill the gap by providing a step-by-step explanation how to get your OpenWRT system up & running.
@@ -45,7 +44,7 @@ h3. Adding the stable version
 scripts/feeds update
 scripts/feeds install kmod-batman-adv
 </pre>
-_Note_: If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have _"svn-src packages !svn://svn.openwrt.org/openwrt/packages"_ instead of e.g. _"src-svn packages !svn://svn.openwrt.org/openwrt/branches/packages_8.09"_.
+_Note_: If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have _"svn-src packages svn://svn.openwrt.org/openwrt/packages"_ instead of e.g. _"src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_8.09"_.
 
 h3. Adding the developer version
 
