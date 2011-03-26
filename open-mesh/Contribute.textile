@@ -15,7 +15,7 @@ If you find a bug, please see if the problem is already known in the by Reading 
 * for "batctl":http://www.open-mesh.org/projects/batctl/issues
 * for "other things":http://www.open-mesh.org/projects/open-mesh/issues
 
-If not, please "add a new Ticket":http://open-mesh.org/projects/open-mesh/issues/new.
+If not, please add a new Ticket:
 * for "batman-adv":http://www.open-mesh.org/projects/batman-adv/issues/new
 * for "batctl":http://www.open-mesh.org/projects/batctl/issues/new
 * for "other things":http://www.open-mesh.org/projects/open-mesh/issues/new
