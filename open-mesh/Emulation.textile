@@ -1,4 +1,3 @@
-
 h1. Emulation Setup
 
 
@@ -57,12 +56,12 @@ ifconfig bat0 inet 192.168.0.${NUM} up
 
 The script above is far from perfect, it takes some minutes after the rc.local file is finally started. Suggestions welcome.
 
-A sample openwrt image can be found here: 
+A sample openwrt image can be found here: http://packetmixer.de/openwrt-x86-jffs2-128k.image
 
-* "h3. vde_switch
+h3. vde_switch
 
 
-The main advantage of [http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking vde_switch":http://packetmixer.de/openwrt-x86-jffs2-128k.image] over "uml_switch":http://user-mode-linux.sourceforge.net/old/networking.html is that any clients can be attached to this virtual switch: QEMU, UML, tap interfaces, virtual interconnections, and not just UML instances.
+The main advantage of "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking over "uml_switch":http://user-mode-linux.sourceforge.net/old/networking.html is that any clients can be attached to this virtual switch: QEMU, UML, tap interfaces, virtual interconnections, and not just UML instances.
 
 If the vde_switches were just connected with wirefilter "patch cables" without modification, we would end up creating a broadcast domain and switch loops which we don't want: The goal is to allow the packets to travel only from one host to it's neighbor, not farther.
 
@@ -78,7 +77,7 @@ In this concept, the host port can have colour 1 while the interconnection ports
 
 You can find the patch against vde2-2.2.3 (current latest stable version) to add these colour patches here:
 
-* [attachment:vde2-2.2.3_colour.patch vde2-2.2.3_colour.patch]
+* attachment:vde2-2.2.3_colour.patch
 
 
 h3. wirefilter
