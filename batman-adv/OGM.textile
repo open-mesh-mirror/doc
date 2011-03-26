@@ -105,8 +105,8 @@ h2. Router Ranking
 When a new neighbor ranking needs to be performed for an OGM the following steps need to be undertaken:
 
 * If the OGM's Sequence Number is newer than the Originator's Sequence Number:
-*** The new Originator's Sequence Number must be set to the Sequence Number contained in the received OGM.
-*** for all Routers of the OGM's originator: if (Originator's Sequence Number - Router's Sequence Number) < OGM_SEQ_DIFF_LIMIT, purge the Neighbor Originator from the OGM's originator's Router List. (TODO: check whether this could introduce routing loops? Any additional checks for purging needed?)
+** The new Originator's Sequence Number must be set to the Sequence Number contained in the received OGM.
+** for all Routers of the OGM's originator: if (Originator's Sequence Number - Router's Sequence Number) < OGM_SEQ_DIFF_LIMIT, purge the Neighbor Originator from the OGM's originator's Router List. (TODO: check whether this could introduce routing loops? Any additional checks for purging needed?)
 * If a matching Router entry for the OGM's Sender and OGM's Originator exist, the global TQ value and Router Sequence Number in this Router entry need to be updated with the OGM's global TQ value and OGM's Sequence Number. Otherwise a Router entry with these values needs to be created.
 * If the OGM's global TQ value is the best of all other Router's global TQ values, the OGM needs to be re-broadcasted.
 
