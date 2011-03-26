@@ -14,7 +14,7 @@ h3. 2010
 * *13.Jun. 2010* [[2010-06-13-wbm2010-bracciano|WBMv3 in Bracciano]]
 * *19.Apr. 2010* [[2010-04-19-scheduled-server-downtime|Scheduled server downtime]]
 * *22.Mar. 2010* [[2010-03-22-batman-adv-0-2-1-release|Batman-adv 0.2.1 released]]
-* *02.Mar. 2010* [[2010-03-02-batman-at-wbmv3|BATMAN at WBMv3]]
+* *02.Mar. 2010* [[2010-03-02-batman-at-wbmv3|B.A.T.M.A.N. at WBMv3]]
 
 
 
@@ -22,7 +22,7 @@ h3. 2010
 h3. 2009
 
 * *26.Dec. 2009* [[2009-12-26-retrospect-batman-in-2009|Retrospect 2009]]
-* *18.Dec. 2009* [[2009-12-18-batman-v-outlook|BATMAN V outlook]]
+* *18.Dec. 2009* [[2009-12-18-batman-v-outlook|B.A.T.M.A.N. V outlook]]
 * *18.Nov. 2009* [[2009-11-18-wbm2009-2nd-encounter|WirelessBattleMesh2009v2]]
 * *09.Nov. 2009* [[2009-11-08-batman-adv-0-2-release|Batman-adv 0.2 released]]
 * *23.Oct. 2009* [[2009-10-23-batman-goes-mainline|Batman goes mainline]]
