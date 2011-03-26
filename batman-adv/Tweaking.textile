@@ -1,17 +1,11 @@
-
 h1. Tweaking B.A.T.M.A.N. Advanced
-
-
-<pre>
-<code class="div">
 
 This document aims to provide a high level overview about the individual settings batman-adv allows you to make, in order to tweak its behaviour. If you are trying to find out what these various sysfs files or batctl options are good for, this is the right document for you. Some of the features require extended explanation & examples which is not the scope of this document. Links to complementary documents will be provided if available.
 
 
 +Note+: Although this document focusses on the "raw" /sys/ configuration interface you always can use batctl for a more convenient access to the settings.
 
-
-h3. Interface handling
+h2. Interface handling
 
 
 To better understand the background of the new interface configuration concept (as of batman-adv 2010.0.0), it is helpful to see in which direction batman-adv is heading: Until now, batman aggregated all configured interface into a single mesh cloud (manifested in a single bat0 interface). As of 2010.2.0 it is possible to let a single mesh node participate in mutliple mesh clouds at the same time which makes it necessary to assign interfaces to individual mesh clouds and having multiple batX interfaces. 
@@ -21,7 +15,7 @@ After loading batman-adv, it will scan your systems interfaces to search for com
 <pre>
 ls /sys/class/net/eth0/batman_adv/
 iface_status  mesh_iface
-</code></pre>
+</pre>
 
 If an interface does not have the "batman_adv" subfolder it probably is not supported. Not supported interfaces are: loopback, non-ethernet and batman's own interfaces.
 
@@ -31,7 +25,7 @@ To activate a given interface on a mesh cloud simply write the mesh clouds inter
 
 <pre>
 echo bat0 > /sys/class/net/eth0/batman_adv/mesh_iface
-</code></pre>
+</pre>
 
 Repeat this step for all interfaces you wish to add. All interfaces using the same mesh cloud interface belong into the same mesh cloud. Now batman-adv	starts using/broadcasting on this/these interface(s).
 
@@ -39,15 +33,15 @@ You can check the interface's status by reading the "iface_status" file inside t
 <pre>
 cat /sys/class/net/eth0/batman_adv/iface_status
 active
-</code></pre>
+</pre>
 
 To deactivate an interface you have  to  write  "none"  into  its "mesh_iface" file:
 <pre>
 echo none > /sys/class/net/eth0/batman_adv/mesh_iface
-</code></pre>
+</pre>
 
 
-h3. Mesh cloud handling
+h2. Mesh cloud handling
 
 
 After having added interfaces to a mesh cloud, batman-adv automatically creates the appropriate batX mesh interface(s). Each of those interfaces receives a special "mesh" subfolder within their standard /sys/class/net/<iface> folder, e.g.
@@ -57,9 +51,9 @@ ls  /sys/class/net/bat0/mesh/
 aggregated_ogms  gw_bandwidth     hop_penalty      vis_mode
 bonding          gw_mode          log_level
 fragmentation    gw_sel_class     orig_interval
-</code></pre>
+</pre>
 
-*aggregate originator messages*
+h3. aggregate originator messages
 
 Available since: batman-adv 2010.0.0
 
@@ -68,9 +62,9 @@ In order to reduce the protocol overhead created to find all the participants in
 <pre>
 cat /sys/class/net/bat0/mesh/aggregated_ogms
 enabled
-</code></pre>
+</pre>
 
-*bonding mode*
+h3. bonding mode
 
 Available since: batman-adv 2010.1.0
 
@@ -81,7 +75,7 @@ cat /sys/class/net/bat0/mesh/bonding
 disabled
 </code></pre>
 
-*fragmentation*
+h3. fragmentation
 
 Available since: batman-adv 2010.2.0
 
@@ -92,10 +86,9 @@ Batman-adv has a built-in layer 2 fragmentation for unicast data flowing through
 <pre>
 cat /sys/class/net/bat0/mesh/fragmentation 
 enabled
-</code></pre>
+</pre>
 
-
-*gateway bandwidth*
+h3. gateway bandwidth
 
 Available since: batman-adv 2011.0.0
 
@@ -106,9 +99,9 @@ The [[batman-adv-gateways|internet gateway support]] allows each gateway to also
 <pre>
 cat /sys/class/net/bat0/mesh/gw_bandwidth 
 2048KBit/512KBit
-</code></pre>
+</pre>
 
-*gateway mode*
+h3. gateway mode
 
 Available since: batman-adv 2011.0.0
 
@@ -119,9 +112,9 @@ A batman-adv node can either run in server mode (sharing its internet connection
 <pre>
 cat /sys/class/net/bat0/mesh/gw_mode 
 off
-</code></pre>
+</pre>
 
-*gateway selection class*
+h3. gateway selection class
 
 Available since: batman-adv 2011.0.0
 
@@ -132,9 +125,9 @@ If multiple batman-adv gateways are available a batman-adv client node selects i
 <pre>
 cat /sys/class/net/bat0/mesh/gw_sel_class 
 20
-</code></pre>
+</pre>
 
-*hop penalty*
+h3. hop penalty
 
 Available since: batman-adv 2011.0.0
 
@@ -143,9 +136,9 @@ The hop penalty setting allows to modify batman-adv's preference for multihop ro
 <pre>
 cat /sys/class/net/bat0/mesh/hop_penalty 
 10
-</code></pre>
+</pre>
 
-*log level*
+h3. log level
 
 Available since: batman-adv 2010.1.0 (if debugging has been compiled-in)
 
@@ -154,9 +147,9 @@ The standard warning and error messages which help to setup & operate batman-adv
 <pre>
 cat /sys/class/net/bat0/mesh/log_level 
 0
-</code></pre>
+</pre>
 
-*originator interval*
+h3. originator interval
 
 Available since: batman-adv 2010.0.0
 
@@ -165,9 +158,9 @@ The value specifies interval (milliseconds) in which batman-adv floods the netwo
 <pre>
 cat /sys/class/net/bat0/mesh/orig_interval 
 1000
-</code></pre>
+</pre>
 
-*visualizing the topology*
+h3. visualizing the topology
 
 Available since: batman-adv 2010.0.0
 
@@ -179,9 +172,7 @@ The default vis mode is "client"
 <pre>
 cat /sys/class/net/bat0/mesh/vis_mode 
 client
-</code></pre>
+</pre>
 
 which needs te be changed to "server" before the topology data can be read from the "vis_data" file.
-
-</code></pre>
 
