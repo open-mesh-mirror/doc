@@ -1,156 +1,172 @@
 
-= Building B.A.T.M.A.N. Advanced with OpenWRT =
-
-{{{
-#!div style="width: 46em; text-align: justify"
+h1. Building B.A.T.M.A.N. Advanced with OpenWRT
 
 Many tutorials assume that you have batman-adv running on an OpenWRT system without going into detail how to get the system built and configured. This documents aims to fill the gap by providing a step-by-step explanation how to get your OpenWRT system up & running.
 
-=== Getting the OpenWRT build environment ===
+
+h2. Getting the OpenWRT build environment
+
 
 First, you need to obtain a copy of the OpenWRT build system which contains all the build information to compile & package a complete linux system. You can either checkout the last stable or the trunk directly from the OpenWRT SVN repository or get tarballs from the OpenWRT project website. We assume you intend to download the latest stable (backfire 10.03 at the point of writing this document) via SVN:
 
-{{{
+<pre>
 svn co svn://svn.openwrt.org/openwrt/tags/backfire_10.03 openwrt
-}}}
+</pre>
 
 Change into the openwrt-kamikaze directory and configure the system to meet you needs (e.g. choose the platform and additional packages you intend to use).
 
-{{{
+<pre>
 cd openwrt
 make menuconfig
-}}}
+</pre>
 
-__Note__: The batman-adv package is not there yet because it needs to be activated seperately (see the following steps). [[BR]]
++Note+: The batman-adv package is not there yet because it needs to be activated seperately (see the following steps). 
+
 
 To build your images you always have to invoke the "make" command from within the openwrt folder:
 
-{{{
+<pre>
 cd openwrt
 make
-}}}
+</pre>
 
-The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your OpenWRT system, please see [http://www.openwrt.org the OpenWRT project website].
+The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your OpenWRT system, please see "the OpenWRT project website":http://www.openwrt.org.
 
-=== Adding the batman-adv package ===
+
+h2. Adding the batman-adv package
+
 
 The standard OpenWRT package feed contains a batman-adv package which is intended to be used on a day to day basis, therefore it retrieves the latest batman-adv stable release. Since a lot of people want to experiment with the latest features or use OpenWRT to test their own batman-adv patches we also provide an openwrt package feed which contains the batman-adv development version.
 
-__Adding the stable version__: [[BR]]
+h3. Adding the stable version
 
-{{{
+
+<pre>
 scripts/feeds update
 scripts/feeds install kmod-batman-adv
-}}}
-''Note'': If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have ''"svn-src packages !svn://svn.openwrt.org/openwrt/packages"'' instead of e.g. ''"src-svn packages !svn://svn.openwrt.org/openwrt/branches/packages_8.09"''.
+</pre>
+_Note_: If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have _"svn-src packages !svn://svn.openwrt.org/openwrt/packages"_ instead of e.g. _"src-svn packages !svn://svn.openwrt.org/openwrt/branches/packages_8.09"_.
 
-__Adding the developer version__: [[BR]]
+h3. Adding the developer version
+
 
 Append the following line to your openwrt feed configuration file (either feeds.conf or feeds.conf.default):
 
-{{{
+<pre>
 src-svn batman http://downloads.open-mesh.org/svn/openwrt-feed/
-}}}
+</pre>
 
 Update the package information and add the development package:
 
-{{{
+<pre>
 scripts/feeds update
 scripts/feeds install kmod-batman-adv-devel
-}}}
+</pre>
 
 
-=== Configuring the batman-adv package ===
+
+h2. Configuring the batman-adv package
+
 
 As soon as the batman-adv package has been added, it will show up in the OpenWRT package menu:
 
-__stable version__: [[BR]]
-{{{
+h3. stable version
+
+<pre>
 Kernel modules ---> 
    Network Support ---> 
       kmod-batman-adv
-}}}
+</pre>
 
-__developer version__: [[BR]]
-{{{
+h3. developer version+
+
+<pre>
 Kernel modules ---> 
    Network Support ---> 
       kmod-batman-adv-devel
-}}}
+</pre>
 
 Once the package had been selected a number of suboptions will become visible. You can enable/disable the verbose debug logging as well as choose whether or not to include the batctl tool.
 
 In addition, the batman-adv package comes with an init script which is installed per default. This script will run at boot time and can be used to configure your desired batman-adv options. It reads the batman-adv uci file to retrieve the settings which allows to specify interfaces, intervals, log level and more.
 
-=== Advanced features ===
+
+h2. Advanced features
+
 
 If you experience build problems or simply intend to rebuild the batman-adv package only, you can tell OpenWRT to build a specific package and enable the debugging mode as follows:
 
-__stable version__: [[BR]]
-{{{
++stable version+
+
+<pre>
 cd openwrt
 make package/batman-advanced/clean
 make package/batman-advanced/compile V=99
-}}}
+</pre>
 
-__developer version__: [[BR]]
-{{{
++developer version+
+
+<pre>
 cd openwrt
 make package/batman-adv-devel/clean
 make package/batman-adv-devel/compile V=99
-}}}
+</pre>
 
 The package offers an easy way to apply custom patches whenever batman-adv is built. Simply copy your patches into the "patches" folder inside the package directory (you have to create the folder in case it does not exist yet). The location of the folder depends on which package you want to patch:
 
-__stable version__: [[BR]]	 
-{{{
++stable version+
+	 
+<pre>
 openwrt/feeds/packages/net/batman-advanced/patches
-}}}
+</pre>
 
-__developer version__: [[BR]]
-{{{
++developer version+
+
+<pre>
 openwrt/feeds/batman/batman-adv-devel/patches
-}}}
+</pre>
 
 It is also possible to modify the batman-adv version if you ever wanted to build an older/newer version than configured in the package:
 
-__stable version__: [[BR]]
++stable version+
+
 
 Adjust the PKG_VERSION variable to download & build the stable release you are interested in.
 
-{{{
+<pre>
 cat openwrt/feeds/packages/net/batman-advanced/Makefile
 [..]
 PKG_VERSION:=2010.0.0
 [..]
-}}}
+</pre>
 
-__developer version__: [[BR]]
++developer version+
+
 
 Ajust the PKG_REV variable to download & build the SVN revision you are interested in:
 
-{{{
+<pre>
 cat openwrt/feeds/batman/batman-adv-devel/Makefile
 [..]
 PKG_REV:=1764
 [..]
-}}}
+</pre>
 
 In case you experience kernel oopses it might prove helpful to enable the kernel symbol table which translates the cryptic numbers which are part of each kernel oops log into readable function names. This calltrace can help developers to analyze the problem. Use OpenWRT's config menu to enable the kernel symbol table and rebuild your image:
 
-{{{
+<pre>
 make menuconfig
 Global build settings --->
    Compile the kernel with symbol table information
-}}}
+</pre>
 
 If you can't find this option you are using an older OpenWRT version which doesn't offer this config switch in the main menu. You have to modify the kernel settings directly:
 
-{{{
+<pre>
 make kernel_menuconfig
 General setup --->
    Configure standard kernel features (for small systems) --->
       Load all symbols for debugging/ksymoops
-}}}
+</pre>
 
-}}}
+
