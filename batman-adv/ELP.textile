@@ -1,42 +1,45 @@
-= Neighborhood Discovery Protocol (NDP) =
+h1. Neighborhood Discovery Protocol (NDP)
 
-{{{
-#!div style="width: 46em; text-align: justify"
-
-The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [wiki:BATMANConcept B.A.T.M.A.N. concept page] and explained in details in [http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 the RFC draft] published in 2008.
+The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
 
 This approach was chosen for its simplicity during the protocol design phase and the implementation. However, it also bears some drawbacks: 
- * Wireless interfaces usually come with some packet loss, therefore a higher broadcast rate is desirable to allow a fast reaction on flaky connections. Other interfaces of the same host might be connected to Ethernet LANs / VPNs / etc which rarely exhibit packet loss would benefit from a lower broadcast rate to reduce overhead.
- * It generally is more desirable to detect local link quality changes at a faster rate than propagating all these changes through the entire mesh (the far end of the mesh does not need to care about local link quality changes that much). Other optimizations strategies, like reducing overhead, might be possible if OGMs weren't used for all tasks in the mesh at the same time. 
+* Wireless interfaces usually come with some packet loss, therefore a higher broadcast rate is desirable to allow a fast reaction on flaky connections. Other interfaces of the same host might be connected to Ethernet LANs / VPNs / etc which rarely exhibit packet loss would benefit from a lower broadcast rate to reduce overhead.
+* It generally is more desirable to detect local link quality changes at a faster rate than propagating all these changes through the entire mesh (the far end of the mesh does not need to care about local link quality changes that much). Other optimizations strategies, like reducing overhead, might be possible if OGMs weren't used for all tasks in the mesh at the same time. 
 
 As a result detecting local link qualities shall be handled by an independent message type, NDP, whereas the OGM message type remains responsible for flooding the mesh with these link quality information and determening the overall path transmit qualities.
 
-=== Definitions ===
 
- * node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
- * originator - An addressable entity within one mesh network routing layer. An originator's address has to be unique within a mesh network routing layer and unique on a node. A node's hard-interface may only be utilized by zero or one originator.
- * B.A.T.M.A.N./hard interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames. 
- * sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
- * duplicate - A received NDP message from a neighbor containing an already received sequence number.
- * out of order - A received NDP message from a neighbor containing a sequence number that is older than the newest sequence number ever received from this neighbor.
+h3. Definitions
 
-=== Protocol Procedure ===
 
-==== Broadcasting own Neighborhood Discovery Protocol (NDP) Messages ====
+* node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
+* originator - An addressable entity within one mesh network routing layer. An originator's address has to be unique within a mesh network routing layer and unique on a node. A node's hard-interface may only be utilized by zero or one originator.
+* B.A.T.M.A.N./hard interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames. 
+* sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
+* duplicate - A received NDP message from a neighbor containing an already received sequence number.
+* out of order - A received NDP message from a neighbor containing a sequence number that is older than the newest sequence number ever received from this neighbor.
+
+
+h3. Protocol Procedure
+
+
+
+h4. Broadcasting own Neighborhood Discovery Protocol (NDP) Messages
+
 
 Each node periodically (NDP interval) generates and broadcasts NDP messages for each interface B.A.T.M.A.N. is running on. A jitter may be applied to avoid collisions. 
 
-__The Neighborhood Discovery Protocol (NDP) Format:__
++The Neighborhood Discovery Protocol (NDP) Format:+
 
- * Packet type: Initialize this field with the NDP packet type.
- * Version: Set your internal compatibility version.
- * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
- * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
- * Num Neigh: The number of neighbors that are announced with this message.
+* Packet type: Initialize this field with the NDP packet type.
+* Version: Set your internal compatibility version.
+* Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
+* Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
+* Num Neigh: The number of neighbors that are announced with this message.
 
 If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should append a neighbor entry message for each neighbor to be announced and fill the "number of neighbors" field accordingly.
 
-{{{
+<pre>
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -48,16 +51,16 @@ If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should app
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |   Num Neigh   |                  Alignment                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-}}}
+</code></pre>
 
-__The Neighbor Entry Format:__
++The Neighbor Entry Format:+
 
- * Neighbor Address: This field contains the MAC address of the neighbor to be announced.
- * Link RQ: Fill this field with the total of the received sequence numbers (in percent) within the sliding sequence number window from this neighbor.
+* Neighbor Address: This field contains the MAC address of the neighbor to be announced.
+* Link RQ: Fill this field with the total of the received sequence numbers (in percent) within the sliding sequence number window from this neighbor.
 
 Note: See 'Neighbor Ranking' to get a detailed description of how to count/obtain the RQ value. Neighbors with an RQ value of 0 are not to be appended.
 
-{{{
+<pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -65,93 +68,129 @@ Note: See 'Neighbor Ranking' to get a detailed description of how to count/obtai
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |      Neighbor Address       |    Link RQ    |    Alignment    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-}}}
+</code></pre>
 
-==== Receiving Neighborhood Discovery Messages (NDP) ====
+
+h4. Receiving Neighborhood Discovery Messages (NDP)
+
 
 Upon receiving a NDP packet a node must perform the following preliminary checks before the packet is further processed:
 
- * If the NDP contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
- * If the sender address of the NDP message belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this NDP message originated from this node.
- * If the sender address of the NDP message is an ethernet multicast (including broadcast) address the message must be silently dropped.
- * If the NDP message is a duplicate or does not contain a newer sequence number (out-of-order) the message must be silently dropped.
+* If the NDP contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
+* If the sender address of the NDP message belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this NDP message originated from this node.
+* If the sender address of the NDP message is an ethernet multicast (including broadcast) address the message must be silently dropped.
+* If the NDP message is a duplicate or does not contain a newer sequence number (out-of-order) the message must be silently dropped.
 
-==== Neighbor Ranking ====
+
+h4. Neighbor Ranking
+
 
 For each NDP message having passed the preliminary checks the following must be performed:
  
- * The sliding window to the sender of the NDP message must be updated (purged) to reflect the new upper and lower boundaries of the ranking range. The sequence number of the received NDP message must be added to the sliding window representing the link via which the NDP message has been received.
- * The new resulting link RQ value is calculated by counting all sequence numbers that are to be found in the recently adjusted sliding window.
- * The new current sequence number must be set to the sequence number contained in the received NDP message.
- * All appended neighbor entries must be parsed to search for all MAC addresses belonging to one of the B.A.T.M.A.N. interfaces. If a match is found then save the received link RQ value towards that neighbor as link TQ value.
+* The sliding window to the sender of the NDP message must be updated (purged) to reflect the new upper and lower boundaries of the ranking range. The sequence number of the received NDP message must be added to the sliding window representing the link via which the NDP message has been received.
+* The new resulting link RQ value is calculated by counting all sequence numbers that are to be found in the recently adjusted sliding window.
+* The new current sequence number must be set to the sequence number contained in the received NDP message.
+* All appended neighbor entries must be parsed to search for all MAC addresses belonging to one of the B.A.T.M.A.N. interfaces. If a match is found then save the received link RQ value towards that neighbor as link TQ value.
 
 
-==== Questions ====
 
- * checks whether the NDP packet is too old? (TODO: Simon, add/describe the protected window mechanism)
- * Shall we add "neighbor" interface addresses, which are our own to the NDP packet? (e.g., if one node has two interfaces which share the same broadcast domain)
- * Shall we process one of our own NDP packets which we received over one of our other interfaces? (e.g. if one node has two interfaces which share the same broadcast domain)
- * Shall we scan a NDP packet received from one of our neighbors only for an entry matching the incoming interface? (e.g. if one node has two interfaces which share the same broadcast domain)
- * What to do if there are multiple entries with the matching mac address(es)? Only use the first and ignore the other matches?
- * If a match has been found, do not further procede the traversal of neighbor entries
- * Are NDP entries with a RQ of 0 allowed?
- * What to do if RQ reaches 0 due to automatic sliding window?
- * What to do if receiving an NDP packet which does not have the nodes own interface mac? Treating it as RQ of 0? Or keeping old value?
+h4. Questions
 
-== Extensions ==
-=== Threshholds ===
-=== EWMA ===
-=== Weighted Window ===
-=== Auto RQ window sliding ===
-=== Fixed minimum NDP packet size? ===
-=== Sometimes maximum packet size packets? ===
+
+* checks whether the NDP packet is too old? (TODO: Simon, add/describe the protected window mechanism)
+* Shall we add "neighbor" interface addresses, which are our own to the NDP packet? (e.g., if one node has two interfaces which share the same broadcast domain)
+* Shall we process one of our own NDP packets which we received over one of our other interfaces? (e.g. if one node has two interfaces which share the same broadcast domain)
+* Shall we scan a NDP packet received from one of our neighbors only for an entry matching the incoming interface? (e.g. if one node has two interfaces which share the same broadcast domain)
+* What to do if there are multiple entries with the matching mac address(es)? Only use the first and ignore the other matches?
+* If a match has been found, do not further procede the traversal of neighbor entries
+* Are NDP entries with a RQ of 0 allowed?
+* What to do if RQ reaches 0 due to automatic sliding window?
+* What to do if receiving an NDP packet which does not have the nodes own interface mac? Treating it as RQ of 0? Or keeping old value?
+
+
+h2. Extensions
+
+h3. Threshholds
+
+h3. EWMA
+
+h3. Weighted Window
+
+h3. Auto RQ window sliding
+
+h3. Fixed minimum NDP packet size?
+
+h3. Sometimes maximum packet size packets?
+
 
 
 
 ----
 
 
-== examples of NDP advantages ==
- * Modularization of the code 
- * The delta changes between two OGMs can be increased with an NDP interval faster than the OGM interval, resulting in a higher influence of a single OGM. 
- * Separate optimization strategies can be used for NDP and OGMs individually then. 
- * The more sparse the network is (number of single hop neighbors significantly smaller than the number of all nodes), the faster the NDP interval can be chosen relative to the OGM interval, resulting in major convergence speed improvements in sparse networks. 
- * As NDP messages are never rebroadcasted it also helps to reduce the overhead in dense networks (many single hop neighbors).  
- * (Mobile nodes can chose a faster OGM + NDP interval then. It directly improves their transmit path - which was not the case with the OGM LQ measurements due to the echo-quality dependency, and indirectly improves their receive path a little, due to the asymmetric penalty) 
- * Less overhead: With the classic LQ measurements with NDP, the overhead increases in a squared way immediately due to the OGM rebroadcast mechanism. The squared factor in NDP has a very low base however, therefore it only applies at a large amount of neighbors. This means, that when having i.e. 10 neighbors (or probably even 50), you can select a 10 (or 50x) faster NDP interval compared to the LQ measurements with the classic OGMs.
- * More accuracy in case of medium/bad links: The EQ mechanism "reduces" the effective window for the EQ measurements. So when having a TQ of 50%25, the effective EQ window will be only ~32 bits large instead of the 64, leading to many more TQ/RQ fluctuations on links with a low transmit quality.
 
- * You usually should set the originator interval to a value suiting the most mobile node on all nodes, having a homogeneous interval. This means, that even if you have a very static neighborhood with lots of nodes (so resulting to a lot of rebroadcasts, which can be the case on VPN- or ethernet interfaces used by batman-adv), you can't lower the interval for that one because very mobile nodes far away might than not be able to reach you anymore.
- * A OGM should not be rebroadcasted by the same node more than once because that could falsify the link-quality calculations. However you might want to do this to speed the convergence at more distant and/or weaker links.
+h2. examples of NDP advantages
 
-== RQ calculation ==
+* Modularization of the code 
+* The delta changes between two OGMs can be increased with an NDP interval faster than the OGM interval, resulting in a higher influence of a single OGM. 
+* Separate optimization strategies can be used for NDP and OGMs individually then. 
+* The more sparse the network is (number of single hop neighbors significantly smaller than the number of all nodes), the faster the NDP interval can be chosen relative to the OGM interval, resulting in major convergence speed improvements in sparse networks. 
+* As NDP messages are never rebroadcasted it also helps to reduce the overhead in dense networks (many single hop neighbors).  
+* (Mobile nodes can chose a faster OGM + NDP interval then. It directly improves their transmit path - which was not the case with the OGM LQ measurements due to the echo-quality dependency, and indirectly improves their receive path a little, due to the asymmetric penalty) 
+* Less overhead: With the classic LQ measurements with NDP, the overhead increases in a squared way immediately due to the OGM rebroadcast mechanism. The squared factor in NDP has a very low base however, therefore it only applies at a large amount of neighbors. This means, that when having i.e. 10 neighbors (or probably even 50), you can select a 10 (or 50x) faster NDP interval compared to the LQ measurements with the classic OGMs.
+* More accuracy in case of medium/bad links: The EQ mechanism "reduces" the effective window for the EQ measurements. So when having a TQ of 50%25, the effective EQ window will be only ~32 bits large instead of the 64, leading to many more TQ/RQ fluctuations on links with a low transmit quality.
+
+* You usually should set the originator interval to a value suiting the most mobile node on all nodes, having a homogeneous interval. This means, that even if you have a very static neighborhood with lots of nodes (so resulting to a lot of rebroadcasts, which can be the case on VPN- or ethernet interfaces used by batman-adv), you can't lower the interval for that one because very mobile nodes far away might than not be able to reach you anymore.
+* A OGM should not be rebroadcasted by the same node more than once because that could falsify the link-quality calculations. However you might want to do this to speed the convergence at more distant and/or weaker links.
+
+
+h2. RQ calculation
+
 In periodic intervals, customizable per interface, a ndp packet gets broadcasted on each interface. As it has been done with the normal OGMs before, the rq-value is being calculated with a sliding window and counting the number of received ndp packets, but on a per interface basis now.
 
-== local TQ propagation ==
+
+h2. local TQ propagation
+
 Additionally, a 2-tupel of neighbor-adresses and rq-values of neighbors on a certain interface will be attached to each ndp packet of the according interface. A neighbor will then pick the rq-value which the other node determined from the received ndp packets and insert this value as its own tq-value towards that node.
 
-== global TQ propagation ==
+
+h2. global TQ propagation
+
 A node receiving an OGM will reduce its global TQ field by the local TQ fitting the neighbor and interface before processing/rebroadcasting (but after validation/duplicate checks).
 
-== Data packet forwarding ==
+
+h2. Data packet forwarding
+
 This will still be done according to the received global TQ.
 
 ----
 
-== Further optimizations ==
 
-=== Consider local-TQ for a final forwarding ===
+h2. Further optimizations
+
+
+
+h3. Consider local-TQ for a final forwarding
+
 It might happen, that a node rapidly moves towards the sender of a data packet. If so, a forwarding node can notice, that the local TQ value towards the final destination of the data packet is suddenly better than the global TQ via another hop. This forwarding node can then forward the packet to its final destination instead of forwarding it to the other next-hop according to the global TQ.
 
-=== Rebroadcast OGM X times instead of once ===
+
+h3. Rebroadcast OGM X times instead of once
+
 Every node could rebroadcast an OGM i.e. 3 times instead of just once to increase the probability of an OGM reaching every node in the mesh, resulting in a much better convergence speed (getting closer to linear convergence speed) for the trade-off of control overhead (getting closer to squared).
 
-=== Unscheduled OGM rebroadcasts ===
+
+h3. Unscheduled OGM rebroadcasts
 
 
-=== Adaptive ndp interval ===
 
-=== Probablistic flooding ===
+
+h3. Adaptive ndp interval
+
+
+
+h3. Probablistic flooding
+
 Although this does not optimize the convergence speed, it could greatly increase the efficiency of the flooding of broadcast/mulitcast-data packets. With ndp we now also know our neighbors' TQ-values on the same interface. With this information a node A can determine the probability, that a broadcast of node B has already reached all of A's neighbors:
 
 P(|N| = |N^+^|) = ∏_{n ∈ N} TQ(B, iface, n) with N being the set of A's neighbors and N^+^ the set of neighbors successfully receiving the broadcast.
@@ -161,30 +200,32 @@ A node could then either decide with a threshold, if it might not rebroadcast (r
 ----
 
 
-==== Looping problems ====
 
-''Not an NDP issue, also present for current OGM mechanism - moved it to a different page later''
+h4. Looping problems
+
+
+_Not an NDP issue, also present for current OGM mechanism - moved it to a different page later_
 
 However, there seems to be a looping problem? (or do sequence numbers or global TQ window fix this?)
 In the following 4 node scenario, the parameters are as follows:
- * OGM interval: 1000
- * NDP interval: ε (very fast)
+* OGM interval: 1000
+* NDP interval: ε (very fast)
 Now node R moves from B to A within the first second, so he'll arrive at B before it schedules its next OGM. Also this next OGM after this first second already uses the new link qualities due to the fast NDP interval.
 
-'''t = 0:'''
+*t = 0:*
 
 [[Image(NDP-mobile-loop-0s.png, 20%25)]]
 
-'''t = 1:'''
+*t = 1:*
 
 [[Image(NDP-mobile-loop-1s.png, 20%25)]]
 
 After about 10 seconds average, there will be a loop with S sending packets to B, and B sending them back to S. This loop will last for about 3.3 seconds average.
 
-The following [[http://x-realis.dyndns.org/freifunk/scan.pdf table]] will hold some more in detail information with the times and events that will change BATMAN nodes topology knowledge. It holds the following information:
- * The times t in the table are the average times of arrival of an OGM at a node in seconds.
- * The table shows the TQ values towards R. The first six of these rows are from a nodes perspective, the last two ones the actual, real TQ values for the chosen path.
- * Time span with loops is marked with YES in the 'loops' row.
+The following [[table]] will hold some more in detail information with the times and events that will change BATMAN nodes topology knowledge. It holds the following information:
+* The times t in the table are the average times of arrival of an OGM at a node in seconds.
+* The table shows the TQ values towards R. The first six of these rows are from a nodes perspective, the last two ones the actual, real TQ values for the chosen path.
+* Time span with loops is marked with YES in the 'loops' row.
 
-''Result:'' In this quite typical and small-scale scenario, we already have an average time with looping packets of '''3.3''' seconds.
-}}}
+_Result:_ In this quite typical and small-scale scenario, we already have an average time with looping packets of *3.3* seconds.
+</code></pre>
