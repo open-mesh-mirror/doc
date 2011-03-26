@@ -22,7 +22,7 @@ h4. Using the B.A.T.M.A.N. daemon (layer 3)
 * [[VisualizeMesh|Visualizing the network]] - this document explains how to get fancy graphics of the batman mesh
 * [[AnnouncingNetworks|Announcing networks]] - learn how to announce and / or revoke HNA on the fly
 * "B.A.T.M.A.N. online man page":http://downloads.open-mesh.org/batman/manpages/batmand.8.html - read the current batman man page online
-* "B.A.T.M.A.N. [[HowTo]]":http://www.open-mesh.org/batman/doc/batmand_howto.pdf - how to compile, install and run batman 0.2
+* "B.A.T.M.A.N. HowTo":http://www.open-mesh.org/batman/doc/batmand_howto.pdf - how to compile, install and run batman 0.2
 * "CCCamp 2007 talk (video)":http://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v - Elektra and Marek explain the batman routing algorithm and features of batmand
 
 
