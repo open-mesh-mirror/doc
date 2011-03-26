@@ -1,28 +1,27 @@
 
-= Experience =
+h1. Experience
 
-{{{
-#!div style="width: 40em; text-align: justify"
+This page aims to provide a collection of links towards press reviews & papers related to B.A.T.M.A.N. as well as projects using the B.A.T.M.A.N. protocol in real live scenarios. This collection only reflects a small percentage of the things out there because not everybody contacts us to share his experience. If you have made some experience or even setup a B.A.T.M.A.N. mesh network at someplace in this universe please feel urged to [[MailingList|tell us]] or drop us a link!
 
-This page aims to provide a collection of links towards press reviews & papers related to B.A.T.M.A.N. as well as projects using the B.A.T.M.A.N. protocol in real live scenarios. This collection only reflects a small percentage of the things out there because not everybody contacts us to share his experience. If you have made some experience or even setup a B.A.T.M.A.N. mesh network at someplace in this universe please feel urged to [wiki:MailingList tell us] or drop us a link!
+h2. Projects:
 
-__Projects:__
- * building mesh potatoes with B.A.T.M.A.N.: http://villagetelco.org
- * powerful mesh nodes with batman-adv inside: http://www.saxnet.de
- * B.A.T.M.A.N. with dashboard integration: http://www.open-mesh.com
- * The Batphone (VOIP + Mesh on your device): http://www.servalproject.org
+* building mesh potatoes with B.A.T.M.A.N.: http://villagetelco.org
+* powerful mesh nodes with batman-adv inside: http://www.saxnet.de
+* B.A.T.M.A.N. with dashboard integration: http://www.open-mesh.com
+* The Batphone (VOIP + Mesh on your device): http://www.servalproject.org
 
-__Press:__
- * [http://kernelnewbies.org/Linux_2_6_38#head-17577655766f585c3c47df886fe91dba276f4c3f Linux 2.6.38 release notes], kernelnewbies.org (March 2011)
- * [http://www.h-online.com/open/features/Kernel-Log-Coming-in-2-6-38-Part-3-Network-drivers-and-infrastructure-1197480.html Kernel Log: Network drivers and infrastructure], The H Open (February 2011)
- * [http://lwn.net/Articles/426947/ Mesh networking with batman-adv], LWN.net (February 2011)
- * [http://www.h-online.com/open/features/What-s-new-in-Linux-2-6-37-1163376.html?page=6 Kernel Trends: Outlook on 2.6.38], The H Open (January 2011)
- * [http://www.h-online.com/open/news/item/Kernel-Log-Coming-in-2-6-33-Part-5-Drivers-931993.html Kernel Log: Coming in 2.6.33 - Drivers], The H Open (February 2010)
- * [http://www.linuxjournal.com/magazine/mesh-potato The Mesh Potato], Linux Journal (December 2009)
+h2. Press:
 
-__Papers:__
+* "Linux 2.6.38 release notes":http://kernelnewbies.org/Linux_2_6_38#head-17577655766f585c3c47df886fe91dba276f4c3f, kernelnewbies.org (March 2011)
+* "Kernel Log: Network drivers and infrastructure":http://www.h-online.com/open/features/Kernel-Log-Coming-in-2-6-38-Part-3-Network-drivers-and-infrastructure-1197480.html, The H Open (February 2011)
+* "Mesh networking with batman-adv":http://lwn.net/Articles/426947/, LWN.net (February 2011)
+* "Kernel Trends: Outlook on 2.6.38":http://www.h-online.com/open/features/What-s-new-in-Linux-2-6-37-1163376.html?page=6, The H Open (January 2011)
+* "Kernel Log: Coming in 2.6.33 - Drivers":http://www.h-online.com/open/news/item/Kernel-Log-Coming-in-2-6-33-Part-5-Drivers-931993.html, The H Open (February 2010)
+* "The Mesh Potato":http://www.linuxjournal.com/magazine/mesh-potato, Linux Journal (December 2009)
 
- * [http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf B.A.T.M.A.N. performance comparison paper]
- * [http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1747&amp;context=infopapers B.A.T.M.A.N. / BABEL / OLSR performance comparison]
- * [http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf mesh performance analysis with B.A.T.M.A.N.]
-}}}
+h2. Papers:
+
+* "B.A.T.M.A.N. performance comparison paper":http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
+* "B.A.T.M.A.N. / BABEL / OLSR performance comparison":http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1747&amp;context=infopapers
+* "mesh performance analysis with B.A.T.M.A.N.":http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf
+
