@@ -1,7 +1,7 @@
-h2. Understanding the debug output
+h1. Understanding the debug output
 
 
-h3. Level 1:
+h2. Level 1:
 
 <pre>
 Originator (#/255) Nexthop [outgoingIF]: Potential nexthops ... [B.A.T.M.A.N. 0.3-beta rv828, [[MainIF]]/IP: ath0/5.1.14.213, UT: 0d 8h29m]
@@ -25,7 +25,7 @@ Outgoing interface shows you the interface which will be used to send traffic to
 The potential nexthops column has a variable size because it lists all your direct neighbors which offered a way to the participant in the first column. You also will find the chosen nexthop among these. If one of these potential nexthops gets a better TQ value than the current nexthop it will become the nexthop.
 
 
-h3. Level 2:
+h2. Level 2:
 
 <pre>
 Gateway (#/255) Nexthop [outgoingIF], gw_class ... [B.A.T.M.A.N. 0.3-beta rv828, [[MainIF]]/IP: ath0/5.1.14.213, UT: 0d10h 7m]
