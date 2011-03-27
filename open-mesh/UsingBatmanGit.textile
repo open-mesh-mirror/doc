@@ -9,7 +9,7 @@ To retrieve the latest changes you can pull from the read-only http frontend.
 
 
 <pre>
-git clone http://git.open-mesh.org/batman-adv.git batman-adv-git
+git clone http://git.open-mesh.org/batman-adv.git batman-adv
 </pre>
 
 There is also a repository for kernel integration. You are about to download 300MB of sources - that may take a while!
