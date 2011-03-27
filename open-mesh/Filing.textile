@@ -32,7 +32,7 @@ h2. Using B.A.T.M.A.N. advanced (layer 2)
 * [[batman-adv-quick-start-guide|B.A.T.M.A.N. Advanced quick start guide]] - or: what the hell is bat0 for?
 * [[building-batman-adv-with-openwrt|Building B.A.T.M.A.N. Advanced with OpenWRT]] - how to download and configure your OpenWRT build environment to compile batman-adv
 * "B.A.T.M.A.N. Advanced on OpenWRT":http://pizza.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
-* [[tweaking-batman-adv|Tweaking the B.A.T.M.A.N. Advanced behaviour]] - get an overview about the various settings batman-adv offers
+* [[batman-adv:tweaking-batman-adv|Tweaking the B.A.T.M.A.N. Advanced behaviour]] - get an overview about the various settings batman-adv offers
 * [[batman-adv:understand-your-batman-adv-network|Understand your B.A.T.M.A.N. Advanced network]] - learn what network debug interfaces batman-adv offers
 * [[batman-adv-gateways|B.A.T.M.A.N. gateway support]] - how batman-adv can be used to choose the nearest internet gateway node
 * [[bridge-loop-avoidance|B.A.T.M.A.N. bridge loop avoidance]] - document explaining the bridge loop avoidance implemented in batman-adv
