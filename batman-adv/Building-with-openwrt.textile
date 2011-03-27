@@ -142,12 +142,13 @@ PKG_VERSION:=2010.0.0
 +developer version+
 
 
-Ajust the PKG_REV variable to download & build the SVN revision you are interested in:
+Adjust the PKG_BATMAN_REV variable for batman-adv and the PKG_BATCTL_REV variable for batctl to download & build the git revision you are interested in:
 
 <pre>
 cat openwrt/feeds/batman/batman-adv-devel/Makefile
 [..]
-PKG_REV:=1764
+PKG_BATMAN_REV:=3cc9ba15c95147eeb70529ca3892853b3c81a862
+PKG_BATCTL_REV:=6f77463027311b49d52bd3aef4d82c8aae27014f
 [..]
 </pre>
 
