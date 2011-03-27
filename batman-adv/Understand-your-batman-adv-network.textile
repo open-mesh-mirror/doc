@@ -56,7 +56,7 @@ Each line contains the announced mac address and the mac of the batman node anno
 
 h3. Gateway table
 
-The gateway table lists all available batman-adv gateways in this network (see the [[batman-adv-gateways|gateway documentation]] to learn how to use this feature). Each line contains information about a specific gateway:
+The gateway table lists all available batman-adv gateways in this network (see the [[gateways|gateway documentation]] to learn how to use this feature). Each line contains information about a specific gateway:
 
 <pre>
 <selection symbol>
