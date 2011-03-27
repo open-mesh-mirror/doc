@@ -92,7 +92,7 @@ h3. gateway bandwidth
 
 Available since: batman-adv 2011.0.0
 
-The [[batman-adv-gateways|internet gateway support]] allows each gateway to also announce its available internet bandwidth. Clients looking for the most suitable gateway to connect to receive this bandwidth announcement and can make use of it while choosing their gateway. Per default a bandwidth of 2048KBit/512KBit is assumed. Details regarding the syntax of the bandwidth setting can be found in the "batctl manpage":http://downloads.open-mesh.org/batman/manpages/batctl.8.html.
+The [[gateways|internet gateway support]] allows each gateway to also announce its available internet bandwidth. Clients looking for the most suitable gateway to connect to receive this bandwidth announcement and can make use of it while choosing their gateway. Per default a bandwidth of 2048KBit/512KBit is assumed. Details regarding the syntax of the bandwidth setting can be found in the "batctl manpage":http://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
 +Note+: If a batman-adv node has not activated the gateway server mode this setting has no effect.
 
@@ -107,7 +107,7 @@ Available since: batman-adv 2011.0.0
 
 A batman-adv node can either run in server mode (sharing its internet connection with the mesh) or in client mode (searching for the most suitable internet connection in the mesh) or having the gateway support disabled entirely (which is the default setting). Gateways can tweak the announced internet bandwidth via the gw_bandwidth sysfs file whereas clients can configure the manner in which batman-adv chooses its gateway via the gw_sel_class sysfs file.
 
-+Note+: Please read the [[batman-adv-gateways|internet gateway documentation]] to understand its interaction with DHCP.
++Note+: Please read the [[gateways|internet gateway documentation]] to understand its interaction with DHCP.
 
 <pre>
 cat /sys/class/net/bat0/mesh/gw_mode 
