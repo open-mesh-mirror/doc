@@ -10,7 +10,7 @@ If you still can't get any setup working at all, go through this checklist:
 h2. Any warnings or errors in the kernel log?
 
 
-Check dmesg/logread/syslog for warnings, errors or kernel oopses. If you are seeing a kernel oops, write a "report ticket":http://open-mesh.org/projects/open-mesh/issues/new and post the log there, describe your setup and hardware, and ideally how this crash could be reproduced. If the kernel log is just showing cryptic numbers it will be difficult to help you. You can increase the chances of finding the bug by enabling the kernel symbol table which will translate these numbers to function names that can help developers to see what is happening. Please check the "advanced" section of [[building-batman-adv-with-openwrt|this article]] to learn how to enable this functionality on OpenWRT.
+Check dmesg/logread/syslog for warnings, errors or kernel oopses. If you are seeing a kernel oops, write a "report ticket":http://open-mesh.org/projects/open-mesh/issues/new and post the log there, describe your setup and hardware, and ideally how this crash could be reproduced. If the kernel log is just showing cryptic numbers it will be difficult to help you. You can increase the chances of finding the bug by enabling the kernel symbol table which will translate these numbers to function names that can help developers to see what is happening. Please check the "advanced" section of [[building-with-openwrt|this article]] to learn how to enable this functionality on OpenWRT.
 
 
 h2. Are both nodes having the same cell id?
