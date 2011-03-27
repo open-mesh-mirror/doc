@@ -40,7 +40,7 @@ h2. Using B.A.T.M.A.N. advanced (layer 2)
 * [[UsingBatmanGit|Using the batman git repos]] - this page explains how the git repository is structured and how to use it
 * "batctl online man page":http://downloads.open-mesh.org/batman/manpages/batctl.8.html - read the current batctl man page online
 * "Wireless Kernel Tweaking (video)":http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv - Introduction to batman-advanced by Marek and Simon (also available at "google video":http://video.google.de/videoplay?docid=1355876033101731617)
-* [[batman-adv:batman-adv-troubleshooting|B.A.T.M.A.N. Advanced troubleshooting]] - What if my batman-adv setup does not behave as expected ?
+* [[batman-adv:troubleshooting|B.A.T.M.A.N. Advanced troubleshooting]] - What if my batman-adv setup does not behave as expected ?
 * [[batman-adv:bonding-alternating|Bonding and Interface Alternating]] - Use multiple links in batman-adv for fun and profit.
 
 
