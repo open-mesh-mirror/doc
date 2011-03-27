@@ -68,7 +68,7 @@ h3. bonding mode
 
 Available since: batman-adv 2010.1.0
 
-When running the mesh over multiple WiFi interfaces per node batman-adv is capable of optimizing the traffic flow to gain maximum performance. Per default it operates in the "interface alternating" mode (which is suitable for most situations) that switches the WiFi interface with each hop to avoid store & forward. Alternatively, batman-adv can be switched into "bonding mode" in which batman-adv is using all interfaces at the same time to send & receive data. However, this mode is only recommended in special one-hop cases. You can read about our [[2010-06-13-wbm2010-bracciano|alternatebonding test results]] to see what suits you best.
+When running the mesh over multiple WiFi interfaces per node batman-adv is capable of optimizing the traffic flow to gain maximum performance. Per default it operates in the "interface alternating" mode (which is suitable for most situations) that switches the WiFi interface with each hop to avoid store & forward. Alternatively, batman-adv can be switched into "bonding mode" in which batman-adv is using all interfaces at the same time to send & receive data. However, this mode is only recommended in special one-hop cases. You can read about our [[open-mesh:2010-06-13-wbm2010-bracciano|alternatebonding test results]] to see what suits you best.
 
 <pre>
 cat /sys/class/net/bat0/mesh/bonding 
@@ -164,7 +164,7 @@ h3. visualizing the topology
 
 Available since: batman-adv 2010.0.0
 
-The vis_mode and vis_data files provide a system to visualize the batman-adv network. The [[batman-adv:VisAdv|visualizing the 2nd layer] and [[VisOutput|vis output]] documents describes this system in detail, therefore no in-depth explanation is given here. 
+The vis_mode and vis_data files provide a system to visualize the batman-adv network. The [[VisAdv|visualizing the 2nd layer]]and [[open-mesh:VisOutput|vis output]] documents describes this system in detail, therefore no in-depth explanation is given here. 
 
 
 The default vis mode is "client"
