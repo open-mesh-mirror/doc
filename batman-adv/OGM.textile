@@ -37,7 +37,7 @@ Each node periodically (OGM interval) generates and broadcasts a single OGM on e
 
 * Packet type: Initialize this field with the OGM packet type.
 * Version: Set your internal compatibility version.
-* flags: Indicates certain attributes of this originator. So far 0x01 is reserved for VIS_SERVER (see [[batman-adv:VisAdv]])
+* flags: Indicates certain attributes of this originator. So far 0x01 is reserved for VIS_SERVER (see [[VisAdv]])
 * global TQ: Is initially set to TQ_MAX by the originator.
 * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
 * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
