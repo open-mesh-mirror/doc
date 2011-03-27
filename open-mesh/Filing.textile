@@ -29,7 +29,7 @@ h2. Using B.A.T.M.A.N. advanced (layer 2)
 
 
 * [[batman-adv:Wiki|B.A.T.M.A.N. Advanced overview]] - information about the Layer 2 version of B.A.T.M.A.N.
-* [[batman-adv:batman-adv-quick-start-guide|B.A.T.M.A.N. Advanced quick start guide]] - or: what the hell is bat0 for?
+* [[batman-adv:quick-start-guide|B.A.T.M.A.N. Advanced quick start guide]] - or: what the hell is bat0 for?
 * [[batman-adv:building-batman-adv-with-openwrt|Building B.A.T.M.A.N. Advanced with OpenWRT]] - how to download and configure your OpenWRT build environment to compile batman-adv
 * "B.A.T.M.A.N. Advanced on OpenWRT":http://pizza.hskflashcards.com/index.php?page=B.A.T.M.A.N.+Advanced+on+OpenWrt+How-To - a tutorial for using B.A.T.M.A.N. Advanced on OpenWRT
 * [[batman-adv:tweaking-batman-adv|Tweaking the B.A.T.M.A.N. Advanced behaviour]] - get an overview about the various settings batman-adv offers
