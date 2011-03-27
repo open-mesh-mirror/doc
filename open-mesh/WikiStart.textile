@@ -30,7 +30,7 @@ h2. Documentation
 * [[FAQ|FAQ]] - Frequently Asked Questions
 * [[Experience|Experience]] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
 * [[Patches|Patches]] - contribution from others related to B.A.T.M.A.N.
-* [[batman-adv|BATMAN Advanced]] - information about the Layer 2 version of B.A.T.M.A.N.
+* [[batman-adv:Wiki|BATMAN Advanced]] - information about the Layer 2 version of B.A.T.M.A.N.
 * [[MailingList|Mailing List]]/[[IRC|IRC]] - contact us
 
 h2. Other Projects on open-mesh.org
