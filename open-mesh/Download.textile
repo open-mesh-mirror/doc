@@ -52,6 +52,6 @@ Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto 
 h2. Building OpenWRT packages
 
 
-B.A.T.M.A.N. is also included in OpenWRT as a package. Download the extra package feed, link the batman folder into your main OpenWRT svn directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly into your builds (see [[building-batman-adv-with-openwrt|this page]] for a detailed explanation).
+B.A.T.M.A.N. is also included in OpenWRT as a package. Download the extra package feed, link the batman folder into your main OpenWRT svn directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly into your builds (see [[batman-adv:building-batman-adv-with-openwrt|this page]] for a detailed explanation).
 
 More information about how to build the OpenWRT toolchain is available "here":http://wiki.openwrt.org/OpenWrtDocs/BuildingKamikazeHowTo.
