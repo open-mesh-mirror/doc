@@ -2,7 +2,7 @@ h1. B.A.T.M.A.N.-Adv Troubleshooting
 
 h2. B.A.T.M.A.N.-Adv does net work as expected, what can I do now?
 
-First, try to minimise the complexity of your setup, i.e. just try to build a simple mesh network between two devices. Usually just following the [[batman-adv-quick-start-guide|quick-start-guide]] is a good way to start with.
+First, try to minimise the complexity of your setup, i.e. just try to build a simple mesh network between two devices. Usually just following the [[quick-start-guide|quick-start-guide]] is a good way to start with.
 
 If you still can't get any setup working at all, go through this checklist:
 
