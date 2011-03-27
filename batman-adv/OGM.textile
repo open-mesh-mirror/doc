@@ -3,7 +3,7 @@ h1. Originator Message (OGM)
 
 The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
 
-With the new concept of a separate [[batman-adv-ndp|NDP]] the tasks performed by OGMs becomes way simpler: While local work is done by NDP, information gets distributed in the mesh network with the OGM protocol, in that OGMs' primary task is to advertise path qualities, without determening link qualities. OGMs also still have the important task to distribute Host Network Annoncements, HNA for short.
+With the new concept of a separate [[ndp|NDP]] the tasks performed by OGMs becomes way simpler: While local work is done by NDP, information gets distributed in the mesh network with the OGM protocol, in that OGMs' primary task is to advertise path qualities, without determening link qualities. OGMs also still have the important task to distribute Host Network Annoncements, HNA for short.
 
 This bears the following advantages from the OGM point of view:
 * Reduced overhead, as OGMs can then be send with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desireable.
