@@ -1,4 +1,3 @@
-
 h1. Requirements for students
 
 * Excited interest in Mesh networking technologies
@@ -9,11 +8,11 @@ h1. Recommended and/or useful
 
 These things are not a prerequisite but might be very useful and/or have to be learned during the GSoC anyway.
 * [[Linux kernel coding style]]
-* Reading the documentation of the algorithms: [[batman-adv-doc"httpgitoriousorgbatman-adv-doc] ["batman-rfc-draft]] (used in the 'old' batmand)
+* Reading the documentation of the algorithms: http://git.open-mesh.org/?p=batman-adv-doc.git http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 (used in the 'old' batmand)
 * Being able to use virtual machines for debugging (i.e. qemu)
 * Being able to install a mesh network with [[OpenWRT]] and batman-adv
 * Kernel coding experiences (especially with how to handle and avoid memory management/race conditions/deadlocks)
-* monitoring packet flow (using tcpdump / wireshark + [[wireshark-batman-adv dissector]]
+* monitoring packet flow (using tcpdump / wireshark + wireshark batman-adv dissector)
 
 
 h1. Ideas
