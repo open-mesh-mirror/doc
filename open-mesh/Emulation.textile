@@ -40,7 +40,7 @@ brctl delbr br-lan
 cat << EOF > /tmp/logserver.sh
 #!/bin/sh
 while [ 1 ]; do
-	nc -l -p 2050 < /proc/net/batman-adv/log
+	nc -l -p 2050 < /sys/kernel/debug/batman_adv/bat0/log
 done
 EOF
 chmod 755 /tmp/logserver.sh
