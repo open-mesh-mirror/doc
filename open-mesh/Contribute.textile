@@ -70,6 +70,7 @@ If you intend to send us patches, please consider the following guidelines:
 * The mail's subject will become the first line in the commit message. The body contains the longer patch description and the patch (unified format) itself. Please also specify the target branch (e.g. batctl, batman-adv, etc) at the beginning of the subject line.
 * Add a "Signed-off-by: Your Name <you@example.com>" line to the patch message to make the ownership of the patch clear.
 * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style closely (use checkpatch.pl to verify your patch) as well as the linux "how to submit patches" guidelines (search for the term SubmitPatches to find thorough documentation).
+* Check it using static analysis tools like "sparse":https://sparse.wiki.kernel.org/ (cgcc) and "cppcheck":http://cppcheck.sourceforge.net/
 * Patches against the batman-adv master branch must be formated using
 <pre>
 git format-patch -M --patience $BASECOMMIT
