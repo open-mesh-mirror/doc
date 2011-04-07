@@ -49,7 +49,7 @@ h2. Misc
 
 
 * [[routing_scenarios|Routing scenarios]] - a collection of routing scenarios a routing protocol should be able to handle
-* [[Coredump|How to get a coredump]] - documentation about coredump configuration & retrieval
+* [[batmand:Coredump|How to get a coredump]] - documentation about coredump configuration & retrieval
 * [[the-olsr-story|The OLSR story]] - this text explains the roots of B.A.T.M.A.N. (Dec 2006)
 * [[Emulation|Emulation HowTo]] - how to create an environment to emulate wireless setups using QEMU and VDE
 * "Ultimate B.A.T.M.A.N. Analysis/Documentations/Descriptions":http://maps.google.com/maps?q=26.358298,127.78389&num=1&t=h&sll=26.356526,127.779526&sspn=0.00473,0.007972&hl=en&ie=UTF8&ll=26.358083,127.784042&spn=0.00473,0.007972&z=17 - Anything you couldn't find an answer for yet is securely archived here.
