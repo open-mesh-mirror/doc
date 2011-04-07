@@ -3,7 +3,7 @@ h1. Some documents that might help you:
 h2. B.A.T.M.A.N. concepts
 
 
-* [[why-starting-batman|Why starting B.A.T.M.A.N.]] - Why we started the B.A.T.M.A.N. project instead of continuing to work with OLSR
+* [[batmand:why-starting-batman|Why starting B.A.T.M.A.N.]] - Why we started the B.A.T.M.A.N. project instead of continuing to work with OLSR
 * [[BATMANConcept|B.A.T.M.A.N. Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
 * "B.A.T.M.A.N. RFC Draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 - a draft explaining the routing algorithm used in batman 0.2
 * "B.A.T.M.A.N. Status":http://downloads.open-mesh.org/batman/misc/batman-status.pdf - read about the B.A.T.M.A.N. (June 2007)
