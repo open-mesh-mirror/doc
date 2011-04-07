@@ -15,7 +15,7 @@ h2. Using the B.A.T.M.A.N. daemon (layer 3)
 
 
 * [[RoutingVodoo|Getting behind the routing vodoo]] - learn about the B.A.T.M.A.N. routing table manipulation
-* [[InternetTuning|InternetTuning]] - get information how B.A.T.M.A.N. handles internet access and what features it offers
+* [[batmand:InternetTuning|InternetTuning]] - get information how B.A.T.M.A.N. handles internet access and what features it offers
 * [[batmand:DebugOutput|Understanding the debug output]] - documentation that helps you to understand the debug output
 * [[VisualizeMesh|Visualizing the network]] - this document explains how to get fancy graphics of the batman mesh
 * [[batmand:AnnouncingNetworks|Announcing networks]] - learn how to announce and / or revoke HNA on the fly
