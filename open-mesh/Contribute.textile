@@ -30,7 +30,7 @@ Please add as much information as possible. In particular interesting are:
 * machine type (PC, Linksys WRT, Fon, NS2, ...)
 * command line parameters used
 * iptables/firewall rules
-* [[Coredump|get a coredump]] if you experience a segfault
+* [[batmand:Coredump|get a coredump]] if you experience a segfault
 * your guess what triggered the problem. ;)
 
 
