@@ -17,9 +17,6 @@ h2. batmand
 The batman userspace daemon has been the first implementation of the B.A.T.M.A.N. routing protocol. In the early stages of the project it allowed us to easily experiment with the design of the protocol but also to be used in real world deployments. It operates on layer 3 (IP layer) and offers everything you would expect from a standard routing daemon. Check our [[UserDocs|docs]] section if you want to learn more about is capabilities.
 
 
-At the moment the batman daemon lacks development power (this branch is unmaintained since a while) as most developers moved on to one of the following branches. If you are interested to maintain the code base, feel free to contact us.
-
-
 
 h2. BMX
 
