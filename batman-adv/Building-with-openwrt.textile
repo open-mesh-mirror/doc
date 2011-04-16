@@ -99,8 +99,8 @@ If you experience build problems or simply intend to rebuild the batman-adv pack
 
 <pre>
 cd openwrt
-make package/batman-advanced/clean
-make package/batman-advanced/compile V=99
+make package/batman-adv/clean
+make package/batman-adv/compile V=99
 </pre>
 
 +developer version+
@@ -116,7 +116,7 @@ The package offers an easy way to apply custom patches whenever batman-adv is bu
 +stable version+
 	 
 <pre>
-openwrt/feeds/packages/net/batman-advanced/patches
+openwrt/feeds/packages/net/batman-adv/patches
 </pre>
 
 +developer version+
@@ -133,7 +133,7 @@ It is also possible to modify the batman-adv version if you ever wanted to build
 Adjust the PKG_VERSION variable to download & build the stable release you are interested in.
 
 <pre>
-cat openwrt/feeds/packages/net/batman-advanced/Makefile
+cat openwrt/feeds/packages/net/batman-adv/Makefile
 [..]
 PKG_VERSION:=2010.0.0
 [..]
