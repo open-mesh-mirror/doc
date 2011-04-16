@@ -1,4 +1,3 @@
-
 h1. Experience
 
 This page aims to provide a collection of links towards press reviews & papers related to B.A.T.M.A.N. as well as projects using the B.A.T.M.A.N. protocol in real live scenarios. This collection only reflects a small percentage of the things out there because not everybody contacts us to share his experience. If you have made some experience or even setup a B.A.T.M.A.N. mesh network at someplace in this universe please feel urged to [[MailingList|tell us]] or drop us a link!
@@ -21,6 +20,8 @@ h2. Press:
 
 h2. Papers:
 
+* "B.A.T.M.A.N. routing protocol overhead analysis":http://downloads.open-mesh.org/batman/papers/OGMoverhead.pdf
+* "Performance Analysis of the B.A.T.M.A.N. protocol":http://downloads.open-mesh.org/batman/papers/SANLAB%2520technical%2520report.Batrytis.pdf
 * "B.A.T.M.A.N. performance comparison paper":http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
 * "B.A.T.M.A.N. / BABEL / OLSR performance comparison":http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1747&amp;context=infopapers
 * "mesh performance analysis with B.A.T.M.A.N.":http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf
