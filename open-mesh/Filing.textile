@@ -6,7 +6,7 @@ h2. B.A.T.M.A.N. concepts
 * [[batmand:why-starting-batman|Why starting B.A.T.M.A.N.]] - Why we started the B.A.T.M.A.N. project instead of continuing to work with OLSR
 * [[BATMANConcept|B.A.T.M.A.N. Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
 * "B.A.T.M.A.N. RFC Draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 - a draft explaining the routing algorithm used in batman 0.2
-* "B.A.T.M.A.N. Status":http://downloads.open-mesh.org/batman/misc/batman-status.pdf - read about the B.A.T.M.A.N. (June 2007)
+* "B.A.T.M.A.N. Status":http://downloads.open-mesh.org/batman/papers/batman-status.pdf - read about the B.A.T.M.A.N. (June 2007)
 * [[batmand:VisOutput|Vis output]] - working with the vis server output
 
 
@@ -20,7 +20,7 @@ h2. Using the B.A.T.M.A.N. daemon (layer 3)
 * [[batmand:VisualizeMesh|Visualizing the network]] - this document explains how to get fancy graphics of the batman mesh
 * [[batmand:AnnouncingNetworks|Announcing networks]] - learn how to announce and / or revoke HNA on the fly
 * "B.A.T.M.A.N. online man page":http://downloads.open-mesh.org/batman/manpages/batmand.8.html - read the current batman man page online
-* "B.A.T.M.A.N. HowTo":http://downloads.open-mesh.org/batman/misc/batmand_howto.pdf - how to compile, install and run batman 0.2
+* "B.A.T.M.A.N. HowTo":http://downloads.open-mesh.org/batman/papers/batmand_howto-0.2.pdf - how to compile, install and run batman 0.2
 * "CCCamp 2007 talk (video)":http://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v - Elektra and Marek explain the batman routing algorithm and features of batmand
 
 
