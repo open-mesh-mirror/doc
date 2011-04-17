@@ -14,9 +14,9 @@ h2. Release Scheduling
 
 h2. Code
 
-* [ ] make sure all code contains the release version strings
+* [x] make sure all code contains the release version strings
 * [x] update copyright years (if needed)
-* [ ] remove dead code (if any)
+* [x] remove dead code (if any)
 * [x] check against kernel versions
 * [x] check that maint branch is merged in next
 * [x] check for open patches on the ml
@@ -25,8 +25,8 @@ h2. Code
 
 h2. Documentation
 
-* [ ] build changelog
-* [ ] update README
+* [x] build changelog
+* [x] update README
 * [ ] write release announcement
 * [ ] update wiki documentation
 
