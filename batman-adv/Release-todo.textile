@@ -43,12 +43,13 @@ h2. Release
 h2. Distributions
 
 * [ ] update openwrt package
-* [ ] update debian package
+* [x] update gentoo package
+* [x] update debian package
 
 
 h2. Aftershow
 
 * [x] Merge differences (README, CHANGELOG, ...) into master branch
 * [x] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
-* [ ] Get patches for next release from master-rebase/batctl-rebase repository
+* [x] Get patches for next release from master-rebase/batctl-rebase repository
 * [ ] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels
