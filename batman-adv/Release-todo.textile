@@ -18,8 +18,8 @@ h2. Code
 * [x] update copyright years (if needed)
 * [ ] remove dead code (if any)
 * [x] check against kernel versions
-* [ ] check that maint branch is merged in next
-* [ ] check for open patches on the ml
+* [x] check that maint branch is merged in next
+* [x] check for open patches on the ml
 * [ ] git tag release
 
 
@@ -35,7 +35,7 @@ h2. Release
 
 * [ ] build package tar.gz and generate checksums
 * [ ] move packages/checksums to stable/sources / create symlinks from releases
-* [ ] update download links in the trac downloads page
+* [ ] update download links in the redmine downloads page
 * [ ] send release mail
 * [ ] update IRC channel topic
 
