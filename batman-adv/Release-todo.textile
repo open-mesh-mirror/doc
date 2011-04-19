@@ -42,7 +42,7 @@ h2. Release
 
 h2. Distributions
 
-* [ ] update openwrt package
+* [x] update openwrt package
 * [x] update gentoo package
 * [x] update debian package
 
