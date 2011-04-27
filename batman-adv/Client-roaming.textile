@@ -9,7 +9,7 @@ This means that every unicast packet will contain a new field: the '''ttvn''', w
 
 In case of positive match, the router will change the destination and will consequently route the packet. The ttvn value carried by the unicat packet is updated too.
 
-h2 Speeding up the roaming
+h2. Speeding up the roaming
 
 The base idea is simple and clean and permit nodes with a fresher table to redirect packets to the correct destination (a new one). But in case of roaming we have the same issue as the previous implementation because nodes have to wait for the OGM before updating their tables. To solve this issue a new mechanism has been introduced: in case of roaming a new packet type is used to send a message to the old node which was serving the client do that it can update its global table on time!
 
