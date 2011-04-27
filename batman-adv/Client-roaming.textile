@@ -2,7 +2,7 @@ h1. Roaming-improvements
 
 h2. Base concept
 
-This new mechanism relies on the information obtained thanks to the [[http://www.open-mesh.org/wiki/batman-adv/Hna-improvements|new client announcement mechanism]].
+This new mechanism relies on the information obtained thanks to the [[Hna-improvements|new client announcement mechanism]].
 
 In particular the first concept consists in permitting ''light inspection'' on the routers in case of fresher global translation-table.
 This means that every unicast packet will contain a new field: the '''ttvn''', which is filled with the ttvn associated to the destination at the source node. Any node along the path that has a greater value for the same destination has to query its global table for the real client destination and check whether the packet destination is correct or not.
