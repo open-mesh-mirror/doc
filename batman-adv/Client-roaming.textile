@@ -1,8 +1,21 @@
 h1. Roaming-improvements
 
-There has been the idea already to not just drop a unicast data packet at a node not responsible for the stated host anymore, but to allow one redirection, if this node got the newer destination for the stated host already. With the information collected through the procedure stated above, a redirection can be done even earlier and more than once without risking routing loops:
-* The intial node sending a unicast packet needs to add the target orignator's HNA version number, the ref.-ID on which the originator selection for the target host has been based on.
-* A forwarding node should change the destination node if the following condition is true: It has previously received a Roaming-Adv(*) message of the new node responsible for the target host, stating a roaming procedure to it. Then, new ref.-ID is higher than the unicast data packets ref.-ID. => The forwarding node may than exchange the destination node and this nodes's ref.-ID with the ones stated in the roaming entry of this TT-query-response.
+h2. Base concept
 
+This new mechanism relies on the information obtained thanks to the [[http://www.open-mesh.org/wiki/batman-adv/Hna-improvements|new client announcement mechanism]].
+
+In particular the first concept consists in permitting ''light inspection'' on the routers in case of fresher global translation-table.
+This means that every unicast packet will contain a new field: the '''ttvn''', which is filled with the ttvn associated to the destination at the source node. Any node along the path that has a greater value for the same destination has to query its global table for the real client destination and check whether the packet destination is correct or not.
+
+In case of positive match, the router will change the destination and will consequently route the packet. The ttvn value carried by the unicat packet is updated too.
+
+h2 Speeding up the roaming
+
+The base idea is simple and clean and permit nodes with a fresher table to redirect packets to the correct destination (a new one). But in case of roaming we have the same issue as the previous implementation because nodes have to wait for the OGM before updating their tables. To solve this issue a new mechanism has been introduced: in case of roaming a new packet type is used to send a message to the old node which was serving the client do that it can update its global table on time!
+
+To detect a roaming phase a node will simply look in its global translation-table for the address of its new client. In case of positive result (the same MAC address was already in the table but pointing to another node) the new node will send a ROAMING-Advertisement to the old node serving this client so that it will be able to update its global table and possibly redirect packets immediatly to the new mesh node.
+
+Notes:
+A research project has been done on this topic and it will be linked on this page as soon as it get ready.
 
 TO BE COMPLETED
