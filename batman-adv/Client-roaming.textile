@@ -1,3 +1,8 @@
 h1. Roaming-improvements
 
-TODO
+There has been the idea already to not just drop a unicast data packet at a node not responsible for the stated host anymore, but to allow one redirection, if this node got the newer destination for the stated host already. With the information collected through the procedure stated above, a redirection can be done even earlier and more than once without risking routing loops:
+* The intial node sending a unicast packet needs to add the target orignator's HNA version number, the ref.-ID on which the originator selection for the target host has been based on.
+* A forwarding node should change the destination node if the following condition is true: It has previously received a Roaming-Adv(*) message of the new node responsible for the target host, stating a roaming procedure to it. Then, new ref.-ID is higher than the unicast data packets ref.-ID. => The forwarding node may than exchange the destination node and this nodes's ref.-ID with the ones stated in the roaming entry of this TT-query-response.
+
+
+TO BE COMPLETED
