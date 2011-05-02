@@ -12,7 +12,7 @@ The current implementation just adds the client mac addresses to the responsible
 * It can take up to a couple of seconds for a node to roam and being recognised at its new position, depending on the link qualities. A unicast packet sent to the outdated orignator will just be dropped at this node.
 
 
-h2. Concept Ideas
+h2. The new mechanism
 
 h3. How the announcement works
 
@@ -27,7 +27,7 @@ h3. How the announcement works
 * Every node memorizes the last changeset announced within the OGM of each node in the network
 * A TT-REQUEST can request a complete local table or just a the last sent changeset.
 
-h4. Guaraneteeing consistency
+h3. Guaraneteeing consistency
 
 To be sure to that a node has all the right information, an hash value of the local translation table is spread within the OGM. This value is called TT_CRC.
 
