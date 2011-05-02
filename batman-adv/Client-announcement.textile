@@ -25,5 +25,7 @@ h3. How the announcement works
 * Every node memorizes the last changeset announced within the OGM of each node in the network
 * A TT-REQUEST can request a complete local table or just a the last sent changeset.
 
+**TO BE COMPLETED**
+
 Notes:
 A research project has been done on this topic and it will be linked on this page as soon as it get ready.
