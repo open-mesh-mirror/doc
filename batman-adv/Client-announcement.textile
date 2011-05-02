@@ -1,0 +1,30 @@
+h1. Client-announcement
+
+The development branch is at http://git.open-mesh.org/?p=ordex/batman-adv.git;a=shortlog;h=refs/heads/hna-new
+
+
+h2. Current Contstraints of client announcement
+
+Up until recently, BATMAN-Adv. was mostly used to build a mesh network and to allow communitcation between BATMAN-Adv. nodes or a few hosts being bridged into the mesh through  certain nodes. However, the desire to also use BATMAN-Adv. to interconnect a larger, common, wired LAN with Wifi access points for client devices into a single subnet has increased. The current implementation just adds the clients' mac addresses to the responsible nodes OGMs - so called HNAs (host network announcements) which has three constraints:
+* A lot of overhead even when the HNAs do not change.
+* The amount of HNAs per OGM is quite limited and does not work when bridging larger LANs into the mesh cloud.
+* It can take up to a couple of seconds for a node to roam and being recognised at its new position, depending on the link qualities. A unicast packet send to the outdated orignator will just be dropped at this node.
+
+
+h2. Concept Ideas
+
+h3. How the announcement works
+
+* Instead of adding all client MAC addresses, the OGM packet format has been modified to include:
+** a local translation table reference ID (TT version number);
+** a set of local translation table changes which happened in the last OGM interval
+* When a node local translation table changes at least once in one OGM interval (added or (re)moved client), increase TT version number by one.
+* If a node receives an OGM with a newer, higher ref.-ID, it updates its global translation table with the set of changes carried by the OGM.
+** if an OGM was missed (we have a gap in the changes list), then the node must queries the originator for an update with a special unicast packet: TT-REQUEST
+* Any node on the paths between the querier and the destination may decide to not forward the TT-REQUEST and answer it by itself if it already has the needed changes. => This avoids a storm of unicast packets towards the destination after its local translation table changes.
+
+* Every node memorizes the last changeset announced within the OGM of each node in the network
+* A TT-REQUEST can request a complete local table or just a the last sent changeset.
+
+Notes:
+A research project has been done on this topic and it will be linked on this page as soon as it get ready.
