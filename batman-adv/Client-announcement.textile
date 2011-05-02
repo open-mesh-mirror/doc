@@ -33,7 +33,7 @@ To be sure to that a node has all the right information, an hash value of the lo
 
 After applying a changeset, a node will recompute the TT_CRC for such originator's table. Later, when receving a new OGM, the node can evaluate whether the TT_CRC coindiceds with the one received with the message. In case of negative match the node will request a "full table" because something went wrong in its table operations.
 
-The TT_CRC is also usefull in case of node reboot: the TTVN will restart from 0 generating a strange situation (new_ttvn less than last_ttvn), but the TT_CRC will ensure that the receiving node will not accept this scenario and will request a "full table" to refresh its table.
+The TT_CRC is also usefull in case of node reboot: the TTVN will restart from 0 generating a strange situation (new_ttvn less than last_ttvn), but the TT_CRC will ensure that the receiving node will not accept this scenario and will request a "full table" to refresh its global one.
 
 Notes:
 A research project has been done on this topic and it will be linked on this page as soon as it get ready.
