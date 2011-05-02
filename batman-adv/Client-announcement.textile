@@ -1,7 +1,6 @@
 h1. Client-announcement
 
-The development branch is at http://git.open-mesh.org/?p=ordex/batman-adv.git;a=shortlog;h=refs/heads/hna-new
-
+The code has not been released yet. For those interested in reviewing the code, the development branch is at http://git.open-mesh.org/?p=ordex/batman-adv.git;a=shortlog;h=refs/heads/hna-new
 
 h2. Current Contstraints of client announcement
 
