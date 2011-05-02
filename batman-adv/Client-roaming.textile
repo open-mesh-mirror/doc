@@ -2,20 +2,23 @@ h1. Roaming-improvements
 
 h2. Base concept
 
-This new mechanism relies on the information obtained thanks to the [[Hna-improvements|new client announcement mechanism]].
+This new mechanism relies on the information obtained thanks to the [[Client-announcement|new client announcement mechanism]].
 
-In particular the first concept consists in permitting ''light inspection'' on the routers in case of fresher global translation-table.
-This means that every unicast packet will contain a new field: the '''ttvn''', which is filled with the ttvn associated to the destination at the source node. Any node along the path that has a greater value for the same destination has to query its global table for the real client destination and check whether the packet destination is correct or not.
+The first concept consists in permitting ''light inspection'' on the routers in case of fresher global translation-table.
 
-In case of positive match, the router will change the destination and will consequently route the packet. The ttvn value carried by the unicat packet is updated too.
+This means that every unicast packet will contain a new field: the **ttvn**, which is filled with the ttvn associated to the destination on the source node. Any node along the path that has a greater value for the same destination. In this case it means that something changes on the destination node and the destination client could had moved. For this reason the router has to query its global table for the real client destination and check whether the packet destination is correct or not.
+
+In case of positive match, the router will change the destination, update the **ttvn** and will consequently route the packet.
 
 h2. Speeding up the roaming
 
-The base idea is simple and clean and permit nodes with a fresher table to redirect packets to the correct destination (a new one). But in case of roaming we have the same issue as the previous implementation because nodes have to wait for the OGM before updating their tables. To solve this issue a new mechanism has been introduced: in case of roaming a new packet type is used to send a message to the old node which was serving the client do that it can update its global table on time!
+The base idea is simple and clean and permit nodes with a fresher table to redirect packets to the correct destination (a new one). But in case of roaming we have the same issue as the previous implementation because nodes have to wait for the OGM before updating their tables. 
 
-To detect a roaming phase a node will simply look in its global translation-table for the address of its new client. In case of positive result (the same MAC address was already in the table but pointing to another node) the new node will send a ROAMING-Advertisement to the old node serving this client so that it will be able to update its global table and possibly redirect packets immediatly to the new mesh node.
+To solve this issue a new mechanism has been introduced: in case of roaming a new packet type is used to send a message to the old node which was serving the client so that it can update its global table on time!
+
+To detect a roaming phase a node, in case of new client detection, will look into its global translation table for the address of the new host. In case of positive result (the same MAC address was already in the table but pointing to another node) the new node will send a **ROAMING-Advertisement** to the old node serving this client so that it will be able to update its global table and possibly redirect packets immediatly to the new mesh node.
+
+This strategy will help in avoid losing packets that are still flowing to the old node in the time that the source get updated using the OGMs. So at the beginning a suboptimal path will be used, but sooner or later the source will be updated and the packet will directly be sent to the new mesh node.
 
 Notes:
 A research project has been done on this topic and it will be linked on this page as soon as it get ready.
-
-TO BE COMPLETED
