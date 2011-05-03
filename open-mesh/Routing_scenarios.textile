@@ -34,11 +34,15 @@ h3. The triangle
 !triangle.png!
 
 
-h3. The circle
+h3. The circle, I
 
 
 !circle.png!
 
+
+h3. The circle, II
+
+!circle-v2.png!
 
 h3. The bottle
 
