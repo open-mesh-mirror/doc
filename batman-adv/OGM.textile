@@ -1,5 +1,7 @@
 h1. Originator Message (OGM)
 
+??This page is work-in-progress and will state the BATMAN V algorithm later (checkout "this":http://git.open-mesh.org/?p=batman-adv-doc.git;a=summary for now??
+
 
 The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
 
