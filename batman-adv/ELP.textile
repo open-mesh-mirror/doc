@@ -56,9 +56,9 @@ If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should app
 h4. The Neighbor Entry Format:
 
 * Neighbor Address: This field contains the MAC address of the neighbor to be announced.
-* Link RQ: Fill this field with the total of the received sequence numbers (in percent) within the sliding sequence number window from this neighbor.
+* Link RQ: Fill this field with the total of the received sequence numbers (in percent) within the sliding sequence number window, including the time-based adjustment, from this neighbor. If that value would be 0, skip that entry.
 
-Note: See 'Neighbor Ranking' to get a detailed description of how to count/obtain the RQ value. Neighbors with an RQ value of 0 are not to be appended.
+Note: See 'Neighbor Ranking' and 'Time-based Window Adjustment' to get a detailed description of how to count/obtain the RQ value. Neighbors with an RQ value of 0 are not to be appended.
 
 <pre>
  0                   1                   2                   3
@@ -77,7 +77,7 @@ h3. Receiving Neighborhood Discovery Messages (NDP)
 Upon receiving a NDP packet a node must perform the following preliminary checks before the packet is further processed:
 
 * If the NDP contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
-* If the sender address of the NDP message belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this NDP message originated from this node.
+* If the originator address of the NDP message is our own the message must be silently dropped as this NDP message originated from this node.
 * If the sender address of the NDP message is an ethernet multicast (including broadcast) address the message must be silently dropped.
 * If the NDP message is a duplicate or does not contain a newer sequence number (out-of-order) the message must be silently dropped.
 
@@ -85,27 +85,26 @@ Upon receiving a NDP packet a node must perform the following preliminary checks
 h3. Neighbor Ranking
 
 
-For each NDP message having passed the preliminary checks the following must be performed:
+For each NDP message having passed the preliminary checks the following actions must be performed:
  
-* The sliding window to the sender of the NDP message must be updated (purged) to reflect the new upper and lower boundaries of the ranking range. The sequence number of the received NDP message must be added to the sliding window representing the link via which the NDP message has been received.
+* The sliding window to the sender of the NDP message must be updated (purged) to reflect the new upper and lower boundaries of the ranking range. The sequence number of the received NDP message must be added to the sliding window representing the link between the interfaces via which the NDP message has been send and received.
 * The new resulting link RQ value is calculated by counting all sequence numbers that are to be found in the recently adjusted sliding window.
 * The new current sequence number must be set to the sequence number contained in the received NDP message.
-* All appended neighbor entries must be parsed to search for all MAC addresses belonging to one of the B.A.T.M.A.N. interfaces. If a match is found then save the received link RQ value towards that neighbor as link TQ value.
+* The neighbor entries must be parsed until an entry matching the MAC address of the incoming hard-interface has been found. If a match is found then save the received link RQ value towards that neighbor as link TQ value and skip the further traversal of the list. If no matching entry was found, set the link TQ value towards that neighbor to 0.
 
 
+h3. Time-based Window Adjustment
+
+
+h3. Neighbor Node Purging Recommendations
+
+A node may be purged due ....
 
 h3. Questions
 
 
 * checks whether the NDP packet is too old? (TODO: Simon, add/describe the protected window mechanism)
-* Shall we add "neighbor" interface addresses, which are our own to the NDP packet? (e.g., if one node has two interfaces which share the same broadcast domain)
-* Shall we process one of our own NDP packets which we received over one of our other interfaces? (e.g. if one node has two interfaces which share the same broadcast domain)
-* Shall we scan a NDP packet received from one of our neighbors only for an entry matching the incoming interface? (e.g. if one node has two interfaces which share the same broadcast domain)
-* What to do if there are multiple entries with the matching mac address(es)? Only use the first and ignore the other matches?
-* If a match has been found, do not further procede the traversal of neighbor entries
-* Are NDP entries with a RQ of 0 allowed?
 * What to do if RQ reaches 0 due to automatic sliding window?
-* What to do if receiving an NDP packet which does not have the nodes own interface mac? Treating it as RQ of 0? Or keeping old value?
 
 
 h2. Extensions
