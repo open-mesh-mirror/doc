@@ -102,8 +102,8 @@ h4. Out-of-Range
 
 An NDP packet is considered out-of-range if:
 * The received sequence number is not a duplicate and not out-of-order.
-* The received sequence number is smaller than the window's current sequence number.
-* The received sequence number is greater than the window's current sequence number minus 2^31.
+* The received sequence number is smaller than the current window sequence number.
+* The received sequence number is greater than the current window sequence number minus 2^31.
 
 h3. Neighbor Ranking
 
@@ -114,7 +114,7 @@ For each NDP message having passed the preliminary checks the following actions 
 * The last updated time of this neighbor interface needs to be updated.
 * The ndp interval of this neighbor interface needs to be updated with the ndp interval set in the received NDP message.
 * The last received sequence number from this neighbor needs to be set to the sequence number of the received NDP message.
-* If the sequence number of the received NDP message is higher than the window's current sequence number then:
+* If the sequence number of the received NDP message is higher than the current window sequence number then:
 ** The window's current sequence number for this neighbor needs to be set to the sequence number of the received NDP message.
 ** The sliding window of the NDP message must be shifted (purged) to reflect the new upper and lower boundaries of the ranking range.
 * The sequence number of the received NDP message must be added to the sliding window.
