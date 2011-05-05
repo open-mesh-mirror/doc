@@ -41,9 +41,9 @@ h2. Using B.A.T.M.A.N. advanced (layer 2)
 * "batctl online man page":http://downloads.open-mesh.org/batman/manpages/batctl.8.html - read the current batctl man page online
 * [[batman-adv:troubleshooting|B.A.T.M.A.N. Advanced troubleshooting]] - What if my batman-adv setup does not behave as expected ?
 * "Wireless Kernel Tweaking (video)":http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv - introduction to batman-advanced by Marek and Simon [December 2007] (also available at "google video":http://video.google.de/videoplay?docid=1355876033101731617)
-* "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011] 
-* "Bisect the batman-adv routing protocol (video)":http://downloads.open-mesh.org/batman/misc/bisect.avi - the bisect tool explained & demonstrated by Marek [March 2011] 
-* "Project CATWOMAN - network coding with batman-adv (video)":http://downloads.open-mesh.org/batman/misc/network_coding.avi - introduction into network coding with batman-adv by Martin and Jeppe [March 2011]
+* "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011] 
+* "Bisect the batman-adv routing protocol (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-bisect.avi - the bisect tool explained & demonstrated by Marek [March 2011] 
+* "Project CATWOMAN - network coding with batman-adv (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-network_coding.avi - introduction into network coding with batman-adv by Martin and Jeppe [March 2011]
 * [[batman-adv:bonding-alternating|Bonding and Interface Alternating]] - Use multiple links in batman-adv for fun and profit.
 
 
