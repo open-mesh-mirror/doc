@@ -149,8 +149,11 @@ TQ_MAX: 255
 
 h1. Questions
 
+* Does also the aggregation have to be reimplemented then...? Or should that be removed and reimplemented later after the GSoC?
+* Do we really need to check for the sender address of an OGM to see whether it was our own one and whether we should drop it? The duplicate checks should come to the same conclusion, shouldn't it?
 * Is the previous sender really needed?
-* 
+* According to the batman-doc, the reason of substituting an OGMs TQ with the chosen neighbor's best one was to improve the asymmetric case, where the OGM propagation (over several hops) can be quite bad. Which is not loopsafe and added the previous sender field for echo cancellation (which only works for two but not for more than two nodes??). What should / should something else be done instead? Maybe a node could measure its asymmetricity towards its neighbors and increase its number of OGM rebroadcasts if for most neighbors link RQ * asym_penalty >> link TQ? For instance the formula: [...]
+* Should the OGM - BATMAN V structure already contain the HNA and multicast improvement data fields? (their concepts are finalized and a lot of it already implemented)
 
 ----
 
