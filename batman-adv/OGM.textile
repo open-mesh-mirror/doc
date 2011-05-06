@@ -90,7 +90,6 @@ following preliminary checks before the packet is further processed:
 * If the OGM contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
 * If the sender address of the OGM's ethernet frame belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this OGM originated from this node.
 * If the sender address of the OGM's ethernet frame is a multicast address the message must be silently dropped.
-* If the previous sender address of the OGM's ethernet frame is a multicast address the message must be silently dropped.
 * If the OGM's sequence number is smaller (TODO: describe somewhere what "smaller" means here) or equal to Sender's Router Sequence Number for the OGM's Originator the message must be silently dropped. (TODO: does this make the Previous Sender field obsolete?)
 * If the tuple of the origantor address, the sender's originator address and sequence number of the OGM are a duplicate the message must be silently dropped.
 * If an OGM with a newer sequence number of the same originator address and sender's originator address has been received before, the message must be silently dropped.
@@ -146,4 +145,53 @@ OGM_SEQ_DIFF_LIMIT: 5
 
 TQ_MAX: 255
 
+----
 
+h1. Questions
+
+* Is the previous sender really needed?
+* 
+
+----
+
+h1. Changes between OGMs in BATMAN IV and BATMAN V
+
+h2. Renaming
+
+* Global TQ renamed to Path TQ
+* Local TQ renamed to Link TQ
+
+h2. Removal of Global TQ Window and gl. TQ Averaging
+
+Only remember last Path TQ and its sequence number as well as the highest
+sequence number of an originator node received. The window size is substituted by a
+SEQ_DIFF_MAX (default: 5). A neighbor node is being purged from the router list
+if orig_node->last_seqno - router->last_seqno > SEQ_DIFF_MAX.
+
+h2. Removed previous sender field
+
+h2. Bonding Mode using NDP's link qualities
+
+h2. Removal of secondary interface originators
+
+Instead when receiving an OGM, always the best link quality measured by NDP
+will be substracted from the OGM. This shall make multiple interfaces
+transparent from the OGM algorithm.
+
+h2. Removal of PRIMARIES_FIRST_HOP + DIRECTLINK flag
+
+PRIMARIES_FIRST_HOP flag is no more needed as there will be just one primary originator a.k.
+originator.
+
+h2. Removal of bidirectional link check
+
+Asymetric Penalty should be better and enough.
+
+h2. (Re)Introduce strict OGM forwarding policy
+
+To avoid routing loops. MGO/batping mechanism will compensate for convergence speed performance.
+
+h2. Increase NDP window size to 128 packets
+
+With removing the Path TQ averaging, things will get too unstable otherwise. Should be                                                                       
+later substituted with an EWMA [1].
