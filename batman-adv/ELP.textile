@@ -144,3 +144,13 @@ A node may purge a neighbor interface from its neighbor list when its RQ value r
 h2. Proposed Values for Constants
 
 * _WINDOW_SIZE_: 2^32
+
+----
+
+h1. Further Ideas for Optimizations
+
+h2. EWMA - Exponentially Weighted Moving Average
+
+Use the an exponential function to calculate the new RQ value. To be able to have both faster and more stable link quality measurements then
+with the current SMA of 64-bit window size.
+
