@@ -201,7 +201,7 @@ later substituted with an EWMA [1].
 
 ----
 
-h1. Further Optimizations
+h1. Further Ideas for Optimizations
 
 h2. Positive Feedback OGM rebroadcasting
 
