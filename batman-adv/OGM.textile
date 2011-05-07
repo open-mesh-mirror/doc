@@ -198,3 +198,11 @@ h2. Increase NDP window size to 128 packets
 
 With removing the Path TQ averaging, things will get too unstable otherwise. Should be                                                                       
 later substituted with an EWMA [1].
+
+----
+
+h1. Further Optimizations
+
+h2. Positive Feedback OGM rebroadcasting
+
+When for any originator the link TQ of the according, chosen next hop router increased by 30%25 points compared to the link quality used for the last rebroadcasted OGM, resend the same OGM but with the path TQ multiplied with the new, better link TQ value instead.
