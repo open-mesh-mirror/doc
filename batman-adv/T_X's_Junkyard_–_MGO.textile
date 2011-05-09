@@ -6,8 +6,11 @@ In certain topologies the OGM (Originator Message) protocol can still have sever
 
 The purpose of the MGO protocol is to react to (rapidly) decreasing local link qualities and to actively try to find an alternative, loop-free path, while only increasing the overhead on the currently selected and alternative paths. It shall complement the proactive OGM protocol.
 
-The MGO protocol is split into two parts: The Router Alert part to mark the currently selected best path(s) as 'fragile' in response to a previously detected emergency event. And the Router Request part to request newer sequence numbers from alternative paths that allow nodes on the marked 'fragile' path to switch to the alternative path safely, e.g. without causing routing loops.
+The MGO protocol is split into two parts: The Router Alert part to mark the currently selected best path(s) as 'stale' in response to a previously detected emergency event. And the Router Request part to request newer sequence numbers from alternative paths that allow nodes on the marked 'fragile' path to switch to the alternative path safely, e.g. without causing routing loops.
 
+h1. Definitions
+
+* penalized link TQ - The product of link TQ times the asymmetric penalty of the same link's link RQ (see [[Ndp|NDP]] and [[Ogm|OGM]], asymmetric TQ penalty, for details)
 
 
 h2. RA - Router Alert
@@ -19,11 +22,11 @@ The purpose of an MGO-RA is to mark the currently selected best path as 'fragile
 h3. Router Alert Event Detection
 
 A node usually measures the link quality more frequently than the quality of whole pathes (see NDP). If a node detects a major change in the global TQ it has last advertised, it will send a Router Alert Messages. More precisely, if:
-* The best of all link RQ values towards a neighbor node decreased (e.g. a new NDP message with missed sequence numbers or the absence of NDP messages over time, see [[Ndp|NDP]] for details).
+* The best of all penalized link TQ values towards a neighbor node decreased (see [[Ndp|NDP]] for details).
 * The according node is a selected router towards one or more originators.
 
 For any of the originators this neighbor is a router for further check:
-* The best of all link RQ values towards the according neighbor node is MGO_RA_THRESHOLD in absolute value lower than the link RQ used for the last rebroadcasted OGM of the according originator.
+* The best of all penalized TQ values towards the according neighbor node is MGO_RA_THRESHOLD in absolute value lower than the penalized link TQ used for the last rebroadcasted OGM of the according originator.
 * If so, an alert event is triggered for this originator.
 
 If one or more originators exist that a router alert event has been triggered for, then an MGO-RA must be generated and sent.
@@ -33,7 +36,7 @@ If one or more originators exist that a router alert event has been triggered fo
 h3. Router Alert Event Detection (simple)
 
 A node usually measures the link quality more frequently than the quality of whole pathes (see NDP). If a node detects that a neighbor node is not reachable anymore, it will send (a) Router Alert message(s). More precisely, if:
-* The only link RQ available towards a neighbor node reached zero (see [[Ndp|NDP]] for details)
+* The link RQ or the link TQ of the only link available towards a neighbor node reached zero (see [[Ndp|NDP]] for details).
 * The according node is a selected router towards one or more originators.
 
 An MGO-RA needs to be generated for any of these matching originators then.
@@ -42,17 +45,30 @@ An MGO-RA needs to be generated for any of these matching originators then.
 
 h3. Broadcasting own Router Alert (MGO-RA) Message
 
+An MGO-RA of the following format is broadcasted MGO_RA_NUM_BCASTS times.
+
 h4. The Router Alert (MGO-RA) Message Format:
+
+
+* Packet type: Initialize this field with the NDP packet type.
+* Version: Set your internal compatibility version.
+* TTL: Set this field to TTL_INIT.
+* Num RA Entries: Set this field to the number of attached Router Alert entries.
 
 <pre>
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Packet Type   |    Version    | Num RA Entries|   Alignment   |
+ | Packet Type   |    Version    |      TTL      | Num RA Entries|
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
 h4. The Router Alert Entry Format:
+
+* Originator: Set this field to the originator address the Router Alert Event was detected for.
+* Preference Router: Set this field to the originator address of the best non-'stale' router. If non exists, set it to 00:00:00:00:00:00.
+* Last Seqno: Set this field to the current sequence number of the router towards the originator the Router Alert Event was detected for.
+* Path TQ: Set this field to the path TQ of the last received OGM of the router towards the originator the Router Alert Event was detected for times the current, according penalized link TQ times hop penalty.
 
 <pre>
   0                   1                   2                   3
@@ -70,11 +86,15 @@ h4. The Router Alert Entry Format:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-An MGO-RA is always (re)broadcasted MGO_RA_NUM_BCASTS times.
-
 ----
 
 h4. The Router Alert (MGO-RA) Message Format (simple):
+
+* Packet type: Initialize this field with the NDP packet type.
+* Version: Set your internal compatibility version.
+* Originator: Set this field to the originator address the Router Alert Event was detected for.
+* Last Seqno: Set this field to the current sequence number of the router towards the originator the Router Alert Event was detected for.
+* TTL: Set this field to TTL_INIT.
 
 <pre>
   0                   1                   2                   3
@@ -86,21 +106,83 @@ h4. The Router Alert (MGO-RA) Message Format (simple):
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                           Last Seqno                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |     TTL       |
+ +-+-+-+-+-+-+-+-+
 </pre>
 
 ----
 
-h3. Reception
+h3. Receiving a Router Alert (MGO-RA)
 
-h3. Reception (simple)
+Upon receiving an MGO-RA packet a node must perform the following preliminary checks before the packet is further processed:
 
-h3. Forwarding
+* If the MGO-RA contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
+* If the sender address does not have a valid, matching originator address record the message must be silently dropped.
 
-h3. Forwarding (simple)
+Further the following checks need to performed for any MGO-RA entry then:
+
+* If we do not have a router towards the originator stated in the MGO-RA entry that entry must be skipped.
+* If the originator matching the sender address is not our current router towards the originator stated in the MGO-RA entry must be skipped. However further checks for the detection of a Router Request Event need to be performed instead (see 'Router Request Event Detection').
+* If the sequence number stated in the MGO-RA entry is lower than the current sequence number of the router towards the originator stated in the MGO-RA entry the entry must be skipped.
+* If the sequence number stated in the MGO-RA entry is higher than the current sequence number of the router towards the originator stated in the MGO-RA entry it has to be checked again whether: The product of the path TQ of the MGO-RA entry times penalized link TQ minus MGO_RA_THRESHOLD is higher or equal to the path TQ of last rebroadcasted OGM (after applying asymmetric and before applying hop penalty). If yes then the MGO-RA entry needs to be skipped.
+* If the router towards the originator stated in the MGO-RA is already marked as 'stale' the message must be silently dropped.
+
+For each MGO-RA entry having passed the preliminary checks the following actions must be performed:
+
+* Mark the router we received the MGO-RA from as 'stale' for the originator stated in the MGO-RA entry.
+
+If the TTL is greater than one and at least one MGO-RA entry not being skipped, rebroadcast this MGO-RA without the MGO-RA entries that have been skipped (see 'Re-broadcasting other nodes' MGO-RAs').
+
+----
+
+h3. Receiving a Router Alert (MGO-RA) (simple)
+
+Upon receiving an MGO-RA packet a node must perform the following preliminary checks before the packet is further processed:
+
+* If the MGO-RA contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
+* If the sender address does not have a valid, matching originator address record the message must be silently dropped.
+* If we do not have a router towards the originator stated in the MGO-RA the message must be silently dropped.
+* If the originator matching the sender address is not our current router towards the originator stated in the MGO-RA the message must be silently dropped. However a Router Request needs to be generated instead (see 'Unicasting own Router Request (MGO-RR) message (simple)').
+* If the sequence number stated in the MGO-RA is lower than the current sequence number of the router towards the originator stated in the MGO-RA the message must be silently dropped.
+* If the router towards the originator stated in the MGO-RA is already marked as 'stale' the message must be silently dropped.
+
+For each MGO-RA having passed the preliminary checks the following actions must be performed:
+
+* Mark the current router towards the originator stated in the MGO-RA as 'stale'.
+* If the TTL is greater than one, rebroadcast this MGO-RA (see 'Re-broadcasting other nodes' MGO-RAs (simple)').
+
+----
+
+h3. Re-broadcasting other nodes' MGO-RAs
+
+When an MGO-RA is to be re-broadcasted some of the message fields must be changed others must be left unchanged. All fields not mentioned in the following section remain untouched:
+
+* Decrement the TTL by one.
+For all MGO-RA entries:
+* Set the Preference Router to the originator address of the best non-'stale' router that advertised at least a path TQ greater or equal the path TQ in the MGO-RA entry in its last OGM. If non exists, set it to 00:00:00:00:00:00.
+* Multiply the path TQ of the MGO-RA with the penalized link TQ to the router of the originator stated in the MGO-RA entry.
+* Multiply this new path TQ with the hop penalty.
+(* A selfish node could: Set the sequence number of the MGO-RA to the current sequence number of the router towards the originator stated in the MGO-RA which could be lower sequence number than the one currently set in the MGO-RA - see questions below)
+
+The modified MGO-RA is then rebroadcasted MGO_RA_NUM_BCASTS times.
+
+----
+
+h3. Re-broadcasting other nodes' MGO-RAs (simple)
+
+When an OGM is to be re-broadcasted some of the message fields must be changed others must be left unchanged. All fields not mentioned in the following section remain untouched:
+
+* Decrement the TTL by one.
+(* A selfish node could: Set the sequence number of the MGO-RA to the current sequence number of the router towards the originator stated in the MGO-RA which could be lower sequence number than the one currently set in the MGO-RA - see questions below)
+
+The modified MGO-RA is then rebroadcasted MGO_RA_NUM_BCASTS times.
+
+----
 
 h2. RR - Router Request
 
 h3. Concept
+
 An MGO-RR is directly aimed at the originator(s) we are searching an alternative
 path for. Its purpose is to request newer sequence numbers over the
 alternative path and to notify nodes along this path that they should
@@ -109,22 +191,29 @@ requester via unicast or one broadcast and one unicast packet).
 Such a request does not have to travel along the whole alternative path,
 instead any node with a new enough OGM sequence number may resend its last OGM.
 
-h3. Initiation
+h3. Router Request Event Detection
 
+The MGO-RR process will be triggered for a packet past to the Router Request Event
+Detection (see 'Receiving
 The MGO-RR process will be triggered for any MGO-RA entry in the packet
 matching:
 * We are the MGO-RA:Preference Router
-* Last sender of MGO-RA is not our current best next hop towards the MGO-RA:orig.
 
 For any match we are sending an MGO-RR to our according best next hop.
 
-h3. Initiation (simple)
+----
+
+h3. Router Request Event Detection (simple)
+
+- void -
+
+----
 
 h4. Unicasting own Router Request (MGO-RR) message
 
 h4. Unicasting own Router Request (MGO-RR) message (simple)
 
-h4. The Router Alert (MGO-RA) Message Format:
+h4. The Router Request (MGO-RR) Message Format:
 
 <pre>
     0                   1                   2                   3
@@ -134,13 +223,13 @@ h4. The Router Alert (MGO-RA) Message Format:
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-h4. The Router Alert (MGO-RA) Message Format (simple):
+h4. The Router Request (MGO-RR) Message Format (simple):
 
 h3. Reception
 
-A node receiving an MGO-RR has to check whether it has a valid, non-'fragile'
-path towards the stated originator. If it only has a 'fragile' path then
-this means that node's previous MGO-RA have not be heard by the last sender
+A node receiving an MGO-RR has to check whether it has a valid, non-'stale'
+path towards the stated originator. If it only has a 'stale' path then
+this means that node's previous MGO-RA have not been heard by the last sender
 and the receiving node may resend its last MGO-RA.
 
 h3. Reception (simple)
@@ -149,38 +238,62 @@ h3. Forwarding
 
 h3. Forwarding (simple)
 
-h4. OGM on 'fragile' path
+h4. OGM on 'stale' path
 
 Any node will still process an OGM as usual. However, when an OGM were
 dropped and not further forwarded the following additional checks have to
 be performed instead:
-* Am I on a matching, 'fragile' path? (has this node previously broadcasted
-an MGO-UHM with an orig entry matching OGM:orig).
+* Am I on a matching, 'stale' path? (has this node previously broadcasted
+an MGO-RA with an orig entry matching OGM:orig).
 * If yes, is the OGM:seqno newer than MGO-RA:last-seqno?
 * If yes, is the OGM:path-TQ higher than MGO-RA:path-TQ?
 
 If any of the previous checks does not match, then the OGM has to be dropped
 as the OGM protocol would have done itself. Otherwise the OGM will be
 further processed in the same way as if SEQ_DIFF_MAX were reached:
-* The old, 'fragile' router will be purged.
+* The old, 'stale' router will be purged.
 * The OGM will be rebroadcasted.
 Additionally the rebroadcasting should be done in a robust way, the same way
-as nodes forwarding OGMs reliably due to MGO-DHMs (e.g. 3x rebroadcast).
+as nodes forwarding OGMs reliably due to MGO-RRs (e.g. 3x rebroadcast).
 
-Furthermore, any rebroadcasted OGM matching an MGO-UHM will remove the 'fragile'
+Furthermore, any rebroadcasted OGM matching an MGO-RA will remove the 'stale'
 status for that originator (no matter if due to common OGM rebroadcast rule or
 MGOs graceful rebroadcasting rule). As well as any OGM coming from the old,
-'fragile' best next hop, no matter if we are going to rebroadcast it or not.
+'stale' best next hop, no matter if we are going to rebroadcast it or not.
 
-h4. [OGM on 'fragile' path (simple)]
+h4. OGM on 'stale' path (simple)
 
 h2. Proposed Values for Constants
 
 MGO_RA_NUM_BCASTS: 3
 MGO_RA_THRESHOLD: 50%25
+TTL_INIT: 50
 
 ----
 
+
 h1. Questions
 
-*
+* Could the Preference Router mechanism cause a lot of delay in certain topologies? (see N10,N11,N12 in the Circle II example)
+
+h1. Questions (simple)
+
+* What to do if a batping times out?
+* Is it likely that a batping might time out?
+* If N10 creates an OGM with A's latest sequence number (obtained via the batping reply) then this creates routing loops if other hops on the batping reply path did not inspect / change routes the same way. (e.g. N9 would switch to use N10 as its next hop when N9 might not have heard that sequence number before)
+* If N10 just rebroadcasts its last OGM and B is going to accept it, no matter which sequence number it had, then this will create routing loops.
+  => B cannot accept just any OGM, still needs the sequence number, e.g. B may only switch if the sequence number is higher then one of its currently chosen, unusable best next hop. (I think, still my gut-feeling, still need to find a good example - or prove / explain why this might not cause routing loops)
+* How likely is it, that N10 might not have an OGM sequence number recent enough to invalidate the current, unusable path?
+
+h1. Questions (both)
+
+* Note: For instance node N5 might have heard a sequence number x while node B might not have received due to packet loss. Node B could theoretically switch its route already with a smaller sequence number than x + 1, having a lower router request delay... an optimization could be a list of seqnos or something similar.
+* Does a 'stale' path cause instability / undesired route switching in certain topologies?
+
+h1. Notes and further clarifications
+
+* The Preference Router field is responsible to ensure that we are only switching to a route better than the current, stale route. It reduces overhead, unnecessary requests, and shall ensure that together with the path TQ and seqno in the MGO-RA a 'stale' path is not causing instability even for rather low values of the MGO_RA_THRESHOLD. The Preference Router mechanism also ensures that we are quickly converging to the second best of all paths.
+* The actual route switching is done the same way as for path window/SEQNO_DIFF_MAX exceeding in the OGM protocol and also only triggered by newer sequence numbers, therefore still ensuring the loop-freeness.
+* The path TQ modification in an MGO-RA is the same as for the OGMs.
+
+h1. Notes and further clarifications (simple)
