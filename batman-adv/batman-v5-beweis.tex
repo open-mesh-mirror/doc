@@ -1,0 +1,138 @@
+\documentclass[a4paper,10pt]{scrartcl}[2003/01/01] %europäische article-version
+\usepackage{fullpage}   % weniger Ränder (1cm?)
+\usepackage[ngerman]{babel}
+\usepackage{amssymb}    % mathematische Symbole
+\usepackage{tabularx}   % für Tabellen mit \begin{tabular}
+\usepackage{amsmath}    % mathematische Formeln
+\usepackage{textcomp}   % für das copyleft-Zeichen
+%\usepackage[all]{xy}    % z.B.  für das Zeichnen von Graphen
+\usepackage{stmaryrd}   % für das Blitz-Symbol (stmaryrd in texlive-math-extra)
+%\usepackage{listings}  % Anzeige von formatiertem Programmiercode
+%\lstset{language=bash}
+%\usepackage{uniinput}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\title{BATMAN V - Beweis zur Kreisfreiheit}
+\author{Linus Lüssing}
+\date{\textcopyleft\today}
+\begin{document}
+\maketitle
+
+\emph{WIP - WIP - WIP - WIP} \\
+Bin noch kein Experte in Graphentheorie und das Dokument hier hat sicherlich noch
+ein paar kleinere Lücken. Ist also sicherlich sowohl inhaltlich als auch stilistisch
+noch weit von einer Perfektion entfernt :) (hab' aber zumindest versucht mich nach dem
+Notationsstil von ''Graphentheorie, R. Diestel'' zu richten. Hoffe aber, dass die Hauptargumentationsgründe
+drin enthalten sind, warum BATMAN V kreisfreie Routingentscheidungen trifft und das
+diese Gründe nützlich sein können zur Prüfung und Validierung jeder Änderung am
+Routingprotokoll. Wenn eine Änderung des Routingprotokolls die OGM-Forwarding-Regeln (i), (ii) nicht verletzt,
+und sichergestellt ist, das weiterhin nur in den Fällen (a) oder (b) die Route geändert wird,
+dann sollte (TM) BATMAN weiterhin Kreisfreiheit garantieren können.
+
+\newpage
+
+Wir wollen zeigen, dass für eine beliebige Topologie und zu einer beliebigen Zeit
+BATMAN V kreisfrei ist. \\
+
+\section*{Definitionen}
+
+Sei G = (V,A) der gerichtete, gewichtete Graph der die Topologie zu einem
+bestimmten Zeitpunkt darstellt. \\
+
+Sei ferner $T = (V,E) \subseteq G$ ein von BATMAN V ermittelter Graph für einen Knoten
+r (alias 'Originator'). \\
+
+T ist schlicht, da keine Mehrfachkanten (verschiedene Kanten alias 'Links'
+werden zwischen NDP und OGM Protokoll vorher abstrahiert) sowie Schlingen
+(ein Knoten wählt sich nie selbst als nächsten Router, er erkennt
+und verwirft seine selbst gerebroadcasteten OGMs). \\
+
+$v_c \in V(G)$ ist ein Knoten der zu einem bestimmten Zeitpunkt eine OGM erhält
+und nun entscheiden muss, ob er seine Route zum entsprechenden Originator-Knoten r
+ändern müsse. \\
+
+Eine OGM ist ein Tupel der Form OGM = (seqno, TQ, r, n) wobei n der Nachbar ist,
+von dem die OGM empfangen wurde ($nv_c \in E(G)$). \\
+Da ein Knoten eine OGM nur von einem Nachbarn, den es selbst als Router zum Knoten
+r ausgewhält hat, rebroadcasted, gilt außerdem $n \in T$. \\
+
+Wir können die Routen-Änderung durch BATMAN V darstellen als eine Abbildung der Form: \\
+$f: \{T\} \times \{OGM\} \rightarrow \{T\}$ für die gilt: \\
+
+$f(T, OGM) = \left\{ \begin{array}{rcl} T - v_{c-1}v_c + nv_c & \mbox{für} & ((a) \vee (b)) \wedge (x) \\
+					T & \mbox{sonst} & \end{array} \right.$ \\
+
+Mit: \\
+$(a) \Leftrightarrow seqno(OGM) > seqno(v_c)$ ($seqno(v_c)$ ist die Sequenznummer des aktuell gewählten Routers) \\
+$(b) \Leftrightarrow seqno(OGM) = seqno(v_c) \wedge TQ(OGM) > TQ(v_c)$ ($TQ(v_c)$ ist die Path-TQ des aktuell gewählten Routers) \\
+$(x)$: Ein beliebiges Kriterium, dass einen Routenwechsel verhindern können wolle. \\
+
+Außerdem gewährleistet BATMAN V die folgenden zwei Kriterien: \\
+(i): Sequenznummern-Konsistenz: Sequenznummern einer OGM werden nicht erhöht (und auch garnicht verändert) zwischen
+dem Originator und einem beliebigen anderen Knoten. \\
+(ii): Path-TQ Monotonie: Die path TQ einer OGM sinkt mit jedem rebroadcast. Anders gesagt, die Kosten
+einer OGM und des zugehörigen Pfades sind strikt monoton steigend. \\
+
+TQ ist definiert als: $TQ = 1 / \text{cost(P)}$ für einen gerichteten Weg P (oder auch für eine gerichtete Kante). \\
+
+Wir wollen zunächst zeigen, dass zu einer beliebigen Topologie und Zeit gilt: \\
+
+T ist ein Baum. \\
+
+\newpage
+
+\section*{Beweis durch vollständige Induktion}
+
+\paragraph{Induktionsvorraussetzung}
+
+Für ein beliebiges $T \subseteq G$ gilt: T ist ein Baum.
+
+\paragraph{Induktionanfang}
+
+$T = ({r}, \emptyset)$ (z.B. zu dem Zeitpunkt, zu dem noch keine OGMs versendet wurden)
+$\Rightarrow$ T ist offensichtlich ein Baum.
+
+\paragraph{Induktionsschritt}
+
+Zu zeigen: T ist ein Baum $\Rightarrow f(T, OGM)$ ist ein Baum. \\
+
+\emph{Fall 1:} $(\urcorner(a) \wedge \urcorner(b)) \vee \urcorner(x)$ \\
+$\Rightarrow f(T, OGM) = T \Rightarrow$ f(T, OGM) ist kreisfrei. \\
+
+\emph{Fall 2:} $(a) \vee (b)$ \\
+
+T ist ein Baum $\Leftrightarrow$ T ist minimal zusammenhängend $\Rightarrow T - e$ \\
+ist nicht zusammenhängend mit $e \in E(T)$ beliebig. \\
+
+Seien $T_r$ und $T_{v_c}$ die beiden durch T - e entstandenen, nicht zusammenhängenden
+Teilgraphen (sogar Untergraphen) mit $v_c \in T_{v_c}$ und $r \in T_r$ \\
+Dann gilt:
+\begin{itemize}
+\item $T_r, T_{v_c}$ sind disjunkt. (*)
+\item $T_r, T_{v_c}$ sind Bäume. (**)
+\end{itemize}
+
+\subparagraph{Korollar:} T ist ein Baum $\wedge ((a) \vee (b)) \Rightarrow n \in V(T_r)$ \\
+
+\emph{Fall 2.1 (a):} \\
+(OGM-seqno größer als seqno des gewählten Routers) \\
+\emph{Beweis durch Widerspruch} \\
+Angenommen: T ist ein Baum $\wedge (a) \Rightarrow n \notin V(T_r)$
+
+T ist ein Baum $\Rightarrow^\text{(i)} \forall v \in V(T) : seqno(v_i - 1) >= seqno(v_{i}) \Rightarrow seqno(v_i \in T_r) >= seqno (v_j \in T_{v_c})$ \\
+$\Rightarrow^{(a)} n \in V(T_r) \Rightarrow \lightning$ \\
+
+\emph{Fall 2.2 (b):} \\
+(OGM-seqno gleich des gewählten Routers, aber TQ besser - analog, aber mit (ii)) \\\\
+
+
+$\Rightarrow$ T ist ein Baum $\Rightarrow^{(a) \vee (b)} n \notin V(T_{v_c}) \Leftrightarrow^{n \in T} n \in V(T_r) \square$
+
+$n \in T_r \wedge v_c \in T_{v_c} \wedge (*) \wedge (**) \Rightarrow (T_r \cup T_{v_c}) + nv_c = T - v_{c-1}v_c + nv_c$ ist ein Baum. \\\\
+
+
+
+Da T zu einer beliebigen Topologie und Zeit ein Baum ist, gilt: \\
+T ist maximal kreisfrei zu einer beliebigen Topologie und Zeit. $\square$
+
+\end{document}
