@@ -109,7 +109,16 @@ h2. TT consistency:
 
 The tt_crc field has been added to the struct orig_node. This field is
 computed for a generic originator O as "the xor of all the crc16 value on
-each tt_global_entry->addr field of those entries pointing to O".
+each tt_global_entry->addr field of those entries pointing to O":
+**Pseudocode**:
+<pre><code>tt_global_crc(orig_node O) {
+res = 0;
+for each tt_global_entry:
+    if tt_global_entry->orig_node == O
+        res = res XOR crc16(tt_global_entry->addr)
+    endif
+endfor
+return res</code></pre>
 Moreover the same field has been added to struct bat_priv (a local tt_crc).
 It is computed in the same way as before but using the tt_local_entry->addr
 field of all the local entries. As it is possible to guess, bat_priv->tt_crc
