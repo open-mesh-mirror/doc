@@ -1,39 +1,152 @@
-h1. Client-announcement
+h1. Client announcement.
 
-The code has not been released yet. For those interested in reviewing the code, the development branch is at http://git.open-mesh.org/?p=ordex/batman-adv.git;a=shortlog;h=refs/heads/hna-new
+B.A.T.M.A.N.-Advanced is a Layer2 mesh routing protocol and, as any other mesh
+protocol, it has to announce any kind of client on its level that wants to
+access the mesh network. In case of Layer3 protocols, clients simply are IP
+addresses, while in this case, as you can guess, clients consists in MAC
+addresses.
+In case of enslaving the mesh interface into an ethernet bridge, together with
+another device, all the packet's source MAC addresses are recognised as
+clients (mesh interface's MAC address too).
 
-h2. Current Contstraints of client announcement
+h2. The local translation table
 
-Up until recently, B.A.T.M.A.N.-Advanced was mostly used to build a mesh network and to allow communitcation between B.A.T.M.A.N.-Advanced nodes or a few hosts being bridged into the mesh through  certain nodes. However, the desire to also use B.A.T.M.A.N.-Advanced to interconnect a larger, common, wired LAN with Wifi access points for client devices into a single subnet has increased. 
+Every client MAC addresse ecognised through the mesh interface will be stored
+in a node local table called "local translation table" which will contain all
+the clients the node is currently serving. This table is the information a
+node has to spread among the network in order to make clients reachable. This
+because when a node wants to contact a particular client, thank to this
+information, it knows the originator it has to send the data to.
+Each node local table has a particular attribute: the translation table
+version number (ttvn). The value of this attribute represents the version of
+the table: each time the node decide to spream the table around, if something
+happened since last spread (a client has been added/removed), the ttvn is
+incremennted by one.
+In this way, two tables belonging to the same node can be chronologically
+ordered and it is moreover possible to decide whether they are different or not
+without checking all the entries.
+Moreover the translation table version number if a new OGM field and it will
+contain the originator ttvn value at the moment of sending.
 
-The current implementation just adds the client mac addresses to the responsible nodes OGMs - so called HNAs (host network announcements) which has three constraints:
-* A lot of overhead even when the HNAs do not change (the addresses are always attached).
-* The amount of HNAs per OGM is quite limited and does not work when bridging larger LANs into the mesh cloud (frame size limit).
-* It can take up to a couple of seconds for a node to roam and being recognised at its new position, depending on the link qualities. A unicast packet sent to the outdated orignator will just be dropped at this node.
+h2. The global translation table
+
+Every node in the network has to store all the other node local tables. To
+achive this, another table is needed: the "global translation table". It is a
+set of entries where each of them contains the client MAC address and a pointer
+to the originator that is currently announcing it.
+
+h2. Updating the tables
+
+At boot time, every node will have an empty local table and empty gloal one.
+Its ttvn will be initialised to 0. The OGM sending represents the local table
+spread event.
+At this point, on each OGM sending, if something changed in the local table
+since the last event, the ttvn is incremented by one and the list of the
+changes is appended to the OGM message. On the receiver side when receiving a
+new OGM, the node can use the new ttvn field to detect any change in the
+originator's local table. If so the receiver node will use the appended
+changes to update its global translation table.
+
+In case of missing OGM, a query mechanism has been provided. A node will
+detect the missing information using the ttvn field: in case of gap the node
+will ask for the needed information using a TT_REQUEST message.
+
+In particulal a node can issue for two different information:
+- The originator's full local table
+- The last set of changes the originator sent within the OGM.
+
+This distintion is done using the TT_FULL_TABLE bit of the bitwise _flag_
+field in the tt_query packet.
+
+The originator that receives the TT_REQUEST message will reply with a
+TT_REQUEST response at the of which it will append the requested data.
+
+The TT_REQUEST message will contain the following fields:
+In particular the TT_REQUEST/REPONSE messages are two subtypes of the TT_QUERY
+message which has the following fields (only fields related to the TT
+mechanism have been reported):
+
+<pre><code>
+uint8_t  flags;
+uint8_t  src[ETH_ALEN];
+uint8_t  ttvn;
+uint16_t tt_data;
+</code></pre>
+
+The flag field is used to distinguish between a TT_REQUEST and a TT_RESPONSE
+and to inform whether the TT_QUERY message is asking for/carrying a full local
+table or only the last OGM transtable buffer.
+
+The ttvn field is used to inform about the ttvn is asking for/replying with.
+So, in case of OGM buffer request, this value will be set to the ttvn
+associated to the buffer the node needs.
+
+The tt_data field has different content in case of TT_REQUEST or TT_RESPONSE.
+If the message is a TT_REQUEST, this field is set to the tt_crc value (for
+details about this value, please read the TT consistency section) that the
+requesting node received by means of the OGM from the destination (of this
+TT_REQUEST).
+If the message is a TT_RESPONSE then this field is set to the number of
+entries the message is carrying. This information is needed to let the receiver
+node correctly handle the appended buffer.
+
+In case of unavailability of the last OGM transtable buffer the node will
+answer with the full table.
+
+h2. TT_REQUEST forward breaking:
+
+To avoid unicast storming in case of multiple TT_REQUEST traversing the
+network, each node on the path of such message will inspect it and decide
+whether it has the correct information to answer with. To check this, the
+intermediate node has to inspect the TT_REQUEST and compare the ttvn and the
+tt_data (that is the tt_crc in this case) fields with its own information. If
+the destination's ttvn it knows is equal to the requested the ttvn and the
+tt_crc matches as well, then the intermediate node can directly reply to the
+request (with the full table of the destination or the last OGM buffer if
+needed and possible). If something didn't match, the node will forward the
+packet to the nexthop in the path to the destination (as a simple unicast
+packet).
+
+h2. TT consistency:
+
+The tt_crc field has been added to the struct orig_node. This field is
+computed for a generic originator O as "the xor of all the crc16 value on
+each tt_global_entry->addr field of those entries pointing to O".
+Moreover the same field has been added to struct bat_priv (a local tt_crc).
+It is computed in the same way as before but using the tt_local_entry->addr
+field of all the local entries. As it is possible to guess, bat_priv->tt_crc
+of a generic node A has to be equal to orig_node_A->tt_crc on all the other
+nodes.
+The tt_crc field is also added to the OGM packet, in this way the node sin the
+network can check whether their global tables are consistent or not. In case
+of mismatch, the full table is recovered through a TT_REQUEST.
 
 
-h2. The new mechanism
+h2. TT structures in details:
 
-h3. How the announcement works
+<pre><code>
+struct tt_global_entry {
+	uint8_t addr[ETH_ALEN];
+	struct orig_node *orig_node;
+	uint8_t ttvn;
+	uint8_t flags;
+	atomic_t refcount;
+	struct rcu_head rcu;
+	struct hlist_node hash_entry;
+};</code></pre>
 
-* Instead of adding all the client MAC addresses, the OGM packet format has been modified to include:
-** a local translation table version number (TTVN);
-** a set of local translation table changes which happened in the last OGM interval
-* When a node local translation table changes at least once in a OGM interval (a client is added or removed), the TTVN is increased by one.
-* If a node receives an OGM with a newer, higher ref.-ID, it updates its global translation table with the set of changes carried by the OGM.
-** if an OGM has been missed (a is detected in the changes list), then the node must queries the originator for an update with a special unicast packet: TT-REQUEST
-* Any node on the paths between the querier and the destination may decide to not forward the TT-REQUEST and directly answer. This is possible only if the node already has the needed changes. **This avoids a storm of unicast packets towards the destination after its local translation table changes.** Most of the times the request will stop on the first hop.
+<pre><code>
+struct tt_local_entry {
+	uint8_t addr[ETH_ALEN];
+	unsigned long last_seen;
+	char never_purge;
+	atomic_t refcount;
+	struct rcu_head rcu;
+	struct hlist_node hash_entry;
+};</pre></code>
 
-* Every node memorizes the last changeset announced within the OGM of each node in the network
-* A TT-REQUEST can request a complete local table or just a the last sent changeset.
+h2. Limitations
 
-h3. Guaraneteeing consistency
+h2. Notes
 
-To be sure to that a node has all the right information, an hash value of the local translation table is spread within the OGM. This value is called TT_CRC.
-
-After applying a changeset, a node will recompute the TT_CRC for such originator's table. Later, when receving a new OGM, the node can evaluate whether the TT_CRC coindiceds with the one received with the message. In case of negative match the node will request a "full table" because something went wrong in its table operations.
-
-The TT_CRC is also usefull in case of node reboot: the TTVN will restart from 0 generating a strange situation (new_ttvn less than last_ttvn), but the TT_CRC will ensure that the receiving node will not accept this scenario and will request a "full table" to refresh its global one.
-
-Notes:
 A research project has been done on this topic and it will be linked on this page as soon as it get ready.
