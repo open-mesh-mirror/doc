@@ -66,12 +66,10 @@ In particular the TT_REQUEST/TT_REPONSE messages are two subtypes of the TT_QUER
 message which has the following fields (only fields related to the TT
 mechanism have been reported):
 
-<pre><code>
-uint8_t  flags;
+<pre><code>uint8_t  flags;
 uint8_t  src[ETH_ALEN];
 uint8_t  ttvn;
-uint16_t tt_data;
-</code></pre>
+uint16_t tt_data;</code></pre>
 
 The flag field is used to distinguish between a TT_REQUEST and a TT_RESPONSE
 and to inform whether the TT_QUERY message is asking for/carrying a full local
@@ -126,8 +124,7 @@ h2. TT structures in details:
 
 (I have to add some more explanation here)
 
-<pre><code>
-struct tt_global_entry {
+<pre><code>struct tt_global_entry {
 	uint8_t addr[ETH_ALEN];
 	struct orig_node *orig_node;
 	uint8_t ttvn;
@@ -137,8 +134,7 @@ struct tt_global_entry {
 	struct hlist_node hash_entry;
 };</code></pre>
 
-<pre><code>
-struct tt_local_entry {
+<pre><code>struct tt_local_entry {
 	uint8_t addr[ETH_ALEN];
 	unsigned long last_seen;
 	char never_purge;
