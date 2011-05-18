@@ -2,16 +2,16 @@ h1. Client announcement.
 
 B.A.T.M.A.N.-Advanced is a Layer2 mesh routing protocol and, as any other mesh
 protocol, it has to announce any kind of client on its level that wants to
-access the mesh network. In case of Layer3 protocols, clients simply are IP
-addresses, while in this case, as you can guess, clients consists in MAC
+access the mesh network. In case of Layer3 protocols, clients simply are represented by IP
+addresses, while in this case, as you can guess, clients are represented by MAC
 addresses.
 In case of enslaving the mesh interface into an ethernet bridge, together with
 another device, all the packet's source MAC addresses are recognised as
-clients (mesh interface's MAC address too).
+belonging to clients (mesh interface's MAC address too).
 
 h2. The local translation table
 
-Every client MAC addresse ecognised through the mesh interface will be stored
+Every client MAC address that is recognised through the mesh interface will be stored
 in a node local table called "local translation table" which will contain all
 the clients the node is currently serving. This table is the information a
 node has to spread among the network in order to make clients reachable. This
@@ -19,9 +19,9 @@ because when a node wants to contact a particular client, thank to this
 information, it knows the originator it has to send the data to.
 Each node local table has a particular attribute: the translation table
 version number (ttvn). The value of this attribute represents the version of
-the table: each time the node decide to spream the table around, if something
+the table: each time the node decide to spread the table around, if something
 happened since last spread (a client has been added/removed), the ttvn is
-incremennted by one.
+incremented by one.
 In this way, two tables belonging to the same node can be chronologically
 ordered and it is moreover possible to decide whether they are different or not
 without checking all the entries.
@@ -31,13 +31,13 @@ contain the originator ttvn value at the moment of sending.
 h2. The global translation table
 
 Every node in the network has to store all the other node local tables. To
-achive this, another table is needed: the "global translation table". It is a
+achieve this, another table is needed: the "global translation table". It is a
 set of entries where each of them contains the client MAC address and a pointer
 to the originator that is currently announcing it.
 
 h2. Updating the tables
 
-At boot time, every node will have an empty local table and empty gloal one.
+At boot time, every node will have an empty local table and empty global one.
 Its ttvn will be initialised to 0. The OGM sending represents the local table
 spread event.
 At this point, on each OGM sending, if something changed in the local table
@@ -55,14 +55,14 @@ In particulal a node can issue for two different information:
 - The originator's full local table
 - The last set of changes the originator sent within the OGM.
 
-This distintion is done using the TT_FULL_TABLE bit of the bitwise _flag_
-field in the tt_query packet.
+This distination is done using the TT_FULL_TABLE bit of the bitwise **flag
+field** in the TT_QUERY packet.
 
 The originator that receives the TT_REQUEST message will reply with a
-TT_REQUEST response at the of which it will append the requested data.
+TT_RESPONSE to which the node will append the requested data.
 
 The TT_REQUEST message will contain the following fields:
-In particular the TT_REQUEST/REPONSE messages are two subtypes of the TT_QUERY
+In particular the TT_REQUEST/TT_REPONSE messages are two subtypes of the TT_QUERY
 message which has the following fields (only fields related to the TT
 mechanism have been reported):
 
@@ -123,6 +123,8 @@ of mismatch, the full table is recovered through a TT_REQUEST.
 
 
 h2. TT structures in details:
+
+(I have to add some more explanation here)
 
 <pre><code>
 struct tt_global_entry {
