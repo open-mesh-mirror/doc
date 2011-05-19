@@ -10,7 +10,7 @@ To detect a roaming phase a node, in case of new client detection, will look int
 
 This strategy will help in avoid losing packets that are still flowing to the old node in the time that the source get updated using the next OGMs. So at the beginning a suboptimal path will be used, but sooner or later the source will be updated and the packet will directly be sent to the new mesh node.
 
-h2 Keeping table consistency
+h2. Keeping table consistency
 
 As described [[Client-announcement|here]] each node computes its local tt_crc value and spread it over the network using the OGMs. In case of roaming, a temporary inconsistent global table could lead to a wrong tt_crc value computed on the nodes making them issue a new TT_REQUEST.
 
