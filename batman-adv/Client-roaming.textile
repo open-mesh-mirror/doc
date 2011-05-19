@@ -2,13 +2,23 @@ h1. Roaming-improvements
 
 h2. Speeding up the roaming
 
-The base idea is simple and clean and permit nodes with a fresher table to redirect packets to the correct destination (a new one). But in case of roaming there is an issue because nodes have to wait for the OGM to update their tables.
+The base idea consists in exploiting the new forwarding mechanism for data packets described in the [[Client-announcement]] page. In particular this mechanism modify the route of packets in case of the path reaches an update router. If so data packet is rerouted to a new destination and the information on the packet are updated too.
 
-To solve this issue a new mechanism has been introduced: in case of roaming a new packet type is used to send a message to the old node which was serving the client so that it can update its global table on time!
+As it is possible to understand, in case of client roaming, nodes need to wait for the next OGM from the new mesh node serving such client to update their tables. The idea behind the roaming speeding up consists in sending a particular packet in case of roaming to immediately inform the old originator that the client has moved and it is now located on another node. This message can be seen as an asynchronous update that permits to the old node to redirect data packets as soon as they arrive at it.
 
-To detect a roaming phase a node, in case of new client detection, will look into its global translation table for the address of the new host. In case of positive result (the same MAC address was already in the table but pointing to another node) the new mesh node will send a **ROAMING-Advertisement** message to the old node serving this client so that it will be able to update its global table and possibly redirect packets immediately to the new mesh node.
+This new packet type is the **ROAMING-Advertisement** and it simply contains (only interesting fields are shown):
+<pre><code>uint8_t  dst[6];
+uint8_t  src[6];
+uint8_t  client[6];</pre></code>
+These information are used to update the old node global table so that, in case of packet directed to him, with a real destination equal to *client*, it is redirected to *src*.
 
-This strategy will help in avoid losing packets that are still flowing to the old node in the time that the source get updated using the next OGMs. So at the beginning a suboptimal path will be used, but sooner or later the source will be updated and the packet will directly be sent to the new mesh node.
+Exploiting this mechanism, immediately after a roaming data packets will follow a slightly sub-optimal path (data flow is going through the old node) until the new OGMs will update the source global table. At that point the packets will start following the best path.
+
+This strategy will help in avoiding to lose packets that are still flowing to the old node in the time that the source get updated using the next OGMs.
+
+h2. Detecting a roaming phase
+
+To detect a roaming phase, a node in case of new client detection will look into its global translation table for the address of the new host. In case of positive match (the same MAC address is already in the table but pointing to another originator) the new mesh node will send a **ROAMING-Advertisement** message to the old node serving this client so that it will be able to update its global table and possibly redirect packets immediately to the new mesh node.
 
 h2. Keeping table consistency
 
@@ -24,10 +34,9 @@ The TT_GLOBAL_ROAM in the tt_global_entry structure will be reset to 0 as soon a
 
 h2. Limitations
 
-- MAC conflict
-- Multiple-roaming in one OGM interval
+- **MAC conflict**: In case of more than one node announcing the same client MAC address, each node will interpret this situation as a "continued roaming" and will start sending ROAMING-Advertisement multiple times. To reduce the impact of this problematic scenario a **roaming-protection** has been provided: A client con roam on the same node a fixed amount of times in a fixed length period (look into main.h for the exact values). In case of exceeding the limit, the interested node will not issue any new ROAMING-Advertisement unless the protection period is terminated.
 
-(to be modified)
+- **Multiple-roaming in one OGM interval**: In case of a node roaming from node A to B a ROAMING-Advertisement is sent from B to A, but if the client moves again from node B to C, before B issued a new OGM, C will send the ROAMING-Advertisement to A again!! This happens because C doesn't know anything yet about the last client movement. **A possible solution to this problem could consists in implementing a ROAMING-Advertisement forwarding procedure that in scenarios like this make the ROAMING-Advertisement message going through all the steps the client did. By the way this feature is not critical**
 
 h2. Notes
 
