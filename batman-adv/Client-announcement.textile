@@ -20,14 +20,21 @@ spread event.
 At this point, on each OGM sending, if something changed in the local table since the last event, the ttvn is incremented by one and the list of the changes is appended to the OGM message. On the receiver side when receiving a new OGM, the node can use the new ttvn field to detect any change in the
 originator's local table. If so the receiver node will use the appended changes to update its global translation table.
 
-In case of missing OGM, a query mechanism has been provided. A node will  detect the missing information using the ttvn field: in case of gap the node
-will ask for the needed information using a TT_REQUEST message.
+Each change entry is represented by a tt_change structure:
+<pre><code>struct tt_change {
+         uint8_t flags;
+         uint8_t addr[ETH_ALEN];
+};</code></pre>
 
-In particular a node can issue for two different information:
+The flags field indicates the related operation (**add** a client or **delete** a client), while the addr field contains the interested client MAC address.
+
+In case of missing OGM, a query mechanism has been provided. A node will  detect the missing information using the next OGM's ttvn field: in case of gap the node will ask for the needed information using a TT_REQUEST message.
+
+In particular a node can ask for two different information:
 - The originator's full local table
 - The last set of changes the originator sent within the OGM.
 
-This distination is done using the TT_FULL_TABLE bit of the bitwise **flag field** in the TT_QUERY packet.
+This distintion is done using the TT_FULL_TABLE bit of the bitwise **flag field** in the TT_QUERY packet.
 
 The originator that receives the TT_REQUEST message will reply with a TT_RESPONSE to which the node will append the requested data.
 
