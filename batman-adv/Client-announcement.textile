@@ -118,6 +118,8 @@ This behaviour slightly helps in case of roaming: a client moved from a mesh nod
 
 h2. Limitations
 
+- **MAC conflict**: in case of several node announcing the same client MAC address, the global table will be continuously updated leading to a route flip (towards the client) on all nodes
+
 h2. Notes
 
 A research project has been done on this topic and it will be linked on this page as soon as it get ready.
