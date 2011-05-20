@@ -44,9 +44,7 @@ h2. Debian
 
 Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto your debian machine. Following packages are available:
 * "batmand":http://packages.debian.org/sid/batmand - batman 0.3.2
-* "batman-adv-source":http://packages.debian.org/sid/batman-adv-source - batman-advanced kernel 2011.0.0 module source (installable via "module-assistant":http://packages.debian.org/sid/module-assistant)
-* "batman-adv-dkms":http://packages.debian.org/sid/batman-adv-dkms - batman-advanced kernel module 2011.0.0 dkms package to build new modules dynamically (half-automatic)
-* "batctl":http://packages.debian.org/sid/batctl - batctl 2011.0.0
+* "batctl":http://packages.debian.org/sid/batctl - batctl 2011.1.0
 
 
 h2. Building OpenWRT packages
