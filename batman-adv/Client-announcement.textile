@@ -55,14 +55,13 @@ node correctly handle the appended buffer.
 
 In case of unavailability of the last OGM transtable buffer the node will answer with the full table.
 
-h2. TT_REQUEST forwarding:
+h2. Table request forwarding:
 
 To reduce the overhead of the table request operations, each node on the path of a TT_REQUEST message will inspect the contents and decide whether it has the correct information to answer the request directly without forwarding the TT_REQUEST any further. The ttvn and the crc16 checksum contained in the request message provide sufficient means to verify if it matches with the locally available information. If they match the node can directly reply to the request (with the full table of the destination's translation table or the changeset of the last ttvn if possible). If something didn't match, the node will forward the packet to the nexthop in the path to the destination.
 
-h2. TT consistency:
+h2. Computing the crc16 checksum:
 
-The tt_crc field has been added to the struct orig_node. This field is computed for a generic originator O as "the xor of all the crc16 value on
-each tt_global_entry->addr field of those entries pointing to O".
+The crc16 checksum field which is sent along with the ttvn field in the OGM is computed for a generic originator O as "the xor of all the crc16 value on each tt_global_entry->addr field of those entries pointing to O".
 
 **Pseudocode**:
 <pre><code>tt_global_crc(orig_node O) {
