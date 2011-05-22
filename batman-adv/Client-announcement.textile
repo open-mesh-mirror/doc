@@ -6,7 +6,7 @@ h2. The local translation table
 
 Every client MAC address that is recognized through the mesh interface will be stored in a node local table called "local translation table" which will contain all the clients the node is currently serving. This table is the information a node has to spread among the network in order to make clients reachable. This is because when a node wants to contact a particular client, thanks to this information, it knows the originator it has to send the data to. 
 Each node local table has a particular attribute: the translation table version number (ttvn). The value of this attribute represents the version of the table that is incremented by one each time the local table changes (a client has been added/removed). For optimization reasons all changes which happen within the same OGM interval are aggregated into a single ttvn.
-Every OGM broadcast contains the current ttvn and a crc16 value of the local table to allow the receiving nodes to quickly decide whether they tables are in sync or not.
+Every OGM broadcast contains the current ttvn and a crc16 checksum value of the local table to allow the receiving nodes to quickly decide whether they tables are in sync or not.
 
 h2. The global translation table
 
@@ -14,10 +14,9 @@ Every node in the network has to store all the other node's local tables. To ach
 
 h2. Updating the tables
 
-At boot time, every node will have an empty local table and empty global one. Its ttvn will be initialised to 0. The OGM sending represents the local table
-spread event. 
-At this point, on each OGM sending, if something changed in the local table since the last event, the ttvn is incremented by one and the list of the changes is appended to the OGM message. On the receiver side when receiving a new OGM, the node can use the new ttvn field to detect any change in the
-originator's local table. If so the receiver node will use the appended changes to update its global translation table.
+At boot time, every node will have an empty local table and empty global one. Its ttvn will be initialized to 0. The OGM broadcast represents the local table propagation event. 
+
+As soon as a local event occurred (client added/deleted) the ttvn is incremented by one on the next propagation event (OGM broadcast). In addition, the local changes since the last OGM broadcast are appended to the OGM itself. This mechanism helps to avoid the more expensive table request operation (see below) as any receiving node can retrieve the changes from the OGM to update its global translation table.
 
 Each change entry is represented by a tt_change structure:
 <pre><code>struct tt_change {
@@ -27,13 +26,11 @@ Each change entry is represented by a tt_change structure:
 
 The flags field indicates the related operation (**add** a client or **delete** a client), while the addr field contains the interested client MAC address.
 
-In case of missing OGM, a query mechanism has been provided. A node will  detect the missing information using the next OGM's ttvn field: in case of gap the node will ask for the needed information using a TT_REQUEST message.
-
-In particular a node can ask for two different information:
+These changes are also appended to the 2 following OGMs if there were no new changes in the meantime, thereby increasing the chance for neighbor node to receive the changes in the event of packet loss. If a node receives an OGM containing a new ttvn without the changeset (e.g. it missed all 3 OGMs with the changeset or the changeset exceeded the packet size) or the crc16 checksum does not match it can issue a table request. In particular a node can ask for two different information:
 - The originator's full local table
-- The last set of changes the originator sent within the OGM.
+- The last set of changes from the current ttvn.
 
-This distintion is done using the TT_FULL_TABLE bit of the bitwise **flag field** in the TT_QUERY packet.
+This distinction is done using the TT_FULL_TABLE bit of the bitwise **flag field** in the TT_QUERY packet.
 
 The originator that receives the TT_REQUEST message will reply with a TT_RESPONSE to which the node will append the requested data.
 
