@@ -77,29 +77,6 @@ Moreover the same field has been added to struct bat_priv (a local tt_crc). It i
 field of all the local entries. As it is possible to guess, bat_priv->tt_crc of a generic node A has to be equal to orig_node_A->tt_crc on all the other
 nodes. The tt_crc field is also added to the OGM packet, in this way the nodes in the network can check whether their global tables are consistent or not. In case of mismatch, the full table is recovered through a TT_REQUEST.
 
-h2. TT structures in details:
-
-(I have to add some more explanation here)
-
-<pre><code>struct tt_global_entry {
-	uint8_t addr[ETH_ALEN];
-	struct orig_node *orig_node;
-	uint8_t ttvn;
-	uint8_t flags;
-	atomic_t refcount;
-	struct rcu_head rcu;
-	struct hlist_node hash_entry;
-};</code></pre>
-
-<pre><code>struct tt_local_entry {
-	uint8_t addr[ETH_ALEN];
-	unsigned long last_seen;
-	char never_purge;
-	atomic_t refcount;
-	struct rcu_head rcu;
-	struct hlist_node hash_entry;
-};</pre></code>
-
 h2. Improving data routing
 
 The ttvn field has also been added to the unicast packet header. A node sending a packet of this type will set this field to the currently known destination's ttvn. Along the path fro the source to the destination, every node will inspect the packet and check whether it knows an higher ttvn for the same destination; if so, the node will look in its global translation table to see which is the current mesh node serving the client which the packet is directed to. At this point the intermediate node will replace the destination and the ttvn values in the unicast packet header and will re-forward the packet to the new destination (possibly the same).
