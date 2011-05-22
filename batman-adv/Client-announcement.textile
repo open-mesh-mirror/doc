@@ -35,12 +35,23 @@ This distinction is done using the TT_FULL_TABLE bit of the bitwise **flag field
 The originator that receives the TT_REQUEST message will reply with a TT_RESPONSE to which the node will append the requested data.
 
 The TT_REQUEST message will contain the following fields:
-In particular the TT_REQUEST/TT_REPONSE messages are two subtypes of the TT_QUERY message which has the following fields (only fields related to the TT mechanism have been reported):
+In particular the TT_REQUEST/TT_REPONSE messages are two subtypes of the TT_QUERY message which has the following format:
 
-<pre><code>uint8_t  flags;
-uint8_t  src[ETH_ALEN];
-uint8_t  ttvn;
-uint16_t tt_data;</code></pre>
+<pre>
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Packet Type   |    Version    |      Destination...           |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                         ...Address                            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | TTL           |    Flags      |      Source...                |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                         ...Address                            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TTVN        |                  TT_Data                      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
 
 The flag field is used to distinguish between a TT_REQUEST and a TT_RESPONSE and to inform whether the TT_QUERY message is asking for/carrying a full local table or only the last OGM transtable buffer.
 
