@@ -17,6 +17,10 @@ Exploiting this mechanism, immediately after a roaming the data packets will fol
 
 This strategy will help to avoid to lose packets that are still flowing to the old node in the time that the source get updated using the next OGMs.
 
+h2. Forwarding data packets
+
+(to add tt_poss_change description)
+
 h2. Detecting a roaming phase
 
 To detect a roaming phase, a node in case of new local client detection will look into its global translation table for the address of the new host. In case of positive match (the same MAC address is already in the table but pointing to another originator) the new mesh node will send a **ROAMING-Advertisement** message to the old node serving this client so that it will be able to update its global table and possibly redirect packets to the new mesh node.
