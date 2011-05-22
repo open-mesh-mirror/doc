@@ -55,14 +55,9 @@ node correctly handle the appended buffer.
 
 In case of unavailability of the last OGM transtable buffer the node will answer with the full table.
 
-h2. TT_REQUEST forward breaking:
+h2. TT_REQUEST forwarding:
 
-To avoid unicast storming in case of multiple TT_REQUEST traversing the network, each node on the path of such message will inspect it and decide
-whether it has the correct information to answer with. To check this, the intermediate node has to inspect the TT_REQUEST and compare the ttvn and the
-tt_data (that is the tt_crc in this case) fields with its own information. If the destination's ttvn it knows is equal to the requested the ttvn and the
-tt_crc matches as well, then the intermediate node can directly reply to the request (with the full table of the destination or the last OGM buffer if
-needed and possible). If something didn't match, the node will forward the packet to the nexthop in the path to the destination (as a simple unicast
-packet).
+To reduce the overhead of the table request operations, each node on the path of a TT_REQUEST message will inspect the contents and decide whether it has the correct information to answer the request directly without forwarding the TT_REQUEST any further. The ttvn and the crc16 checksum contained in the request message provide sufficient means to verify if it matches with the locally available information. If they match the node can directly reply to the request (with the full table of the destination's translation table or the changeset of the last ttvn if possible). If something didn't match, the node will forward the packet to the nexthop in the path to the destination.
 
 h2. TT consistency:
 
