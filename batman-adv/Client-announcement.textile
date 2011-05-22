@@ -1,7 +1,6 @@
-h1. Client announcement.
+h1. Client announcements
 
-B.A.T.M.A.N.-Advanced is a Layer2 mesh routing protocol and, as any other mesh protocol, it has to announce any kind of client on its level that wants to access the mesh network. In case of Layer3 protocols, clients simply are represented by IP addresses, while in this case, as you can guess, clients are represented by MAC addresses.
-In case of enslaving the mesh interface into an ethernet bridge, together with another device, all the packet's source MAC addresses are recognised as belonging to clients (mesh interface's MAC address too). 
+Each mesh protocol offering network access to non-mesh clients needs a 'client announcement' system. The task of such a system is to inform every mesh node in the network of any connected non-mesh client, in order to find the path towards that client from any given point in the mesh. A client has an identifier (usually its address: IP address for layer 3 routing and MAC address for layer 2 routing) that is flooded through the mesh. As B.A.T.M.A.N.-Advanced is a Layer2 mesh routing protocol clients are represented by their MAC address.
 
 h2. The local translation table
 
