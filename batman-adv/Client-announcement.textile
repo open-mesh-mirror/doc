@@ -18,18 +18,19 @@ At boot time, every node will have an empty local table and empty global one. It
 
 As soon as a local event occurred (client added/deleted) the ttvn is incremented by one on the next propagation event (OGM broadcast). In addition, the local changes since the last OGM broadcast are appended to the OGM itself. This mechanism helps to avoid the more expensive table request operation (see below) as any receiving node can retrieve the changes from the OGM to update its global translation table.
 
-Each change entry is represented by a tt_change structure:
+The tt change entry format:
+* Flags: Indicates whether this client address is to be added or removed.
+* Client Address: Address of the concerning client.
+
 <pre>
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |    Flags      |            Client...                          |
+ |    Flags      |            Client Address                     |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                         ...Address            |               |
+ |                     Client Address            |               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
-
-The flags field indicates the related operation (**add** a client or **delete** a client), while the addr field contains the interested client MAC address.
 
 These changes are also appended to the 2 following OGMs if there were no new changes in the meantime, thereby increasing the chance for neighbor node to receive the changes in the event of packet loss. If a node receives an OGM containing a new ttvn without the changeset (e.g. it missed all 3 OGMs with the changeset or the changeset exceeded the packet size) or the crc16 checksum does not match it can issue a table request. In particular a node can ask for two different information:
 - The originator's full local table
