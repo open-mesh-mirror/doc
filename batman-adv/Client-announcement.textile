@@ -37,7 +37,7 @@ These changes are also appended to the 2 following OGMs if there were no new cha
 * The changeset of the current ttvn.
 
 The tt request format:
-* Packet type: Initialize this field with the NDP packet type.
+* Packet type: Initialize this field with the TT_QUERY packet type.
 * Version: Set your internal compatibility version.
 * Destination Address: Address of the host this packet should be forwarded to.
 * TTL: Time-To-Live field decreased by with one with each hop. Packet is to be discarded when counter reaches 0.
