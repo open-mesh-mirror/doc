@@ -7,7 +7,14 @@ In particular, with this mechanism the packet destination is modified along the 
 
 As it is possible to understand, in case of roaming client nodes need to wait for the next OGM issued by the new mesh node serving such client to update their tables. The idea behind the roaming speeding up consists in sending a particular packet in case of roaming to immediately inform the old originator that the client has moved and that it is now located on another node. This message can be seen as an asynchronous update that permits the old node to redirect data packets as soon as they reach it.
 
-This new packet type is the **ROAMING-Advertisement** and its format is:
+This new packet type is the **ROAMING-Advertisement** and this is its format:
+
+* Packet type: Initialize this field with the ROAM_ADV packet type.
+* Version: Set your internal compatibility version.
+* Destination Address: Address of the host this packet should be forwarded to.
+* TTL: Time-To-Live field decreased by with one with each hop. Packet is to be discarded when counter reaches 0.
+* Source Address: Address of the host sending this message.
+* Client Address: Address of the roaming client that the source node has to communicate to the destination one in order to update the global translation table.
 
 <pre>
   0                   1                   2                   3
