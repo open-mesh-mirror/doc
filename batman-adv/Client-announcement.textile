@@ -32,9 +32,7 @@ The tt change entry format:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-These changes are also appended to the 2 following OGMs if there were no new changes in the meantime, thereby increasing the chance for neighbor node to receive the changes in the event of packet loss. If a node receives an OGM containing a new ttvn without the changeset (e.g. it missed all 3 OGMs with the changeset or the changeset exceeded the packet size) or the crc16 checksum does not match it can issue a table request. In particular a node can ask for two different information:
-* The originator's full local table
-* The changeset of the current ttvn.
+These changes are also appended to the 2 following OGMs if there were no new changes in the meantime, thereby increasing the chance for neighbor node to receive the changes in the event of packet loss. If a node receives an OGM containing a new ttvn without the changeset (e.g. it missed all 3 OGMs with the changeset or the changeset exceeded the packet size) or the crc16 checksum does not match it can issue a table request. In particular a node can ask for two different information: Either the changeset of the current ttvn or the full local table.
 
 The tt request format:
 * Packet type: Initialize this field with the TT_QUERY packet type.
@@ -62,8 +60,7 @@ The tt request format:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-
-In case of unavailability of the last OGM transtable buffer the node will answer with the full table.
+The reply to any tt request can either be the changeset of the current ttvn or the full local table. The changeset always is the preferred format to answer the request as it comes with a smaller overhead penalty. In same cases a changeset reply is not possible (e.g. a node just joined the mesh) which makes a full table reply necessary. If the reply contains the changeset of the current ttvn the corresponding change entries (see above) are appended to the reply. If the reply contains the full table the list of MAC addresses is appeneded to the message.
 
 h2. Table request forwarding:
 
@@ -89,7 +86,9 @@ This behaviour slightly helps in case of roaming: a client moved from a mesh nod
 
 h2. Limitations
 
-- **MAC conflict**: in case of several node announcing the same client MAC address, the global table of each node will be continuously updated leading to a route flip (towards the client) on all nodes
+* MAC conflict: in case of several nodes announcing the same client MAC address, the global table of each node will be continuously updated leading to a route flip (towards the client) on all nodes.
+* Too many local clients: If the number of local clients exceeds the limit of entries that fit into a single packet (1500 bytes) the exceeding clients won't be announced.
+
 
 h2. Notes
 
