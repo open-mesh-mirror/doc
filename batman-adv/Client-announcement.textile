@@ -80,9 +80,9 @@ return res</code></pre>
 
 h2. Improving data routing
 
-The ttvn field has also been added to the unicast packet header. A node sending a packet of this type will set this field to the currently known destination's ttvn. Along the path fro the source to the destination, every node will inspect the packet and check whether it knows an higher ttvn for the same destination; if so, the node will look in its global translation table to see which is the current mesh node serving the client which the packet is directed to. At this point the intermediate node will replace the destination and the ttvn values in the unicast packet header and will re-forward the packet to the new destination (possibly the same).
+The ttvn field has also been added to the unicast packet header. A node sending a packet of this type will set this field to the currently known destination's ttvn. Along the path from the source to the destination, every node will inspect the packet and check whether it knows an higher ttvn for the same destination; if so, the node will look in its global translation table to see which is the current mesh node serving the client which the packet is directed to. At this point the intermediate node will replace the destination and the ttvn values in the unicast packet header and will re-forward the packet to the new destination (possibly the same).
 
-This behaviour slightly helps in case of roaming: a client moved from a mesh node to another, but the source node doesn't know this change yet. Data is sent to the old node serving the client, but as soon as the packet reaches an updated node, it will be redirected to the new (an possibly correct) destination.
+This behavior slightly helps in case of roaming: a client moved from a mesh node to another, but the source node doesn't know this change yet. Data is sent to the old node serving the client, but as soon as the packet reaches an updated node, it will be redirected to the new (possibly correct) destination.
 
 h2. Limitations
 
