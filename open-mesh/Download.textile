@@ -49,6 +49,16 @@ Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto 
 * "batman-adv-dkms":http://packages.debian.org/squeeze/batman-adv-dkms - batman-advanced kernel module 2010.0.0 dkms package for Debian Squeeze to build new modules dynamically (half-automatic) 
 * "linux-2.6":http://packages.debian.org/source/unstable/linux-2.6 - batman-advanced kernel module as "part of the official":http://bugs.debian.org/622361 kernel packages
 
+Similar packages are also available through "Ubuntu universe":https://help.ubuntu.com/community/Repositories/Ubuntu .
+
+
+h2. Gentoo
+
+Use emerge to build B.A.T.M.A.N. on your gentoo machine. Following ebuilds are available:
+* "net-misc/batmand":http://packages.gentoo.org/package/net-misc/batmand
+* "net-misc/batman-vis":http://packages.gentoo.org/package/net-misc/batman-vis
+* "net-misc/batctl":http://packages.gentoo.org/package/net-misc/batctl
+* "net-misc/batman-adv":http://packages.gentoo.org/package/net-misc/batman-adv
 
 
 h2. Building OpenWRT packages
