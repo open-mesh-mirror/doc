@@ -2,12 +2,13 @@ h1. Roaming-improvements
 
 h2. Speeding up the roaming
 
-The base idea consists in exploiting the new forwarding mechanism for data packets described in the [[Client-announcement]] page. 
-In particular, with this mechanism the packet destination is modified along the path, if needed, as the message reaches an up-to-date router. If so data packet is rerouted to the new destination and information in the packet header are updated too (destination and ttvn field).
+The base idea consists in exploiting the new forwarding mechanism for data packets described in the [[Client-announcement]] page in order to reduce the interruption time a non-mesh client experiences when moving from one mesh node to the next. This procedure of a non-mesh client switching to a new mesh node is called "roaming". At its core it simply is a synchronization issue: Whenever roaming occurs the new mesh node "parent" needs to inform the entire mesh that a particular non-mesh client is now to be found at a new location. Even under ideal conditions it might take a full originator interval in which the client is not reachable at all. The bigger the mesh, the higher the packetloss or originator interval the longer the client has to wait before it can use the network again.
 
-As it is possible to understand, in case of roaming client nodes need to wait for the next OGM issued by the new mesh node serving such client to update their tables. The idea behind the roaming speeding up consists in sending a particular packet in case of roaming to immediately inform the old originator that the client has moved and that it is now located on another node. This message can be seen as an asynchronous update that permits the old node to redirect data packets as soon as they reach it.
+The main idea behind the roaming improvements is to make use of the fact that batman-adv has full control over the payload traffic traveling through the mesh network. In particular, with this mechanism the packet destination is modified along the path, if needed, as the message reaches an up-to-date router. If so data packet is rerouted to the new destination and information in the packet header are updated too (destination and ttvn field) until the mesh network is in sync again. In addition, a roaming advertisement packet is sent to immediately inform the old originator that the client has moved and that it is now located on another node. This message can be seen as an asynchronous update that permits the old node to redirect data packets as soon as they reach it.
 
-This new packet type is the **ROAMING-Advertisement** and this is its format:
+h2. Roaming advertisement
+
+The roaming advertisement format:
 
 * Packet type: Initialize this field with the ROAM_ADV packet type.
 * Version: Set your internal compatibility version.
@@ -20,25 +21,23 @@ This new packet type is the **ROAMING-Advertisement** and this is its format:
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Packet Type   |    Version    |      Destination...           |
+ | Packet Type   |    Version    |      TTL      |     Align     |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                         ...Address                            |
+ |                       Destination Address                     |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |     TTL       |                 Source...                     |
+ |      Destination Address      |         Source Address        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                  ...Address                   |   Client...   |
+ |                         Source Address                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                         ...Address...                         |
+ |                         Client Address                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |      ...      |                                               |
+ |         Client Address        |                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-These information are used to update the old node global table so that, in case of packet directed to him, with a real destination equal to *client*, it is redirected to *src*.
+These information are used to update the old node's global table so that, in case of payload packet directed to him while the network is not in sync, with a payload destination equal to 'client address is redirected to 'source address'.
 
-Exploiting this mechanism, immediately after a roaming the data packets will follow a slightly sub-optimal path (data flow is going through the old node) until the new OGMs will update the source node's global table. At that point the packets will start following the best path.
-
-This strategy will help to avoid to lose packets that are still flowing to the old node in the time that the source get updated using the next OGMs.
+Due to this mechanism, immediately after a roaming the data packets might follow a slightly sub-optimal path (data flow is going through the old node) until the network is in sync again and every node has updated its global translation table. This strategy will help to avoid losing packets that are still flowing to the old node.
 
 h2. Routing data packets
 
