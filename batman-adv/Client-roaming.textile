@@ -6,10 +6,11 @@ The base idea consists in exploiting the new forwarding mechanism for data packe
 
 The main idea behind the roaming improvements is to make use of the fact that batman-adv has full control over the payload traffic traveling through the mesh network. In particular, with this mechanism the packet destination is modified along the path, if needed, as the message reaches an up-to-date router. If so data packet is rerouted to the new destination and information in the packet header are updated too (destination and ttvn field) until the mesh network is in sync again. In addition, a roaming advertisement packet is sent to immediately inform the old originator that the client has moved and that it is now located on another node. This message can be seen as an asynchronous update that permits the old node to redirect data packets as soon as they reach it.
 
-h2. Roaming advertisement
+h2. Detect a roaming client
+
+To detect whether a recently detected non-mesh client is a roaming client or a new client, it is sufficient to search the global translation table for the clients mac address. In case of positive match (the same MAC address is already in the table but pointing to another mesh node) the node has to send a roaming advertisement message to the old mesh node to inform it about the roaming event.
 
 The roaming advertisement format:
-
 * Packet type: Initialize this field with the ROAM_ADV packet type.
 * Version: Set your internal compatibility version.
 * Destination Address: Address of the host this packet should be forwarded to.
@@ -41,14 +42,9 @@ Due to this mechanism, immediately after a roaming the data packets might follow
 
 h2. Routing data packets
 
-The basic routing procedure is the same described in the [[Client-announcement]] page. The only difference consists in giving the routing node the possibility of inspect the data packet (to possibly change the destination) even if the TTVN carried by the packet is not less than the one the router knows.
-This chance must be given only in a case: the destination node is in *roaming phase*.
+The enhanced data routing is built on top of the data routing procedure described in the [[Client-announcement]] page. When a mesh node receives a roaming advertisement concerning one of its former non-mesh clients it will mark the client entry with the roaming flag. The mesh node sending the roaming advertisement will do the same. This extra flag is needed as long as the translation tables are not in sync and will have to be deactivated once an OGM with the new ttvn arrives. 
 
-The **tt_poss_change** flag in the originator structure is used for this purpose. It is set tu true in case of receiving a ROAMING-Advertisement from an originator an it is set to false again once a new OGM is received from the same node.
-
-h2. Detecting a roaming phase
-
-To detect a roaming phase, a node in case of new local client detection will look into its global translation table for the address of the new host. In case of positive match (the same MAC address is already in the table but pointing to another originator) the new mesh node will send a **ROAMING-Advertisement** message to the old node serving this client so that it will be able to update its global table and possibly redirect packets to the new mesh node.
+When payload data reaches either node (new or old mesh node) they will not only check if the translation table version number (ttvn) of the destination host is outdated but also check if the roaming flag is active. If one of the conditions is met the payload traffic is rerouted if necessary.  
 
 h2. Keeping table consistency
 
@@ -65,9 +61,9 @@ The TT_GLOBAL_ROAM in the tt_global_entry structure will be reset to 0 as soon a
 
 h2. Limitations
 
-- **MAC conflict**: In case of more than one node announcing the same client MAC address, each node will interpret this situation as a "continued roaming" and will start sending ROAMING-Advertisement multiple times. To reduce the impact of this problematic scenario a **roaming-protection** has been provided: A client con roam on the same node a fixed amount of times in a fixed length period (look into main.h for the exact values). In case of exceeding the limit, the interested node will not issue any new ROAMING-Advertisement unless the protection period is terminated.
+* MAC conflict: In case of more than one node announcing the same client MAC address, each node will interpret this situation as a "continued roaming" and will start sending roaming advertisement messages multiple times. To reduce the impact of this problematic scenario a roaming-protection has been provided: A client can roam on the same node a fixed amount of times in a fixed length period (look into main.h for the exact values). In case of exceeding the limit, the interested node will not issue any new roaming advertisement unless the protection period is terminated.
 
-- **Multiple-roaming in one OGM interval**: In case of a node roaming from node A to B a ROAMING-Advertisement is sent from B to A, but if the client moves again from node B to C, before B issued a new OGM, C will send the ROAMING-Advertisement to A again!! This happens because C doesn't know anything yet about the last client movement. **A possible solution to this problem could consists in implementing a ROAMING-Advertisement forwarding procedure that in scenarios like this make the ROAMING-Advertisement message going through all the steps the client did. By the way this feature is not critical**
+* multiple roaming in one OGM interval: In case of a node roaming from node A to B a roaming advertisement is sent from B to A, but if the client moves again from node B to C, before B issued a new OGM, C will send the roaming advertisement to A again! This happens because C doesn't know anything yet about the last client movement. *A possible solution to this problem could consist in implementing a roaming advertisement forwarding procedure that in scenarios like this make the roaming advertisement message going through all the steps the client did.
 
 h2. Notes
 
