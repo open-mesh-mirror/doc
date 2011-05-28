@@ -7,7 +7,8 @@ This will probably enable several applications to interact with B.A.T.M.A.N.
 
 *Function prototype:*
 
-<pre>int throw_uevent(struct bat_priv *bat_priv, enum uev_type type, enum uev_action action, const char *data);</pre>
+<pre>int throw_uevent(struct bat_priv *bat_priv, enum uev_type type, 
+                          enum uev_action action, const char *data);</pre>
 
 * type: is the class the uevent belongs to. It is possible to specify new classes into B.A.T.M.A.N. to distinguish between not related uevents
 * action: is the class related event that has to be signaled
