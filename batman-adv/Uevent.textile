@@ -1,0 +1,21 @@
+h1. Uevent
+
+*DRAFT - TO BE FINISHED*
+
+B.A.T.M.A.N.-Advance can now throw uevents! Thanks to this new feature it is possible to advertise any kind of information to the usespace.
+This will probably enable several applications to interact with B.A.T.M.A.N.
+
+*Function prototype:*
+
+<pre>int throw_uevent(struct bat_priv *bat_priv, enum uev_type type, enum uev_action action, const char *data);</pre>
+
+* type: is the class the uevent belongs to. It is possible to specify new classes into B.A.T.M.A.N. to distinguish between not related uevents
+* action: is the class related event that has to be signaled
+* data: any meaningful payload that need to be sent to the userspace
+
+*Example:*
+* type: GW
+* action: ADD/CHANGE/DEL
+* data: the gateway MAC address
+
+This is an example of a class of possible uevents to throw to userspace. In case of default gateway change, a uevent is triggered and sent to the userspace with all the needed data. The action field, in this case, represent the event related to the gateway (e.g. ADD: a default gateway for B.A.T.M.A.N. has been found).
