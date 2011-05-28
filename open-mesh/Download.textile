@@ -60,6 +60,10 @@ Use emerge to build B.A.T.M.A.N. on your gentoo machine. Following ebuilds are a
 * "net-misc/batctl":http://packages.gentoo.org/package/net-misc/batctl
 * "net-misc/batman-adv":http://packages.gentoo.org/package/net-misc/batman-adv
 
+h2. OpenSUSE
+
+* "network:utilities / batctl":https://build.opensuse.org/package/show?package=batctl&project=network%253Autilities
+
 
 h2. Building OpenWRT packages
 
