@@ -6,7 +6,7 @@ In certain topologies the OGM (Originator Message) protocol can still have sever
 
 The purpose of the MGO protocol is to react to (rapidly) decreasing local link qualities and to actively try to find an alternative, loop-free path, while only increasing the overhead on the currently selected and alternative paths. It shall complement the proactive OGM protocol.
 
-The MGO protocol is split into two parts: The Router Alert part to mark the currently selected best path(s) as 'stale' in response to a previously detected emergency event. And the Router Request part to request newer sequence numbers from alternative paths that allow nodes on the marked 'fragile' path to switch to the alternative path safely, e.g. without causing routing loops.
+The MGO protocol is split into two parts: The Router Alert part to mark the currently selected best path(s) as 'stale' in response to a previously detected emergency event. And the Router Request part to request newer sequence numbers from alternative paths that allow nodes on the marked 'stale' path to switch to the alternative path safely, e.g. without causing routing loops.
 
 h1. Definitions
 
