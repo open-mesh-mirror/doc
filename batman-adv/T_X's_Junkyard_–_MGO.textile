@@ -279,6 +279,8 @@ In case the MGO-RR was not dropped yet one of the following four actions needs t
 * Else the following action needs to be performed:
 ** Send a unicast OGM response: Forward the last (re)broadcasted OGM for the originator stated in the MGO-RR (which is the OGM received via the currently selected, best router towards the originator or the originator itself) via unicast to the neighbor we received the MGO-RR from.
 
+TODO: Add TTL checks
+
 h4. Receiving an OGM via Unicast
 
 TODO
