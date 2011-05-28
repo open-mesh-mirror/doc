@@ -11,6 +11,7 @@ The MGO protocol is split into two parts: The Router Alert part to mark the curr
 h1. Definitions
 
 * penalized link TQ - The product of link TQ times the asymmetric penalty of the same link's link RQ (see [[Ndp|NDP]] and [[Ogm|OGM]], asymmetric TQ penalty, for details)
+* best router - the router with the highest, penalized path TQ in the router list
 
 
 h2. RA - Router Alert
@@ -21,7 +22,7 @@ The purpose of an MGO-RA is to mark the currently selected best path as 'fragile
 
 h3. Router Alert Event Detection
 
-A node usually measures the link quality more frequently than the quality of whole pathes (see NDP). If a node detects a major change in the global TQ it has last advertised, it will send a Router Alert Messages. More precisely, if:
+A node usually measures the link quality more frequently than the quality of whole pathes (see NDP). If a node detects a major change in the global TQ it has last advertised, it will send a Router Alert Message. More precisely, if:
 * The best of all penalized link TQ values towards a neighbor node decreased (see [[Ndp|NDP]] for details).
 * The according node is a selected router towards one or more originators.
 
@@ -50,7 +51,7 @@ An MGO-RA of the following format is broadcasted MGO_RA_NUM_BCASTS times.
 h4. The Router Alert (MGO-RA) Message Format:
 
 
-* Packet type: Initialize this field with the NDP packet type.
+* Packet type: Initialize this field with the MGO-RA packet type.
 * Version: Set your internal compatibility version.
 * TTL: Set this field to TTL_INIT.
 * Num RA Entries: Set this field to the number of attached Router Alert entries.
@@ -90,7 +91,7 @@ h4. The Router Alert Entry Format:
 
 h4. The Router Alert (MGO-RA) Message Format (simple):
 
-* Packet type: Initialize this field with the NDP packet type.
+* Packet type: Initialize this field with the MGO-RA packet type.
 * Version: Set your internal compatibility version.
 * Originator: Set this field to the originator address the Router Alert Event was detected for.
 * Last Seqno: Set this field to the current sequence number of the router towards the originator the Router Alert Event was detected for.
@@ -153,7 +154,7 @@ For each MGO-RA having passed the preliminary checks the following actions must 
 
 ----
 
-h3. Re-broadcasting other nodes' MGO-RAs
+h3. Re-broadcasting other nodes' Router Alerts (MGO-RAs)
 
 When an MGO-RA is to be re-broadcasted some of the message fields must be changed others must be left unchanged. All fields not mentioned in the following section remain untouched:
 
@@ -168,7 +169,7 @@ The modified MGO-RA is then rebroadcasted MGO_RA_NUM_BCASTS times.
 
 ----
 
-h3. Re-broadcasting other nodes' MGO-RAs (simple)
+h3. Re-broadcasting other nodes' Router Alerts (MGO-RAs) (simple)
 
 When an OGM is to be re-broadcasted some of the message fields must be changed others must be left unchanged. All fields not mentioned in the following section remain untouched:
 
@@ -193,13 +194,20 @@ instead any node with a new enough OGM sequence number may resend its last OGM.
 
 h3. Router Request Event Detection
 
-The MGO-RR process will be triggered for a packet past to the Router Request Event
-Detection (see 'Receiving
+The MGO-RR process will be triggered for an MGO-RA packet past to the Router Request Event
+Detection (see 'Receiving a Router Alert (MGO-RA)').
 The MGO-RR process will be triggered for any MGO-RA entry in the packet
 matching:
-* We are the MGO-RA:Preference Router
+* We are the Preference Router of the MGO-RA entry.
+* We have a non-'stale' router towards the originator stated in the MGO-RA entry
+  (which might be a usable, alternative router towards the originator, but might
+  not be the best alternative router, see note below).
+* We have not send an MGO-RR for the same originator, as well as the same or higher sequence number
+  as stated in the MGO-RA entry over the best, non-'stale' router before.
+  (Todo: specify the limits for 'higher')
 
-For any match we are sending an MGO-RR to our according best next hop.
+
+For each we are sending an MGO-RR to our according best next hop.
 
 ----
 
@@ -211,32 +219,69 @@ h3. Router Request Event Detection (simple)
 
 h4. Unicasting own Router Request (MGO-RR) message
 
+Upon a positive Router Request Event detection for an MGO-RA entry a unicast packet needs to be generated
+(see 'The Router Request (MGO-RR) Message Format).
+
+It is then send via unicast to the best, non-'stale' router.
+
+----
+
 h4. Unicasting own Router Request (MGO-RR) message (simple)
+
+----
 
 h4. The Router Request (MGO-RR) Message Format:
 
+* Packet type: Initialize this field with the MGO-RR packet type.
+* Version: Set your internal compatibility version.
+* Originator: Set this field to the originator address of the MGO-RA entry which the Router Request Event was detected for.
+* Last Seqno: Set this field to the sequence number of the MGO-RA entry which the Router Request Event was detected for. 
+* TTL: Set this field to TTL_INIT.
+
 <pre>
-    0                   1                   2                   3
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                                                               |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Packet Type   |    Version    |          Originator           |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                           Originator                          |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                           Last Seqno                          |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |     TTL       |
+ +-+-+-+-+-+-+-+-+
 </pre>
+
+----
 
 h4. The Router Request (MGO-RR) Message Format (simple):
 
-h3. Reception
+----
 
-A node receiving an MGO-RR has to check whether it has a valid, non-'stale'
-path towards the stated originator. If it only has a 'stale' path then
-this means that node's previous MGO-RA have not been heard by the last sender
-and the receiving node may resend its last MGO-RA.
+h3. Receiving a Router Request (MGO-RR)
 
-h3. Reception (simple)
+Upon receiving an MGO-RR packet a node must perform the following preliminary checks before the packet is further processed:
 
-h3. Forwarding
+* If the MGO-RR contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
+* If the sender address of the MGO-RR's ethernet frame is a multicast address the message must be silently dropped.
+* If the destination address of the MGO-RR's ethernet frame is a multicast address the message must be silently dropped.
+* If we are the originator stated in the MGO-RR and the sequence number of the MGO-RR last seqno field is higher than our own, current OGM sequence number then the message must be silently dropped.
+* If we are not the originator stated in the MGO-RR and have no router towards the originator stated in the MGO-RR the message must be silently dropped.
 
-h3. Forwarding (simple)
+In case the MGO-RR was not dropped yet one of the following four actions needs to be performed:
+* If we are the originator stated in the MGO-RR and our own, current OGM sequence number is equal to the last seqno stated in the MGO-RR:
+** Broadcast a new, unscheduled OGM immediatly, including the increase of the sequence number. The OGM timer should be reset after the broadcasting. See 'Broadcasting own Originator Message (OGM)' for details.
+* Else if we are not the originator stated in the MGO-RR and our own, best router is 'stale':
+** Rebroadcast the MGO-RA from that best router again as the neighbor we received the MGO-RR from did not have heard that MGO-RA the last time.
+* Else if we are not the originator stated in the MGO-RR and our own, best router has a sequence number equal to or lower than the last seqno field in the MGO-RR:
+** Forward the MGO-RR to our own, best router towards the originator stated in the MGO-RR.
+** Memorize that to be able to forward the unicast OGM response later (TODO: be more specific)
+* Else the following action needs to be performed:
+** Send a unicast OGM response: Forward the last (re)broadcasted OGM for the originator stated in the MGO-RR (which is the OGM received via the currently selected, best router towards the originator or the originator itself) via unicast to the neighbor we received the MGO-RR from.
+
+h4. Receiving an OGM via Unicast
+
+TODO
 
 h4. OGM on 'stale' path
 
@@ -245,23 +290,40 @@ dropped and not further forwarded the following additional checks have to
 be performed instead:
 * Am I on a matching, 'stale' path? (has this node previously broadcasted
 an MGO-RA with an orig entry matching OGM:orig).
-* If yes, is the OGM:seqno newer than MGO-RA:last-seqno?
-* If yes, is the OGM:path-TQ higher than MGO-RA:path-TQ?
+* If yes, is the seqno field of the OGM newer than the last-seqno field of the MGO-RA?
+* If yes, is the path-TQ field of the OGM higher than the path-TQ field of the MGO-RA?
 
 If any of the previous checks does not match, then the OGM has to be dropped
 as the OGM protocol would have done itself. Otherwise the OGM will be
 further processed in the same way as if SEQ_DIFF_MAX were reached:
 * The old, 'stale' router will be purged.
 * The OGM will be rebroadcasted.
-Additionally the rebroadcasting should be done in a robust way, the same way
-as nodes forwarding OGMs reliably due to MGO-RRs (e.g. 3x rebroadcast).
+Additionally the rebroadcasting should be done in a robust way (e.g. 3x rebroadcast)
+to lower the latency for reparing routes.
 
 Furthermore, any rebroadcasted OGM matching an MGO-RA will remove the 'stale'
 status for that originator (no matter if due to common OGM rebroadcast rule or
 MGOs graceful rebroadcasting rule). As well as any OGM coming from the old,
 'stale' best next hop, no matter if we are going to rebroadcast it or not.
 
+----
+
+h3. Receiving a Router Request (MGO-RR) (simple)
+
+Upon receiving an MGO-RR packet a node must perform the following preliminary checks before the packet is further processed:
+
+* If the MGO-RR contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
+* If the sender address of the MGO-RR's ethernet frame is a multicast address the message must be silently dropped.
+* If the destination address of the MGO-RR's ethernet frame is a multicast address the message must be silently dropped.
+* If we are the originator stated in the MGO-RR and the sequence number of the MGO-RR last seqno field is higher than our own, current OGM sequence number then the message must be silently dropped.
+
+TODO
+
 h4. OGM on 'stale' path (simple)
+
+the same, see above
+
+----
 
 h2. Proposed Values for Constants
 
@@ -289,6 +351,7 @@ h1. Questions (both)
 
 * Note: For instance node N5 might have heard a sequence number x while node B might not have received due to packet loss. Node B could theoretically switch its route already with a smaller sequence number than x + 1, having a lower router request delay... an optimization could be a list of seqnos or something similar.
 * Does a 'stale' path cause instability / undesired route switching in certain topologies?
+* If we did not have a new enough sequence number for a neighbor we received and MGO-RR before and if we are receiving an OGM with a higher sequence number but lower penalized path TQ compared to our currently selected, best router, then according to the OGM protocol we are usually not switching our selected router. But should we do so and therefore rebroadcast (or unicast, due to memorized MGO-RR) the OGM anyway, if the sequence number is higher than the last seqno field of any memorized MGO-RRs to help that and other poor nodes on the broken path?
 
 h1. Notes and further clarifications
 
@@ -297,3 +360,8 @@ h1. Notes and further clarifications
 * The path TQ modification in an MGO-RA is the same as for the OGMs.
 
 h1. Notes and further clarifications (simple)
+
+h1. Further Optimizations
+
+* MGO-RRs could be aggregated and kept aggregated for the different originator as long as the router is the same.
+  Though might not be _that_ crucial for now, as these are small packets send via unicast, not large broadcast packets.
