@@ -42,7 +42,7 @@ Due to this mechanism, immediately after a roaming the data packets might follow
 
 h2. Routing data packets
 
-The enhanced data routing is built on top of the data routing procedure described in the [[Client-announcement]] page. When a mesh node receives a roaming advertisement concerning one of its former non-mesh clients it will mark the client entry with the roaming flag. The mesh node sending the roaming advertisement will do the same. This extra flag is needed as long as the translation tables are not in sync and will have to be deactivated once an OGM with the new ttvn arrives. 
+The enhanced data routing is built on top of the data routing procedure described in the [[Client-announcement]] page. When a mesh node receives a roaming advertisement concerning one of its former non-mesh clients it will mark the client entry with the roaming flag in its own translation table. The mesh node sending the roaming advertisement will do the same. This extra flag is needed as long as the translation tables are not in sync and will have to be deactivated once an OGM with the new ttvn arrives. 
 
 When payload data reaches either node (new or old mesh node) they will not only check if the translation table version number (ttvn) of the destination host is outdated but also check if the roaming flag is active. If one of the conditions is met the payload traffic is rerouted if necessary.  
 
