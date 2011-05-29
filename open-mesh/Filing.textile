@@ -44,8 +44,13 @@ h2. Using B.A.T.M.A.N. advanced (layer 2)
 * "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011] 
 * "Bisect the batman-adv routing protocol (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-bisect.avi - the bisect tool explained & demonstrated by Marek [March 2011] 
 * "Project CATWOMAN - network coding with batman-adv (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-network_coding.avi - introduction into network coding with batman-adv by Martin and Jeppe [March 2011]
-* [[batman-adv:bonding-alternating|Bonding and Interface Alternating]] - Use multiple links in batman-adv for fun and profit.
 
+
+h2. B.A.T.M.A.N. advanced (layer 2) protocol documentation
+
+* [[batman-adv:bonding-alternating|Bonding and Interface Alternating]] - Use multiple links in batman-adv for fun and profit.
+* [[batman-adv:Client-announcement|Client announcement]] - how batman-adv handles non-mesh clients bridged into the mesh
+* [[batman-adv:Client-roaming|Client roaming]] - non-mesh clients moving from one mesh node to the next
 
 
 h2. Misc
