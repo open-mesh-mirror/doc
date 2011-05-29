@@ -68,7 +68,7 @@ To reduce the overhead of the table request operations, each node on the path of
 
 h2. Computing the crc16 checksum:
 
-The crc16 checksum field which is sent along with the ttvn field in the OGM is computed for a generic originator O as "the xor of all the crc16 values of each local tt table address entry".
+The crc16 checksum field which is sent along with the ttvn field in the OGM is computed for a generic originator O as "the xor of the crc16 values of the MAC addresses in the local translation table entries".
 
 **Pseudocode**:
 <pre><code>tt_local_crc(orig_node O) {
