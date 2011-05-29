@@ -1,11 +1,11 @@
 h1. Client announcements
 
-Each mesh protocol offering network access to non-mesh clients needs a 'client announcement' system. The task of such a system is to inform every mesh node in the network of any connected non-mesh client, in order to find the path towards that client from any given point in the mesh. A client has an identifier (usually its address: IP address for layer 3 routing and MAC address for layer 2 routing) that is flooded through the mesh. As B.A.T.M.A.N.-Advanced is a Layer2 mesh routing protocol clients are represented by their MAC address.
+Each mesh protocol offering network access to non-mesh clients needs a 'client announcement' system. The task of such a system is to inform every mesh node in the network of any connected non-mesh client, in order to find the path towards that client from any given point in the mesh. A client has an identifier (usually its IP address for layer 3 routing and MAC address for layer 2 routing) that is flooded through the mesh. As B.A.T.M.A.N.-Advanced is a Layer2 mesh routing protocol clients are represented by their MAC address.
 
 h2. The local translation table
 
-Every client MAC address that is recognized through the mesh interface will be stored in a node local table called "local translation table" which will contain all the clients the node is currently serving. This table is the information a node has to spread among the network in order to make clients reachable. This is because when a node wants to contact a particular client, thanks to this information, it knows the originator it has to send the data to. 
-Each node local table has a particular attribute: the translation table version number (ttvn). The value of this attribute represents the version of the table that is incremented by one each time the local table changes (a client has been added/removed). For optimization reasons all changes which happen within the same OGM interval are aggregated into a single ttvn.
+Every client MAC address that is recognized through the mesh interface will be stored in a node local table called "local translation table" which will contain all the clients the node is currently serving. This table is the information a node has to spread among the network in order to make its clients reachable. This is because when a node wants to contact a particular client, thanks to this information, it knows the originator it has to send the data to. 
+Each node local table has a particular attribute: the translation table version number (ttvn). The value of this attribute represents the version of the table that is incremented by one each time the local table changes (a client has been added/removed). For optimization reasons all changes which happen within the same OGM interval are aggregated into a single ttvn increment.
 Every OGM broadcast contains the current ttvn and a crc16 checksum value of the local table to allow the receiving nodes to quickly decide whether the tables are in sync or not.
 
 h2. The global translation table
@@ -56,7 +56,7 @@ The tt request format:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                      Source Address                           |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |     TTVN      |                  TT Data                      |
+ |     TTVN      |          TT Data              |    . . .      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
