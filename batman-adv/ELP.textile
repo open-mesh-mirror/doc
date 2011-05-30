@@ -80,8 +80,9 @@ h3. Receiving Neighborhood Discovery Messages (NDP)
 Upon receiving an NDP packet a node must perform the following preliminary checks before the packet is further processed:
 
 * If the NDP contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
-* If the originator address of the NDP message is our own the message must be silently dropped as this NDP message originated from this node.
 * If the sender address of the NDP message is an ethernet multicast (including broadcast) address the message must be silently dropped.
+* If the destination address of the NDP message is a unicast address the message must be silently dropped.
+* If the originator address of the NDP message is our own the message must be silently dropped as this NDP message originated from this node.
 * If the NDP message does not contain a newer sequence number (duplicate, out-of-order or out-of-range) the message must be silently dropped.
 
 h4. Duplicate
