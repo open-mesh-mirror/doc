@@ -60,7 +60,7 @@ The tt request format:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-The reply to any tt request can either be the changeset of the current ttvn or the full local table. The changeset always is the preferred format to answer the request as it comes with a smaller overhead penalty. In same cases a changeset reply is not possible (e.g. a node just joined the mesh) which makes a full table reply necessary. If the reply contains the changeset of the current ttvn the corresponding change entries (see above) are appended to the reply. If the reply contains the full table the list of MAC addresses is appended to the message.
+The reply to any tt request can either be the changeset of the current ttvn or the full local table. The changeset always is the preferred format to answer the request as it comes with a smaller overhead penalty. In same cases a changeset reply is not possible (e.g. a node just joined the mesh) which makes a full table reply necessary. If the reply contains the changeset of the current ttvn the corresponding change entries (see above) are appended to the reply. If the reply contains the full table the entire list of client addresses is appended to the message using the change entry format containing the MAC addresses and corresponding flags.
 
 h2. Table request forwarding:
 
