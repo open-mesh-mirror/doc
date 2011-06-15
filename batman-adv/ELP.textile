@@ -1,4 +1,4 @@
-h1. Neighborhood Discovery Protocol (NDP)
+h1. Echo Location Protocol (ELP)
 
 The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
 
@@ -6,7 +6,7 @@ This approach was chosen for its simplicity during the protocol design phase and
 * Wireless interfaces usually come with some packet loss, therefore a higher broadcast rate is desirable to allow a fast reaction on flaky connections. Other interfaces of the same host might be connected to Ethernet LANs / VPNs / etc which rarely exhibit packet loss would benefit from a lower broadcast rate to reduce overhead.
 * It generally is more desirable to detect local link quality changes at a faster rate than propagating all these changes through the entire mesh (the far end of the mesh does not need to care about local link quality changes that much). Other optimizations strategies, like reducing overhead, might be possible if OGMs weren't used for all tasks in the mesh at the same time. 
 
-As a result detecting local link qualities shall be handled by an independent message type, NDP, whereas the OGM message type remains responsible for flooding the mesh with these link quality information and determening the overall path transmit qualities.
+As a result detecting local link qualities shall be handled by an independent message type, ELP, whereas the OGM message type remains responsible for flooding the mesh with these link quality information and determening the overall path transmit qualities.
 
 
 h2. Definitions
@@ -21,18 +21,18 @@ h2. Definitions
 h2. Protocol Procedure
 
 
-h3. Broadcasting own Neighborhood Discovery Protocol (NDP) Messages
+h3. Broadcasting own Echo Location Protocol (ELP) Messages
 
 
-Each node periodically (NDP interval) generates and broadcasts NDP messages for each interface B.A.T.M.A.N. is running on. A jitter may be applied to avoid collisions. 
+Each node periodically (ELP interval) generates and broadcasts ELP messages for each interface B.A.T.M.A.N. is running on. A jitter may be applied to avoid collisions. 
 
-h4. The Neighborhood Discovery Protocol (NDP) Format:
+h4. The Echo Location Protocol (ELP) Format:
 
-* Packet type: Initialize this field with the NDP packet type.
+* Packet type: Initialize this field with the ELP packet type.
 * Version: Set your internal compatibility version.
 * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
 * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
-* Interval: Set to the current NDP interval of this interface.
+* Interval: Set to the current ELP interval of this interface.
 * Num Neigh: The number of neighbors that are announced with this message.
 
 If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should append a neighbor entry message for each neighbor to be announced and fill the "number of neighbors" field accordingly.
@@ -70,38 +70,38 @@ Note: See 'Neighbor Ranking' and 'Time-based Window Adjustment' to get a detaile
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </code></pre>
 
-h4. NDP minimum packet size / padding
+h4. ELP minimum packet size / padding
 
-An NDP packet should be padded to at least 300 Bytes (excluding ethernet frame header) and may be padded to up to 1500 Bytes. Especially on wireless interfaces the packet size of broadcast packets can have quite an impact on the probability of arrival.
+An ELP packet should be padded to at least 300 Bytes (excluding ethernet frame header) and may be padded to up to 1500 Bytes. Especially on wireless interfaces the packet size of broadcast packets can have quite an impact on the probability of arrival.
 
-h3. Receiving Neighborhood Discovery Messages (NDP)
+h3. Receiving Echo Location Messages (ELP)
 
 
-Upon receiving an NDP packet a node must perform the following preliminary checks before the packet is further processed:
+Upon receiving an ELP packet a node must perform the following preliminary checks before the packet is further processed:
 
-* If the NDP contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
-* If the sender address of the NDP message is an ethernet multicast (including broadcast) address the message must be silently dropped.
-* If the destination address of the NDP message is a unicast address the message must be silently dropped.
-* If the originator address of the NDP message is our own the message must be silently dropped as this NDP message originated from this node.
-* If the NDP message does not contain a newer sequence number (duplicate, out-of-order or out-of-range) the message must be silently dropped.
+* If the ELP contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
+* If the sender address of the ELP message is an ethernet multicast (including broadcast) address the message must be silently dropped.
+* If the destination address of the ELP message is a unicast address the message must be silently dropped.
+* If the originator address of the ELP message is our own the message must be silently dropped as this ELP message originated from this node.
+* If the ELP message does not contain a newer sequence number (duplicate, out-of-order or out-of-range) the message must be silently dropped.
 
 h4. Duplicate
 
-An NDP packet is considered a duplicate if:
+An ELP packet is considered a duplicate if:
 * The last received sequence number is smaller than or equal to the current window sequence number.
 * The last received sequence number is greater than the current window sequence number minus WINDOW_SIZE.
 * The received sequence number is equal to the last received sequence number.
 
 h4. Out-of-Order
 
-An NDP packet is considered out-of-order if:
+An ELP packet is considered out-of-order if:
 * The last received sequence number is smaller than or equal to the current window sequence number.
 * The last received sequence number is greater than the current window sequence number minus WINDOW_SIZE.
 * The received sequence number is smaller than the last received sequence number.
 
 h4. Out-of-Range
 
-An NDP packet is considered out-of-range if:
+An ELP packet is considered out-of-range if:
 * The received sequence number is not a duplicate and not out-of-order.
 * The received sequence number is smaller than the current window sequence number.
 * The received sequence number is greater than the current window sequence number minus 2^31.
@@ -109,23 +109,23 @@ An NDP packet is considered out-of-range if:
 h3. Neighbor Ranking
 
 
-For each NDP message having passed the preliminary checks the following actions must be performed:
+For each ELP message having passed the preliminary checks the following actions must be performed:
 
 * The last seen time of this neighbor interface needs to be updated.
 * The last updated time of this neighbor interface needs to be updated.
-* The ndp interval of this neighbor interface needs to be updated with the ndp interval set in the received NDP message.
-* The last received sequence number from this neighbor needs to be set to the sequence number of the received NDP message.
-* If the sequence number of the received NDP message is higher than the current window sequence number then:
-** The window's current sequence number for this neighbor needs to be set to the sequence number of the received NDP message.
-** The sliding window of the NDP message must be shifted (purged) to reflect the new upper and lower boundaries of the ranking range.
-* The sequence number of the received NDP message must be added to the sliding window.
+* The ndp interval of this neighbor interface needs to be updated with the ndp interval set in the received ELP message.
+* The last received sequence number from this neighbor needs to be set to the sequence number of the received ELP message.
+* If the sequence number of the received ELP message is higher than the current window sequence number then:
+** The window's current sequence number for this neighbor needs to be set to the sequence number of the received ELP message.
+** The sliding window of the ELP message must be shifted (purged) to reflect the new upper and lower boundaries of the ranking range.
+* The sequence number of the received ELP message must be added to the sliding window.
 * The new resulting link RQ value is calculated by counting all sequence numbers that are to be found in the recently adjusted sliding window.
 * The neighbor entries must be parsed until an entry matching the MAC address of the incoming hard-interface has been found. If a match is found then save the received link RQ value as link TQ value towards this neighbor interface and skip the further traversal of the list. If no matching entry was found, set the link TQ value towards that neighbor to 0.
 
 
 h3. Time-based Window Adjustment
 
-At least once per second all NDP windows must be shifted to the expected current sequence number. This needs to be done to avoid that the OGM protocol picks up too high link quality values from NDP which do very likely not represent the current link quality anymore.
+At least once per second all ELP windows must be shifted to the expected current sequence number. This needs to be done to avoid that the OGM protocol picks up too high link quality values from ELP which do very likely not represent the current link quality anymore.
 
 More precisely, for any interface of a node towards any according, stored neighbor interface check whether:
 
@@ -135,7 +135,7 @@ If so, the following actions must be performed:
 
 * The last updated time of this neighbor interface needs to be set to the current time.
 * The current window sequence number of this neighbor needs to be set to the expected sequence number (= current window sequence number + rounded-down( (current time - last updated time) / neighbor interface's ndp interval).
-* The sliding window of the NDP message must be shifted (purged) to reflect the new upper and lower boundaries of the ranking range.
+* The sliding window of the ELP message must be shifted (purged) to reflect the new upper and lower boundaries of the ranking range.
 * The new resulting link RQ value is calculated by counting all sequence numbers that are to be found in the recently adjusted sliding window.
 
 h3. Neighbor Interface Purging Recommendations
