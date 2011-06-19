@@ -14,7 +14,7 @@ h2. Release Scheduling
 
 h2. Code
 
-* [ ] make sure all code contains the release version strings
+* [x] make sure all code contains the release version strings
 * [x] update copyright years (if needed)
 * [x] remove dead code (if any)
 * [x] check against kernel versions
