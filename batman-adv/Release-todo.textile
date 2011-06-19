@@ -20,7 +20,7 @@ h2. Code
 * [x] check against kernel versions
 * [x] check that maint branch is merged in next
 * [x] check for open patches on the ml
-* [ ] git tag release
+* [x] git tag release
 
 
 h2. Documentation
@@ -48,7 +48,7 @@ h2. Distributions
 
 h2. Aftershow
 
-* [ ] Merge differences (README, CHANGELOG, ...) into master branch
-* [ ] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
-* [ ] Get patches for next release from master-rebase/batctl-rebase repository
+* [x] Merge differences (README, CHANGELOG, ...) into master branch
+* [x] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
+* [x] Get patches for next release from master-rebase/batctl-rebase repository
 * [ ] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels (+ set version number in kernel)
