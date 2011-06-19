@@ -17,17 +17,17 @@ h2. Code
 * [ ] make sure all code contains the release version strings
 * [x] update copyright years (if needed)
 * [x] remove dead code (if any)
-* [ ] check against kernel versions
-* [ ] check that maint branch is merged in next
-* [ ] check for open patches on the ml
+* [x] check against kernel versions
+* [x] check that maint branch is merged in next
+* [x] check for open patches on the ml
 * [ ] git tag release
 
 
 h2. Documentation
 
-* [ ] build changelog
-* [ ] update README
-* [ ] write release announcement
+* [x] build changelog
+* [x] update README
+* [x] write release announcement
 * [ ] update wiki documentation
 
 
@@ -43,7 +43,6 @@ h2. Release
 h2. Distributions
 
 * [ ] update openwrt package
-* [ ] update gentoo package
 * [ ] update debian package
 
 
