@@ -5,7 +5,7 @@ h1. Originator Message (OGM)
 
 The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
 
-With the new concept of a separate [[ndp|NDP]] the tasks performed by OGMs becomes way simpler: While local work is done by NDP, information gets distributed in the mesh network with the OGM protocol, in that OGMs' primary task is to advertise path qualities, without determening link qualities. OGMs also still have the important task to distribute Host Network Annoncements, HNA for short.
+With the new concept of a separate [[ELP|ELP]] the tasks performed by OGMs becomes way simpler: It only determines and choses the best router towards another originator without having any knowledge about possibly multiple interfaces, while any link specific work is done by ELP.
 
 This bears the following advantages from the OGM point of view:
 * Reduced overhead, as OGMs can then be send with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desireable.
@@ -17,99 +17,99 @@ h2. Definitions
 
 * node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
 * originator - An addressable entity within one mesh network routing layer. An originator's address has to be unique within a mesh network routing layer and unique on a node. A node's hard-interface may only be utilized by zero or one originator.
-* B.A.T.M.A.N./hard interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames.
+* hard interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames.
 * sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
-* duplicate - A received NDP message from a neighbor containing an already received sequence number.
-* out of order - A received NDP message from a neighbor containing a sequence number that is older than the newest sequence number ever received from this neighbor.
-* HNA - Host Network Announcement, a host's MAC address which is addressable on the mesh layer and which this originator is responsible for. This may be either the originator itself (bat0's MAC) or a bridged in host.
-* Router: A neighbor that has rebroadcasted an OGM and might be a possible next hop for forwarding data packets.
-* Sender: The originator belonging to a received OGM's ethernet frame source address.
-* path TQ value: The linear mapping of an OGM's path TQ field to a value between 0 and 1 (global TQ / TQ_MAX = global TQ value).
-* penalized link TQ: link TQ with applied asymmetric link penalty (see 'Penalties - Asymmetric Link Penalty).
-* penalized path TQ: path TQ with applied penalized link TQ.
+* duplicate - A received OGM message from a neighbor containing an already received sequence number.
+* out of order - A received OGM message from a neighbor containing a sequence number that is older than the newest sequence number ever received from this neighbor.
+* Neighbor: An originator within one hop distance.
+* Router: A neighbor which is a potential next hop for forwarding data packets towards a specific originator.
+* link TQ: link TQ from one interface to a neighbor's interface (see ELP for details).
+* best link TQ: The best of all link TQ values towards a neighbor (see ELP for details).
+* path TQ:  The incoming OGM's TQ multiplied with the best link TQ of the according neighbor.
+
+The TQ is a number between zero (worst) and one (best). A TQ in a packet is linearly mapped to one byte, 0x00 representing a zero TQ, 0xFF a TQ of one.
+
+h2. Conceptual Data Structures
+
+h3. Originator List
+
+An originator list holds all addressable and to a certain degree reachable originator within the mesh network. The Originator Address and Currently Selected Router fields of this list are of special interest for the actual routing decisions upon incoming data packets.
+
+* Originator Address: The originator address of the node.
+* Originator's Sequence Number: The newest OGM Sequence Number that has been accepted from the given Originator. This is described in 'TODO'
+* Router List: A list of potential routers towards an originator
+* Selected Router: A router from the Router List which is chosen as the next hop to forward data packets to for the according originator.
+
+h3. Router List
+
+A router list holds all potential routers, routers that might be switched to at any time without creating a routing loop. An entry buffers all fields of the newest, valid OGM from the according router and according originator of the OGM to be able to rebuild and rebroadcast an OGM later when switching to another potential router.
+
+* Router Originator Address: Originator address of the router an OGM was received from.
+* Path TQ: The path TQ towards the originator of the OGM multiplied with the best link TQ at the time of reception.
+* Router's Sequence Number: The sequence number of the last accepted OGM received via the according router.
+* TTL: The TTL of the last accepted OGM received via the according neighbor.
 
 
 h2. Protocol Procedure
 
+h3. Broadcasting own Originator Message (OGM)
 
-
-h4. Broadcasting own Originator Message (OGM)
-
-Each node periodically (OGM interval) generates and broadcasts a single OGM on each interface B.A.T.M.A.N. is running on if at least one HNA is present. A jitter may be applied to avoid collisions.
+Each node periodically (OGM interval) generates a single OGM which is broadcasted on all hard interfaces. A jitter may be applied to avoid collisions.
 
 +The Originator Message (OGM) Format:+
 
 * Packet type: Initialize this field with the OGM packet type.
 * Version: Set your internal compatibility version.
-* flags: Indicates certain attributes of this originator. So far 0x01 is reserved for VIS_SERVER (see [[VisAdv]])
-* global TQ: Is initially set to TQ_MAX by the originator.
 * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
 * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
-* Previous Sender: Indicates the originator address of the sender that routed the OGM to our sender. Initially, the originator of the OGM sets it to its originator address.
-* Number of HNAs: The number of hosts that are announced with this message.
+* Flags: Indicates certain attributes of this originator. So far 0x01 is reserved for VIS_SERVER (see [[VisAdv]])
+* Gateway Flags:
+* TQ: Is initially set to TQ_MAX by the originator.
+* TT Num Changes: ?
+* TT VN: ?
+* TT CRC: ?
 
 <pre>
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Packet Type   |    Version    |     flags     |   global TQ   |
+ |  Packet Type  |    Version    |     TTL       |   Alignment   |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                       Sequence Number                         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                     Originator Address                        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |      Originator Address       |      TTL      |   Num HNA     |
+ |      Originator Address       |     Flags     | Gateway Flags |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   GW flags    |  Alignment    |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |      TQ       |TT Num Changes |     TT VN     |    TT CRC     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-A B.A.T.M.A.N. originator has to advertise at least one HNA. Otherwise no OGM shall be scheduled for sending.
 
-+The Host Network Announcement (HNA) Message Format:+
-
-<pre>
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                     Host Network Announcement                 |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Host Network Announcement    |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-Note: An HNA entry is not 4 Byte aligned, as two 6 Bytes entries are.
+h3. Receiving Originator Messages
 
 
-h2. Receiving Originator Messages
-
-
-Upon receiving a general B.A.T.M.A.N. packet a Node must perform the
-following preliminary checks before the packet is further processed:
+Upon receiving an OGM a node must perform the following preliminary checks before the packet is further processed:
 
 * If the OGM contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
-* (If the sender address of the OGM's ethernet frame belongs to one of the B.A.T.M.A.N. interfaces the message must be silently dropped as this OGM originated from this node. - see 'Questions')
-* If the sender address of the OGM's ethernet frame is a multicast address the message must be silently dropped.
+* If the sender address of the OGM is an ethernet multicast (including broadcast) address the message must be silently dropped.
+* If the destination address of the OGM is a unicast address the message must be silently dropped.
+* If the originator address of the OGM is our own the message must be silently dropped as this OGM originated from this node.
 * If the sequence number of the OGM is smaller than the sequence number of the currently selected router then the message must be silently dropped.
 * If a router entry matching the neighbor we received the OGM from exists and this entry has a sequence number higher than the one in the OGM then the message must be silently dropped.
 
-If the OGM has not been dropped after these preliminary checks, the OGM will be modified in the following way to obtain the penalized path TQ of the received OGM:
+If the OGM has not been dropped after these preliminary checks, the OGM will be modified in the following way to obtain the path TQ of the received OGM:
 
-* The OGM's path TQ field needs to be multiplied with the best link TQ value towards the sender.
-* This new OGM's path TQ field needs to be multiplied with the asymmetric penalty of the link with the best link TQ value towards the sender. See 'Penalties - Asymmetric Link Penalty' for further details.
+* The OGM's TQ field needs to be multiplied with the best link TQ towards the sender. This new TQ value is further referenced as path TQ.
 
 A final check then needs to be applied:
 
-* If a router entry with a sequence number equal to the one in the OGM exists and the OGMs penalized path TQ is lower than or equal to the router entry's penalized path TQ then the message must be silently dropped.
-
-If the message has not been dropped yet then:
-
-* The Neighbor Ranking needs to be performed.
+* If a router entry with a sequence number equal to the one in the OGM exists and the OGM's path TQ is lower than or equal to the router entry's path TQ then the message must be silently dropped.
 
 
-h2. Router Ranking
+h3. Router Ranking
 
-When a new neighbor ranking needs to be performed for an OGM the following steps need to be undertaken:
+For each OGM having passed the previous checks the according neighbor is a potential router and therefore the following actions must be performed:
 
 * If a matching router entry for the OGM's Sender and OGM's Originator exist then the penalized path TQ value and Router Sequence Number in this Router entry need to be updated with the OGM's penalized path TQ value and OGM's Sequence Number, as well as the OGM's TTL. Otherwise a Router entry with these values needs to be created.
 * If the OGM's Sequence Number is newer than the Originator's Sequence Number:
@@ -117,16 +117,16 @@ When a new neighbor ranking needs to be performed for an OGM the following steps
 ** for all Routers of the OGM's originator: if (Originator's Sequence Number - Router's Sequence Number) < OGM_SEQ_DIFF_LIMIT, purge the router from the OGM's originator's Router List.
 ** If the currently selected router has been purged from the router list further do:
 *** Switch the route to the router from the router list with the highest penalized path TQ. (If more than one exists we should switch to the one with the highest TTL field.) If more than one exists, chose an arbitrary one.
-*** (Purge all routers with a lower sequence number? - not needed anymore and is possibly not loop-safe anymore soon)
-*** (Purge all routers with the same sequence number but a lower penalized path TQ? - not needed anymore and is possibly not loop-safe anymore soon)
+*** Purge all routers with a lower sequence number from the router list.
+*** Purge all routers with the same sequence number but a lower penalized path TQ.
 *** Rebuild the last received OGM from the newly selected router (if necessary) and rebroadcast it.
 ** Else if the currently selected router (still) is the same one we just received the OGM from then rebroadcast this OGM.
 * Else (the OGM's Sequence Number is equal to the Originator's Sequence Number) if the currently selected router is not the one we just received the OGM from then:
 ** Switch the route to the router we just received the OGM from.
-** (Purge the router with the same sequence number but a lower penalized path TQ? - not needed anymore and is possibly not loop-safe anymore soon)
+** Purge the router with the same sequence number but a lower penalized path TQ.
 ** Rebroadcast this OGM.
 
-h2. Re-broadcasting other nodes' OGMs
+h3. Re-broadcasting other nodes' OGMs
 
 
 When an OGM is to be re-broadcasted some of the message fields must be changed others must be left unchanged.  All fields not mentioned in the following section remain untouched:
@@ -136,37 +136,17 @@ When an OGM is to be re-broadcasted some of the message fields must be changed o
 
 h2. Penalties
 
-h3. Asymmetric Link Penalty
-
-TODO: describe further (but is basically the same as in BATMAN IV) - Just one thing to note, the asymmetric penalty is being calculated with the link RQ of the interface with the highest link TQ.
-
 h3. Hop Penalty
 
 TODO: describe further (but is mostly the same as in BATMAN IV) - Just one difference, it _always_ decreases the OGM's path TQ (see explanation in the 'Changes' section below)
 
-h2. Originator List
-
-* Originator Address: The originator address of the node.
-* Originator's Sequence Number: The newest OGM Sequence Number that has been accepted from the given Originator. This is described in 'TODO'
-* Router List: A list of possible routers towards an originator
-* Currently Selected Router: A router from the Router List which is chosen as the next hop to forward data packets to for the according originator.
-
-
-h3. Router List
-
-A router list holds the information which route decisions towards a certain originator can be made on. An entry buffers all fields of the OGM to be able to rebuild and rebroadcast an OGM also at a later time.
-
-* Router Originator Address: Originator address of the router an OGM was received from.
-* Penalized Path TQ value: The path TQ value towards the originator of the OGM multiplied with the penlized link TQ at the time of reception.
-* Router's Sequence Number: The sequence number of the last accepted OGM received via the according router.
-* TTL: The TTL of the last accepted OGM received via the according neighbor.
 
 h2. Proposed Values for Constants
 
 
 OGM_SEQ_DIFF_LIMIT: 5
 
-TQ_MAX: 255
+TQ_MAX: 0xFF
 
 h2. Appendix
 
@@ -190,8 +170,8 @@ h1. Notes
 
 * 'Receiving other nodes' OGMs' ensures the loop-freeness - any OGM having past that part and is accepted and loop-safe and can potentially be used as a (new) router
 * 'Router Ranking' purges routers that are outdated in terms of sequence number and selects the routers with the highest path TQ. It further updates the status of the according router the OGm was received from.
-* With the simple NDP link quality handling the EIGRP/BABEL feasibility is not necessary as any router we could switch to due to EIGRP feasibility but not due to DSDV feasibility is actually a _worse_ choice as that router would have a lower path TQ.
-* The NDP link quality information could possibly be made more use of. For now, it is always applied very early when receiving the OGM and never considered anymore. It could allow us to (a) switch to another router when the link quality of our currently selected router got worse without needing a higher sequence number of the other router (with the help of EIGRP feasibility). Or (b) allow us to avoid switching to a new, other router upon receiving an OGM from a router other than our selected router because the link quality towards our currently selected router (and therefore its path TQ) increased a lot since we last received the OGM of our currently selected router. So there is potential to optimize things within the _same_ sequence number, but that'd make things more complex and error prune of course. The way it is stated here for BATMAN V at the moment should be rather straight-forward and clear and make it rather unlikely that we'd miss a case where a routing loop could occure (both conception and implementation wise).
+* With the simple ELP link quality handling the EIGRP/BABEL feasibility is not necessary as any router we could switch to due to EIGRP feasibility but not due to DSDV feasibility is actually a _worse_ choice as that router would have a lower path TQ.
+* The ELP link quality information could possibly be made more use of. For now, it is always applied very early when receiving the OGM and never considered anymore. It could allow us to (a) switch to another router when the link quality of our currently selected router got worse without needing a higher sequence number of the other router (with the help of EIGRP feasibility). Or (b) allow us to avoid switching to a new, other router upon receiving an OGM from a router other than our selected router because the link quality towards our currently selected router (and therefore its path TQ) increased a lot since we last received the OGM of our currently selected router. So there is potential to optimize things within the _same_ sequence number, but that'd make things more complex and error prune of course. The way it is stated here for BATMAN V at the moment should be rather straight-forward and clear and make it rather unlikely that we'd miss a case where a routing loop could occure (both conception and implementation wise).
 * OGM_SEQ_DIFF: The larger, the more we are (a) relying on / sticking to maybe outdated path TQ information and (b) giving asymmetric links a chance to being chosen as a route, (c) possibly reducing route flapping towards asymmetric links and (d) possibly reducing route flapping in low path TQ topologies where only every X OGMs arrive anyway.
 * (If a node does not rebroadcast OGMs, it could safely switch the route to any neighbor at any time; if it only rebroadcasts some, it might switch to some other routers more often - routes are getting EIGRP feasible more often. Maybe some potential to optimize things in the 'Router Ranking here later?)
 
@@ -276,6 +256,10 @@ h1. Further Ideas for Optimizations
 h2. Positive Feedback OGM rebroadcasting
 
 When for any originator thes compared to the link quality used for the last rebroadcasted OGM, resend the same OGM but with the path TQ multiplied with the new, better link TQ value instead.
+
+h2. No OGMs if no hosts
+
+To be able to reduce the overhead by just putting some intelligent "repeater" nodes somewhere without them sending their own OGMs 
 
 h2. OGM forwarding optimizations in asymmetric neighborhoods
 
