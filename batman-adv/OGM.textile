@@ -2,6 +2,7 @@ h1. Originator Message (OGM)
 
 ??This page is work-in-progress and will state the BATMAN V algorithm later (checkout "this":http://git.open-mesh.org/?p=batman-adv-doc.git;a=summary for now)??
 
+h2. 1. Introduction
 
 The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
 
@@ -13,7 +14,7 @@ This bears the following advantages from the OGM point of view:
 * Easier to optimize the OGMs convergence speed.
 
 
-h2. Definitions
+h2. 2. Definitions
 
 * node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
 * originator - An addressable entity within one mesh network routing layer. An originator's address has to be unique within a mesh network routing layer and unique on a node. A node's hard-interface may only be utilized by zero or one originator.
@@ -31,20 +32,19 @@ h2. Definitions
 
 The TQ is a number between zero (worst) and one (best). A TQ in a packet is linearly mapped to one byte, 0x00 representing a zero TQ, 0xFF a TQ of one.
 
-h2. Conceptual Data Structures
+h2. 3. Conceptual Data Structures
 
-h3. Originator List
+h3. 3.1. Originator List
 
-An originator list holds all addressable and to a certain degree reachable originator within the mesh network. The Originator Address and Currently Selected Router fields of this list are of special interest for the actual routing decisions upon incoming data packets.
+An originator list holds all addressable and to a certain degree reachable originators within the mesh network. The Originator Address and Selected Router fields of this list are of special interest for the actual routing decisions upon incoming data packets.
 
 * Originator Address: The originator address of the node.
-* Originator's Sequence Number: The newest OGM Sequence Number that has been accepted from the given Originator. This is described in 'TODO'
+* Originator's Sequence Number: The newest OGM Sequence Number that has been accepted from the given Originator.
 * Router List: A list of potential routers towards an originator
 * Selected Router: A router from the Router List which is chosen as the next hop to forward data packets to for the according originator.
-* Flags: ?
-* Gateway Flags: ?
+* Newest Router ? To be able to directly access the most up to date flags etc.?
 
-h3. Router List
+h3. 3.2 Router List
 
 A router list holds all potential routers, routers that might be switched to at any time without creating a routing loop. An entry buffers all fields of the newest, valid OGM from the according router and according originator of the OGM to be able to rebuild and rebroadcast an OGM later when switching to another potential router.
 
@@ -60,9 +60,9 @@ A router list holds all potential routers, routers that might be switched to at 
 * TT CRC: The TT CRC of the last accepted OGM received via the according neighbor.
 
 
-h2. Protocol Procedure
+h2. 4. Protocol Procedure
 
-h3. Broadcasting own Originator Message (OGM)
+h3. 4.1 Broadcasting own Originator Message (OGM)
 
 Each node periodically (OGM interval) generates a single OGM which is broadcasted on all hard interfaces. A jitter may be applied to avoid collisions.
 
@@ -96,18 +96,22 @@ Each node periodically (OGM interval) generates a single OGM which is broadcaste
 </pre>
 
 
-h3. Receiving Originator Messages
+h3. 4.2. Receiving Originator Messages
 
 
-Upon receiving an OGM a node must perform the following preliminary checks before the packet is further processed:
+Upon receiving an OGM a node must perform the following checks before the packet is further processed:
+
+h4. 4.2.1. Preliminary Checks
 
 * If the OGM contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
 * If the sender address of the OGM is an ethernet multicast (including broadcast) address the message must be silently dropped.
 * If the destination address of the OGM is a unicast address the message must be silently dropped.
 * If the originator address of the OGM is our own the message must be silently dropped as this OGM originated from this node.
 
-* If an originator entry matching the originator address of the OGM and a selected router exist:
-** If the sequence number of the OGM is smaller than the sequence number of the currently selected router then the message must be silently dropped.
+h4. 4.2.2. Potential Router Checks
+
+* If an originator entry matching the originator address of the OGM and a Selected Router exist:
+** If the OGM's Sequence Number is smaller than the Selected Router's Sequence Number then the message must be silently dropped.
 ** If for the according originator entry's router list a router entry matching the neighbor we received the OGM from exists and this entry has a sequence number higher than the one in the OGM then the message must be silently dropped.
 
 If the OGM has not been dropped after these preliminary checks, the OGM will be modified in the following way to obtain the path TQ of the received OGM:
@@ -116,15 +120,15 @@ If the OGM has not been dropped after these preliminary checks, the OGM will be 
 
 A final check then needs to be applied:
 
-* If an originator entry matching the originator address of the OGM and a selected router exist:
+* If an originator entry matching the originator address of the OGM and a Selected Router exist:
+** If the OGM's Sequence Number is equal to the Selected Router's Sequence Number and the OGM's path TQ is lower than the Selected Router's path TQ then the message must be silently dropped.
 ** If for the according originator entry's router list a router entry matching the neighbor we received the OGM from exists and this entry has a sequence number equal to the one in the OGM and the OGM's path TQ is lower than or equal to the router entry's path TQ then the message must be silently dropped.
 
-
-h3. Router Ranking
+h3. 5. Router Ranking
 
 For each OGM having passed the previous checks the according neighbor is a potential, loop-free router and therefore the following actions must be performed:
 
-h4. Creating or Updating Originator and Router Entries
+h4. 5.1. Creating or Updating Originator and Router Entries
 
 * If no originator entry matching the originator address of the OGM exists:
 ** Create a new originator entry with the originator address and originator's sequence number set to ones from the OGM.
@@ -136,36 +140,35 @@ h4. Creating or Updating Originator and Router Entries
 ** Update the path TQ, Router Sequence Number and TTL in this matching router entry.
 ** Unset the Rebroadcasted flag in this matching router entry.
 
-h4. Purging Outdated Router Entries
+h4. 5.2. Purging Outdated Router Entries
 
 * If the OGM's Sequence Number is newer than the Originator's Sequence Number:
 ** The new Originator's Sequence Number must be set to the Sequence Number contained in the received OGM.
 ** for all Routers of the OGM's originator: if (Originator's Sequence Number - Router's Sequence Number) > OGM_SEQ_RANGE, purge the router from the OGM's originator's Router List.
 
-h4. Switching to (or Keeping) best Router
+h4. 5.3. Switching to (or Keeping) best Router
 
 * Set the Selected Router to the Router with the highest path TQ.
 * If the Selected Router's Rebroadcasted flag is not set:
 ** Rebroadcast the OGM of this Selected Router.
 ** Set the Selected Router's Rebroadcasted flag.
 
-h4. Purging non-potential Routers
+h4. 5.4. Purging non-potential Routers
 
 * Purge all routers with a sequence number smaller than the Selected Router's Sequence Number.
 * Purge all routers with a sequence number equal to the Selected Router's Sequence Number and a path TQ smaller than the Selected Router's path TQ.
 
-h3. Re-broadcasting other nodes' OGMs
+h3. 5.5. Re-broadcasting other nodes' OGMs
 
 
 When an OGM is to be re-broadcasted some of the message fields must be changed others must be left unchanged.  All fields not mentioned in the following section remain untouched:
 
 * The TTL must be decremented by one. If the TTL becomes zero (after the decrementation) the packet must be dropped.
 * The hop penalty must be applied on the OGM's TQ field. See 'Penalties - Hop Penalty' for further details. If the OGM's TQ becomes zero (after hop penalty) the packet must be dropped.
-* The 'Flags' and 'Gateway Flags' need to be updated with the current values from the according originator entry.
 
-h2. Penalties
+h2. 6. Penalties
 
-h3. Hop Penalty
+h3. 6.1 Hop Penalty
 
 In certain network setups the link quality between neighbors is very similar whereas the number of hops is not. In these scenarios it is desirable to chose the shortest path to reduce latency and to safe bandwidth (especially on wireless mediums). The hop penalty is a value greater than zero and smaller or equal to one. It is a fixed value but may be changed during runtime. The hop penalty is applied on an outgoing OGM in the followig way:
 
@@ -174,12 +177,10 @@ In certain network setups the link quality between neighbors is very similar whe
 The result always needs to be rounded down to ensure that an outgoing OGM's TQ is always smaller than the incoming OGM's TQ.
 
 
-h2. Proposed Values for Constants
+h2. 7. Proposed Values for Constants
 
 
 OGM_SEQ_RANGE: 5
-
-OGM_SEQ_SIZE: 2^32
 
 TQ_MAX: 0xFF
 
