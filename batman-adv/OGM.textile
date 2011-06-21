@@ -287,6 +287,10 @@ h2. Resend OGMs with flags etc. of newest OGM
 
 An accepted router with the highest sequence number has the most up-to-date information about 'Flags', 'Gateway Flags' (and also TT *?), they do not have to be stored once per router, once per originator entry is enough. And any rebroadcasted OGM could update these fields from the most-up-to-date router. Might make things a little more "complex".
 
+h2. Also aggregate different packet types
+
+For instance NDP + OGMs to reduce number of packets sent.
+
 h2. Positive Feedback OGM rebroadcasting
 
 When for any originator thes compared to the link quality used for the last rebroadcasted OGM, resend the same OGM but with the path TQ multiplied with the new, better link TQ value instead.
