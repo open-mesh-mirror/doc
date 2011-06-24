@@ -111,7 +111,7 @@ make package/batman-adv-devel/clean
 make package/batman-adv-devel/compile V=99
 </pre>
 
-The package offers an easy way to apply custom patches whenever batman-adv is built. Simply copy your patches into the "patches" folder inside the package directory (you have to create the folder in case it does not exist yet). The location of the folder depends on which package you want to patch:
+The package offers an easy way to apply custom patches whenever batman-adv is built. Simply copy your patches into the "patches" folder inside the package directory (you have to create the folder in case it does not exist yet). Patch files having the string 'batman' in their name are applied to batman-adv whereas patches containing the string 'batctl' are applied to the batctl tool. The location of the folder depends on which package you want to patch:
 
 +stable version+
 	 
