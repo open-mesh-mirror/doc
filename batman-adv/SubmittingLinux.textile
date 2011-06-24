@@ -4,11 +4,11 @@ h1. Submitting Patches to Linux
 We currently submit patches for Linux from our next branch. I try to give a short overview about it using some patches submitted to DaveM.
 
 Following steps must always be done:
-* get the linux-integration repository (we assume that the linux branch is up to date)
+* get the linux-integration repository (we assume that the merge/master branch is up to date. The latest -rc1 must always be merged into merge/master, batman-adv/maint and batman-adv/next; The merge in batman-adv/maint and batman-adv/next must be a fast forward merge or somebody did something extremely wrong)
 * get the newest patches from next
-* merge next into linux
+* merge standalone/next into merge/master
 * check for compat code
-* check difference with next
+* check difference with standalone/next
 * rebase on top of previous version
 * squash/cleanup patches
 * check if all versions compile cleanly against a current version of linux-next and sparse (cgcc)
@@ -49,8 +49,8 @@ remote: Total 823 (delta 651), reused 762 (delta 602)
 Receiving objects: 100%25 (823/823), 136.90 KiB | 254 KiB/s, done.
 Resolving deltas: 100%25 (651/651), completed with 228 local objects.
 From git+ssh://open-mesh.org/srv/git/marek/linux-merge
-   bfa88ea..151b6a5  master     -> origin/master
-   c9f7cbe..078eb6a  next       -> origin/next
+   bfa88ea..151b6a5  standalone/master     -> origin/standalone/master
+   c9f7cbe..078eb6a  standalone/next       -> origin/standalone/next
 </pre>
 
 
@@ -60,11 +60,11 @@ h2. merge next into linux
 <pre>
 '-(%25)-(xyz)> git checkout merge/master
 Checking out files: 100%25 (32337/32337), done.
-Switched to branch 'linux'
+Switched to branch 'merge/master'
 '-(%25)-(merge/master)> git merge -s subtree origin/standalone/next
 Auto-merging net/batman-adv/Makefile
 CONFLICT (content): Merge conflict in net/batman-adv/Makefile
-CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in HEAD and modified in next. Version next of net/batman-adv/Makefile.kbuild left in tree.
+CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in HEAD and modified in standalone/next. Version standalone/next of net/batman-adv/Makefile.kbuild left in tree.
 CONFLICT (delete/modify): net/batman-adv/compat.h deleted in HEAD and modified in next. Version next of net/batman-adv/compat.h left in tree.
 Auto-merging net/batman-adv/main.c
 Auto-merging net/batman-adv/originator.c
@@ -91,8 +91,7 @@ h2. check for compat code
 
 
 <pre>
-git grep compat.h net/batman-adv/
-net/batman-adv/CHANGELOG:* all kernel version compatibility functions has been moved to compat.h
+'-(%25)-(merge/master)> git grep compat. net/batman-adv/
 </pre>
 
 
@@ -100,20 +99,20 @@ h2. check difference with next
 
 
 <pre>
-git diff origin/standalone/next: origin/merge/master:net/batman-adv/
+git diff origin/standalone/next: merge/master:net/batman-adv/
 </pre>
 
 Here you should see the
 * Removed CHANGELOG
 * new added Kconfig
-* A special Makefile which only contains obj-m and a batman-adv-objs line
+* A special Makefile which only contains obj-$(CONFIG_BATMAN_ADV) and many batman-adv-y lines
 * removed Makefile.kbuild, README, compat.c, compat.h
 * removed references to compat.h from main.h
-*  (Re)Moved sysfs-class-net-batman-adv and sysfs-class-net-mesh
+* (Re)Moved sysfs-class-net-batman-adv and sysfs-class-net-mesh
 
 
 
-h2. rebase on top of previous tag 
+h2. rebase on top of previous subtree merge/-rc1 merge 
 
 
 <pre>
@@ -164,7 +163,7 @@ To restore the original branch and stop rebasing run "git rebase --abort".
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git add net/batman-adv/Makefile
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rebase -s subtree --continue
 Already applied: 0007 batman-adv: Use nproc to get number of available processors
-CONFLICT (delete/modify): net/batman-adv/compat.h deleted in [[GregKH]]-20100618 and modified in HEAD~1. Version HEAD~1 of net/batman-adv/compat.h left in tree.
+CONFLICT (delete/modify): net/batman-adv/compat.h deleted in origin/merge/master and modified in HEAD~1. Version HEAD~1 of net/batman-adv/compat.h left in tree.
 
 When you have resolved this problem run "git rebase --continue".
 If you would prefer to skip this patch, instead run "git rebase --skip".
@@ -178,7 +177,7 @@ rm 'net/batman-adv/compat.h'
 Committed: 0008 batman-adv: Add include guards to all header files
 Auto-merging net/batman-adv/Makefile
 CONFLICT (content): Merge conflict in net/batman-adv/Makefile
-CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in [[GregKH]]-20100618 and modified in HEAD~0. Version HEAD~0 of net/batman-adv/Makefile.kbuild left in tree.
+CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in origin/merge/master and modified in HEAD~0. Version HEAD~0 of net/batman-adv/Makefile.kbuild left in tree.
 
 When you have resolved this problem run "git rebase --continue".
 If you would prefer to skip this patch, instead run "git rebase --skip".
@@ -207,8 +206,9 @@ Successfully rebased and updated refs/heads/patches
 </pre>
 
 
-h2. check if all versions compile cleanly against a current version of linux-next and sparse (cgcc) 
+h2. check if all patches compile cleanly against the current version of linux-next and sparse (cgcc) 
 
+We assume that the linux-next tree was already build with @make allnoconfig@ and then enabling @CONFIG_NET=y@ and @CONFIG_CRC16=y@
 
 <pre>
 '-(%25)-(patches)> git rev-list --reverse origin/merge/master..
@@ -297,6 +297,7 @@ Applying: batman-adv: Add include guards to all header files
 
 h2. check if all patches build again with linux next
 
+It must be checked whether it builds with allnoconfig (+NET,+CRC16,+/-MODULES) as module/builtin and allyesconfig as module/builtin
 
 <pre>
 '-(%25)-(davem)> make
@@ -373,61 +374,77 @@ GIT: for the patch you are writing.
 GIT:
 GIT: Clear the body content if you don't wish to send a summary.
 From: Sven Eckelmann <sven@narfation.org>
-Subject: pull request: batman-adv 2010-06-26
+Subject: pull request: batman-adv 2011-06-20
 In-Reply-To:
 
 Hi,
 
-I would like tp propose following corrections for net-next-2.6.
+I would like to propose following changes for net-next-2.6/3.1. The
+first part (1-4) are only only small cleanup patches. The last 8 patches
+are related to Antonio Quartulli's research "Client announcement and
+Fast roaming in a Layer-2 mesh network". The technical report isn't
+published yet, but will hopefully follow soon. He tried to document all
+important parts in some (unofficial) documents [1,2,3].
 
-The following changes since commit 12513b76a021e5b41a9d5d5981da75dfd6480890:
+thanks,
+        Sven
 
-  Staging: dt3155: remove unused 32-bit and 8-bit global registers (2010-06-25 11:18:34 -0700)
+[1] http://www.open-mesh.org/wiki/batman-adv/Client-announcement
+[2] http://www.open-mesh.org/wiki/batman-adv/Client-roaming
+[3] http://www.open-mesh.org/wiki/batman-adv/Uevent
+
+
+The following changes since commit ecbd532108cb21d9d3770f73e168bad65d14d9eb:
+
+  batman-adv: use NO_FLAGS define instead of hard-coding 0 (2011-06-09 20:40:38 +0200)
 
 are available in the git repository at:
-  git://git.open-mesh.org/marek/linux-merge.git batman-adv/next
+  git://git.open-mesh.org/ecsv/linux-merge.git batman-adv/next
 
-Antonio Quartulli (1):
-      batman-adv: Convert names from Java to C style
+Antonio Quartulli (8):
+      batman-adv: Unify the first 3 bytes in each packet
+      batman-adv: improved client announcement mechanism
+      batman-adv: improved roaming mechanism
+      batman-adv: protect the local and the global trans-tables with rcu
+      batman-adv: add wrapper function to throw uevent in userspace
+      batman-adv: gateway election code refactoring
+      batman-adv: throw uevent in userspace on gateway add/change/del event
+      batman-adv: improved gateway tq-based selection
 
-Linus Lüssing (1):
-      batman-adv: Avoid rounding issues for local hna timeout
+David Howells (1):
+      batman-adv: count_real_packets() in batman-adv assumes char is signed
 
-Marek Lindner (3):
-      batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
-      batman-adv: adapting source version to revised versioning scheme
-      batman-adv: Add sysfs abi documentation about bonding
+Sven Eckelmann (3):
+      batman-adv: Move compare_orig to originator.c
+      batman-adv: Keep interface_tx as local function
+      batman-adv: Reduce usage of char
 
-Simon Wunderlich (1):
-      batman-adv: Lower resolution for timeouts
-
-Sven Eckelmann (1):
-      batman-adv: Add include guards to all header files
-
- net/batman-adv/aggregation.h        |    5 +++++
- net/batman-adv/bat_debugfs.h        |    6 +++---
- net/batman-adv/bat_sysfs.h          |    6 +++---
- net/batman-adv/bitarray.h           |    4 ++++
- net/batman-adv/hard-interface.h     |    5 +++++
- net/batman-adv/hash.h               |    8 +++++---
- net/batman-adv/icmp_socket.h        |    5 +++++
- net/batman-adv/main.c               |    2 +-
- net/batman-adv/main.h               |   13 +++++++++----
- net/batman-adv/originator.c         |    6 ++----
- net/batman-adv/originator.h         |    5 +++++
- net/batman-adv/packet.h             |    5 +++++
- net/batman-adv/ring_buffer.h        |    5 +++++
- net/batman-adv/routing.c            |    6 +++---
- net/batman-adv/routing.h            |    5 +++++
- net/batman-adv/send.c               |   14 +++++++-------
- net/batman-adv/send.h               |    5 +++++
- net/batman-adv/soft-interface.c     |    6 +++---
- net/batman-adv/soft-interface.h     |    7 ++++++-
- net/batman-adv/sysfs-class-net-mesh |    8 ++++++++
- net/batman-adv/translation-table.c  |    3 +--
- net/batman-adv/translation-table.h  |    5 +++++
- net/batman-adv/types.h              |    6 +++---
- net/batman-adv/vis.c                |   14 +++++++-------
- net/batman-adv/vis.h                |    7 ++++++-
- 25 files changed, 116 insertions(+), 45 deletions(-)
+ net/batman-adv/Kconfig             |    1 +
+ net/batman-adv/aggregation.c       |   25 +-
+ net/batman-adv/aggregation.h       |    8 +-
+ net/batman-adv/bat_sysfs.c         |   73 ++-
+ net/batman-adv/bat_sysfs.h         |    2 +
+ net/batman-adv/bitarray.c          |    8 +-
+ net/batman-adv/bitarray.h          |    8 +-
+ net/batman-adv/gateway_client.c    |  238 +++++--
+ net/batman-adv/gateway_client.h    |    3 +-
+ net/batman-adv/gateway_common.c    |    6 +-
+ net/batman-adv/hard-interface.c    |   17 +-
+ net/batman-adv/main.c              |   18 +-
+ net/batman-adv/main.h              |   27 +-
+ net/batman-adv/originator.c        |   17 +-
+ net/batman-adv/originator.h        |    8 -
+ net/batman-adv/packet.h            |   92 ++-
+ net/batman-adv/routing.c           |  317 +++++++--
+ net/batman-adv/routing.h           |    7 +-
+ net/batman-adv/send.c              |   92 ++-
+ net/batman-adv/send.h              |    2 +-
+ net/batman-adv/soft-interface.c    |   26 +-
+ net/batman-adv/soft-interface.h    |    1 -
+ net/batman-adv/translation-table.c | 1428 ++++++++++++++++++++++++++++++------
+ net/batman-adv/translation-table.h |   38 +-
+ net/batman-adv/types.h             |   64 ++-
+ net/batman-adv/unicast.c           |    3 +
+ net/batman-adv/vis.c               |   13 +-
+ 27 files changed, 2080 insertions(+), 462 deletions(-)
 </pre>
