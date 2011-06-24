@@ -169,7 +169,7 @@ Note that neither applying this outdated Router purging harms loop-freeness as w
 
 h4. 5.3. Switching to (or Keeping) best Router
 
-This step ensures a good Router selection to the best knowledge of a node. As the Router list only keeps potential, loop-free nodes (due to steps 4.2.2 and 5.4) which are further not too old (due to step 5.2) we can now freely chose a node from this list. If in this round we got an OGM of a Router which we did not and will not chose as the Selected Router (due to a lower path TQ, although it would be feasible to chose it due to a newer sequence number of this OGM), than we just updated this Routers values, without selecting it. Instead the next steps will chose the same old Router (which is not the one we received the current OGM from) again - but will avoid rebroadcasting the OGM of the old, though still best old and newly Selected Router, due to the Rebroadcasted flag.
+This step ensures a good Router selection to the best knowledge of a node. As the Router list only keeps potential, loop-free nodes (due to steps 4.2.2 and 5.4) which are further not too old (due to step 5.2) we can now freely choose any node from this list. If in this round we got an OGM of a Router which we did not and will not chose as the Selected Router (due to a lower path TQ, although it would be feasible to chose it due to a newer sequence number of this OGM), than we just updated this Routers values, without selecting it. Instead the next steps will chose the same old Router (which is not the one we received the current OGM from) again - but will avoid rebroadcasting the OGM of the old, though still best old and newly Selected Router, due to the Rebroadcasted flag.
 
 Specifically, we must undertake the following actions:
 
