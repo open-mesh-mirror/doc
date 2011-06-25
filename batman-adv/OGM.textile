@@ -128,7 +128,7 @@ A final check then needs to be applied:
 
 h3. 5. Router Ranking
 
-For each OGM having passed the previous checks the according neighbor is a potential, loop-free router. The Router Ranking checks whether just an according Router or even completely new Originator entry needs to be created or an already existing Router entry matching the Router we received this OGM from just updated. Or whether also the currently Selected Router needs to be switched. Furthermore step 5.2. will force relinqushing the so far Selected Router if its information became too old because of this OGM received via a Router other than the Selected Router.
+For each OGM having passed the previous checks the according neighbor is a potential, loop-free router. The Router Ranking checks whether just an according Router or even completely new Originator entry needs to be created or an already existing Router entry matching the Router we received this OGM from just updated. Or whether also the currently Selected Router needs to be switched. Furthermore step 5.2. will force relinquishing the so far Selected Router if its information became too old because of this OGM received via a Router other than the Selected Router.
 
 If this OGM just results in updating a Router in the Router list which is not and not going to be the currently Selected Router, then no rebroadcasting of this OGM will take place in step 5.3. for now.
 
@@ -139,7 +139,7 @@ For the Router Ranking the following actions must be performed:
 
 h4. 5.1. Creating or Updating Originator and Router Entries
 
-In this step we are updating the according entries in the Router list. Step 4.2.2 ensured that the OGM which was not dropped yet is actually containing either newer (higher sequence number) information - which is a loop-safe, possible choice because that Router or any next hop on that path did not and will not be allowed to switch back to a lower sequence number again (like the lower sequence number we would have). Or information of the same originator's OGM flooding round, the same sequence numbe, as the currently Selected Router but with that OGM having travelled along a better path (better due to a higher path TQ of this OGM - and note that an OGM having travelled along such a better path can never have travelled over us before, as then the path TQ would have to be worse and not better in such a case as with each hop the path TQ gets at least 1/255 worse due to the Hop Penalty, see section 7.1). The OGM with the properties just stated might also have been received from a Neighbor which we do not have a Router entry - or even an Originator entry yet which will be created in that case first.
+In this step we are updating the according entries in the Router list. Step 4.2.2 ensured that the OGM which was not dropped yet is actually containing either newer (higher sequence number) information - which is a loop-safe, possible choice because that Router or any next hop on that path did not and will not be allowed to switch back to a lower sequence number again (like the lower sequence number we would have). Or information of the same originator's OGM flooding round, the same sequence number, as the currently Selected Router but with that OGM having travelled along a better path (better due to a higher path TQ of this OGM - and note that an OGM having travelled along such a better path can never have travelled over us before, as then the path TQ would have to be worse and not better in such a case as with each hop the path TQ gets at least 1/255 worse due to the Hop Penalty, see section 7.1). The OGM with the properties just stated might also have been received from a Neighbor which we do not have a Router entry - or even an Originator entry yet which will be created in that case first.
 
 More precisely, the following steps need to be undertaken in the updating and creating process:
 
@@ -149,7 +149,7 @@ More precisely, the following steps need to be undertaken in the updating and cr
 * If no router entry matching the OGM's originator and the neighbor the OGM was received from exists:
 ** Create a new router entry with the previously determined path TQ, the OGM's Sequence Number and the TTL of the OGM.
 ** Unset this new router entry's Rebroadcasted flag.
-* Else then:
+* Otherwise:
 ** Update the path TQ, Router Sequence Number and TTL in this matching router entry.
 ** Unset the Rebroadcasted flag in this matching router entry.
 
