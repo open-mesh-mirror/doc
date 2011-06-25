@@ -7,48 +7,48 @@ h2. Release Scheduling
 
 !/attachments/36/release_scheduling.svg!
 
-* next branch is released as feature release 20_ _.a.0 after linux 2.6.x-rc3 is tagged
+* next branch is released as feature release 20_ _.a.0 after linux 3.x-rc3 is tagged
 * maint branch is released on demand (for example after security issues)
-* a feature release +must+ be done before 2.6.x-rc6. The time till 2.6.x-rc7 is needed to merge new features into next and submit them to the linux maintainers for 2.6.y
+* a feature release +must+ be done before 3.x-rc6. The time till 3.x-rc7 is needed to merge new features into next and submit them to the linux maintainers for 2.6.y
 
 
 h2. Code
 
-* [x] make sure all code contains the release version strings
-* [x] update copyright years (if needed)
-* [x] remove dead code (if any)
-* [x] check against kernel versions
-* [x] check that maint branch is merged in next
-* [x] check for open patches on the ml
-* [x] git tag release
+* [ ] make sure all code contains the release version strings
+* [ ] update copyright years (if needed)
+* [ ] remove dead code (if any)
+* [ ] check against kernel versions
+* [ ] check that maint branch is merged in next
+* [ ] check for open patches on the ml
+* [ ] git tag release
 
 
 h2. Documentation
 
-* [x] build changelog
-* [x] update README
-* [x] write release announcement
-* [x] update wiki documentation
+* [ ] build changelog
+* [ ] update README
+* [ ] write release announcement
+* [ ] update wiki documentation
 
 
 h2. Release
 
-* [x] build package tar.gz and generate checksums
-* [x] move packages/checksums to stable/sources / create symlinks from releases
-* [x] update download links in the redmine downloads page
-* [x] send release mail
-* [x] update IRC channel topic
+* [ ] build package tar.gz and generate checksums
+* [ ] move packages/checksums to stable/sources / create symlinks from releases
+* [ ] update download links in the redmine downloads page
+* [ ] send release mail
+* [ ] update IRC channel topic
 
 
 h2. Distributions
 
-* [x] update openwrt package
-* [x] update debian package
+* [ ] update openwrt package
+* [ ] update debian package
 
 
 h2. Aftershow
 
-* [x] Merge differences (README, CHANGELOG, ...) into master branch
-* [x] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
-* [x] Get patches for next release from master-rebase/batctl-rebase repository
-* [x] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels (+ set version number in kernel)
+* [ ] Merge differences (README, CHANGELOG, ...) into master branch
+* [ ] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
+* [ ] Get patches for next release from master-rebase/batctl-rebase repository
+* [ ] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels (+ set version number in kernel)
