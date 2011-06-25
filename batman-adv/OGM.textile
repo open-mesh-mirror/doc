@@ -67,7 +67,7 @@ Each node periodically (OGM interval) generates a single OGM which is broadcaste
 
 * Packet type: Initialize this field with the OGM packet type.
 * Version: Set your internal compatibility version.
-* Interval: Set to the current OGM interval of this originator.
+* Interval: Set to the current OGM interval of this originator in milli seconds.
 * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
 * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
 * Flags: Indicates certain attributes of this originator. So far 0x01 is reserved for VIS_SERVER (see [[VisAdv]])
