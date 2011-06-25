@@ -13,7 +13,7 @@ Following steps must always be done:
 * squash/cleanup patches
 * check if all versions compile cleanly against a current version of linux-next and sparse (cgcc)
 * format patches
-* check commit messages author/signed-off-by of patches
+* check commit messages author/signed-off-by of patches (Cc: stable@kernel.org for important bugfixes for older kernel)
 * Add "batman-adv: " before each commit subject
 * get current version of linux-next
 * create working branch on linux-next
@@ -271,7 +271,7 @@ h2. format patches
 '-(%25)-(patches)> vim 00*.patch
 </pre>
 
-Usually I add "batman-adv: " right when checking the signed-off-by and author (from) line.
+Usually I add "batman-adv: " right when checking the signed-off-by and author (from) line. Patches which are also important bugfixes for older kernels (Kernel-Oops, Deadlock, ...) must also submitted to stable@kernel.org. It is done by adding  "Cc: stable@kernel.org" to this patch.
 
 
 h2. apply all patches on linux next
