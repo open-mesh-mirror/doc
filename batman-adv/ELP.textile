@@ -11,9 +11,8 @@ As a result detecting local link qualities shall be handled by an independent me
 
 h2. 1. Definitions
 
-
-* node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
-* originator - An addressable entity within one mesh network routing layer. An originator's address has to be unique within a mesh network routing layer and unique on a node. A node's hard-interface may only be utilized by zero or one originator.
+* Node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface.
+* originator - A node broadcasting its own OGMs (see [[OGM]] for details) that is therefore addressable within the mesh network routing layer. It is uniquely identifiable by its originator address. [[/|B.A.T.M.A.N.-Advanced]] uses the MAC address of its primary hard interface.
 * hard-interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames. 
 * sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of­-range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
 * Neighbor: An ELP sender within one hop distance (note, this is defined differently for the OGM protocol)
