@@ -148,10 +148,10 @@ More precisely, the following steps need to be undertaken in the updating and cr
 ** Create a new originator entry with the originator address and originator's sequence number set to ones from the OGM.
 
 * If no router entry matching the OGM's originator and the neighbor the OGM was received from exists:
-** Create a new router entry with the previously determined path TQ, the OGM's Sequence Number and the TTL of the OGM.
+** Create a new router entry with the Router Address set to the address of the Router we received the OGM from. Buffer the complete OGM in this entry.
 ** Unset this new router entry's Rebroadcasted flag.
 * Otherwise:
-** Update the path TQ, Router Sequence Number and TTL in this matching router entry.
+** Delete the old buffered OGM and buffer this newly received OGM instead.
 ** Unset the Rebroadcasted flag in this matching router entry.
 
 h4. 5.2. Purging Outdated Router Entries
