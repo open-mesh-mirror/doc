@@ -159,7 +159,7 @@ It might happen that for instance from a certain Neighbor we would receive an OG
 
 Note that a lower OGM_SEQ_RANGE favours chosing Routers with the most-up-to date information: This especially penalizes asymmetric links and paths - although we do not receive that many OGMs from such a Router with such an asymmetric path (showing a not that good receive quality), it might still be the best choice for transmitting our own data packets though. And could lead to fast route flapping also in symmetric topologies when OGMs in general have a low probability of arrival. However having a too large OGM_SEQ_RANGE might favour too old, outdated information too much, as described with the example before.
 
-More precisely we have do:
+More precisely we have to:
 
 * If the OGM's Sequence Number is newer than the Originator's Sequence Number:
 ** The new Originator's Sequence Number must be set to the Sequence Number contained in the received OGM.
