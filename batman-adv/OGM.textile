@@ -184,9 +184,11 @@ h4. 5.4. Purging non-potential Routers
 
 When rebroadcasting a new OGM certain other Routers do not guarantee loop-freeness anymore. We can still chose the Routers from our list that either have broadcasted a higher sequence number than the one we might have just rebroadcasted, they or any next hop behind them are not allowed to switch their route to a lower sequence number (like the one we might just have rebroadcasted) again. Or we could chose any router in the list with the same sequence number and a higher path TQ than the one of the Selected Router (though this will not be the case, because step 5.3. ensured that we are already chosing the Router with the highest path TQ from our Router list). In all other cases we do not consider these Neighbors as potential Routers anymore, they or any next hop behind them might start chosing us as their router without us noticing. Therefore we remove them from the list to ensure a safe Router list:
 
+If an OGM was rebroadcasted in the previous step:
 * Purge all routers with a sequence number smaller than the Selected Router's Sequence Number.
 * Purge all routers with a sequence number equal to the Selected Router's Sequence Number and a path TQ smaller than the Selected Router's path TQ.
 
+Note: If no OGM was rebroadcasted in the previous section then no purging will be done in this section anyways. However the "If" shall emphasize, that not the switching of the Selected Router makes the router list clean-up in this section mandatory to ensure loop-freeness, but the rebroadcasting of an OGM does.
 
 h3. 6. Re-broadcasting other nodes' OGMs
 
