@@ -16,8 +16,8 @@ This bears the following advantages from the OGM point of view:
 
 h2. 2. Definitions
 
-* node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface. A node consists of one or more originators.
-* originator - An addressable entity within one mesh network routing layer. An originator's address has to be unique within a mesh network routing layer and unique on a node. A node's hard-interface may only be utilized by zero or one originator.
+* Node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface.
+* originator - A node broadcasting its own OGMs (see [[OGM#41-Broadcasting-own-Originator-Message-OGM|section 4.1]] for details)  that is therefore addressable within the mesh network routing layer. It is uniquely identifiable by its originator address. [[/|B.A.T.M.A.N.-Advanced]] uses the MAC address of its primary hard interface.
 * hard interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames.
 * sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
 * duplicate - A received OGM message from a neighbor containing an already received sequence number.
