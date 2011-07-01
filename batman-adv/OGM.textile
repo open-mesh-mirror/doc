@@ -113,8 +113,8 @@ h4. 4.2.2. Potential Router Checks
 The following steps check whether the Neighbor we received the OGM from is a potential Router, meaning that we could switch to this Neighbor without creating a routing loop. If this is not the case we are going to drop and ignore this OGM. Otherwise we will further call this Neighbor a potential Router or just Router and will pass on to the Router Ranking.
 
 * If an originator entry matching the originator address of the OGM and a Selected Router exist:
-** If the OGM's Sequence Number is smaller than the Selected Router's Sequence Number then the message must be silently dropped.
-** If for the according originator entry's router list a router entry matching the neighbor we received the OGM from exists and this entry has a sequence number higher than the one in the OGM then the message must be silently dropped.
+** If the OGM's Sequence Number is smaller than the Selected Router's Sequence Number then the message must be silently dropped. This step is needed to ensure loop-freeness, we may only select newer or in certain circumstances equal sequence numbers.
+** If for the according originator entry's router list a router entry matching the neighbor we received the OGM from exists and this entry has a sequence number higher than the one in the OGM then the message must be silently dropped. Due to the previous check this step is not needed to ensure loop-freeness. Instead it ensures that we are not "updating" a router entry (which might not be the Selected Router at the moment) with older information.
 
 If the OGM has not been dropped after these preliminary checks, the OGM will be modified in the following way to obtain the path TQ of the received OGM:
 
@@ -123,8 +123,8 @@ If the OGM has not been dropped after these preliminary checks, the OGM will be 
 A final check then needs to be applied:
 
 * If an originator entry matching the originator address of the OGM and a Selected Router exist:
-** If the OGM's Sequence Number is equal to the Selected Router's Sequence Number and the OGM's path TQ is lower than the Selected Router's path TQ then the message must be silently dropped.
-** If for the according originator entry's router list a router entry matching the neighbor we received the OGM from exists and this entry has a sequence number equal to the one in the OGM and the OGM's path TQ is lower than or equal to the router entry's path TQ then the message must be silently dropped.
+** If the OGM's Sequence Number is equal to the Selected Router's Sequence Number and the OGM's path TQ is lower than the Selected Router's path TQ then the message must be silently dropped. This step is needed to ensure loop-freeness, an OGM of the same sequence number and a lower path TQ might have been rebroadcasted from us before and might have made any next hop along the selected path to have chosen us a a next hop again, possibly creating a routing loop. And actually we are just interested for the best path TQ for now anyway.
+** If for the according originator entry's router list a router entry matching the neighbor we received the OGM from exists and this entry has a sequence number equal to the one in the OGM and the OGM's path TQ is lower than or equal to the router entry's path TQ then the message must be silently dropped. Due to the previous check this step is not needed to ensure loop-freeness. Instead it ensures that we are only updating a router entry with the same sequence number to a better path TQ (which might have arrived over a "longer", more delayed path). This is also needed to ensure in case of very low packet loss over best paths to get the best, true path TQ values within the OGM flood of one sequence number.
 
 h3. 5. Router Ranking
 
