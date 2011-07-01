@@ -1,6 +1,6 @@
 h1. Originator Message (OGM)
 
-??This page is work-in-progress and will state the BATMAN V algorithm later (checkout "this":http://git.open-mesh.org/?p=batman-adv-doc.git;a=summary for now)??
+??This page is work-in-progress and will state the BATMAN V algorithm later.??
 
 h2. 1. Introduction
 
