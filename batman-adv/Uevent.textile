@@ -1,15 +1,17 @@
 h1. Uevent
 
-*DRAFT - TO BE FINISHED*
+B.A.T.M.A.N.-Advanced can now throw uevents (asynchronous signals sent by the kernel to the userspace - CHECK).
 
-B.A.T.M.A.N.-Advance can now throw uevents! Thanks to this new feature it is possible to advertise any kind of information to the usespace.
-This will probably enable several applications to interact with B.A.T.M.A.N.
+Thanks to this new feature it is possible to advertise any kind of message to the usespace.
+This will probably enable several user applications to interact with B.A.T.M.A.N.-Advanced and obtain results different to achieve before.
+
+In the code a new function has been defined that can be used for the purpose above.
 
 *Function prototype:*
-
 <pre>int throw_uevent(struct bat_priv *bat_priv, enum uev_type type, 
                           enum uev_action action, const char *data);</pre>
 
+*Arguments explained:*
 * type: is the class the uevent belongs to. It is possible to specify new classes into B.A.T.M.A.N. to distinguish between not related uevents
 * action: is the class related event that has to be signaled
 * data: any meaningful payload that need to be sent to the userspace
@@ -20,3 +22,16 @@ This will probably enable several applications to interact with B.A.T.M.A.N.
 * data: the gateway MAC address
 
 This is an example of a class of possible uevents to throw to userspace. In case of default gateway change, a uevent is triggered and sent to the userspace with all the needed data. The action field, in this case, represent the event related to the gateway (e.g. ADD: a default gateway for B.A.T.M.A.N. has been found).
+
+*Userspace interaction:*
+
+Uevents are thown by means of the already existent mesh kobject which usually resides at the path:
+
+<pre>/sys/class/net/${SOFT_IFACE}</pre>
+
+Each event will carry three variables which represents the arguments passed to the _throw_uevent()_ function in the batman-adv code. In particular the variables are:
+* BATTYPE - containing the string corresponding to the value of _enum uev_type type_
+* BATACTION - containing the string corresponding to the value of _enum uev_action action_
+* BATDATA - containing the string _const char *data_
+
+The first two variables will contain the string defined respectively into _static char *uev_action_str[]_ and _static char *uev_type_str[]_ (decleared in bat_sysfs.h) while the last one will be directly passed as provided to the function.
