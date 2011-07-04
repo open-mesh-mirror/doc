@@ -34,4 +34,5 @@ Each event will carry three variables which represents the arguments passed to t
 * BATACTION - containing the string corresponding to the value of _enum uev_action action_
 * BATDATA - containing the string _const char *data_
 
+
 The first two variables will contain the string defined respectively into _static char *uev_action_str[]_ and _static char *uev_type_str[]_ (decleared in bat_sysfs.h) while the last one will be directly passed as provided to the function.
