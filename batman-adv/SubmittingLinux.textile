@@ -208,7 +208,7 @@ Successfully rebased and updated refs/heads/patches
 
 h2. check if all patches compile cleanly against the current version of linux-next and sparse (cgcc) 
 
-We assume that the linux-next tree was already build with @make allnoconfig@ and then enabling @CONFIG_NET=y@ and @CONFIG_CRC16=y@
+We assume that the linux-next tree was already build with @make allnoconfig@ and then enabling @CONFIG_NET=y@, @CONFIG_MODULES=y@  and @CONFIG_CRC16=y@
 
 <pre>
 '-(%25)-(patches)> git rev-list --reverse origin/merge/master..
