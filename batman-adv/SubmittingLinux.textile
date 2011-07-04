@@ -297,7 +297,7 @@ Applying: batman-adv: Add include guards to all header files
 
 h2. check if all patches build again with linux next
 
-It must be checked whether it builds with allnoconfig (+NET,+CRC16,+/-MODULES) as module/builtin and allyesconfig as module/builtin
+It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+/-MODULES@) as module/builtin and allyesconfig as module/builtin
 
 <pre>
 '-(%25)-(davem)> make
