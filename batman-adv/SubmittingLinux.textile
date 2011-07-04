@@ -24,17 +24,17 @@ Following steps must always be done:
 
 
 
-h2. get the linux-integration/linux-next repository
+h2. get the linux-integration and linux-next repository
 
 
 <pre>
-'-(%25)-> git clone git://git.kernel.org/pub/scm/linux/kernel/git/sfr/linux-next.git
-Initialized empty Git repository in /home/batman/linux-next/.git/
+'-(%25)-> git clone git+ssh://git@open-mesh.org/linux-merge.git
+Initialized empty Git repository in /home/batman/linux-merge/.git/
 remote: Counting objects: 1544059, done.
 remote: Compressing objects: 100%25 (252781/252781), done.
 ....
-'-(%25)-> git clone git+ssh://git@open-mesh.org/linux-merge.git
-Initialized empty Git repository in /home/batman/linux-merge/.git/
+'-(%25)-> git clone git://git.kernel.org/pub/scm/linux/kernel/git/sfr/linux-next.git
+Initialized empty Git repository in /home/batman/linux-next/.git/
 remote: Counting objects: 1544059, done.
 remote: Compressing objects: 100%25 (252781/252781), done.
 ....
