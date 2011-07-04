@@ -24,12 +24,17 @@ Following steps must always be done:
 
 
 
-h2. get the linux-integration repository
+h2. get the linux-integration/linux-next repository
 
 
 <pre>
+'-(%25)-> git clone git://git.kernel.org/pub/scm/linux/kernel/git/sfr/linux-next.git
+Initialized empty Git repository in /home/batman/linux-next/.git/
+remote: Counting objects: 1544059, done.
+remote: Compressing objects: 100%25 (252781/252781), done.
+....
 '-(%25)-> git clone git+ssh://git@open-mesh.org/linux-merge.git
-Initialized empty Git repository in /home/sven/tmp/linux-merge/.git/
+Initialized empty Git repository in /home/batman/linux-merge/.git/
 remote: Counting objects: 1544059, done.
 remote: Compressing objects: 100%25 (252781/252781), done.
 ....
@@ -223,32 +228,32 @@ a85d1b45e4cde0c882a41baaefeec0cd5502416f
 '-(%25)-(patches)> git checkout 166b2caa61fce5260aed4e119671764331fdc62a
 Previous HEAD position was a85d1b4... batman-adv: Avoid rounding issues for local hna timeout
 HEAD is now at 166b2ca... batman-adv: Convert names from Java to C style
-'-(%25)-(166b2caa61fce5260aed4e119671764331fdc62a)> make CONFIG_BATMAN_ADV=m CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+'-(%25)-(166b2caa61fce5260aed4e119671764331fdc62a)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../linux-next M=`pwd`
 ...
 '-(%25)-(166b2caa61fce5260aed4e119671764331fdc62a)> git checkout 5cd65234b12021fe1f28e28e455a6b6a06712ec2
 Previous HEAD position was 166b2ca... batman-adv: Convert names from Java to C style
 HEAD is now at 5cd6523... batman-adv: Avoid rounding issues for local hna timeout
-'-(%25)-(83d1bc8bb328bcfa42be492fe0e2648b77c18af2)> make CONFIG_BATMAN_ADV=m CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+'-(%25)-(83d1bc8bb328bcfa42be492fe0e2648b77c18af2)> make CONFIG_BATMAN_ADV=m CC=cgcc -C /home/batman/tmp/linux-next M=`pwd`
 ....
 '-(%25)-(83d1bc8bb328bcfa42be492fe0e2648b77c18af2)> git checkout 9e9605f0fe000f1097cb43271540ab2b76b2a782
 Previous HEAD position was 83d1bc8... batman-adv: Lower resolution for timeouts
 HEAD is now at 9e9605f... batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
-'-(%25)-(9e9605f0fe000f1097cb43271540ab2b76b2a782)> make CONFIG_BATMAN_ADV=m CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+'-(%25)-(9e9605f0fe000f1097cb43271540ab2b76b2a782)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../linux-next M=`pwd`
 ....
 '-(%25)-(9e9605f0fe000f1097cb43271540ab2b76b2a782)> git checkout 043aa9a54a5296c6027a5bcd808b8d29cea8a474
 Previous HEAD position was 9e9605f... batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
 HEAD is now at 043aa9a... batman-adv: Add sysfs abi documentation about bonding
-'-(%25)-(043aa9a54a5296c6027a5bcd808b8d29cea8a474)> make CONFIG_BATMAN_ADV=m CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+'-(%25)-(043aa9a54a5296c6027a5bcd808b8d29cea8a474)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../linux-next M=`pwd`
 ...
 '-(%25)-(043aa9a54a5296c6027a5bcd808b8d29cea8a474)> git checkout f6d8baba5fce6161bc2cee9c97e0afbc139942c0
 Previous HEAD position was 043aa9a... batman-adv: Add sysfs abi documentation about bonding
 HEAD is now at f6d8bab... batman-adv: adapting source version to revised versioning scheme
-'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> make CONFIG_BATMAN_ADV=m CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../linux-next M=`pwd`
 ...
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git checkout a85d1b45e4cde0c882a41baaefeec0cd5502416f
 Previous HEAD position was f6d8bab... batman-adv: adapting source version to revised versioning scheme
 HEAD is now at a85d1b4... batman-adv: Add include guards to all header files
-'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> make CONFIG_BATMAN_ADV=m CC=cgcc -C /home/sven/tmp/linux-next M=`pwd`
+'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../linux-next M=`pwd`
 ...
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git checkout patches
 Switched to branch 'patches'
