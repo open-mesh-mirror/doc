@@ -29,7 +29,8 @@ h3. 2.1. Neighbor List
 * Neighbor Address: The ethernet source address of the received ELP message.
 * Originator Address: The originator address of the node.
 * Packet Count Window:
-* Sequence Number:
+* Current Window Sequence Number:
+* Last Received Sequence Number:
 * Last Seen:
 * Last Updated:
 * Link RQ:
@@ -105,9 +106,25 @@ Upon receiving an ELP packet a node must perform the following preliminary check
 * If the sender address of the ELP message is an ethernet multicast (including broadcast) address the message must be silently dropped.
 * If the destination address of the ELP message is a unicast address the message must be silently dropped.
 * If the originator address of the ELP message is our own the message must be silently dropped as this ELP message originated from this node.
-* If the ELP message has not been received from a out-of-sync neighbor interface (see section 3.5) and if the ELP message does not contain a newer sequence number (duplicate, out-of-order or out-of-range) the message must be silently dropped.
+* If the ELP message has not been received from an out-of-sync neighbor interface (see section 3.5) and if the ELP message does not contain a newer sequence number (duplicate, out-of-order or out-of-range) the message must be silently dropped.
 
 h4. 3.2.1. Duplicate
+
+<pre>
+                          |=Current Window Sequence Number
+  <...- - - - - - - - - - + + + + + + + + + + + + + + + + + + + + + +..>
+      1                   0                   1                   2
+      0 9 8 7 6 5 4 3 2 1 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  <--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+->
+            |<----------->|
+            | WINDOW_SIZE |
+            |             |
+            
+             <----------->=Last Received Sequence Number
+                           (<= Current Window Sequence Number;
+                            > Current Window Sequence Number - WINDOW_SIZE)
+             <----------->=Received Sequence Number (= Last Received Sequence Number) 
+</pre>
 
 An ELP packet is considered a duplicate if:
 * The last received sequence number is smaller than or equal to the current window sequence number.
@@ -116,6 +133,22 @@ An ELP packet is considered a duplicate if:
 
 h4. 3.2.2. Out-of-Order
 
+<pre>
+                          |=Current Window Sequence Number
+  <...- - - - - - - - - - + + + + + + + + + + + + + + + + + + + + + +..>
+      1                   0                   1                   2
+      0 9 8 7 6 5 4 3 2 1 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  <--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+->
+            |<----------->|
+            | WINDOW_SIZE |
+            |             |
+            
+             <----------->=Last Received Sequence Number
+                           (<= Current Window Sequence Number;
+                            > Current Window Sequence Number - WINDOW_SIZE)
+             <---------->=Received Sequence Number (< Last Received Sequence Number)
+</pre>
+
 An ELP packet is considered out-of-order if:
 * The last received sequence number is smaller than or equal to the current window sequence number.
 * The last received sequence number is greater than the current window sequence number minus WINDOW_SIZE.
@@ -123,10 +156,24 @@ An ELP packet is considered out-of-order if:
 
 h4. 3.2.3. Out-of-Range
 
+<pre>
+                                |=Current Window Sequence Number
+        <...- - - - - - - - - - + + + + + + + + + + + + + + + + + + + + + +..>
+            1                   0                   1                   2
+            0 9 8 7 6 5 4 3 2 1 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+        <--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+->
+                  |<----------->|
+                  | WINDOW_SIZE |
+                  |             |
+|<------...-------------------->|
+           SEQNO_SIZE / 2
+|<------...---->|=Last Received Sequence Number
+</pre>
+
 An ELP packet is considered out-of-range if:
 * The received sequence number is not a duplicate and not out-of-order.
 * The received sequence number is smaller than the current window sequence number.
-* The received sequence number is greater than the current window sequence number minus 2^31.
+* The received sequence number is greater than the current window sequence number minus SEQNO_SIZE / 2.
 
 
 h3. 3.3. Neighbor Ranking
