@@ -48,7 +48,7 @@ h2. Distributions
 
 h2. Aftershow
 
-* [ ] Merge differences (README, CHANGELOG, ...) into master branch
-* [ ] Merge current next into maint (must be fast-forward or pre-tagging steps were done wrong)
-* [ ] Get patches for next release from master-rebase/batctl-rebase repository
-* [ ] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels (+ set version number in kernel)
+* [ ] Merge next into master branch (to get changes on README, CHANGELOG, ...)
+* [ ] Merge current git tag into maint (must be fast-forward or pre-tagging steps were done wrong)
+* [ ] Merge patches from master into next (to get all the fancy new features)
+* [ ] Rebase patches in next on top of linux-next and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
