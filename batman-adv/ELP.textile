@@ -49,7 +49,7 @@ Each node periodically (ELP interval) generates and broadcasts ELP messages for 
 * Version: Set your internal compatibility version.
 * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
 * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
-* Interval: Set to the current ELP interval of this interface in milli seconds.
+* Interval: Set to the current ELP interval of this interface in milli seconds. The default interval is 500ms and it may be reconfigured during run-time.
 * Num Neigh: The number of neighbors that are announced with this message.
 
 If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should append a neighbor entry message for each neighbor to be announced and fill the "number of neighbors" field accordingly.
@@ -100,7 +100,7 @@ Upon receiving an ELP packet a node must perform the following preliminary check
 * If the sender address of the ELP message is an ethernet multicast (including broadcast) address the message must be silently dropped.
 * If the destination address of the ELP message is a unicast address the message must be silently dropped.
 * If the originator address of the ELP message is our own the message must be silently dropped as this ELP message originated from this node.
-* If the ELP message does not contain a newer sequence number (duplicate, out-of-order or out-of-range) the message must be silently dropped.
+* If the ELP message has not been received from a out-of-sync neighbor interface (see section 3.5) and if the ELP message does not contain a newer sequence number (duplicate, out-of-order or out-of-range) the message must be silently dropped.
 
 h4. 3.2.1. Duplicate
 
@@ -122,6 +122,7 @@ An ELP packet is considered out-of-range if:
 * The received sequence number is not a duplicate and not out-of-order.
 * The received sequence number is smaller than the current window sequence number.
 * The received sequence number is greater than the current window sequence number minus 2^31.
+
 
 h3. 3.3. Neighbor Ranking
 
@@ -155,26 +156,44 @@ asym_penalty = 1 - (1 - link RQ)^3
 
 h3. 3.4. Time-based Window Adjustment
 
-At least once per second all ELP windows must be shifted to the expected current sequence number. This needs to be done to avoid that the OGM protocol picks up too high link quality values from ELP which do very likely not represent the current link quality anymore.
+Periodically all ELP windows must be shifted to the expected current sequence number. This needs to be done to avoid that the OGM protocol picks up outdated and therefore too high link quality values from ELP which do might not represent the current link quality anymore.
 
 More precisely, for any interface of a node towards any according, stored neighbor interface check whether:
 
-* The last updated time plus the ndp interval of this neighbor interface is higher than the current time.
+* The last updated time plus the ndp interval times of this neighbor interface times two is higher than the current time.
 
 If so, the following actions must be performed:
 
-* The last updated time of this neighbor interface needs to be set to the current time.
-* The current window sequence number of this neighbor needs to be set to the expected sequence number (= current window sequence number + rounded-down( (current time - last updated time) / neighbor interface's ndp interval).
+* The last updated time of this neighbor interface needs to be set to the current time minus the neighbor interface's ELP interval.
+* The current window sequence number of this neighbor needs to be set to the expected sequence number (based on the current sequence number, the current time, the last updated time as well as the neighbor interface's ndp interval) minus one. The result always needs to be rounded down.
 * The sliding window of the ELP message must be shifted (purged) to reflect the new upper and lower boundaries of the ranking range.
-* The new resulting link RQ value is calculated by counting all sequence numbers that are to be found in the recently adjusted sliding window.
+* The new resulting link RQ value is calculated by counting all sequence numbers that are to be found in the adjusted sliding window.
+* The best link TQ needs to be updated.
 
-h3. 3.5. Neighbor Interface Purging Recommendations
+The period for checking and possible updating of the ELP windows should be chosen low enough to have an ELP window outdated for OUTDATED_MAX sequence numbers maximum.
+
+Batman-adv periodically checks all ELP windows in the interval of the neighbor interface with the lowest ELP interval.
+
+h3. 3.5. Detecting Out-of-sync Neighbor Interfaces
+
+The sequence number based sliding window together with time-based window adjustment face two difficulties: For one thing a node may have rebooted. In that case the rebooted node might suddenly have a sequence number slightly smaller than it had before the reboot. Or for another thing, a node may have been out of sight for a longer time and due to slightly different clocks on the nodes the expected sequence number might have increased too quickly.
+
+In both cases the ELP sequence numbers which are smaller than the expected sequence number would not be accepted and the ELP messages dropped, possibly for a very long time.
+
+To overcome this issue a node is considered out-of-sync if:
+* Last Seen + 2 * neighbor interface's ELP interval * WINDOW_SIZE < Current Time.
+
+For the default ELP interval of 0.5s this would result in a 64s wait time in the worst case.
+
+h3. 3.6. Neighbor Interface Purging Recommendations
 
 A node may purge a neighbor interface from its neighbor list when its RQ value reaches 0. However a node with RQ 0 may be kept in the list as long as desired, as it does not make a difference for the routing decisions because of the asymmetric link penalty (see [ogm|OGM protocol] for details).
 
 h2. 4. Proposed Values for Constants
 
-* _WINDOW_SIZE_: 2^32
+* _WINDOW_SIZE_: 64
+* _SEQNO_SIZE_: 2^32
+* _OUTDATED_MAX_: 4
 
 ----
 
