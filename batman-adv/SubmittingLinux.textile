@@ -384,7 +384,7 @@ In-Reply-To:
 
 Hi,
 
-I would like to propose following changes for net-next-2.6/3.1. The
+I would like to propose following changes for net-next/3.1. The
 first part (1-4) are only only small cleanup patches. The last 8 patches
 are related to Antonio Quartulli's research "Client announcement and
 Fast roaming in a Layer-2 mesh network". The technical report isn't
