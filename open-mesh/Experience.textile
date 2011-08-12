@@ -20,6 +20,7 @@ h2. Press:
 
 h2. Papers:
 
+* "Network Coding for Wireless Mesh Networks":http://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf
 * "B.A.T.M.A.N. routing protocol overhead analysis":http://downloads.open-mesh.org/batman/papers/OGMoverhead.pdf
 * "Performance Analysis of the B.A.T.M.A.N. protocol":http://downloads.open-mesh.org/batman/papers/SANLAB%2520technical%2520report.Batrytis.pdf
 * "B.A.T.M.A.N. performance comparison paper":http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
