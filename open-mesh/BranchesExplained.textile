@@ -16,6 +16,7 @@ h2. batmand
 
 The batman userspace daemon has been the first implementation of the B.A.T.M.A.N. routing protocol. In the early stages of the project it allowed us to easily experiment with the design of the protocol but also to be used in real world deployments. It operates on layer 3 (IP layer) and offers everything you would expect from a standard routing daemon. Check our [[UserDocs|docs]] section if you want to learn more about is capabilities.
 
+Note: For historical & support reasons the sources and documentation of batmand are still available. However, if you are about to decide whether you go with batmand or batman-adv, consider batmand obsolete. There has been no active batmand development for years as the layer 2 concept (batman-adv) has proven to be the better path forward. 
 
 
 h2. BMX
