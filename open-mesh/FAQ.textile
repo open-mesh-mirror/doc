@@ -23,6 +23,10 @@ And most of the encryption and authentication stuff has to be resolved by the us
 
 So it really depends what you want and cannot be resolved in a "security for everything, against any attack and for every purpose" blob.
 
+h2. Can batman-adv run on interfaces in AP / Station / etc mode ?
+
+batman-adv doesn't know anything about stuff below the ethernet interface. So you could also use it over layer 2 ethernet tunnels, wifi ap, wifi sta, wifi adhoc, ethernet or even write a virtual interface which prints everything on paper and scans the paper on the remote machine (but you should be fast or increase the ogm interval).
+
 h2. Why does batman need so much time to detect a "dead" node ?
 
 Or: Why can I see a node in the originator table a long time after it died ?
