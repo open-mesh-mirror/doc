@@ -6,6 +6,7 @@ This page contains the links to previous news posts for archiving puposes.
 
 h3. 2011
 
+* *27.Mar. 2011* [[2011-03-27-transition-to-git|Transition to git]]
 * *17.Mar. 2011* [[2011-03-17-batman-adv-and-the-penguin|Batman-adv and the Penguin join forces]]
 * *29.Jan. 2011* [[2011-01-29-batman-adv-2011-0-0-release|Batman-adv 2011.0.0 released]]
 * *18.Jan. 2011* [[2011-01-18-wbmv4-announcement|WBMv4 Announcement]]
