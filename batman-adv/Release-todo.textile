@@ -19,7 +19,7 @@ h2. Code
 * [ ] remove dead code (if any)
 * [ ] check against kernel versions
 * [ ] check that maint branch is merged in next
-* [ ] check for open patches on the ml
+* [x] check for open patches on the ml
 * [ ] git tag release
 
 
@@ -27,7 +27,7 @@ h2. Documentation
 
 * [ ] build changelog
 * [ ] update README
-* [ ] write release announcement
+* [x] write release announcement
 * [ ] update wiki documentation
 
 
