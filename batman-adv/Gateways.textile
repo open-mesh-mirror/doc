@@ -23,6 +23,7 @@ Once the gateway feature has been activated batman-adv floods the networks with 
 
 The DHCP client will then select the gateway batman-adv prefers as only this gateway replied to the request.
 
+To inform clients possessing a valid DHCP release about a gateway change (the link quality to the gateway could have dropped or the client is roaming around) batman-adv will also inspect incoming DHCP renewal packets. If their destination is not the currently selected gateway and below a certain TQ threshold (currently defaulting to a TQ of 50), the DHCP renewal packet is not forwarded, thereby forcing the client to request a new DHCP lease from a better connected gateway.
 
 
 h2. The configuration
