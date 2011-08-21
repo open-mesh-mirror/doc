@@ -64,39 +64,7 @@ h3. 4.1 Broadcasting own Originator Message (OGM)
 
 Each node periodically (OGM interval) generates a single OGM which is broadcasted on all hard interfaces. A jitter may be applied to avoid collisions.
 
-+The Originator Message (OGM) Format:+
-
-* Packet type: Initialize this field with the OGM packet type.
-* Version: Set your internal compatibility version.
-* Interval: Set to the current OGM interval of this originator in milli seconds.
-* Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following broadcast.
-* Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
-* Flags: Indicates certain attributes of this originator. So far 0x01 is reserved for VIS_SERVER (see [[VisAdv]])
-* Gateway Flags:
-* TQ: Is initially set to TQ_MAX by the originator.
-* TT Num Changes: see [[Client-announcement]]
-* TT VN: see [[Client-announcement]]
-* TT CRC: see [[Client-announcement]]
-
-<pre>
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Packet Type  |    Version    |     TTL       |   Alignment   |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                          Interval                             |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                       Sequence Number                         |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                     Originator Address                        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |      Originator Address       |     Flags     | Gateway Flags |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |      TQ       |TT Num Changes |     TT VN     |    TT CRC     |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-As well as a possible TT change entry. See [[Client-announcement]] for details.
+For the packet type definition see the [[packet-types]] page.
 
 h3. 4.2. Receiving Originator Messages
 
