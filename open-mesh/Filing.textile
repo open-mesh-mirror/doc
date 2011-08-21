@@ -36,6 +36,7 @@ h2. Using B.A.T.M.A.N. advanced (layer 2)
 * [[batman-adv:understand-your-batman-adv-network|Understand your B.A.T.M.A.N. Advanced network]] - learn what network debug interfaces batman-adv offers
 * [[batman-adv:gateways|B.A.T.M.A.N. gateway support]] - how batman-adv can be used to choose the nearest internet gateway node
 * [[batman-adv:bridge-loop-avoidance|B.A.T.M.A.N. bridge loop avoidance]] - document explaining the bridge loop avoidance implemented in batman-adv
+* [[batman-adv:uevent|B.A.T.M.A.N. user space events]] - batman-adv's uevent documentation
 * [[batman-adv:VisAdv|Visualizing the 2nd layer]] - creating graphics of the layer 2 network and differences to the layer 3 vis output explained
 * [[UsingBatmanGit|Using the batman git repos]] - this page explains how the git repository is structured and how to use it
 * "batctl online man page":http://downloads.open-mesh.org/batman/manpages/batctl.8.html - read the current batctl man page online
