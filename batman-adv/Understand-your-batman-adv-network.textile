@@ -42,7 +42,6 @@ Locally retrieved addresses (from bat0) announced via TT (TTVN: 1):
 </pre>
 
 The current translation table state is represented by the tt version number that is propagated in the mesh.
-
 Note: Every batman node announces at least one mac address - the mac of the batX interface. 
 
 
@@ -50,11 +49,12 @@ The global translation table (mac addresses announced by other hosts) can be fou
 
 <pre>
 cat /sys/kernel/debug/batman_adv/bat0/transtable_global 
-Globally announced HNAs received via the mesh bat0:
-* fe:fe:00:00:01:01 via fe:fe:00:00:02:01
+Globally announced TT entries received via the mesh bat0
+       Client        (TTVN)       Originator      (Curr TTVN)
+ * fe:fe:00:00:01:01  (  1) via fe:fe:00:00:02:01     (  1)
 </pre>
 
-Each line contains the announced mac address and the mac of the batman node announcing it.
+Each line contains the announced mac address plus the ttvn at the point of the addition to the table and the mac of the batman node announcing it including the latest ttvn of that very node.
 
 h3. Gateway table
 
