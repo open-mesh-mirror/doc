@@ -36,12 +36,14 @@ To let non-batman nodes use the mesh infrastructure easily, batman-adv introduce
 The local translation table (mac addresses announced by this host) can be found in the transtable_local file:
 
 <pre>
-cat /sys/kernel/debug/batman_adv/bat0/transtable_local 
-Locally retrieved addresses (from bat0) announced via HNA:
-* fe:fe:00:00:01:01
+cat /sys/kernel/debug/batman_adv/bat0/transtable_local
+Locally retrieved addresses (from bat0) announced via TT (TTVN: 1):
+ * fe:fe:00:00:01:01
 </pre>
 
-Every batman node announces at least one mac address - the mac of the batX interface. 
+The current translation table state is represented by the tt version number that is propagated in the mesh.
+
+Note: Every batman node announces at least one mac address - the mac of the batX interface. 
 
 
 The global translation table (mac addresses announced by other hosts) can be found in the transtable_global file:
