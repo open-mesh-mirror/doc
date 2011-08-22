@@ -28,7 +28,7 @@ h2. Documentation
 * [x] build changelog
 * [x] update README
 * [x] write release announcement
-* [ ] update wiki documentation
+* [x] update wiki documentation
 
 
 h2. Release
@@ -42,7 +42,7 @@ h2. Release
 
 h2. Distributions
 
-* [ ] update openwrt package
+* [x] update openwrt package
 * [ ] update debian package
 
 
