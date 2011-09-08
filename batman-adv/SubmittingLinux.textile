@@ -91,6 +91,8 @@ rm 'net/batman-adv/compat.h'
 [linux f2204f0] Merge remote branch 'origin/standalone/next' into merge/master
 </pre>
 
+All changes to the the sysfs-class-net-* files can't be automatically merged because they reside in a different subfolder. As a consequence the new version has to be manually copied from a local git tree to 'Documentation/ABI/testing/'. The README file also requires manually handling: All relevant in-kernel changes have to be merged into 'Documentation/networking/batman-adv.txt' whereas out-of-kernel information has be stripped out.
+
 
 h2. check for compat code
 
