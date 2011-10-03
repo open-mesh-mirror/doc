@@ -197,4 +197,5 @@ h3. Agenda/Comments for next discussion
 
 Please add any comments for the next discussion here:
 
-  * (still empty, please edit! now!)
+  * Discuss Claims
+  * VLANs should be handled too
