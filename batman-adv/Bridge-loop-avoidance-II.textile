@@ -11,7 +11,6 @@ h2. Goals:
 
 h2. Definitions:
 
-
  * Gateway: A mesh node which is conncted to both a mesh and a LAN
  * Client: A non-mesh network participant which is sending data via the mesh. The Client is always identified by the Source MAC address of the payload Ethernet header.
 
@@ -28,15 +27,6 @@ Note that gateways may overwrite a claim of another gateway by simply claiming t
 
 Gateways can also "unclaim" their own clients. After doing this, the client is not claimed anymore for this LAN.
 
-h3. Duplicate list:
-
-To track duplicate Ethernet frames without meta information (like sequence numbers, etc), broadcast packets are checksummed. A node keeps a list of the last N checksums of frames. A new frame can be matched by checksumming it and check for matches in the list.
-
-Two different duplicate lists are kept in the concept:
-
- * mesh duplicate list: This list is kept for every gateway mesh node which is connected to a LAN with multiple gateways. It checks broadcast packets which are sent from the LAN into the mesh through multiple gateways (and thus multiple times).
- * LAN duplicate list: This is a single list. It tracks broadcast packets which were sent from the mesh through the soft interface into the LAN.
-
 h2. Details and Cases:
 
 The concept will be explained by discussing the different cases: unicast and broadcast frames, both for the LAN->mesh and mesh->LAN case. Loop cases are considered too: LAN->mesh->LAN
@@ -44,6 +34,7 @@ and mesh->LAN->mesh. Furthermore, roaming is discussed when a client changes fro
 
 h3. Broadcast, mesh->LAN:
 
+If the originator of the broadcast is not known (not in the originator table), drop it.
 If the originator of the broadcast is another gateway from the same LAN, drop it immediately.
 
 If a gateway has already claimed the client, only the resposible gateway will deliver the frame to the bridge. Other gateways will discard the packet.
@@ -68,30 +59,27 @@ Then, the unicast packet is delivered to the soft interface.
 
 h3. Broadcast, LAN->mesh:
 
-If the client is claimed, all not responsible gateways should discard the frame - this might be a loop. The responsible gateway shall check its LAN duplicate list - if the frame matches, it is a frame he sent out by himself (and received due to bad drivers or stupid switches). In this case, discard it. If the packet does not match, it might be sent from a client which just roamed into our LAN. In this case, "unclaim" this client by sending an according claim packet, and forward the packet into the mesh.
+If the client is claimed, all not responsible gateways should discard the frame - this might be a loop. 
 
-If the client is not claimed by any gateway, every gateway shall forward the packet into the mesh. This will lead to duplicates of the broadcast with different meta information (different originators, different sequence numbers). To avoid duplicates within the mesh, every mesh node will use the "mesh duplicate list":
+If the responsible gateway also receives the packet (we assume that switches and drivers are working correctly, otherwise this is the place to fix it), "unclaim" this client by sending an according claim packet, and forward the packet into the mesh.
 
- * after the (old) seqno window check: match the frame to the "mesh duplicate list" of other gateways to see if another gateway from the same LAN has sent a broadcast with the same payload checksum.
- * if true, drop the packet. Otherwise, add the checksum to the entries and re-forward it.
-
-(Note that it might be neccesary to connect the checksums to sequence numbers to allow intentionally sent duplicate payload broadcasts)
+If the client is (no longer) claimed, only the gateway with the numerically lowest MAC address will forward the frame into the mesh.
 
 h3. Unicast, LAN->mesh:
 
 Nothing fancy should happen here, as a switch should do the right thing. If the client is not claimed, the frame is simply sent into the mesh.
 
-However, when using hubs (or broken switches), also unicast packets might loop. Therefore, if the client is claimed by any gateway, drop it.
+However, when using hubs (or broken switches), also unicast packets might loop. Therefore, if the client (source of the Ethernet frame) is claimed by any gateway, drop it.
 
 h3. mesh->LAN->mesh loop:
 
-A broadcast frame is only sent to LAN by the (yet to be) responsible gateway. Back from the LAN to the mesh, all not responsible gateway will drop the frame. The responsible gateway will also drop it as the packet is matched in the "LAN duplicate list".
+A broadcast frame is only sent to LAN by the (yet to be) responsible gateway. Back from the LAN to the mesh, all not responsible gateway will drop the frame. The responsible gateway should not receive it on normal switched networks.
 
 To avoid loops for hubs, unicast packets are dropped from LAN to mesh if the client is claimed.
 
 h3. LAN->mesh->LAN loop:
 
-Although a broadcast frame is sent into the mesh from different originators, it won't loop back into the LAN as a gateway will drop it if was sent from another gateway (from the same LAN).
+Although a broadcast frame is sent into the mesh, it won't loop back into the LAN as a gateway will drop it if was sent from another gateway (from the same LAN).
 
 h3. LAN->mesh Roaming:
 
@@ -107,10 +95,24 @@ Unicast frames are dropped, and the clients roaming will not be known as long as
 
 h3. Gateway selection:
 
-The gateways should announce the other gateways from their LAN, e.g. within TT/HNA messages.
+All gateways announce the clients within their LAN and ignore roaming messages from other gateways on the same LAN.
 
-Other non-gateway meshnodes may then select their best gateway to the LAN based on the TQ value. They must also use this information to effectively detect duplicates from the LAN->mesh
-case.
+Other non-gateway meshnodes may select their best gateway to the LAN based on the TQ value. 
+
+h3. Claim packets
+
+To claim a packet, a gratious ARP packet may be used with the following settings:
+
+ * SRC IP: 0.0.0.0, SRC HW: [Originator-MAC of the Gateway]
+ * DST IP: 0.0.0.0, DST HW: FF:FF:FF:FF:FF:FF
+ * Ethernet DST: FF:FF:FF:FF:FF:FF, Ethernet SRC: [Mac of the Client]
+
+To unclaim a packet, the SRC HW shall be set to 00:00:00:00:00:00 (TODO: check if this is a good value)
+
+Periodic claim packets by the gateways may be sent by also setting the Ethernet SRC to Originator-MAC of the Gateway.
+
+(TODO: How to synchronize claim tables between gateways - full table update or CRC or something like this should be used)
+
 
 h2. Discussion:
 
@@ -118,7 +120,7 @@ h3. Features:
 
  * no single "super" gateway => should scale better
  * the only additional BATMAN LAN packets are claim packets, which are only sent for new claims
- * no encupsulated BATMAN packets on the LAN
+ * no BATMAN packets on the LAN
  * broadcasts are sent from all the gateways into the mesh
  * nodes can select gateways, and change among them (gateways will automatically re-claiming)
  * should not loop ;)
@@ -126,16 +128,43 @@ h3. Features:
 h3. Limitations:
 
  * Roaming to the LAN with multiple gateways is slow when only unicast packets are used
- * duplicate lists based on checksums may fail due to checksum collisions or out-of-list frames. This may lead to duplicates, loops and other ugly stuff. Therefore, the checksums should be wide and the lists should be long. :)
- * quite complex concept
  * other things I might have missed ...
 
-h3. Further ideas (from discussion on 2011-06-08):
+h2. Further Optimizations
+
+h3. Broadcasting by all gateways
+
+Instead of letting only one gateway emit the packets to the mesh, all gateways may send them instead. In this case, we have to make sure that the duplicates are recognized and ignored to deliver the broadcast packets only once to the users.
+
+To do this, we use a "mesh duplicate list":
+ * mesh duplicate list: This list is kept for every gateway mesh node which is connected to a LAN with multiple gateways. It checks broadcast packets which are sent from the LAN into the mesh through multiple gateways (and thus multiple times).
+
+If the client is not claimed by any gateway, every gateway shall forward the packet into the mesh. This will lead to duplicates of the broadcast with different meta information (different originators, different sequence numbers). To avoid duplicates within the mesh, every mesh node will use the "mesh duplicate list":
+
+ * after the (old) seqno window check: match the frame to the "mesh duplicate list" of other gateways to see if another gateway from the same LAN has sent a broadcast with the same payload checksum.
+ * if true, drop the packet. Otherwise, add the checksum to the entries and re-forward it.
+
+(Note that it might be neccesary to connect the checksums to sequence numbers to allow intentionally sent duplicate payload broadcasts)
+
+h2. Further ideas 
+
+h3. from discussion on 2011-06-08:
 
  * What to do if a gateway fails? how do we timeout it? - we could change the concept to work like the new TT: regular updates of changes (with a sequence number), only send changes, and request full update if required. The regular update would allow us to timeout gateways if they are no longer there/connected.
  * Not included in the concept is how we handle LAN-interconnected, separate mesh clouds. The gateways of the different mesh clouds would claim clients, which would prevent traffic going from mesh 1 to mesh 2. This could be solved by verifying that a gateway is not only accessible via LAN, but also via mesh (looking into the originator table). If they are not in our mesh, we ignore the claims.
  * Instead of using the "mesh duplicate list", we could also try to synchronize the broadcast sequence numbers of the gateways, so that broadcasts are always sent with the same originator address + sequence number, appearing as the same broadcast. There may be a lot of side effects to consider (packet loss, racing packets, etc ...)
  * some pictures to illustrate the concept would be nice :)
+
+h3. discussion 2011-09-30:
+
+ * it might be sufficient to send broadcast from LAN to mesh from a single gateway and add the broadcast duplicate check later as extension/optimization
+ * claims should be sent periodically (every 10 seconds or every 30 seconds) so that other/new gateways get to know about the existence of other gateways on the LAN
+ * We should be able to configure:
+ ** claim period/resend period
+ ** claim backoff timer: this should be very small for LANs (default) and rather high on some high latency backhaul networks (e.g. VPN)
+ * the TT code must be enhanced to decide the best gateway based on the TQ value
+ * Claim packets should be "standard" packets (not special batman ethertypes) so that paranoid firewalls won't drop them. Using gratious arps may be an idea. 
+ ** communication should stay in the mesh as much as possible
 
 h3. Agenda/Comments for next discussion
 
