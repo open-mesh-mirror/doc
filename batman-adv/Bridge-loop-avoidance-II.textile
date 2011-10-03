@@ -114,8 +114,6 @@ To unclaim a packet, the SRC HW and Ethernet SRC shall be swapped:
 
 Periodic claim packets by the gateways may be sent by also setting the Ethernet SRC to Originator-MAC of the Gateway.
 
-(TODO: How to synchronize claim tables between gateways - full table update or CRC or something like this should be used)
-
 Note: Although this is a misuse of ARP packets, the "normal" ARP process should not be disturbed as the IP addresses
 (0.0.0.0) should not be in any sane ARP table. As far as I understand, a gratious ARP should only be considered if the 
 IP address is already in an ARP table [2].
@@ -123,6 +121,26 @@ IP address is already in an ARP table [2].
 [1] http://tools.ietf.org/html/rfc826
 [2] http://tools.ietf.org/html/rfc2002#section-4.6
 
++Table Update, Variant 1:+
+
+Send the full table (new batman type) through the mesh (!) in unicast mode to all known gateways on the LAN. This
+may be optimized by sending to multiple destinations with one packet if the routing neighbor is shared (as for the
+tracker packets in the multicast optimization).
+
+This is sent with the periodic table timer (e.g. every 30 seconds).
+
++Table Update, Variant 2:+
+
+Send the full table (new batman type) through the mesh (!) in broadcast mode to all nodes (and therefore also to the 
+gateways on the LAN). This may create some overhead as there are a lot of nodes which don't need this info. :)
+
+This is sent with the periodic table timer (e.g. every 30 seconds).
+
++Table Update, Variant 3:+
+
+Attach a CRC at another packet (e.g. the batman packet) and request a full table via unicast through the mesh.
+
+This is probably the most bandwidth-efficient way, but requires a change in the packet format.
 
 h2. Discussion:
 
