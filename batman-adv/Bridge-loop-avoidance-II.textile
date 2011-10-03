@@ -107,11 +107,21 @@ To claim a packet, a gratious ARP packet may be used with the following settings
  * DST IP: 0.0.0.0, DST HW: FF:FF:FF:FF:FF:FF
  * Ethernet DST: FF:FF:FF:FF:FF:FF, Ethernet SRC: [Mac of the Client]
 
-To unclaim a packet, the SRC HW shall be set to 00:00:00:00:00:00 (TODO: check if this is a good value)
+To unclaim a packet, the SRC HW and Ethernet SRC shall be swapped:
+
+ * SRC HW: [Originator-MAC of the Gateway]
+ * Ethernet SRC: [Mac of the Client]
 
 Periodic claim packets by the gateways may be sent by also setting the Ethernet SRC to Originator-MAC of the Gateway.
 
 (TODO: How to synchronize claim tables between gateways - full table update or CRC or something like this should be used)
+
+Note: Although this is a misuse of ARP packets, the "normal" ARP process should not be disturbed as the IP addresses
+(0.0.0.0) should not be in any sane ARP table. As far as I understand, a gratious ARP should only be considered if the 
+IP address is already in an ARP table [2].
+
+[1] http://tools.ietf.org/html/rfc826
+[2] http://tools.ietf.org/html/rfc2002#section-4.6
 
 
 h2. Discussion:
@@ -136,8 +146,7 @@ h3. Broadcasting by all gateways
 
 Instead of letting only one gateway emit the packets to the mesh, all gateways may send them instead. In this case, we have to make sure that the duplicates are recognized and ignored to deliver the broadcast packets only once to the users.
 
-To do this, we use a "mesh duplicate list":
- * mesh duplicate list: This list is kept for every gateway mesh node which is connected to a LAN with multiple gateways. It checks broadcast packets which are sent from the LAN into the mesh through multiple gateways (and thus multiple times).
+To do this, we use a "mesh duplicate list": This list is kept for every gateway mesh node which is connected to a LAN with multiple gateways. It checks broadcast packets which are sent from the LAN into the mesh through multiple gateways (and thus multiple times).
 
 If the client is not claimed by any gateway, every gateway shall forward the packet into the mesh. This will lead to duplicates of the broadcast with different meta information (different originators, different sequence numbers). To avoid duplicates within the mesh, every mesh node will use the "mesh duplicate list":
 
