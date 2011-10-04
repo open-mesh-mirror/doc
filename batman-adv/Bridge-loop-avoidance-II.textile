@@ -60,11 +60,12 @@ Then, the unicast packet is delivered to the soft interface.
 
 h3. Broadcast, LAN->mesh:
 
-If the client is claimed, all not responsible gateways should discard the frame - this might be a loop. 
+If a claim for the mesh-client exists:
 
-If the responsible gateway also receives the packet (we assume that switches and drivers are working correctly, otherwise this is the place to fix it), "unclaim" this client by sending an according claim packet, and forward the packet into the mesh.
+ * all not responsible gateways should discard the frame - this might be a loop. 
+ * if the responsible gateway (which claimed this client) also receives the packet, "unclaim" this client by sending an according un-claim packet, and forward the packet into the mesh. This should only happen in the roaming case, but not in normal situations.
 
-If the client is (no longer) claimed, only the gateway with the numerically lowest MAC address will forward the frame into the mesh.
+If the client is not claimed, only the gateway with the numerically lowest MAC address will forward the frame into the mesh.
 
 h3. Unicast, LAN->mesh:
 
@@ -113,8 +114,6 @@ To unclaim a packet, the SRC HW and Ethernet SRC shall be swapped:
  * SRC HW: [Originator-MAC of the Gateway]
  * Ethernet SRC: [Mac of the Client]
 
-Periodic claim packets by the gateways may be sent by also setting the Ethernet SRC to Originator-MAC of the Gateway.
-
 Note: Although this is a misuse of ARP packets, the "normal" ARP process should not be disturbed as the IP addresses
 (0.0.0.0) should not be in any sane ARP table. As far as I understand, a gratious ARP should only be considered if the 
 IP address is already in an ARP table [2].
@@ -122,26 +121,24 @@ IP address is already in an ARP table [2].
 [1] http://tools.ietf.org/html/rfc826
 [2] http://tools.ietf.org/html/rfc2002#section-4.6
 
-+Table Update, Variant 1:+
++Periodic self announcements:+
 
-Send the full table (new batman type) through the mesh (!) in unicast mode to all known gateways on the LAN. This
-may be optimized by sending to multiple destinations with one packet if the routing neighbor is shared (as for the
-tracker packets in the multicast optimization).
+Periodic self announcement packets by the gateways are basically special claim packets, which are sent by the gateways periodically (e.g. every 30 seconds) and serve the following purposes:
 
-This is sent with the periodic table timer (e.g. every 30 seconds).
+ * gateways learn that other gateways exist on the LAN (this is important e.g. for new gateways)
+ * when no self announcements packets are received anymore, we can assume that this gateway is no longer serving the LAN and can remove its claims
+ * it contains a checksum which other gateways can use to check their table consistency. If a table is not consistent, a gateway can ask for the full claim table via mesh.
 
-+Table Update, Variant 2:+
+self announcement packets are also sent as  gratious arp packets with the following format:
 
-Send the full table (new batman type) through the mesh (!) in broadcast mode to all nodes (and therefore also to the 
-gateways on the LAN). This may create some overhead as there are a lot of nodes which don't need this info. :)
+ * SRC IP: 0.0.0.0, SRC HW: 43:05:43:05:[CRC16 of the local table]
+ * DST IP: 0.0.0.0, DST HW: FF:FF:FF:FF:FF:FF
+ * Ethernet DST: FF:FF:FF:FF:FF:FF, Ethernet SRC: [Originator-MAC of the Gateway]
 
-This is sent with the periodic table timer (e.g. every 30 seconds).
+Note: the SRC HW address is a "locally administered address" group address which should not be used by any NIC or protocol, but is not registered with the IEEE
 
-+Table Update, Variant 3:+
-
-Attach a CRC at another packet (e.g. the batman packet) and request a full table via unicast through the mesh.
-
-This is probably the most bandwidth-efficient way, but requires a change in the packet format.
++Full claim table update+
+TODO: specify table updates. Should be very similar to the TT full table request/reply mechanism.
 
 h2. Discussion:
 
