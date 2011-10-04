@@ -35,7 +35,8 @@ and mesh->LAN->mesh. Furthermore, roaming is discussed when a client changes fro
 h3. Broadcast, mesh->LAN:
 
 If the originator of the broadcast is not known (not in the originator table), drop it.
-If the originator of the broadcast is another gateway from the same LAN, drop it immediately.
+
+If the originator of the broadcast is another gateway from the same LAN, drop it.
 
 If a gateway has already claimed the client, only the resposible gateway will deliver the frame to the bridge. Other gateways will discard the packet.
 
