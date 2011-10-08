@@ -70,7 +70,7 @@ In this concept, the host port can have colour 1 while the interconnection ports
 
 !vde_switch.png!
 
-You can find the patch against vde2-2.2.3 (current latest stable version) to add these colour patches here:
+You can find the patch against vde2-2.2.3 (current latest stable version) to add this colour patch here:
 
 * attachment:vde2-2.2.3_colour.patch
 
@@ -90,6 +90,21 @@ wirefilter is a tool where you can simulate various link defects and limits:
 * ...
 
 However as the links are only set up bidirectional, interferences can unfortunately not be simulated with this system.
+
+For advanced testing it might be necessary to apply the aforementioned link defects to some packets only whereas other packets are able to traverse the emulated environment unharmed. Once you applied the 'ethertype' patch you can specify an ethertype which wirefilter will simply forward. To apply a packet loss of 50%25 to all packets except batman-adv packets, run:
+
+<pre>
+wirefilter --ether 4305 -l 50
+</pre>
+
+This patch also allows to filter batman-adv packet types. To apply a packet loss of 50%25 to all packets except batman-adv ICMP packets, run:
+
+<pre>
+wirefilter --ether 4305:02 -l 50
+</pre>
+
+You can specify up to 10 packet types (separated by colon). The patch against vde2-2.2.3 (current latest stable version) can be found here:
+* attachment:vde2-2.2.3-wirefilter-ethertype.patch
 
 
 h2. Scripts
