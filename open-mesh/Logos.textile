@@ -1,1 +1,5 @@
 h1. Logos
+
+Different versions of the Logos are available for download in svg and png format, you find the logos attached at the bottom of the page.
+
+!bat_v2_transparent.png!
