@@ -1,29 +1,26 @@
 h1. Emulation Setup
 
-
-As a lot of people discussed about simulating mesh network protocols at "WBMv2":http://hackerspace.be/Wbm2009v2/, i'd like to share my qemu setup which i used to gather some data for batman-adv. The idea is to use "QEMU":http://www.qemu.org/ or "UML":http://user-mode-linux.sourceforge.net/ (instead of frameworks like they exist for "NS-2":http://www.isi.edu/nsnam/ns/) to run an unmodified linux system with the unmodified source code. Besides BATMAN, you could evaluate any routing protocol.
+To give an answer to the often asked question "How to test/evaluate/debug mesh network protocols?", this document explains a virtual machine setup which can be used to test batman-adv in a controlled environment. The idea is to use "QEMU":http://www.qemu.org/ or "KVM":http://www.linux-kvm.org (instead of pure simulation systems like "NS-2":http://www.isi.edu/nsnam/ns/) to run an unmodified Linux system with the unmodified source code as it is used in real world setups. Besides B.A.T.M.A.N., you could evaluate any routing protocol.
 
 
 h2. Architecture
 
+The test stack consists of the following components:
 
-My system consists of the following components:
-
-* "OpenWRT":http://openwrt.org/, kamikaze trunk version for x86 with minimal modifications (see below)
-* one (unmodified) "QEMU":http://www.qemu.org/ instance per host
+* "OpenWrt":http://openwrt.org/, kamikaze trunk version for x86 with minimal modifications (see below)
+* one (unmodified) "QEMU":http://www.qemu.org/ instance per host (KVM or any other virtual machine)
 * one (modified, see below) "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking per instance. You need multiple instances to allow interconnection with wirefilter.
 * one (unmodified) "wirefilter":http://wiki.virtualsquare.org/wiki/index.php/VDE#wirefilter per link between hosts.
 
 
-h3. OpenWRT
+h3. OpenWrt
 
-
-OpenWRT has been used for this test. Some packages (tcpdump, netcat, batman-adv...) were added and kernel commandline parameters were modified to make sure that qemu boots up properly:
+A standard OpenWrt can be downloaded and configured for X86. Some packages (tcpdump, netcat, batman-adv...) should be selected and kernel commandline parameters were modified to make sure that qemu boots up properly:
 <pre>
 noapic acpi=off
 </pre>
 
-Furthermore, to allow automatic network device setup on boot i'm using the following script which is located in /etc/rc.local ( ./files/etc/rc.local in OpenWRT build directory):
+Furthermore, to enjoy an automatic network device setup on boot you can use the following script (save it as './files/etc/rc.local' in your local OpenWrt build directory):
 
 <pre>
 #!/bin/sh
@@ -56,22 +53,20 @@ ifconfig bat0 inet 192.168.0.${NUM} up
 
 The script above is far from perfect, it takes some minutes after the rc.local file is finally started. Suggestions welcome.
 
-A sample openwrt image can be found here: http://packetmixer.de/openwrt-x86-jffs2-128k.image
 
 h3. vde_switch
 
-
-The main advantage of "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking over "uml_switch":http://user-mode-linux.sourceforge.net/old/networking.html is that any clients can be attached to this virtual switch: QEMU, UML, tap interfaces, virtual interconnections, and not just UML instances.
+The main advantage of "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking over "uml_switch":http://user-mode-linux.sourceforge.net/old/networking.html is that any clients can be attached to this virtual switch: QEMU, KVM, UML, tap interfaces, virtual interconnections, and not just UML instances.
 
 If the vde_switches were just connected with wirefilter "patch cables" without modification, we would end up creating a broadcast domain and switch loops which we don't want: The goal is to allow the packets to travel only from one host to it's neighbor, not farther.
 
-To accomplish this, i've modified the vde_switch to have "coloured" ports. The idea is:
+To accomplish this, the vde_switch needs to be modified to have "coloured" ports. The idea is:
 
 * each port has a "colour" (an integer number)
 * packets are only passed from ports to others with DIFFERENT colours.
 * packets are dropped on outgoing ports if it has the SAME colour as the incoming port.
 
-In this concept, the host port can have colour 1 while the interconnection ports have to colour 0. This way, packets can only travel from the host to (all of) the interconnection ports, or from one interconnection port to the host port. However packets can not travel between the the interconnection ports, thus only allowing "one hop" connections and avoiding switch loops and shared broadcast domains. The concept is illustrated below:
+In this concept, the host port can have colour 1 while the interconnection ports have colour 0. This way, packets can only travel from the host to (all of) the interconnection ports, or from one interconnection port to the host port. However packets can not travel between the the interconnection ports, thus only allowing "one hop" connections and avoiding switch loops and shared broadcast domains. The concept is illustrated below:
 
 !vde_switch.png!
 
