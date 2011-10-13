@@ -31,4 +31,5 @@ h2. Ideas
 
 * Send coded packets containing redundant packets to improve reliability.
 * Support the cross topology where more than two destinations are coded.
+* Implement Random Linear Network Coding (RLNC) on packets from the same flow, also to improve reliability.
 * ...
