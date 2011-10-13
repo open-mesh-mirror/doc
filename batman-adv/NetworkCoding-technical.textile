@@ -1,0 +1,7 @@
+h1. Catwoman
+
+When forwarding packets in a wireless mesh network, airtime can be saved by exploiting the information already present at the destinations of a forward. One way of doing this is _Network Coding_, where two packets are XOR'ed together before transmission. Two extract one of the included packets, the destination must simply XOR the network coded packet with the other included packet:
+
+<pre>
+  (p1 XOR p2) XOR p2 = p1
+</pre>
