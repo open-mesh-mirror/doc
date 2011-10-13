@@ -5,3 +5,30 @@ When forwarding packets in a wireless mesh network, airtime can be saved by expl
 <pre>
   (p1 XOR p2) XOR p2 = p1
 </pre>
+
+For more information about the concept, read the news item about [[open-mesh:2011-08-18-network-coding-first-steps|Batman and Catwoman]].
+
+h2. Current State
+
+The current code is available in out "git repository":http://git.open-mesh.org/?p=hundeboll/catwoman.git (the "catwoman" branch) and supports the following features:
+* Discover coding neighbors (one-hop neighbors that overhear each other).
+* Code packets when both destinations has the information needed to decode.
+* Decode coded packets.
+* Recode decoded packets only when the destination(s) has the decoded packet (not always the case).
+
+Catwoman is configured with the files in /sys/devices/virtual/net/bat0/mesh/catwoman{|_hold|purge}. To collect information about the processed packets, read /sys/kernel/debug/batman_adv/bat0/coding_stats
+
+h2. Required Work
+
+To make the implementation of catwoman complete, the following features must be implemented:
+* Remove outdated nodes from the list of coding neighbors periodically.
+* Support fragmented unicast packets.
+* Use the link quality of overhearing links when looking for coding opportunities.
+* Support configuration with batctl.
+* Use bat_dbg instead of printk.
+
+h2. Ideas
+
+* Send coded packets containing redundant packets to improve reliability.
+* Support the cross topology where more than two destinations are coded.
+* ...
