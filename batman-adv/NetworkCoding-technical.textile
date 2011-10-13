@@ -16,7 +16,11 @@ The current code is available in out "git repository":http://git.open-mesh.org/?
 * Decode coded packets.
 * Recode decoded packets only when the destination(s) has the decoded packet (not always the case).
 
-Catwoman is configured with the files in /sys/devices/virtual/net/bat0/mesh/catwoman{|_hold|purge}. To collect information about the processed packets, read /sys/kernel/debug/batman_adv/bat0/coding_stats
+Catwoman is configured with the files in 
+/sys/devices/virtual/net/bat0/mesh/catwoman{|_hold|purge}.
+
+To collect information about the processed packets, read
+/sys/kernel/debug/batman_adv/bat0/coding_stats
 
 h2. Required Work
 
