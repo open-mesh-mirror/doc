@@ -30,6 +30,7 @@ To make the implementation of catwoman complete, the following features must be 
 * Use the link quality of overhearing links when looking for coding opportunities.
 * Support configuration with batctl.
 * Use bat_dbg instead of printk.
+* Support setups with multiple interfaces.
 
 h2. Ideas
 
