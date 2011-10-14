@@ -40,4 +40,5 @@ h2. Ideas
 * Implement Random Linear Network Coding (RLNC) on packets from the same flow, also to improve reliability.
 * Use checksums instead of packet_id's to identify decoding packets.
 * Implement a "catwoman-support"-flag in OGM to allow mixing of nodes with and without catwoman enabled.
+* Refactor function names and variables to cw_* (or nc_*) instead of catwoman_* and coding_*.
 * ...
