@@ -31,6 +31,7 @@ To make the implementation of catwoman complete, the following features must be 
 * Support configuration with batctl.
 * Use bat_dbg instead of printk.
 * Support setups with multiple interfaces.
+* Maintain ref-counters for struct orig_node.
 
 h2. Ideas
 
