@@ -25,7 +25,7 @@ To collect information about the processed packets, read
 h2. Required Work
 
 To make the implementation of catwoman complete, the following features must be implemented:
-* Remove outdated nodes from the list of coding neighbors periodically.
+* -Remove outdated nodes from the list of coding neighbors periodically.-
 * Support fragmented unicast packets.
 * -Use the link quality of overhearing links when looking for coding opportunities.-
 * Support configuration with batctl.
