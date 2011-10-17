@@ -32,6 +32,7 @@ To make the implementation of catwoman complete, the following features must be 
 * Use bat_dbg instead of printk.
 * Support setups with multiple interfaces.
 * Maintain ref-counters for struct orig_node.
+* Refactor code into three files: catwoman.c, coding.c, and decoding.c
 
 h2. Ideas
 
