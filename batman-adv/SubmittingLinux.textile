@@ -33,7 +33,7 @@ Initialized empty Git repository in /home/batman/linux-merge/.git/
 remote: Counting objects: 1544059, done.
 remote: Compressing objects: 100%25 (252781/252781), done.
 ....
-'-(%25)-> git clone git://git.kernel.org/pub/scm/linux/kernel/git/sfr/linux-next.git
+'-(%25)-> git clone git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
 Initialized empty Git repository in /home/batman/linux-next/.git/
 remote: Counting objects: 1544059, done.
 remote: Compressing objects: 100%25 (252781/252781), done.
