@@ -32,7 +32,7 @@ To make the implementation of catwoman complete, the following features must be 
 * Use bat_dbg instead of printk.
 * Support setups with multiple interfaces.
 * Maintain ref-counters for struct orig_node.
-* Refactor code into three files: catwoman.c, coding.c, and decoding.c
+* -Refactor code into three files: catwoman.c, coding.c, and decoding.c-
 * Remove coding_path after a certain timeout.
 
 h2. Ideas
@@ -42,5 +42,5 @@ h2. Ideas
 * Implement Random Linear Network Coding (RLNC) on packets from the same flow, also to improve reliability.
 * Use checksums instead of packet_id's to identify decoding packets.
 * Implement a "catwoman-support"-flag in OGM to allow mixing of nodes with and without catwoman enabled.
-* Refactor function names and variables to cw_* (or nc_*) instead of catwoman_* and coding_*.
+* -Refactor function names and variables to cw_* (or nc_*) instead of catwoman_* and coding_*.-
 * ...
