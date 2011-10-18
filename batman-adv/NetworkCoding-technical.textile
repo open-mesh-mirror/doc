@@ -33,6 +33,7 @@ To make the implementation of catwoman complete, the following features must be 
 * Support setups with multiple interfaces.
 * Maintain ref-counters for struct orig_node.
 * Refactor code into three files: catwoman.c, coding.c, and decoding.c
+* Remove coding_path after a certain timeout.
 
 h2. Ideas
 
