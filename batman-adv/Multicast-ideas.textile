@@ -1,5 +1,22 @@
-h1. B.A.T.M.A.N.-Adv Multicast Awareness
+---
 
+Update (2011-10-18):
+
+
+(this is the page for the multicast patchset implemented by Linus Luessing for batman-advanced floating around for some time now, which needs and update or replacement by a more up-to-date page)
+
+Current status:
+
+ * we have a working patchset for 2010.2.0 with some limitations (only bidirect connections, no mcast snooping and hence no support for bridged in clients)
+ * we have a half-finished implementation which should fix these limitations in T_X's repository
+
+More Info:
+ *  "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011], slides are attached at the end of this document
+ * The specification for the 2010.2.0 version is attached as well
+
+---
+
+h1. B.A.T.M.A.N.-Adv Multicast Awareness
 
 As batman-adv has full control over all data traffic flowing through the mesh network multicast traffic also falls under its jurisdiction. At the time of writing this document batman-adv handles the multicast traffic by flooding the whole network with it. Although this approach is suitable for common multicast groups sending a small number of packets (e.g. IPv6 neighbor announcements) it fails its purpose when it comes to large multicast data packets (e.g. multimedia streaming). This document aims to provide a concept for multicast optimizations, especially when it comes to these large data packets.
 
