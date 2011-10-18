@@ -32,13 +32,13 @@ Since linux 2.6.33 batman-adv is part of the official linux tree. You can build 
 It follows an overview of linux versions and the batman-adv version they contain, so that you can easily pick the compatible batctl packages:
 * linux 2.6.33 => batman-adv 0.2.0 (get batctl 0.2.0 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 2.6.34 => batman-adv 0.2.1 (get batctl 0.2.1 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 2.6.35 => batman-adv 2010.0.0 (get batctl 2010.0.0 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 2.6.36 => batman-adv 2010.1.0 (get batctl 2010.1.0 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 2.6.37 => batman-adv 2010.2.0 (get batctl 2010.2.0 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 2.6.38 => batman-adv 2011.0.0 (get batctl 2011.0.0 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 2.6.39 => batman-adv 2011.1.0 (get batctl 2011.1.0 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 3.0 => batman-adv 2011.2.0 (get batctl 2011.2.0 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 3.1 => batman-adv 2011.3.0 (get batctl 2011.3.0 from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 2.6.35 => batman-adv 2010.0.x (get batctl 2010.0.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 2.6.36 => batman-adv 2010.1.x (get batctl 2010.1.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 2.6.37 => batman-adv 2010.2.x (get batctl 2010.2.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 2.6.38 => batman-adv 2011.0.x (get batctl 2011.0.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 2.6.39 => batman-adv 2011.1.x (get batctl 2011.1.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 3.0 => batman-adv 2011.2.x (get batctl 2011.2.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 3.1 => batman-adv 2011.3.x (get batctl 2011.3.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 
 h2. Debian
 
