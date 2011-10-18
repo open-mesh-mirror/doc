@@ -11,7 +11,8 @@ Current status:
  * we have a half-finished implementation which should fix these limitations in T_X's repository
 
 More Info:
- *  "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011], slides are attached at the end of this document
+
+ * "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011], slides are attached at the end of this document
  * The specification for the 2010.2.0 version is attached as well
 
 ---
