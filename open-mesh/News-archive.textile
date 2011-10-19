@@ -6,6 +6,7 @@ This page contains the links to previous news posts for archiving puposes.
 
 h3. 2011
 
+* *19.Jun. 2011* [[2011-06-19-batman-adv-2011-2-0-release|Batman-adv 2011.2.0 released]]
 * *19.Apr. 2011* [[2011-04-18-batman-adv-2011-1-0-release|Batman-adv 2011.1.0 released]]
 * *30.Mar. 2011* [[2011-03-30-GSoC2011-announcement|B.A.T.M.A.N. @Google Summer of Code 2011]]
 * *27.Mar. 2011* [[2011-03-27-transition-to-git|Transition to git]]
