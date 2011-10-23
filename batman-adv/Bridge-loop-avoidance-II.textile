@@ -2,6 +2,10 @@ h1. Bridge loop avoidance II
 
 This page contains a concept in progress, it is not implemented yet, but feel free to discuss it.
 
+h2. Situation
+
+This is the example we will use to discuss the concept: multiple gateways are connected to a big, single backbone. There are also some more mesh nodes which are not connected to the LAN. LAN connections are drawn with solid lines, mesh connections with dotted lines. You can see an internet gateway connected through the LAN (this could be any other network device as well) at the top and a client (e.g. your laptop) connected/bridged through a mesh node in the bottom.
+
 h2. Goals:
 
  * Should be able to scale
