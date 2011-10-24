@@ -103,11 +103,8 @@ This patch also allows to filter batman-adv packet types. To apply a packet loss
 wirefilter --ether 4305:02 -l 50
 </pre>
 
-You can specify up to 10 packet types (separated by colon). The patch against vde2-2.2.3 (current latest stable version) can be found here:
-* attachment:vde2-2.2.3-wirefilter-ethertype.patch
-
-Patch for vde2-2.3.1 can be found here:
-* attachment:wirefilter-ethertype_2.3.1.patch
+You can specify up to 10 packet types (separated by colon). The patch against vde2-2.3.1 (current latest stable version) can be found here:
+* attachment:vde2-2.3.1-wirefilter-ethertype.patch
 
 
 h2. Scripts
