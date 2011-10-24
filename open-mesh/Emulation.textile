@@ -70,9 +70,9 @@ In this concept, the host port can have colour 1 while the interconnection ports
 
 !vde_switch.png!
 
-You can find the patch against vde2-2.2.3 (current latest stable version) to add this colour patch here:
+You can find the patch against vde2-2.3.1 (current latest stable version) to add this colour patch here:
 
-* attachment:vde2-2.2.3_colour.patch
+* attachment:vde2-2.3.1_colour.patch
 
 
 h3. wirefilter
