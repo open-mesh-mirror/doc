@@ -93,13 +93,13 @@ Although a broadcast frame is sent into the mesh, it won't loop back into the LA
 
 h3. LAN->mesh Roaming:
 
-(TODO: illustration)
+!Test_roaming_LAN_mesh.dia.png!
 
 This is the easy case: Sooner or later, a claim will be added for the roamed client.
 
 h3. mesh->LAN Roaming:
 
-(TODO: illustration)
+!Test_roaming_mesh_LAN.dia.png!
 
 We assume that the client was already claimed by a backbone gateway before, otherwise there is nothing to consider.
 
@@ -210,7 +210,7 @@ h2. Test Cases
 
 h3. Roaming from backbone to mesh
 
-!test_roaming_LAN_mesh.dia.png!
+!Test_roaming_LAN_mesh.dia.png!
 
 The client is connected to the backbone first and then roams to a mesh node which is not connected to the backbone.
 
@@ -218,7 +218,7 @@ Ping the internet gateway or a mesh node continuously and see if the connection 
 
 h3. Roaming from mesh to backbone 
 
-!test_roaming_mesh_LAN.dia.png!
+!Test_roaming_mesh_LAN.dia.png!
 
 The client is connected to a meshnode first and then roams the backbone.
 
