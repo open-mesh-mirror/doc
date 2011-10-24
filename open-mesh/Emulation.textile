@@ -106,6 +106,9 @@ wirefilter --ether 4305:02 -l 50
 You can specify up to 10 packet types (separated by colon). The patch against vde2-2.2.3 (current latest stable version) can be found here:
 * attachment:vde2-2.2.3-wirefilter-ethertype.patch
 
+Patch for vde2-2.3.1 can be found here:
+* attachment:wirefilter-ethertype_2.3.1.patch
+
 
 h2. Scripts
 
