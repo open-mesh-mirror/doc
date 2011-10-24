@@ -261,6 +261,13 @@ Every node should be able to reach every other node.
 
 +note:+ this patch requires the group forming patch to be included.
 
+h2. Open Implementation issues
+
+ * update README and sysfs description
+ * add support for soft interface OGM propagation
+ * test all test cases (so far, only basic tests and 2x mesh, 2x LAN)
+ * send to ml, add review points
+
 h2. Further ideas 
 
 h3. from discussion on 2011-06-08:
