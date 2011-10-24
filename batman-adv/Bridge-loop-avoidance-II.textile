@@ -4,32 +4,35 @@ This page contains a concept in progress, it is not implemented yet, but feel fr
 
 h2. Situation
 
-This is the example we will use to discuss the concept: multiple gateways are connected to a big, single backbone. There are also some more mesh nodes which are not connected to the LAN. LAN connections are drawn with solid lines, mesh connections with dotted lines. You can see an internet gateway connected through the LAN (this could be any other network device as well) at the top and a client (e.g. your laptop) connected/bridged through a mesh node in the bottom.
+!situation.dia.png!
+
+This is the example we will use to discuss the concept: multiple meshnodes (called backbone gateways in the further text) are connected to a big, single backbone. There are also some more mesh nodes which are not connected to the LAN. LAN connections are drawn with solid lines, mesh connections with dotted lines. You can see an internet gateway connected through the LAN (this could be any other network device as well) at the top and a client (e.g. your laptop) connected/bridged through a mesh node in the bottom.
+
+
+h2. Definitions:
+
+ * backbone gateway: A mesh node which is conncted to both a mesh and a LAN
+ * Client: A non-mesh network participant which is sending data via the mesh. The Client is always identified by the Source MAC address of the payload Ethernet header.
 
 h2. Goals:
 
  * Should be able to scale
- * Communication between meshnodes and LAN should be via the best gateway
+ * Communication between meshnodes and LAN should be via the best backbone gateway
  * Minimize Broadcast Traffic in the LAN
  * Roaming should still be possible
-
-h2. Definitions:
-
- * Gateway: A mesh node which is conncted to both a mesh and a LAN
- * Client: A non-mesh network participant which is sending data via the mesh. The Client is always identified by the Source MAC address of the payload Ethernet header.
 
 h2. Key Concepts:
 
 h3. Claims:
 
-Only one gateway (out of possibly many gateways) should serve a client from the mesh for the LAN. This is announced by sending "claim packets" on the soft-interface bat0. A "claim packet" contains a list of MAC addresses the gateway feels responsible for. Each gateway will save the claim list of other gateways. By doing this, it can:
+Only one backbone gateway (out of possibly many gateways) should serve a client from the mesh for the LAN. This is announced by sending "claim frames" on the soft-interface bat0. A "claim frames" contains a MAC address the backbone gateway feels responsible for. Each backbone gateway will save a claim list of other backbone gateways. By doing this, it can:
 
  * see which clients are already tracked (claimed)
- * see which other gateways exist in the LAN
+ * see which other backbone gateways exist in the LAN
 
-Note that gateways may overwrite a claim of another gateway by simply claiming the same client. In this case, the newest claim wins, and local databases are updated accordingly.
+Note that backbone gateways may overwrite a claim of another backbone gateway by simply claiming the same client. In this case, the newest claim wins, and local databases are updated accordingly.
 
-Gateways can also "unclaim" their own clients. After doing this, the client is not claimed anymore for this LAN.
+Backbone gateways can also "unclaim" their own clients. After doing this, the client is not claimed anymore for this LAN.
 
 h2. Details and Cases:
 
@@ -38,74 +41,81 @@ and mesh->LAN->mesh. Furthermore, roaming is discussed when a client changes fro
 
 h3. Broadcast, mesh->LAN:
 
+!mesh_LAN.dia.png!
 If the originator of the broadcast is not known (not in the originator table), drop it.
 
-If the originator of the broadcast is another gateway from the same LAN, drop it.
+If the originator of the broadcast is another backbone gateway from the same LAN, drop it.
 
-If a gateway has already claimed the client, only the resposible gateway will deliver the frame to the bridge. Other gateways will discard the packet.
+If a backbone gateway has already claimed the client, only the resposible backbone gateway will deliver the frame to the backbone/LAN. Other backbone gateways will discard the packet.
 
-If no gateway has claimed the client, the gateway(s) will race for the claim:
-
-  * check if a claim is present (we assumed there is none)
-  * wait for a short, random time
-  * check again if any other gateway has claimed in the meantime. If yes, drop it.
-  * send a claim packet including the new client
-  * deliver the Broadcast frame to the soft-interface
-
-The random backoff is used to avoid the race conditions when the packet is delivered from the mesh by multiple gateways at the same time.
-
-For every broadcast frame delivered into the LAN, add an entry in the LAN duplicate list. This is used for loop detection and roaming.
+If no backbone gateway has claimed the client, the first client receiving the broadcast will claim it in the backbone by sending a claim frame, and send the actual broadcast frame.
 
 h3. Unicast, mesh->LAN:
 
-If the client is not claimed by the gateway receiving the unicast, a claim packet is sent out first. This gateway is now the (new) responsible gateway for this client.
+!mesh_LAN_unicast.dia.png!
+
+If the client is not claimed by the backbone gateway receiving the unicast, a claim packet is sent out first. This backbone gateway is now the (new) responsible backbone gateway for this client.
 
 Then, the unicast packet is delivered to the soft interface.
 
 h3. Broadcast, LAN->mesh:
 
+!LAN_mesh.dia.png!
+
 If a claim for the mesh-client exists:
 
- * all not responsible gateways should discard the frame - this might be a loop. 
- * if the responsible gateway (which claimed this client) also receives the packet, "unclaim" this client by sending an according un-claim packet, and forward the packet into the mesh. This should only happen in the roaming case, but not in normal situations.
+ * all not responsible backbone gateways should discard the frame - this might be a loop. 
+ * if the responsible backbone gateway (which claimed this client) also receives the packet, "unclaim" this client by sending an according un-claim packet, and forward the packet into the mesh. This should only happen in the roaming case, but not in normal situations.
 
-If the client is not claimed, only the gateway with the numerically lowest MAC address will forward the frame into the mesh.
+If the client is not claimed, all backbone gateways will send the broadcast into the mesh. The mesh nodes will avoid duplicates by using the duplicate lists (see optimizations below)
 
 h3. Unicast, LAN->mesh:
 
+!LAN_mesh_unicast .dia.png!
+
 Nothing fancy should happen here, as a switch should do the right thing. If the client is not claimed, the frame is simply sent into the mesh.
 
-However, when using hubs (or broken switches), also unicast packets might loop. Therefore, if the client (source of the Ethernet frame) is claimed by any gateway, drop it.
+However, when using hubs (or broken switches), also unicast packets might loop. Therefore, if the client (source of the Ethernet frame) is claimed by any backbone gateway, drop it.
 
 h3. mesh->LAN->mesh loop:
 
-A broadcast frame is only sent to LAN by the (yet to be) responsible gateway. Back from the LAN to the mesh, all not responsible gateway will drop the frame. The responsible gateway should not receive it on normal switched networks.
+!mesh_LAN_mesh.dia.png!
+
+A broadcast frame is only sent to LAN by the (yet to be) responsible backbone gateway. Back from the LAN to the mesh, all not responsible backbone gateways will drop the frame. The responsible backbone gateway should not receive it on normal switched networks.
 
 To avoid loops for hubs, unicast packets are dropped from LAN to mesh if the client is claimed.
 
 h3. LAN->mesh->LAN loop:
 
-Although a broadcast frame is sent into the mesh, it won't loop back into the LAN as a gateway will drop it if was sent from another gateway (from the same LAN).
+!LAN_mesh_LAN.dia.png!
+
+Although a broadcast frame is sent into the mesh, it won't loop back into the LAN as a backbone gateway will drop it if was sent from another backbone gateway (from the same LAN).
 
 h3. LAN->mesh Roaming:
+
+(TODO: illustration)
 
 This is the easy case: Sooner or later, a claim will be added for the roamed client.
 
 h3. mesh->LAN Roaming:
 
-We assume that the client was already claimed by a gateway before, otherwise there is nothing to consider.
+(TODO: illustration)
 
-When a broadcast frame is sent, the responsible gateway can detect the roam: The frames checksum should not be in the "LAN duplicate list", as the frame is new and has not been sent by this gateway. The client will therefore be unclaimed. This first broadcast will only be broadcasted by the (previously) responsible gateway into the mesh, later broadcasts will be sent by all gateways again.
+We assume that the client was already claimed by a backbone gateway before, otherwise there is nothing to consider.
 
-Unicast frames are dropped, and the clients roaming will not be known as long as no broadcast frame is sent. This is a limitation. :(
+When a broadcast frame is sent, the responsible backbone gateway can detect the roam and will unclaim the client. This first broadcast will only be broadcasted by the (previously) responsible backbone gateway into the mesh, later broadcasts will be sent by all backbone gateways again.
 
 h3. Gateway selection:
+
+!gateway_selection.dia.png!
 
 All gateways announce the clients within their LAN and ignore roaming messages from other gateways on the same LAN.
 
 Other non-gateway meshnodes may select their best gateway to the LAN based on the TQ value. 
 
 h3. Claim packets
+
+TODO: rework this with the new packet defintions
 
 To claim a packet, a gratious ARP packet may be used with the following settings:
 
@@ -142,7 +152,7 @@ self announcement packets are also sent as  gratious arp packets with the follow
 Note: the SRC HW address is a "locally administered address" group address which should not be used by any NIC or protocol, but is not registered with the IEEE
 
 +Full claim table update+
-TODO: specify table updates. Should be very similar to the TT full table request/reply mechanism.
+TODO: specify table updates. this is done with request claim packets and the normal claim/unclaim packets
 
 h2. Discussion:
 
@@ -157,23 +167,44 @@ h3. Features:
 
 h3. Limitations:
 
- * Roaming to the LAN with multiple gateways is slow when only unicast packets are used
  * other things I might have missed ...
 
 h2. Further Optimizations
 
-h3. Broadcasting by all gateways
+h3. Broadcasting by all backbone gateways
 
-Instead of letting only one gateway emit the packets to the mesh, all gateways may send them instead. In this case, we have to make sure that the duplicates are recognized and ignored to deliver the broadcast packets only once to the users.
+Instead of letting only one backbone gateway emit the packets to the mesh, all backbone gateways may send them instead. In this case, we have to make sure that the duplicates are recognized and ignored to deliver the broadcast packets only once to the users.
 
-To do this, we use a "mesh duplicate list": This list is kept for every gateway mesh node which is connected to a LAN with multiple gateways. It checks broadcast packets which are sent from the LAN into the mesh through multiple gateways (and thus multiple times).
+To do this, we use a "mesh duplicate list": This list is kept for every backbone gateway mesh node which is connected to a LAN with multiple backbone gateways. It checks broadcast packets which are sent from the LAN into the mesh through multiple backbone gateways (and thus multiple times).
 
-If the client is not claimed by any gateway, every gateway shall forward the packet into the mesh. This will lead to duplicates of the broadcast with different meta information (different originators, different sequence numbers). To avoid duplicates within the mesh, every mesh node will use the "mesh duplicate list":
+If the client is not claimed by any backbone gateway, every backbone gateway shall forward the packet into the mesh. This will lead to duplicates of the broadcast with different meta information (different originators, different sequence numbers). To avoid duplicates within the mesh, every mesh node will use the "mesh duplicate list":
 
- * after the (old) seqno window check: match the frame to the "mesh duplicate list" of other gateways to see if another gateway from the same LAN has sent a broadcast with the same payload checksum.
+ * after the (old) seqno window check: match the frame to the "mesh duplicate list" of other backbone gateways to see if another backbone gateway from the same LAN has sent a broadcast with the same payload checksum.
  * if true, drop the packet. Otherwise, add the checksum to the entries and re-forward it.
 
 (Note that it might be neccesary to connect the checksums to sequence numbers to allow intentionally sent duplicate payload broadcasts)
+
+h3. backbone gateway grouping
+
+TODO: explain groups
+h2. Test Cases
+
+h3. TODO: Define Roaming Test Cases (LAN -> mesh, mesh -> LAN)
+h3. TODO: Define gateway selection test cases (switch gateways)
+
+h3. Two LANs connected by one mesh
+
+!Test_2xLAN.dia.png!
+
+Two LANs are connected by one mesh. The backbone gateways of each LAN should find each other and claim only packets from each LAN.
+Every node should be able to reach every other node.
+
+h3. Two meshes connected by one LAN
+
+!Test_2xmesh.dia.png!
+
+Two meshes are connected to one LAN. The backbone gateways of each mesh should find themselves and share their claims, but should disregard claims for backbone gateways they are not part of (only possible with the backbone gateway grouping optimization)
+Every node should be able to reach every other node.
 
 h2. Further ideas 
 
@@ -199,5 +230,4 @@ h3. Agenda/Comments for next discussion
 
 Please add any comments for the next discussion here:
 
-  * Discuss Claims
-  * VLANs should be handled too
+ * 
