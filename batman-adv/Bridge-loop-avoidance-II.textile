@@ -11,7 +11,7 @@ This is the example we will use to discuss the concept: multiple mesh nodes (cal
 
 h2. Definitions:
 
- * backbone gateway: A mesh node which is conncted to both - a mesh network and a LAN.
+ * backbone gateway: A mesh node which is connected to both - a mesh network and a LAN.
  * client: A non-mesh network participant which is sending data via the mesh. The client is always identified by the source MAC address of the payload Ethernet header.
 
 h2. Goals:
@@ -40,7 +40,7 @@ The concept will be explained by discussing the different cases: unicast and bro
 
 h3. Broadcast, mesh->LAN:
 
-!mesh_LAN.dia.png!:http://www.open-mesh.org/attachments/98/mesh_LAN.dia.png
+!mesh_LAN.dia.png!
 If the originator of the broadcast is not known (not in the originator table), drop it.
 
 If the originator of the broadcast is another backbone gateway from the same LAN, drop it.
@@ -70,7 +70,7 @@ If the client is not claimed, all backbone gateways will send the broadcast into
 
 h3. Unicast, LAN->mesh:
 
-!LAN_mesh_unicast .dia.png!
+!LAN_mesh_unicast.dia.png!
 
 Nothing fancy should happen here, as a switch should do the right thing. If the client is not claimed, the frame is simply sent into the mesh.
 
@@ -110,23 +110,23 @@ h3. Gateway selection:
 
 All gateways announce the clients within their LAN and ignore roaming messages from other gateways on the same LAN.
 
-Other non-gateway meshnodes may select their best gateway to the LAN based on the TQ value. 
+Other non-gateway mesh nodes may select their best gateway to the LAN based on the TQ value. 
 
 h3. Claim frames
 
 !claimtypes.dia.png!
 
-All claim operations are sent using "special" gratious ARP frames. 4 types are used which are illustrated above:
+All claim operations are sent using "special" gratuitous ARP frames. 4 types are used which are illustrated above:
 
  * CLAIM frames are used to tell others that a backbone gateway feels responsible for a client now
  * UNCLAIM frames are sent when a backbone gateway does not feel responsible anymore
  * ANNOUNCE frames are sent regularly to find other backbone gateways and provides the CRC of its local table
- * REQUEST frames are used to ask for a full table update when the information is out of sync (i.e. the announced crc does not match with the local crc)
+ * REQUEST frames are used to ask for a full table update when the information is out of sync (i.e. the announced CRC does not match with the local CRC)
 
-the claim type is announced within the 4th byte of the Target HW address. Each claim frame is discussed in detail further.
+The claim type is announced within the 4th byte of the Target HW address.
 
 +Note:+ Although this is a misuse of ARP packets, the "normal" ARP process should not be disturbed as the IP addresses
-(0.0.0.0) should not be in any sane ARP table. As far as I understand, a gratious ARP should only be considered if the 
+(0.0.0.0) should not be in any sane ARP table. As far as I understand, a gratuitous ARP should only be considered if the 
 IP address is already in an ARP table [2].
 
 [1] http://tools.ietf.org/html/rfc826
@@ -150,7 +150,7 @@ The periodic ANNOUNCE frames (default: every 10 seconds) by the backbone gateway
 
  * backbone gateways learn about the existence of other backbone gateways (this is important for new gateways)
  * when no ANNOUNCE frames are received anymore, we can assume that this backbone gateway is no longer serving the LAN and can remove its claims
- * it contains a checksum (the last 2 bytes YY:YY within the Sender HW address) which other backbone gateways can use to check their table consistency. If a table is not consistent, a backbone gateway can ask for the full claim table via the REQUEST frame.
+ * It contains a checksum (the last 2 bytes YY:YY within the Sender HW address) which other backbone gateways can use to check their table consistency. If a table is not consistent, a backbone gateway can ask for the full claim table via the REQUEST frame.
 
 Note: the SRC HW address is a "locally administered address" group address which should not be used by any NIC or protocol, but is not registered with the IEEE
 
@@ -162,10 +162,10 @@ It then sends a REQUEST frame to the backbone gateway it just received the ANNOU
 
 The asked backbone gateway will send all of its local CLAIM frames again, and send another ANNOUNCE frame afterwards.
 
-The requesting backbone gateway will add all claims it receives through the CLAIM frames, and can check the CRC another time once it receives the final ANNOUNCE frame.
+The requesting backbone gateway will add all claims it receives through the CLAIM frames, and can check the CRC once more as soon as it receives the final ANNOUNCE frame.
 (If the CRC is still wrong, the process will start again)
 
-While a request is in flight, the requesting backbone gateway will close down its soft interface for broadcast to avoid loops in this period.
+While a request is in flight, the requesting backbone gateway will close down its soft-interface for broadcast to avoid loops in this period.
 
 +group forming+
 
@@ -180,7 +180,7 @@ h2. Discussion:
 h3. Features:
 
  * no single "super" gateway => should scale better
- * the only additional BATMAN LAN packets are claim packets, which are only sent for new claims
+ * the only additional BATMAN LAN packets are claim packets, which are only sent for new claims and regular announcements
  * no BATMAN packets on the LAN
  * broadcasts are sent from all the gateways into the mesh
  * nodes can select gateways, and change among them (gateways will automatically re-claiming)
@@ -219,7 +219,7 @@ h3. Roaming from mesh to backbone
 
 !Test_roaming_mesh_LAN.dia.png!
 
-The client is connected to a meshnode first and then roams the backbone.
+The client is connected to a mesh node first and then roams the backbone.
 
 Ping the internet gateway or a mesh node continuously and see if the connection is recovered.
 
