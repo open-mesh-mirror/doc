@@ -11,15 +11,15 @@ This is the example we will use to discuss the concept: multiple mesh nodes (cal
 
 h2. Definitions:
 
- * backbone gateway: A mesh node which is conncted to both a mesh and a LAN
- * Client: A non-mesh network participant which is sending data via the mesh. The Client is always identified by the Source MAC address of the payload Ethernet header.
+ * backbone gateway: A mesh node which is conncted to both - a mesh network and a LAN.
+ * client: A non-mesh network participant which is sending data via the mesh. The client is always identified by the source MAC address of the payload Ethernet header.
 
 h2. Goals:
 
- * Should be able to scale
- * Communication between meshnodes and LAN should be via the best backbone gateway
- * Minimize Broadcast Traffic in the LAN
- * Roaming should still be possible
+ * The bridge loop avoidance should be able to scale to hundreds of gateways connected to the same LAN.
+ * Communication between the mesh nodes and the LAN should be via the best backbone gateway.
+ * Minimize broadcast traffic in the LAN.
+ * Roaming should still be possible.
 
 h2. Key Concepts:
 
