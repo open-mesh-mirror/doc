@@ -40,12 +40,12 @@ The concept will be explained by discussing the different cases: unicast and bro
 
 h3. Broadcast, mesh->LAN:
 
-!mesh_LAN.dia.png!
+!mesh_LAN.dia.png!:http://www.open-mesh.org/attachments/98/mesh_LAN.dia.png
 If the originator of the broadcast is not known (not in the originator table), drop it.
 
 If the originator of the broadcast is another backbone gateway from the same LAN, drop it.
 
-If a backbone gateway has already claimed the client, only the resposible backbone gateway will deliver the frame to the backbone/LAN. Other backbone gateways will discard the packet.
+If a backbone gateway has already claimed the client, only the responsible backbone gateway will deliver the frame to the backbone/LAN. Other backbone gateways will discard the packet.
 
 If no backbone gateway has claimed the client, the first client receiving the broadcast will claim it in the backbone by sending a claim frame, and send the actual broadcast frame.
 
