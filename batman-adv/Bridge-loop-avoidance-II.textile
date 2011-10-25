@@ -36,8 +36,7 @@ Backbone gateways can also "unclaim" their own clients. After doing this, the cl
 
 h2. Details and Cases:
 
-The concept will be explained by discussing the different cases: unicast and broadcast frames, both for the LAN->mesh and mesh->LAN case. Loop cases are considered too: LAN->mesh->LAN
-and mesh->LAN->mesh. Furthermore, roaming is discussed when a client changes from the LAN to another mesh node and back.
+The concept will be explained by discussing the different cases: unicast and broadcast frames, both for the LAN->mesh and mesh->LAN case. Loop cases are considered too: LAN->mesh->LAN and mesh->LAN->mesh. Furthermore, roaming (when a client changes from the LAN to another mesh node and back) is discussed.
 
 h3. Broadcast, mesh->LAN:
 
