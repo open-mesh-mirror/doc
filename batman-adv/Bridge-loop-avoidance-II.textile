@@ -6,50 +6,51 @@ h2. Situation
 
 !situation.dia.png!:http://www.open-mesh.org/attachments/100/situation.dia.png
 
-This is the example we will use to discuss the concept: multiple mesh nodes (called backbone gateways throughout the text) are connected to a big, single LAN (the backbone) as well as mesh nodes which are not connected to the backbone. LAN connections are drawn with solid lines, mesh connections with dotted lines. You can see an internet gateway connected through the LAN (this could be any other network device as well) at the top and a client (e.g. your laptop) connected/bridged through a mesh node in the bottom.
+This is the example we will use to discuss the concept: multiple mesh nodes (called backbone gateways throughout the text) are connected to a big, single LAN (the backbone) as well as mesh nodes which are not connected to the backbone. backbone connections are drawn with solid lines, mesh connections with dotted lines. You can see an internet gateway connected through the LAN (this could be any other network device as well) at the top and a client (e.g. your laptop) connected/bridged through a mesh node in the bottom.
 
 
 h2. Definitions:
 
- * backbone gateway: A mesh node which is connected to both - a mesh network and a LAN.
+ * backbone gateway: A mesh node which is connected to both - a mesh network and a backbone (e.g. LAN).
  * client: A non-mesh network participant which is sending data via the mesh. The client is always identified by the source MAC address of the payload Ethernet header.
+ * Originator: An originator is a mesh participant in batman. If we talk about the originator address in this document, we mean the hardware address of the primary interface.
 
 h2. Goals:
 
- * The bridge loop avoidance should be able to scale to hundreds of gateways connected to the same LAN.
- * Communication between the mesh nodes and the LAN should be via the best backbone gateway.
- * Minimize broadcast traffic in the LAN.
+ * The bridge loop avoidance should be able to scale to hundreds of gateways connected to the same backbone.
+ * Communication between the mesh nodes and the backbone should be via the best backbone gateway.
+ * Minimize broadcast traffic in the backbone.
  * Roaming should still be possible.
 
 h2. Key Concepts:
 
 h3. Claiming clients:
 
-Only one backbone gateway (out of possibly many gateways) should forward traffic from a non-mesh client (coming via the mesh) to the LAN. Every backbone gateway announces the mac addresses of the non-mesh clients it feels responsible for in the form of "claim frames" on the soft-interface bat0. Each backbone gateway will save a claim list of other backbone gateways. By doing this, it can:
+Only one backbone gateway (out of possibly many gateways) should forward traffic from a non-mesh client (coming via the mesh) to the backbone. Every backbone gateway announces the mac addresses of the non-mesh clients it feels responsible for in the form of "claim frames" on the soft-interface bat0. Each backbone gateway will save a claim list of other backbone gateways. By doing this, it can:
 
  * see which clients are already tracked (claimed)
- * see which other backbone gateways exist in the LAN
+ * see which other backbone gateways exist in the backbone
 
 Note that backbone gateways may overwrite a claim of another backbone gateway by simply claiming the same client. In this case, the newest claim wins, and local databases are updated accordingly.
 
-Backbone gateways can also "unclaim" their own clients. After doing this, the client is not claimed anymore for this LAN.
+Backbone gateways can also "unclaim" their own clients. After doing this, the client is not claimed anymore for this backbone.
 
 h2. Details and Cases:
 
-The concept will be explained by discussing the different cases: unicast and broadcast frames, both for the LAN->mesh and mesh->LAN case. Loop cases are considered too: LAN->mesh->LAN and mesh->LAN->mesh. Furthermore, roaming (when a client changes from the LAN to another mesh node and back) is discussed.
+The concept will be explained by discussing the different cases: unicast and broadcast frames, both for the backbone->mesh and mesh->backbone case. Loop cases are considered too: backbone->mesh->backbone and mesh->backbone->mesh. Furthermore, roaming (when a client changes from the backbone to another mesh node and back) is discussed.
 
-h3. Broadcast, mesh->LAN:
+h3. Broadcast, mesh->backbone:
 
 !mesh_LAN.dia.png!
 If the originator of the broadcast is not known (not in the originator table), drop it.
 
-If the originator of the broadcast is another backbone gateway from the same LAN, drop it.
+If the originator of the broadcast is another backbone gateway from the same backbone, drop it.
 
 If a backbone gateway has already claimed the client, only the responsible backbone gateway will deliver the frame to the backbone/LAN. Other backbone gateways will discard the packet.
 
 If no backbone gateway has claimed the client, the first client receiving the broadcast will claim it in the backbone by sending a claim frame, and send the actual broadcast frame.
 
-h3. Unicast, mesh->LAN:
+h3. Unicast, mesh->backbone:
 
 !mesh_LAN_unicast.dia.png!
 
@@ -57,7 +58,7 @@ If the client is not claimed by the backbone gateway receiving the unicast, a cl
 
 Then, the unicast packet is delivered to the soft interface.
 
-h3. Broadcast, LAN->mesh:
+h3. Broadcast, backbone->mesh:
 
 !LAN_mesh.dia.png!
 
@@ -68,7 +69,7 @@ If a claim for the mesh-client exists:
 
 If the client is not claimed, all backbone gateways will send the broadcast into the mesh. The mesh nodes will avoid duplicates by using the duplicate lists (see optimizations below)
 
-h3. Unicast, LAN->mesh:
+h3. Unicast, backbone->mesh:
 
 !LAN_mesh_unicast.dia.png!
 
@@ -76,27 +77,27 @@ Nothing fancy should happen here, as a switch should do the right thing. If the 
 
 However, when using hubs (or broken switches), also unicast packets might loop. Therefore, if the client (source of the Ethernet frame) is claimed by any backbone gateway, drop it.
 
-h3. mesh->LAN->mesh loop:
+h3. mesh->backbone->mesh loop:
 
 !mesh_LAN_mesh.dia.png!
 
-A broadcast frame is only sent to LAN by the (yet to be) responsible backbone gateway. Back from the LAN to the mesh, all not responsible backbone gateways will drop the frame. The responsible backbone gateway should not receive it on normal switched networks.
+A broadcast frame is only sent to backbone by the (yet to be) responsible backbone gateway. Back from the backbone to the mesh, all not responsible backbone gateways will drop the frame. The responsible backbone gateway should not receive it on normal switched networks.
 
-To avoid loops for hubs, unicast packets are dropped from LAN to mesh if the client is claimed.
+To avoid loops for hubs, unicast packets are dropped from backbone to mesh if the client is claimed.
 
-h3. LAN->mesh->LAN loop:
+h3. backbone->mesh->backbone loop:
 
 !LAN_mesh_LAN.dia.png!
 
-Although a broadcast frame is sent into the mesh, it won't loop back into the LAN as a backbone gateway will drop it if was sent from another backbone gateway (from the same LAN).
+Although a broadcast frame is sent into the mesh, it won't loop back into the backbone as a backbone gateway will drop it if was sent from another backbone gateway (from the same backbone).
 
-h3. LAN->mesh Roaming:
+h3. backbone->mesh Roaming:
 
 !Test_roaming_LAN_mesh.dia.png!
 
 This is the easy case: Sooner or later, a claim will be added for the roamed client.
 
-h3. mesh->LAN Roaming:
+h3. mesh->backbone Roaming:
 
 !Test_roaming_mesh_LAN.dia.png!
 
@@ -108,9 +109,9 @@ h3. Gateway selection:
 
 !gateway_selection.dia.png!
 
-All gateways announce the clients within their LAN and ignore roaming messages from other gateways on the same LAN.
+All gateways announce the clients within their backbone and ignore roaming messages from other gateways on the same backbone.
 
-Other non-gateway mesh nodes may select their best gateway to the LAN based on the TQ value. 
+Other non-gateway mesh nodes may select their best gateway to the backbone based on the TQ value. 
 
 h3. Claim frames
 
@@ -149,7 +150,7 @@ Backbone gateways which receive an UNCLAIM frame (and accept the backbone gatewa
 The periodic ANNOUNCE frames (default: every 10 seconds) by the backbone gateways serve the following purposes:
 
  * backbone gateways learn about the existence of other backbone gateways (this is important for new gateways)
- * when no ANNOUNCE frames are received anymore, we can assume that this backbone gateway is no longer serving the LAN and can remove its claims
+ * when no ANNOUNCE frames are received anymore, we can assume that this backbone gateway is no longer serving the backbone and can remove its claims
  * It contains a checksum (the last 2 bytes YY:YY within the Sender HW address) which other backbone gateways can use to check their table consistency. If a table is not consistent, a backbone gateway can ask for the full claim table via the REQUEST frame.
 
 Note: the SRC HW address is a "locally administered address" group address which should not be used by any NIC or protocol, but is not registered with the IEEE
@@ -173,15 +174,15 @@ Within the "Target HW address", the last 2 bytes XX:XX are used for as a local g
 
 After starting batman, these bytes are initialized with the CRC16 checksum of the local mac address. Once it receives a claim frame from another backbone gateway which is also known through the mesh, the own group identifier is copied from this other backbone gateway when it is bigger than the own one. Due to this mechanism, after a short period all mesh nodes who are participating in the same mesh share the same group id.
 
-Generally, claim frames are only accepted if they are on the same group (e.g. participating on the same mesh). This helps for some network scenarios, e.g. when multiple different meshes are connected to one shared LAN (see two meshes test setup below).
+Generally, claim frames are only accepted if they are on the same group (e.g. participating on the same mesh). This helps for some network scenarios, e.g. when multiple different meshes are connected to one shared backbone (see two meshes test setup below).
 
 h2. Discussion:
 
 h3. Features:
 
  * no single "super" gateway => should scale better
- * the only additional BATMAN LAN packets are claim packets, which are only sent for new claims and regular announcements
- * no BATMAN packets on the LAN
+ * the only additional BATMAN backbone packets are claim packets, which are only sent for new claims and regular announcements
+ * no BATMAN packets on the backbone
  * broadcasts are sent from all the gateways into the mesh
  * nodes can select gateways, and change among them (gateways will automatically re-claiming)
  * should not loop ;)
@@ -196,11 +197,11 @@ h3. Broadcasting by all backbone gateways
 
 Instead of letting only one backbone gateway emit the packets to the mesh, all backbone gateways may send them instead. In this case, we have to make sure that the duplicates are recognized and ignored to deliver the broadcast packets only once to the users.
 
-To do this, we use a "mesh duplicate list": This list is kept for every backbone gateway mesh node which is connected to a LAN with multiple backbone gateways. It checks broadcast packets which are sent from the LAN into the mesh through multiple backbone gateways (and thus multiple times).
+To do this, we use a "mesh duplicate list": This list is kept for every backbone gateway mesh node which is connected to a backbone with multiple backbone gateways. It checks broadcast packets which are sent from the backbone into the mesh through multiple backbone gateways (and thus multiple times).
 
 If the client is not claimed by any backbone gateway, every backbone gateway shall forward the packet into the mesh. This will lead to duplicates of the broadcast with different meta information (different originators, different sequence numbers). To avoid duplicates within the mesh, every mesh node will use the "mesh duplicate list":
 
- * after the (old) seqno window check: match the frame to the "mesh duplicate list" of other backbone gateways to see if another backbone gateway from the same LAN has sent a broadcast with the same payload checksum.
+ * after the (old) seqno window check: match the frame to the "mesh duplicate list" of other backbone gateways to see if another backbone gateway from the same backbone has sent a broadcast with the same payload checksum.
  * if true, drop the packet. Otherwise, add the checksum to the entries and re-forward it.
 
 (Note that it might be neccesary to connect the checksums to sequence numbers to allow intentionally sent duplicate payload broadcasts)
