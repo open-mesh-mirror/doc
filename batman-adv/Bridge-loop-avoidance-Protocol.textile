@@ -8,7 +8,7 @@ Further pages on this topic:
 
 h3. Claim frames
 
-!claimtypes.dia.png!
+!claimtypes.dia.png!:http://www.open-mesh.org/attachments/download/133/claimtypes.dia.png
 
 All claim operations are sent using "special" gratuitous ARP frames. 4 types are used which are illustrated above:
 
