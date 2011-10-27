@@ -2,6 +2,12 @@ h1. Bridge loop avoidance II
 
 This page contains a concept in progress, it is not implemented yet, but feel free to discuss it.
 
+Further pages on this topic:
+
+ * [[Bridge-loop-avoidance-Testcases]] Test case descriptions
+ * [[Bridge-loop-avoidance-Protocol]] Protocol description
+ * [[Bridge-loop-avoidance]] User howto
+
 h2. Situation
 
 !situation.dia.png!:http://www.open-mesh.org/attachments/100/situation.dia.png
