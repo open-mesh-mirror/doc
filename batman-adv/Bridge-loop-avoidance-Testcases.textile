@@ -36,7 +36,8 @@ In this test, the first node A can't reach the last one C due to a limited horiz
  * Test 1: Client 1 and Client 2 should be able to ping the internet gateway. There are are no bridge loops.
  * Test 2: Client 1 and Client 2 should be able to ping each other.
 
-+note+: Test 2 can only be performed when the batman interface (or one of its VLANs) is used as a batman hard interface. The support for this requires are separate patch.
++note1+: Test 2 will only work if BATMAN runs over the backbone, e.g. by calling "batctl if add br0".
++note2+: Limited horizon may be easily simulated by increasing the hop_penalty, e.g. "echo 230 > /sys/devices/virtual/net/bat0/mesh/hop_penalty" will have a 3 hop range in a network without packet loss.
 
 h3. VLAN support
 
