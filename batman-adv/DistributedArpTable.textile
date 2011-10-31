@@ -1,4 +1,4 @@
-h1. DistributedArpTable
+h1. Distributed ARP Table
 
 TODO
 
