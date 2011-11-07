@@ -172,3 +172,7 @@ h3. discussion 2011-09-30:
 h3. Agenda/Comments for next discussion
 
 Please add any comments for the next discussion here:
+
+
+Under Discussion -> Features you say "no BATMAN packets on the backbone".
+Why would you want to use the mash (which never has enough bandwidth anyway) if you have a fast, reliable backbone link between some of the nodes. Wouldn't it make more sense to get as much done through the backbone as possible?
