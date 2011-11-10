@@ -28,12 +28,13 @@ To make the implementation of catwoman complete, the following features must be 
 * -Remove outdated nodes from the list of coding neighbors periodically.-
 * Support fragmented unicast packets.
 * -Use the link quality of overhearing links when looking for coding opportunities.-
-* Support configuration with batctl.
+* -Support configuration with batctl.-
 * -Use bat_dbg instead of printk.-
 * Support setups with multiple interfaces.
-* Maintain ref-counters for struct orig_node.
+* -Maintain ref-counters for struct orig_node.-
 * -Refactor code into three files: catwoman.c, coding.c, and decoding.c-
 * -Remove nc_path after a certain timeout.-
+* Determine allowed holding times based on the tick time of the system.
 
 h2. Ideas
 
