@@ -73,10 +73,12 @@ If you intend to send us patches, please consider the following guidelines:
 * Add a "Signed-off-by: Your Name <you@example.com>" line to the patch message to make the ownership of the patch clear.
 * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style closely (use checkpatch.pl to verify your patch) as well as the linux "how to submit patches" guidelines (search for the term SubmitPatches to find thorough documentation).
 * Check it using static analysis tools like "sparse":https://sparse.wiki.kernel.org/ (cgcc) and "cppcheck":http://cppcheck.sourceforge.net/
-* Patches against the batman-adv master branch must be formated using
+* Patches against the batman-adv master branch must be formatted using
 <pre>
 git format-patch -M --patience $BASECOMMIT
 </pre>
+* README, manpage and sysfs-class-net-* must be updated together with the related source change
+* batman-adv changes affecting batctl have to be send with the batctl patches in the same patchset
 * An exemplary good submission you may want to look at can be found here: https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2009-December/002033.html
 
 
