@@ -38,10 +38,17 @@ The local translation table (mac addresses announced by this host) can be found 
 <pre>
 cat /sys/kernel/debug/batman_adv/bat0/transtable_local
 Locally retrieved addresses (from bat0) announced via TT (TTVN: 1):
- * fe:fe:00:00:01:01
+ * fe:fe:00:00:01:01 [RPNXW]
 </pre>
 
 The current translation table state is represented by the tt version number that is propagated in the mesh.
+In particular, RPNXW are flags which bear the following meanings:
+* R/Roaming: this client moved to another node but it is still kept for consistency reasons until the next OGM is sent.
+* P/noPurge: this client represents the local soft interface and will never be deleted.
+* N/New: this client has recently been added but is not advertised in the mesh until the next OGM is sent (for consistency reasons).
+* X/delete: this client has to be removed for some reason, but it is still kept for consistency reasons until the next OGM is sent.
+* W/Wireless: this client is connected to the node through a wireless device.
+
 Note: Every batman node announces at least one mac address - the mac of the batX interface. 
 
 
