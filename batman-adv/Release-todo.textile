@@ -33,16 +33,16 @@ h2. Documentation
 
 h2. Release
 
-* [ ] build package tar.gz and generate checksums
-* [ ] move packages/checksums to stable/sources / create symlinks from releases
-* [ ] update download links in the redmine downloads page
+* [x] build package tar.gz and generate checksums
+* [x] move packages/checksums to stable/sources / create symlinks from releases
+* [x] update download links in the redmine downloads page
 * [ ] send release mail
 * [x] update IRC channel topic
 
 h2. Distributions
 
 * [ ] update openwrt package
-* [ ] update debian package
+* [x] update debian package
 
 
 h2. Aftershow
