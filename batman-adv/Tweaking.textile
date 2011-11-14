@@ -48,9 +48,9 @@ After having added interfaces to a mesh cloud, batman-adv automatically creates 
 
 <pre>
 ls  /sys/class/net/bat0/mesh/
-aggregated_ogms  gw_bandwidth     hop_penalty      vis_mode
-bonding          gw_mode          log_level
-fragmentation    gw_sel_class     orig_interval
+aggregated_ogms   fragmentation gw_sel_class   orig_interval
+ap_isolation      gw_bandwidth  hop_penalty    vis_mode
+bonding           gw_mode       log_level
 </pre>
 
 h3. aggregate originator messages
@@ -62,6 +62,17 @@ In order to reduce the protocol overhead created to find all the participants in
 <pre>
 cat /sys/class/net/bat0/mesh/aggregated_ogms
 enabled
+</pre>
+
+h3. ap isolation
+
+Available since: batman-adv 2011.4.0
+
+Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default).
+
+<pre>
+cat /sys/class/net/bat0/mesh/ap_isolation
+disabled
 </pre>
 
 h3. bonding mode
