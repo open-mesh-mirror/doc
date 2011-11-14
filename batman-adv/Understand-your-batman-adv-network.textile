@@ -57,11 +57,15 @@ The global translation table (mac addresses announced by other hosts) can be fou
 <pre>
 cat /sys/kernel/debug/batman_adv/bat0/transtable_global 
 Globally announced TT entries received via the mesh bat0
-       Client        (TTVN)       Originator      (Curr TTVN)
- * fe:fe:00:00:01:01  (  1) via fe:fe:00:00:02:01     (  1)
+   Client            (TTVN)     Originator        (Curr TTVN) Flags
+ * fe:fe:00:00:01:01  ( 12) via fe:fe:00:00:02:01       ( 50) [RXW]
 </pre>
 
-Each line contains the announced mac address plus the ttvn at the point of the addition to the table and the mac of the batman node announcing it including the latest ttvn of that very node.
+Each line contains the announced mac address plus the ttvn at the point of the addition to the table and the mac of the batman node announcing it including the latest ttvn of that very node. The meaning of flags are similar to those above:
+* R/Roaming: this client moved to another node but it is still kept for consistency reasons until the next OGM is sent.
+* X/delete: this client has to be removed for some reason, but it is still kept for consistency reasons until the next OGM is sent.
+* W/Wireless: this client is connected to the node through a wireless device.
+
 
 h3. Gateway table
 
