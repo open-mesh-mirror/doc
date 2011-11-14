@@ -49,6 +49,7 @@ In particular, RPNXW are flags which bear the following meanings:
 * X/delete: this client has to be removed for some reason, but it is still kept for consistency reasons until the next OGM is sent.
 * W/Wireless: this client is connected to the node through a wireless device.
 
+If any of the flags is not enabled, a '.' will substitute its symbol.
 Note: Every batman node announces at least one mac address - the mac of the batX interface. 
 
 
@@ -66,6 +67,7 @@ Each line contains the announced mac address plus the ttvn at the point of the a
 * X/delete: this client has to be removed for some reason, but it is still kept for consistency reasons until the next OGM is sent.
 * W/Wireless: this client is connected to the node through a wireless device.
 
+If any of the flags is not enabled, a '.' will substitute its symbol.
 
 h3. Gateway table
 
