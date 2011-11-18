@@ -7,7 +7,7 @@ This page explains the interaction between them and batmand or batmand-adv.
 
 h2. Batmand and IBSS
 
-IBSS(also known as ad-hoc) permit the connection of more than two devices together in a big IBSS network.
+IBSS (also known as ad-hoc) permit the connection of more than two devices together in a big IBSS network.
 Let's say you have 3 devices A,B and C connected that way: A<->B<->C with:
 * C being out of the range of A
 * A and B being in range
