@@ -20,7 +20,12 @@ Given the nature of IBSS networks, B doesn't need to have 2 wifi cards(one is en
 
 h2. Batman-adv
 
-Batman-adv can run on top of all ethernet-compatible networks.
+Batman-adv can run on top of all ethernet-compatible networks, that means:
+* wifi (station, ibss, master)
+* ethernet
+* bridges
+* layer 2 vpns
+* etc...
 
 
 
