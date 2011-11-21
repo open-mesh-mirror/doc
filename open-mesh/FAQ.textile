@@ -27,6 +27,10 @@ h2. Can batman-adv run on interfaces in AP / Station / etc mode ?
 
 batman-adv doesn't know anything about stuff below the ethernet interface. So you could also use it over layer 2 ethernet tunnels, wifi ap, wifi sta, wifi adhoc, ethernet or even write a virtual interface which prints everything on paper and scans the paper on the remote machine (but you should be fast or increase the ogm interval).
 
+h2. How can I connect non-mesh clients to my batman-adv network ?
+
+The [[batman-adv:Quick-start-guide|batman-adv quick-start-guide]] explains how to bridge your standard AP / Ethernet interfaces with bat0 which can be problematic if you only possess one WiFi card. In these cases it might be desirable to run adhoc mode and AP mode at the same time. Fortunately, some WiFi chips / drivers support a so-called "multi VAP" (virtual AP) or "multi SSID" mode to have multiple WiFi networks on the same WiFi interface.
+
 h2. Why does batman need so much time to detect a "dead" node ?
 
 Or: Why can I see a node in the originator table a long time after it died ?
