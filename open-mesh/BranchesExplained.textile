@@ -16,6 +16,7 @@ h2. batmand
 Historically, the first implementation of the B.A.T.M.A.N. routing protocol was  a user space daemon named batmand. Batmand operates on layer 3 (IP layer) of the OSI model by altering the routing table  and offers everything you would expect from a standard routing daemon. Almost all real-world implementations of mesh routing algorithms have started on layer 3 - and most of them still work exclusively on layer 3 today. Check our [[UserDocs|docs]] section if you want to learn more about is capabilities.
 
 Note: Basically all B.A.T.M.A.N. developers except me (Elektra) consider batmand obsolete. It is true that there haven't been any changes in batmand in a while. However batmand is stable and it is used by at least two Open-Source projects. "Villagetelco":http://www.villagetelco.org uses batmand in the VT firmware version of the Mesh-Potato device for VOIP mesh networks. (There is a second firmware for the Mesh-Potato named SECN, which uses batman-adv). The "Serval project": http://www.servalproject.org uses batmand on smartphones.  
+
 h2. BMX
 
 
