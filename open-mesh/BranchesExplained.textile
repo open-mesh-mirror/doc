@@ -15,6 +15,8 @@ h2. batmand
 
 Historically, the first implementation of the B.A.T.M.A.N. routing protocol was  a user space daemon named batmand. Batmand operates on layer 3 (IP layer) of the OSI model by altering the routing table  and offers everything you would expect from a standard routing daemon. Almost all real-world implementations of mesh routing algorithms have started on layer 3 - and most of them still work exclusively on layer 3 today. Check our [[UserDocs|docs]] section if you want to learn more about is capabilities.
 
+Note: batmand has not been developed further for a few years, but is still actively used in quite a few projects. Therefore, sources and documentation are still available. Most of the active development today is performed on batman-adv.
+
 
 h2. BMX
 
