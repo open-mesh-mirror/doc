@@ -23,7 +23,7 @@ To retrieve information, you must compile your kernel with debugfs (it usually i
 mount -t debugfs none /sys/kernel/debug
 </pre>
 
-With debugfs mounted, you can use batctl to, among other, seeing the following:
+With debugfs mounted, you can use batctl to, among others, seeing the following:
 * A list of other mesh nodes in the network (originators).
 * Lists of none-mesh nodes connected to the network (clients or neighbors).
 * A list of available gateways in the network.
