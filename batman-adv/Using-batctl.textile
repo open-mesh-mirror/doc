@@ -1,0 +1,25 @@
+h1. Using batctl
+
+Batctl is the configuration and debugging tool for batman-adv. It is thoroughly documented in its man page, so please refer to "man batctl" on your system or "this online version":http://downloads.open-mesh.org/batman/manpages/batctl.8.html .
+
+h2. Using batctl for configuration
+
+All configuration of batman-adv is done in the virtual filesystem _sysfs_ and batctl is merely an convenient interface to this.
+
+A quick overview of the config options available with batctl:
+* Add and remove interfaces to the mesh network.
+* Set or change parameters of batman-adv module.
+* Enable or disable features of batman-adv. (e.g. gateway announcements).
+
+h2. Using batctl for debugging
+
+batctl offers a great deal of tools for monitoring the state of your mesh node/network. For many of the features to be available, you must compile your kernel with debugfs (it usually is by default) and mount your debugfs:
+<pre>
+mount -t debugfs none /sys/kernel/debug
+</pre>
+
+With debugfs mounted, you can use batctl to, among other, seeing the following:
+* A list of other mesh nodes in the network (originators).
+* Lists of none-mesh nodes connected to the network (clients or neighbors).
+* A list of available gateways in the network.
+* Log messages from the batman-adv module (if debug
