@@ -4,7 +4,7 @@ Batctl is the configuration and debugging tool for batman-adv. It is thoroughly 
 
 h2. Using batctl for configuration
 
-All configuration of batman-adv is done in the virtual filesystem _sysfs_ and batctl is merely an convenient interface to this.
+All configuration of batman-adv is done in the virtual filesystem _sysfs_ and batctl is merely a convenient interface to this.
 
 A quick overview of the config options available with batctl:
 * Add and remove interfaces to the mesh network.
