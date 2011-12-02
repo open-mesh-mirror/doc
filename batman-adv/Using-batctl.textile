@@ -18,12 +18,9 @@ batctl offers a great deal of tools for monitoring the state of your mesh node/n
 * Parse logfiles to discover routing loops.
 * Retrieve live information from the batman-adv module.
 
-To retrieve information, you must compile your kernel with debugfs (it usually is by default) and mount your debugfs:
-<pre>
-mount -t debugfs none /sys/kernel/debug
-</pre>
+To retrieve information, you must compile your kernel with debugfs (it usually is by default) 
 
-With debugfs mounted, you can use batctl to, among others, seeing the following:
+With debugfs compiled in, you can use batctl to, among others, seeing the following:
 * A list of other mesh nodes in the network (originators).
 * Lists of none-mesh nodes connected to the network (clients or neighbors).
 * A list of available gateways in the network.
