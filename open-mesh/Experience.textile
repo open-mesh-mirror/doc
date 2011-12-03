@@ -8,6 +8,7 @@ h2. Projects:
 * powerful mesh nodes with batman-adv inside: http://www.saxnet.de
 * B.A.T.M.A.N. with dashboard integration: http://www.open-mesh.com
 * The Batphone (VOIP + Mesh on your device): http://www.servalproject.org
+* MeOS - batman-adv firmware for SoHo mesh networks: http://lab.nomadnt.com
 
 h2. Press:
 
