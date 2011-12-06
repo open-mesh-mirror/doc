@@ -30,7 +30,7 @@ To make the implementation of catwoman complete, the following features must be 
 * -Use the link quality of overhearing links when looking for coding opportunities.-
 * -Support configuration with batctl.-
 * -Use bat_dbg instead of printk.-
-* Support setups with multiple interfaces.
+* Support setups with multiple interfaces. (Need to make sure that nc_nodes are on the same interface.)
 * -Maintain ref-counters for struct orig_node.-
 * -Refactor code into three files: catwoman.c, coding.c, and decoding.c-
 * -Remove nc_path after a certain timeout.-
