@@ -12,6 +12,7 @@ h2. Projects:
 
 h2. Press:
 
+* "The dream of global mesh network":http://arstechnica.com/open-source/news/2011/11/the-darknet-plan-netroots-activists-dream-of-global-mesh-network.ars, Ars Technica (November 2011)
 * "Linux 2.6.38 release notes":http://kernelnewbies.org/Linux_2_6_38#head-17577655766f585c3c47df886fe91dba276f4c3f, kernelnewbies.org (March 2011)
 * "Kernel Log: Network drivers and infrastructure":http://www.h-online.com/open/features/Kernel-Log-Coming-in-2-6-38-Part-3-Network-drivers-and-infrastructure-1197480.html, The H Open (February 2011)
 * "Mesh networking with batman-adv":http://lwn.net/Articles/426947/, LWN.net (February 2011)
