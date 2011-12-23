@@ -11,30 +11,21 @@ Following steps must always be done:
 * check difference with standalone/next
 * rebase on top of previous version
 * squash/cleanup patches
-* check if all versions compile cleanly against a current version of linux-next and sparse (cgcc)
+* check if all versions compile cleanly using sparse (cgcc)
 * format patches
 * check commit messages author/signed-off-by of patches (Cc: stable@kernel.org for important bugfixes for older kernel)
 * Add "batman-adv: " before each commit subject
-* get current version of linux-next
-* create working branch on linux-next
-* apply all patches on linux next
-* check if all patches build again with linux next
 * check if all patches are checkpatch.pl clean
 * submit patches
 
 
 
-h2. get the linux-integration and linux-next repository
+h2. get the linux-integration repository
 
 
 <pre>
 '-(%25)-> git clone git+ssh://git@open-mesh.org/linux-merge.git
 Initialized empty Git repository in /home/batman/linux-merge/.git/
-remote: Counting objects: 1544059, done.
-remote: Compressing objects: 100%25 (252781/252781), done.
-....
-'-(%25)-> git clone git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-Initialized empty Git repository in /home/batman/linux-next/.git/
 remote: Counting objects: 1544059, done.
 remote: Compressing objects: 100%25 (252781/252781), done.
 ....
@@ -263,6 +254,16 @@ Switched to branch 'patches'
 </pre>
 
 
+
+h2. check if all patches build cleanly
+
+It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+/-MODULES@) as module/builtin and allyesconfig as module/builtin
+
+<pre>
+'-(%25)-(patches)> make
+....
+</pre>
+
 h2. format patches
 
 
@@ -281,50 +282,11 @@ h2. format patches
 Usually I add "batman-adv: " right when checking the signed-off-by and author (from) line. Patches which are also important bugfixes for older kernels (Kernel-Oops, Deadlock, ...) must also submitted to stable@kernel.org. It is done by adding  "Cc: stable@kernel.org" to this patch.
 
 
-h2. apply all patches on linux next
+h2. checkpatch patches
 
 
 <pre>
-'-(%25)-(patches)> cd ../linux-next
-'-(%25)-(master)> git remote update
-'-(%25)-(master)> git reset --hard origin/master
-HEAD is now at c3116ae Add linux-next specific files for 20100625
-'-(%25)-(master)> git checkout -b davem
-Switched to a new branch 'davem'
-'-(%25)-(davem)> git am -3 ../linux-merge/00*.patch
-Applying: batman-adv: Convert names from Java to C style
-Applying: batman-adv: Avoid rounding issues for local hna timeout
-Applying: batman-adv: Lower resolution for timeouts
-Applying: batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
-Applying: batman-adv: Add sysfs abi documentation about bonding
-Applying: batman-adv: adapting source version to revised versioning scheme
-Applying: batman-adv: Add include guards to all header files
-</pre>
-
-
-h2. check if all patches build again with linux next
-
-It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+/-MODULES@) as module/builtin and allyesconfig as module/builtin
-
-<pre>
-'-(%25)-(davem)> make
-....
-</pre>
-
-
-h2. format patches on top of linux-next master
-
-
-<pre>
-'-(%25)-(davem)> git format-patch -s --patience -M master
-0001-batman-adv-Convert-names-from-Java-to-C-styl.patch
-0002-batman-adv-Avoid-rounding-issues-for-local-h.patch
-0003-batman-adv-Lower-resolution-for-timeouts.patch
-0004-batman-adv-replace-manual-calculation-by-mse.patch
-0005-batman-adv-Add-sysfs-abi-documentation-about.patch
-0006-batman-adv-adapting-source-version-to-revise.patch
-0007-batman-adv-Add-include-guards-to-all-header-.patch
-'-(%25)-(davem)> ./scripts/checkpatch.pl --strict 00*.patch
+'-(%25)-(patches)> ./scripts/checkpatch.pl --strict 00*.patch
 total: 0 errors, 0 warnings, 0 checks, 135 lines checked
 
 0001-batman-adv-Convert-names-from-Java-to-C-styl.patch has no obvious style problems and is ready for submission.
@@ -353,7 +315,6 @@ h2. submit patches
 
 
 <pre>
-'-(%25)-(davem)> ../linux-merge/
 '-(%25)-(patches)> git checkout batman-adv/next
 '-(%25)-(batman-adv/next)> git rev-parse batman-adv/next
 12513b76a021e5b41a9d5d5981da75dfd6480890
