@@ -1,12 +1,12 @@
-h1. Building B.A.T.M.A.N. Advanced with OpenWRT
+h1. Building B.A.T.M.A.N. Advanced with OpenWrt
 
-Many tutorials assume that you have batman-adv running on an OpenWRT system without going into detail how to get the system built and configured. This documents aims to fill the gap by providing a step-by-step explanation how to get your OpenWRT system up & running.
+Many tutorials assume that you have batman-adv running on an OpenWrt system without going into detail how to get the system built and configured. This documents aims to fill the gap by providing a step-by-step explanation how to get your OpenWrt system up & running.
 
 
 h2. Getting the OpenWRT build environment
 
 
-First, you need to obtain a copy of the OpenWRT build system which contains all the build information to compile & package a complete linux system. You can either checkout the last stable or the trunk directly from the OpenWRT SVN repository or get tarballs from the OpenWRT project website. We assume you intend to download the latest stable (backfire 10.03 at the point of writing this document) via SVN:
+First, you need to obtain a copy of the OpenWrt build system which contains all the build information to compile & package a complete Linux system. You can either checkout the last stable or the trunk directly from the OpenWrt SVN repository or get tarballs from the OpenWrt project website. We assume you intend to download the latest stable (backfire 10.03 at the point of writing this document) via SVN:
 
 <pre>
 svn co svn://svn.openwrt.org/openwrt/tags/backfire_10.03 openwrt
@@ -19,7 +19,7 @@ cd openwrt
 make menuconfig
 </pre>
 
-+Note+: The batman-adv package is not there yet because it needs to be activated seperately (see the following steps). 
++Note+: The batman-adv package is not there yet because it needs to be activated separately (see the following steps). 
 
 
 To build your images you always have to invoke the "make" command from within the openwrt folder:
@@ -29,29 +29,27 @@ cd openwrt
 make
 </pre>
 
-The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your OpenWRT system, please see "the OpenWRT project website":http://www.openwrt.org.
+The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your OpenWrt system, please see "the OpenWrt project website":http://www.openwrt.org.
 
 
 h2. Adding the batman-adv package
 
 
-The standard OpenWRT package feed contains a batman-adv package which is intended to be used on a day to day basis, therefore it retrieves the latest batman-adv stable release. Since a lot of people want to experiment with the latest features or use OpenWRT to test their own batman-adv patches we also provide an openwrt package feed which contains the batman-adv development version.
+The standard OpenWrt package feed contains a batman-adv package which is intended to be used on a day to day basis, therefore it retrieves the latest batman-adv stable release. Since a lot of people want to experiment with the latest features or use OpenWrt to test their own batman-adv patches we also provide an OpenWrt package feed which contains the batman-adv development version.
 
 
-h3. Adding the stable version
-
+stable version:
 
 <pre>
 scripts/feeds update
 scripts/feeds install kmod-batman-adv
 </pre>
-_Note_: If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have _"svn-src packages svn://svn.openwrt.org/openwrt/packages"_ instead of e.g. _"src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_8.09"_.
++Note+: If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have "svn-src packages svn://svn.openwrt.org/openwrt/packages" instead of e.g. "src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_8.09".
 
 
-h3. Adding the developer version
+developer version:
 
-
-Append the following line to your openwrt feed configuration file (either feeds.conf or feeds.conf.default):
+Append the following line to your OpenWrt feed configuration file (either feeds.conf or feeds.conf.default):
 
 <pre>
 src-svn batman http://downloads.open-mesh.org/svn/openwrt-feed/
@@ -71,7 +69,7 @@ h2. Configuring the batman-adv package
 
 As soon as the batman-adv package has been added, it will show up in the OpenWRT package menu:
 
-h3. stable version
+stable version:
 
 <pre>
 Kernel modules ---> 
@@ -79,7 +77,7 @@ Kernel modules --->
       kmod-batman-adv
 </pre>
 
-h3. developer version
+developer version:
 
 <pre>
 Kernel modules ---> 
@@ -97,7 +95,7 @@ h2. Rebuilding the package
 
 If you experience build problems or simply intend to rebuild the batman-adv package only, you can tell OpenWRT to build a specific package and enable the debugging mode as follows:
 
-h3. stable version
+stable version:
 
 <pre>
 cd openwrt
@@ -105,7 +103,7 @@ make package/batman-adv/clean
 make package/batman-adv/compile V=99
 </pre>
 
-h3. developer version
+developer version:
 
 <pre>
 cd openwrt
@@ -119,13 +117,13 @@ h2. Applying patches
 
 The package offers an easy way to apply custom patches whenever batman-adv is built. Simply copy your patches into the "patches" folder inside the package directory (you have to create the folder in case it does not exist yet). Patch files having the string 'batman' in their name are applied to batman-adv whereas patches containing the string 'batctl' are applied to the batctl tool. The location of the folder depends on which package you want to patch:
 
-h3. stable version
+stable version:
 	 
 <pre>
 openwrt/feeds/packages/net/batman-adv/patches
 </pre>
 
-h3. developer version
+developer version:
 
 <pre>
 openwrt/feeds/batman/batman-adv-devel/patches
@@ -137,8 +135,7 @@ h2. Changing the batman-adv / batctl version
 
 It is also possible to modify the batman-adv version if you ever wanted to build an older/newer version than configured in the package:
 
-h3. stable version
-
+stable version:
 
 Adjust the PKG_VERSION variable to download & build the stable release you are interested in.
 
@@ -149,8 +146,8 @@ PKG_VERSION:=2010.0.0
 [..]
 </pre>
 
-h3. developer version
 
+developer version:
 
 Adjust the PKG_BATMAN_REV variable for batman-adv and the PKG_BATCTL_REV variable for batctl to download & build the git revision you are interested in:
 
