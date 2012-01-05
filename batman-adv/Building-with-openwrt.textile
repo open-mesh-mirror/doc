@@ -160,6 +160,11 @@ PKG_BATCTL_REV:=6f77463027311b49d52bd3aef4d82c8aae27014f
 </pre>
 
 
+h2. Building from a different branch
+
+The developer package offers a convenient way to select another branch to build from. This is particularly useful for testing features that have not been merged into the master branch yet. Simply select the branch you wish to build in the OpenWrt build menu and adjust the git revision in the Makefile.
+
+
 h2. Kernel crash debug
 
 
