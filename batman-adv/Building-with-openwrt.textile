@@ -77,7 +77,7 @@ Kernel modules --->
       kmod-batman-adv
 </pre>
 
-h3. developer version+
+h3. developer version
 
 <pre>
 Kernel modules ---> 
