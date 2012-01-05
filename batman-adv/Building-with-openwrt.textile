@@ -37,6 +37,7 @@ h2. Adding the batman-adv package
 
 The standard OpenWRT package feed contains a batman-adv package which is intended to be used on a day to day basis, therefore it retrieves the latest batman-adv stable release. Since a lot of people want to experiment with the latest features or use OpenWRT to test their own batman-adv patches we also provide an openwrt package feed which contains the batman-adv development version.
 
+
 h3. Adding the stable version
 
 
@@ -45,6 +46,7 @@ scripts/feeds update
 scripts/feeds install kmod-batman-adv
 </pre>
 _Note_: If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have _"svn-src packages svn://svn.openwrt.org/openwrt/packages"_ instead of e.g. _"src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_8.09"_.
+
 
 h3. Adding the developer version
 
@@ -90,7 +92,7 @@ Once the package had been selected a number of suboptions will become visible. Y
 In addition, the batman-adv package comes with an init script which is installed per default. This script will run at boot time and can be used to configure your desired batman-adv options. It reads the batman-adv uci file to retrieve the settings which allows to specify interfaces, intervals, log level and more.
 
 
-h2. Advanced features
+h2. Rebuilding the package
 
 
 If you experience build problems or simply intend to rebuild the batman-adv package only, you can tell OpenWRT to build a specific package and enable the debugging mode as follows:
@@ -111,6 +113,10 @@ make package/batman-adv-devel/clean
 make package/batman-adv-devel/compile V=99
 </pre>
 
+
+h2. Applying patches
+
+
 The package offers an easy way to apply custom patches whenever batman-adv is built. Simply copy your patches into the "patches" folder inside the package directory (you have to create the folder in case it does not exist yet). Patch files having the string 'batman' in their name are applied to batman-adv whereas patches containing the string 'batctl' are applied to the batctl tool. The location of the folder depends on which package you want to patch:
 
 h3. stable version
@@ -124,6 +130,10 @@ h3. developer version
 <pre>
 openwrt/feeds/batman/batman-adv-devel/patches
 </pre>
+
+
+h2. Changing the batman-adv / batctl version
+
 
 It is also possible to modify the batman-adv version if you ever wanted to build an older/newer version than configured in the package:
 
@@ -151,6 +161,10 @@ PKG_BATMAN_REV:=3cc9ba15c95147eeb70529ca3892853b3c81a862
 PKG_BATCTL_REV:=6f77463027311b49d52bd3aef4d82c8aae27014f
 [..]
 </pre>
+
+
+h2. Kernel crash debug
+
 
 In case you experience kernel oopses it might prove helpful to enable the kernel symbol table which translates the cryptic numbers which are part of each kernel oops log into readable function names. This calltrace can help developers to analyze the problem. Use OpenWRT's config menu to enable the kernel symbol table and rebuild your image:
 
