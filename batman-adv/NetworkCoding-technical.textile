@@ -35,6 +35,7 @@ To make the implementation of catwoman complete, the following features must be 
 * -Refactor code into three files: catwoman.c, coding.c, and decoding.c-
 * -Remove nc_path after a certain timeout.-
 * Determine allowed holding times based on the tick time of the system.
+* Collect nc-related members of bat_priv in a nc-struct.
 
 h2. Ideas
 
