@@ -95,7 +95,7 @@ h2. Advanced features
 
 If you experience build problems or simply intend to rebuild the batman-adv package only, you can tell OpenWRT to build a specific package and enable the debugging mode as follows:
 
-+stable version+
+h3. stable version
 
 <pre>
 cd openwrt
@@ -103,7 +103,7 @@ make package/batman-adv/clean
 make package/batman-adv/compile V=99
 </pre>
 
-+developer version+
+h3. developer version
 
 <pre>
 cd openwrt
@@ -113,13 +113,13 @@ make package/batman-adv-devel/compile V=99
 
 The package offers an easy way to apply custom patches whenever batman-adv is built. Simply copy your patches into the "patches" folder inside the package directory (you have to create the folder in case it does not exist yet). Patch files having the string 'batman' in their name are applied to batman-adv whereas patches containing the string 'batctl' are applied to the batctl tool. The location of the folder depends on which package you want to patch:
 
-+stable version+
+h3. stable version
 	 
 <pre>
 openwrt/feeds/packages/net/batman-adv/patches
 </pre>
 
-+developer version+
+h3. developer version
 
 <pre>
 openwrt/feeds/batman/batman-adv-devel/patches
@@ -127,7 +127,7 @@ openwrt/feeds/batman/batman-adv-devel/patches
 
 It is also possible to modify the batman-adv version if you ever wanted to build an older/newer version than configured in the package:
 
-+stable version+
+h3. stable version
 
 
 Adjust the PKG_VERSION variable to download & build the stable release you are interested in.
@@ -139,7 +139,7 @@ PKG_VERSION:=2010.0.0
 [..]
 </pre>
 
-+developer version+
+h3. developer version
 
 
 Adjust the PKG_BATMAN_REV variable for batman-adv and the PKG_BATCTL_REV variable for batctl to download & build the git revision you are interested in:
