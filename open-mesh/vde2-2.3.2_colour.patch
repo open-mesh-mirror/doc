@@ -1,0 +1,224 @@
+diff -urp vde2-2.3.2-orig/src/vde_switch/port.c vde2-2.3.2/src/vde_switch/port.c
+--- vde2-2.3.2-orig/src/vde_switch/port.c	2011-11-23 17:41:17.000000000 +0100
++++ vde2-2.3.2/src/vde_switch/port.c	2012-01-11 10:00:17.763662681 +0100
+@@ -96,6 +96,7 @@ struct endpoint {
+ struct port {
+ 	struct endpoint *ep;
+ 	int flag;
++	int colour;
+ 	/* sender is already inside ms, but it needs one more memaccess */
+ 	int (*sender)(int fd_ctl, int fd_data, void *packet, int len, int port);
+ 	struct mod_support *ms;
+@@ -153,6 +154,7 @@ static int alloc_port(unsigned int portn
+ 				EVENTOUT(DBGPORTNEW,i);
+ 
+ 				portv[i]=port;
++				port->colour=0;
+ 				port->ep=NULL;
+ 				port->user=port->group=port->curuser=-1;
+ #ifdef FSTP
+@@ -589,12 +591,12 @@ void handle_in_packet(struct endpoint *e
+ 			register int i;
+ #ifndef VDE_PQ2
+ 			for(i = 1; i < numports; i++)
+-				if((i != port) && (portv[i] != NULL))
++				if((i != port) && (portv[i] != NULL) && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour))
+ 					SEND_PACKET_PORT(portv[i],i,packet,len);
+ #else
+ 			void *tmpbuf=NULL;
+ 			for(i = 1; i < numports; i++)
+-				if((i != port) && (portv[i] != NULL))
++				if((i != port) && (portv[i] != NULL) && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour))
+ 					SEND_PACKET_PORT(portv[i],i,packet,len,&tmpbuf);
+ #endif
+ 		} else { /* This is a switch, not a HUB! */
+@@ -639,35 +641,35 @@ void handle_in_packet(struct endpoint *e
+ 					register int i;
+ #ifndef VDE_PQ2
+ 					ba_FORALL(vlant[vlan].bctag,numports,
+-							({if (i != port) SEND_PACKET_PORT(portv[i],i,packet,len);}),i);
++							({if (i != port && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour)) SEND_PACKET_PORT(portv[i],i,packet,len);}),i);
+ 					packet=TAG2UNTAG(packet,len);
+ 					ba_FORALL(vlant[vlan].bcuntag,numports,
+-							({if (i != port) SEND_PACKET_PORT(portv[i],i,packet,len);}),i);
++							({if (i != port && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour)) SEND_PACKET_PORT(portv[i],i,packet,len);}),i);
+ #else
+ 					void *tmpbuft=NULL;
+ 					void *tmpbufu=NULL;
+ 					ba_FORALL(vlant[vlan].bctag,numports,
+-							({if (i != port) SEND_PACKET_PORT(portv[i],i,packet,len,&tmpbuft);}),i);
++							({if (i != port && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour)) SEND_PACKET_PORT(portv[i],i,packet,len,&tmpbuft);}),i);
+ 					packet=TAG2UNTAG(packet,len);
+ 					ba_FORALL(vlant[vlan].bcuntag,numports,
+-							({if (i != port) SEND_PACKET_PORT(portv[i],i,packet,len,&tmpbufu);}),i);
++							({if (i != port && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour)) SEND_PACKET_PORT(portv[i],i,packet,len,&tmpbufu);}),i);
+ #endif
+ 				} else { /* untagged */
+ 					register int i;
+ #ifndef VDE_PQ2
+ 					ba_FORALL(vlant[vlan].bcuntag,numports,
+-							({if (i != port) SEND_PACKET_PORT(portv[i],i,packet,len);}),i);
++							({if (i != port && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour)) SEND_PACKET_PORT(portv[i],i,packet,len);}),i);
+ 					packet=UNTAG2TAG(packet,vlan,len);
+ 					ba_FORALL(vlant[vlan].bctag,numports,
+-							({if (i != port) SEND_PACKET_PORT(portv[i],i,packet,len);}),i);
++							({if (i != port && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour)) SEND_PACKET_PORT(portv[i],i,packet,len);}),i);
+ #else
+ 					void *tmpbufu=NULL;
+ 					void *tmpbuft=NULL;
+ 					ba_FORALL(vlant[vlan].bcuntag,numports,
+-							({if (i != port) SEND_PACKET_PORT(portv[i],i,packet,len,&tmpbufu);}),i);
++							({if (i != port && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour)) SEND_PACKET_PORT(portv[i],i,packet,len,&tmpbufu);}),i);
+ 					packet=UNTAG2TAG(packet,vlan,len);
+ 					ba_FORALL(vlant[vlan].bctag,numports,
+-							({if (i != port) SEND_PACKET_PORT(portv[i],i,packet,len,&tmpbuft);}),i);
++							({if (i != port && (!(pflag & COLOURFUL_TAG) || portv[i]->colour != portv[port]->colour)) SEND_PACKET_PORT(portv[i],i,packet,len,&tmpbuft);}),i);
+ #endif
+ 				}
+ 			}
+@@ -679,35 +681,47 @@ void handle_in_packet(struct endpoint *e
+ #ifndef VDE_PQ2
+ 				if (tagged) {
+ 					if (portv[tarport]->vlanuntag==vlan) { /* TAG->UNTAG */
+-						packet = TAG2UNTAG(packet,len);
+-						SEND_PACKET_PORT(portv[tarport],tarport,packet,len);
++						if (!(pflag & COLOURFUL_TAG) || portv[tarport]->colour != portv[port]->colour) {
++							packet = TAG2UNTAG(packet,len);
++							SEND_PACKET_PORT(portv[tarport],tarport,packet,len);
++						}
+ 					} else {                               /* TAG->TAG */
+-						SEND_PACKET_PORT(portv[tarport],tarport,packet,len);
++						if (!(pflag & COLOURFUL_TAG) || portv[tarport]->colour != portv[port]->colour)
++							SEND_PACKET_PORT(portv[tarport],tarport,packet,len);
+ 					}
+ 				} else {
+ 					if (portv[tarport]->vlanuntag==vlan) { /* UNTAG->UNTAG */
+-						SEND_PACKET_PORT(portv[tarport],tarport,packet,len);
++						if (!(pflag & COLOURFUL_TAG) || portv[tarport]->colour != portv[port]->colour)
++							SEND_PACKET_PORT(portv[tarport],tarport,packet,len);
+ 					} else {                              /* UNTAG->TAG */
+-						packet = UNTAG2TAG(packet,vlan,len);
+-						SEND_PACKET_PORT(portv[tarport],tarport,packet,len);
++						if (!(pflag & COLOURFUL_TAG) || portv[tarport]->colour != portv[port]->colour) {
++							packet = UNTAG2TAG(packet,vlan,len);
++							SEND_PACKET_PORT(portv[tarport],tarport,packet,len);
++						}
+ 					}
+ 				}
+ #else
+ 				if (tagged) {
+ 					void *tmpbuf=NULL;
+ 					if (portv[tarport]->vlanuntag==vlan) { /* TAG->UNTAG */
+-						packet = TAG2UNTAG(packet,len);
+-						SEND_PACKET_PORT(portv[tarport],tarport,packet,len,&tmpbuf);
++						if (!(pflag & COLOURFUL_TAG) || portv[tarport]->colour != portv[port]->colour) {
++							packet = TAG2UNTAG(packet,len);
++							SEND_PACKET_PORT(portv[tarport],tarport,packet,len,&tmpbuf);
++						}
+ 					} else {                               /* TAG->TAG */
+-						SEND_PACKET_PORT(portv[tarport],tarport,packet,len,&tmpbuf);
++						if (!(pflag & COLOURFUL_TAG) || portv[tarport]->colour != portv[port]->colour)
++							SEND_PACKET_PORT(portv[tarport],tarport,packet,len,&tmpbuf);
+ 					}
+ 				} else {
+ 					void *tmpbuf=NULL;
+ 					if (portv[tarport]->vlanuntag==vlan) { /* UNTAG->UNTAG */
+-						SEND_PACKET_PORT(portv[tarport],tarport,packet,len,&tmpbuf);
++						if (!(pflag & COLOURFUL_TAG) || portv[tarport]->colour != portv[port]->colour)
++							SEND_PACKET_PORT(portv[tarport],tarport,packet,len,&tmpbuf);
+ 					} else {                              /* UNTAG->TAG */
+-						packet = UNTAG2TAG(packet,vlan,len);
+-						SEND_PACKET_PORT(portv[tarport],tarport,packet,len,&tmpbuf);
++						if (!(pflag & COLOURFUL_TAG) || portv[tarport]->colour != portv[port]->colour) {
++							packet = UNTAG2TAG(packet,vlan,len);
++							SEND_PACKET_PORT(portv[tarport],tarport,packet,len,&tmpbuf);
++						}
+ 					}
+ 				}
+ #endif
+@@ -722,6 +736,7 @@ static int showinfo(FILE *fd)
+ {
+ 	printoutc(fd,"Numports=%d",numports);
+ 	printoutc(fd,"HUB=%s",(pflag & HUB_TAG)?"true":"false");
++	printoutc(fd,"COLOURFUL=%s",(pflag & COLOURFUL_TAG)?"true":"false");
+ #ifdef PORTCOUNTERS
+ 	printoutc(fd,"counters=true");
+ #else
+@@ -921,6 +936,19 @@ static int epqlen(char *arg)
+ }
+ #endif
+ 
++static int portsetcolour(char *arg) 
++{
++	int port,colour; 
++	if (sscanf(arg,"%i %i",&port,&colour) != 2) 
++		return EINVAL; 
++	if (port < 0 || port >= numports) 
++		return EINVAL; 
++	if (portv[port] == NULL) 
++		return ENXIO; 
++	portv[port]->colour= colour; 
++	return 0; 
++}
++
+ static char *port_getuser(uid_t uid)
+ {
+ 	static char buf[6];
+@@ -971,6 +999,7 @@ static int print_port(FILE *fd,int i,int
+ 		printoutc(fd," IN:  pkts %10lld          bytes %20lld",portv[i]->pktsin,portv[i]->bytesin);
+ 		printoutc(fd," OUT: pkts %10lld          bytes %20lld",portv[i]->pktsout,portv[i]->bytesout);
+ #endif
++		printoutc(fd," colour:   %10d",portv[i]->colour);
+ 		for (ep=portv[i]->ep; ep != NULL; ep=ep->next) {
+ 			printoutc(fd,"  -- endpoint ID %04d module %-12s: %s",ep->fd_ctl,
+ 					portv[i]->ms->modname,(ep->descr)?ep->descr:"no endpoint description");
+@@ -1053,12 +1082,21 @@ static int portsethub(int val)
+ #ifdef FSTP
+ 		fstpshutdown();
+ #endif
+-		portflag(P_SETFLAG,HUB_TAG);
++		portflag(P_ADDFLAG,HUB_TAG);
+ 	} else
+ 		portflag(P_CLRFLAG,HUB_TAG);
+ 	return 0;
+ }
+ 
++static int portsetcolourful(int val) 
++{
++	if (val) {
++		portflag(P_ADDFLAG,COLOURFUL_TAG);
++	} else
++		portflag(P_CLRFLAG,COLOURFUL_TAG);
++	return 0;
++}
++
+ static int portsetvlan(char *arg)
+ {
+ 	int port,vlan;
+@@ -1339,6 +1377,7 @@ static struct comlist cl[]={
+ 	{"port/setnumports","N","set the number of ports",portsetnumports,INTARG},
+ 	/*{"port/setmacaddr","MAC","set the switch MAC address",setmacaddr,STRARG},*/
+ 	{"port/sethub","0/1","1=HUB 0=switch",portsethub,INTARG},
++	{"port/setcolourful","0/1","1=colourful 0=no colour",portsetcolourful,INTARG},
+ 	{"port/setvlan","N VLAN","set port VLAN (untagged)",portsetvlan,STRARG},
+ 	{"port/createauto","","create a port with an automatically allocated id (inactive|notallocatable)",portcreateauto,NOARG|WITHFILE},
+ 	{"port/create","N","create the port N (inactive|notallocatable)",portcreate,INTARG},
+@@ -1346,6 +1385,7 @@ static struct comlist cl[]={
+ 	{"port/allocatable","N 0/1","Is the port allocatable as unnamed? 1=Y 0=N",portallocatable,STRARG},
+ 	{"port/setuser","N user","access control: set user",portsetuser,STRARG},
+ 	{"port/setgroup","N user","access control: set group",portsetgroup,STRARG},
++	{"port/setcolour","N COLOUR","change colour of port",portsetcolour,STRARG},
+ 	{"port/epclose","N ID","remove the endpoint port N/id ID",epclose,STRARG},
+ #ifdef VDE_PQ2
+ 	{"port/defqlen","LEN","set the default queue length for new ports",defqlen,INTARG},
+diff -urp vde2-2.3.2-orig/src/vde_switch/port.h vde2-2.3.2/src/vde_switch/port.h
+--- vde2-2.3.2-orig/src/vde_switch/port.h	2011-11-23 17:41:17.000000000 +0100
++++ vde2-2.3.2/src/vde_switch/port.h	2012-01-11 09:57:54.080058808 +0100
+@@ -68,6 +68,7 @@ int portflag(int op, int f);
+ #define P_CLRFLAG 3
+ 
+ #define HUB_TAG 0x1
++#define COLOURFUL_TAG 0x2
+ 
+ void port_init(int numports);
+ 
