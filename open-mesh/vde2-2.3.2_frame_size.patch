@@ -1,0 +1,12 @@
+diff -urp vde2-2.3.2-orig/src/vde_switch/port.h vde2-2.3.2/src/vde_switch/port.h
+--- vde2-2.3.2-orig/src/vde_switch/port.h	2011-11-23 17:41:17.000000000 +0100
++++ vde2-2.3.2/src/vde_switch/port.h	2012-01-12 15:35:18.496223524 +0100
+@@ -20,7 +20,7 @@ struct ethheader {
+ 
+ struct packet {
+ 	struct ethheader header;
+-  unsigned char data[1504]; /*including trailer, IF ANY */
++  unsigned char data[1600]; /*including trailer, IF ANY */
+ };
+ 
+ struct bipacket {
