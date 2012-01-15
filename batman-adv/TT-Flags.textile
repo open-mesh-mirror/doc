@@ -1,0 +1,96 @@
+h1. TT-Flags
+
+_Note: This page documents internal stuff of batman-adv. Part of it is not yet merged in the batman-adv but is part of the bridge loop avoidance II extension, so read with care_
+
+h2. Flags overview
+
+This section describes the flags used in the TT code, what they mean and where they are used (OGM, tt_global or tt_local).
+
+h3. TT_CLIENT_DEL
+
+_used in OGM, tt_local_
+
+The TT_CLIENT_DEL flag is used in the OGM tt_change entries to distinguish whether the entry should be added (no DEL flag set) or deleted (DEL flag set).
+It is also set with the TT_CLIENT_PENDING flag to mark a tt_local entry for deletion internally.
+
+h3. TT_CLIENT_ROAM
+
+_used in OGM, tt_global_
+
+The TT_CLIENT_ROAM flag is used to announce in an OGM tt_change entry that a client is deleted because of roaming. The node which receives this entry may still send traffic to this node, which will re-route it to the new destination, until an OGM from the new node now hosting the client is received. The tt_global entry with the old node for this client is then replaced with the new entry.
+
+h3. TT_CLIENT_WIFI
+
+_used in OGM, tt_local, tt_global_
+
+The TT_CLIENT_WIFI flag is used to announce that this client is a WiFi client. This information is used for the AP isolation feature.
+
+h3. TT_CLIENT_NOPURGE
+
+_used in tt_local_
+
+The private TT_CLIENT_NOPURGE is used to mark a local client to not be purged. This is only used for the address of the mesh soft interface, which should always be announced and never deleted/purged.
+
+h3. TT_CLIENT_NEW
+
+_used in tt_local_
+
+The private TT_CLIENT_NEW flag is used to mark clients which have been added to the local list, but not yet announced within an OGM.
+
+h3. TT_CLIENT_PENDING
+
+_used in tt_local_
+
+The private TT_CLIENT_PENDING flag is set for local entries which should be removed. These entries are not removed immediately, but after a timeout to keep the information sent with the OGM or tt_requests consistent.
+
+h2. Changes within in bridge loop avoidance II
+
+In blaII, a tt_global struct is extend to not only contain one originator entry which announces the client, but a list of originators. Each originator in this list announces the same client, which may happen if these originators are connected to the same backbone network where this client is located.
+
+Mesh nodes on the same backbone gateway ignore each others tt announcements (tt updates, roaming advertisements, etc) and can therefore have the same local list.
+
+This extension also affects the flag handling, which will be explained for each flag in detail in this section.
+
+The tt_local as well as the tt_global struct keep their flag fields as before. The flags in the tt_global struct are valid for all originators within its list.
+
+h3. TT_CLIENT_DEL
+
+As this flag is only used in OGM and for internal function handling, there is no change.
+
+h3. TT_CLIENT_ROAM
+
+For OGM handling, there is no change - the TT_CLIENT_ROAM flag is sent along with a TT_CLIENT_DEL flag when a client has been removed because of roaming.
+
+For internal use, there are some changes: If we receive a TT_CLIENT_DEL change with TT_CLIENT_ROAM flag set, we remove the originator from the tt_global originator list if there is another entry left - we can still use the other originator to reach our client. If there is only one originator left in the tt_global originator list, we set the TT_CLIENT_ROAM flag and start the timeout procedure. If we receive an ADD for this client in time, we remove the previous originator and add the new originator in the list. If no ADD is received and the timeout is hit, the tt_global entry is deleted.
+
+Example:
+
+(TODO: picture)
+
+Client X moves from LAN 1 (nodes A and B) to LAN 2 (nodes C and D). Node C and node D will send roaming advertisements to node A and B respectively. Node A and B will then send a tt_change with TT_CLIENT_DEL and TT_CLIENT_ROAM flag for X. Nodes C and D will send a tt_change without TT_CLIENT_DEL (therefore an ADD) to announce that they added X.
+
+Depending on the order of arrival of the OGMs at node E, we have different behaviours.
+
+_Example1: order of arrival: DEL from A, ADD from C, DEL from B, ADD from D_ 
+
+ * DEL from A: A is removed from the tt_global originator list for X, only B remains.
+ * ADD from C: C is added to the tt_global originator list for X, now containing B and C
+ * DEL from B: B is removed from the tt_global originator list for X, only C remains.
+ * ADD from D: D is added to the tt_global originator list for X, now containing C and D
+
+_Example2: order of arrival: DEL from A, DEL from B, ADD from C, ADD from D_ 
+
+ * DEL from A: A is removed from the tt_global originator list for X, only B remains.
+ * DEL from B: B is NOT removed from the tt_global originator list for X, it remains but TT_CLIENT_ROAM flag is set for this tt_global entry, and the timer is started.
+ * ADD from C: C is added to the tt_global originator list for X, B is deleted, the TT_CLIENT_ROAM flag is cleared and the timer is stopped. The list now contains C.
+ * ADD from D: D is added to the tt_global originator list for X, now containing C and D
+
+h3. TT_CLIENT_WIFI
+
+The flag is added whenever a node announced this client as WIFI client. In a backbone gateway, it might be possible that only one node sees this client as WiFi client where as the other nodes receive its frames only via Ethernet through the bridge. However, this client is still to be treated as WiFi client.
+
+As a WiFi client can never become an Ethernet client again (the MAC address is connected to the NIC), we never clear this flag even if a node can not see this client directly as WiFi client.
+
+h4. TT_CLIENT_NOPURGE, TT_CLIENT_NEW, TT_CLIENT_PENDING
+
+No changes here.
