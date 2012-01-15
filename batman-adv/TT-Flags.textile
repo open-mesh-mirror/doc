@@ -45,7 +45,7 @@ h3. TT_CLIENT_PENDING
 
 _used in tt_local_
 
-The private TT_CLIENT_PENDING flag is set for local entries which should be removed. These entries are not removed immediately, but after a timeout to keep the information sent with the OGM or tt_requests consistent.
+The private TT_CLIENT_PENDING flag is set for local entries which should be removed. These entries are not removed immediately, but when the next OGM is sent, to keep the information sent with the OGM or tt_requests consistent.
 
 h2. Changes within in bridge loop avoidance II
 
