@@ -6,7 +6,7 @@ h2. Flags overview
 
 This section describes the flags used in the TT code, what they mean and where they are used. There are 3 possible locations where the flags field is used:
 
- * OGM: there is a flag field within the tt_change struct which are sent along with the OGM frames.
+ * OGM: there is a flag field within each of the tt_change structs which are sent along with the OGM frames.
  * tt_global: these structs are stored in the global hash table and represent the mapping which originator hosts which client.
  * tt_local: these structs are stored in the local hash table and represent the the clients which the own node hosts.
 
