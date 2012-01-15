@@ -63,9 +63,10 @@ For OGM handling, there is no change - the TT_CLIENT_ROAM flag is sent along wit
 
 For internal use, there are some changes: If we receive a TT_CLIENT_DEL change with TT_CLIENT_ROAM flag set, we remove the originator from the tt_global originator list if there is another entry left - we can still use the other originator to reach our client. If there is only one originator left in the tt_global originator list, we set the TT_CLIENT_ROAM flag and start the timeout procedure. If we receive an ADD for this client in time, we remove the previous originator and add the new originator in the list. If no ADD is received and the timeout is hit, the tt_global entry is deleted.
 
-Example:
+*Example:*
 
-(TODO: picture)
+!roaming.png!
+
 
 Client X moves from LAN 1 (nodes A and B) to LAN 2 (nodes C and D). Node C and node D will send roaming advertisements to node A and B respectively. Node A and B will then send a tt_change with TT_CLIENT_DEL and TT_CLIENT_ROAM flag for X. Nodes C and D will send a tt_change without TT_CLIENT_DEL (therefore an ADD) to announce that they added X.
 
