@@ -15,7 +15,7 @@ h3. TT_CLIENT_DEL
 _used in OGM_
 
 The TT_CLIENT_DEL flag is used in the OGM tt_change entries to distinguish whether the entry should be added (no DEL flag set) or deleted (DEL flag set).
-It is also set with the TT_CLIENT_PENDING flag to pass this information between functions internally.
+It is also set to pass add/deletion information between functions internally.
 
 h3. TT_CLIENT_ROAM
 
