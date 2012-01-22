@@ -10,42 +10,14 @@ This section describes the flags used in the TT code, what they mean and where t
  * tt_global: these structs are stored in the global hash table and represent the mapping which originator hosts which client.
  * tt_local: these structs are stored in the local hash table and represent the the clients which the own node hosts.
 
-h3. TT_CLIENT_DEL
-
-_used in OGM_
-
-The TT_CLIENT_DEL flag is used in the OGM tt_change entries to distinguish whether the entry should be added (no DEL flag set) or deleted (DEL flag set).
-It is also set to pass add/deletion information between functions internally.
-
-h3. TT_CLIENT_ROAM
-
-_used in OGM, tt_global_
-
-The TT_CLIENT_ROAM flag is used to announce in an OGM tt_change entry that a client is deleted because of roaming. The node which receives this entry may still send traffic to this node, which will re-route it to the new destination, until an OGM from the new node now hosting the client is received. The tt_global entry with the old node for this client is then replaced with the new entry.
-
-h3. TT_CLIENT_WIFI
-
-_used in OGM, tt_local, tt_global_
-
-The TT_CLIENT_WIFI flag is used to announce that this client is a WiFi client. This information is used for the AP isolation feature.
-
-h3. TT_CLIENT_NOPURGE
-
-_used in tt_local_
-
-The private TT_CLIENT_NOPURGE is used to mark a local client to not be purged. This is only used for the address of the mesh soft interface, which should always be announced and never deleted/purged.
-
-h3. TT_CLIENT_NEW
-
-_used in tt_local_
-
-The private TT_CLIENT_NEW flag is used to mark clients which have been added to the local list, but not yet announced within an OGM.
-
-h3. TT_CLIENT_PENDING
-
-_used in tt_local_
-
-The private TT_CLIENT_PENDING flag is set for local entries which should be removed. These entries are not removed immediately, but when the next OGM is sent, to keep the information sent with the OGM or tt_requests consistent.
+|_. Name |_. used in |_. Description |
+| TT_CLIENT_DEL | OGM | The TT_CLIENT_DEL flag is used in the OGM tt_change entries to distinguish whether the entry should be added (no DEL flag set) or deleted (DEL flag set).
+It is also set to pass add/deletion information between functions internally. |
+| TT_CLIENT_ROAM | OGM, tt_global | The TT_CLIENT_ROAM flag is used to announce in an OGM tt_change entry that a client is deleted because of roaming. The node which receives this entry may still send traffic to this node, which will re-route it to the new destination, until an OGM from the new node now hosting the client is received. The tt_global entry with the old node for this client is then replaced with the new entry. |
+| TT_CLIENT_WIFI | OGM, tt_local, tt_global | The TT_CLIENT_WIFI flag is used to announce that this client is a WiFi client. This information is used for the AP isolation feature. |
+| TT_CLIENT_NOPURGE | tt_local | The private TT_CLIENT_NOPURGE is used to mark a local client to not be purged. This is only used for the address of the mesh soft interface, which should always be announced and never deleted/purged. |
+| TT_CLIENT_NEW | tt_local | The private TT_CLIENT_NEW flag is used to mark clients which have been added to the local list, but not yet announced within an OGM. |
+| TT_CLIENT_PENDING | tt_local | The private TT_CLIENT_PENDING flag is set for local entries which should be removed. These entries are not removed immediately, but when the next OGM is sent, to keep the information sent with the OGM or tt_requests consistent. |
 
 h2. Changes within in bridge loop avoidance II
 
