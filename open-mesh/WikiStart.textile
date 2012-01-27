@@ -22,7 +22,6 @@ h2. Getting Started
 
 * [[Download|Download]] - Get our latest releases, get access to our Git repositories
 * [[Contribute|How to contribute]] - How to report bugs, send comments, patches or suggestions
-* [[Logos|Logos]] - download logos
 
 h2. Documentation
 
@@ -31,8 +30,7 @@ h2. Documentation
 * [[batmand:doc-overview|B.A.T.M.A.N. daemon documentation]] 
 * [[FAQ|FAQ]] - Frequently Asked Questions
 * [[Experience|Experience]] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
-* [[Patches|Patches]] - contribution from others related to B.A.T.M.A.N.
-* [[batman-adv:Wiki|BATMAN Advanced]] - information about the Layer 2 version of B.A.T.M.A.N.
+* [[Logos|Logos]] - download logos
 * [[MailingList|Mailing List]]/[[IRC|IRC]] - contact us
 
 h2. Other Projects on open-mesh.org
