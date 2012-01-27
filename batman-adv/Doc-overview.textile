@@ -28,13 +28,13 @@ h2. Developer Information / Advanced Features
 
 * [[tweaking|Tweaking the B.A.T.M.A.N. Advanced behaviour]] - get an overview about the various settings batman-adv offers
 * [[uevent|B.A.T.M.A.N. user space events]] - batman-adv's uevent documentation
-* [[UsingBatmanGit|Using the batman git repos]] - this page explains how the git repository is structured and how to use it
-* [[Emulation|Emulation HowTo]] - how to create an environment to emulate wireless setups using QEMU and VDE
+* [[open-mesh:UsingBatmanGit|Using the batman git repos]] - this page explains how the git repository is structured and how to use it
+* [[open-mesh:Emulation|Emulation HowTo]] - how to create an environment to emulate wireless setups using QEMU and VDE
 
 
 h2. Protocol Documentation
 
-* [[BATMANConcept|B.A.T.M.A.N. Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
+* [[open-mesh:BATMANConcept|B.A.T.M.A.N. Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
 * [[bonding-alternating|Bonding and Interface Alternating]] - Use multiple links in batman-adv for fun and profit.
 * [[Client-announcement|Client announcement]] - how batman-adv handles non-mesh clients bridged into the mesh
 * [[Client-roaming|Client roaming]] - non-mesh clients moving from one mesh node to the next
