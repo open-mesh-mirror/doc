@@ -40,8 +40,3 @@ h2. Protocol Documentation
 * "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011] 
 * "Bisect the batman-adv routing protocol (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-bisect.avi - the bisect tool explained & demonstrated by Marek [March 2011] 
 * "Project CATWOMAN - network coding with batman-adv (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-network_coding.avi - introduction into network coding with batman-adv by Martin and Jeppe [March 2011]
-
-h2. Misc
-
-* [[Logos|Logos]] - download logos
-* "Ultimate B.A.T.M.A.N. Analysis/Documentations/Descriptions":http://maps.google.com/maps?q=26.358298,127.78389&num=1&t=h&sll=26.356526,127.779526&sspn=0.00473,0.007972&hl=en&ie=UTF8&ll=26.358083,127.784042&spn=0.00473,0.007972&z=17 - Anything you couldn't find an answer for yet is securely archived here.
