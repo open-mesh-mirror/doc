@@ -35,6 +35,7 @@ h2. Developer Information / Advanced Features
 h2. Protocol Documentation
 
 * [[open-mesh:BATMANConcept|B.A.T.M.A.N. Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
+* [[open-mesh:routing_scenarios|Routing scenarios]] - a collection of routing scenarios a routing protocol should be able to handle
 * [[bonding-alternating|Bonding and Interface Alternating]] - Use multiple links in batman-adv for fun and profit.
 * [[Client-announcement|Client announcement]] - how batman-adv handles non-mesh clients bridged into the mesh
 * [[Client-roaming|Client roaming]] - non-mesh clients moving from one mesh node to the next
