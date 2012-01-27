@@ -22,10 +22,12 @@ h2. Getting Started
 
 * [[Download|Download]] - Get our latest releases, get access to our Git repositories
 * [[Contribute|How to contribute]] - How to report bugs, send comments, patches or suggestions
+* [[Logos|Logos]] - download logos
 
 h2. Documentation
 
 * [[BranchesExplained|Branches explained]] - learn about the B.A.T.M.A.N. flavours
+* [[batman-adv:doc-overview|B.A.T.M.A.N. Advanced documentation]] 
 * [[UserDocs|UserDocs]] - understand how B.A.T.M.A.N.  works
 * [[FAQ|FAQ]] - Frequently Asked Questions
 * [[Experience|Experience]] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
