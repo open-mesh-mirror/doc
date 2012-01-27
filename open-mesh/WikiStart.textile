@@ -28,7 +28,7 @@ h2. Documentation
 
 * [[BranchesExplained|Branches explained]] - learn about the B.A.T.M.A.N. flavours
 * [[batman-adv:doc-overview|B.A.T.M.A.N. Advanced documentation]] 
-* [[UserDocs|UserDocs]] - understand how B.A.T.M.A.N.  works
+* [[batmand:doc-overview|B.A.T.M.A.N. daemon documentation]] 
 * [[FAQ|FAQ]] - Frequently Asked Questions
 * [[Experience|Experience]] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
 * [[Patches|Patches]] - contribution from others related to B.A.T.M.A.N.
