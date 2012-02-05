@@ -7,7 +7,6 @@ h2. Checkout
 
 To retrieve the latest changes you can pull from the read-only http frontend.
 
-
 <pre>
 git clone http://git.open-mesh.org/batman-adv.git batman-adv
 </pre>
