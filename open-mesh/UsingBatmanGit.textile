@@ -15,7 +15,7 @@ git clone http://git.open-mesh.org/batman-adv.git batman-adv
 There is also a repository for kernel integration. You are about to download 300MB of sources - that may take a while!
 
 <pre>
-git clone http://git.open-mesh.org/ecsv/linux-merge.git/
+git clone http://git.open-mesh.org/linux-merge.git
 </pre>
 
 h2. Branches
@@ -81,7 +81,7 @@ git merge -s subtree standalone/next
 If you wish to pull Linus latest changes and merge it you need to add the remote branch first (you can omit that step if you already have it).
 
 <pre>
-git remote add torvalds git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git
+git remote add torvalds git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 </pre>
 
 Fetch its content and merge it:
