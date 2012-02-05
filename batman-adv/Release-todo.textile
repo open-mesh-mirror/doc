@@ -20,7 +20,7 @@ h2. Code
 * [x] check against kernel versions
 * [x] check that maint branch is merged in next
 * [x] check for open patches on the ml
-* [ ] git tag release
+* [x] git tag release
 
 
 h2. Documentation
@@ -28,14 +28,14 @@ h2. Documentation
 * [x] build changelog
 * [x] update README
 * [x] write release announcement
-* [ ] update wiki documentation
+* [x] update wiki documentation
 
 
 h2. Release
 
 * [x] build package tar.gz and generate checksums
 * [x] move packages/checksums to stable/sources / create symlinks from releases
-* [ ] update download links in the redmine downloads page
+* [x] update download links in the redmine downloads page
 * [ ] send release mail
 * [x] update IRC channel topic
 
@@ -51,4 +51,3 @@ h2. Aftershow
 * [x] Merge current git tag into maint (must be fast-forward or pre-tagging steps were done wrong)
 * [x] Merge patches from master into next (to get all the fancy new features)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
-* [ ] re-enable next check in checkstuff.sh
