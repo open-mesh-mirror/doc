@@ -1,5 +1,20 @@
 h1. Distributed ARP Table
 
-TODO
+D.A.T. (Distributed ARP Table) is a feature aimed to solve the unreliability problem of the ARP mechanism 
+which uses a simple broadcast flooding technique in order to retrieve the the data in the network.
 
-this page will contain all the details related to the implementation of DAT, how it works and why it improves the performance of the network.
+h2. The Problem
+
+In each and every subnet the ARP protocol is extremely important: it gives the hosts the possibility to send IP datagram to each other
+by retrieving their MAC-layer address. The first step in an ARP dialogue is to issue a broadcast ARP request containing the IP address of the
+desidered node which will flood the whole subnet. Once the node using such IP receives the packet, a unicast ARP Reply is sent back
+in order to communicate its own MAC-layer address and so becoming reachable for the node that issued the request.
+
+The mechanism is pretty simple and works well until the probability of losing packets in the network is low enough. For this reason Ethernet or
+wireless-infrastructured LANcan use such protocol as is without getting in troubles. Unluckily it is not possible to state the same for a wireless
+mesh network, where the probability of losing a packet increase with the number of links the packet has to traverse. In particular, this probability
+gets higher if the packet to send is of type broadcast (this is due to the MAC layer limitations which do not provide ARQ mechanism for this packet type)
+like the ARP Request. Assuming to be in a fairly sparse wireless mesh network, an ARP Request could get lost several times before being able to find
+its destination, thus dramatically increasing the latency of establishing an IP connection.
+
+h2. How DAT
