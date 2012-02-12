@@ -148,9 +148,9 @@ h3. Limitations:
 
 h3. Questions
 
-Please add any comments or questions for the next discussion here:
+Please add any comments or questions for the next discussion here (for general question, please use the mailing list. more info: http://www.open-mesh.org/wiki/open-mesh/MailingList):
 
-Under Discussion -> Features you say "no BATMAN packets on the backbone".
+Question (???, ???): Under Discussion -> Features you say "no BATMAN packets on the backbone".
 Why would you want to use the mash (which never has enough bandwidth anyway) if you have a fast, reliable backbone link between some of the nodes. Wouldn't it make more sense to get as much done through the backbone as possible?
 
 Answer (Simon, 2012-02-12): you can explicitly use batman-adv on the mesh if you want to - batman-adv allows adding Ethernet interfaces as well. This is a good idea if you have full control over your LAN. However, there are users who don't want to see batman-adv ethernet frames (with its special ethertype 0x4305) on their LAN, because some firewalls recognize it as malicious traffic. Therefore, one design goal of blaII was to keep batman-adv packets out of the backbone LAN in the default case.
