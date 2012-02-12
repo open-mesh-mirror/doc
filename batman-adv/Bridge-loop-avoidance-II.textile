@@ -73,7 +73,7 @@ If a claim for the mesh-client exists:
  * all not responsible backbone gateways should discard the frame - this might be a loop. 
  * if the responsible backbone gateway (which claimed this client) also receives the packet, "unclaim" this client by sending an according un-claim packet, and forward the packet into the mesh. This should only happen in the roaming case, but not in normal situations.
 
-If the client is not claimed, all backbone gateways will send the broadcast into the mesh. The mesh nodes will avoid duplicates by using the duplicate lists (see optimizations below)
+If the client is not claimed, all backbone gateways will send the broadcast into the mesh. The mesh nodes will avoid duplicates by using the duplicate lists (see section below)
 
 h3. Unicast, backbone->mesh:
 
@@ -119,6 +119,19 @@ All gateways announce the clients within their backbone and ignore roaming messa
 
 Other non-gateway mesh nodes may select their best gateway to the backbone based on the TQ value. 
 
+h3. Broadcasting by all backbone gateways
+
+All backbone gateways send the broadcasts from backbone clients into the mesh. We have to make sure that the duplicates are recognized and ignored to deliver the broadcast packets only once within the mesh.
+
+To do this, we use a "mesh duplicate list": This list is kept for every backbone gateway mesh node which is connected to a backbone with multiple backbone gateways. It checks broadcast packets which are sent from the backbone into the mesh through multiple backbone gateways (and thus multiple times).
+
+If the client is not claimed by any backbone gateway, every backbone gateway shall forward the packet into the mesh. This will lead to duplicates of the broadcast with different meta information (different originators, different sequence numbers). To avoid duplicates within the mesh, every mesh node will use the "mesh duplicate list":
+
+ * after the (old) seqno window check: match the frame to the "mesh duplicate list" of other backbone gateways to see if another backbone gateway from the same backbone has sent a broadcast with the same payload checksum.
+ * if true, drop the packet. Otherwise, add the checksum to the entries and re-forward it.
+
+
+
 h2. Discussion:
 
 h3. Features:
@@ -134,45 +147,12 @@ h3. Limitations:
 
  * other things I might have missed ...
 
-h2. Further Optimizations
 
-h3. Broadcasting by all backbone gateways
+h3. Questions
 
-Instead of letting only one backbone gateway emit the packets to the mesh, all backbone gateways may send them instead. In this case, we have to make sure that the duplicates are recognized and ignored to deliver the broadcast packets only once to the users.
-
-To do this, we use a "mesh duplicate list": This list is kept for every backbone gateway mesh node which is connected to a backbone with multiple backbone gateways. It checks broadcast packets which are sent from the backbone into the mesh through multiple backbone gateways (and thus multiple times).
-
-If the client is not claimed by any backbone gateway, every backbone gateway shall forward the packet into the mesh. This will lead to duplicates of the broadcast with different meta information (different originators, different sequence numbers). To avoid duplicates within the mesh, every mesh node will use the "mesh duplicate list":
-
- * after the (old) seqno window check: match the frame to the "mesh duplicate list" of other backbone gateways to see if another backbone gateway from the same backbone has sent a broadcast with the same payload checksum.
- * if true, drop the packet. Otherwise, add the checksum to the entries and re-forward it.
-
-(Note that it might be neccesary to connect the checksums to sequence numbers to allow intentionally sent duplicate payload broadcasts)
-
-h2. Further ideas 
-
-h3. from discussion on 2011-06-08:
-
- * What to do if a gateway fails? how do we timeout it? - we could change the concept to work like the new TT: regular updates of changes (with a sequence number), only send changes, and request full update if required. The regular update would allow us to timeout gateways if they are no longer there/connected.
- * Not included in the concept is how we handle LAN-interconnected, separate mesh clouds. The gateways of the different mesh clouds would claim clients, which would prevent traffic going from mesh 1 to mesh 2. This could be solved by verifying that a gateway is not only accessible via LAN, but also via mesh (looking into the originator table). If they are not in our mesh, we ignore the claims.
- * Instead of using the "mesh duplicate list", we could also try to synchronize the broadcast sequence numbers of the gateways, so that broadcasts are always sent with the same originator address + sequence number, appearing as the same broadcast. There may be a lot of side effects to consider (packet loss, racing packets, etc ...)
- * some pictures to illustrate the concept would be nice :)
-
-h3. discussion 2011-09-30:
-
- * it might be sufficient to send broadcast from LAN to mesh from a single gateway and add the broadcast duplicate check later as extension/optimization
- * claims should be sent periodically (every 10 seconds or every 30 seconds) so that other/new gateways get to know about the existence of other gateways on the LAN
- * We should be able to configure:
- ** claim period/resend period
- ** claim backoff timer: this should be very small for LANs (default) and rather high on some high latency backhaul networks (e.g. VPN)
- * the TT code must be enhanced to decide the best gateway based on the TQ value
- * Claim packets should be "standard" packets (not special batman ethertypes) so that paranoid firewalls won't drop them. Using gratious arps may be an idea. 
- ** communication should stay in the mesh as much as possible
-
-h3. Agenda/Comments for next discussion
-
-Please add any comments for the next discussion here:
-
+Please add any comments or questions for the next discussion here:
 
 Under Discussion -> Features you say "no BATMAN packets on the backbone".
 Why would you want to use the mash (which never has enough bandwidth anyway) if you have a fast, reliable backbone link between some of the nodes. Wouldn't it make more sense to get as much done through the backbone as possible?
+
+Answer (Simon, 2012-02-12): you can explicitly use batman-adv on the mesh if you want to - batman-adv allows adding Ethernet interfaces as well. This is a good idea if you have full control over your LAN. However, there are users who don't want to see batman-adv ethernet frames (with its special ethertype 0x4305) on their LAN, because some firewalls recognize it as malicious traffic. Therefore, one design goal of blaII was to keep batman-adv packets out of the backbone LAN in the default case.
