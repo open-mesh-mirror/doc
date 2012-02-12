@@ -43,6 +43,7 @@ h2. Protocol Documentation
 * [[Packet-types|Batman-adv packet types]] - backward compatibility for batman-adv
 * [[Compatversion|Compat versionen]] - packet versions / formats used by batman-adv
 * [[ELP|ELP protocol]] - B.A.T.M.A.N. V ELP protocol specification
+* [[Bridge-loop-avoidance-II]] - bridge loop avoidance to allow multiple gateways between LAN and mesh, redesigned
 * "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011] 
 * "Bisect the batman-adv routing protocol (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-bisect.avi - the bisect tool explained & demonstrated by Marek [March 2011] 
 * "Project CATWOMAN - network coding with batman-adv (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-network_coding.avi - introduction into network coding with batman-adv by Martin and Jeppe [March 2011]
