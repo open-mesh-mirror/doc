@@ -104,7 +104,7 @@ Here you should see the
 * Removed CHANGELOG
 * new added Kconfig
 * A special Makefile which only contains obj-$(CONFIG_BATMAN_ADV) and many batman-adv-y lines
-* removed Makefile.kbuild, README, compat.c, compat.h
+* removed Makefile.kbuild, README, README.external, compat.c, compat.h, gen-compat-autoconf.sh
 * removed references to compat.h from main.h
 * (Re)Moved sysfs-class-net-batman-adv and sysfs-class-net-mesh
 
