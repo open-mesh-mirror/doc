@@ -17,7 +17,7 @@ h2. Features
 * [[bridge-loop-avoidance|Bridge loop avoidance]] - Document explaining the bridge loop avoidance implemented in batman-adv.
 * [[multi-link-optimize|Multi-Link Optimization]] - how to optimize traffic by using multiple links
 * [[VisAdv|Visualizing the 2nd layer]] - Creating graphics of the layer 2 network and differences to the layer 3 vis output explained.
-* [[ap-isolation|AP Isolation]] - Read about Access Point Selection.
+* [[ap-isolation|AP Isolation]] - How to avoid wifi-client to wifi-client communications.
 
 h2. Troubleshooting
 
