@@ -5,6 +5,7 @@ h3. What is it?
 Like any commercial Access Point, the "Access Point Isolation" is a feature that prevents any communication between stations connected to the same infrastructured BSSID. B.A.T.M.A.N. Advanced replicates the same behaviour by denying communication between clients connected to their nodes through a wireless link. Note that communication from and to clients connected through a wired link is left untouched.
 
 !ap-isola-75.png!
+
 The picture above shows a simple scenario where AP-Isolation is enabled either on node A and B: communications between wireless stations are prevented, while communications between wireless and wired clients are allowed.
 
 h3. How to enable it?
