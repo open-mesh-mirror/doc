@@ -1,0 +1,22 @@
+h1. Ap-isolation
+
+h3. What is it?
+
+Like any commercial Access Point, the "Access Point Isolation" is that feature which prevent any communication between stations connected to the same infrastructured BSSID. B.A.T.M.A.N.-Advanced replicates the same behaviour by denying communications between clients connected to their nodes through a wireless link.
+
+h3. How to enable it?
+
+<pre>
+batctl ap_isolation 1
+</pre>
+or
+<pre>
+batctl ap 1
+</pre>
+To disable it, just switch 1 to 0
+
+Note that packets are checked either at the sender and at the receiver node, therefore, if at least one of those enabled the AP-Isolation, the communication is forbidden. However we strongly suggest to enable the AP-Isolation on all the nodes in order to prevent wasting of resources (e.g. send of data over the mesh knowing that it is going to be dropped at the receiver)
+
+h3. Technical details
+
+to be added
