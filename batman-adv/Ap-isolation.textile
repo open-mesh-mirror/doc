@@ -19,7 +19,9 @@ batctl ap 1
 </pre>
 To disable it, just switch 1 to 0
 
-Note that packets are checked either at the sender or the receiver node, therefore, if at least one of those have AP-Isolation enabled, the communication is forbidden. However we strongly suggest to enable the AP-Isolation on all the nodes in order to prevent wasting of resources. (E.g. send of data over the mesh knowing that it is going to be dropped at the receiver.)
+Note that packets are checked either at the sender or the receiver node, therefore, if at least one of those have AP-Isolation enabled, the communication is forbidden. However we strongly suggest to enable the AP-Isolation on all the nodes in order to prevent wasting of resources. (E.g. send of data over the mesh knowing that it is going to be dropped at the receiver)
+
+Remember that B.A.T.M.A.N.-Advanced AP-Isolation will provide "inter-meshnode communications" prevention only. Therefore if you want to block communications between clients connected to the same access point (actually mesh node) you may want to enable the "class AP-Isolation" function provided by the access point itself.
 
 h3. Technical details
 
