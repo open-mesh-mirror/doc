@@ -17,4 +17,8 @@ gets higher if the packet to send is of type broadcast (this is due to the MAC l
 like the ARP Request. Assuming to be in a fairly sparse wireless mesh network, an ARP Request could get lost several times before being able to find
 its destination, thus dramatically increasing the latency of establishing an IP connection.
 
-h2. How DAT
+h2. DHT basics
+
+!dat_dht-90.png!
+
+h2. How DAT merges ARP and the DHT
