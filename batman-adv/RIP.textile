@@ -24,7 +24,7 @@ All nodes who receive the death note and had chosen the sender as router will kn
 
 h3. OGM Update Request
 
-At some point, other nodes will also receive the death note who have a still working path towards A (or at least believe so). In our example, N10 will receive the death note from B, but it does not use B as router for A - the selected router is N9. In the case that it (still) has a route to A, so it will send an OGM Update Request via Unicast to its router N9 with final destination A. OGM Update requests are simply passed from node to node until they reach their final destination A. As soon as A receives this OGM Update Request, it will immediately broadcast a new OGM with a new sequence number.
+At some point, other nodes will also receive the death note who have a still working path towards A (or at least believe so). In our example, N10 will receive the death note from B, but it does not use B as router for A - the selected router is N9. In the case that it (still) has a route to A, so it will send an *OGM Update Request* via Unicast to its router N9 with final destination A. OGM Update requests are simply passed from node to node until they reach their final destination A. As soon as A receives this OGM Update Request, it will immediately broadcast a new OGM with a new sequence number.
 
 h3. Back Propagation
 
@@ -41,6 +41,7 @@ From the algorithm sketch, we can see:
 h3. Death Note packet format
 
 Death Notes and OGM Update Requests may share a packet type and be distinguished by a flag. They basicly contain:
+
  * the affected Originator Address (either used as subject of the death note or final destination)
  * TTL
  * (maybe?) last valid OGM
