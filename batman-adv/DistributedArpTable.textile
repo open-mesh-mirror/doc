@@ -28,7 +28,7 @@ h2. DHT basics
 
 The DHT which D.A.T. is based on is actually inspired by "CHORD":http://en.wikipedia.org/wiki/Chord_(peer-to-peer), which is one of the earliest Peer-to-Peer algorithm based on a DHT. B.A.T.M.A.N.-Advanced inherits the shape of the key space and the rule used to allocate objects onto participant nodes.
 
-Going a bit deeper into the details, the key space is represented by a ring on which the 2^16 keys are equally distributed. Being a ring means that once the key with value 2^32 has been riched, the next one is 0 again.
+Going a bit deeper into the details, the key space is represented by a ring on which the 2^16 keys are equally distributed. Being a ring means that once the key with value 2^16 has been riched, the next one is 0 again.
 
 As in CHORD, either the objects to distribute into the DHT and the participant nodes are mapped (by means of an hash function) to keys in the same space. Therefore, while scrolling the ring it is possible to find either keys mapping to an object and keys mapping to a node. This mechanism is definitely useful in order to decide which key is allocated on which node. In particular whenever there is a new object that we want to store in the DHT, the steps to follow are:
 # compute the key of the object by means of the hash function
