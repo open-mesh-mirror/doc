@@ -1,6 +1,6 @@
 h1. Distributed ARP Table
 
-D.A.T. (Distributed ARP Table) is a feature aimed to solve the unreliability problem of the ARP:http://en.wikipedia.org/wiki/Address_Resolution_Protocol dialogue
+D.A.T. (Distributed ARP Table) is a feature aimed to solve the unreliability problem of the "ARP":http://en.wikipedia.org/wiki/Address_Resolution_Protocol dialogue
 in sparse wireless networks, where the experienced packet loss is not negligible.
 
 h2. The Problem
@@ -21,13 +21,35 @@ the correct destination, thus dramatically increasing the latency of establishin
 h2. A possible solution
 
 The idea behind D.A.T. is to reduce as much as possible the usage of broadcast packets by replacing them with unicasts. In order to accomplish this task D.A.T. dat uses
-part of the theory behind the DHT(Distributed Hash Tables):http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries
+part of the theory behind the "DHT (Distributed Hash Tables)":http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries
 so becoming able to later query a particular node in order to get the data which the requester is looking for.
 
 h2. DHT basics
 
-The DHT which D.A.T. is based on 
+The DHT which D.A.T. is based on is actually inspired by "CHORD":http://en.wikipedia.org/wiki/Chord_(peer-to-peer), which is one of the earliest Peer-to-Peer algorithm based on a DHT. B.A.T.M.A.N.-Advanced inherits the shape of the key space and the rule used to allocate objects onto participant nodes.
+
+Going a bit deeper into the details, the key space is represented by a ring on which the 2^16 keys are equally distributed. Being a ring means that once the key with value 2^32 has been riched, the next one is 0 again.
+
+As in CHORD, either the objects to distribute into the DHT and the participant nodes are mapped (by means of an hash function) to keys in the same space. Therefore, while scrolling the ring it is possible to find either keys mapping to an object and keys mapping to a node. This mechanism is definitely useful in order to decide which key is allocated on which node. In particular whenever there is a new object that we want to store in the DHT, the steps to follow are:
+# compute the key of the object by means of the hash function
+# locate the key on the ring
+# identify the 3 nodes with the closest (from the left) key on the ring
+# distribute the object content on these 3 nodes
+
+In this way, as soon as all the nodes shares the same vision of the ring, given a generic object, whatever node can identify the 3 participants that are storing the object content and query them.
 
 !dat_dht-90.png!
 
+In the figure above, it is possible to see a DHT ring populated with some participants. At some point a generic node in the network wants to retrieve the content for the red object. The node computes the key of the latter and then identifies the 3 nodes that store the content (the green ones in the figure). Now the node looking for the object content can directly query the selected participants and retrieve the data.
+
 h2. How DAT merges ARP and the DHT
+
+Once the DHT concept has been introduced into B.A.T.M.A.N.-Advanced, the next step is to merge the ARP protocol and make D.A.T. born.
+
+D.A.T. actually exploits the DHT mechanism to store ARP entries of the form *[IP, MAC]*. The IP is used as input for the hash function as it is the always known part of the entry. In particular, whenever a node detect an ARP entries in the network (because of an ARP request/reply being sent/received by one of its clients) it simply activate the preiously explained mechanisn and stores the ARP data into the DHT.
+
+Upon retrieving data, a node (due to an ARP request being sent by a client) directly uses the DHT to retrieve the ARP tuple, and only if the DHT cannot provide the wanted data (e.g. the first time the data is requested) then the node fallbacks to the classic broadcast mechanism. As it is possible to understand, using the DHT will make the nodes avoid to use broadcast packets as much as possible and will make them instead rely on the unicast packets directly sent to the node storing the data in the DHT.
+
+h2. Technical details
+
+TBD
