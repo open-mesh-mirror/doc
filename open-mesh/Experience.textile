@@ -26,6 +26,7 @@ h2. Papers:
 * "Client announcement and Fast roaming in a Layer-2 mesh network":http://eprints.biblio.unitn.it/archive/00002269/
 * "Network Coding for Wireless Mesh Networks":http://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf
 * "B.A.T.M.A.N. routing protocol overhead analysis":http://downloads.open-mesh.org/batman/papers/OGMoverhead.pdf
+* "Improving B.A.T.M.A.N. Routing Stability and Performance":http://downloads.open-mesh.org/batman/papers/Improving%2520BATMAN%2520Routing%2520Stability%2520and%2520Performance.pdf
 * "Performance Analysis of the B.A.T.M.A.N. protocol":http://downloads.open-mesh.org/batman/papers/SANLAB%2520technical%2520report.Batrytis.pdf
 * "B.A.T.M.A.N. performance comparison paper":http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
 * "B.A.T.M.A.N. / BABEL / OLSR performance comparison":http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1747&amp;context=infopapers
