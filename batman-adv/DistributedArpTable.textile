@@ -48,8 +48,7 @@ Once the DHT concept has been introduced into B.A.T.M.A.N.-Advanced, the next st
 
 D.A.T. actually exploits the DHT mechanism to store ARP entries of the form *[IP, MAC]*. The IP is used as input for the hash function as it is the always known part of the entry. In particular, whenever a node detect an ARP entries in the network (because of an ARP request/reply being sent/received by one of its clients) it simply activate the preiously explained mechanisn and stores the ARP data into the DHT.
 
-Upon retrieving data, a node (due to an ARP request being sent by a client) directly uses the DHT to retrieve the ARP tuple, and only if the DHT cannot provide the wanted data (e.g. the first time the data is requested) then the node fallbacks to the classic broadcast mechanism. As it is possible to understand, using the DHT will make the nodes avoid to use broadcast packets as much as possible and will make them instead rely on the unicast packets directly sent to the node storing the data in the DHT.
+Whenever a node wants to retrieve some data (e.g. due to an ARP request by its own client) it will directly use the DHT to retrieve the ARP tuple, and only if the DHT cannot provide the wanted data (e.g. the first time the data is requested) then the node fallbacks to the classic broadcast mechanism. As it is possible to understand, using the DHT will make the nodes avoid to use broadcast packets as much as possible and will make them instead rely on the unicast packets directly sent to the node storing the data in the DHT.
 
 h2. Technical details
 
-TBD
