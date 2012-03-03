@@ -1,6 +1,6 @@
 h1. Distributed ARP Table
 
-D.A.T. (Distributed ARP Table) is a feature aimed to solve the unreliability problem of the [[http://en.wikipedia.org/wiki/Address_Resolution_Protocol|ARP]] dialogue
+D.A.T. (Distributed ARP Table) is a feature aimed to solve the unreliability problem of the ARP:http://en.wikipedia.org/wiki/Address_Resolution_Protocol dialogue
 in sparse wireless networks, where the experienced packet loss is not negligible.
 
 h2. The Problem
@@ -21,7 +21,7 @@ the correct destination, thus dramatically increasing the latency of establishin
 h2. A possible solution
 
 The idea behind D.A.T. is to reduce as much as possible the usage of broadcast packets by replacing them with unicasts. In order to accomplish this task D.A.T. dat uses
-part of the theory behind the [[http://en.wikipedia.org/wiki/Distributed_hash_table|DHT (Distributed Hash Tables)]], in particular it uses the DHT to store the ARP entries
+part of the theory behind the DHT(Distributed Hash Tables):http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries
 so becoming able to later query a particular node in order to get the data which the requester is looking for.
 
 h2. DHT basics
