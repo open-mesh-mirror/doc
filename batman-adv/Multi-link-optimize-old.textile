@@ -1,6 +1,6 @@
 h1. Multi-link Optimization
 
-batman-adv is able to work on different interfaces - multiple WiFi interfaces, but also Ethernet interfaces. If two nodes are interconnected through batman-adv on multiple interfaces, they may leverage some features to increase throughput, which are explained here.
+batman-adv is able to work on different interfaces - multiple WiFi interfaces, but also Ethernet interfaces. If two or more nodes are interconnected through batman-adv on multiple interfaces, they may leverage some features to increase throughput, which are explained here.
 
 For more technical information, please see [[Bonding-alternating]]
 
@@ -25,3 +25,11 @@ To enable bonding, use batctl:
 <pre>
 batctl bonding enable
 </pre>
+
+h2. Throughput gains
+
+At the [[open-mesh:2010-06-13-wbm2010-bracciano|WirelessBattleMesh v3]] we performed throughput tests to measure the gain of the various modes:
+
+!bonding_2hops.png!
+
+This graph shows a 3 node setup each with 2 802.11abg wifi interfaces connected to the mesh network (1x 2.4GHz and 1x 5.8GHz). As you can see the alternating mode is able to maintain the performance. The old default behavior sometimes manages to maintain a similar level of performance but is rather unstable.
