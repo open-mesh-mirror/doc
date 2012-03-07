@@ -23,6 +23,6 @@ Note that packets are checked either at the sender or the receiver node, therefo
 
 Remember that B.A.T.M.A.N.-Advanced AP-Isolation will provide "inter-meshnode communications" prevention only. Therefore if you want to block communications between clients connected to the same access point (actually mesh node) you may want to enable the "class AP-Isolation" function provided by the access point itself.
 
-h3. Technical details
+h3. Caveats
 
-to be added
+To isolate wireless clients from each other B.A.T.M.A.N.-Advanced checks the source and destination address of a packet traveling through the mesh. If sender and receiver are wireless clients the packet is discarded. It is in the very nature of broadcast and multicast packets to not have a single destination, therefore the packet could be destined for wireless clients as well as wired clients. B.A.T.M.A.N.-Advanced has no way to distinguish these cases. To not completely block needed broadcast traffic (ARP for instance) broadcast and multicast traffic is forwarded through the mesh even between wireless clients.
