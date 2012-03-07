@@ -52,3 +52,7 @@ Whenever a node wants to retrieve some data (e.g. due to an ARP request by its o
 
 h2. Technical details
 
+# _Incoming ARP Request_:
+# _Outgoing ARP Request_:
+# _Incoming ARP Reply_:
+# _Outgoing ARP Reply_:
