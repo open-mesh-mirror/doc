@@ -328,6 +328,10 @@ Applying: batman-adv: adapting source version to revised versioning scheme
 Applying: batman-adv: Add include guards to all header files
 '-(%25)-(batman-adv/next)> git diff merge/master -- net/batman-adv/
 '-(%25)-(batman-adv/next)> git push
+'-(%25)-(batman-adv/next)> git tag -d batman-adv-for-davem
+'-(%25)-(batman-adv/next)> git push origin :batman-adv-for-davem
+'-(%25)-(batman-adv/next)> git tag -s batman-adv-for-davem
+'-(%25)-(batman-adv/next)> git push origin batman-adv-for-davem
 '-(%25)-(batman-adv/next)> git request-pull 12513b76a021e5b41a9d5d5981da75dfd6480890 git://git.open-mesh.org/linux-merge.git batman-adv-for-davem > shortlog
 '-(%25)-(batman-adv/next)> git send-email --compose --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
