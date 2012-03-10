@@ -12,7 +12,7 @@ First, you need to obtain a copy of the OpenWrt build system which contains all 
 svn co svn://svn.openwrt.org/openwrt/tags/backfire_10.03 openwrt
 </pre>
 
-Change into the openwrt-kamikaze directory and configure the system to meet you needs (e.g. choose the platform and additional packages you intend to use).
+Change into the openwrt-backfire directory and configure the system to meet you needs (e.g. choose the platform and additional packages you intend to use).
 
 <pre>
 cd openwrt
