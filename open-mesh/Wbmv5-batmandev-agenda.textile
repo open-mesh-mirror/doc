@@ -18,5 +18,6 @@ h2. Concept discussion
 h2. Others
 
 * GSOC 2012 ideas refinement
+* Explaining the batman-adv release cycle - the lifespan of a patch
 * How to make David happy: hands-on session
 
