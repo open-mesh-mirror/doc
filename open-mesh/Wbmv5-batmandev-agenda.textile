@@ -1,0 +1,22 @@
+h1. Wbmv5-batmandev-agenda
+
+h2. Celebration!
+
+Find something to celebrate.
+
+h2. Testing
+
+* Catwoman (Throughput test)
+* ELP Testing (Is the code ready? poke Marek)
+* Roaming
+
+h2. Concept discussion
+
+* ELP / OGMv2
+* Bandwidth based routing
+
+h2. Others
+
+* GSOC 2012 ideas refinement
+* How to make David happy: hands-on session
+
