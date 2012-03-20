@@ -52,7 +52,10 @@ Whenever a node wants to retrieve some data (e.g. due to an ARP request by its o
 
 h2. Technical details
 
+The snooping mechanism is actually made up by 4 different events, which trigger different actions.
+These are the 4 possible events:
+
+# _Outgoing ARP Request_: The packet is intercepted, then the node checks if the requested IP is in the local cache
 # _Incoming ARP Request_:
-# _Outgoing ARP Request_:
 # _Incoming ARP Reply_:
 # _Outgoing ARP Reply_:
