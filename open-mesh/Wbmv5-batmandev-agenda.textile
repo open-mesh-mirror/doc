@@ -20,4 +20,4 @@ h2. Others
 * GSOC 2012 ideas refinement
 * Explaining the batman-adv release cycle - the journey of a patch through the branches
 * How to make David happy: hands-on session
-
+* Donations
