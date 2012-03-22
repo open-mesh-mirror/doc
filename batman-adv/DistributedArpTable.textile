@@ -52,10 +52,13 @@ Whenever a node wants to retrieve some data (e.g. due to an ARP request by its o
 
 h2. Technical details
 
-The snooping mechanism is actually made up by 4 different events, which trigger different actions.
-These are the 4 possible events:
+The snooping mechanism is actually made up by 4 events, which trigger different actions.
+The 4 possibilities are the following:
 
-# _Outgoing ARP Request_: The packet is intercepted, then the node checks if the requested IP is in the local cache
+# _Outgoing ARP Request_: The packet is intercepted, then the node checks if the requested IP is in the local cache:
+* it is: the node drops the request and immediately forge a reply that is delivered to the client
+* it is not: the node queries the DHT table using the requested IP as search key. If no answer is received within a fixed amount of time (actually 250ms) the ARP request is broadcasted like it is usually done.
+
 # _Incoming ARP Request_:
 # _Incoming ARP Reply_:
 # _Outgoing ARP Reply_:
