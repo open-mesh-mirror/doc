@@ -50,7 +50,7 @@ D.A.T. actually exploits the DHT mechanism to store ARP entries of the form *[IP
 
 Whenever a node wants to retrieve some data (e.g. due to an ARP request by its own client) it will directly use the DHT to retrieve the ARP tuple, and only if the DHT cannot provide the wanted data (e.g. the first time the data is requested) then the node fallbacks to the classic broadcast mechanism. As it is possible to understand, using the DHT will make the nodes avoid to use broadcast packets as much as possible and will make them instead rely on the unicast packets directly sent to the node storing the data in the DHT.
 
-h2. Technical details
+h2. Technical details (To be refined)
 
 The snooping mechanism is actually made up by 4 events, which trigger different actions.
 The 4 possibilities are the following:
@@ -62,5 +62,5 @@ The 4 possibilities are the following:
 # _Incoming ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local repository:
 * it is: the node drops the request and immediately forges a reply that is sent over the mesh towards the client.
 * it is not: the request is delivered to the local soft interface (to the local clients)
-# _Incoming ARP Reply_:
-# _Outgoing ARP Reply_:
+# _Incoming ARP Reply_: The packet is inspected, the node will save both the source and the destination entries in its local repository and then the message is delivered to the to the client, if the destination is part of the local known ones.
+# _Outgoing ARP Reply_: The packet is inspected, the node will save both the source and the destination entried in its local repository and then the message is sent to the DHT in order to populate it following the storing schema.
