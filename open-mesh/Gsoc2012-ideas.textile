@@ -1,6 +1,6 @@
 h1. Gsoc2012-ideas
 
-FILL ME!
+We have a page with several ideas/research proposals that you can check ([[ResearchProposal]])
 
 last years:
 
