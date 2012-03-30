@@ -11,6 +11,12 @@ h2. Release Scheduling
 * maint branch is released on demand (for example after security issues)
 * a feature release +must+ be done before 3.x-rc6. The time till 3.x-rc7 is needed to merge new features into next and submit them to the linux maintainers for 2.6.y
 
+h2. Documentation
+
+* [x] build changelog
+* [x] update README
+* [ ] write release announcement
+* [ ] update wiki documentation
 
 h2. Code
 
@@ -23,14 +29,6 @@ h2. Code
 ** batman-adv: unset the TT_CLIENT_PENDING flag if the new local entry already exists
 ** batman-adv: Add routing_algo to README
 * [ ] git tag release
-
-
-h2. Documentation
-
-* [x] build changelog
-* [x] update README
-* [ ] write release announcement
-* [ ] update wiki documentation
 
 
 h2. Release
