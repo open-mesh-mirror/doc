@@ -28,13 +28,13 @@ h2. Code
 * [ ] check for open patches on the ml
 ** batman-adv: unset the TT_CLIENT_PENDING flag if the new local entry already exists
 ** batman-adv: Add routing_algo to README
-* [ ] git tag release
+* [x] git tag release
 
 
 h2. Release
 
-* [ ] build package tar.gz and generate checksums
-* [ ] move packages/checksums to stable/sources / create symlinks from releases
+* [x] build package tar.gz and generate checksums
+* [x] move packages/checksums to stable/sources / create symlinks from releases
 * [ ] update download links in the redmine downloads page
 * [ ] send release mail
 * [ ] update IRC channel topic
