@@ -6,6 +6,7 @@ This page contains the links to previous news posts for archiving puposes.
 
 h3. 2011
 
+* *14.Nov. 2011* [[2011-11-14-batman-adv-2011-4-0-release|Batman-adv 2011.4.0 released]]
 * *19.Oct. 2011* [[2011-10-19-batman-adv-2011-3-1-release|Batman-adv 2011.3.1 released]]
 * *08.Oct. 2011* [[2011-10-08-new-outfit-for-batman|New outfit for B.A.T.M.A.N.]]
 * *21.Aug. 2011* [[2011-08-21-batman-adv-2011-3-0-release|Batman-adv 2011.3.0 released]]
