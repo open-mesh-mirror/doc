@@ -30,8 +30,12 @@ h2. Documentation
 * [[batmand:doc-overview|B.A.T.M.A.N. daemon documentation]] 
 * [[FAQ|FAQ]] - Frequently Asked Questions
 * [[Experience|Experience]] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
-* [[Logos|Logos]] - download logos
 * [[MailingList|Mailing List]]/[[IRC|IRC]] - contact us
+
+h2. Merchandise
+
+* [[Logos|Logos]] - download logos
+* "T-Shirts":http://www.freewear.org/?org=B.A.T.M.A.N - get T-Shirts
 
 h2. Other Projects on open-mesh.org
 
