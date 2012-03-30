@@ -47,8 +47,8 @@ h2. Distributions
 
 h2. Aftershow
 
-* [ ] Merge next into master branch (to get changes on README, CHANGELOG, ...)
-* [ ] Merge current git tag into maint (must be fast-forward or pre-tagging steps were done wrong)
-* [ ] Merge patches from master into next (to get all the fancy new features)
+* [x] Merge next into master branch (to get changes on README, CHANGELOG, ...)
+* [x] Merge current git tag into maint (must be fast-forward or pre-tagging steps were done wrong)
+* [x] Merge patches from master into next (to get all the fancy new features)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
 * [ ] Enable daily check for next/master (symbol check, cppcheck, feature check)
