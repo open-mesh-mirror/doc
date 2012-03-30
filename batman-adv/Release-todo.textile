@@ -37,12 +37,12 @@ h2. Release
 * [x] move packages/checksums to stable/sources / create symlinks from releases
 * [x] update download links in the redmine downloads page
 * [ ] send release mail
-* [ ] update IRC channel topic
+* [x] update IRC channel topic
 
 h2. Distributions
 
 * [ ] update openwrt package
-* [ ] update debian package
+* [x] update debian package
 
 
 h2. Aftershow
@@ -51,4 +51,4 @@ h2. Aftershow
 * [x] Merge current git tag into maint (must be fast-forward or pre-tagging steps were done wrong)
 * [x] Merge patches from master into next (to get all the fancy new features)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
-* [ ] Enable daily check for next/master (symbol check, cppcheck, feature check)
+* [x] Enable daily check for next/master (symbol check, cppcheck, feature check)
