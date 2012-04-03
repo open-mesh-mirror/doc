@@ -257,7 +257,7 @@ Switched to branch 'patches'
 
 h2. check if all patches build cleanly
 
-It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+/-MODULES@) as module/builtin and allyesconfig as module/builtin
+It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+/-MODULES@) as module/builtin and allyesconfig as module/builtin. If you are compiling with BLA or DAT you need to specify @+INET@ as well.
 
 <pre>
 '-(%25)-(patches)> make
