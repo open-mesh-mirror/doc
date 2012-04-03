@@ -206,7 +206,7 @@ Successfully rebased and updated refs/heads/patches
 
 h2. check if all patches compile cleanly against our linux tree with sparse (cgcc) 
 
-We assume that the linux-merge tree was already build with @make allnoconfig@ and then enabling @CONFIG_NET=y@, @CONFIG_MODULES=y@  and @CONFIG_CRC16=y@
+We assume that the linux-merge tree was already build with @make allnoconfig@ and then enabling @CONFIG_NET=y@, @CONFIG_MODULES=y@  and @CONFIG_CRC16=y@ (enable CONFIG_INET=y if you want to compile also DAT or BLA)
 
 <pre>
 '-(%25)-(patches)> git rev-list --reverse origin/merge/master..
@@ -257,7 +257,7 @@ Switched to branch 'patches'
 
 h2. check if all patches build cleanly
 
-It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+/-MODULES@) as module/builtin and allyesconfig as module/builtin. If you are compiling with BLA or DAT you need to specify @+INET@ as well.
+It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+/-MODULES@,@+INET@) as module/builtin and allyesconfig as module/builtin
 
 <pre>
 '-(%25)-(patches)> make
