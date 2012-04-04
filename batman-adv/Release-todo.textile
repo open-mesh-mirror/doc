@@ -25,9 +25,7 @@ h2. Code
 * [x] remove dead code (if any)
 * [x] check against kernel versions
 * [x] check that maint branch is merged in next
-* [ ] check for open patches on the ml
-** batman-adv: unset the TT_CLIENT_PENDING flag if the new local entry already exists
-** batman-adv: Add routing_algo to README
+* [x] check for open patches on the ml
 * [x] git tag release
 
 
