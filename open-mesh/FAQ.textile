@@ -15,7 +15,7 @@ h2. How to make my mesh network secure ?
 
 What kind of security do you need? Security is a big field. Maybe you just mean encryption and authentication.....
 
-When you only want to make the whole wlan stuff unreadable for the outside, you could just use WPA_NONE. But this doesn't resolve the problem that the key could leak and make the mesh attackable - but that is something which could always happen. So it is probably not a solution for wifi community projects, but for mesh networks controlled by a company.
+When you only want to make the whole wlan stuff unreadable for the outside, you could just use WPA_NONE or IBSS RSN. But this doesn't resolve the problem that the key could leak and make the mesh attackable - but that is something which could always happen. So it is probably not a solution for wifi community projects, but for mesh networks controlled by a company.
 
 There are other ideas for traffic over batman-adv. Just forget about encrypting your data on the wifi layer, but instead do everything some layers above. Some people experimented with the idea of implementing the needed authentication and encryption over IPsec. 
 
