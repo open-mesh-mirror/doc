@@ -47,6 +47,8 @@ h2. Using the candidates
 
 Once a neighbor mesh node has been selected by the classic routing algorithm, the individual links can now be equally be selected to send data to the next neighbor without tampering with routing. Possible mechanisms exploiting this fact are described below.
 
+More Info can be found in the [[multi-link-optimize|Multi-Link Optimization]] feature description page.
+
 Implementation note: the manipulations are hooked in the tx path when selecting a neighbor in find_router()
 
 h3. Interface Alternating
