@@ -24,7 +24,7 @@ The detection part is specific to batman-adv. The first interface in batman-adv 
 
 Note that it does not matter which interface is the primary interface, it is only used to have a single Originator known in the mesh (and thus avoid too much OGM overhead).
 
-!primary_flag.dia.png!
+!primary_flag.png!
 
 The PRIMARIES_FIRST_HOP flag is only set for OGMs of the primary interface, and only on the first hop - it is unset when rebroadcasted by another node.
 
