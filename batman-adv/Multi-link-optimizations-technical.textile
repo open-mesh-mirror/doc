@@ -1,42 +1,72 @@
 h1. Bonding and interface alternating
 
+Mesh nodes with multiple physical links to other mesh nodes can use this capability to gain various benefits, for example:
 
-On mesh nodes with multiple wifi radios (or even other interfaces) participating in the mesh network, we can use these multiple interfaces to gain more bandwidth or more stability in the links. The standard BATMAN algorithm considers all neighbors equally, and does not distinguish whether neighbors belong to the same physical nodes or not. The bonding and interface alternating mechanisms detect that some neighbors belong to the same physical node and use this information. 
+ * bonding: use multiple links for the same data stream to boost bandwidth
+ * interface alternating: send on other interfaces (and therefore other channels, if configured correctly) to minimize multihop bandwidth degradation
 
+These features are based on two facts:
 
-h2. Multiple interface detection
+ * multiple links exist between two neighbors, and
+ * the routing decision is independent of the link a packet is received
 
+Notably, these multi-interface features are independent of B.A.T.M.A.N. and could work with any routing algorithm/metric. The routing software only needs to detect that multiple peers belong to the same neighbor mesh node. This is also not related to Multi Path Routing, which would require multiple independent links.
 
-The first step is to detect that a peer has multiple interfaces, and we have multiple connections to it.
+Bonding and Interface Alternating works in following steps:
+
+# detect that a neighbor is reachable via multiple links
+# select suitable candidates among the the available links
+# use these multiple links for various manipulations
+
+h2. Link detection
+
+The detection part is specific to batman-adv. The first interface in batman-adv is the primary interface - it's MAC address (Originator address) is known throughout the mesh. The mesh node sends out the OGMs from the primary interface on *all* interfaces, with a high TTL. In this way, also mesh nodes only reachable via the secondary interfaces will know about this host. Secondary interfaces are all other interfaces. The secondary interfaces send out their own OGMs with low TTL, which only serve the purpose of local link detection, and are only sent on their respective interfaces.
+
+Note that it does not matter which interface is the primary interface, it is only used to have a single Originator known in the mesh (and thus avoid too much OGM overhead).
+
+!primary_flag.dia.png!
+
+The PRIMARIES_FIRST_HOP flag is only set for OGMs of the primary interface, and only on the first hop - it is unset when rebroadcasted by another node.
+
+When OGMs with PRIMARIES_FIRST_HOP flag are received on different interfaces, a mesh node knows that it can reach his neighbor via multiple links. In the illustration, A receives the OGM via A1 (sent out by B1) and A2 (sent out by B2) - and detects that these two Links A1-B1, A2-B2 exist. These link candidates are stored and further filtered
+
+h2. Candidate selection
+
+To be usable for the target features, the links must have a similar quality and should operate on a different frequency. Therefore, in batman-adv only links are further considered if:
+
+ * the link quality is not much worse than the best link within a certain TQ threshold (now: 50) 
+ * the link destination is different from the other already selected candidates - e.g. if A1-B1 was selected, A2-B1 would be forbidden as they would operate on the same frequency and therefore would interfere with each other
+
+In the illustration below, A1-B1 and A2-B2 meet this criteria and are therefore selected as candidates.
 
 !interface_detection.dia.jpg!
 
-As seen in the illustration, we have a node A with 2 interfaces A1,A2. Both of its interfaces can reach different neighbors. By evaluating OGM packets from B with a new "PRIMARIES FIRST HOP" flag (which is only set in the first hop, obviously), we recognize that B2 is belonging to the same node B1. OGMs from the primary interface (B1) are sent on all available interfaces (B1 and B2), and we can therefore detect that the B2 is a secondary interface and B1 is the primary interface of the node it belongs to.
+Implementation note: Detected links are internally stored within the originator structure of the primary originator. The candidates are internally called "bonding candidates"
 
-With this information, we know that we can send packets via each links (A1->B1 or A2->B2) without disturbing or changing the routing algorithm - we send from and to the same nodes after all. Since we are going to use both links at the same time and not only the best, we need to make sure that both have a similar quality. Otherwise the performance might be worse instead of improving the situation.
+h2. Using the candidates
 
+Once a neighbor mesh node has been selected by the classic routing algorithm, the individual links can now be equally be selected to send data to the next neighbor without tampering with routing. Possible mechanisms exploiting this fact are described below.
 
-h2. Interface alternating
+Implementation note: the manipulations are hooked in the tx path when selecting a neighbor in find_router()
 
+h3. Interface Alternating
 
-One application for our multiple detection is "interface alternating": The algorithm tries to avoid forwarding packets on the interface which just received the packet. That way the typical store & forward mechanism of wifi which halfs the bandwidth with each hop can be worked around.
+Interface Alternating basically tries to forward a packet on another interface than on which the frame was received. This is only done if suitable candidate with another source interface exists.
 
 !alternation_chain.dia.jpg!
 
-In the illustration, we can see 4 nodes with 2 interfaces each. A stream is sent from node A to node D. There are 2 candidates for each node to reach the next hop, but only one is used - if possible, not the one which received the packets in the first place. 
+This feature is always enabled.
 
-If a packet comes in, we have two links available for the next hop. We can now search through the list of candidates and can choose a candidate which is not going over the receiving interface. 
+h3. Bonding
 
-This mechanism should avoid interferences and congestion of a wifi channel, and thus should avoid problems with the half-duplex nature of WiFi hardware. As we currently don't see any scenarios where the interface alternating could cause disadvantages, we set it to default in the upcoming batman-adv 0.3.0 release.
-
-
-h2. Bonding
-
-
-In bonding, we split a single stream and distribute the packets over multiple links. Packets are sent in a round-robin fashion over the available candidates. This can be used to increase the throughput for data streams from node A to node B. In a perfect environemt the throughput is n times higher, where n is the number of candidates. 
+In bonding, we split a single stream and distribute the packets over multiple links. Packets are sent in a round-robin fashion over the available candidates. This can be used to increase the throughput for data streams from node A to node B. In a perfect environment the throughput is n times higher, where n is the number of candidates.
 
 !bonding_roundrobin.dia.jpg!
 
-However, with the round-robin way of sending packets, the actual throughput is limited by the link with the worst bandwidth. Also the errors and instabilities of all links are aggregated, which makes the link more fragile. For this reason, the bonding feature can be enabled optionally, and should be enabled in setups with high quality links.
+Practice shows however that the theoretical bandwidth gain is not reached - even if the links are physically disjoint. E.g. using a 2.4 GHz and a 5 GHz with a modulation of 54 Mbit/s both has shown to gain 150%25 bandwith boost over a single link, not 200%25 as expected in theory. Possible reasons may be the packet reordering and slightly different queue load caused by random backoffs, retries, etc. For these reasons, bonding must be enabled explicitly.
 
-There are already ideas how to improve the situation with links of differend bandwidth, e.g. sending packets packets on interfaces where the queue has the least packets. Comments and patches [[open-mesh:MailingList| are appreciated]].
+h2. Discussion and further work
+
+As explained, the bonding mode stays behind the theoretical expectations. The packet loss based TQ metric is also not optimal for selecting bonding candidates - a bandwidth based metric would be more suitable for this task, as slow links will slow down the whole aggregated connection.
+
+These shortcomings would be subject to further improvements of this featureset.
