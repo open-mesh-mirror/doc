@@ -15,6 +15,7 @@ For everyone who is not aware of the basics here is a link with a brief and gene
 [[http://etutorials.org/Networking/802.11+security.+wi-fi+protected+access+and+802.11i/Part+II+The+Design+of+Wi-Fi+Security/Chapter+13.+Wi-Fi+LAN+Coordination+ESS+and+IBSS/WPA+RSN+Information+Element/]]
 
 h2. Main
+
 There are many ways to encode such an element.Each providing different pros/cons and all of which are used in various wireless signal applications.
 
 First one is BER:
