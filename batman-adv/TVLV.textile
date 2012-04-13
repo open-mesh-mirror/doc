@@ -7,9 +7,7 @@ h2. Intro
 Right now batman does not have any  real backwards compatibility.
 We could implement real backwards compatibility through the use of IEs(information elements) and more specifically TLVs(type/length/value) elements.
 
-There are many ways to do this below is one of them(with some alternatives):
 First the closest thing I found in wireless information elements is the wifi ones
-
 For everyone who is not aware of the basics here is a link with a brief and general/abstract description
  
 [[http://etutorials.org/Networking/802.11+security.+wi-fi+protected+access+and+802.11i/Part+II+The+Design+of+Wi-Fi+Security/Chapter+13.+Wi-Fi+LAN+Coordination+ESS+and+IBSS/WPA+RSN+Information+Element/]]
@@ -40,3 +38,6 @@ For the record there is already a tlv message parser
 
  We can use either one of the above to encode the tlvs or create our
  own but I think one of the above is more than adequate
+
+
+It is importand that everyone shares his opinion on this because once implemented most of the current functionality should be encoded using tlvs and one of the above methods.
