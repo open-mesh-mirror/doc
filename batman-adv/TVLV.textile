@@ -1,0 +1,41 @@
+h1. BackwardsCompatibility
+
+Everything on this page is a suggestion and therefore open to discussion and change
+
+h2. Intro
+
+Right now batman does not have any  real backwards compatibility.
+We could implement real backwards compatibility through the use of IEs(information elements) and more specifically TLVs(type/length/value) elements.
+
+There are many ways to do this below is one of them(with some alternatives):
+First the closest thing I found in wireless information elements is the wifi ones
+
+For everyone who is not aware of the basics here is a link with a brief and general/abstract description
+ 
+[[http://etutorials.org/Networking/802.11+security.+wi-fi+protected+access+and+802.11i/Part+II+The+Design+of+Wi-Fi+Security/Chapter+13.+Wi-Fi+LAN+Coordination+ESS+and+IBSS/WPA+RSN+Information+Element/]]
+
+h2. Main
+There are many ways to encode such an element.Each providing different pros/cons and all of which are used in various wireless signal applications.
+
+First one is BER:
+This wiki entry describes it pretty godd for a quick overview (and the accompanying paper more thoroughly)
+ [[http://en.wikipedia.org/wiki/Basic_Encoding_Rules]]
+
+Second is DER:[[http://en.wikipedia.org/wiki/Distinguished_Encoding_Rules]]
+ it is more restrictive than the first one
+
+Third PER:[[http://en.wikipedia.org/wiki/Packed_Encoding_Rules]]
+ defines some more fields
+
+Finally there is Cer:[[http://en.wikipedia.org/wiki/Canonical_Encoding_Rules]]
+
+[[http://en.wikipedia.org/wiki/ASN.1]]
+
+For the record there is already a tlv message parser
+[[http://tlve.sourceforge.net/]]
+ (the following is an example of ber parsing)
+
+[[http://tlve.sourceforge.net/examples/ber.rc]]
+
+ We can use either one of the above to encode the tlvs or create our
+ own but I think one of the above is more than adequate
