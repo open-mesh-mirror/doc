@@ -40,4 +40,17 @@ For the record there is already a tlv message parser
  own but I think one of the above is more than adequate
 
 
+
+The kernel uses many tlv-like structs (they're all part of netlink.h)
+http://lxr.linux.no/#linux+v3.3.2/include/linux/netlink.h
+
+there are some which could be very helpful actually
+
+BUT there exists something even better :-)
+our favorite kernel already provides capabilities to create and parse tlvs transparently
+http://lxr.linux.no/#linux+v3.3.2/include/net/netlink.h
+
+(it's actually a very rich api providing even fucntions to nest a tlv message inside another tlv message)
+
+
 It is importand that everyone shares his opinion on this because once implemented most of the current functionality should be encoded using tlvs and one of the above methods.
