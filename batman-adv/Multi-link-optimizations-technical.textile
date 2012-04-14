@@ -1,4 +1,4 @@
-h1. Bonding and interface alternating
+h1. Multi-link Optimizations (technical documentation)
 
 Mesh nodes with multiple physical links to other mesh nodes can use this capability to gain various benefits, for example:
 
