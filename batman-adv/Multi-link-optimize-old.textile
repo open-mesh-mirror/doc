@@ -1,8 +1,8 @@
-h1. Multi-link Optimization
+h1. Multi-link Optimizations
 
 batman-adv is able to work on different interfaces - multiple WiFi interfaces, but also Ethernet interfaces. If two or more nodes are interconnected through batman-adv on multiple interfaces, they may leverage some features to increase throughput, which are explained here.
 
-For more technical information, please see [[Bonding-alternating]]
+For more technical information, please see our [[multi-link-optimizations-technical|technical multi-link documentation]]
 
 h2. Interface alternating
 
