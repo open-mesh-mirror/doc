@@ -9,22 +9,24 @@ This is the final result:
 
 !batlogo_boot_screenshort_400px.jpg!
 
-Do you like it? Yeah! So, these are the vey short steps:
+Do you like it? Yeah! So, these are the vey short steps (it works for linux-3.3.2, but should work for older versions as well):
 
-1) download [[batman_logo.patch]] and put it into your kernel source directory
+1) download [[logo_batman_clut224.ppm]] and put it into your _drivers/video/logo_ subfolder in the kernel source directory
 
-2) open a terminal, jump into your kernel source directory and type
+2) download [[batman_logo.patch]] and put it into your kernel source directory
+
+3) open a terminal, jump into your kernel source directory and type
 <pre>
 # patch -p1 <batman_logo.patch
 </pre>
 
-3) now run the menuconfig by typing
+4) now run the menuconfig by typing
 <pre>
 # make menuconfig
 </pre>
 
-4) Browse the menu: Device Drivers -> Graphics support -> Bootup Logo and choose the new B.A.T.M.A.N.-Advanced entry:
+5) Browse the menu: Device Drivers -> Graphics support -> Bootup Logo and choose the new B.A.T.M.A.N.-Advanced entry:
 
 !batman_logo_menu.png!
 
-5) Exit the menu and recompile your kernel! Don't forget to reinstall it to the proper location!
+6) Exit the menu and recompile your kernel! Don't forget to reinstall it to the proper location!
