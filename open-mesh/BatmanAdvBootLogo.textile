@@ -1,8 +1,8 @@
 h1. BatmanAdvBootLogo
 
-If you are a very batman-advanced-addicted and enthusiastic fan, you will surely want to try the B.A.T.M.A.N.-Advanced bootup logo out!!
+If you are a very batman-advanced-addicted and enthusiastic fan, you will surely want to give the B.A.T.M.A.N.-Advanced bootup logo a try!
 
-If you want to see the B.A.T.M.A.N.-Advanced logo each time your laptop boots up this wikipage is made for you!
+If you want to see the B.A.T.M.A.N.-Advanced logo each time your computer boots up this page is made for you!
 
 This little howto will drive you through a few steps that will enable you to select a new custom logo from the kernel menuconfig.
 This is the final result:
@@ -11,22 +11,24 @@ This is the final result:
 
 Do you like it? Yeah! So, these are the very short steps (it works for linux-3.3.2, but should work for older versions as well):
 
-1) download the logo (logo_batman_clut224.ppm) and put it into your _drivers/video/logo_ subfolder in the kernel source directory
+1. download the logo (logo_batman_clut224.ppm) and put it into your _drivers/video/logo_ subfolder in the kernel source directory
 
-2) download the patch (batman_logo.patch) and put it into your kernel source directory
+2. download the patch (batman_logo.patch) and put it into your kernel source directory
 
-3) open a terminal, jump into your kernel source directory and type
+3. open a terminal, jump into your kernel source directory and type
 <pre>
-# patch -p1 <batman_logo.patch
+# patch -p1 < batman_logo.patch
 </pre>
 
-4) now run the menuconfig by typing
+4. now run the menuconfig by typing
 <pre>
 # make menuconfig
 </pre>
 
-5) Browse the menu: Device Drivers -> Graphics support -> Bootup Logo and choose the new B.A.T.M.A.N.-Advanced entry:
+5. Browse the menu: Device Drivers -> Graphics support -> Bootup Logo and choose the new B.A.T.M.A.N.-Advanced entry:
 
 !batman_logo_menu.png!
 
-6) Exit the menu and recompile your kernel! Don't forget to reinstall it to the proper location!
+6. Exit the menu and recompile your kernel! Don't forget to reinstall it to the proper location!
+
+Enjoy!
