@@ -1,0 +1,50 @@
+diff -urw linux-3.3.1/drivers/video/logo//Kconfig linux-3.3.2/drivers/video/logo//Kconfig
+--- linux-3.3.1/drivers/video/logo//Kconfig	2012-03-19 00:15:34.000000000 +0100
++++ linux-3.3.2/drivers/video/logo//Kconfig	2012-04-15 14:34:24.251973841 +0200
+@@ -27,6 +27,11 @@
+ 	bool "Standard 224-color Linux logo"
+ 	default y
+ 
++config LOGO_BATMAN_CLUT224
++	bool "B.A.T.M.A.N.-Advanced 224-color Linux Logo"
++	depends on BATMAN_ADV
++	default n
++
+ config LOGO_BLACKFIN_VGA16
+ 	bool "16-colour Blackfin Processor Linux logo"
+ 	depends on BLACKFIN
+Only in linux-3.3.2/drivers/video/logo/: logo_batman_clut224.ppm
+diff -urw linux-3.3.1/drivers/video/logo//logo.c linux-3.3.2/drivers/video/logo//logo.c
+--- linux-3.3.1/drivers/video/logo//logo.c	2012-03-19 00:15:34.000000000 +0100
++++ linux-3.3.2/drivers/video/logo//logo.c	2012-04-15 15:25:08.944927540 +0200
+@@ -25,6 +25,8 @@
+ module_param(nologo, bool, 0);
+ MODULE_PARM_DESC(nologo, "Disables startup logo");
+ 
++extern const struct linux_logo logo_batman_clut224;
++
+ /* logo's are marked __initdata. Use __init_refok to tell
+  * modpost that it is intended that this function uses data
+  * marked __initdata.
+@@ -67,6 +69,10 @@
+ 		/* Generic Linux logo */
+ 		logo = &logo_linux_clut224;
+ #endif
++#ifdef CONFIG_LOGO_BATMAN_CLUT224
++		/* B.A.T.M.A.N.-Advanced logo */
++		logo = &logo_batman_clut224;
++#endif
+ #ifdef CONFIG_LOGO_BLACKFIN_CLUT224
+ 		/* Blackfin Linux logo */
+ 		logo = &logo_blackfin_clut224;
+diff -urw linux-3.3.1/drivers/video/logo//Makefile linux-3.3.2/drivers/video/logo//Makefile
+--- linux-3.3.1/drivers/video/logo//Makefile	2012-03-19 00:15:34.000000000 +0100
++++ linux-3.3.2/drivers/video/logo//Makefile	2012-04-15 15:13:06.238949328 +0200
+@@ -4,6 +4,7 @@
+ obj-$(CONFIG_LOGO_LINUX_MONO)		+= logo_linux_mono.o
+ obj-$(CONFIG_LOGO_LINUX_VGA16)		+= logo_linux_vga16.o
+ obj-$(CONFIG_LOGO_LINUX_CLUT224)	+= logo_linux_clut224.o
++obj-$(CONFIG_LOGO_BATMAN_CLUT224)	+= logo_batman_clut224.o
+ obj-$(CONFIG_LOGO_BLACKFIN_CLUT224)	+= logo_blackfin_clut224.o
+ obj-$(CONFIG_LOGO_BLACKFIN_VGA16)	+= logo_blackfin_vga16.o
+ obj-$(CONFIG_LOGO_DEC_CLUT224)		+= logo_dec_clut224.o
