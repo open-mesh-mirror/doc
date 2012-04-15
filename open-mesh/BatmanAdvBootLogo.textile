@@ -11,7 +11,7 @@ This is the final result:
 
 Do you like it? Yeah! So, these are the vey short steps (it works for linux-3.3.2, but should work for older versions as well):
 
-1) download [[logo_batman_clut224.ppm]] and put it into your _drivers/video/logo_ subfolder in the kernel source directory
+1) download the [[logo|http://www.open-mesh.org/attachments/179/logo_batman_clut224.ppm]] and put it into your _drivers/video/logo_ subfolder in the kernel source directory
 
 2) download [[batman_logo.patch]] and put it into your kernel source directory
 
