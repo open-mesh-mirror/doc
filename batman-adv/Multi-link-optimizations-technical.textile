@@ -3,16 +3,16 @@ h1. Multi-link Optimizations (technical documentation)
 Mesh nodes with multiple physical links to other mesh nodes can use this capability to gain various benefits, for example:
 
  * bonding: use multiple links for the same data stream to boost bandwidth
- * interface alternating: send on other interfaces (and therefore other channels, if configured correctly) to minimize multihop bandwidth degradation
+ * interface alternating: send on other interfaces (and therefore other channels, if configured correctly) to minimize multi-hop bandwidth degradation
 
-These features are based on two facts:
+These features operate under the following premises:
 
  * multiple links exist between two neighbors, and
  * the routing decision is independent of the link a packet is received
 
-Notably, these multi-interface features are independent of B.A.T.M.A.N. and could work with any routing algorithm/metric. The routing software only needs to detect that multiple peers belong to the same neighbor mesh node. This is also not related to Multi Path Routing, which would require multiple independent links.
+Notably, these multi-interface features are independent of B.A.T.M.A.N. and could work with any routing algorithm/metric. The routing software only needs to detect that multiple peers belong to the same neighbor mesh node. This is also not related to Multi-Path Routing, which would require multiple independent links.
 
-Bonding and Interface Alternating works in following steps:
+The multi-link optimization procedure can be broken into these steps:
 
 # detect that a neighbor is reachable via multiple links
 # select suitable candidates among the the available links
