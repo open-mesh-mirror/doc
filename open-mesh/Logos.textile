@@ -2,4 +2,6 @@ h1. Logos
 
 Different versions of the Logos are available for download in svg and png format, you find the logos attached at the bottom of the page.
 
+If you want to customise your Linux Boot Logo using the B.A.T.M.A.N.-Advanced one, please read [[BatmanAdvBootLogo|this short howto]].
+
 !batlogo_transparent.png!
