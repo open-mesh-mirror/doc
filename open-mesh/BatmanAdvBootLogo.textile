@@ -1,15 +1,12 @@
-h1. BatmanAdvBootLogo
+h1. Batman-adv boot logo
 
-If you are a very batman-advanced-addicted and enthusiastic fan, you will surely want to give the B.A.T.M.A.N.-Advanced bootup logo a try!
+If you are a very batman-advanced addicted and enthusiastic fan, you will surely want to give the B.A.T.M.A.N.-Advanced boot logo a try! This little howto will drive you through the few necessary steps that will enable you to select a new custom logo from the kernel menuconfig.
 
-If you want to see the B.A.T.M.A.N.-Advanced logo each time your computer boots up this page is made for you!
-
-This little howto will drive you through a few steps that will enable you to select a new custom logo from the kernel menuconfig.
-This is the final result:
+This is what it looks like at the end:
 
 !batlogo_boot_screenshort_400px.jpg!
 
-Do you like it? Yeah! So, these are the very short steps (it works for linux-3.3.2, but should work for older versions as well):
+Do you like it? Yeah! So, these are the necessary steps (it works for linux-3.3.2, but should work for older versions as well):
 
 1. download the logo (attachment:logo_batman_clut224.ppm) and put it into your _drivers/video/logo_ subfolder in the kernel source directory
 
@@ -17,12 +14,12 @@ Do you like it? Yeah! So, these are the very short steps (it works for linux-3.3
 
 3. open a terminal, jump into your kernel source directory and type
 <pre>
-# patch -p1 < batman_logo.patch
+patch -p1 < batman_logo.patch
 </pre>
 
 4. now run the menuconfig by typing
 <pre>
-# make menuconfig
+make menuconfig
 </pre>
 
 5. Browse the menu: Device Drivers -> Graphics support -> Bootup Logo and choose the new B.A.T.M.A.N.-Advanced entry:
