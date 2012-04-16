@@ -187,3 +187,18 @@ client
 
 which needs te be changed to "server" before the topology data can be read from the "vis_data" file.
 
+h3. routing algorithm
+
+The routing algorithm configuration has an effect upon creation of a new batX interface only. The newly created mesh cloud uses the the routing algorithm configured at this point. It is not possible to change the routing algorithm of an already existing batX interface.
+
+Retrieve the configured routing algorithm of the bat0 interface:
+<pre>
+cat /sys/class/net/bat0/mesh/routing_algo
+BATMAN IV
+</pre>
+
+To allow changing the routing algorithm even before a batX interface was created this configuration option was implemented as a module parameter. Modifying it's configuration is as easy every other sysfs configuration option:
+<pre>
+echo -n "BATMAN IV" > /sys/module/batman_adv/parameters/routing_algo
+</pre>
+
