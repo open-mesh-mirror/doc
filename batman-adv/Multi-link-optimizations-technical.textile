@@ -7,8 +7,8 @@ Mesh nodes with multiple physical links to other mesh nodes can use this capabil
 
 These features operate under the following premises:
 
- * multiple links exist between two neighbors, and
- * the routing decision is independent of the link a packet is received
+ * multiple links exist between two neighbors
+ * the routing decision is independent of the link a packet is received on
 
 Notably, these multi-interface features are independent of B.A.T.M.A.N. and could work with any routing algorithm/metric. The routing software only needs to detect that multiple peers belong to the same neighbor mesh node. This is also not related to Multi-Path Routing, which would require multiple independent links.
 
@@ -20,9 +20,11 @@ The multi-link optimization procedure can be broken into these steps:
 
 h2. Link detection
 
-The detection part is specific to batman-adv. The first interface in batman-adv is the primary interface - it's MAC address (Originator address) is known throughout the mesh. The mesh node sends out the OGMs from the primary interface on *all* interfaces, with a high TTL. In this way, also mesh nodes only reachable via the secondary interfaces will know about this host. Secondary interfaces are all other interfaces. The secondary interfaces send out their own OGMs with low TTL, which only serve the purpose of local link detection, and are only sent on their respective interfaces.
+The detection part is specific to batman-adv. To understand how the link detection works it is necessary to recall how batman-adv handles multiple interfaces: 
 
-Note that it does not matter which interface is the primary interface, it is only used to have a single Originator known in the mesh (and thus avoid too much OGM overhead).
+The MAC address (Originator address) of the primary interface (usually the first added interface) is known throughout the mesh as OGMs containing the MAC address are broadcasted on all available interfaces with a big TTL. This ensures mesh nodes only reachable via secondary interfaces will know about this node. All remaining interfaces are "secondary" interfaces which are only known in the single hop neighborhood. The OGMs containing their MAC addresses are broadcasted with a small TTL on the respective interface only. These secondary OGMs uniquely serve the purpose of detecting local neighbors and estimate the link quality towards them.
+
+Note that it does not matter which interface is the primary interface, it is only used to have a single Originator known in the mesh, thus avoiding OGM overhead.
 
 !primary_flag.png!
 
