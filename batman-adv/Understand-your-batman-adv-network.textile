@@ -98,7 +98,7 @@ This table is part of the [[bridge-loop-avoidance|bridge loop avoidance]] code a
 cat /sys/kernel/debug/batman_adv/bat0/softif_neigh
 Softif neighbor list (bat0)
 => fe:fe:00:00:02:01 (vid: 1)
-</code></pre>
+</pre>
 
 
 h2. ICMP
@@ -118,7 +118,7 @@ cat /sys/kernel/debug/batman_adv/bat0/log
 [       418] Received BATMAN packet via NB: fe:fe:00:00:01:01, IF: eth0 [fe:fe:00:00:02:01] (from OG: fe:fe:00:00:02:01, via prev OG: fe:fe:00:00:02:01, seqno 643, tq 245, TTL 49, V 12, IDF 1)
 [       418] Drop packet: originator packet from myself (via neighbor)
 [..]
-</code></pre>
+</pre>
 
 The log is a circular ring buffer and will continue writing messages as soon as they become available. 
 
@@ -126,5 +126,16 @@ The log is a circular ring buffer and will continue writing messages as soon as 
 h2. Visualization
 
 
-Despite its decentral nature batman-adv offers an easy way to access topology information that can be visualized. The [[VisAdv|visualization document]] covers the necessary steps in detail.
+Despite its decentralized nature batman-adv offers an easy way to access topology information that can be visualized. The [[VisAdv|visualization document]] covers the necessary steps in detail.
 
+
+h2. Routing algorithm
+
+Batman-adv allows changing the routing algorithm at runtime. It also exports the list of available routing protocols:
+<pre>
+cat /sys/kernel/debug/batman_adv/routing_algos
+Available routing algorithms:
+BATMAN IV
+</pre>
+
+B.A.T.M.A.N. IV is the default routing algorithm and a safe choice unless you wish to experiment with routing algorithms.
