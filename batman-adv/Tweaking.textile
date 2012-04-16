@@ -202,3 +202,5 @@ To allow changing the routing algorithm even before a batX interface was created
 echo -n "BATMAN IV" > /sys/module/batman_adv/parameters/routing_algo
 </pre>
 
+How to retrieve the list of available routing algorithms is explained [[Understand-your-batman-adv-network|on this page]].
+
