@@ -24,13 +24,13 @@ The detection part is specific to batman-adv. To understand how the link detecti
 
 The MAC address (Originator address) of the primary interface (usually the first added interface) is known throughout the mesh as OGMs containing the MAC address are broadcasted on all available interfaces with a big TTL. This ensures mesh nodes only reachable via secondary interfaces will know about this node. All remaining interfaces are "secondary" interfaces which are only known in the single hop neighborhood. The OGMs containing their MAC addresses are broadcasted with a small TTL on the respective interface only. These secondary OGMs uniquely serve the purpose of detecting local neighbors and estimate the link quality towards them.
 
-Note that it does not matter which interface is the primary interface, it is only used to have a single Originator known in the mesh, thus avoiding OGM overhead.
++Note+: It does not matter which interface is the primary interface, it is only used to have a single Originator known in the mesh, thus avoiding OGM overhead.
+
+To detect whether or not a neighbor has multiple links towards a node it suffices to analyze the incoming primary OGM. If the primary OGM is received via multiple interfaces a node can (almost) safely assume having multiple links towards its Originator. However, the OGM protocol demands to forward all incoming OGMs for the path detection which could confuse the multi-link detection because it has to distinguish single hop neighbors from neighbors that are further away. To resolve the issue the PRIMARIES_FIRST_HOP flag was introduced. Only primary OGMs are allowed to carry it and every node removes the flag before rebroadcasting the OGM.
 
 !primary_flag.png!
 
-The PRIMARIES_FIRST_HOP flag is only set for OGMs of the primary interface, and only on the first hop - it is unset when rebroadcasted by another node.
-
-When OGMs with PRIMARIES_FIRST_HOP flag are received on different interfaces, a mesh node knows that it can reach his neighbor via multiple links. In the illustration, A receives the OGM via A1 (sent out by B1) and A2 (sent out by B2) - and detects that these two Links A1-B1, A2-B2 exist. These link candidates are stored and further filtered
+In the illustration, A receives the OGM via A1 (sent out by B1) and A2 (sent out by B2) - and detects that these two Links A1-B1, A2-B2 exist. These link candidates are stored and further filtered
 
 h2. Candidate selection
 
