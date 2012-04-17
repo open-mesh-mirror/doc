@@ -10,11 +10,11 @@ B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a routing protocol
 
 h2. News
 
+* *17.Apr. 2012* [[2012-04-17-batman-adv-2012-1-0-release|Batman-adv 2012.1.0 released]]
 * *30.Mar. 2012* [[2012-03-30-T-Shirts-available|B.A.T.M.A.N. T-Shirts available]]
 * *30.Mar. 2012* [[2012-03-30-GSoC2012-announcement|B.A.T.M.A.N. @Google Summer of Code 2012]]
 * *09.Feb. 2012* [[2012-02-09-batman-adv-powers-game-of-life|Batman-adv powers Game of Life]]
 * *05.Feb. 2012* [[2012-02-05-batman-adv-2012-0-0-release|Batman-adv 2012.0.0 released]]
-* *26.Jan. 2012* [[2012-01-26-wbmv5-announcement|WBMv5 Announcement]]
 
 * [[news-archive|news archive]]
 
