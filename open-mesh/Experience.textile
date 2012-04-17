@@ -31,4 +31,5 @@ h2. Papers:
 * "B.A.T.M.A.N. performance comparison paper":http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
 * "B.A.T.M.A.N. / BABEL / OLSR performance comparison":http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1747&amp;context=infopapers
 * "mesh performance analysis with B.A.T.M.A.N.":http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf
+* "BATMAN Advanced / AODV performance comparison in a real testbed":http://www.kom.tu-darmstadt.de/en/publications/publications-details/publications/SKH11-1/
 
