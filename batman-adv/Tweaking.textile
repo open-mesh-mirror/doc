@@ -189,6 +189,8 @@ which needs te be changed to "server" before the topology data can be read from 
 
 h3. routing algorithm
 
+Available since: batman-adv 2012.1.0
+
 The routing algorithm configuration has an effect upon creation of a new batX interface only. The newly created mesh cloud uses the the routing algorithm configured at this point. It is not possible to change the routing algorithm of an already existing batX interface.
 
 Retrieve the configured routing algorithm of the bat0 interface:
