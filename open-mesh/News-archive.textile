@@ -1,7 +1,11 @@
 h1. News archive
 
 
-This page contains the links to previous news posts for archiving puposes.
+This page contains the links to previous news posts for archiving purposes.
+
+h3. 2012
+
+* *26.Jan. 2012* [[2012-01-26-wbmv5-announcement|WBMv5 Announcement]]
 
 
 h3. 2011
@@ -21,8 +25,6 @@ h3. 2011
 * *18.Jan. 2011* [[2011-01-18-wbmv4-announcement|WBMv4 Announcement]]
 
 
-
-
 h3. 2010
 
 * *12.Dec. 2010* [[2010-12-12-batman-v-status-update|B.A.T.M.A.N. V status update]]
@@ -35,8 +37,6 @@ h3. 2010
 * *02.Mar. 2010* [[2010-03-02-batman-at-wbmv3|B.A.T.M.A.N. at WBMv3]]
 
 
-
-
 h3. 2009
 
 * *26.Dec. 2009* [[2009-12-26-retrospect-batman-in-2009|Retrospect 2009]]
@@ -47,8 +47,6 @@ h3. 2009
 * *13.Jun. 2009* [[2009-06-13-batman-0-3-2-release|Batman 0.3.2 released]]
 * *19.Apr. 2009* [[2009-04-19-wbm2009-aftermath|WirelessBattleMesh2009]]
 * *25.Jan. 2009* [[2009-01-25-batman-0-3-1-release|Batman 0.3.1 released]]
-
-
 
 
 h3. 2008
