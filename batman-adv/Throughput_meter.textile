@@ -1,1 +1,7 @@
-TBD
+BANDWIDTH METER
+
+A tool to measure throughput between two nodes. To avoid problems experienced with user space tools like iperf and netperf, it is developed in kernel space. Two modes are implemented:
+
+* udp-like: one directional, no retransmission, stream of data;
+
+* tcp-like:  in this mode the behaviour of tcp should be re-created. We should verify if it is possible to use the existing, standard, tcp implementation or if it is needed to develop a tcp-like (simpler...) protocol just for this application.
