@@ -6,22 +6,13 @@ h2. The Problem
 
 In each and every subnet the ARP protocol is extremely important: it gives any host the possibility to retrieve any other host MAC-layer address. As the reader may know, the latter is mandatory in order to establish any data flow on the IP layer.
 
-The first step in an ARP dialogue is to issue a broadcast ARP request containing the IP address of the
-desidered node. In a mesh network relying on B.A.T.M.A.N.-Advanced, once a node receives a broadcast packet it get forwarded three times (if the packet is received again by the same node it is dropped). Once the node having the IP address contained in the request receives the packet, a *unicast* ARP Reply is sent back to the requester
-in order to communicate its own MAC-layer address and making it able to initiate an IP data flow.
+The first step in an ARP dialogue is to issue a broadcast ARP request containing the IP address of the desidered node. In a mesh network relying on B.A.T.M.A.N.-Advanced, once a node receives a broadcast packet it get forwarded three times (if the packet is received again by the same node it is dropped). Once the node having the IP address contained in the request receives the packet, a *unicast* ARP Reply is sent back to the requester in order to communicate its own MAC-layer address and making it able to initiate an IP data flow.
 
-The mechanism is pretty simple and works well until the probability of losing packets in the network is low enough. For this reason Ethernet or
-wireless-infrastructured LAN can use such protocol as-is without getting in troubles. Unluckily it is not possible to state the same for a wireless
-mesh network, where the probability of losing a packet increase with the number of links that the packet has to traverse. In particular, this probability
-gets higher if the packet to send is of type broadcast (this is due to the MAC layer limitations which do not provide ARQ mechanism for this packet type)
-like the ARP Request. Assuming to be in a fairly sparse wireless mesh network, an ARP Request could get lost (and so retransmitted) several times before being able to find
-the correct destination, thus dramatically increasing the latency of establishing an IP flow.
+The mechanism is pretty simple and works well until the probability of losing packets in the network is low enough. For this reason Ethernet or wireless-infrastructured LAN can use such protocol as-is without getting in troubles. Unluckily it is not possible to state the same for a wireless mesh network, where the probability of losing a packet increase with the number of links that the packet has to traverse. In particular, this probability gets higher if the packet to send is of type broadcast (this is due to the MAC layer limitations which do not provide ARQ mechanism for this packet type) like the ARP Request. Assuming to be in a fairly sparse wireless mesh network, an ARP Request could get lost (and so retransmitted) several times before being able to find the correct destination, thus dramatically increasing the latency of establishing an IP flow.
 
 h2. A possible solution
 
-The idea behind D.A.T. is to reduce as much as possible the usage of broadcast packets by replacing them with unicasts. In order to accomplish this task D.A.T. dat uses
-part of the theory behind the "DHT (Distributed Hash Tables)":http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries
-so becoming able to later query a particular node in order to get the data which the requester is looking for.
+The idea behind D.A.T. is to reduce as much as possible the usage of broadcast packets by replacing them with unicasts. In order to accomplish this task D.A.T. dat uses part of the theory behind the "DHT (Distributed Hash Tables)":http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries so becoming able to later query a particular node in order to get the data which the requester is looking for. 
 
 h2. DHT basics
 
