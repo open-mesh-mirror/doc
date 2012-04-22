@@ -12,7 +12,7 @@ The mechanism is pretty simple and works well until the probability of losing pa
 
 h2. A possible solution
 
-The idea behind D.A.T. is to reduce as much as possible the usage of broadcast packets by replacing them with unicasts. In order to accomplish this task D.A.T. dat uses part of the theory behind the "DHT (Distributed Hash Tables)":http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries so becoming able to later query a particular node in order to get the data which the requester is looking for. 
+The idea behind D.A.T. is to reduce as much as possible the usage of broadcast packets by replacing them with unicasts. In order to accomplish this task D.A.T. uses part of the theory behind the "DHT (Distributed Hash Tables)":http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries so becoming able to later query a particular node in order to get the data which the requester is looking for. 
 
 h2. DHT basics
 
