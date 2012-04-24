@@ -15,6 +15,8 @@ h2. Download Released Source Code
 
 If you are wondering whether batman-adv or batmand might suit your setup better, have a look at [[batman-adv:Wiki|this page]]. Please note that the development is focusing on batman-adv at the moment.
 
+To download previous release tarballs, simply check out our "download section":http://downloads.open-mesh.org/batman/releases/.
+
 If you find any bugs, please [[Contribute|let us know]]!
 
 
