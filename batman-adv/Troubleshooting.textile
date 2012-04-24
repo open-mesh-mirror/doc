@@ -31,6 +31,11 @@ h2. Is 'batctl o' showing the other node?
 Make sure, that they see each other with a reasonable TQ quality (i.e. > 200). Be aware, that a full TQ update in a dynamic environment but still with the default ogm-interval setting can be delayed for up to 64 seconds. If they are not seeing each other, check your wifi settings twice, try ad-hoc meshing without batman-adv or any bridges first to make sure, that the ad-hoc wifi layer itself works fine and allows any kinds of packets (ad-hoc mode is usually not the best implemented and well tested wifi mode in a lot of wifi drivers).
 
 
+h2. Do all nodes run the same batman-adv version ?
+
+If 'batctl o' does not show the neighbor you expect to see you should verify whether or not all nodes runt he same batman-adv version. Having the same version on all nodes is the safest way to be sure that the versions are compatible. A new release might change the compatibility number to avoid problems when incompatible versions run in the same mesh. Incompatible nodes will simply ignore each other. Consult our [[Compatversion|compatibility table]] to find out which release(s) carry which compatibility number.
+
+
 h2. Are those tq-values rather stable or acting crazy?
 
 
