@@ -1,5 +1,5 @@
 h3. Wikis
 
-* *[[batman-adv:]]*
-* [[batmand:]]
-* [[open-mesh:]]
+*[[batman-adv:]]*
+[[batmand:]]
+[[open-mesh:]]
