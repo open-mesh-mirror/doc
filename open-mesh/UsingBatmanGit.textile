@@ -24,11 +24,11 @@ The main git repository is divided into several branches to make working easier.
 
 h3. master branch
 
-The master branch will have all upcoming changes
+The master branch will have all upcoming changes. Bugfixes are merged from next to master.
 
 h3. next branch
 
-The next gathers bug fixes for the latest release and well tested features taken from the master branch. Cherry-pick is used to get commits from the master branch and git-am to insert patches from mailboxes.
+The next gathers bug fixes for the latest release and well tested features taken from the master branch. Merges are usually used to get  changes from master to next and to get bugfixes from maint to next.
 
 Create branch associated with the remote-tracking branch after cloning the repository
 
@@ -46,7 +46,7 @@ git cherry-pick $SHA1
 
 h3. maint branch
 
-The maint only gathers bug fixes for the last release. Bugfixes are usually picked from next.
+The maint only gathers bug fixes for the last release.
 
 Create branch associated with the remote-tracking branch after cloning the repository
 
