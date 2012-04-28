@@ -61,8 +61,15 @@ batctl gw_mode client 20
 
 All available gateway selection classes are thoroughly explained in the "batctl manpage":http://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
+h3. gateway status
+
 To see all available gateways and their announced throughput run:
 
 <pre>
 batctl gwl
+</pre>
+
+The status of the current node can be seen using:
+<pre>
+batctl gw_mode
 </pre>
