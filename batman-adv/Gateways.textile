@@ -69,7 +69,8 @@ To see all available gateways and their announced throughput run:
 batctl gwl
 </pre>
 
-The status of the current node can be seen using:
+The mode of the current node can be seen by running:
+
 <pre>
 batctl gw_mode
 </pre>
