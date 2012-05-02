@@ -18,9 +18,7 @@ FIRST SPECIFICATION
 May 2, me, Ordex, Simon and Marek agreed on the following:
 
 # the "TCP" version will be developed first;
-
 # the protocol will be a "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N: so sliding window, cumulative acknowledgment. _Further protocol definition_ soon; this is intended as a rough approximation of TCP behaviour;
-
 # The user specifies how much data the bandwidth meter is intended to send in the session; once the transmission is completed (i.e. all the data is received by the sender) the transmission time is reported. _Further details on protocol header formats, time computation_ soon; It should allow:
 ## Possibility to specify if the node is sender or receiver (data flow direction);
 ## Possibility to add others operation modes later (e.g. "UDP" mode);
