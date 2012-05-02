@@ -8,3 +8,11 @@ A tool to measure throughput between two nodes. To avoid problems experienced wi
 ** how does the remote node gets informed that test finished even when *many* packets are dropped
 
 * tcp-like:  in this mode the behaviour of tcp should be re-created. We should verify if it is possible to use the existing, standard, tcp implementation or if it is needed to develop a tcp-like (simpler...) protocol just for this application.
+
+As of May 2, I agreed with Ordex, Simon and Marek the following:
+
+The "TCP" version will be developed first;
+
+The protocol will be a "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N
+
+The users specify how much data the bandwidth meter is intended to send.
