@@ -62,4 +62,4 @@ h2. Limitations
 
 h2. Notes
 
-A research project has been done on this topic and it will be linked on this page as soon as it get ready.
+A research project has been done on this topic and it is freely available here: http://eprints.biblio.unitn.it/archive/00002269/.
