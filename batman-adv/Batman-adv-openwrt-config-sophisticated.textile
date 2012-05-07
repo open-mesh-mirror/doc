@@ -148,3 +148,34 @@ commit" \
 | uci batch
 
 </pre>
+
+h3. What if radio1 and/or radio2 don't support adhoc mode properly?
+
+If the driver is buggy, unstable, or throughput is lower in adhoc mode, you can fallback to using an ap/client design, at the cost of redundancy.
+
+simply customize the MESHx_ parameters on a per-node basis:
+<pre>
+### Relative physical location: node1 <--ch6--> node2 <--ch11--> node3
+
+# On node1
+export MESH1_MODE="client"
+export MESH1_BSSID=""
+export MESH1_ESSID="node2.ptp-channel6"
+export MESH1_CHANNEL="6"
+
+# On node2
+export MESH1_MODE="ap"
+export MESH1_BSSID=""
+export MESH1_ESSID="node2.ptp-channel6"
+export MESH1_CHANNEL="6"
+export MESH2_MODE="client"
+export MESH2_BSSID=""
+export MESH2_ESSID="node3.ptp-channel11"
+export MESH2_CHANNEL="11"
+
+# On node3
+export MESH1_MODE="ap"
+export MESH1_BSSID=""
+export MESH1_ESSID="node3.ptp-channel11"
+export MESH1_CHANNEL="11"
+</pre>
