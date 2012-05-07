@@ -1,6 +1,11 @@
-*BANDWIDTH METER*
+h1. *BANDWIDTH METER*
 
-GENERAL DESCRIPTION (initial idea)
+h2. REPOSITORIES
+
+ * http://git.open-mesh.org/?p=montik/batman-adv.git
+ * http://git.open-mesh.org/?p=montik/batctl.git
+
+h2. GENERAL DESCRIPTION (initial idea)
 
 The project aims to create a kernel-space tool that measures the throughput between two nodes and avoids problems experienced with user-space tools like iperf and netperf. With those tools main problems are encountered on machines that are low on resources, including routers, since packets must be copied from kernel-space to user-space memory and aligned. On such devices this computational load can slow the device itself, leading to packet losses at the receiver side, thus altering the test result. Two modes are implemented:
 
@@ -13,7 +18,7 @@ The project aims to create a kernel-space tool that measures the throughput betw
 ** Using kernel TCP stack is too complex and the problem of unaligned data remains. Furthemore it requires an IP address for the destination.
 
 
-FIRST SPECIFICATION
+h2. FIRST SPECIFICATION
 
 May 2, me, Ordex, Simon and Marek agreed on the following:
 
@@ -23,3 +28,11 @@ May 2, me, Ordex, Simon and Marek agreed on the following:
 ## Possibility to specify if the node is sender or receiver (data flow direction);
 ## Possibility to add others operation modes later (e.g. "UDP" mode);
 ## Integrated in the batman ICMP protocol; 
+
+
+h2. PROTOCOL 
+
+h2. TODO
+* define the protocol, based on Go-Back-N
+
+* define packet header
