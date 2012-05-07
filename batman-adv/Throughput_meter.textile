@@ -34,7 +34,7 @@ h2. PROTOCOL
 
 h3. Header
 
-Since the protocol is taken from TCP, I started from TCP header ("RFC793":http://www.ietf.org/rfc/rfc793.txt) and removed some unecessary feature, namely push, urgent and port multiplexing.
+Since the protocol is taken from TCP, I started from TCP header ("RFC793":http://www.ietf.org/rfc/rfc793.txt) and removed some unecessary features, namely push, urgent and port multiplexing.
 
 <pre>
    0                   1                   2                   3   
