@@ -35,13 +35,13 @@ On all nodes, install batman-adv, load the module and enter the following comman
 <pre>
 ifconfig wlan0 mtu 1528
 iwconfig wlan0 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
-</code></pre>
+</pre>
 
 <pre>
 batctl if add wlan0
 ifconfig wlan0 up
 ifconfig bat0 up
-</code></pre>
+</pre>
 
 You can now use the automatically assigned IPv6 link-local adresses on bat0 (usually starting with fe80::...), modern operating systems should support this. Or you can assign IPv4 addresses manually on all those nodes (i.e. 'ifconfig bat0 192.168.123.x/24') or one of the laptops in range has to have a DHCP server running on the bat0 interface. As batman-adv is operating on layer 2, even dhcp-messages can be send over the mesh network.
 
@@ -81,5 +81,7 @@ For the MTU-part have a look at the note above.
 
 _(How does batman-adv know where it has to send a data packet of an external computer, that is not using batman-adv, to another computer that is not using batman-adv either? It is automatically listening on bat0 and will keep track of any host mac address passing by this interface. Those host's mac addresses will then be announced to other batman-adv nodes in the mesh network automatically - so called HNA messages - so that every batman-adv node is going to know behind which other batman-adv node it can find which mac addresses.)_
 
-</pre>
+h3. configuring on OpenWRT with uci
 
+
+See [Openwrt-config-examples|Example B.A.T.M.A.N. configuration snippets on OpenWRT]
