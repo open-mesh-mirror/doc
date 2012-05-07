@@ -84,4 +84,4 @@ _(How does batman-adv know where it has to send a data packet of an external com
 h3. configuring on OpenWRT with uci
 
 
-See [Openwrt-config-examples|Example B.A.T.M.A.N. configuration snippets on OpenWRT]
+See [[Openwrt-config-examples|Example B.A.T.M.A.N. configuration snippets on OpenWRT]]
