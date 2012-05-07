@@ -105,45 +105,45 @@ set wireless.radio2.phy=phy2
 set wireless.radio2.macaddr=
 
 add wireless wifi-iface
-set wireless.@wifi-iface[0].device=radio0
-set wireless.@wifi-iface[0].encryption=none
-set wireless.@wifi-iface[0].network=lan
-set wireless.@wifi-iface[0].mode=ap
-set wireless.@wifi-iface[0].ssid='$PUBLIC_ESSID'
+set wireless.@wifi-iface[-1].device=radio0
+set wireless.@wifi-iface[-1].encryption=none
+set wireless.@wifi-iface[-1].network=lan
+set wireless.@wifi-iface[-1].mode=ap
+set wireless.@wifi-iface[-1].ssid='$PUBLIC_ESSID'
 
 add wireless wifi-iface
-set wireless.@wifi-iface[1].device=radio0
-set wireless.@wifi-iface[1].encryption=psk2
-set wireless.@wifi-iface[1].key='$WPA_KEY'
-set wireless.@wifi-iface[1].mode=ap
-set wireless.@wifi-iface[1].ssid='$WPA_ESSID'
+set wireless.@wifi-iface[-1].device=radio0
+set wireless.@wifi-iface[-1].encryption=psk2
+set wireless.@wifi-iface[-1].key='$WPA_KEY'
+set wireless.@wifi-iface[-1].mode=ap
+set wireless.@wifi-iface[-1].ssid='$WPA_ESSID'
 
 add wireless wifi-iface
-set wireless.@wifi-iface[2].device=radio0 
-set wireless.@wifi-iface[2].encryption=none
-set wireless.@wifi-iface[2].network=mesh0
-set wireless.@wifi-iface[2].mode=adhoc 
-set wireless.@wifi-iface[2].bssid=$MESH0_BSSID
-set wireless.@wifi-iface[2].ssid='$MESH0_ESSID'
-set wireless.@wifi-iface[2].mcast_rate=11000 
+set wireless.@wifi-iface[-1].device=radio0 
+set wireless.@wifi-iface[-1].encryption=none
+set wireless.@wifi-iface[-1].network=mesh0
+set wireless.@wifi-iface[-1].mode=adhoc 
+set wireless.@wifi-iface[-1].bssid=$MESH0_BSSID
+set wireless.@wifi-iface[-1].ssid='$MESH0_ESSID'
+set wireless.@wifi-iface[-1].mcast_rate=11000 
 
 add wireless wifi-iface
-set wireless.@wifi-iface[3].device=radio1 
-set wireless.@wifi-iface[3].encryption=none
-set wireless.@wifi-iface[3].network=mesh1
-set wireless.@wifi-iface[3].mode=$MESH1_MODE
-set wireless.@wifi-iface[3].bssid=$MESH1_BSSID
-set wireless.@wifi-iface[3].ssid='$MESH1_ESSID'
-set wireless.@wifi-iface[3].mcast_rate=11000 
+set wireless.@wifi-iface[-1].device=radio1 
+set wireless.@wifi-iface[-1].encryption=none
+set wireless.@wifi-iface[-1].network=mesh1
+set wireless.@wifi-iface[-1].mode=$MESH1_MODE
+set wireless.@wifi-iface[-1].bssid=$MESH1_BSSID
+set wireless.@wifi-iface[-1].ssid='$MESH1_ESSID'
+set wireless.@wifi-iface[-1].mcast_rate=11000 
 
 add wireless wifi-iface
-set wireless.@wifi-iface[4].device=radio2 
-set wireless.@wifi-iface[4].encryption=none
-set wireless.@wifi-iface[4].network=mesh2
-set wireless.@wifi-iface[4].mode=$MESH2_MODE
-set wireless.@wifi-iface[4].bssid=$MESH2_BSSID 
-set wireless.@wifi-iface[4].ssid='$MESH2_ESSID'
-set wireless.@wifi-iface[4].mcast_rate=11000 
+set wireless.@wifi-iface[-1].device=radio2 
+set wireless.@wifi-iface[-1].encryption=none
+set wireless.@wifi-iface[-1].network=mesh2
+set wireless.@wifi-iface[-1].mode=$MESH2_MODE
+set wireless.@wifi-iface[-1].bssid=$MESH2_BSSID 
+set wireless.@wifi-iface[-1].ssid='$MESH2_ESSID'
+set wireless.@wifi-iface[-1].mcast_rate=11000 
 commit" \
 | uci batch
 
@@ -178,4 +178,22 @@ export MESH1_MODE="ap"
 export MESH1_BSSID=""
 export MESH1_ESSID="node3.ptp-channel11"
 export MESH1_CHANNEL="11"
+</pre>
+
+h3. I like the script but I don't need/want an extra VAP with WPA2, how can I disable it?
+
+Just remove or comment out the corresponding section
+<pre>
+#add wireless wifi-iface
+#set wireless.@wifi-iface[-1].device=radio0
+#set wireless.@wifi-iface[-1].encryption=psk2
+#set wireless.@wifi-iface[-1].key='$WPA_KEY'
+#set wireless.@wifi-iface[-1].mode=ap
+#set wireless.@wifi-iface[-1].ssid='$WPA_ESSID'
+</pre>
+
+but take in mind that wlan0-X interfaces will change names (wlan0-2 becomes wlan0-1), so you must also update two more lines:
+<pre>
+set network.lan.ifname='wlan0 eth0 bat0'
+set network.mesh0.ifname=wlan0-1
 </pre>
