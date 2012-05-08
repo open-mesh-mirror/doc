@@ -1,6 +1,6 @@
 h1. BackwardsCompatibility
 
-Everything on this page is a suggestion and therefore open to discussion and change.
+Everything on this page is a suggestion and a work in progress therefore open to discussion and change.
 
 h2. Intro
 
@@ -10,88 +10,34 @@ First the closest thing I found in wireless information elements is the wifi one
 
 h2. Main
 
-There are many ways to encode such an element. Each providing different pros/cons and all of which are used in various wireless signal applications.
+There are many ways to encode such an element. Each providing different pros/cons and all of which are used in various applications.
 
 # "Ber":http://en.wikipedia.org/wiki/Basic_Encoding_Rules (Basic Encoding Rules):
-This wiki entry describes it pretty godd for a quick overview (and the accompanying paper more thoroughly)
-# "DER":http://en.wikipedia.org/wiki/Distinguished_Encoding_Rules (Distinguished Encoding Rules)  it is more restrictive than the first one
+ and its two subsets
+  # "Cer":http://en.wikipedia.org/wiki/Canonical_Encoding_Rules
+  # "DER":http://en.wikipedia.org/wiki/Distinguished_Encoding_Rules (Distinguished Encoding Rules)  it is more restrictive than the first one
+and 
 # "PER":http://en.wikipedia.org/wiki/Packed_Encoding_Rules (Packed Encoding Rules)  defines some more fields
-# "Cer":http://en.wikipedia.org/wiki/Canonical_Encoding_Rules
+    
 
 They are all part of the "Abstract Notation 1":http://en.wikipedia.org/wiki/ASN.1
 
-For the record there is already a tlv message parser "Tlve":http://tlve.sourceforge.net/ ("example of ber parsing":http://tlve.sourceforge.net/examples/ber.rc)
+Although they are extremely cool, and versatile I think that they might be a bit of an overkill and unencoded tlvs may do just fine.
+Explanations:
 
-We can use either one of the above to encode the tlvs or create our own but I think one of the above is more than adequate.
+The true power of BER comes from the fact that it can define the type of the value field and also this format allows a receiver to decode the ASN.1 information from an incomplete stream, without requiring any pre-knowledge of the size, content, or semantic meaning of the data.
+
+Cer/Der are more restrictive and according to wikipedia they are used when there is a reason to restrict your data to only one type (e.g. security)
+but in the real world even credit cards use Ber.
+
+
+For the record there is already an external tlv message parser "Tlve":http://tlve.sourceforge.net/ ("example of ber parsing":http://tlve.sourceforge.net/examples/ber.rc)
 
 h2.  In-Kernel functionality
 
-The kernel uses many tlv-like structs (they're all part of "netlink.h":http://lxr.linux.no/#linux+v3.3.2/include/linux/netlink.h) there are some which could be very helpful actually. BUT there exists something even better :-). Our favorite kernel already provides capabilities to "create and parse tlvs transparently":http://lxr.linux.no/#linux+v3.3.2/include/net/netlink.h
+Most systems use tlvs for a variety of things (from Alsa that uses unencoded tlvs to set the sound levels to the wifi)
 
-So there are the following functions which could be proven helpful
+There is already functionality for encoding/decoding 
+#CIFS http://lxr.linux.no/#linux+v3.3.5/fs/cifs/asn1.c#L2
+#nat_snmp_basic http://lxr.linux.no/#linux+v3.3.5/net/ipv4/netfilter/nf_nat_snmp_basic.c#L62
 
-h3. Message Construction:
-
-<pre>
-    nlmsg_new()			create a new netlink message
-    nlmsg_put()			add a netlink message to an skb
-    nlmsg_put_answer()		callback based nlmsg_put()
-    nlmsg_end()			finalize netlink message
-    nlmsg_get_pos()			return current position in message
-    nlmsg_trim()			trim part of message
-    nlmsg_cancel()			cancel message construction
-    nlmsg_free()			free a netlink message
- </pre>
-
-h3.  Message Sending:
-
-<pre>
-    nlmsg_multicast()		multicast message to several groups
-    nlmsg_unicast()			unicast a message to a single socket
-    nlmsg_notify()			send notification message
- </pre>
-
-h3. Message Length Calculations:
-
-<pre>
-    nlmsg_msg_size(payload)		length of message w/o padding
-    nlmsg_total_size(payload)		length of message w/ padding
-    nlmsg_padlen(payload)		length of padding at tail
- </pre>
-
-h3. Message Payload Access:
-
-<pre>
-    nlmsg_data(nlh)			head of message payload
-    nlmsg_len(nlh)			length of message payload
-    nlmsg_attrdata(nlh, hdrlen)  	head of attributes data
-    nlmsg_attrlen(nlh, hdrlen)		length of attributes data
- </pre>
-
-h3. Message Parsing:
-
-<pre>    
-    nlmsg_ok(nlh, remaining)		does nlh fit into remaining bytes?
-    nlmsg_next(nlh, remaining)		get next netlink message
-    nlmsg_parse()			parse attributes of a message
-    nlmsg_find_attr()		find an attribute in a message
-    nlmsg_for_each_msg()		loop over all messages
-    nlmsg_validate()			validate netlink message incl. attrs
-    nlmsg_for_each_attr()		loop over all attributes
- </pre>
-
-h3. netlinkmsghdr struct
-
-<pre>
-struct nlmsghdr {
-	__u32		nlmsg_len;	/* Length of message including header */
-	__u16		nlmsg_type;	/* Message content */
-	__u16		nlmsg_flags;	/* Additional flags */
-	__u32		nlmsg_seq;	/* Sequence number */
-	__u32		nlmsg_pid;	/* Sending process port ID */
-};
-</pre>
-
-(it's actually a very rich api providing even functions to nest a tlv message inside another tlv message)
-
-It is important that everyone shares his opinion on this because once implemented most of the current functionality should be encoded using tlvs and one of the above methods.
