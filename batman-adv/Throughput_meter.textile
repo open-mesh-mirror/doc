@@ -32,6 +32,17 @@ May 2, me, Ordex, Simon and Marek agreed on the following:
 
 h2. PROTOCOL 
 
+The test is initiated through batctl. The user specifies the destination, the amount of data to be sent, if it is sender or receiver.
+A new bat-ICMP type must be defined for the bandwidth meter packets: two headers are attached to the "data" the bat-ICMP and a pseudo-TCP one (shown in next paragraph). 
+
+_How a node can ask to another node to be the sender?_
+# Through an option field in the pseudo-TCP header in the three way handshake process.
+# Different bat-ICMP numbers
+
+_How does the protocol end?_
+# graceful close with FIN. 
+## If sender, after all data is sent, send FIN. A packet with FIN flag should be received back from the other node, meaning that all data has been delivered, thus the test is over.
+
 h3. Header
 
 Since the protocol is taken from TCP, I started from TCP header ("RFC793":http://www.ietf.org/rfc/rfc793.txt) and removed some unecessary features, namely push, urgent and port multiplexing.
@@ -63,8 +74,13 @@ I have to decide if and how to implement:
 * fast retransmit
 * fast recovery
 
+
 h2. TODO
 
 * define the protocol, based on Go-Back-N
 
 * define packet header
+
+* define user-space interface (through batctl)
+
+* setup virtual machines for testbed
