@@ -41,3 +41,43 @@ There is already functionality for encoding/decoding
 #CIFS http://lxr.linux.no/#linux+v3.3.5/fs/cifs/asn1.c#L2
 #nat_snmp_basic http://lxr.linux.no/#linux+v3.3.5/net/ipv4/netfilter/nf_nat_snmp_basic.c#L62
 
+
+h2.  TLV concept
+
+Since the number of different messages transmitted is relatively low the following struct should be enough to contain the information of each message
+
+struct tlv {
+          u8 type;
+          u8 length;
+          u8 value[255];
+  };
+/*i'm not yet sure about the u8 in the value field, maybe it should be u32*/
+
+the type should be:
+
+typedef enum {
+         A_TLV   = 0x00,
+         B_TLV   = 0x01,
+         C_TLV   = 0x02,
+         D_TLV   = 0x03,
+         E_TLV   = 0x04,
+         G_TLV   = 0X05, 
+         F_TLV   = 0X06,
+         .
+         .
+         .
+         .
+         X_TLV	 = 0XFF,  
+     } bat_tlv;
+
+where each hex code represents the kind of message we are waiting to parse
+
+
+the whole thing gets serialized and transmited the receiver deserializes
+the message and passes it to the appropriate method depending on the type value
+
+(i have to work on the serialization though in the user space its kinda tricky, maybe the kernel has something)
+
+
+h2. Messages that need tlvfication or can be tlvficated 
+
