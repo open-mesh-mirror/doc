@@ -85,4 +85,6 @@ h2. TODO
 
 * define user-space interface (through batctl)
 
-* setup virtual machines for testbed
+* being a connection oriented protocol, some data structures relative to each connection will be defined. Check TCP implementation of such data structures and how timeouts are used to handle connections.
+
+* try virtual machines for testbed
