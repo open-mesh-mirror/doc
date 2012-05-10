@@ -88,3 +88,7 @@ h2. TODO
 * being a connection oriented protocol, some data structures relative to each connection will be defined. Check TCP implementation of such data structures and how timeouts are used to handle connections.
 
 * try virtual machines for testbed
+
+h2. Documentation
+
+ * "data alignment in the kernel":http://www.mjmwired.net/kernel/Documentation/unaligned-memory-access.txt
