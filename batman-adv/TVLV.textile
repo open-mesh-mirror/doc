@@ -125,7 +125,7 @@ h2. Wrapp-up
 
 
 So the packet gets as following:
-
+<span>
 +------------------------------------------------+
 +           current  header                     +
 +------------------------------------------------+
@@ -145,3 +145,4 @@ So the packet gets as following:
 +-----------------------------------------------+
 	uint8_t  ttvn; /* translation table version number */
 	__be16   tt_crc;
+</span>
