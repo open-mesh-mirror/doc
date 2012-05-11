@@ -78,24 +78,38 @@ the message and passes it to the appropriate method depending on the type value
 
 (i have to work on the serialization though in the user space its kinda tricky, maybe the kernel has something)
 
+Assuming that the ogm message is described by the struct batman_ogm_packet 
 
-Assuming that the packet.h file lists all the current messages that batman-adv transmits we have the following
+Until now i think that only two fields need their own tlvs
 
-enum bat_packettype {
-	BAT_IV_OGM		= 0x01,
-	BAT_ICMP		= 0x02,
-	BAT_UNICAST		= 0x03,
-	BAT_BCAST		= 0x04,
-	BAT_VIS			= 0x05,
-	BAT_UNICAST_FRAG	= 0x06,
-	BAT_TT_QUERY		= 0x07,
-	BAT_ROAM_ADV		= 0x08,
-	BAT_UNICAST_4ADDR	= 0x09
-};
+	 flags;   
+	 gw_flags;  /* flags related to gateway class */
 
-enum bat_subtype {
-	BAT_P_DATA		= 0x01,
-	BAT_P_DAT_DHT_GET	= 0x02,
-	BAT_P_DAT_DHT_PUT	= 0x03,
-	BAT_P_DAT_CACHE_REPLY	= 0x04
-};
+reasons:
+	struct batman_header header;
+the header already has version identifiers and packet type identifier so putting it in a tlv is useless overhead
+
+	__be32   seqno; 
+
+just an int(maybe) does not describe anything new(?)
+
+	uint8_t  orig[ETH_ALEN];
+
+as I understand it describes a mac address so it wont cange in the future
+
+	uint8_t  prev_sender[ETH_ALEN];
+same as above
+
+	uint8_t  tq;
+same as above(?)
+	
+                uint8_t  tt_num_changes;
+just an int no reason to tlv it
+	
+                    uint8_t  ttvn; /* translation table version number */
+
+it's a version number how can a node not understand a version number?	
+
+__be16   tt_crc;
+
+dont understand what this field means (and a quick wiki search returnen no results) decision postponed
