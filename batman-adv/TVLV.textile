@@ -78,6 +78,8 @@ the message and passes it to the appropriate method depending on the type value
 
 (i have to work on the serialization though in the user space its kinda tricky, maybe the kernel has something)
 
+h2. Fields to be tlv-fied
+
 Assuming that the ogm message is described by the struct batman_ogm_packet 
 
 Until now i think that only two fields need their own tlvs
@@ -85,7 +87,7 @@ Until now i think that only two fields need their own tlvs
 	 flags;   
 	 gw_flags;  /* flags related to gateway class */
 
-reasons:
+h2. reasons:
 	struct batman_header header;
 the header already has version identifiers and packet type identifier so putting it in a tlv is useless overhead
 
