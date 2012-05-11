@@ -98,18 +98,21 @@ just an int(maybe) does not describe anything new(?)
 as I understand it describes a mac address so it wont cange in the future
 
 	uint8_t  prev_sender[ETH_ALEN];
+
 same as above
 
 	uint8_t  tq;
+
 same as above(?)
 	
                 uint8_t  tt_num_changes;
+
 just an int no reason to tlv it
 	
                     uint8_t  ttvn; /* translation table version number */
 
 it's a version number how can a node not understand a version number?	
 
-__be16   tt_crc;
+                  __be16   tt_crc;
 
 dont understand what this field means (and a quick wiki search returnen no results) decision postponed
