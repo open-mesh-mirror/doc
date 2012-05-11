@@ -88,6 +88,7 @@ Until now i think that only two fields need their own tlvs
 	 gw_flags;  /* flags related to gateway class */
 
 h2. reasons:
+
 	struct batman_header header;
 the header already has version identifiers and packet type identifier so putting it in a tlv is useless overhead
 
