@@ -119,3 +119,29 @@ it's a version number how can a node not understand a version number?
                   __be16   tt_crc;
 
 dont understand what this field means (and a quick wiki search returnen no results) decision postponed
+
+
+h2. Wrapp-up
+
+
+So the packet gets as following:
+
++------------------------------------------------+
++           current  header                     +
++------------------------------------------------+
++type        +length+            flags       +
++------------------------------------------------+
++             seqno                                     +
++------------------------------------------------+
++             orig                                        +
++------------------------------------------------+
++             prev_sender                         +
++------------------------------------------------+
++type +length+gw_flags                  +
++------------------------------------------------+
++                         tq;                              +
++------------------------------------------------+
++            tt_num_changes;                  +
++-----------------------------------------------+
+	uint8_t  ttvn; /* translation table version number */
+	__be16   tt_crc;
