@@ -88,7 +88,7 @@ h2. Things in the ogm packet to be tlv'd
 the two flag fields (flags and the gateway flags)
 and the 3 tt fields
 
-h2. reasons:
+h2. reasons for not tlv-ing the other fields:
 
 	struct batman_header header;
 	
