@@ -61,8 +61,8 @@ Each node periodically (ELP interval) generates and broadcasts ELP messages for 
 If this B.A.T.M.A.N. interface wants to announce neighboring nodes it should append a neighbor entry message for each neighbor to be announced and fill the "number of neighbors" field accordingly.
 
 <pre>
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  | Packet Type   |    Version    |      TTL      |   Num Neigh   |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
