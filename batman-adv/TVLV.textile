@@ -18,16 +18,74 @@ There is already functionality for encoding/decoding
 #nat_snmp_basic http://lxr.linux.no/#linux+v3.3.5/net/ipv4/netfilter/nf_nat_snmp_basic.c#L62
 
 
-h2.  TLV concept
+h2.  TVLV concept
+
+Each OGM shall contain a set of tvlv (type-version-length-value) containers to announce the support of a feature set. The standard TLV concept has been enriched by a version field as it can be safely assumed features evolve over time. Every feature is assigned a unique tvlv type as identifier (see below). 
+
+Sample tvlv definition:
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV Type   |    Version    |    Length     |     Value     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+Due to the individual requirements of every feature a list of existing feature tvlv follows.
+
+h3. Gateway announcement
+
+ * function: Each batman-adv gateway server announces it's available internet connection speed, so that batman-adv gateway clients can select their preferable server.
+ * tvlv type: 0x01
+ * length: 1 byte gateway flags (see batman_ogm_packet->gw_flags)
+
+Definition:
+
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV 0x01   |    Version    |    Length     |    GW Flags   |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+
+h3. Dat(distributed arp table)
+
+TODO
+
+h3. Bla(bridge loop avoidance)
+
+TODO
+
+h3. Vis server / Vis data exchange
+
+TODO
+
+h3. Catwoman(network encoding)
+
+TODO
+
+h3. Translation table / TT messages
+
+TODO
+
+h3. Multicast capability
+
+TODO
+
 
 Since the number of different messages transmitted is relatively low the following struct should be enough to contain the information of each message
-
+<pre>
           struct tlv {
           u8 type;
           u8 version;/*see below*/
           u8 length;
           u8 value[255];
            };
+</pre>
 /*i'm not yet sure about the u8 in the value field, maybe it should be u32*/
 the type should be:
 
