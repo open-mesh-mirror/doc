@@ -8,30 +8,6 @@ Right now batman does not have any  real backwards compatibility. We could imple
 
 First the closest thing I found in wireless information elements is the wifi ones. For everyone who is not aware of the basics, here is a "link":http://etutorials.org/Networking/802.11+security.+wi-fi+protected+access+and+802.11i/Part+II+The+Design+of+Wi-Fi+Security/Chapter+13.+Wi-Fi+LAN+Coordination+ESS+and+IBSS/WPA+RSN+Information+Element/ with a brief and general/abstract description
 
-h2. Main
-
-There are many ways to encode such an element. Each providing different pros/cons and all of which are used in various applications.
-
-# "Ber":http://en.wikipedia.org/wiki/Basic_Encoding_Rules (Basic Encoding Rules):
- and its two subsets
-  # "Cer":http://en.wikipedia.org/wiki/Canonical_Encoding_Rules
-  # "DER":http://en.wikipedia.org/wiki/Distinguished_Encoding_Rules (Distinguished Encoding Rules)  it is more restrictive than the first one
-and 
-# "PER":http://en.wikipedia.org/wiki/Packed_Encoding_Rules (Packed Encoding Rules)  defines some more fields
-    
-
-They are all part of the "Abstract Notation 1":http://en.wikipedia.org/wiki/ASN.1
-
-Although they are extremely cool, and versatile I think that they might be a bit of an overkill and unencoded tlvs may do just fine.
-Explanations:
-
-The true power of BER comes from the fact that it can define the type of the value field and also this format allows a receiver to decode the ASN.1 information from an incomplete stream, without requiring any pre-knowledge of the size, content, or semantic meaning of the data.
-
-Cer/Der are more restrictive and according to wikipedia they are used when there is a reason to restrict your data to only one type (e.g. security)
-but in the real world even credit cards use Ber.
-
-
-For the record there is already an external tlv message parser "Tlve":http://tlve.sourceforge.net/ ("example of ber parsing":http://tlve.sourceforge.net/examples/ber.rc)
 
 h2.  In-Kernel functionality
 
@@ -48,6 +24,7 @@ Since the number of different messages transmitted is relatively low the followi
 
 struct tlv {
           u8 type;
+          u8 version;/*see below*/
           u8 length;
           u8 value[255];
   };
@@ -94,7 +71,7 @@ bat-tlvs will be as follows
 
 </pre>
 
-h2. Tlv types/featured to be tlv-ed:
+h2. Tlv types/features to be tlv-ed:
 
 * Bla(bridge loop avoidance)
 * Dat(distributed arp table)
@@ -106,6 +83,10 @@ h2. Tlv types/featured to be tlv-ed:
 * TT messages
 
 
+h2. Things in the ogm packet to be tlv'd
+
+the two flag fields (flags and the gateway flags)
+and the 3 tt fields
 
 h2. reasons:
 
@@ -129,23 +110,10 @@ same as above
 
 same as above(?)
 	
-                uint8_t  tt_num_changes;
-
-just an int no reason to tlv it
-	
-                    uint8_t  ttvn; /* translation table version number */
-
-it's a version number how can a node not understand a version number?	
-
-                  __be16   tt_crc;
-
-dont understand what this field means (and a quick wiki search returnen no results) decision postponed
-
-
 h2. Wrapp-up
 
 
-So the packet gets as following:
+So the  ogm packet gets as following:
 <pre>
 
 
@@ -178,3 +146,6 @@ So the packet gets as following:
 
 +--------------------------------------------------+
 </pre>
+
+
+/*2do: add the vis packets e.t.c. */
