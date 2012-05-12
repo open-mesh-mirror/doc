@@ -32,6 +32,8 @@ Sample tvlv definition:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
++Note+: A tvlv with a length of zero and no value is allowed to simply announce the support of a feature.
+
 Due to the individual requirements of every feature a list of existing feature tvlv follows.
 
 h3. Gateway announcement
@@ -54,27 +56,27 @@ Definition:
 
 h3. Dat(distributed arp table)
 
-TODO
+TODO => Antonio
 
 h3. Bla(bridge loop avoidance)
 
-TODO
+TODO => Simon
 
 h3. Vis server / Vis data exchange
 
-TODO
+TODO => Simon/Marek
 
 h3. Catwoman(network encoding)
 
-TODO
+TODO => Martin
 
 h3. Translation table / TT messages
 
-TODO
+TODO => Antonio
 
 h3. Multicast capability
 
-TODO
+TODO => Simon / Edo
 
 
 Since the number of different messages transmitted is relatively low the following struct should be enough to contain the information of each message
