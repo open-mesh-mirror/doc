@@ -54,7 +54,7 @@ struct tlv {
 /*i'm not yet sure about the u8 in the value field, maybe it should be u32*/
 the type should be:
 
-typedef enum {
+        typedef enum {
 
          A_TLV   = 0x00,
          B_TLV   = 0x01,
@@ -78,18 +78,39 @@ the message and passes it to the appropriate method depending on the type value
 
 (i have to work on the serialization though in the user space its kinda tricky, maybe the kernel has something)
 
-h2. Fields to be tlv-fied
+h2. Modifications to the TLV structure
 
-Assuming that the ogm message is described by the struct batman_ogm_packet 
+bat-tlvs will be as follows
+<pre>
++--------------------------+
++        Type                +
++--------------------------+
++        Version            +
++--------------------------+
++        Length            +
++--------------------------+
++        Value               +
++--------------------------+
 
-Until now i think that only two fields need their own tlvs
+</pre>
 
-	 flags;   
+h2. Tlv types/featured to be tlv-ed:
+
+* Bla(bridge loop avoidance)
+* Dat(distributed arp table)
+* Catwoman(network encoding)
+* Gateway announcements
+* Translation table
+* Vis server
+* Multicast capability
+* TT messages
+
+
 
 h2. reasons:
 
 	struct batman_header header;
-	 gw_flags;  /* flags related to gateway class */
+	
 the header already has version identifiers and packet type identifier so putting it in a tlv is useless overhead
 
 	__be32   seqno; 
@@ -120,33 +141,6 @@ it's a version number how can a node not understand a version number?
 
 dont understand what this field means (and a quick wiki search returnen no results) decision postponed
 
-
-h2. Modifications to the TLV structure
-
-bat-tlvs will be as follows
-<pre>
-+--------------------------+
-+        Type                +
-+--------------------------+
-+        Version            +
-+--------------------------+
-+        Length            +
-+--------------------------+
-+        Value               +
-+--------------------------+
-
-</pre>
-
-h2. Tlv types/featured to be tlv-ed:
-
-* Bla(bridge loop avoidance)
-* Dat(distributed arp table)
-* Catwoman(network encoding)
-* Gateway announcements
-* Translation table
-* Vis server
-* Multicast capability
-* TT messages
 
 h2. Wrapp-up
 
