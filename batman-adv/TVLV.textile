@@ -52,10 +52,10 @@ struct tlv {
           u8 value[255];
   };
 /*i'm not yet sure about the u8 in the value field, maybe it should be u32*/
-
 the type should be:
 
 typedef enum {
+
          A_TLV   = 0x00,
          B_TLV   = 0x01,
          C_TLV   = 0x02,
@@ -85,11 +85,11 @@ Assuming that the ogm message is described by the struct batman_ogm_packet
 Until now i think that only two fields need their own tlvs
 
 	 flags;   
-	 gw_flags;  /* flags related to gateway class */
 
 h2. reasons:
 
 	struct batman_header header;
+	 gw_flags;  /* flags related to gateway class */
 the header already has version identifiers and packet type identifier so putting it in a tlv is useless overhead
 
 	__be32   seqno; 
@@ -155,21 +155,32 @@ So the packet gets as following:
 <pre>
 
 
-+---------------------------------------------------------------------------------------------------------+
-+           current  header                                                                               +
-+---------------------------------------------------------------------------------------------------------+
-+  type + Version +  length  + flags                                                                      +   /*Flags TLV*/
-+---------------------------------------------------------------------------------------------------------+
-+             seqno                                                                                       +
-+---------------------------------------------------------------------------------------------------------+
-+             orig                                                                                        +
-+---------------------------------------------------------------------------------------------------------+
-+             prev_sender                                                                                 +
-+---------------------------------------------------------------------------------------------------------+
-+type +Version  +  length  +  gw_flags                                                                    +/*Gateway Flags TLV*/
-+---------------------------------------------------------------------------------------------------------+
-+              tq;                                                                                        +
-+---------------------------------------------------------------------------------------------------------+
-+  type  +  Version  +  length  +  tt_num_changes  +	   ttvn  +     tt_crc                             +/*TT TLV*/
-+---------------------------------------------------------------------------------------------------------+
++--------------------------------------------------+
++           current  header                        +
++--------------------------------------------------+
+
+		/*FLAGS TLV*/
++  type + Version +  length  + flags               +
+
+
++--------------------------------------------------+
++             seqno                                +
++--------------------------------------------------+
++             orig                                 +
++--------------------------------------------------+
++             prev_sender                          +
++--------------------------------------------------+
+
+		/*GATEWAY FLAGS TLV*/
++type +Version  +  length  +  gw_flags             +
+
++--------------------------------------------------+
++              tq;                                 +
++--------------------------------------------------+
+
+		/*TT TLV*/
++  type  +  Version  +  length  +  tt_num_changes  +
+	   ttvn  +     tt_crc                      +
+
++--------------------------------------------------+
 </pre>
