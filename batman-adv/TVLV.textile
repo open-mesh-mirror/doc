@@ -139,14 +139,14 @@ bat-tlvs will be as follows
 
 h2. Tlv types/featured to be tlv-ed:
 
-*Bla(bridge loop avoidance)
-*Dat(distributed arp table)
-*Catwoman(network encoding)
-*Gateway announcements
-*Translation table
-*Vis server
-*Multicast capability
-*TT messages
+* Bla(bridge loop avoidance)
+* Dat(distributed arp table)
+* Catwoman(network encoding)
+* Gateway announcements
+* Translation table
+* Vis server
+* Multicast capability
+* TT messages
 
 h2. Wrapp-up
 
