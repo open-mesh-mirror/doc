@@ -56,7 +56,9 @@ Definition:
 
 h3. Dat(distributed arp table)
 
-TODO => Antonio
+ * function: D.A.T. is a DHT based global ARP cache
+ * tvlv type: 0x02
+ * length: 0Bytes
 
 h3. Bla(bridge loop avoidance)
 
@@ -82,12 +84,19 @@ h3. Catwoman (network coding)
 
 h3. Translation table / TT messages
 
-TODO => Antonio
+ * function: Node local clients advertisement mechanism. This particular component needs some parameters that are were carried by the OGM. Now these fields can be encapsulated in the TVLV (see below to understand what fields I'm talking about).
+ * TVLV type: 0x03
+ * length: 4 Bytes
+> * batman_ogm_packet->ttvn (1Byte)
+> * batman_ogm_packet->tt_crc (2Bytes)
+> * batman_ogm_packet->tt_num_changes (1Byte)
 
 h3. Multicast capability
 
 TODO => Simon / Edo
 
+
+===================================================
 
 Since the number of different messages transmitted is relatively low the following struct should be enough to contain the information of each message
 <pre>
