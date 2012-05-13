@@ -40,7 +40,7 @@ h3. Gateway announcement
 
  * tvlv type: 0x01
  * function: Each batman-adv gateway server announces it's available internet connection speed, so that batman-adv gateway clients can select their preferable server.
- * purpose: 
+ * purpose: Every node keeps a list of batman-adv gateways in the mesh to later the preferred gateway. 
  * length: 1 byte gateway flags (see batman_ogm_packet->gw_flags)
  * definition:
 <pre>
