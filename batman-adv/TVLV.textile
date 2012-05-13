@@ -69,6 +69,26 @@ h3. DAT (Distributed ARP Table)
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
+
+h3. Translation table / TT messages
+
+ * function: Node local clients advertisement mechanism. This particular component needs some parameters that are were carried by the OGM. Now these fields can be encapsulated in the TVLV (see below to understand what fields I'm talking about).
+ * purpose: nodes need to exchange TranslationTable state information
+ * TVLV type: 0x03
+ * length: variable (it depends on the number of changes that the TVLV is carrying). Fixed TVLV fields:
+ ** batman_ogm_packet->ttvn (1Byte)
+ ** batman_ogm_packet->tt_crc (2Bytes)
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV 0x03   |    Version    |    Length     |     TTVN      | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |             TT CRC            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
 h3. Bla(bridge loop avoidance)
 
 TODO => Simon
@@ -89,25 +109,6 @@ h3. Catwoman (network coding)
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |   TVLV TBD    |    Version    |    Length     |  
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-h3. Translation table / TT messages
-
- * function: Node local clients advertisement mechanism. This particular component needs some parameters that are were carried by the OGM. Now these fields can be encapsulated in the TVLV (see below to understand what fields I'm talking about).
- * purpose: nodes need to exchange TranslationTable state information
- * TVLV type: 0x03
- * length: variable (it depends on the number of changes that the TVLV is carrying). Fixed TVLV fields:
-> * batman_ogm_packet->ttvn (1Byte)
-> * batman_ogm_packet->tt_crc (2Bytes)
-
-The format is not fixed yet. We may want to move tt_changes in a separated TVLV. Decision still needs to be made.
-
-<pre>
- 0                   1                   2                   3                   4                   5                   6
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV Type   |    Version    |    Length     |     ttvn      |            tt_crc             |   list of changes (struct tt_change) ...
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
 h3. Multicast capability
