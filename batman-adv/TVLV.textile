@@ -54,11 +54,19 @@ Definition:
 </pre>
 
 
-h3. Dat(distributed arp table)
+h3. DAT (Distributed ARP Table)
 
  * function: D.A.T. is a DHT based global ARP cache
  * tvlv type: 0x02
  * length: 0Bytes
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV Type   |    Version    |    Length     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
 
 h3. Bla(bridge loop avoidance)
 
@@ -88,8 +96,16 @@ h3. Translation table / TT messages
  * TVLV type: 0x03
  * length: 4 Bytes
 > * batman_ogm_packet->ttvn (1Byte)
-> * batman_ogm_packet->tt_crc (2Bytes)
 > * batman_ogm_packet->tt_num_changes (1Byte)
+> * batman_ogm_packet->tt_crc (2Bytes)
+
+<pre>
+ 0                   1                   2                   3                   4                   5                   6
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV Type   |    Version    |    Length     |     Value     |     ttvn      | tt_num_changes|            tt_crc             |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
 
 h3. Multicast capability
 
