@@ -69,14 +69,14 @@ TODO => Simon/Marek
 h3. Catwoman (network coding)
 
 * function: Nodes compiled with support for network and has enabled network coding, announces this, so that other nodes do not send coded packets to nodes unable to understand such.
-* tvlv type: ?
+* tvlv type: to be decided upon merge into the master branch
 * length: 0 (This is a boolean telling that this node knows how to decode nc-packets.)
 
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV 0x01   |    Version    |    Length     |  
+ |   TVLV TBD    |    Version    |    Length     |  
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
