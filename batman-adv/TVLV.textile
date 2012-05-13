@@ -38,13 +38,11 @@ Due to the individual requirements of every feature a list of existing feature t
 
 h3. Gateway announcement
 
- * function: Each batman-adv gateway server announces it's available internet connection speed, so that batman-adv gateway clients can select their preferable server.
  * tvlv type: 0x01
+ * function: Each batman-adv gateway server announces it's available internet connection speed, so that batman-adv gateway clients can select their preferable server.
+ * purpose: 
  * length: 1 byte gateway flags (see batman_ogm_packet->gw_flags)
-
-Definition:
-
-
+ * definition:
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
@@ -56,11 +54,11 @@ Definition:
 
 h3. DAT (Distributed ARP Table)
 
+ * tvlv type: 0x02
  * function: D.A.T. is a DHT based global ARP cache
  * purpose: the DAT component will only query other DAT-enabled nodes
- * tvlv type: 0x02
- * length: 0Bytes
-
+ * length: 0 (This is a boolean telling that this node caches ARP requests / replies for the mesh.)
+ * definition:
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
@@ -72,13 +70,13 @@ h3. DAT (Distributed ARP Table)
 
 h3. Translation table / TT messages
 
- * function: Node local clients advertisement mechanism. This particular component needs some parameters that are were carried by the OGM. Now these fields can be encapsulated in the TVLV (see below to understand what fields I'm talking about).
+ * tvlv type: 0x03
+ * function: Node local clients advertisement mechanism. This particular component needs some parameters that are were carried by the OGM. Now these fields can be encapsulated in the tvlv (see below to understand what fields I'm talking about).
  * purpose: nodes need to exchange TranslationTable state information
- * TVLV type: 0x03
- * length: variable (it depends on the number of changes that the TVLV is carrying). Fixed TVLV fields:
+ * length: variable (it depends on the number of changes that the tvlv is carrying). Fixed tvlv fields:
  ** batman_ogm_packet->ttvn (1Byte)
  ** batman_ogm_packet->tt_crc (2Bytes)
-
+ * definition:
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
@@ -99,10 +97,11 @@ TODO => Simon/Marek
 
 h3. Catwoman (network coding)
 
-* function: Nodes compiled with support for network and has enabled network coding, announces this, so that other nodes do not send coded packets to nodes unable to understand such.
-* tvlv type: to be decided upon merge into the master branch
-* length: 0 (This is a boolean telling that this node knows how to decode nc-packets.)
-
+ * tvlv type: to be decided upon merge into the master branch
+ * function: Nodes compiled with support for network and has enabled network coding, announces this, so that other nodes do not send coded packets to nodes unable to understand such.
+ * purpose: network encoded packets will only sent to nodes that have network coding enabled
+ * length: 0 (This is a boolean telling that this node knows how to decode nc-packets.)
+ * definition:
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
