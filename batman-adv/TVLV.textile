@@ -89,11 +89,26 @@ h3. Translation table / TT messages
 
 h3. Bla(bridge loop avoidance)
 
-TODO => Simon
+ * tvlv type: 0x??
+ * function: Bridge Loop Avoidance is used to avoid loops between a backbone network (e.g. LAN) and the mesh. More documentation at the wiki at: [[Bridge-loop-avoidance-II]]
+ * purpose: TBD - so far, no compatibility has been defined between nodes which support BLA and nodes which don't.
+ * length: 0 byte
+ * note: needs more discussion whether we really need that.
 
-h3. Vis server / Vis data exchange
+h3. Vis server
 
-TODO => Simon/Marek
+ * tvlv type: 0x??
+ * function: The vis server allow to dump a complete network graph of the mesh network. To do this, vis clients send their neighbor and tt data to vis servers. The vis servers then share the collected data between each other.
+ * purpose: Clients may send their vis data to the server if the vis TLV is present.
+ * length: 0 byte
+ * definition:
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV 0x??   |    Version    |    Length     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
 
 h3. Catwoman (network coding)
 
@@ -110,10 +125,13 @@ h3. Catwoman (network coding)
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-h3. Multicast capability
+h3. Multicast capability (TODO => Simon / Edo)
 
-TODO => Simon / Edo
-
+ * tvlv type: to be decided upon merge into the master branch
+ * function: The current (unfinished) implementation optimizes for sparse multicast networks, with groups (much) smaller than half the nodes of the network. It first sends out tracker packets to mark the multicast tree for the following stream.
+ * purpose: TBD. We could use a TLV to announce the Multicast MAC addresses we want to listen to (similar to the early TT mechanism).
+ * length: TBD
+ * note: should not be considered for now, we can pick it up again as soon as it gets some love from a developer.
 
 ===================================================
 
