@@ -35,47 +35,7 @@ h2. PROTOCOL
 The test is initiated through batctl. The user specifies the destination, the amount of data to be sent, if it is sender or receiver.
 A new bat-ICMP type must be defined for the bandwidth meter packets: two headers are attached to the "data" the bat-ICMP and a pseudo-TCP one (shown in next paragraph). 
 
-_How a node can ask to another node to be the sender?_
-# Through an option field in the pseudo-TCP header in the three way handshake process.
-# Different bat-ICMP numbers
-
-_How does the protocol end?_
-# graceful close with FIN.
-## If the node that has initiated the protocol is the sender, after all the data is sent, send a packet with FIN flag. A packet with FIN flag should be received in response from the other node, meaning that all data has been delivered, thus the test is over;
-## If the node is the receiver, when a packet with FIN flag is received, it waits for missing packets (if any) and then close the test.
-## TODO: check how TCP works in case FIN is lost or in case after FIN is received packets are still missing.
-
-h3. Header
-
-Since the protocol is taken from TCP, I started from TCP header ("RFC793":http://www.ietf.org/rfc/rfc793.txt) and removed some unecessary features, namely push, urgent and port multiplexing.
-
-<pre>
-   0                   1                   2                   3   
-    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1  
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                        Sequence Number                        |  
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                    Acknowledgment Number                      |  
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |                  Window Size                          |A|R|S|F|
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |            Options            |             Checksum          |  
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-Header fields have the same functions as in TCP. Also the flags A, R, S, F:
-* ACK: means an ack is carryed, so Acknowledgment Number is valid
-* RST: resets the connection (in case of errors or unexpected packages)
-* SYN: starts the connection (three way handshake)
-* FIN: Gracefully ends the connection
-
-I have to decide if and how to implement:
-* slow start
-* congestion avoidance 
-
-* fast retransmit
-* fast recovery
-
+In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. For protocol beginning and termination an TFTP like approach is used. To terminate the protocol, a packet of not-full lenght is sent.
 
 h2. TODO
 
