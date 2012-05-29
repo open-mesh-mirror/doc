@@ -39,16 +39,21 @@ In order to provide an easier protocol to implement, Go-Back-N is used, with a s
 
 h2. TODO
 
+h3. Currently doing
+
 * try virtual machines for testbed: I am configuring a virtual machine with Debian and kernel 3.2.12 to test the modifications introduced in order to call the bandwidth meter through batctl;
 
 * define user-space interface (through batctl)
 
-* define the protocol, based on Go-Back-N
+h3. Future tasks
 
 * define packet header
 
-
 * being a connection oriented protocol, some data structures relative to each connection will be defined. Check TCP implementation of such data structures and how timeouts are used to handle connections.
+
+h3. Done
+
+* define the protocol, based on Go-Back-N
 
 h2. Documentation
 
