@@ -2,6 +2,33 @@ h1. Fragmentation
 
 This page describes the current status of the GSOC12 project to improve the fragmentation functionality to support more than just unicast packets.
 
+h2. "New" Implementation
+
+The initial requirements to the new fragmentation framework are:
+* One packet can be transmitted as two or more fragments.
+* Fragments are encapsulated with a "fragment header".
+* Nodes announce through tvlv if they are able to assemble fragments.
+* Fragmentation of broadcasts might be supported in the future.
+* Maximum fragment size is runtime configurable to support user tuning.
+* Fragments are assembled as soon as the outgoing interface supports the assembled size - forwarded otherwise.
+
+The following questions are open:
+* Should the contained packet type be visible in the fragment header?
+* How do we select supported packet types (whitelist, blacklist or some kind of passed flag)?
+* Should we make a separate header for the first fragment?
+
+Initial header structure:
+<pre>
+struct frag_packet {
+	struct batman_header header;
+	uint8_t frag_type; /* Packet type of the contained packet */
+	uint8_t frag_id;   /* Almost unique id for the set of fragments */
+	uint8_t frag_cnt;  /* Number of fragments in this set */
+	uint8_t frag_seq;  /* Sequence number of this fragment */
+	uint8_t flags;
+} __packed;
+</pre>
+
 h2. "Old" Implementation
 
 Unicast packets are transmitted by calling batadv_unicast_generic_send_skb() in unicast.c. Here the size of the packet is checked and the packet is fragmented if needed:
