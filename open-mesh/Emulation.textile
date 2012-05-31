@@ -147,7 +147,7 @@ do
     screen ${SUDO} ${QEMU} \
         -no-acpi -m 32M \
         -net vde,sock=num${i}.ctl,port=1 -net nic,macaddr=fe:fe:00:00:$(printf %2502x $i):01 \
-        -net nic -net tap,ifname=tapwrt${i},script=no \
+        -net nic -net tap,ifname=tapwrt${i},script=no,downscript=no \
         -nographic num${i}.image
     sleep 3
 done
