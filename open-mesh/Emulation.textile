@@ -137,11 +137,12 @@ for i in $(seq 1 9);
 do
     ${VDESWITCH} \
         -d --hub --sock num${i}.ctl -f colourful.rc
+    ${SUDO} ip tuntap add tapwrt${i} mode tap
+    ${SUDO} /sbin/ifconfig tapwrt${i} inet 192.168.${i}.1 up
 done
 
 for i in $(seq 1 9);
 do
-
     cp ${IMAGE} num${i}.image
     screen ${SUDO} ${QEMU} \
         -no-acpi -m 32M \
@@ -149,7 +150,6 @@ do
         -net nic -net tap,ifname=tapwrt${i},script=no \
         -nographic num${i}.image
     sleep 3
-    ${SUDO} /sbin/ifconfig tapwrt${i} inet 192.168.${i}.1 up
 done
 
 wirefilter --daemon -v num1.ctl:num2.ctl
