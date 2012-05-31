@@ -1,5 +1,10 @@
 h1. BackwardsCompatibility
 
+Repository: http://git.open-mesh.org/?p=northpole/batman-adv.git
+branch:http://git.open-mesh.org/?p=northpole/batman-adv.git;a=shortlog;h=refs/heads/tvlvs
+
+
+
 Everything on this page is a suggestion and a work in progress therefore open to discussion and change.
 
 h2. Intro
@@ -215,99 +220,16 @@ the message and passes it to the appropriate method depending on the type value
 
 (i have to work on the serialization though in the user space its kinda tricky, maybe the kernel has something)
 
-h2. Modifications to the TLV structure
+TODO
 
-bat-tlvs will be as follows
-<pre>
-+--------------------------+
-+        Type                +
-+--------------------------+
-+        Version            +
-+--------------------------+
-+        Length            +
-+--------------------------+
-+        Value               +
-+--------------------------+
+   Currently Doing:
+   Building an emulated testing environment and familiriasing myself with the tools needed.
 
-</pre>
-
-h2. Tlv types/features to be tlv-ed:
-
-* Bla(bridge loop avoidance)
-* Dat(distributed arp table)
-* Catwoman(network encoding)
-* Gateway announcements
-* Translation table
-* Vis server
-* Multicast capability
-* TT messages
-
-
-h2. Things in the ogm packet to be tlv'd
-
-the two flag fields (flags and the gateway flags)
-and the 3 tt fields
-
-h2. reasons for not tlv-ing the other fields:
-
-	struct batman_header header;
-	
-the header already has version identifiers and packet type identifier so putting it in a tlv is useless overhead
-
-	__be32   seqno; 
-
-just an int(maybe) does not describe anything new(?)
-
-	uint8_t  orig[ETH_ALEN];
-
-as I understand it describes a mac address so it wont cange in the future
-
-	uint8_t  prev_sender[ETH_ALEN];
-
-same as above
-
-	uint8_t  tq;
-
-same as above(?)
-	
-h2. Wrapp-up
-
-
-So the  ogm packet gets as following:
-<pre>
-
-
-+--------------------------------------------------+
-+           current  header                        +
-+--------------------------------------------------+
-
-		/*FLAGS TLV*/
-+  type + Version +  length  + flags               +
-
-
-+--------------------------------------------------+
-+             seqno                                +
-+--------------------------------------------------+
-+             orig                                 +
-+--------------------------------------------------+
-+             prev_sender                          +
-+--------------------------------------------------+
-
-		/*GATEWAY FLAGS TLV*/
-+type +Version  +  length  +  gw_flags             +
-
-+--------------------------------------------------+
-+              tq;                                 +
-+--------------------------------------------------+
-
-		/*TT TLV*/
-+  type  +  Version  +  length  +  tt_num_changes  +
-	   ttvn  +     tt_crc                      +
-
-+--------------------------------------------------+
-</pre>
-
-
-
-
-/*2do: add the rest of the packets */
+  Future Tasks:
+  
+ Start coding the tvlv functionality and start implementing it in different packets. 
+ The order is roughly as follows:
+ 1)Gateway packets 
+ 2)Dat packets
+ 3)Vis
+ 4)....to be decided
