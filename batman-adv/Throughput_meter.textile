@@ -41,9 +41,7 @@ h2. TODO
 
 h3. Currently doing
 
-* try virtual machines for testbed: I am configuring a virtual machine with Debian and kernel 3.2.12 to test the modifications introduced in order to call the bandwidth meter through batctl;
-
-* define user-space interface (through batctl)
+* define and implement user-space interface (through batctl)
 
 h3. Future tasks
 
@@ -54,6 +52,8 @@ h3. Future tasks
 h3. Done
 
 * define the protocol, based on Go-Back-N
+
+* set up virtual machines for testbed: using two virtual machine with Debian and kernel 3.2.12 to test the modifications introduced in order to call the bandwidth meter through batctl; the two machines are attached to two tun interfaces bridged together.
 
 h2. Documentation
 
