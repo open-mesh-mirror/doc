@@ -125,6 +125,12 @@ QEMU=$(which qemu)
 VDESWITCH=~/src/vde2-2.2.3/src/vde_switch/vde_switch
 IMAGE=~/src/openwrt2/kamikaze/bin/openwrt-x86-jffs2-128k.image
 
+if [ "$TERM" != "screen" ];
+then
+echo "Must be run inside a screen session" 1>&2
+exit 1
+fi
+
 # you can set this if you are running as root and don't need sudo:
 # SUDO=
 SUDO=sudo
