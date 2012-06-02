@@ -5,6 +5,7 @@ This page contains the links to previous news posts for archiving purposes.
 
 h3. 2012
 
+* *09.Feb. 2012* [[2012-02-09-batman-adv-powers-game-of-life|Batman-adv powers Game of Life]]
 * *05.Feb. 2012* [[2012-02-05-batman-adv-2012-0-0-release|Batman-adv 2012.0.0 released]]
 * *26.Jan. 2012* [[2012-01-26-wbmv5-announcement|WBMv5 Announcement]]
 
