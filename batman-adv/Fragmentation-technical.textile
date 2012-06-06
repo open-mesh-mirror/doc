@@ -4,7 +4,7 @@ This page describes the current status of the GSOC12 project to improve the frag
 
 h2. "New" Implementation
 
-The initial requirements to the new fragmentation framework are:
+h3. The initial requirements to the new fragmentation framework are:
 * One packet can be transmitted as two or more fragments.
 * Fragments are encapsulated with a "fragment header".
 * Nodes announce through tvlv if they are able to assemble fragments.
@@ -12,12 +12,14 @@ The initial requirements to the new fragmentation framework are:
 * Maximum fragment size is runtime configurable to support user tuning.
 * Fragments are assembled as soon as the outgoing interface supports the assembled size - forwarded otherwise.
 
-The following questions are open:
+h3. The following questions are open:
 * Should the contained packet type be visible in the fragment header?
 * How do we select supported packet types (whitelist, blacklist or some kind of passed flag)?
 * Should we make a separate header for the first fragment?
+** If we make a separate header, we can include assembled size to avoid assembly/fragmentation on intermediate nodes.
 
-Initial header structure:
+h3. Initial header structure:
+
 <pre>
 struct frag_packet {
 	struct batman_header header;
@@ -28,6 +30,23 @@ struct frag_packet {
 	uint8_t flags;
 } __packed;
 </pre>
+
+h3. Structure / Packet flow
+
+h4. Sending:
+
+# Packet hits batadv_send_skb_packet() and has size > mtu
+# Packet is fragmented and transmitted as BAT_FRAG type
+
+h4. Receiving:
+
+# Packet is received as BAT_FRAG and is handed to batadv_recv_frag_packet()
+# Packet is buffered in per-orig-buffer until all fragments are received.
+# When last packet arrives (list-size == frag_count), packets are assembled and handed to appropriate handler
+
+h4. Cleaning:
+
+# A worker traverses packet lists for each orig and removes fragments after a timeout.
 
 h2. "Old" Implementation
 
