@@ -5,6 +5,7 @@ This page describes the current status of the GSOC12 project to improve the frag
 h2. "New" Implementation
 
 h3. The initial requirements to the new fragmentation framework are:
+
 * One packet can be transmitted as two or more fragments.
 * Fragments are encapsulated with a "fragment header".
 * Nodes announce through tvlv if they are able to assemble fragments.
@@ -13,6 +14,7 @@ h3. The initial requirements to the new fragmentation framework are:
 * Fragments are assembled as soon as the outgoing interface supports the assembled size - forwarded otherwise.
 
 h3. The following questions are open:
+
 * Should the contained packet type be visible in the fragment header?
 * How do we select supported packet types (whitelist, blacklist or some kind of passed flag)?
 * Should we make a separate header for the first fragment?
@@ -24,9 +26,9 @@ h3. Initial header structure:
 struct frag_packet {
 	struct batman_header header;
 	uint8_t frag_type; /* Packet type of the contained packet */
-	uint8_t frag_id;   /* Almost unique id for the set of fragments */
-	uint8_t frag_cnt;  /* Number of fragments in this set */
-	uint8_t frag_seq;  /* Sequence number of this fragment */
+	uint16_t frag_id;   /* Almost unique id for the set of fragments (CRC?) */
+	uint8_t frag_cnt:4;  /* Number of fragments in this set */
+	uint8_t frag_seq:4;  /* Sequence number of this fragment */
 	uint8_t flags;
 } __packed;
 </pre>
