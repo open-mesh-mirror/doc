@@ -44,7 +44,7 @@ It follows an overview of linux versions and the batman-adv version they contain
 * linux 3.2 => batman-adv 2011.4.x (get batctl 2011.4.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 3.3 => batman-adv 2012.0.x (get batctl 2012.0.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 3.4 => batman-adv 2012.1.x (get batctl 2012.1.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 3.4 => batman-adv 2012.2.x (get batctl 2012.2.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 3.5 => batman-adv 2012.2.x (get batctl 2012.2.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 
 h2. Debian
 
