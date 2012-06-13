@@ -40,7 +40,8 @@ h2. Release
 h2. Distributions
 
 * [ ] update openwrt package
-* [ ] update debian package
+* [ ] update gentoo package
+* [x] update debian package
 
 
 h2. Aftershow
