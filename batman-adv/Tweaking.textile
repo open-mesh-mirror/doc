@@ -142,11 +142,11 @@ h3. hop penalty
 
 Available since: batman-adv 2011.0.0
 
-The hop penalty setting allows to modify batman-adv's preference for multihop routes vs. short routes. The value is applied to the TQ of each forwarded OGM, thereby propagating the cost of an extra hop (the packet has to be received and retransmitted which costs airtime). A higher hop penalty will make it more unlikely that other nodes will choose this node as intermediate hop towards any given destination. On the hand, a lower hop penalty will result in longer routes because retransmissions are not penalized. The default hop penalty of '10' is a reasonable value for most setups and probably does not need to be changed. However, mobile nodes could choose a value of 255 (maximum value) to avoid being chosen as a router by other nodes.
+The hop penalty setting allows to modify batman-adv's preference for multihop routes vs. short routes. The value is applied to the TQ of each forwarded OGM, thereby propagating the cost of an extra hop (the packet has to be received and retransmitted which costs airtime). A higher hop penalty will make it more unlikely that other nodes will choose this node as intermediate hop towards any given destination. On the hand, a lower hop penalty will result in longer routes because retransmissions are not penalized. The default hop penalty of '30' is a reasonable value for most setups and probably does not need to be changed. However, mobile nodes could choose a value of 255 (maximum value) to avoid being chosen as a router by other nodes.
 
 <pre>
 cat /sys/class/net/bat0/mesh/hop_penalty 
-10
+30
 </pre>
 
 h3. log level
