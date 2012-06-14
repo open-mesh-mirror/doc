@@ -23,9 +23,9 @@ h2. How to avoid the loop ?
 
 A common solution to avoid bridge loops is to deploy protocols like STP or one of its derivatives. STP would detect the loop and close ports to avoid it. Running STP over the mesh is not really what we want as STP has no clue about the link qualities and who wants to run a spanning tree over lossy links ?
 
-Batman-adv needs its own mechanism to detect other batman nodes connected to the same LAN (these nodes will be called ''backbone nodes''), and avoid loops. Backbone nodes send special packets to find out about other nodes in the LAN - the backbone nodes can then have a list of other backbone nodes within the LAN. If they get a (broadcast) packet from the mesh originated by another backbone node, they drop it.
+Batman-adv needs its own mechanism to detect other batman nodes connected to the same LAN (these nodes will be called ''backbone nodes''), and avoid loops. Backbone nodes send special packets to find out about other nodes in the LAN - the backbone nodes can then maintain a list of other backbone nodes within the LAN. If they get a (broadcast) packet from the mesh originated by another backbone node, they drop it.
 
-Furthermore, the backbone node ''claim'' clients from other nodes of the mesh network. The idea is that only the one backbone gateway who claimed the client should forward packets from the mesh into the LAN. Also other backbone gateway receiving packets via the LAN from the claimed client will not send it back into the mesh, as they know another gateway got the packet from the mesh - to avoid loops.
+Furthermore, the backbone node ''claim'' clients from other nodes of the mesh network. The idea is that only the one backbone gateway who claimed the client should forward packets from the mesh into the LAN. Also other backbone gateways receiving packets via the LAN from the claimed client will not send it back into the mesh - to avoid loops - as they know another gateway got the packet from the mesh.
 
 More detailed information about the concept can be found on the wiki page [[Bridge-loop-avoidance-II]].
 
