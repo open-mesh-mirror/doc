@@ -90,14 +90,28 @@ For example:
 => fe:fe:00:00:02:01 (243) fe:fe:00:00:02:01 [      eth0]:  41 - 2048KBit/512KBit
 </pre>
 
-h3. Softinterface neighbor table
+h3. Bridge loop avoidance claim table
 
-This table is part of the [[bridge-loop-avoidance|bridge loop avoidance]] code and contains all nodes that have been detected as being part of the same bridge. The currently selected 'gateway to the LAN' is marked with the '=>' symbol.
+This table is part of the [[bridge-loop-avoidance|bridge loop avoidance]] code and contains all claimed clients as announced on the bridge. Each line contains a claimed non-mesh client propagated through the mesh:
 
 <pre>
-cat /sys/kernel/debug/batman_adv/bat0/softif_neigh
-Softif neighbor list (bat0)
-=> fe:fe:00:00:02:01 (vid: 1)
+<non-mesh client mac address>
+   <vlan id> 
+      <originator claiming this client> 
+         <is client claimed by me> 
+            <CRC checksum of the entire claim table> 
+</pre>
+
+Note: 
+ * Clients claimed by the node itself are marked with an '[x]'.
+ * If no VLAN was found a VID of '-1' is printed. 
+
+<pre>
+cat /sys/kernel/debug/batman_adv/bat0/bla_claim_table
+Claims announced for the mesh bat0 (orig fe:f0:00:00:02:01, group id 9b95)
+    Client               VID      Originator        [o] (CRC )
+  * fe:f1:00:00:04:01 on    -1 by fe:f0:00:00:02:01 [x] (0bab)
+  * fe:f1:00:00:03:01 on    -1 by fe:f0:00:00:01:01 [ ] (3ba9)
 </pre>
 
 
