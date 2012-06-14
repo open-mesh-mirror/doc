@@ -62,8 +62,6 @@ Similar packages are also available through "Ubuntu universe":https://help.ubunt
 h2. Gentoo
 
 Use emerge to build B.A.T.M.A.N. on your gentoo machine. Following ebuilds are available:
-* "net-misc/batmand":http://packages.gentoo.org/package/net-misc/batmand
-* "net-misc/batman-vis":http://packages.gentoo.org/package/net-misc/batman-vis
 * "net-misc/batctl":http://packages.gentoo.org/package/net-misc/batctl
 * "net-misc/batman-adv":http://packages.gentoo.org/package/net-misc/batman-adv
 
