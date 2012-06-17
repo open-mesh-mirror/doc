@@ -66,7 +66,6 @@ h3. Done
 
 * define and implement user-space interface (through batctl) [options still to be added]: 
 ** created files bw_meter.c in batman-adv and in batctl
-
 if batctl bw is invoked from the command line, a function in kernel space get called, in a similar fashion as for ping (but the packet will be generated in kernel space)
 
 * define the protocol, based on Go-Back-N
