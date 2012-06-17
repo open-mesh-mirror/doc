@@ -34,21 +34,38 @@ h2. PROTOCOL
 The test is initiated through batctl. The user specifies the destination, the amount of data to be sent, if it is sender or receiver.
 A new bat-ICMP packet type, BW_METER, is defined.
 
-In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. For protocol beginning and termination an TFTP like approach is used. To terminate the protocol, a packet of not-full lenght is sent.
+In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. The window is made of n packets, as specified
+by the user. The sender sends all the n packets in a burst and starts a timeout, then waits for an ack. If the ack is not received before the ack expires,
+all the n packet are re-transmitted.
+
+The receiver, as the first BW_METER packet is received, allocates the window and waits for it to be completed. When the window is completed, an ack is sent. 
+
+
+For protocol beginning and termination an TFTP like approach is used. To terminate the protocol, a packet of not-full lenght is sent.
+
+h2. ICMP PACKET HEADER:
+Needed information:
+
+* window size
+
+* sequence number
+
 
 h2. TODO
 
 h3. Currently doing
 
-* define and implement user-space interface (through batctl)
+* define packet header
 
 h3. Future tasks
 
-* define packet header
 
-* being a connection oriented protocol, some data structures relative to each connection will be defined. Check TCP implementation of such data structures and how timeouts are used to handle connections.
+* being a connection oriented protocol, some data structures relative to each connection will be defined. 
+Check TCP implementation of such data structures and how timeouts are used to handle connections.
 
 h3. Done
+
+* define and implement user-space interface (through batctl) [options still to be added]
 
 * define the protocol, based on Go-Back-N
 
