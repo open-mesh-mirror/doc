@@ -58,3 +58,5 @@ h3. Done
 h2. Documentation
 
  * "data alignment in the kernel":http://www.mjmwired.net/kernel/Documentation/unaligned-memory-access.txt
+
+ * "skb":http://vger.kernel.org/~davem/skb.html
