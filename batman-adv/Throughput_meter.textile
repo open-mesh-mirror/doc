@@ -44,7 +44,6 @@ The receiver, as the first BW_METER packet is received, allocates the window and
 For protocol beginning and termination an TFTP like approach is used. To terminate the protocol, a packet of not-full lenght is sent.
 
 h2. ICMP PACKET HEADER:
-Needed information:
 
 * window size
 
