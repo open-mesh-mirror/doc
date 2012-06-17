@@ -9,20 +9,19 @@ h2. GENERAL DESCRIPTION (initial idea)
 
 The project aims to create a kernel-space tool that measures the throughput between two nodes and avoids problems experienced with user-space tools like iperf and netperf. With those tools main problems are encountered on machines that are low on resources, including routers, since packets must be copied from kernel-space to user-space memory and aligned. On such devices this computational load can slow the device itself, leading to packet losses at the receiver side, thus altering the test result. Two modes are implemented:
 
+* tcp-like: in this mode the behaviour of tcp should be re-created. We should verify if it is possible to use the existing, standard, tcp implementation or if it is needed to develop a tcp-like (simpler...) protocol just for this application.
+** Using kernel TCP stack is too complex and the problem of unaligned data remains. Furthemore it requires an IP address for the destination.
+
 * udp-like: one directional, no retransmission, stream of data;
 ** How to ensure that all data was transmitted
 ** How do we ensure that the last packet/magic packets were not transmitted out of order
 ** how does the remote node gets informed that test finished even when *many* packets are dropped
 
-* tcp-like: in this mode the behaviour of tcp should be re-created. We should verify if it is possible to use the existing, standard, tcp implementation or if it is needed to develop a tcp-like (simpler...) protocol just for this application.
-** Using kernel TCP stack is too complex and the problem of unaligned data remains. Furthemore it requires an IP address for the destination.
-
-
 h2. FIRST SPECIFICATION
 
 May 2, me, Ordex, Simon and Marek agreed on the following:
 
-# the "TCP" version will be developed first;
+# *the "TCP" version will be developed first*;
 # the protocol will be a "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N: so sliding window, cumulative acknowledgment. _Further protocol definition_ soon; this is intended as a rough approximation of TCP behaviour;
 # The user specifies how much data the bandwidth meter is intended to send in the session; once the transmission is completed (i.e. all the data is received by the sender) the transmission time is reported. _Further details on protocol header formats, time computation_ soon; It should allow:
 ## Possibility to specify if the node is sender or receiver (data flow direction);
@@ -33,7 +32,7 @@ May 2, me, Ordex, Simon and Marek agreed on the following:
 h2. PROTOCOL 
 
 The test is initiated through batctl. The user specifies the destination, the amount of data to be sent, if it is sender or receiver.
-A new bat-ICMP type must be defined for the bandwidth meter packets: two headers are attached to the "data" the bat-ICMP and a pseudo-TCP one (shown in next paragraph). 
+A new bat-ICMP packet type, BW_METER, is defined.
 
 In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. For protocol beginning and termination an TFTP like approach is used. To terminate the protocol, a packet of not-full lenght is sent.
 
