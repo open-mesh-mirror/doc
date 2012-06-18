@@ -41,7 +41,28 @@ The sender maintains, for each test ongoing, the following variables:
 
 It sends WIN_PACKETS packets in a burst and starts a timeout, then waits for an ack, that is an ICMP packet with number BW_ACK. The ack should carry the seqence number first_sent+window_size. If the ack is not received before the timeout expires, all the n packet are re-transmitted. Notice that there is no buffer, just the three variables that "emulates" it. The sender ICMP packet has type BW_METER, a 32 bit offset and a 32 bit window size.
 
-The receiver, as the first BW_METER packet is received, allocates the window and waits for it to be completed. When the window is completed, an ack is sent. 
+So WIN_PACKETS are sent, then the timeout is start:
+
+* if the corresponding ack is received, first_sent is set to first_sent+window_size and the next WIN_PACKETS packets are sent;
+
+* if the timeout expires, first_sent is not increased, so the same packets are sent again;
+
+* When first_sent equals to_send, the test is over.
+
+h3. The receiver
+
+The receiver must receive the packet with offset 1 first. If no other bandwidth test is ongoing with the same node, it initiates the following variables for that connection:
+
+# window_size
+# first_received: the offset of the first packet of the window
+# to_be_received: equals window_size
+
+If a BW_METER packet is received on that connection, it's offset is check:
+
+# if it is first_received<= offset <first_received+window_size, the packet belongs to the current window. Then to_be_received is decreased by the packet length. If it equals zero a new window is initiated:
+## first_received += window_size;
+## to_be_received = window_size;
+## send the ack with offset first_received;
 
 
 For protocol beginning and termination an TFTP like approach is used. To terminate the protocol, a packet of not-full lenght is sent.
