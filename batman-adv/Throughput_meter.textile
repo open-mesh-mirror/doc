@@ -24,16 +24,22 @@ h2. SPECIFICATION
 ## Possibility to specify if the node is sender or receiver (data flow direction);
 ## Possibility to add others operation modes later (e.g. "UDP" mode);
 ## Integrated in the batman ICMP protocol; 
-
+## The test is initiated through batctl. The user specifies at least the destination, the amount of data to be sent, if it is sender or receiver.
 
 h2. PROTOCOL 
 
-The test is initiated through batctl. The user specifies the destination, the amount of data to be sent, if it is sender or receiver.
-A new bat-ICMP packet type, BW_METER, is defined.
+Two new bat-ICMP packet type, BW_METER and BW_ACK, are defined.
 
-In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. The window is made of n packets, as specified
-by the user. The sender sends all the n packets in a burst and starts a timeout, then waits for an ack. If the ack is not received before the ack expires,
-all the n packet are re-transmitted.
+In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. The window is made of WIN_PACKETS packets (this could be specified by the user or fixed). T
+
+h3. The sender
+
+The sender maintains, for each test ongoing, the following variables:
+# to_send: total amount of data to send;
+# first_sent: sequence number (i.e. offset) of the first packet of the current window
+# window_size
+
+It sends WIN_PACKETS packets in a burst and starts a timeout, then waits for an ack, that is an ICMP packet with number BW_ACK. The ack should carry the seqence number first_sent+window_size. If the ack is not received before the timeout expires, all the n packet are re-transmitted. Notice that there is no buffer, just the three variables that "emulates" it. The sender ICMP packet has type BW_METER, a 32 bit offset and a 32 bit window size.
 
 The receiver, as the first BW_METER packet is received, allocates the window and waits for it to be completed. When the window is completed, an ack is sent. 
 
