@@ -57,7 +57,7 @@ The receiver must receive the packet with offset 1 first. If no other bandwidth 
 # first_received: the offset of the first packet of the window
 # to_be_received: equals window_size
 
-If a BW_METER packet is received on that connection, it's offset is check:
+If a BW_METER packet is received on that connection, it's offset is checked:
 
 # if it is first_received <= offset < first_received+window_size, the packet belongs to the current window. Then to_be_received is decreased by the packet length. If it equals zero a new window is initiated:
 ## first_received += window_size;
@@ -70,11 +70,7 @@ If a BW_METER packet is received on that connection, it's offset is check:
 
 When a packet is received that is not full: i.e. its full size is different from that of the others, the test is finished. Send a normal ack with the offset of the "short packet" + "short packet len", wait a certain amount of time and "declare the test finished" (i.e. free variables and accept new test packets).
 
-h2. ICMP PACKET HEADER:
-
-* window size
-
-* sequence number
+So, the ACK packet is an ICMP packet with type BW_ACK and a 32 bit offset.
 
 
 h2. TODO
