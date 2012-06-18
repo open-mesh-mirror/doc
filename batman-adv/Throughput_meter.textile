@@ -59,13 +59,16 @@ The receiver must receive the packet with offset 1 first. If no other bandwidth 
 
 If a BW_METER packet is received on that connection, it's offset is check:
 
-# if it is first_received<= offset <first_received+window_size, the packet belongs to the current window. Then to_be_received is decreased by the packet length. If it equals zero a new window is initiated:
+# if it is first_received <= offset < first_received+window_size, the packet belongs to the current window. Then to_be_received is decreased by the packet length. If it equals zero a new window is initiated:
 ## first_received += window_size;
 ## to_be_received = window_size;
 ## send the ack with offset first_received;
 
+# if packet offset < first_received, resend ack
 
-For protocol beginning and termination an TFTP like approach is used. To terminate the protocol, a packet of not-full lenght is sent.
+# if packet offset > first_received+window_size ???
+
+When a packet is received that is not full: i.e. its full size is different from that of the others, the test is finished. Send a normal ack with the offset of the "short packet" + "short packet len", wait a certain amount of time and "declare the test finished" (i.e. free variables and accept new test packets).
 
 h2. ICMP PACKET HEADER:
 
@@ -101,3 +104,5 @@ h2. Documentation
  * "data alignment in the kernel":http://www.mjmwired.net/kernel/Documentation/unaligned-memory-access.txt
 
  * "skb":http://vger.kernel.org/~davem/skb.html
+
+ * TFTP ??
