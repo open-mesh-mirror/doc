@@ -5,7 +5,7 @@ h2. REPOSITORIES
  * http://git.open-mesh.org/?p=montik/batman-adv.git
  * http://git.open-mesh.org/?p=montik/batctl.git
 
-h2. GENERAL DESCRIPTION (initial idea)
+h2. GENERAL DESCRIPTION
 
 The project aims to create a kernel-space tool that measures the throughput between two nodes and avoids problems experienced with user-space tools like iperf and netperf. With those tools main problems are encountered on machines that are low on resources, including routers, since packets must be copied from kernel-space to user-space memory and aligned. On such devices this computational load can slow the device itself, leading to packet losses at the receiver side, thus altering the test result. Two modes are implemented:
 
@@ -17,13 +17,10 @@ The project aims to create a kernel-space tool that measures the throughput betw
 ** How do we ensure that the last packet/magic packets were not transmitted out of order
 ** how does the remote node gets informed that test finished even when *many* packets are dropped
 
-h2. FIRST SPECIFICATION
+h2. SPECIFICATION
 
-May 2, me, Ordex, Simon and Marek agreed on the following:
-
-# *the "TCP" version will be developed first*;
-# the protocol will be a "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N: so sliding window, cumulative acknowledgment. _Further protocol definition_ soon; this is intended as a rough approximation of TCP behaviour;
-# The user specifies how much data the bandwidth meter is intended to send in the session; once the transmission is completed (i.e. all the data is received by the sender) the transmission time is reported. _Further details on protocol header formats, time computation_ soon; It should allow:
+# the protocol will be a "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N: a fixed window, cumulative acknowledgment when the whole window is received; this is intended as a rough approximation of the TCP behaviour;
+# The user specifies how much data the bandwidth meter is intended to send in the session; once the transmission is completed (i.e. all the data is received by the sender) the transmission time is reported. _Further details on time computation to be added_; It should allow:
 ## Possibility to specify if the node is sender or receiver (data flow direction);
 ## Possibility to add others operation modes later (e.g. "UDP" mode);
 ## Integrated in the batman ICMP protocol; 
