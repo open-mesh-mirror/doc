@@ -184,52 +184,16 @@ h3. Multicast capability (TODO => Simon / Edo)
 
 ===================================================
 
-Since the number of different messages transmitted is relatively low the following struct should be enough to contain the information of each message
-<pre>
-          struct tlv {
-          u8 type;
-          u8 version;/*see below*/
-          u8 length;
-          u8 value[255];
-           };
-</pre>
-/*i'm not yet sure about the u8 in the value field, maybe it should be u32*/
-the type should be:
-
-        typedef enum {
-
-         A_TLV   = 0x00,
-         B_TLV   = 0x01,
-         C_TLV   = 0x02,
-         D_TLV   = 0x03,
-         E_TLV   = 0x04,
-         G_TLV   = 0X05, 
-         F_TLV   = 0X06,
-         .
-         .
-         .
-         .
-         X_TLV	 = 0XFF,  
-     } bat_tlv;
-
-where each hex code represents the kind of message we are waiting to parse
-
-
-the whole thing gets serialized and transmited the receiver deserializes
-the message and passes it to the appropriate method depending on the type value
-
-(i have to work on the serialization though in the user space its kinda tricky, maybe the kernel has something)
-
 TODO
 
    Currently Doing:
-   Building an emulated testing environment and familiriasing myself with the tools needed.
+   * Building an emulated testing environment and familiriasing myself with the tools needed. -- Done (somewhat, stays on the currently doing list since its a constant work in progress)
+  * Adding tvlv capabilities to the Gateway announcements and (maybe) flag transmissions
 
   Future Tasks:
   
- Start coding the tvlv functionality and start implementing it in different packets. 
  The order is roughly as follows:
- 1)Gateway packets 
+ 1)Gateway packets (w.i.p.)
  2)Dat packets
  3)Vis
  4)....to be decided
