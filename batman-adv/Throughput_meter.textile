@@ -89,7 +89,10 @@ h3. Future tasks
 
 h3. Done
 
-* define the BW_METER icmp packet header in packet.h@/* icmp_packet_bw must start with all fields from imcp_packet
+* define the BW_METER icmp packet header in packet.h 
+
+@
+/* icmp_packet_bw must start with all fields from imcp_packet
  * as this is assumed by code that handles ICMP packets
  */
 struct icmp_packet_bw {
