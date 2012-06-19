@@ -77,19 +77,21 @@ h2. TODO
 
 h3. Currently doing
 
-* define and initialize a data structure bw_meter_vars for variables used. The structure should be sender-dependant; [Adding it to bat_priv by now]
-
-* send all the window;
-
-* timeout;
 
 h3. Future tasks
+
+* test timeout [delayed_work]
 
 * check bw_meter_start concurrent access to bat_priv
 
 * do the receiver ???
 
 h3. Done
+* timeout {delayed work};
+
+* send all the window;
+
+* define and initialize a data structure bw_meter_vars for variables used. The structure should be sender-dependant; [Adding it to bat_priv by now]
 
 * define the BW_METER icmp packet header in packet.h <pre>
 /* icmp_packet_bw must start with all fields from imcp_packet
