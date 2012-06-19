@@ -15,9 +15,9 @@ h3. The initial requirements to the new fragmentation framework are:
 
 h3. The following questions are open:
 
-* Should the contained packet type be visible in the fragment header?
-* How do we select supported packet types (whitelist, blacklist or some kind of passed flag)?
-* Should we make a separate header for the first fragment?
+* Should the contained packet type be visible in the fragment header? No.
+* How do we select supported packet types (whitelist, blacklist or some kind of passed flag)? All packets are fragmented (except broadcast and multicast so far).
+* Should we make a separate header for the first fragment? No.
 ** If we make a separate header, we can include assembled size to avoid assembly/fragmentation on intermediate nodes.
 
 h3. Initial header structure:
