@@ -89,9 +89,7 @@ h3. Future tasks
 
 h3. Done
 
-* define the BW_METER icmp packet header in packet.h 
-
-@
+* define the BW_METER icmp packet header in packet.h <pre>
 /* icmp_packet_bw must start with all fields from imcp_packet
  * as this is assumed by code that handles ICMP packets
  */
@@ -106,7 +104,7 @@ struct icmp_packet_bw {
         uint32_t offset;
         uint32_t wsize;
 } __packed;
-@
+</pre>
 
 * upon batcl bw invocation a single BW_METER is sent to the destination. Destination by now only logs the packet is received; tested ok with vm;
 
