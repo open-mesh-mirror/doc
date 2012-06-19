@@ -85,6 +85,8 @@ h3. Currently doing
 
 h3. Future tasks
 
+* check bw_meter_start concurrent access to bat_priv
+
 * do the receiver ???
 
 h3. Done
