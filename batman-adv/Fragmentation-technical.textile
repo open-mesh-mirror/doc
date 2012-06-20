@@ -20,6 +20,7 @@ h3. The following questions are open:
 * How is the buffer for received packets structured?
 ** A single linked list per orig might be slow to traverse in the search for fragments from a specific set.
 ** A hashtable is fast but big.
+* Do we want the new fragmentation features to be optional at compiletime?
 
 h3. Header structure:
 
