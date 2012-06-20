@@ -20,3 +20,72 @@ h3. The following questions are open:
 * How is the buffer for received packets structured?
 ** A single linked list per orig might be slow to traverse in the search for fragments from a specific set.
 ** A hashtable is fast but big.
+
+h3. Header structure:
+
+<pre>
+struct frag_packet {
+	struct batman_header header;
+	uint16_t frag_seqno; /* Almost unique id for the set of fragments (CRC?) */
+	uint8_t frag_no:4; /* Number of fragments in this set */
+	uint8_t flags:4; /* Sequence number of this fragment */
+} __packed;
+</pre>
+
+h3. Structure / Packet flow
+
+h4. Sending:
+
+# Packet hits batadv_send_skb_packet() and has size > mtu
+# Packet is fragmented and transmitted as BAT_FRAG type
+
+h4. Receiving:
+
+# Packet is received as BAT_FRAG and is handed to batadv_recv_frag_packet()
+# Packet is buffered in per-orig-buffer until all fragments are received.
+# When last packet arrives (list-size == frag_count), packets are assembled and handed to appropriate handler
+
+h4. Cleaning:
+
+# A worker traverses packet lists for each orig and removes fragments after a timeout.
+
+h2. "Old" Implementation
+
+Unicast packets are transmitted by calling batadv_unicast_generic_send_skb() in unicast.c. Here the size of the packet is checked and the packet is fragmented if needed:
+<pre>
+	/* fragmentation mechanism only works for UNICAST (now) */
+	if (packet_type == BAT_UNICAST &&
+	    atomic_read(&bat_priv->fragmentation) &&
+	    data_len + sizeof(*unicast_packet) >
+				neigh_node->if_incoming->net_dev->mtu) {
+		/* send frag skb decreases ttl */
+		unicast_packet->header.ttl++;
+		ret = batadv_frag_send_skb(skb, bat_priv,
+					   neigh_node->if_incoming,
+					   neigh_node->addr);
+		goto out;
+	}
+</pre>
+
+The fragmentation is carried out in batadv_frag_send_skb() in unicast.c. This function "simply" allocates another skb, copies half the packet into this, and sends the two packets.
+
+The fragmented packet is constructed with a "unicast-like" header, plus some additional fields:
+<pre>
+struct unicast_packet {
+	struct batman_header header;
+	uint8_t  ttvn; /* destination translation table version number */
+	uint8_t  dest[ETH_ALEN];
+} __packed;
+
+struct unicast_frag_packet {
+	struct batman_header header;
+	uint8_t  ttvn; /* destination translation table version number */
+	uint8_t  dest[ETH_ALEN];
+	uint8_t  flags;
+	uint8_t  align;
+	uint8_t  orig[ETH_ALEN];
+	__be16   seqno;
+} __packed;
+</pre>
+
+When fragmented packets are received, a "per-orig-buffer" is searched for a matching fragment. If one is found, the two fragments are assembled and treated like a regular unicast packet. If no matching fragment is found, the received fragment is buffered for a later merge.
