@@ -87,6 +87,8 @@ h3. Future tasks
 
 * check bw_meter_start concurrent access to bat_priv
 
+* create a list for bw_meter_vars or store it in origin_node? [anyway currently there is just one for everybody, so only one test at a time. To be fixed]
+
 * do the receiver ???
 
 h3. Done
