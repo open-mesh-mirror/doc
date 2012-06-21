@@ -77,7 +77,11 @@ h2. TODO
 
 h3. Currently doing
 
-* react to ack receipt
+* generate the ack
+** initialize data structure on receiver side
+** account for the received size
+
+* react to the ack reception
 
 h3. Future tasks
 
