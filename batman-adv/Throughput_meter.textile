@@ -93,7 +93,7 @@ h2. PROTOCOL
 
 The protocol is connection oriented. Of the two end nodes, one is the sender and the other the receiver; their behaviour is described in the next sections.
 
-During all the test ICMP packets only are exchanged: to distinguish the bandwidth meter packets from the others, two fresh ICMP packet types are defined in packet.h: 
+During all the test ICMP packets only are exchanged, so two fresh ICMP packet types are defined in packet.h: 
 <pre>
  47 enum icmp_packettype {
  ... ... ... ... ... ... .. .. .. ... ... ... ... ... ...
