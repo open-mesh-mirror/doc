@@ -91,7 +91,16 @@ h2. SPECIFICATION
 
 h2. PROTOCOL 
 
-Two new bat-ICMP packet type, BW_METER and BW_ACK, are defined.
+The protocol is connection oriented. Of the two end nodes, one is the sender and the other the receiver. Sender and receiver behaviour is described in the next sections.
+
+During all the test only ICMP packets are exchanged: to distinguish the bandwidth meter icmp packet from the others, two fresh ICMP packet type are defined: 
+<pre>
+ 47 enum icmp_packettype {
+ ... ... ... ... ... ... .. .. .. ... ... ... ... ... ...
+ 53         BW_METER                = 15,
+ 54         BW_ACK                  = 16,
+ 55 };
+</pre>
 
 In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. The window is made of WIN_PACKETS packets (this could be specified by the user or fixed).
 
