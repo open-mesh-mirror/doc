@@ -91,9 +91,9 @@ h2. SPECIFICATION
 
 h2. PROTOCOL 
 
-The protocol is connection oriented. Of the two end nodes, one is the sender and the other the receiver. Sender and receiver behaviour is described in the next sections.
+The protocol is connection oriented. Of the two end nodes, one is the sender and the other the receiver; their behaviour is described in the next sections.
 
-During all the test only ICMP packets are exchanged: to distinguish the bandwidth meter icmp packet from the others, two fresh ICMP packet type are defined: 
+During all the test ICMP packets only are exchanged: to distinguish the bandwidth meter icmp packets from the others, two fresh ICMP packet types are defined in packet.h: 
 <pre>
  47 enum icmp_packettype {
  ... ... ... ... ... ... .. .. .. ... ... ... ... ... ...
@@ -102,25 +102,26 @@ During all the test only ICMP packets are exchanged: to distinguish the bandwidt
  55 };
 </pre>
 
-In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. The window is made of WIN_PACKETS packets (this could be specified by the user or fixed).
+In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. The window is made of BW_WINDOW_SIZE packets. At the moment the value is hardcoded, but in the future this this could be specified by the user.
 
 h3. The sender
 
 The sender maintains, for each test ongoing, the following variables:
+
 # to_send: total amount of data to send;
 # first_sent: sequence number (i.e. packet number) of the first packet of the current window
 # window_size
+s
+It sends BW_WINDOW_SIZE packets in a burst and starts a timeout, then waits for an ack. An ACK is an ICMP packet of type BW_ACK that carries the sequence number of the last received packet *in order* (cumulative acknowledgment), meaning that all the packets up to that sequence number have been received. If the ack for a packet is not received before the timeout expires, all the packet unacked in the window are re-transmitted. Notice that there is no buffer, just the three variables that "emulates" it. The sender ICMP packet has type BW_METER, a 32 bit packet number and a 32 bit window size.
 
-It sends WIN_PACKETS packets in a burst and starts a timeout, then waits for an ack, that is an ICMP packet with number BW_ACK. The ACK will carry the sequence number of the last received packet *in order* (cumulative acknowledgment), meaning that all the packets up to that sequence number have been received. If the ack for a packet is not received before the timeout expires, all the packet unacked in the window are re-transmitted. Notice that there is no buffer, just the three variables that "emulates" it. The sender ICMP packet has type BW_METER, a 32 bit packet number and a 32 bit window size.
+So BW_WINDOW_SIZE packets are sent, then the a timeout is started:
 
-So WIN_PACKETS are sent, then the a timeout is started:
-
-* when the timeout expires, the whole window is transmitted again;
-* if an ack is received, flush the timer. Update first_sent to ack's "sequence number" and send (first_sent - previous_first_sent) new packets. Start the timer with the default timer value;
+* when the timeout expires, the whole window is transmitted again. This means BW_WINDOW_SIZE packets are transmitted, with sequence numbers starting from first_send;
+* if an ack is received, flush the timer. Update first_sent to ack's "sequence number" and send (first_sent - previous_first_sent) new packets (starting from previous_first_sent + BW_WINDOW_SIZE). Start the timer with the default timer value;
 
 h3. The receiver
 
-To begin the test, the receiver must receive the packet with seq 0 first: if another packet is received, the test is not considered started, no ack are sent back and no data structure is allocated on receiver side. 
+To begin the test, the receiver must receive the packet with seq 0: if another packet is received, the test is not considered started, no ack are sent back and no data structure is allocated on receiver side. 
 
 If packet number zero is received and no other bandwidth test is ongoing with the same node, the following variables for that connection are initiated:
 
@@ -130,16 +131,14 @@ If packet number zero is received and no other bandwidth test is ongoing with th
 If a BW_METER packet is received on that connection, it's offset is checked:
 
 # if it is first_received <= offset < first_received+window_size, the packet belongs to the current window. 
-## If packet's sequence number  = first_received + 1: first_received+=1; send an ACK; (if we keep track of unordered received packets, can be incremented also of more than 1)
+## If packet's sequence number equals (first_received + 1) then increase first_received+=1 (if we keep track of unordered received packets, can be incremented also of more than 1); send an ACK; 
 ## if packet's sequence number > (first_received +1) (but still part of the window) now do nothing; in a second time store somehow it as received, but don't send an ack.
 
 # if packet offset < first_received, resend ack
 
 # if packet offset > first_received+window_size ??? SOMETHING IS WRONG....send an acK?
 
-When a packet is received that is not full: i.e. its full size is different from that of the others, the test is finished. Send a normal ack with the offset of the "short packet" + "short packet len", wait a certain amount of time and "declare the test finished" (i.e. free variables and accept new test packets).
-
-So, the ACK packet is an ICMP packet with type BW_ACK and a 32 bit sequence number (or __be seq of icmp_packet)?.
+When a packet is received that is not full: i.e. its full size is different from that of the others, the test is finished. Send a normal ack with the sequence number of the short packet, wait a certain amount of time and "declare the test finished" (i.e. free variables and accept new test packets).
 
 h2. Documentation
 
