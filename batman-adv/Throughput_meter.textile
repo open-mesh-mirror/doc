@@ -19,41 +19,26 @@ The project aims to create a kernel-space tool that measures the throughput betw
 
 h2. TODO
 
-h3. Currently doing
 
 ** initialize data structure on receiver side
-
 ** account for the received size
-
 * react to the ack reception
-
 * can use __be16 seq of icmp_packet instead of a uint32_t offset ?? Are 16 bit of sequence number enought? 1500*2^16=93MB (seq can also wraparound??)
-
-h3. Future tasks
-
 * check bw_meter_start concurrent access to bat_priv
-
 * create a list for bw_meter_vars or store it in origin_node? [anyway currently there is just one for everybody, so only one test at a time. To be fixed]
-
 * do the receiver ???
-
 * sometimes packets are not received
-
 * check for the list lock
-
 * keep a counter for the number of retransmission of the same window
 
-h3. Done
+* -return the exit status in auxiliary functions-
+* -generate the ack-
+* -timeout {delayed work};-
+* -send all the window;-
+* -define and initialize a data structure bw_meter_vars for variables used. The structure should be sender-dependant; [Adding it to bat_priv by now]-
 
-* generate the ack
-
-* timeout {delayed work};
-
-* send all the window;
-
-* define and initialize a data structure bw_meter_vars for variables used. The structure should be sender-dependant; [Adding it to bat_priv by now]
-
-* define the BW_METER icmp packet header in packet.h <pre>
+* -define the BW_METER icmp packet header in packet.h- 
+<pre>
 /* icmp_packet_bw must start with all fields from imcp_packet
  * as this is assumed by code that handles ICMP packets
  */
@@ -70,15 +55,13 @@ struct icmp_packet_bw {
 } __packed;
 </pre>
 
-* upon batcl bw invocation a single BW_METER is sent to the destination. Destination by now only logs the packet is received; tested ok with vm;
+* -upon batcl bw invocation a single BW_METER is sent to the destination. Destination by now only logs the packet is received; tested ok with vm;-
+* -define and implement user-space interface (through batctl) [options still to be added]-
+** -created files bw_meter.c in batman-adv and in batctl
+if batctl bw is invoked from the command line, a function in kernel space get called, in a similar fashion as for ping (but the packet will be generated in kernel space)-
 
-* define and implement user-space interface (through batctl) [options still to be added]: 
-** created files bw_meter.c in batman-adv and in batctl
-if batctl bw is invoked from the command line, a function in kernel space get called, in a similar fashion as for ping (but the packet will be generated in kernel space)
-
-* define the protocol, based on Go-Back-N
-
-* set up virtual machines for testbed: using two virtual machine with Debian and kernel 3.2.12 to test the modifications introduced in order to call the bandwidth meter through batctl; the two machines are attached to two tun interfaces bridged together.
+* -define the protocol, based on Go-Back-N-
+* -set up virtual machines for testbed: using two virtual machine with Debian and kernel 3.2.12 to test the modifications introduced in order to call the bandwidth meter through batctl; the two machines are attached to two tun interfaces bridged together.-
 
 h2. SPECIFICATION
 
@@ -131,13 +114,13 @@ If the packet number zero is received and no other bandwidth test is ongoing wit
 
 If a BW_METER packet is received on that connection, it's offset is checked:
 
-# if it is first_received <= offset < (first_received + window_size), the packet belongs to the current window. 
+# if it is first_received <= packet_seq < (first_received + window_size), the packet belongs to the current window. 
 ## If packet's sequence number equals (first_received + 1) then increase first_received+=1 (if we keep track of unordered received packets, can be incremented also of more than 1); send an ACK; 
 ## if packet's sequence number > (first_received +1) (but still part of the window) now do nothing; in a second time store somehow it as received, but don't send an ack.
 
-# if packet offset < first_received, resend ack *with sequence number = first_received*
+# if packet_seq < first_received, resend ack *with sequence number = first_received*
 
-# if packet offset > first_received+window_size ??? SOMETHING IS WRONG....send an acK?
+# if packet_seq > first_received+window_size ??? SOMETHING IS WRONG....send an acK?
 
 When a packet that is not full (its full size is different from that of the others) is received *in order* the test is finished. Send a normal ack back with the sequence number of the short packet, wait a certain amount of time and "declare the test finished" (i.e. free variables and accept new test packets). 
 The time to wait should be greater than sender's timeout + RTT: if the last ACK is lost, the sender should re-send all the missing packets of the last window after the timeout expires. For each packet that is received, receiver will be send back an ACK, all with the same sequence number (i.e. the last sequence number expected).
