@@ -23,7 +23,7 @@ h2. TODO
 ** initialize data structure on receiver side
 ** account for the received size
 * react to the ack reception
-* can use __be16 seq of icmp_packet instead of a uint32_t offset ?? Are 16 bit of sequence number enought? 1500*2^16=93MB (seq can also wraparound??)
+* -can use __be16 seq of icmp_packet instead of a uint32_t offset ?? Are 16 bit of sequence number enought? 1500*2^16=93MB (seq can also wraparound??)- *Yes to both* use seq and consider wrapping 
 * check bw_meter_start concurrent access to bat_priv
 * create a list for bw_meter_vars or store it in origin_node? [anyway currently there is just one for everybody, so only one test at a time. To be fixed]
 * do the receiver ???
