@@ -188,10 +188,16 @@ TODO
 
    Currently Doing:
    * Building an emulated testing environment and familiriasing myself with the tools needed. -- Done (somewhat, stays on the currently doing list since its a constant work in progress)
-   * Adding tvlv capabilities to the Gateway announcements and  flag transmissions-- Done
-   * Appending tvlv info to the ogm packet -- Coded needs testing/debugging
-   * Sending the packet -- Same as above
-   * Receiving the pacekt -- To be coded
+    * first user: gateway settings
+   * apped all existing tvlvs from the list to the ogm
+    * parameter alignment
+   * function names
+   * group re-occuring tasks in separate functions (like tvlv_find())
+   *git rebase master -i
+    *  tvlv handler list
+   * register/unregister gateway handler
+  * parse incoming tvlv
+
   Future Tasks:
   
  The order is roughly as follows:
