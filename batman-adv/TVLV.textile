@@ -188,8 +188,10 @@ TODO
 
    Currently Doing:
    * Building an emulated testing environment and familiriasing myself with the tools needed. -- Done (somewhat, stays on the currently doing list since its a constant work in progress)
-  * Adding tvlv capabilities to the Gateway announcements and (maybe) flag transmissions
-
+   * Adding tvlv capabilities to the Gateway announcements and  flag transmissions-- Done
+   * Appending tvlv info to the ogm packet -- Coded needs testing/debugging
+   * Sending the packet -- Same as above
+   * Receiving the pacekt -- To be coded
   Future Tasks:
   
  The order is roughly as follows:
