@@ -23,6 +23,7 @@ h3. To Do List
 * Add final destination to fragment_packet
 * Check if the packet should be forwarded without merging
 * Add comments before I forget the tricks!
+* Set and use the ttvn field
 
 h3. Header structure:
 
