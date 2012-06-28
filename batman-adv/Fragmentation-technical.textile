@@ -27,11 +27,15 @@ h3. To Do List
 h3. Header structure:
 
 <pre>
-struct frag_packet {
-	struct batman_header header;
-	uint16_t frag_seqno; /* Almost unique id for the set of fragments (CRC?) */
-	uint8_t frag_no:4; /* Number of fragments in this set */
-	uint8_t flags:4; /* Sequence number of this fragment */
+struct batadv_frag_packet {
+	struct   batadv_header header;
+	uint8_t  ttvn; /* destination translation table version number */
+	uint8_t  dest[ETH_ALEN];
+	uint8_t  orig[ETH_ALEN];
+	uint8_t  flags:4;
+	uint8_t  no:4;   /* Sequence number of this fragment */
+	uint16_t seqno; /* Almost unique id for the set of fragments */
+	uint16_t total_size;
 } __packed;
 </pre>
 
