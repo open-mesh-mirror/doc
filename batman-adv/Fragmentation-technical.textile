@@ -14,15 +14,11 @@ h3. The initial requirements to the new fragmentation framework are:
 * Fragments are assembled as soon as the outgoing interface supports the assembled size - forwarded otherwise.
 * The type of the contained packet is not stored in the fragment header, as needing functions should peek into the payload.
 * All packets except broadcast/multicast are fragmented (for now).
+* A small hash table with 8 entries is used as fragment buffer.
+* No compile time option is provided, as networks might break if only some nodes supports fragmentation.
 
 h3. The following questions are open:
 
-* How is the buffer for received packets structured?
-** A single linked list per orig might be slow to traverse in the search for fragments from a specific set.
-** A hashtable is fast but big.
-** Fragments should be stored in order to ease the merging.
-** Read-Black Trees could also be used. 
-* Do we want the new fragmentation features to be optional at compiletime?
 
 h3. Header structure:
 
