@@ -26,6 +26,7 @@ h3. To Do List
 * Set and use the ttvn field
 * Test with packet loss and reordering
 * Clean up timed out packets
+* Add locking to fragment buffers
 
 h3. Header structure:
 
