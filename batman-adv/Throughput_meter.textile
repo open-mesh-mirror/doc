@@ -19,18 +19,16 @@ The project aims to create a kernel-space tool that measures the throughput betw
 
 h2. TODO
 
-
-** initialize data structure on receiver side
-** account for the received size
-* react to the ack reception
-* -can use __be16 seq of icmp_packet instead of a uint32_t offset ?? Are 16 bit of sequence number enought? 1500*2^16=93MB (seq can also wraparound??)- *Yes to both* use seq and consider wrapping 
+* react to the ack reception : *kernel panic with cancel_delayed_work_sync* !!
 * check bw_meter_start concurrent access to bat_priv
 * create a list for bw_meter_vars or store it in origin_node? [anyway currently there is just one for everybody, so only one test at a time. To be fixed]
-* do the receiver ???
 * sometimes packets are not received
 * check for the list lock
 * keep a counter for the number of retransmission of the same window
+* account for the received size
 
+* -initialize data structure on receiver side- used the same of the sender
+* -can use __be16 seq of icmp_packet instead of a uint32_t offset ?? Are 16 bit of sequence number enought? 1500*2^16=93MB (seq can also wraparound??)- *Yes to both* use seq and consider wrapping 
 * -return the exit status in auxiliary functions-
 * -generate the ack-
 * -timeout {delayed work};-
