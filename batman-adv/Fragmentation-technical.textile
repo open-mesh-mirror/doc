@@ -22,7 +22,7 @@ h3. To Do List
 * -Limit number of packets in a list of fragments (max 16)-
 * Add final destination to fragment_packet
 * Check if the packet should be forwarded without merging
-* Add comments before I forget the tricks!
+* -Add comments before I forget the tricks!-
 * Set and use the ttvn field
 * Test with packet loss and reordering
 * -Clean up timed out packets-
