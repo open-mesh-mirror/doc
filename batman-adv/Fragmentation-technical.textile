@@ -28,6 +28,7 @@ h3. To Do List
 * -Clean up timed out packets-
 * Add locking to fragment buffers
 * Handle "echo packets"
+* Delete existing fragmentation code. (And decide where to put batadv_unicast_send_skb() )
 
 h3. Header structure:
 
