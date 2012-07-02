@@ -26,7 +26,9 @@ h2. TODO
 * account for the received size (check last pkg).
 * keep track of already received packets
 * use msg-type to understand bw_meter is called
-* use bitarray to implement sliding window
+* use bitarray to implement sliding window: doubts: 
+** in the sender why do I need a bitmap? I am currently only using three variables.
+** in the receiver is it suitable? It seems that window is shifted for every *"valid"* packet that is received (i.e. packets that belongs to the window), even if the window has holes, which is ok for cumulative acknowledgment or similar, but not for packets received. Am I right?
 
 * -sometimes packets are not received- seems solved
 * -react to the ack reception : *kernel panic with cancel_delayed_work_sync* !!- implemented with worker, so never remove a work from queue
