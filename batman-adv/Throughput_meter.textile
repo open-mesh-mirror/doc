@@ -26,6 +26,7 @@ h2. TODO
 * account for the received size (check last pkg).
 * keep track of already received packets
 * use msg-type to understand bw_meter is called
+* use bitarray to implement sliding window
 
 * -sometimes packets are not received- seems solved
 * -react to the ack reception : *kernel panic with cancel_delayed_work_sync* !!- implemented with worker, so never remove a work from queue
