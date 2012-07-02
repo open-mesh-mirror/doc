@@ -29,7 +29,7 @@ h3. To Do List
 * Add locking to fragment buffers
 * -Handle "echo packets"-
 * Delete existing fragmentation code. (And decide where to put batadv_unicast_send_skb() )
-* Unify all routed packets to use the unicast packet header?
+* Change batadv_send_skb_packet() to find the next hop
 
 h3. Header structure:
 
