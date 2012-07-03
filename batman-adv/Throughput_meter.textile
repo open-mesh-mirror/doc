@@ -23,7 +23,6 @@ h2. TODO
 * concurrent access: check bw_meter_start concurrent access to bat_priv
 * create a list for bw_meter_vars or store it in origin_node? A list in bat_priv should be enought, since not many test would be run concurrently.
 * keep a counter for the number of retransmission of the same window
-* account for the received size (check last pkg).
 * keep track of already received packets
 * use the msg-type and not the header size to distinguish between bw_meter and other icmp packets
 * furthemore, wsize is not used by now, and it's the only differnece between icmp_packet and icmp_packet_bw. Does it make sense to maintain a different header? If we remove, what about new features that must be introduced (e.i. sender/receiver choice)?
@@ -31,6 +30,7 @@ h2. TODO
 ** in the sender why do I need a bitmap? I am currently only using three variables.
 ** in the receiver is it suitable? It seems that window is shifted for every *"valid"* packet that is received (i.e. packets that belongs to the window), even if the window has holes, which is ok for cumulative acknowledgment or similar, but not for packets received. Am I right?
 
+* -account for the received size (check last pkg).-
 * -sometimes packets are not received- seems solved
 * -react to the ack reception : *kernel panic with cancel_delayed_work_sync* !!- implemented with worker, so never remove a work from queue
 * -initialize data structure on receiver side- used the same of the sender
