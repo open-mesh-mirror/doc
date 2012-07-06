@@ -136,11 +136,11 @@ The time to wait should be greater than sender's timeout + RTT: if the last ACK 
 h2. CONCURRENT ACCESS
 
 Two data structures are shared:
-* struct list_head bw_list; a list of struct bw_vars, part of bat_priv;
-* structures bw_vars, bw_list elements and "connection" specific: one bw_vars exists for each source or destination;
+* struct list_head bw_list, part of bat_priv;
+* structure bw_vars, bw_list elements and "connection" specific: one bw_vars exists for each source or destination;
 
 Every time a packet is received, wether of type BW_METER or BW_ACK, the bw_vars struct associated with the connection is searched. If the packet initiates a new connection, the structure must be allocated. List searches and modifications are protected with a spinlock, bw_list_lock, that is declared in bat_priv.
-The protection of struc bw_vars is a bit more complex, and it differs in the sender and in the receiver.
+The protection of struc bw_vars is more complex and differs in the sender and in the receiver.
 
 h3. The Sender
 
@@ -148,7 +148,7 @@ The sender accesses the struc bw_vars in two points in the code:
 * upon an ACK reception, in the function batadv_bw_ack_received: ACK's seqno is compared with window_first and if the ack is valid, window_first is increased.
 * in the function send_remaining_window() next_to_send is read and wrote, window_first is read.
 
-ACK's handler execute atomically, using a spinlock declared in bw_vars as bw_ack_lock.
+ACK's handler executes atomically, using a spinlock declared in bw_vars as bw_ack_lock.
 
 The function send_remaining_window(), in a similar fashion, is protected with bw_send_lock, also decleared in bw_vars struct.
 No two send_remaining_window() should be running at the same time.
