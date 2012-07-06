@@ -17,6 +17,14 @@ The project aims to create a kernel-space tool that measures the throughput betw
 ** How do we ensure that the last packet/magic packets were not transmitted out of order
 ** how does the remote node gets informed that test finished even when *many* packets are dropped
 
+The test is started through batctl:
+
+<pre>
+batctl bw <MAC ADDRESS>
+</pre>
+
+when the test is over the throughput is returned.
+
 h2. TODO
 
 * keep a counter for the number of retransmission of the same window
@@ -25,7 +33,7 @@ h2. TODO
 * furthemore, wsize is not used by now, and it's the only differnece between icmp_packet and icmp_packet_bw. Does it make sense to maintain a different header? If we remove, what about new features that must be introduced (e.i. sender/receiver choice)?
 * use bitarray to implement sliding window: doubts: 
 ** in the sender why do I need a bitmap? I am currently only using three variables.
-** in the receiver is it suitable? It seems that window is shifted for every *"valid"* packet that is received (i.e. packets that belongs to the window), even if the window has holes, which is ok for cumulative acknowledgment or similar, but not for packets received. Am I right?
+** in the receiver is it suitable? It seems that window is shifted for every *"valid"* packet that is received (i.e. packets that belongs to the window), even if the window has holes, which is ok for cumulative acknowledgment or similar, but not for packets received.
 * test protocol for deadlock situations ("spin":http://spinroot.com/spin/whatispin.html)
 * sockets usually use sk_*_timer functions to manage the timers, wait_event_interruptible for the wait and wake_up_interruptible to wake up the waiting timers and wait_event_interruptible_timeout is the thing to get waked up
 * what is a reasonable window size? See window size at the bottom of the page
