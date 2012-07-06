@@ -142,8 +142,24 @@ Two data structures are shared:
 Every time a packet is received, wether of type BW_METER or BW_ACK, the bw_vars struct associated with the connection is searched. If the packet initiates a new connection, the structure must be allocated. List searches and modifications are protected with a spinlock, bw_list_lock, that is declared in bat_priv.
 The protection of struc bw_vars is a bit more complex, and it differs in the sender and in the receiver.
 
-h3.The Sender
+h3. The Sender
 
+The sender accesses the struc bw_vars in two points in the code:
+* upon an ACK reception, in the function batadv_bw_ack_received: ACK's seqno is compared with window_first and if the ack is valid, window_first is increased.
+* in the function send_remaining_window() next_to_send is read and wrote, window_first is read.
+
+ACK's handler execute atomically, using a spinlock declared in bw_vars as bw_ack_lock.
+
+The function send_remaining_window(), in a similar fashion, is protected with bw_send_lock, also decleared in bw_vars struct.
+No two send_remaining_window() should be running at the same time.
+
+At the end of the ack's handler _batadv_bw_ack_received()_, a call to _send_remaining_window()_ is made: because the window slit, it should be possible to send new packets. But if the function is already running, it is useless to re-call it and it may lead to packet re-transmission. The value window_first, which determines the window slide, is never modified in the function _send_remaining_window_, so it should be possible to update it only (maybe an atomic value is safer??).
+
+The solution with a single spinlock for both ack and send has been discarded: if the window is too big, while still sending packets the first acks arrives, but cannot be processed. This leads to acks starvarion and possibly to packet-retransmission.
+
+h3. The Receiver
+
+The receiver uses a single spinlock to protect the bw_vars structure: the only operation is indeed to increase the variable window_first and send an ack. This should not take much time since the ack is then send outside of the cs. Concurrent access occurs only if while processing an ack another one is received, which should be prevented by the use of the lock.
 
 h2. Window Size
 
