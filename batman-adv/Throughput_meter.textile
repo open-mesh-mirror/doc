@@ -28,6 +28,7 @@ h2. TODO
 ** in the receiver is it suitable? It seems that window is shifted for every *"valid"* packet that is received (i.e. packets that belongs to the window), even if the window has holes, which is ok for cumulative acknowledgment or similar, but not for packets received. Am I right?
 * test protocol for deadlock situations ("spin":http://spinroot.com/spin/whatispin.html)
 * sockets usually use sk_*_timer functions to manage the timers, wait_event_interruptible for the wait and wake_up_interruptible to wake up the waiting timers and wait_event_interruptible_timeout is the thing to get waked up
+* what is a reasonable window size? See window size at the bottom of the page
 
 * -create a list for bw_meter_vars or store it in origin_node? A list in bat_priv should be enought, since not many test would be run concurrently.- *list in bat_priv*
 * -concurrent access: check bw_meter_start concurrent access to bat_priv-
@@ -132,11 +133,11 @@ When a packet that is not full (its full size is different from that of the othe
 The time to wait should be greater than sender's timeout + RTT: if the last ACK is lost, the sender should re-send all the missing packets of the last window after the timeout expires. For each packet that is received, receiver will be send back an ACK, all with the same sequence number (i.e. the last sequence number expected).
 
 h2. Window Size
+
 Window size is an upper bound for throughput. At most a window is sent every RTT. But every time a packet is lost, the whole window is retransmitted!
 With packet size 1500 bytes, RTT 100ms the maximum throughtput is:
 
-100: 1500000 ~ 1.5 MB/s
-200: 3MB/s
+WINDOW_SIZE 100: 1500000 ~ 1.5 MB/s
 
 h2. Documentation
 
