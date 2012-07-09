@@ -213,23 +213,23 @@ TODO
 
 h2. MidTerm 
 
-#output of the make command on the commit messaged: : http://pastebin.com/iRGWgtmn
-#output of checkpatch.pl --strict --no-tree -file batman-adv/*.c: complaints only about an over 80 chars line (see questions)
+# output of the make command on the commit messaged: : http://pastebin.com/iRGWgtmn
+# output of checkpatch.pl --strict --no-tree -file batman-adv/*.c: complaints only about an over 80 chars line (see questions)
 the same for *.h (same function definition)
-#I modified the test_comments function a bit to print the ouput to files, checkComments.sh: http://pastebin.com/NcQ9NFJf 
+# I modified the test_comments function a bit to print the ouput to files, checkComments.sh: http://pastebin.com/NcQ9NFJf 
 the log* files are empty when run with the latest style commit
-#test_brackets.sh: a script that iterates over all the .c and .h files in the build-dir and for each calls  bracket_align.py 
+# test_brackets.sh: a script that iterates over all the .c and .h files in the build-dir and for each calls  bracket_align.py 
 it came clean
 
 h2. Questions
 
-#)The find_unused symbols prints all of my function names but how can i know which symbol is the unused one?
-#)How can i split 
+# ) The find_unused symbols prints all of my function names but how can i know which symbol is the unused one?
+# ) How can i split 
 <pre>
 struct batadv_tvlv_handler_node *tvlv_get_handler(struct batadv_priv *bat_priv, uint8_t type) 
 </pre>
-#)Is there somewhere any rules for function names? (find_wrong_namespace.sh returns all of my functions' names)
-#)I cloned git://git.open-mesh.org/build_test.git but it didnt bring the sparse, cppcheck folders its 6 am  and i'm probably doing something wrong but please enlighten me
+# ) Is there somewhere any rules for function names? (find_wrong_namespace.sh returns all of my functions' names)
+# ) I cloned git://git.open-mesh.org/build_test.git but it didnt bring the sparse, cppcheck folders its 6 am  and i'm probably doing something wrong but please enlighten me
 
 
 
