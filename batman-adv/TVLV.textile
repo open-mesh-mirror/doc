@@ -222,10 +222,13 @@ the log* files are empty when run with the latest style commit
 it came clean
 
 h2. Questions: 
-1)The find_unused symbols prints all of my function names but how can i know which symbol is the unused one?
-2)How can i split struct batadv_tvlv_handler_node *tvlv_get_handler(struct batadv_priv *bat_priv, uint8_t type) ?
-3)Is there somewhere the description of the function names? (find_wrong_namespace.sh returns all of my functions)
-4)i cloned the git://git.open-mesh.org/build_test.git but it didnt bring the sparse, cppcheck folders its 6 am  and i'm probably doing something wrong but please enlighten me
+#)The find_unused symbols prints all of my function names but how can i know which symbol is the unused one?
+#)How can i split 
+<pre>
+struct batadv_tvlv_handler_node *tvlv_get_handler(struct batadv_priv *bat_priv, uint8_t type) ?
+</pre>
+#)Is there somewhere the description of the function names? (find_wrong_namespace.sh returns all of my functions)
+#)i cloned the git://git.open-mesh.org/build_test.git but it didnt bring the sparse, cppcheck folders its 6 am  and i'm probably doing something wrong but please enlighten me
 
 
 
