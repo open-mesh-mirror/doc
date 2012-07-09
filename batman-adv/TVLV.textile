@@ -218,7 +218,7 @@ Future Tasks:
 
 h2. MidTerm 
 
-# output of the make command on the commit messaged: : http://pastebin.com/iRGWgtmn
+# output of the make command on the commit messaged: "no warnings commit": http://pastebin.com/iRGWgtmn
 # output of checkpatch.pl --strict --no-tree -file batman-adv/*.c: complaints only about an over 80 chars line (see questions)
 the same for *.h (same function definition)
 # I modified the test_comments function a bit to print the ouput to files, checkComments.sh: http://pastebin.com/NcQ9NFJf 
