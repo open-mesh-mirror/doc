@@ -211,12 +211,30 @@ TODO
 
 
 
+MidTerm 
+
+# output of the make command on the commit messaged: : http://pastebin.com/iRGWgtmn
+# output of checkpatch.pl --strict --no-tree -file batman-adv/*.c: complaints only about an over 80 chars line (see questions)
+the same for *.h (same function definition)
+# I modified the test_comments function a bit to print the ouput to files, checkComments.sh: http://pastebin.com/NcQ9NFJf 
+the log* files are empty when run with the latest style commit
+# test_brackets.sh: a script that iterates over all the .c and .h files in the build-dir and for each calls  bracket_align.py 
+it came clean
+
+Questions: 
+1)The find_unused symbols prints all of my function names but how can i know which symbol is the unused one?
+2)How can i split struct batadv_tvlv_handler_node *tvlv_get_handler(struct batadv_priv *bat_priv, uint8_t type) ?
+3)Is there somewhere the description of the function names? (find_wrong_namespace.sh returns all of my functions)
+4)i cloned the git://git.open-mesh.org/build_test.git but it didnt bring the sparse, cppcheck folders its 6 am  and i'm probably doing something wrong but please enlighten me
+
+
+
 Reserved for arbitrary comments, communication with mentors
 /*	*No more warnings						-- done
  *
  * 	*Tvlv handler list 						--done
  * 	*The Gateway callback should call batadv_gw_node_update()	--done
- * 	*Remove it from bat_iv_ogm.c and use it in the gateway callback	--wont do works with my way and does not brake anything (?)
+ * 	*Remove it from bat_iv_ogm.c and use it in the gateway callback	--done p.s. i'm an idiot
  *	*Add this to sysfs.c -> batadv_store_gw_mode() 			--done
 
 	if (atomic_read(&bat_priv->gw_mode) == gw_mode_tmp)
@@ -237,22 +255,27 @@ Reserved for arbitrary comments, communication with mentors
 		break;
 	}
 
- *   *Fix identation
- *   *Reduce easily reducable patches
- *
- *   *Replace memcpy((char *)tvlv+sizeof(struct shortTvlv),		--done
- *    		      value, length*sizeof(uint8_t));
+   *Fix identation                                                                                --done
+   *Reduce easily reducable patches
+
+   *Replace memcpy((char *)tvlv+sizeof(struct shortTvlv),		--done
+    		      value, length*sizeof(uint8_t));
 	with  memcpy(tvlv + 1, value, length*sizeof(uint8_t));			
 	or memcpy(tvlv + 1, value, length);				not applicable sizeof(uint8_t) is there as a reminder that we should care about longTvlvs in the future
-*
-* 	*batctl gwl							
+
+	*batctl gwl							
 		batadv_gw_node_update() ->  batctl gwl
 		disable aggregation
 		batctl ag 0
-*       *fix merge conflicts						--done(?)
-* 
-	*make bat_priv first argument					--done
-	*
+       *fix merge conflicts						--done(?)
+ 
+       *make bat_priv first argument					--done
+
 	* there is a bug, when I sent tvlvs the tvlv process is called for some reason even if the other node does not sent anything
 
- *   **/
+ *   444:/*just register the gateway handler for now
+ *  and call the function in the general handler init*/
+*   594:/*use batadv_tt_append_diff for reference
+batadv_tt_changes_fill_buff*/
+
+*/
