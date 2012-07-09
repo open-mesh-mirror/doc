@@ -228,11 +228,11 @@ it came clean
 
 h2. Questions
 
-# ) The find_unused symbols prints all of my function names but how can i know which symbol is the unused one?
-# ) How can i split 
+#  The find_unused symbols prints all of my function names but how can i know which symbol is the unused one?
+#  How can i split 
 <pre>
 struct batadv_tvlv_handler_node *tvlv_get_handler(struct batadv_priv *bat_priv, uint8_t type) 
 </pre>
-# ) Is there somewhere any rules for function names? (find_wrong_namespace.sh returns all of my functions' names)
-# ) I cloned git://git.open-mesh.org/build_test.git but it didnt bring the sparse, cppcheck folders its 6 am  and i'm probably doing something wrong but please enlighten me
+#  Is there somewhere any rules for function names? (find_wrong_namespace.sh returns all of my functions' names)
+# I cloned git://git.open-mesh.org/build_test.git but it didnt bring the sparse, cppcheck folders its 6 am  and i'm probably doing something wrong but please enlighten me
 
