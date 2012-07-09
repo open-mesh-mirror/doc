@@ -211,7 +211,7 @@ TODO
 
 
 
-h1. MidTerm 
+h2. MidTerm 
 
 #output of the make command on the commit messaged: : http://pastebin.com/iRGWgtmn
 #output of checkpatch.pl --strict --no-tree -file batman-adv/*.c: complaints only about an over 80 chars line (see questions)
@@ -221,7 +221,7 @@ the log* files are empty when run with the latest style commit
 #test_brackets.sh: a script that iterates over all the .c and .h files in the build-dir and for each calls  bracket_align.py 
 it came clean
 
-h1. Questions: 
+h2. Questions: 
 1)The find_unused symbols prints all of my function names but how can i know which symbol is the unused one?
 2)How can i split struct batadv_tvlv_handler_node *tvlv_get_handler(struct batadv_priv *bat_priv, uint8_t type) ?
 3)Is there somewhere the description of the function names? (find_wrong_namespace.sh returns all of my functions)
@@ -229,13 +229,15 @@ h1. Questions:
 
 
 
-h2. *Reserved for arbitrary comments, communication with mentors*
-/*	*No more warnings						-- done
- *
- * 	*Tvlv handler list 						--done
- * 	*The Gateway callback should call batadv_gw_node_update()	--done
- * 	*Remove it from bat_iv_ogm.c and use it in the gateway callback	--done p.s. i'm an idiot
- *	*Add this to sysfs.c -> batadv_store_gw_mode() 			--done
+h2. Reserved for arbitrary comments, communication with mentors
+
+
+	*No more warnings						-- done
+
+  	*Tvlv handler list 						--done
+ 	*The Gateway callback should call batadv_gw_node_update()	--done
+ 	*Remove it from bat_iv_ogm.c and use it in the gateway callback	--done p.s. i'm an idiot
+	*Add this to sysfs.c -> batadv_store_gw_mode() 			--done
 
 	if (atomic_read(&bat_priv->gw_mode) == gw_mode_tmp)
 		return count;
