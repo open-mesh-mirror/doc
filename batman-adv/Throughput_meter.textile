@@ -37,6 +37,9 @@ h2. TODO
 * test protocol for deadlock situations ("spin":http://spinroot.com/spin/whatispin.html)
 * sockets usually use sk_*_timer functions to manage the timers, wait_event_interruptible for the wait and wake_up_interruptible to wake up the waiting timers and wait_event_interruptible_timeout is the thing to get waked up
 * what is a reasonable window size? See window size at the bottom of the page
+* enable lockdep in the test kernel
+* No strange locking; http://rswiki.csie.org/lxr/http/source/arch/x86/kernel/cpu/mtrr/generic.c?v=linux-2.6.33#L582
+
 
 * -create a list for bw_meter_vars or store it in origin_node? A list in bat_priv should be enought, since not many test would be run concurrently.- *list in bat_priv*
 * -concurrent access: check bw_meter_start concurrent access to bat_priv-
