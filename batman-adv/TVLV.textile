@@ -186,7 +186,8 @@ h3. Multicast capability (TODO => Simon / Edo)
 
 TODO
 
-   Currently Doing:
+Currently Doing:
+
 * Building an emulated testing environment and familiriasing myself with the tools needed. -- Done (somewhat, stays on the currently doing list since its a constant work in progress)
 * first user: gateway settings                                                              -- done
 * apped all existing tvlvs from the list to the ogm                             --done
@@ -204,13 +205,13 @@ TODO
 *  Reduce easily reducable patches                                                     --w(h)ip  --schedule it for next week(?)
 *  fix merge conflicts                                                                            --w(h)ip  --schedule it for next week(?)
 
-  Future Tasks:
+Future Tasks:
   
  The order is roughly as follows:
- 1)Gateway packets (w.i.p.)
- 2)Dat packets
- 3)Vis
- 4)....to be decided
+* Gateway packets (w.i.p.)
+* Dat packets
+* Vis
+* ....to be decided
 
 
 
