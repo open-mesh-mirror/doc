@@ -268,7 +268,7 @@ Start early, never stop, familiriaze yourself with everything first, listen to t
 
 
 
-Todo after midterm
+h1. Todo after midterm
 
 * fix the warnings you see with "make C=2"
  
