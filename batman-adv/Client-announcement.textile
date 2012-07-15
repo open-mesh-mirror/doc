@@ -84,10 +84,17 @@ The ttvn field has also been added to the unicast packet header. A node sending 
 
 This behavior slightly helps in case of roaming: a client moved from a mesh node to another, but the source node doesn't know this change yet. Data is sent to the old node serving the client, but as soon as the packet reaches an updated node, it will be redirected to the new (possibly correct) destination.
 
+h2. Reducing client joining latency
+
+Upon connecting, a client has to wait to be announced to the rest of the mesh network before being able to communicate with any other host. The average delay introduced by this step varies depending on the originator interval value set on the node which serves the new client.
+
+To face this issue the TranslationTable component introduced a new feature called *SpeedyJoin*. This feature enables nodes in the network to add a temporary route towards not yet announced client but which they have already got a packet _broadcast_ from. The constraint of receiving a broadcast packet is due to the fact that this type is the only one (up to one) that contains the address of the source node, that is needed in order to add a new route towards the client. However, this is not a problem, because a newly joining client is likely to issue a DHCP or an ARP Request (usually to detect the gateway MAC address) upon connection.
+
+The new entry is added to the global TranslationTable and marked as _temporary_ with a special flag (BATADV_TT_CLIENT_TEMP) until a node claims it with the classic announcement mechanism. If none of the mesh node belonging to the mesh network will announce the temporary client, the latter will be deleted upon a timeout expiration set for the purpose.
+
 h2. Limitations
 
 * Too many local clients: If the number of local clients that connects to a node within one originator interval exceeds the limit of entries that fit into a single packet (1500 bytes) the exceeding clients won't be announced. This problem will be solved by the new fragmentation mechanism that will enable TT_Response to be fragmented.
-
 
 h2. Notes
 
