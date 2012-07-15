@@ -86,8 +86,7 @@ This behavior slightly helps in case of roaming: a client moved from a mesh node
 
 h2. Limitations
 
-* MAC conflict: in case of several nodes announcing the same client MAC address, the global table of each node will be continuously updated leading to a route flip (towards the client) on all nodes.
-* Too many local clients: If the number of local clients exceeds the limit of entries that fit into a single packet (1500 bytes) the exceeding clients won't be announced.
+* Too many local clients: If the number of local clients that connects to a node within one originator interval exceeds the limit of entries that fit into a single packet (1500 bytes) the exceeding clients won't be announced. This problem will be solved by the new fragmentation mechanism that will enable TT_Response to be fragmented.
 
 
 h2. Notes
