@@ -270,76 +270,96 @@ Start early, never stop, familiriaze yourself with everything first, listen to t
 
 h1. Todo after midterm
 
-* fix the warnings you see with "make C=2"
+I put here the todo list as it is after the mentors' remarks as well as my own todo's
+
+# fix the warnings you see with "make C=2"
  
 almost done (there are some warning about unused functions but these are the debug functions so they are used in the debug version )
  
-* constantly check with checkpatch.pl --script if the commit you are creating
+# -constantly check with checkpatch.pl --script if the commit you are creating
   are correctly formatted or not.
+
+<pre>
+./checkpatch.pl --strict --no-tree --ignore COMPLEX_MACRO --strict --file batman-adv/*.h|less
+./checkpatch.pl --strict --no-tree --ignore COMPLEX_MACRO --strict --file batman-adv/*.c|less
+ </pre>
+ the above comes empty
  
-* pay attention to the indentation (of parenthesis, parameters, whatever). This
-  is not only for coding style but also to let other people understand what you
-  wrote. If it is not indented it becomes much more difficult to read it. you
-  have several parenthesis "pasted" to the code on their left like: "blabla){"
-  it hould always be "blabla) {"
+# -pay attention to the indentation (of parenthesis, parameters, whatever).
+
+ I reviewed the code and fixed it
  
-* when you declare a new variable don't add a new line between it and the
+# -when you declare a new variable don't add a new line between it and the
   previous ones, but add a newline after it so to have a clear separation
   between variable declarations and the rest of the code.
- 
-* multiline comments should be of the form:
+
+
+
+# multiline comments should be of the form:
   /* blabla
    * lol
    */
   so you need a * at the beginning of each line and end with a */ only.
- 
-* pay attention to what you did during your last rebase :) you accidentally (or
-  intentionally :P) removed the last fix introduced by Simon for batadv_bla_rx()
+
+found one "illegal comment and fixed it"
+
+
+# -pay attention to what you did during your last rebase :) you accidentally removed the last fix introduced by Simon for batadv_bla_rx()
   and the is_bcast parameter.
  
 done http://pastebin.com/YfEPR6kU
  
-* look at the invocation of tvlv_register() in gateway_common.c: you do not need
+# -look at the invocation of tvlv_register() in gateway_common.c: you do not need
   to have a newline for each param, you need a new line only if adding another
   param would make the line longer than 80 chars. I saw you doing this several
   times in the code.
 
 sorry i thought it was cleaner that way (fixing it asap)
  
-* try to avoid adding or deleting blank line alone :) you will have to clean
+# try to avoid adding or deleting blank line alone :) you will have to clean
   your patches at the end, but it is useful to start now :)
 
-i have a commit where only a blank line changes?
-maybe i did something odd with git, anyway i'll fix it in the rebase
+i'll fix it in the rebase
  
-* what does this comment mean: /*Gateway tvlvs i need a bat_priv aware function
+# - what does this comment mean: /*Gateway tvlvs i need a bat_priv aware function
   for this */ ? (it is in main.c in batadv_recv_handler_init()). I thought you
   solved this problem.
 
 leftover comment, i removed it
  
-* at some point.....you'll have to convert all your pr_warn in batadv_dbg
+#  at some point.....you'll have to convert all your pr_warn in batadv_dbg
   statements :) I think it's easier if you start using it directly.
 
 
  
-* NEVER write code on the same line of a label like "end: return;". Label must
+# -NEVER write code on the same line of a label like "end: return;". Label must
   be alone
+
 ok, i think i fixed it everywhere
  
-* when you have operations like a+b it must be a + b. If the statement is too
+# - when you have operations like a+b it must be a + b. If the statement is too
   long because 'a' is something very long, try to use another var like:
   tmp = very_long_long_statement;
   tmp + b
 
-I'll fix it but I have one question
-but that takes more ram because the compiler has to allocate memory for tmp too, right?
-
  
-* when you define an enum, please add a coma also to the last element in the
+# -when you define an enum, please add a coma also to the last element in the
   list.
 
-is that a style remark or it has some programming logic?
- 
-* why do we still have this: BATADV_TVLV         = 0x09 ?
-leftover 
+#- why do we still have this: BATADV_TVLV         = 0x09 ?
+
+leftover,removed
+
+# -looking at this function tvlv_handler_unregister(), you should use kfree_rcu() instead of kfree()
+
+# -you still have a lot of sizeof(uint8_t) in your code - please remove them
+
+# -in main.c/tvlv_process(), you move the iterator outside of the loop.
+stupid mistake, fixed
+
+# -your tree does not seem to be rebased on master (again)?
+rebased, sorry
+
+# test the prototype with long lists of tvlvs and handler functions and also with weird tvlv values
+
+# ask someone to increase the wiki logout timeout (please?)
