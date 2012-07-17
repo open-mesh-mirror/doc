@@ -299,3 +299,8 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
 h3. Dont Forget The milk section:
 
 Build-Tests repo: git://git.open-mesh.org/build_test.git
+
+h2. For the next meeting
+
+* main.c : 678-692 (The if(tvlv) check ) I shouldnt under any circumastances get a null tvlv, right? So if I get one is it better to ignore it and try to move over to the next one or stop reading tvlvs there?
+
