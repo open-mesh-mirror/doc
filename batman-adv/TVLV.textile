@@ -259,7 +259,7 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
 
 >i'll fix it in the rebase
  
-9. - what does this comment mean: /*Gateway tvlvs i need a bat_priv aware function for this */ ? (it is in main.c in batadv_recv_handler_init()). I thought you  solved this problem.-
+9. -what does this comment mean: /*Gateway tvlvs i need a bat_priv aware function for this */ ? (it is in main.c in batadv_recv_handler_init()). I thought you  solved this problem-
 
 >leftover comment, i removed it
  
@@ -269,10 +269,10 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
 
 >ok, i think i fixed it everywhere
  
-12. - when you have operations like a+b it must be a + b. If the statement is too  long because 'a' is something very long, try to use another var like:  tmp = very_long_long_statement;  tmp + b-
+12. -when you have operations like a+b it must be a + b. If the statement is too  long because 'a' is something very long, try to use another var like:  tmp = very_long_long_statement;  tmp + b-
 
  
-13. -when you define an enum, please add a coma also to the last element in the list.-
+13. -when you define an enum, please add a coma also to the last element in the list-
 
 14.-why do we still have this: BATADV_TVLV= 0x09 ?-
 
