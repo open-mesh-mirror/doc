@@ -294,3 +294,8 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
 20. ask someone to increase the wiki logout timeout (please?)
 
 21. keep the wiki clean
+
+
+h3. Dont Forget The milk section:
+
+Build-Tests repo: git://git.open-mesh.org/build_test.git
