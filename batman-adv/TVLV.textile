@@ -296,7 +296,7 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
 21. keep the wiki clean
 
 22.  Have Two Patches one that introduces the tvlv concept and another that implements it for gw
-> created a new branch (tvlvTemp) and pushed two patches, I'm not sure they are the right patches though and I'd like another git quick lesson if that's possible
+> created a new branch (tvlvTemp) and pushed two patches, I'm not sure they are the right patches though and I'd like another git quick lesson on 3 way merge (what each file represents) and on git diff-ing if that's possible
  
 h3. Dont Forget The milk section:
 
