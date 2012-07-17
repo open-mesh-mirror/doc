@@ -274,7 +274,7 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
 
 1. fix the warnings you see with "make C=2"
 
-almost done (there are some warning about unused functions but these are the debug functions so they are used in the debug version )
+>almost done (there are some warning about unused functions but these are the debug functions so they are used in the debug version )
  
 2. -constantly check with checkpatch.pl --script if the commit you are creating are correctly formatted or not.-
 
@@ -282,11 +282,11 @@ almost done (there are some warning about unused functions but these are the deb
 ./checkpatch.pl --strict --no-tree --ignore COMPLEX_MACRO --strict --file batman-adv/*.h|less
 ./checkpatch.pl --strict --no-tree --ignore COMPLEX_MACRO --strict --file batman-adv/*.c|less
  </pre>
- the above comes empty
+>the above comes empty
  
 3. -pay attention to the indentation (of parenthesis, parameters, whatever).-
 
- I reviewed the code and fixed it
+>I reviewed the code and fixed it
  
 4. -when you declare a new variable don't add a new line between it and the  previous ones, but add a newline after it so to have a clear separation  between variable declarations and the rest of the code.-
 
@@ -296,30 +296,30 @@ almost done (there are some warning about unused functions but these are the deb
    * lol
    */
 </pre>
-  so you need a * at the beginning of each line and end with a */ only.-
+  -so you need a * at the beginning of each line and end with a */ only.-
 
-found one "illegal comment and fixed it"
+> found one "illegal comment and fixed it"
 
 
 6. -pay attention to what you did during your last rebase :) you accidentally removed the last fix introduced by Simon for batadv_bla_rx()  and the is_bcast parameter.-
  
-done(?) http://pastebin.com/YfEPR6kU
+>done(?) http://pastebin.com/YfEPR6kU
  
 7. -look at the invocation of tvlv_register() in gateway_common.c: you do not need  to have a newline for each param, you need a new line only if adding another  param would make the line longer than 80 chars. I saw you doing this several  times in the code.-
 
 8. - try to avoid adding or deleting blank line alone -
 
-i'll fix it in the rebase
+>i'll fix it in the rebase
  
 9. - what does this comment mean: /*Gateway tvlvs i need a bat_priv aware function for this */ ? (it is in main.c in batadv_recv_handler_init()). I thought you  solved this problem.-
 
-leftover comment, i removed it
+>leftover comment, i removed it
  
 10.  at some point.....you'll have to convert all your pr_warn in batadv_dbg
 
 11. -NEVER write code on the same line of a label like "end: return;". Label must be alone-
 
-ok, i think i fixed it everywhere
+>ok, i think i fixed it everywhere
  
 12. - when you have operations like a+b it must be a + b. If the statement is too  long because 'a' is something very long, try to use another var like:  tmp = very_long_long_statement;  tmp + b-
 
@@ -328,7 +328,7 @@ ok, i think i fixed it everywhere
 
 14.- why do we still have this: BATADV_TVLV         = 0x09 ?-
 
-leftover,removed
+>leftover,removed
 
 15.  -looking at this function tvlv_handler_unregister(), you should use kfree_rcu() instead of kfree()-
 
@@ -336,12 +336,14 @@ leftover,removed
 
 17 -in main.c/tvlv_process(), you move the iterator outside of the loop.-
 
-stupid mistake, fixed
+>stupid mistake, fixed
 
 18. -your tree does not seem to be rebased on master (again)?-
 
-rebased, sorry
+>rebased, sorry
 
 19. test the prototype with long lists of tvlvs and handler functions and also with weird tvlv values
 
 20. ask someone to increase the wiki logout timeout (please?)
+
+21. keep the wiki clean
