@@ -276,7 +276,7 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
 
 14.-why do we still have this: BATADV_TVLV= 0x09 ?-
 
->leftover,removed
+>leftover,removed (damn, I cant get it to appear on strikethrough)
 
 15.  -looking at this function tvlv_handler_unregister(), you should use kfree_rcu() instead of kfree()-
 
