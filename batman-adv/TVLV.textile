@@ -274,7 +274,7 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
  
 13. -when you define an enum, please add a coma also to the last element in the list.-
 
-14.-why do we still have this: BATADV_TVLV= 0x09 ? -
+14.-why do we still have this: BATADV_TVLV= 0x09 ?-
 
 >leftover,removed
 
