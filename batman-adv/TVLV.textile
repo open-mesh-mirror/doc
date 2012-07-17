@@ -291,48 +291,37 @@ almost done (there are some warning about unused functions but these are the deb
 4. -when you declare a new variable don't add a new line between it and the  previous ones, but add a newline after it so to have a clear separation  between variable declarations and the rest of the code.-
 
 
-5. -multiline comments should be of the form:
-  /* blabla
+5. -multiline comments should be of the form:  
+<pre> /* blabla
    * lol
    */
+</pre>
   so you need a * at the beginning of each line and end with a */ only.-
 
 found one "illegal comment and fixed it"
 
 
-6. -pay attention to what you did during your last rebase :) you accidentally removed the last fix introduced by Simon for batadv_bla_rx()
-  and the is_bcast parameter.-
+6. -pay attention to what you did during your last rebase :) you accidentally removed the last fix introduced by Simon for batadv_bla_rx()  and the is_bcast parameter.-
  
 done(?) http://pastebin.com/YfEPR6kU
  
-7. -look at the invocation of tvlv_register() in gateway_common.c: you do not need
-  to have a newline for each param, you need a new line only if adding another
-  param would make the line longer than 80 chars. I saw you doing this several
-  times in the code.-
+7. -look at the invocation of tvlv_register() in gateway_common.c: you do not need  to have a newline for each param, you need a new line only if adding another  param would make the line longer than 80 chars. I saw you doing this several  times in the code.-
 
 8. - try to avoid adding or deleting blank line alone -
 
 i'll fix it in the rebase
  
-9. - what does this comment mean: /*Gateway tvlvs i need a bat_priv aware function
-  for this */ ? (it is in main.c in batadv_recv_handler_init()). I thought you
-  solved this problem.-
+9. - what does this comment mean: /*Gateway tvlvs i need a bat_priv aware function for this */ ? (it is in main.c in batadv_recv_handler_init()). I thought you  solved this problem.-
 
 leftover comment, i removed it
  
 10.  at some point.....you'll have to convert all your pr_warn in batadv_dbg
 
-
-
- 
 11. -NEVER write code on the same line of a label like "end: return;". Label must be alone-
 
 ok, i think i fixed it everywhere
  
-12. - when you have operations like a+b it must be a + b. If the statement is too
-  long because 'a' is something very long, try to use another var like:
-  tmp = very_long_long_statement;
-  tmp + b-
+12. - when you have operations like a+b it must be a + b. If the statement is too  long because 'a' is something very long, try to use another var like:  tmp = very_long_long_statement;  tmp + b-
 
  
 13. -when you define an enum, please add a coma also to the last element in the list.-
