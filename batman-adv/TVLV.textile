@@ -255,7 +255,7 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
  
 7. -look at the invocation of tvlv_register() in gateway_common.c: you do not need  to have a newline for each param, you need a new line only if adding another  param would make the line longer than 80 chars. I saw you doing this several  times in the code.-
 
-8. - try to avoid adding or deleting blank line alone -
+8. -try to avoid adding or deleting blank line alone-
 
 >i'll fix it in the rebase
  
