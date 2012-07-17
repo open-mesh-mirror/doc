@@ -215,62 +215,10 @@ Future Tasks:
 
 
 
-
-h2. MidTerm 
-
-# output of the make command on the commit messaged: "no warnings commit": http://pastebin.com/iRGWgtmn
-# output of checkpatch.pl --strict --no-tree -file batman-adv/*.c: complaints only about an over 80 chars line (see questions)
-the same for *.h (same function definition)
-# I modified the test_comments function a bit to print the ouput to files, checkComments.sh: http://pastebin.com/NcQ9NFJf 
-the log* files are empty when run with the latest style commit
-# test_brackets.sh: a script that iterates over all the .c and .h files in the build-dir and for each calls  bracket_align.py 
-it came clean
-
-h2. Questions
-
-#  The find_unused symbols prints all of my function names but how can i know which symbol is the unused one?
-#  Is there somewhere any rules for function names? (find_wrong_namespace.sh returns all of my functions' names)
-# I cloned git://git.open-mesh.org/build_test.git but it didnt bring the sparse, cppcheck folders its 6 am  and i'm probably doing something wrong but please enlighten me
-
-
-h3. MidTerm Interview
-
-* The midterm of your GSoC project has been reached. Can you describe in a
- few sentences what you have achieved so far and which tasks remain for the
- second half of this GSoC ?
-
-So far I have made a working prototype for the project which sends the gateway announcement tvlv.
-Now I have to polish the existing code, do some bug-fixes (thank you for you remarks everyone) and finally include the right function calls in various places in the code so as tvlvs are part of the protocol.
-
-  * Looking at the past weeks what have been your greatest challenges and how
- did you master them ?
-
-I had some trouble making myself comfortable with the linux kernel coding style and learn how to interpret the kernel panic logs.
-
-  * What has been the most exciting experience relating to your GSoC project so
- far (e.g. mastering a technique, learning new approaches, successes, etc) ?
-
-Pretty much everything about gsoc has been exciting but if I have to pick just one aspect I choose the part that I'm working with others on a code-base written by them.
-
-  * Could the batman-adv organisation (website, community, mentors, individual
- supporters, etc) have done anything different to facilitate your life as GSoC
- student ? Was there something you considered too complicated or even scary ?
-
-
-No, the organisation has already provided more than enough for me.
-
-  * Do you have any advice, words of wisdom or valuable feedback you'd like to
- share with future batman-adv GSoC students (with regards to expectation,
- preparation and time consumption for example) ?
-
-Start early, never stop, familiriaze yourself with everything first, listen to the mentors.
-
-
-
-
 h1. Todo after midterm
 
 I put here the todo list as it is after the mentors' remarks as well as my own todo's
+0. -sent the freifunk interview-
 
 1. fix the warnings you see with "make C=2"
 
