@@ -213,8 +213,6 @@ Future Tasks:
 * Vis
 * ....to be decided
 
-
-
 h1. Todo after midterm
 
 I put here the todo list as it is after the mentors' remarks as well as my own todo's
@@ -240,9 +238,10 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
 
 
 5. -multiline comments should be of the form- 
-<pre> /* blabla
-   * lol
-   */
+<pre>
+/* blabla
+ * lol
+ */
 </pre>
   -so you need a * at the beginning of each line and end with a */ only-
 
