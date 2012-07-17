@@ -239,12 +239,12 @@ I put here the todo list as it is after the mentors' remarks as well as my own t
 4. -when you declare a new variable don't add a new line between it and the  previous ones, but add a newline after it so to have a clear separation  between variable declarations and the rest of the code.-
 
 
-5. -multiline comments should be of the form:  
+5. -multiline comments should be of the form- 
 <pre> /* blabla
    * lol
    */
 </pre>
-  -so you need a * at the beginning of each line and end with a */ only.-
+  -so you need a * at the beginning of each line and end with a */ only-
 
 > found one "illegal comment and fixed it"
 
