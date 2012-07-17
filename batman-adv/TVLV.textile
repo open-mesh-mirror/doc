@@ -303,4 +303,26 @@ Build-Tests repo: git://git.open-mesh.org/build_test.git
 h2. For the next meeting
 
 * main.c : 678-692 (The if(tvlv) check ) I shouldnt under any circumastances get a null tvlv, right? So if I get one is it better to ignore it and try to move over to the next one or stop reading tvlvs there?
+<pre>
+if (tvlv) {
+			handler = tvlv_get_handler(bat_priv,
+						   tvlv->type);
+			if (!handler)
+				goto end;
 
+			tmp = (char *)tvlv + sizeof(struct shortTvlv);
+			handler->handler(bat_priv, orig_node, tmp);
+		
+
+		tmpLen = tvlv->length;
+		iterator = (char *)iterator + tmpLen + sizeof(struct shortTvlv);
+
+		i += tmpLen + sizeof(struct shortTvlv);
+		}
+		else
+		i++;
+		/* if I get a null tvlv
+		 * does that mean that maybe there is a non null one afterwards?
+		 * and if yes do I have to read it? and if yes its offset
+		 * is sizeof(struct shortTvlv or just one null value?)*/
+</pre>
