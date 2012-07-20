@@ -10,9 +10,9 @@ The first step in an ARP dialogue is to issue a *broadcast* ARP request containi
 
 The mechanism is pretty simple and works well until the probability of losing packets in the network is low enough. For this reason Ethernet or wireless-infrastructured LAN can use such protocol as-is without getting in troubles. Unluckily it is not possible to state the same for a wireless mesh network, where the probability of losing a packet increase with the number of links that a packet has to traverse. In particular, this probability gets higher if the packet to send is a broadcast (this is due to the MAC layer limitations, which does not provide ARQ mechanism for this packet type) like the ARP Request. Assuming to be in a fairly sparse wireless mesh network, an ARP Request could get lost (and so retransmitted) several times before being able to find the correct destination, thus dramatically increasing the latency of establishing an IP flow.
 
-h2. A possible solution
+h2. Solving the problem using D.A.T.
 
-The idea behind D.A.T. is to reduce as much as possible the use of broadcast packets by replacing them with unicasts. In order to accomplish this task, D.A.T. uses part of the theory behind "DHTs (Distributed Hash Tables)":http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries so becoming able to later query a particular node in order to get the data which the requester is looking for. 
+The idea behind D.A.T. is to reduce as much as possible the use of broadcast packets by replacing them with unicasts. In order to accomplish this task, D.A.T. uses part of the theory behind "DHTs (Distributed Hash Tables)":http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries so becoming able to later query a particular node in order to get the data which the requester is looking for. In this way, before forwarding an ARP Request into the mesh network each node will first query D.A.T. and if and only if the answer does not come through the packet is broadcasted as usual. The result is an initial phase where the DHT gets populated by means of normal ARP Requests/Response and a second phase where all the entries are in the DHT already and no broadcast request is used anymore.
 
 h2. DHT basics
 
@@ -32,13 +32,13 @@ In this way, as soon as all the nodes shares the same vision of the ring, given 
 
 In the figure above, it is possible to see a DHT ring populated with some participants. At some point a generic node in the network wants to retrieve the content for the red object. The node computes the key of the latter and then identifies the 3 nodes that store the content (the green ones in the figure). Now the node looking for the object content can directly query the selected participants and retrieve the data.
 
-h2. How DAT merges ARP and the DHT
+h2. How D.A.T. merges ARP and the DHT
 
-Once the DHT concept has been introduced into B.A.T.M.A.N.-Advanced, the next step is to merge the ARP protocol and make D.A.T. born.
+Once the DHT concept has been introduced into B.A.T.M.A.N.-Advanced, the next step is to merge the ARP protocol and let D.A.T. born.
 
-D.A.T. actually exploits the DHT mechanism to store ARP entries of the form *[IP, MAC]*. The IP is used as input for the hash function as it is the always known part of the entry. In particular, whenever a node detect an ARP entries in the network (because of an ARP request/reply being sent/received by one of its clients) it simply activate the preiously explained mechanisn and stores the ARP data into the DHT.
+D.A.T. actually exploits the DHT mechanism to store ARP entries of the form *[IP, MAC]* (this object is shaped like a normal ARP entry). The IP is used as input for the hash function as it is the always known part of the entry. In particular, whenever a node detects an ARP entry in the network (because of an ARP request/reply being sent/received by one of its clients) it simply activate the preiously explained mechanisn and stores such entry into the DHT.
 
-Whenever a node wants to retrieve some data (e.g. due to an ARP request by its own client) it will directly use the DHT to retrieve the ARP tuple, and only if the DHT cannot provide the wanted data (e.g. the first time the data is requested) then the node fallbacks to the classic broadcast mechanism. As it is possible to understand, using the DHT will make the nodes avoid to use broadcast packets as much as possible and will make them instead rely on the unicast packets directly sent to the node storing the data in the DHT.
+Whenever a node wants to retrieve a MAC address (e.g. due to an ARP request issued a client of its own) it will directly use the DHT to retrieve the ARP entry, and only if the DHT cannot provide the wanted answer (e.g. this entry has never been seen in the network) then the node fallbacks to the classic broadcast mechanism. As it is possible to understand, using the DHT will make the nodes avoid to use broadcast packets as much as possible and will make them rely on unicast packets sent to the node storing the data in the DHT directly.
 
 h2. Technical details (To be refined)
 
