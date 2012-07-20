@@ -1,3 +1,5 @@
+
+
 h1. Distributed ARP Table
 
 D.A.T. (Distributed ARP Table) is a feature aimed to solve the unreliability problem of the "ARP":http://en.wikipedia.org/wiki/Address_Resolution_Protocol dialogue in sparse multi-hop wireless networks, where the experienced packet loss is not negligible.
