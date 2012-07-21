@@ -1,5 +1,4 @@
 
-
 h1. Distributed ARP Table
 
 D.A.T. (Distributed ARP Table) is a feature aimed to solve the unreliability problem of the "ARP":http://en.wikipedia.org/wiki/Address_Resolution_Protocol dialogue in sparse multi-hop wireless networks, where the experienced packet loss is not negligible.
@@ -16,7 +15,9 @@ h2. Solving the problem using D.A.T.
 
 The idea behind D.A.T. is to reduce as much as possible the use of broadcast packets by replacing them with unicasts. In order to accomplish this task, D.A.T. uses part of the theory behind "DHTs (Distributed Hash Tables)":http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries so becoming able to later query a particular node in order to get the data which the requester is looking for. In this way, before forwarding an ARP Request into the mesh network each node will first query D.A.T. and if and only if the answer does not come through the packet is broadcasted as usual. The result is an initial phase where the DHT gets populated by means of normal ARP Requests/Response and a second phase where all the entries are in the DHT already and no broadcast request is used anymore.
 
-h2. DHT basics
+h2. The Theory and the high-level mechanism
+
+h3. DHT basics
 
 The DHT which D.A.T. is based on is actually inspired by "CHORD":http://en.wikipedia.org/wiki/Chord_(peer-to-peer), which is one of the earliest Peer-to-Peer algorithm based on a DHT. B.A.T.M.A.N.-Advanced inherits the shape of the key space and the rule used to allocate objects onto participant nodes.
 
@@ -34,7 +35,7 @@ In this way, as soon as all the nodes shares the same vision of the ring, given 
 
 In the figure above, it is possible to see a DHT ring populated with some participants. At some point a generic node in the network wants to retrieve the content for the red object. The node computes the key of the latter and then identifies the 3 nodes that store the content (the green ones in the figure). Now the node looking for the object content can directly query the selected participants and retrieve the data.
 
-h2. How D.A.T. merges ARP and the DHT
+h3. How D.A.T. merges ARP and the DHT
 
 Once the DHT concept has been introduced into B.A.T.M.A.N.-Advanced, the next step is to merge the ARP protocol and let D.A.T. born.
 
@@ -42,7 +43,9 @@ D.A.T. actually exploits the DHT mechanism to store ARP entries of the form *[IP
 
 Whenever a node wants to retrieve a MAC address (e.g. due to an ARP request issued a client of its own) it will directly use the DHT to retrieve the ARP entry, and only if the DHT cannot provide the wanted answer (e.g. this entry has never been seen in the network) then the node fallbacks to the classic broadcast mechanism. As it is possible to understand, using the DHT will make the nodes avoid to use broadcast packets as much as possible and will make them rely on unicast packets sent to the node storing the data in the DHT directly.
 
-h2. Technical details (To be refined)
+h2. Technical details
+
+h3. Snooping mechanism
 
 The snooping mechanism is actually made up by 4 events, which trigger different actions.
 The 4 possibilities are the following:
@@ -56,3 +59,12 @@ The 4 possibilities are the following:
 * it is not: the request is delivered to the local soft interface (to the local clients)
 # _Incoming ARP Reply_: The packet is inspected, the node will save both the source and the destination entries in its local repository and then the message is delivered to the to the client, if the destination is part of the local known ones.
 # _Outgoing ARP Reply_: The packet is inspected, the node will save both the source and the destination entried in its local repository and then the message is sent to the DHT in order to populate it following the storing schema.
+
+
+h3. Debug
+
+To simplify debugging operations a new log level has been added other that the already existent ones: the *dat* log level. To enable it the user just need to type the already known command: 
+<pre>
+# batctl ll dat
+</pre>
+On this log level it is possible to see any DAT/ARP related operation, including ARP messages parsing, DHT messages sending (with candidate election mechanism)
