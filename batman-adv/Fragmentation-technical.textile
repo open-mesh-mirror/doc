@@ -31,6 +31,7 @@ h3. To Do List
 * Delete existing fragmentation code. (And decide where to put batadv_unicast_send_skb() )
 * -Change batadv_send_skb_packet() to find the next hop-
 * -Use hton() and ntoh()-
+* Add kernel doc comments.
 
 h3. Header structure:
 
