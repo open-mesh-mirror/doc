@@ -32,6 +32,7 @@ h3. To Do List
 * -Change batadv_send_skb_packet() to find the next hop-
 * -Use hton() and ntoh()-
 * Add kernel doc comments.
+* Decouple the "complete" list of fragments before merging.
 
 h3. Header structure:
 
