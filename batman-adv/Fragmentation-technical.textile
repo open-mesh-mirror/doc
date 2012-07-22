@@ -40,6 +40,8 @@ h3. Open Questions
    Scenario: "A(mtu: 1500) -> B(mtu: 1550) -> C(mtu: 1500) -> D(mtu: 1550)". In this case, A would fragment the packet and send it to B, who would merge it and send it to C, who would fragment it again. Is it feasible to not merge the packets at B and, if so, how should we tell B not to merge the packet?
 * How do we integrate fragments with translation tables?
    Scenario: Orig A fragments a unicast packet from a Client A and sends it towards Client B connected to Orig B. While the fragments travel the relays in the network, Client B roams to Orig C. Relays cannot redirect fragments to Orig C, because they don't know that the fragments carry a unicast packet to Client B.
+* How do we handle very-very-big-tt-tables™?
+  Scenario: When an originator serves a very-very-big-LAN™, the full table (and inital changeset) could be bigger than one MTU. The simple solution is to just create a big skb and let the fragmentation code chop it up. But if the skb is bigger than 16*(~)mtu, the fragmentation code will simply discard the packet.
 
 h3. Header structure:
 
