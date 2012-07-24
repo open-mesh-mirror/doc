@@ -84,6 +84,12 @@ if batctl bw is invoked from the command line, a function in kernel space get ca
 * -define the protocol, based on Go-Back-N-
 * -set up virtual machines for testbed: using two virtual machine with Debian and kernel 3.2.12 to test the modifications introduced in order to call the bandwidth meter through batctl; the two machines are attached to two tun interfaces bridged together.-
 
+h2. BUGLIST
+
+* receiver freezes after test completion
+
+* Sender keeps resending the whole window every 400 ms, even with perfect networks. Presumably it is a concurrency-related problem since it shows only on some kind of machines (not mine).
+
 h2. SPECIFICATION
 
 # the protocol will be a "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N: a fixed window, cumulative acknowledgment when a packet is received; this is intended as a rough approximation of the TCP behaviour;
