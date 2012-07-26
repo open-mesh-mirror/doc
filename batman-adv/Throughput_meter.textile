@@ -87,7 +87,7 @@ if batctl bw is invoked from the command line, a function in kernel space get ca
 
 h2. BUGLIST
 
-* receiver freezes after test completion
+* -receiver freezes after test completion- *last packet was sent twice!!*
 
 * Sender keeps resending the whole window every 400 ms, even with perfect networks. Presumably it is a concurrency-related problem since it shows only on some kind of machines (not mine).
 
