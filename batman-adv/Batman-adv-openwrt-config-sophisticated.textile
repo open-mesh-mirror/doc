@@ -66,21 +66,18 @@ set network.lan.ipaddr=$IP
 set network.lan.netmask=$NETMASK
 set network.lan.dns='$DNS'
 set network.lan.gateway=$GATEWAY
-set network.lan.ifname='wlan0 wlan0-1 eth0 bat0'
+set network.lan.ifname='eth0 bat0'
 set network.bat0=interface
 set network.bat0.ifname=bat0
 set network.bat0.proto=none
 set network.bat0.mtu=1500
 set network.mesh0=interface
-set network.mesh0.ifname=wlan0-2
 set network.mesh0.proto=none
 set network.mesh0.mtu=1528
 set network.mesh1=interface
-set network.mesh1.ifname=wlan1
 set network.mesh1.proto=none
 set network.mesh1.mtu=1528
 set network.mesh2=interface
-set network.mesh2.ifname=wlan2
 set network.mesh2.proto=none
 set network.mesh2.mtu=1528
 
@@ -91,14 +88,12 @@ set wireless.radio0.phy=phy0
 set wireless.radio0.macaddr=
 
 set wireless.radio1=wifi-device
-set wireless.radio1.beacon_int=58594
 set wireless.radio1.channel=$MESH1_CHANNEL
 set wireless.radio1.disabled=0
 set wireless.radio1.phy=phy1
 set wireless.radio1.macaddr=
 
 set wireless.radio2=wifi-device
-set wireless.radio2.beacon_int=58594
 set wireless.radio2.channel=$MESH2_CHANNEL
 set wireless.radio2.disabled=0
 set wireless.radio2.phy=phy2
@@ -115,6 +110,7 @@ add wireless wifi-iface
 set wireless.@wifi-iface[-1].device=radio0
 set wireless.@wifi-iface[-1].encryption=psk2
 set wireless.@wifi-iface[-1].key='$WPA_KEY'
+set wireless.@wifi-iface[-1].network=lan
 set wireless.@wifi-iface[-1].mode=ap
 set wireless.@wifi-iface[-1].ssid='$WPA_ESSID'
 
@@ -188,12 +184,7 @@ Just remove or comment out the corresponding section
 #set wireless.@wifi-iface[-1].device=radio0
 #set wireless.@wifi-iface[-1].encryption=psk2
 #set wireless.@wifi-iface[-1].key='$WPA_KEY'
+#set wireless.@wifi-iface[-1].network=lan
 #set wireless.@wifi-iface[-1].mode=ap
 #set wireless.@wifi-iface[-1].ssid='$WPA_ESSID'
-</pre>
-
-but take in mind that wlan0-X interfaces will change names (wlan0-2 becomes wlan0-1), so you must also update two more lines:
-<pre>
-set network.lan.ifname='wlan0 eth0 bat0'
-set network.mesh0.ifname=wlan0-1
 </pre>
