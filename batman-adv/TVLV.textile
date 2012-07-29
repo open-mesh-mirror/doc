@@ -1,9 +1,8 @@
 h1. BackwardsCompatibility
 
-Repository: http://git.open-mesh.org/?p=northpole/batman-adv.git
-branch:http://git.open-mesh.org/?p=northpole/batman-adv.git;a=shortlog;h=refs/heads/tvlvs
+h2 Branches
 
-
+* http://git.open-mesh.org/?p=batman-adv.git;a=shortlog;h=refs/heads/northpole/tvlv-clean
 
 Everything on this page is a suggestion and a work in progress therefore open to discussion and change.
 
