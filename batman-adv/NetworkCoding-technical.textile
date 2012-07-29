@@ -10,7 +10,7 @@ For more information about the concept, read the news item about [[open-mesh:201
 
 h2. Current State
 
-The current code is available in out "git repository":http://git.open-mesh.org/?p=hundeboll/catwoman.git (the "catwoman" branch) and supports the following features:
+The current code is available in out "git repository":http://git.open-mesh.org/?p=batman-adv.git;a=shortlog;h=refs/heads/hundeboll/catwoman (the "catwoman" branch) and supports the following features:
 * Discover coding neighbors (one-hop neighbors that overhear each other).
 * Code packets when both destinations has the information needed to decode.
 * Decode coded packets.
