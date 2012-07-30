@@ -94,12 +94,14 @@ h2. BUGLIST
 Sometimes RESEND WHOLE WINDOW is triggered even with perfect line (qemu emulation). 
 The function batadv_bw_worker should be called every 40 ms to check if the "timeout" has expired (400 ms has passed without sending something). The timeout is checked against the variable bw_vars->last_sent_time, which gets updated everytime a packet is sent out. With ordex we logged a behaviour of the type:
 
+<pre>
 CALL to batadv_bw_worker -> last_send_time: n
 CALL to batadv_bw_worker -> last_send_time: n
 CALL to batadv_bw_worker -> last_send_time: n
 CALL to batadv_bw_worker -> last_send_time: n
 CALL to batadv_bw_worker -> last_send_time: n
 RESEND WHOLE WINDOW
+</pre>
 
 So the worker's called few times in a row and at the end the whole window is resent. *this happens only with big window (i.e. > 1500 packets)*.
 
