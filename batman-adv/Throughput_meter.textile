@@ -130,7 +130,7 @@ K ms -> send packet ~1300
 ....
 K+400 ms -> worker called: last send time : K
 RESEND WHOLE WINDOW
-                                                                       *SENDING/ACKING AGAIN *
+                                             *SENDING/ACKING AGAIN *
 .......
 </pre>
 
