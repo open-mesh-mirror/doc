@@ -27,6 +27,7 @@ when the test is over the throughput is returned.
 
 h2. TODO
 
+* control receiver off-by-one problem (that was already solved) and that leads to receiver freeze
 * uid, introduce a receiver timeout to free structures if sender goes away
 * integrate into batctl
 * new branch with go-back-n
