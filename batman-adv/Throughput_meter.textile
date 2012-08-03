@@ -27,6 +27,16 @@ when the test is over the throughput is returned.
 
 h2. TODO
 
+* uid, introduce a receiver timeout to free structures if sender goes away
+* integrate into batctl
+* new branch with go-back-n
+* bitmap on receiver side
+* wrap-around
+* keep a counter for the number of retransmission of the same window
+* report
+* send to the mailing list
+* wiki page
+
 * keep a counter for the number of retransmission of the same window
 * keep track of already received packets
 * use the msg-type and not the header size to distinguish between bw_meter and other icmp packets
