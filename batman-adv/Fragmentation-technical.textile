@@ -26,13 +26,13 @@ h3. To Do List
 * -Set and use the ttvn field-
 * Test with packet loss and reordering
 * -Clean up timed out packets-
-* Add locking to fragment buffers
+* -Add locking to fragment buffers-
 * -Handle "echo packets"-
 * Delete existing fragmentation code. (And decide where to put batadv_unicast_send_skb() )
 * -Change batadv_send_skb_packet() to find the next hop-
 * -Use hton() and ntoh()-
 * -Add kernel doc comments.-
-* Decouple the "complete" list of fragments before merging.
+* -Decouple the "complete" list of fragments before merging.-
 
 h3. Open Questions
 
