@@ -33,6 +33,7 @@ h3. To Do List
 * -Use hton() and ntoh()-
 * -Add kernel doc comments.-
 * -Decouple the "complete" list of fragments before merging.-
+* Limit size of local translation table to be less than (min_mtu-frag_hdr-eth_hdr)*16*1400.
 
 h3. Open Questions
 
