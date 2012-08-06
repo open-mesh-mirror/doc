@@ -30,11 +30,12 @@ h2. TODO
 
 * bitmap on receiver side to keep track of already received packets
 * wrap-around safeness(see batadv_seq_after, batadv_seq_before)
+* keep a counter for the number of retransmission of the same window
+* hton/ntoh
+
 * report
 * send to the mailing list
 * wiki page
-* keep a counter for the number of retransmission of the same window
-* furthemore, wsize is not used by now, and it's the only differnece between icmp_packet and icmp_packet_bw. Does it make sense to maintain a different header? If we remove, what about new features that must be introduced (e.i. sender/receiver choice)?
 
 * test protocol for deadlock situations ("spin":http://spinroot.com/spin/whatispin.html)
 * enable lockdep in the test kernel
@@ -43,8 +44,8 @@ h2. TODO
 * what is a reasonable window size? See window size at the bottom of the page
 * add error handling in batpriv (look at ping and traceroute for examples);
 * the connection termination requires the receiver to wait a certain amount of time. A "three way" termination could speed up things. Is it a good idea?? *possible* uid, 
-* hton/ntoh
 
+* -wsize is not used by now, and it's the only differnece between icmp_packet and icmp_packet_bw. Does it make sense to maintain a different header? If we remove, what about new features that must be introduced (e.i. sender/receiver choice)? *No*-
 * -use the msg-type and not the header size to distinguish between bw_meter and other icmp packets-
 * -introduce a receiver timeout to free structures if sender goes away *1 sec inactivity*- 
 * -Should the experiment be interruptable? It is-
