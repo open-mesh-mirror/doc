@@ -40,6 +40,7 @@ h2. TODO
 * test protocol for deadlock situations ("spin":http://spinroot.com/spin/whatispin.html)
 * enable lockdep in the test kernel
 * No strange locking; http://rswiki.csie.org/lxr/http/source/arch/x86/kernel/cpu/mtrr/generic.c?v=linux-2.6.33#L582
+* Try to reduce locking (specially on receiver side)
 
 * what is a reasonable window size? See window size at the bottom of the page
 * add error handling in batpriv (look at ping and traceroute for examples);
