@@ -32,15 +32,20 @@ h2. Performance Comparison of BATMA Nd and BATMAN-adv
 
  * http://www.satnac.org.za/proceedings/2011/papers/Posters/250.pdf
 
+h2. An Experimental Comparison of Delivery Mechanisms in a Linear Topology
+
+* http://ki-it.or.kr/paper/paper_09_08/9%25EA%25B6%258C8%25ED%2598%25B8/An%2520Experimental%2520Comparison%2520of%2520Delivery%2520Mechanisms%2520in%2520a%2520Linear%2520Topology.pdf
+
 h2. more resources
 
 * find some more: http://scholar.google.com/scholar?start=20&q=BATMAN+OLSR&hl=en&as_sdt=2000
 
 h1. non-free papers
 
-need IEEE/ACM/Springer/etc accounts. Can anyone provide these papers?
 * http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6132772
 * http://www.springerlink.com/content/p802p6k186328706/
 * http://www.computer.org/portal/web/csdl/doi/10.1109/AINA.2009.28
 * http://portal.acm.org/citation.cfm?id=1719404
 * http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6093328
+* http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6115569
+* http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6115569
