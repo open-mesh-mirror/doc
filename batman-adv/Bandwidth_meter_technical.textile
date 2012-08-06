@@ -1,4 +1,40 @@
-h1. BANDWIDTH METER debug page
+h1. BANDWIDTH METER TECHNICAL and DEBUG PAGE
+
+h2. Window Size
+
+Window size is an upper bound for throughput. At most a window is sent every RTT. But every time a packet is lost, the whole window is retransmitted!
+With packet size 1500 bytes, RTT 100ms the maximum throughtput is:
+
+WINDOW_SIZE 100: 1500000 ~ 1.5 MB/s
+
+h2. CONCURRENT ACCESS
+
+Two data structures are shared:
+* struct list_head bw_list, part of bat_priv;
+* structure bw_vars, bw_list elements and "connection" specific: one bw_vars exists for each source or destination;
+
+Every time a packet is received, wether of type BW_METER or BW_ACK, the bw_vars struct associated with the connection is searched. If the packet initiates a new connection, the structure must be allocated. List searches and modifications are protected with a spinlock, bw_list_lock, that is declared in bat_priv.
+The protection of struc bw_vars is more complex and differs in the sender and in the receiver.
+
+h3. The Sender
+
+The sender accesses the struc bw_vars in two points in the code:
+* upon an ACK reception, in the function batadv_bw_ack_received: ACK's seqno is compared with window_first and if the ack is valid, window_first is increased.
+* in the function send_remaining_window() next_to_send is read and wrote, window_first is read.
+
+ACK's handler executes atomically, using a spinlock declared in bw_vars as bw_ack_lock.
+
+The function send_remaining_window(), in a similar fashion, is protected with bw_send_lock, also decleared in bw_vars struct.
+No two send_remaining_window() should be running at the same time.
+
+At the end of the ack's handler _batadv_bw_ack_received()_, a call to _send_remaining_window()_ is made: because the window slit, it should be possible to send new packets. But if the function is already running, it is useless to re-call it and it may lead to packet re-transmission. The value window_first, which determines the window slide, is never modified in the function _send_remaining_window_, so it should be possible to update it only (maybe an atomic value is safer??).
+
+The solution with a single spinlock for both ack and send has been discarded: if the window is too big, while still sending packets the first acks arrives, but cannot be processed. This leads to acks starvarion and possibly to packet-retransmission.
+
+h3. The Receiver
+
+The receiver uses a single spinlock to protect the bw_vars structure: the only operation is indeed to increase the variable window_first and send an ack. This should not take much time since the ack is then send outside of the cs. Concurrent access occurs only if while processing an ack another one is received, which should be prevented by the use of the lock.
+
 
 h2. BUGLIST
 
@@ -52,3 +88,11 @@ RESEND WHOLE WINDOW
 </pre>
 
 The nodes go on like this until all packets have been sent. The worker is never called while sending packets, not until 1300 packets have been sent. The reason is simple: the worker gets called when the protocol is stuck, as in PROBLEM 1. If the protocol is stuck, the worker is called every 40ms. It invokes multiple_send, but the function does nothing as the window has been fully sent (to module eyes...) and no new acks have been received. Two problems: why the packets are discarded (or does it make sense to use such a big window??) and *why* worker is not called before (note that worker execution can even be delayed for tens of seconds with smaller windows that don't cause the protocol to get stuck)?
+
+h2. Documentation
+
+ * "data alignment in the kernel":http://www.mjmwired.net/kernel/Documentation/unaligned-memory-access.txt
+
+ * "skb":http://vger.kernel.org/~davem/skb.html
+
+ * "DELAYED_WORK":http://www.ibm.com/developerworks/linux/library/l-tasklets/
