@@ -24,6 +24,13 @@ Introduction to WMMs and some implementations like AODV, OLSR, BATMAN ...
 
 * http://www.gsd.inesc-id.pt/~ler/reports/ricardopinto-midterm.pdf
 
+h2. Investigation into BATMANd-0.3. 2 Protocol performance in an indoor mesh potato testbed
+
+ * http://people.cs.uct.ac.za/~bfry/edwin/MyBib/2011-batmand.pdf
+
+h2. Performance Comparison of BATMA Nd and BATMAN-adv
+
+ * http://www.satnac.org.za/proceedings/2011/papers/Posters/250.pdf
 
 h2. more resources
 
@@ -33,6 +40,7 @@ h2. more resources
 h1. non-free papers
 
 need IEEE/ACM/Springer/etc accounts. Can anyone provide these papers?
+* http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6132772
 * http://www.springerlink.com/content/p802p6k186328706/
 * http://www.computer.org/portal/web/csdl/doi/10.1109/AINA.2009.28
 * http://portal.acm.org/citation.cfm?id=1719404
