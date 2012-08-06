@@ -1,6 +1,6 @@
 h1. Distributed ARP Table
 
-+This page is a work in progress. Sorry for beeing uncomplete+
++This page is a work in progress. Sorry for being uncomplete+
 
 DAT (Distributed ARP Table) is a network-wide ARP cache that helps the clients
 in getting ARP responses in a much more reliable way, in particular over sparse
@@ -11,26 +11,19 @@ mechanism and to increase the ARP dialogue reliability.
 
 h2. The idea
 
-The DAT core mechanism consists in storing the content of the ARP reply that
-travels over the network on a specific set of nodes, known to every other mesh
-participant. In this way, whenever a client issues an ARP request, the mesh node
-can intercept and forward it directly to the nodes belonging to the specific set
-where the corresponding reply is stored. Requests are sent in unicast and
-therefore the probability of losing the packet decreases with respect to the
-broadcast case.
+The DAT core mechanism consists in storing the content of all the ARP replies that travel over the network on a specific set of nodes. Given an IP address, the set containing its related ARP reply is known to every other mesh participant. In this way, whenever a client issues an ARP request, the mesh node can intercept and forward it directly to the nodes belonging to the specific set where the corresponding reply is stored. Requests are sent as unicast packets and therefore the probability of losing the packet decreases with respect to the common case.
 
 h2. Enable/Disable DAT
 
 DAT can be compiled in the final binary by means of the customizable Makefile
-option or can be left out to save binary space (on by default on the
-out-of-the-kernel-tree package).
+option or can be left out to save binary space (in the out-of-the-kernel-tree package DAT is built-in by default).
 
 h2. Inspecting the Local DAT table
 
-Since DAT is a network wide cache, each node stores a little piece of this the
-big table. To see whet the current node is currectly storing in the DAT local
-cache, it is possible to use the following command:
-$$ # batctl dat  $$
+Since DAT is a network wide cache, each node stores a little piece of this big table. To see what entries the node is currectly storing in the DAT local cache, it is possible to use the following command:
+<pre>
+# batctl dat
+</pre>
 
 Explain output
 
