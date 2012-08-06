@@ -29,12 +29,11 @@ h2. TODO
 
 
 * bitmap on receiver side to keep track of already received packets
-* wrap-around
+* wrap-around safeness(see batadv_seq_after, batadv_seq_before)
 * report
 * send to the mailing list
 * wiki page
 * keep a counter for the number of retransmission of the same window
-* use the msg-type and not the header size to distinguish between bw_meter and other icmp packets
 * furthemore, wsize is not used by now, and it's the only differnece between icmp_packet and icmp_packet_bw. Does it make sense to maintain a different header? If we remove, what about new features that must be introduced (e.i. sender/receiver choice)?
 
 * test protocol for deadlock situations ("spin":http://spinroot.com/spin/whatispin.html)
@@ -43,12 +42,12 @@ h2. TODO
 
 * what is a reasonable window size? See window size at the bottom of the page
 * add error handling in batpriv (look at ping and traceroute for examples);
-* not wrap around safe (see batadv_seq_after, batadv_seq_before)
 * the connection termination requires the receiver to wait a certain amount of time. A "three way" termination could speed up things. Is it a good idea?? *possible* uid, 
-* introduce a receiver timeout to free structures if sender goes away
 * hton/ntoh
-* Should the experiment be interruptable? *(Why it is not?)*
 
+* -use the msg-type and not the header size to distinguish between bw_meter and other icmp packets-
+* -introduce a receiver timeout to free structures if sender goes away *1 sec inactivity*- 
+* -Should the experiment be interruptable? It is-
 * -new branch with go-back-n- montik/gobackn
 * -control receiver off-by-one problem (that was already solved) and that leads to receiver freeze-
 * -integrate into batctl- *function* batadv_socket_receive_packet(), used to send packets to userspace through the socket, accepts batadv_icmp_packet_rr only. At the moment using casts to mask. Is it ok or is there a more suitable solution ? If structure passed (and according size) greater than that of icmp_packet_rr, kernel panic happens: http://bpaste.net/show/38333/,   http://bpaste.net/show/38334/. *No kernel panic with current implementation*
