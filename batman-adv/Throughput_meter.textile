@@ -35,6 +35,46 @@ Bandwidth meter called towards 00:00:00:00:00:01
 ^CTest aborted
 </pre>
 
+A general protocol description and a TODO list follow. For a discussion on technical elements and implementation see "technical and debug page":http://www.open-mesh.org/projects/batman-adv/wiki/GSOC2012_BW_debug
+
+h2. PROTOCOL 
+
+The protocol is a connection oriented, "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N protocol with fixed window and cumulative acknowledgment. Of the two end nodes, one is the sender and the other the receiver; their behaviour is described in the next sections.
+
+During all the test ICMP packets only are exchanged, so two fresh ICMP packet types are defined (BATADV_BW_METER, BATADV_BW_ACK). A node can participate in different tests at the same time, but with different nodes. This means that two or more tests cannot be performed at the same time between the same two nodes.
+
+Between two consecutive experiment runs at least one second should be waited, to assure connection is closed before its re-opening.
+
+h3. The sender
+
+The sender maintains, for each ongoing test, the following variables:
+
+# next_to_send: next packet in the window that is to be sent
+# window_first: sequence number (i.e. packet number) of the first packet of the current window (i.e. last acknowledged packetd)
+
+To begin the test, the sender sends BW_WINDOW_SIZE packets in a burst and starts a timeout, waiting for an ack. An ACK is an ICMP packet of type BATADV_BW_ACK that carries the sequence number of the last received packet *in order* (cumulative acknowledgment), meaning that all the packets up to that sequence number have been received. If the ACK for a packet is not received before the timeout expires, all the unacked packets in the window are re-transmitted. The sender ICMP packet has message type BW_METER.
+
+So BW_WINDOW_SIZE packets are sent, then the a timeout is started:
+
+* when the timeout expires, the whole window is transmitted again. This means BW_WINDOW_SIZE packets are transmitted, with sequence numbers starting from window_first, the last packet that has been acknowledged;
+* everytime an ack is received, the timer is updated. Update window_first to ack's "sequence number" and send from next_to_send to (window_first + BW_WINDOW_SIZE) new packets (with seqno starting from next_to_send). Every time a packet is sent, next_to_send is increased.
+
+h3. The receiver
+
+To begin the test, the receiver must receive the packet with seq 0: if another packet is received, the test is not considered started, no ack is sent back and no data structure is allocated on the receiver side. 
+
+If the packet number zero is received and no other bandwidth test is ongoing with the same node, the connection is consiered open.
+
+The receiver basically keeps a single variable, the beginning of the window:
+
+# window_first: the sequence number of the first packet of the window
+
+If a BW_METER packet is received on that connection, it's offset is checked: if it belongs to the window, shift window_first and send back an ack. Otherwise, just send back an ack to avoid protocol deadlock.
+
+When a packet that is not full (its full size is different from that of the others) is received *in order* the test is finished. Send a normal ack back with the sequence number of the short packet, wait a certain amount of time and "declare the test finished" (i.e. free variables and accept new test packets). 
+The time to wait should be greater than sender's timeout + RTT: if the last ACK is lost, the sender should re-send all the missing packets of the last window after the timeout expires. If no packet is received in 1 second, the receiver declares the connection closed and aborts the test.
+
+
 h2. TODO
 
 * bitmap on receiver side to keep track of already received packets
@@ -51,7 +91,7 @@ h2. TODO
 * No strange locking; http://rswiki.csie.org/lxr/http/source/arch/x86/kernel/cpu/mtrr/generic.c?v=linux-2.6.33#L582
 * Try to reduce locking (specially on receiver side)
 
-* what is a reasonable window size? See window size at the bottom of the page
+* what is a reasonable window size? See "window size":http://www.open-mesh.org/projects/batman-adv/wiki/GSOC2012_BW_debug/#Window-size
 * add error handling in batpriv (look at ping and traceroute for examples);
 * the connection termination requires the receiver to wait a certain amount of time. A "three way" termination could speed up things. Is it a good idea?? *possible* uid, 
 
@@ -101,104 +141,3 @@ if batctl bw is invoked from the command line, a function in kernel space get ca
 
 * -define the protocol, based on Go-Back-N-
 * -set up virtual machines for testbed: using two virtual machine with Debian and kernel 3.2.12 to test the modifications introduced in order to call the bandwidth meter through batctl; the two machines are attached to two tun interfaces bridged together.-
-
-
-h2. SPECIFICATION
-
-# the protocol will be a "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N: a fixed window, cumulative acknowledgment when a packet is received; this is intended as a rough approximation of the TCP behaviour;
-# The user specifies how much data the bandwidth meter is intended to send in the session; once the transmission is completed (i.e. all the data is received by the sender) the transmission time is reported. _Further details on time computation to be added_; It should allow:
-## Possibility to specify if the node is sender or receiver (data flow direction);
-## Possibility to add others operation modes later (e.g. "UDP" mode);
-## Integrated in the batman ICMP protocol; 
-## The test is initiated through batctl. The user specifies at least the destination, the amount of data to be sent, if it is sender or receiver.
-
-h2. PROTOCOL 
-
-The protocol is connection oriented. Of the two end nodes, one is the sender and the other the receiver; their behaviour is described in the next sections.
-
-During all the test ICMP packets only are exchanged, so two fresh ICMP packet types are defined in packet.h: 
-<pre>
- 47 enum icmp_packettype {
- ... ... ... ... ... ... .. .. .. ... ... ... ... ... ...
- 53         BW_METER                = 15,
- 54         BW_ACK                  = 16,
- 55 };
-</pre>
-
-In order to provide an easier protocol to implement, Go-Back-N is used, with a static window. The window is made of BW_WINDOW_SIZE packets. At the moment the value is hardcoded, but in the future this could be specified by the user.
-
-h3. The sender
-
-The sender maintains, for each ongoing test, the following variables:
-
-# total_to_send: total amount of data to send;
-# next_to_send: next packet in the window that is to be sent
-# window_first: sequence number (i.e. packet number) of the first packet of the current window
-
-To begin the test, the sender sends BW_WINDOW_SIZE packets in a burst and starts a timeout, waiting for an ack. An ACK is an ICMP packet of type BW_ACK that carries the sequence number of the last received packet *in order* (cumulative acknowledgment), meaning that all the packets up to that sequence number have been received. If the ACK for a packet is not received before the timeout expires, all the unacked packets in the window are re-transmitted. Notice that there is no buffer, just the three variables that "emulates" it. 
-The sender ICMP packet has type BW_METER, a 32 bit packet number and a 32 bit window size.
-
-So BW_WINDOW_SIZE packets are sent, then the a timeout is started:
-
-* when the timeout expires, the whole window is transmitted again. This means BW_WINDOW_SIZE packets are transmitted, with sequence numbers starting from window_first;
-* if an ack is received, flush the timer. Update window_first to ack's "sequence number" and send from next_to_send to (window_first + BW_WINDOW_SIZE) new packets (with seqno starting from next_to_send). Every time a packet is sent, next_to_send is increased.
-
-h3. The receiver
-
-To begin the test, the receiver must receive the packet with seq 0: if another packet is received, the test is not considered started, no ack is sent back and no data structure is allocated on the receiver side. 
-
-If the packet number zero is received and no other bandwidth test is ongoing with the same node, the connection is consiered open.
-
-The receiver basically keeps a single variable, the beginning of the window:
-
-# window_first: the sequence number of the first packet of the window
-
-If a BW_METER packet is received on that connection, it's offset is checked: if it belongs to the window, shift window_first and send back an ack. Otherwise, just send back an ack to avoid protocol deadlock.
-
-When a packet that is not full (its full size is different from that of the others) is received *in order* the test is finished. Send a normal ack back with the sequence number of the short packet, wait a certain amount of time and "declare the test finished" (i.e. free variables and accept new test packets). 
-The time to wait should be greater than sender's timeout + RTT: if the last ACK is lost, the sender should re-send all the missing packets of the last window after the timeout expires. For each packet that is received, receiver will be send back an ACK, all with the same sequence number (i.e. the last sequence number expected).
-
-h2. CONCURRENT ACCESS
-
-Two data structures are shared:
-* struct list_head bw_list, part of bat_priv;
-* structure bw_vars, bw_list elements and "connection" specific: one bw_vars exists for each source or destination;
-
-Every time a packet is received, wether of type BW_METER or BW_ACK, the bw_vars struct associated with the connection is searched. If the packet initiates a new connection, the structure must be allocated. List searches and modifications are protected with a spinlock, bw_list_lock, that is declared in bat_priv.
-The protection of struc bw_vars is more complex and differs in the sender and in the receiver.
-
-h3. The Sender
-
-The sender accesses the struc bw_vars in two points in the code:
-* upon an ACK reception, in the function batadv_bw_ack_received: ACK's seqno is compared with window_first and if the ack is valid, window_first is increased.
-* in the function send_remaining_window() next_to_send is read and wrote, window_first is read.
-
-ACK's handler executes atomically, using a spinlock declared in bw_vars as bw_ack_lock.
-
-The function send_remaining_window(), in a similar fashion, is protected with bw_send_lock, also decleared in bw_vars struct.
-No two send_remaining_window() should be running at the same time.
-
-At the end of the ack's handler _batadv_bw_ack_received()_, a call to _send_remaining_window()_ is made: because the window slit, it should be possible to send new packets. But if the function is already running, it is useless to re-call it and it may lead to packet re-transmission. The value window_first, which determines the window slide, is never modified in the function _send_remaining_window_, so it should be possible to update it only (maybe an atomic value is safer??).
-
-The solution with a single spinlock for both ack and send has been discarded: if the window is too big, while still sending packets the first acks arrives, but cannot be processed. This leads to acks starvarion and possibly to packet-retransmission.
-
-h3. The Receiver
-
-The receiver uses a single spinlock to protect the bw_vars structure: the only operation is indeed to increase the variable window_first and send an ack. This should not take much time since the ack is then send outside of the cs. Concurrent access occurs only if while processing an ack another one is received, which should be prevented by the use of the lock.
-
-h2. Window Size
-
-Window size is an upper bound for throughput. At most a window is sent every RTT. But every time a packet is lost, the whole window is retransmitted!
-With packet size 1500 bytes, RTT 100ms the maximum throughtput is:
-
-WINDOW_SIZE 100: 1500000 ~ 1.5 MB/s
-
-h2. Documentation
-
- * "data alignment in the kernel":http://www.mjmwired.net/kernel/Documentation/unaligned-memory-access.txt
-
- * "skb":http://vger.kernel.org/~davem/skb.html
-
- * "DELAYED_WORK":http://www.ibm.com/developerworks/linux/library/l-tasklets/
-
- * TFTP ??
