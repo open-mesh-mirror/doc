@@ -1,68 +1,43 @@
 h1. Distributed ARP Table
 
-D.A.T. (Distributed ARP Table) is a feature aimed to solve the unreliability problem of the "ARP":http://en.wikipedia.org/wiki/Address_Resolution_Protocol dialogue in sparse multi-hop wireless networks, where the experienced packet loss is not negligible.
++This page is a work in progress. Sorry for beeing uncomplete+
 
-h2. The Problem
+DAT (Distributed ARP Table) is a network-wide ARP cache that helps the clients
+in getting ARP responses in a much more reliable way, in particular over sparse
+wireless mesh networks. In the latter case, getting a broadcast packet, namely
+an ARP request, from the source to the destination would probably require
+several retransmission because of the packet loss. DAT aims to improve this
+mechanism and to increase the ARP dialogue reliability.
 
-In every subnet the ARP protocol is extremely important: it gives any host the possibility to retrieve other host MAC-layer addresses. As the reader may know, the latter is mandatory in order to establish any data flow on the IP layer within the same network segment.
+h2. The idea
 
-The first step in an ARP dialogue is to issue a *broadcast* ARP request containing the IP address of the desidered node. In a mesh network relying on B.A.T.M.A.N.-Advanced, once a node receives a broadcast packet it gets forwarded three times (if the packet is received again by the same node it is dropped). Once the node having the IP address contained in the request receives the packet, a *unicast* ARP Reply is sent back to the requester in order to communicate its own MAC-layer address and making it able to initiate an IP flow.
+The DAT core mechanism consists in storing the content of the ARP reply that
+travels over the network on a specific set of nodes, known to every other mesh
+participant. In this way, whenever a client issues an ARP request, the mesh node
+can intercept and forward it directly to the nodes belonging to the specific set
+where the corresponding reply is stored. Requests are sent in unicast and
+therefore the probability of losing the packet decreases with respect to the
+broadcast case.
 
-The mechanism is pretty simple and works well until the probability of losing packets in the network is low enough. For this reason Ethernet or wireless-infrastructured LAN can use such protocol as-is without getting in troubles. Unluckily it is not possible to state the same for a wireless mesh network, where the probability of losing a packet increase with the number of links that a packet has to traverse. In particular, this probability gets higher if the packet to send is a broadcast (this is due to the MAC layer limitations, which does not provide ARQ mechanism for this packet type) like the ARP Request. Assuming to be in a fairly sparse wireless mesh network, an ARP Request could get lost (and so retransmitted) several times before being able to find the correct destination, thus dramatically increasing the latency of establishing an IP flow.
+h2. Enable/Disable DAT
 
-h2. Solving the problem using D.A.T.
+DAT can be compiled in the final binary by means of the customizable Makefile
+option or can be left out to save binary space (on by default on the
+out-of-the-kernel-tree package).
 
-The idea behind D.A.T. is to reduce as much as possible the use of broadcast packets by replacing them with unicasts. In order to accomplish this task, D.A.T. uses part of the theory behind "DHTs (Distributed Hash Tables)":http://en.wikipedia.org/wiki/Distributed_hash_table, in particular it uses the DHT to store the ARP entries so becoming able to later query a particular node in order to get the data which the requester is looking for. In this way, before forwarding an ARP Request into the mesh network each node will first query D.A.T. and if and only if the answer does not come through the packet is broadcasted as usual. The result is an initial phase where the DHT gets populated by means of normal ARP Requests/Response and a second phase where all the entries are in the DHT already and no broadcast request is used anymore.
+h2. Inspecting the Local DAT table
 
-h2. The Theory and the high-level mechanism
+Since DAT is a network wide cache, each node stores a little piece of this the
+big table. To see whet the current node is currectly storing in the DAT local
+cache, it is possible to use the following command:
+$$ # batctl dat  $$
 
-h3. DHT basics
+Explain output
 
-The DHT which D.A.T. is based on is actually inspired by "CHORD":http://en.wikipedia.org/wiki/Chord_(peer-to-peer), which is one of the earliest Peer-to-Peer algorithm based on a DHT. B.A.T.M.A.N.-Advanced inherits the shape of the key space and the rule used to allocate objects onto participant nodes.
+h2. Insight details
 
-Going a bit deeper into the details, the key space is represented by a ring on which the 2^16 keys are equally distributed. Being a ring means that arithmetic operations in the key space are modulo 2^16.
++*Snooping mechanism*+
 
-As in CHORD, either the objects to distribute into the DHT and the participant nodes are mapped (by means of an hash function) to keys in the same space. Therefore, while scrolling the ring it is possible to find either keys mapping to an object and keys mapping to a node. This mechanism is definitely useful in order to decide which key is allocated on which node. In particular whenever there is a new object that we want to store in the DHT, the steps to follow are:
-# compute the key of the object by means of the hash function
-# locate the key on the ring
-# identify the 3 nodes with the closest (from the left) key on the ring
-# distribute the object content on these 3 nodes
++*Fallback mechanism (and retrocompatibility)*+
 
-In this way, as soon as all the nodes shares the same vision of the ring, given a generic object, whatever node can identify the 3 participants that are storing the object content and query them.
-
-!dat_dht-90.png!
-
-In the figure above, it is possible to see a DHT ring populated with some participants. At some point a generic node in the network wants to retrieve the content for the red object. The node computes the key of the latter and then identifies the 3 nodes that store the content (the green ones in the figure). Now the node looking for the object content can directly query the selected participants and retrieve the data.
-
-h3. How D.A.T. merges ARP and the DHT
-
-Once the DHT concept has been introduced into B.A.T.M.A.N.-Advanced, the next step is to merge the ARP protocol and let D.A.T. born.
-
-D.A.T. actually exploits the DHT mechanism to store ARP entries of the form *[IP, MAC]* (this object is shaped like a normal ARP entry). The IP is used as input for the hash function as it is the always known part of the entry. In particular, whenever a node detects an ARP entry in the network (because of an ARP request/reply being sent/received by one of its clients) it simply activate the preiously explained mechanisn and stores such entry into the DHT.
-
-Whenever a node wants to retrieve a MAC address (e.g. due to an ARP request issued a client of its own) it will directly use the DHT to retrieve the ARP entry, and only if the DHT cannot provide the wanted answer (e.g. this entry has never been seen in the network) then the node fallbacks to the classic broadcast mechanism. As it is possible to understand, using the DHT will make the nodes avoid to use broadcast packets as much as possible and will make them rely on unicast packets sent to the node storing the data in the DHT directly.
-
-h2. Technical details
-
-h3. Snooping mechanism
-
-The snooping mechanism is actually made up by 4 events, which trigger different actions.
-The 4 possibilities are the following:
-
-# _Outgoing ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local repository:
-## it is: the node drops the request and immediately forges a reply that is delivered to the client
-## it is not: the node queries the DHT table using the requested IP as search key. If no answer is received within a fixed amount of time (actually 250ms) the ARP request is broadcasted like it is usually done.
-# _Incoming ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local repository:
-## it is: the node drops the request and immediately forges a reply that is sent over the mesh towards the client.
-## it is not: the request is delivered to the local soft interface (to the local clients)
-# _Incoming ARP Reply_: The packet is inspected, the node will save both the source and the destination entries in its local repository and then the message is delivered to the to the client, if the destination is part of the local known ones.
-# _Outgoing ARP Reply_: The packet is inspected, the node will save both the source and the destination entried in its local repository and then the message is sent to the DHT in order to populate it following the storing schema.
-
-
-h3. Debug
-
-To simplify debugging operations a new log level has been added other that the already existent ones: the *dat* log level. To enable it the user just need to type the already known command: 
-<pre>
-# batctl ll dat
-</pre>
-On this log level it is possible to see any DAT/ARP related operation, including ARP messages parsing, DHT messages sending (with candidate election mechanism)
++*A new packet type UNICAST_4ADDR*+
