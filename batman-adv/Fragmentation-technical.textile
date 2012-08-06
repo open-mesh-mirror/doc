@@ -34,6 +34,14 @@ h3. To Do List
 * -Add kernel doc comments.-
 * -Decouple the "complete" list of fragments before merging.-
 * Limit size of local translation table to be less than (min_mtu-frag_hdr-eth_hdr)*16*1400.
+   When the mtu decreases, we must clean the local table. Finding the oldest entries is complex, because entries can be updated while searching the list. Instead we traverse the list and delete any entry older than K, half K and traverse the list again, and repeat until the list is shortened enough.
+* Clean up this page.
+* Write final report.
+* Update documentation before Sven reminds me.
+* KernelDocument #struct batadv_frag_packet# in packet.h
+* Make tests and graphs.
+* Document the concept on this page.
+* Celebrate!
 
 h3. Open Questions
 
