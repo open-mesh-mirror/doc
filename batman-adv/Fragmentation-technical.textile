@@ -16,6 +16,9 @@ h3. The initial requirements to the new fragmentation framework are:
 * All packets except broadcast/multicast are fragmented (for now).
 * A small hash table with 8 entries is used as fragment buffer.
 * No compile time option is provided, as networks might break if only some nodes supports fragmentation.
+* Refragmentation at later hops are avoided by a hard-coded max-fragment-size (1400 bytes).
+* Fragments are not checked for tt-updates on the path.
+* Size of local translation table is limited to the maximum fragmentation size.
 
 h3. To Do List
 
