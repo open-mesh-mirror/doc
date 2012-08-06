@@ -7,15 +7,7 @@ h2. Branches
 
 h2. GENERAL DESCRIPTION
 
-The project aims to create a kernel-space tool that measures the throughput between two nodes and avoids problems experienced with user-space tools like iperf and netperf. With those tools main problems are encountered on machines that are low on resources, including routers, since packets must be copied from kernel-space to user-space memory and aligned. On such devices this computational load can slow the device itself, leading to packet losses at the receiver side, thus altering the test result. Two modes are implemented:
-
-* tcp-like: in this mode the behaviour of tcp should be re-created. We should verify if it is possible to use the existing, standard, tcp implementation or if it is needed to develop a tcp-like (simpler...) protocol just for this application.
-** Using kernel TCP stack is too complex and the problem of unaligned data remains. Furthemore it requires an IP address for the destination.
-
-* udp-like: one directional, no retransmission, stream of data;
-** How to ensure that all data was transmitted
-** How do we ensure that the last packet/magic packets were not transmitted out of order
-** how does the remote node gets informed that test finished even when *many* packets are dropped
+The project aims to create a kernel-space tool that measures the throughput between two nodes and avoids problems experienced with user-space tools like iperf and netperf. With those tools main problems are encountered on machines that are low on resources, including routers, since packets must be copied from kernel-space to user-space memory and aligned. On such devices this computational load can slow the device itself, leading to packet losses at the receiver side, thus altering the test result. A TCP-like mode is implemented to *approximate* TCP behaviour (the protocol is indeed much simple).
 
 The test is started through batctl:
 
@@ -23,10 +15,27 @@ The test is started through batctl:
 batctl bw <MAC ADDRESS>
 </pre>
 
-when the test is over the throughput is returned.
+when the test is over the throughput in *Bytes per second* is returned.
+Example:
+
+<pre>
+ batctl bw 00:00:00:00:00:01
+Bandwidth meter called towards 00:00:00:00:00:01
+Test over in 3564 ms.
+         sent 70000000 bytes.
+Throughput 19640000 Byte/s
+</pre>
+
+The test doesn't print any output until it's termination; you can abort an ongoing test with CTRL-C. 
+Example:
+
+<pre>
+b bw 00:00:00:00:00:01
+Bandwidth meter called towards 00:00:00:00:00:01
+^CTest aborted
+</pre>
 
 h2. TODO
-
 
 * bitmap on receiver side to keep track of already received packets
 * wrap-around safeness(see batadv_seq_after, batadv_seq_before)
@@ -93,58 +102,6 @@ if batctl bw is invoked from the command line, a function in kernel space get ca
 * -define the protocol, based on Go-Back-N-
 * -set up virtual machines for testbed: using two virtual machine with Debian and kernel 3.2.12 to test the modifications introduced in order to call the bandwidth meter through batctl; the two machines are attached to two tun interfaces bridged together.-
 
-h2. BUGLIST
-
-* -receiver freezes after test completion- *last packet was sent twice!!*
-
-* Sender keeps resending the whole window every 400 ms, even with perfect networks. Presumably it is a concurrency-related problem since it shows only on some kind of machines (not mine). *About this bug, branch montik/debug1 and following detailed description*
-
-Sometimes RESEND WHOLE WINDOW is triggered even with perfect line (qemu emulation). 
-The function batadv_bw_worker should be called every 40 ms to check if the "timeout" has expired (400 ms has passed without sending something). The timeout is checked against the variable bw_vars->last_sent_time, which gets updated everytime a packet is sent out. With ordex we logged a behaviour of the type:
-
-<pre>
-CALL to batadv_bw_worker -> last_send_time: n
-CALL to batadv_bw_worker -> last_send_time: n
-CALL to batadv_bw_worker -> last_send_time: n
-CALL to batadv_bw_worker -> last_send_time: n
-CALL to batadv_bw_worker -> last_send_time: n
-RESEND WHOLE WINDOW
-</pre>
-
-So the worker's called few times in a row and at the end the whole window is resent. *this happens only with big window (i.e. > 1500 packets)*.
-
-*PROBLEM 1)* I tried to run the test with a window size *greater* than the total amount of packets to send, disabling the worker and any further call to the function multiple_send: a single call to this function in batadv_bw_start should be enough to send all the packets and successfully accomplish the test. 
-But, every time, the algorithm stops around packet 1300: the receiver doesn't receive any more packet, so it doesn't send back any ACKs, deadlocking the system (since worker is disabled). This behaviour could be reasonable on a real network, not on an emulated, loss-free, one.
-
-Probably packets are dropped at sender side: since the window is so big, 2000 packets are sent in a row, creating a packet burst that probably is too much for the underlying (emulated) hardware. Thus when the buffer is full they are dropped.
-
-*PROBLEM 2)* In this debug1 branch, all the spinlocks are commented and the worker just prints a message (the bw_vars->last_sent_time) and re-inserts himself into delayed work queue (to be executed after 40ms). Thus one expects that, since network has no delay nor loss, packets are sent and received and that roughly every 40ms a message is printed on kernel logs by the worker.
-But : while multiple_send is in execution, the worker is never called, while the worker is in execution, multiple send is never called! So we have something like
-
-<pre>
-0ms -> start the test                      *SENDING/ACKING*
-        ->enqueue work
-        ->call multiple send
-0+ ms -> send packet 0
-.....
-0+ ms -> receive ack p
-0+ ms -> send packet p+1
-.....
-
-K ms -> send packet ~1300
-
-0+ ms -> worker called: last send time : K     *NOT SENDING/NOT RECEIVING ACKS*
-0+ ms -> worker called: last send time : K
-0+ ms -> worker called: last send time : K
-0+ ms -> worker called: last send time : K
-....
-K+400 ms -> worker called: last send time : K
-RESEND WHOLE WINDOW
-                                             *SENDING/ACKING AGAIN *
-.......
-</pre>
-
-The nodes go on like this until all packets have been sent. The worker is never called while sending packets, not until 1300 packets have been sent. The reason is simple: the worker gets called when the protocol is stuck, as in PROBLEM 1. If the protocol is stuck, the worker is called every 40ms. It invokes multiple_send, but the function does nothing as the window has been fully sent (to module eyes...) and no new acks have been received. Two problems: why the packets are discarded (or does it make sense to use such a big window??) and *why* worker is not called before (note that worker execution can even be delayed for tens of seconds with smaller windows that don't cause the protocol to get stuck)?
 
 h2. SPECIFICATION
 
