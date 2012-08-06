@@ -1,1 +1,54 @@
 h1. BANDWIDTH METER debug page
+
+h2. BUGLIST
+
+* -receiver freezes after test completion- *last packet was sent twice!!*
+
+* Sender keeps resending the whole window every 400 ms, even with perfect networks. Presumably it is a concurrency-related problem since it shows only on some kind of machines (not mine). *About this bug, branch montik/debug1 and following detailed description*
+
+Sometimes RESEND WHOLE WINDOW is triggered even with perfect line (qemu emulation). 
+The function batadv_bw_worker should be called every 40 ms to check if the "timeout" has expired (400 ms has passed without sending something). The timeout is checked against the variable bw_vars->last_sent_time, which gets updated everytime a packet is sent out. With ordex we logged a behaviour of the type:
+
+<pre>
+CALL to batadv_bw_worker -> last_send_time: n
+CALL to batadv_bw_worker -> last_send_time: n
+CALL to batadv_bw_worker -> last_send_time: n
+CALL to batadv_bw_worker -> last_send_time: n
+CALL to batadv_bw_worker -> last_send_time: n
+RESEND WHOLE WINDOW
+</pre>
+
+So the worker's called few times in a row and at the end the whole window is resent. *this happens only with big window (i.e. > 1500 packets)*.
+
+*PROBLEM 1)* I tried to run the test with a window size *greater* than the total amount of packets to send, disabling the worker and any further call to the function multiple_send: a single call to this function in batadv_bw_start should be enough to send all the packets and successfully accomplish the test. 
+But, every time, the algorithm stops around packet 1300: the receiver doesn't receive any more packet, so it doesn't send back any ACKs, deadlocking the system (since worker is disabled). This behaviour could be reasonable on a real network, not on an emulated, loss-free, one.
+
+Probably packets are dropped at sender side: since the window is so big, 2000 packets are sent in a row, creating a packet burst that probably is too much for the underlying (emulated) hardware. Thus when the buffer is full they are dropped.
+
+*PROBLEM 2)* In this debug1 branch, all the spinlocks are commented and the worker just prints a message (the bw_vars->last_sent_time) and re-inserts himself into delayed work queue (to be executed after 40ms). Thus one expects that, since network has no delay nor loss, packets are sent and received and that roughly every 40ms a message is printed on kernel logs by the worker.
+But : while multiple_send is in execution, the worker is never called, while the worker is in execution, multiple send is never called! So we have something like
+
+<pre>
+0ms -> start the test                      *SENDING/ACKING*
+        ->enqueue work
+        ->call multiple send
+0+ ms -> send packet 0
+.....
+0+ ms -> receive ack p
+0+ ms -> send packet p+1
+.....
+
+K ms -> send packet ~1300
+
+0+ ms -> worker called: last send time : K     *NOT SENDING/NOT RECEIVING ACKS*
+0+ ms -> worker called: last send time : K
+0+ ms -> worker called: last send time : K
+0+ ms -> worker called: last send time : K
+....
+K+400 ms -> worker called: last send time : K
+RESEND WHOLE WINDOW
+                                             *SENDING/ACKING AGAIN *
+.......
+</pre>
+
+The nodes go on like this until all packets have been sent. The worker is never called while sending packets, not until 1300 packets have been sent. The reason is simple: the worker gets called when the protocol is stuck, as in PROBLEM 1. If the protocol is stuck, the worker is called every 40ms. It invokes multiple_send, but the function does nothing as the window has been fully sent (to module eyes...) and no new acks have been received. Two problems: why the packets are discarded (or does it make sense to use such a big window??) and *why* worker is not called before (note that worker execution can even be delayed for tens of seconds with smaller windows that don't cause the protocol to get stuck)?
