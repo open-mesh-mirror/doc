@@ -1,9 +1,11 @@
 h1. ARPoverDHT
 
-This is a draft of the page describing the inner technical details of the implementation of DAT
+This is a draft of the page describing the inner details of the implementation of DAT
 
 h2. Snooping mechanism
 
-h2. Fallback mechanism (and retrocompatibility)
+h2. Fallback mechanism
 
 h2. A new packet type UNICAST_4ADDR
+
+h2. Backward compatibility
