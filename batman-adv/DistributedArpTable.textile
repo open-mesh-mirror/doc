@@ -2,27 +2,21 @@ h1. Distributed ARP Table
 
 +This page is a work in progress. Sorry for being uncomplete+
 
-DAT (Distributed ARP Table) is a network-wide ARP cache that helps the clients
-in getting ARP responses in a much more reliable way, in particular over sparse
-wireless mesh networks. In the latter case, getting a broadcast packet, namely
-an ARP request, from the source to the destination would probably require
-several retransmission because of the packet loss. DAT aims to improve this
-mechanism and to increase the ARP dialogue reliability.
+DAT (Distributed ARP Table) is a network-wide "ARP":http://en.wikipedia.org/wiki/Arp_protocol cache that helps clients in getting ARP responses in a much more reliable way, in particular in sparse wireless mesh networks. In the latter case, getting a broadcast packet (the ARP request) from the source to the proper destination (the host with the requested IP) would probably require several retransmissions because of the packet loss. DAT aims to improve this mechanism and to increase the ARP dialogue reliability.
 
 h2. The idea
 
-The DAT core mechanism consists in storing the content of all the ARP replies that travel over the network on a specific set of nodes. Given an IP address, the set containing its related ARP reply is known to every other mesh participant. In this way, whenever a client issues an ARP request, the mesh node can intercept and forward it directly to the nodes belonging to the specific set where the corresponding reply is stored. Requests are sent as unicast packets and therefore the probability of losing the packet decreases with respect to the common case.
+The DAT core mechanism consists in storing the content of all the ARP replies that travel over the network on a specific set of nodes. Given an IP address, the set containing its related ARP entry (IP & MAC Address) is known to every other mesh participant thanks to a distributed hash function. In this way, whenever a client issues an ARP request, the mesh node can intercept and forward it directly to the nodes belonging to the specific set where the corresponding entry is stored. Requests are sent as unicast packets and therefore the probability of losing the packet decreases with respect to the common case.
 
 h2. Enable/Disable DAT
 
-DAT can be compiled in the final binary by means of the customizable Makefile
-option or can be left out to save binary space (in the out-of-the-kernel-tree package DAT is built-in by default).
+DAT cannot be enabled or disabled at runtime. It is possible to decide whether to include DAT or not at compile time (default to ON). To do so it is possible to customise the corresponding option in the package Makefile or by means of the menuconfig for the in-kernel module.
 
 h2. Inspecting the Local DAT table
 
-Since DAT is a network wide cache, each node stores a little piece of this big table. To see what entries the node is currectly storing in the DAT local cache, it is possible to use the following command:
+Since DAT is a network wide cache, each node stores a little piece of this big table in its own memory. To see what entries the node is currectly storing, it is possible to use the following command:
 <pre>
 # batctl dat
 </pre>
 
-Explain output
+An explanation of the output can be found here.
