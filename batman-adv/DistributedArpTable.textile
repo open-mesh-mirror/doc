@@ -26,11 +26,3 @@ Since DAT is a network wide cache, each node stores a little piece of this big t
 </pre>
 
 Explain output
-
-h2. Insight details
-
-+*Snooping mechanism*+
-
-+*Fallback mechanism (and retrocompatibility)*+
-
-+*A new packet type UNICAST_4ADDR*+
