@@ -1,50 +1,61 @@
-This is just a list of papers which need a review before going to the experience site:
-
-
 h1. "free" papers
 
-h2. Wi-Me - Wireless Mesh Network Implementation (K. Babu, L.M. Cortes-Pena, P. Shah, S.S. Krishnan)
-
-Compares BATMAN and OLSR with a static routing scheme in a small test bed.
-
-* http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf
-
-
-h2. Experimental evaluation of two open source solutions for wireless mesh routing at layer two (R.G. Garroppo, S. Giordano, L. Tavanti)
-
-
-Compares batman-adv and open80211s in a small testbed.
-
-* http://wwwtlc.iet.unipi.it/research/ggt-iswpc10.pdf
-
-
-h2. WMM - Wireless Mesh Monitoring
-
-Introduction to WMMs and some implementations like AODV, OLSR, BATMAN ...
-
-* http://www.gsd.inesc-id.pt/~ler/reports/ricardopinto-midterm.pdf
-
-h2. Investigation into BATMANd-0.3. 2 Protocol performance in an indoor mesh potato testbed
-
- * http://people.cs.uct.ac.za/~bfry/edwin/MyBib/2011-batmand.pdf
-
-h2. Performance Comparison of BATMA Nd and BATMAN-adv
-
- * http://www.satnac.org.za/proceedings/2011/papers/Posters/250.pdf
-
-h2. An Experimental Comparison of Delivery Mechanisms in a Linear Topology
-
-* http://ki-it.or.kr/paper/paper_09_08/9%25EA%25B6%258C8%25ED%2598%25B8/An%2520Experimental%2520Comparison%2520of%2520Delivery%2520Mechanisms%2520in%2520a%2520Linear%2520Topology.pdf
+* Garroppo, R.G., Giordano, S., Tavanti, L.: *Experimental evaluation of two open source solutions for wireless mesh routing at layer two*, Wireless Pervasive Computing (ISWPC), 2010 5th IEEE International Symposium on, 232–237, 2010
+** Compares batman-adv and open80211s in a small testbed.
+** http://wwwtlc.iet.unipi.it/research/ggt-iswpc10.pdf
+* Pinto, R.: *Wmm-wireless mesh monitoring*, Ad Hoc Network 6(6), 445–487, 2009
+** Introduction to WMMs and some implementations like AODV, OLSR, BATMAN ...
+** http://www.gsd.inesc-id.pt/~ler/reports/ricardopinto-midterm.pdf
+* Chissungo, E., Blake, E., Le, H.: *Investigation into BATMANd-0.3. 2 Protocol performance in an indoor mesh potato testbed*, Proceedings of the South African Institute of Computer Scientists and Information Technologists Conference on Knowledge, Innovation and Leadership in a Diverse, Multidisciplinary Environment, 267–270, 2011
+** http://people.cs.uct.ac.za/~bfry/edwin/MyBib/2011-batmand.pdf
+* Chissungo, E., Blake, E., Le, H.: *Performance Comparison of BATMA Nd and BATMAN-adv*
+** http://www.satnac.org.za/proceedings/2011/papers/Posters/250.pdf
+* Oh, M.: *An Experimental Comparison of Delivery Mechanisms in a Linear Topology*, 한국정보기술학회논문지 9(8), 한국정보기술학회, 101–107, 2011
+** http://ki-it.or.kr/paper/paper_09_08/9%25EA%25B6%258C8%25ED%2598%25B8/An%2520Experimental%2520Comparison%2520of%2520Delivery%2520Mechanisms%2520in%2520a%2520Linear%2520Topology.pdf
+* Graarud, E.G.: *Implementing a Secure Ad Hoc Network, Technical report*, The Norwegian University of Science and Technology (NTNU), 2011
+** http://github.com/espengra/secure-ad-hoc-network-doc/raw/master/share/thesis.pdf
+* Sicard, L., Markovics, M., Manthios, G.: *An Ad-hoc Network of Android Phones Using BATMAN*
+** https://blog.itu.dk/SPVC-E2010/files/2011/08/13adhocandroid.pdf
+* Kaula, W.: *Building easily deployable Mesh networks for first respondents based on 802.11 n access points*, 2012
+** http://193.201.22.76/xmlui/bitstream/handle/123456789/339/Kaula_FinalReport.pdf?sequence=1
+* Hundebøll, M., Ledet-Pedersen, J., Heide, J., Pedersen, M.V., Rein, S.A., Fitzek, F.H.P.: *CATWOMAN: Implementation and Performance Evaluation of IEEE 802.11 based Multi-Hop Networks using Network Coding*, Master Thesis in Networks and Distributed Systems Aalborg University, Spring, 2011
+** http://mobiledev.lab.es.aau.dk/attachments/download/238/catwoman.pdf
+* Murray, D.: *Cross layer performance improvements in Multi-hop Ad-hoc networks*, Murdoch University, 2011
+** http://researchrepository.murdoch.edu.au/5805/2/02Whole.pdf
+* Paramanathan, A., Heide, J., Pahlavani, P., Hundebøll, M., Rein, S.A., Fitzek, F.H.P., Ertli, G.: *Energy and Data Throughput for Asymmetric Inter-Session Network Coding*
+** http://www.param.dk/achuthan/publications/papers/1569603517.pdf
+* GHINI, V., TOSI, L.: *Il protocollo di routing BATMAN*
+** http://amslaurea.cib.unibo.it/2688/1/tosi_luca_tesi.pdf
+* Pambudi, R.D., Yasa, M.: *IMPLEMENTASI PROTOKOL ROUTING BETTER APPROACH TO AD-HOC MOBILE NETWORK (BATMAN) PADA WIRELESS MESH NETWORKING*
+** http://kambingtambun.com/wp-content/uploads/2011/11/Paper-WMN-BATMAN.pdf
+* Escrich Garcia, P.: *Quick deployment network using MANET*, Universitat Politècnica de Catalunya, 2012
+** http://upcommons.upc.edu/pfc/bitstream/2099.1/14103/1/77789.pdf
+* Bowitz, A.G.: *Simulation of a Secure Ad Hoc Network Routing Protocol*, 2011
+** http://ntnu.diva-portal.org/smash/get/diva2:453358/FULLTEXT01
+* Oehlmann, F.: *Simulation of the “Better Approach to Mobile Adhoc Networking” Protocol*, 2011
+** http://home.in.tum.de/~oehlmann/ba.pdf
+* Kobo, H.I.: *Situation-aware Routing Based on Link Quality for Static Mesh Networks with Mobile Nodes*
+** http://www.satnac.org.za/proceedings/2011/papers/Network_Services/209.pdf
 
 h2. more resources
 
-* find some more: http://scholar.google.com/scholar?start=20&q=BATMAN+OLSR&hl=en&as_sdt=2000
+find some more
+
+* http://scholar.google.com/scholar?start=20&q=BATMAN+OLSR&hl=en&as_sdt=2000
+* http://scholar.google.com/scholar?q=batman-adv
 
 h1. non-free papers
 
-* http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6132772
-* http://www.springerlink.com/content/p802p6k186328706/
-* http://www.computer.org/portal/web/csdl/doi/10.1109/AINA.2009.28
-* http://portal.acm.org/citation.cfm?id=1719404
-* http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6093328
-* http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6115569
+* Morais, A., Cavalli, A.: *A distributed intrusion detection scheme for wireless ad hoc networks*, Proceedings of the 27th Annual ACM Symposium on Applied Computing, 556–562, 2012
+* Bowitz, A.G., Graarud, E.G., Brown, L., Jaatun, M.G.: *BatCave: Adding security to the BATMAN protocol*, Digital Information Management (ICDIM), 2011 Sixth International Conference on, 199–204, 2011
+* Morais, A., Cavalli, A.: *Detection of Attacks in Wireless Mesh Networks, Dependable Computing (LADC)*, 2011 5th Latin-American Symposium on, 45–54, 2011
+* Protocol, B.R.: *Evaluation of a MANET Testbed in Outdoor Bridge Environment Using BATMAN Routing Protocol*
+* Chissungo, E., Blake, E., Le, H.: *Investigation into Batman-adv Protocol Performance in an Indoor Mesh Potato Testbed*, Intelligent Networking and Collaborative Systems (INCoS), 2011 Third International Conference on, 8–13, 2011
+* Kulla, E., Ikeda, M., Oda, T., Barolli, L., Xhafa, F., Takizawa, M.: *Multimedia Transmissions over a MANET Testbed: Problems and Issues*, 2012 Sixth International Conference on Complex, Intelligent, and Software Intensive Systems, 141–147, 2012
+* Pojda, J., Wolff, A., Sbeiti, M., Wietfeld, C.: *Performance analysis of mesh routing protocols for UAV swarming applications*, Wireless Communication Systems (ISWCS), 2011 8th International Symposium on, 317–321, 2011
+* Barolli, L., Ikeda, M., De Marco, G., Durresi, A., Xhafa, F.: *Performance analysis of OLSR and BATMAN protocols considering link quality parameter*, Advanced Information Networking and Applications, 2009. AINA'09. International Conference on, 307–314, 2009
+* Klein, A: *Performance Study of the Better Approach to Mobile Adhoc Networking (B.A.T.M.A.N.) Protocol in the Context of Asymmetric Links*
+* Milic, B., Malek, M.: *Properties of wireless multihop networks in theory and practice, Guide to Wireless Ad Hoc Networks*, Springer, 1–26, 2009
+* Quan, Z., Xinhua, J., Fumin, Z.: *Research on the Trunk Line’s Transmission Performance of Multi-hop WMN Based on 802.11 n*, Business, Economics, Financial Sciences, and Management, Springer, 631–636, 2012
+* Morais, A., Cavalli, A.: *Route Manipulation Attack in Wireless Mesh Networks*, Advanced Information Networking and Applications (AINA), 2011 IEEE International Conference on, 501–508, 2011
+* Reineri, M., Casetti, C., Chiasserini, C.F.: *Routing protocols for mesh networks with mobility support*, Wireless Communication Systems, 2009. ISWCS 2009. 6th International Symposium on, 71–75, 2009
