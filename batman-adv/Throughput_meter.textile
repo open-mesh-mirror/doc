@@ -78,8 +78,8 @@ h2. TODO
 
 * bitmap on receiver side to keep track of already received packets
 * wrap-around safeness(see batadv_seq_after, batadv_seq_before)
-* keep a counter for the number of retransmission of the same window
 * hton/ntoh
+* wait at least one RTT at the beginning
 
 * report
 * send to the mailing list
@@ -94,6 +94,7 @@ h2. TODO
 * add error handling in batpriv (look at ping and traceroute for examples);
 * the connection termination requires the receiver to wait a certain amount of time. A "three way" termination could speed up things. Is it a good idea?? *possible* uid, 
 
+* -keep a counter for the number of retransmission of the same window-
 * -wsize is not used by now, and it's the only differnece between icmp_packet and icmp_packet_bw. Does it make sense to maintain a different header? If we remove, what about new features that must be introduced (e.i. sender/receiver choice)? *No*-
 * -use the msg-type and not the header size to distinguish between bw_meter and other icmp packets-
 * -introduce a receiver timeout to free structures if sender goes away *1 sec inactivity*- 
