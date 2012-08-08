@@ -1,6 +1,6 @@
 h1. Distributed ARP Table
 
-DAT (Distributed ARP Table) is a network-wide "ARP":http://en.wikipedia.org/wiki/Arp_protocol cache that helps clients to get ARP responses much more reliably and with a shorter latency. In a common wireless mesh network, getting a broadcast packet (the ARP request) from the source to the proper destination (the host with the requested IP) would probably require several retransmissions because of the packet loss. DAT aims to improve this mechanism by increasing the ARP dialogue reliability and consequently reducing the experienced latency.
+DAT (Distributed ARP Table) is a mesh-wide "ARP":http://en.wikipedia.org/wiki/Arp_protocol cache that helps non-mesh clients to get ARP responses much more reliably and without much delay. In a common wireless mesh network, getting a broadcast packet (the ARP request) from the source to the proper destination (the host with the requested IP) would probably require several retransmissions because of the packet loss. DAT aims to improve the ARP experience by placing the answer to ARP requests to a known location as well as caching it whenever appropriate.
 
 h2. The idea
 
