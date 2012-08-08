@@ -96,3 +96,5 @@ h2. Documentation
  * "skb":http://vger.kernel.org/~davem/skb.html
 
  * "DELAYED_WORK":http://www.ibm.com/developerworks/linux/library/l-tasklets/
+
+ * http://www.open-mesh.org/projects/open-mesh/wiki/2012-05-13-translation-table-in-a-nutshell
