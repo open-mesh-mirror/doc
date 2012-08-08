@@ -38,7 +38,7 @@ h3. To Do List
 * -Decouple the "complete" list of fragments before merging.-
 * -Limit size of local translation table to be less than (min_mtu-frag_hdr-eth_hdr)*16*1400.
    When the mtu decreases, we must clean the local table. Finding the oldest entries is complex, because entries can be updated while searching the list. Instead we traverse the list and delete any entry older than K, half K and traverse the list again, and repeat until the list is shortened enough.-
-* Use BATADV_NO_FLAGS.
+* -Use BATADV_NO_FLAGS.-
 * Write verbose and proper commit messages.
 * Clean up this page.
 * Write final report.
