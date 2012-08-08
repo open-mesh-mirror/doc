@@ -43,7 +43,7 @@ h3. To Do List
 * Clean up this page.
 * Write final report.
 * Update documentation before Sven reminds me.
-* KernelDocument #struct batadv_frag_packet# in packet.h
+* -KernelDocument #struct batadv_frag_packet# in packet.h-
 * Make tests and graphs.
 * Document the concept on this page.
 * Celebrate!
