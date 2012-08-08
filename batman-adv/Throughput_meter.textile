@@ -78,7 +78,6 @@ h2. TODO
 
 * bitmap on receiver side to keep track of already received packets
 * hton/ntoh
-* wait at least one RTT at the beginning
 
 * report
 * send to the mailing list
