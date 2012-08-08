@@ -1,6 +1,6 @@
 h1. Distributed ARP Table
 
-DAT (Distributed ARP Table) is a network-wide "ARP":http://en.wikipedia.org/wiki/Arp_protocol cache that helps clients to get ARP responses much more reliably, in particular in sparse wireless mesh networks. In this scenario, getting a broadcast packet (the ARP request) from the source to the proper destination (the host with the requested IP) would probably require several retransmissions because of the packet loss. DAT aims to improve this mechanism and to increase the ARP dialogue reliability.
+DAT (Distributed ARP Table) is a network-wide "ARP":http://en.wikipedia.org/wiki/Arp_protocol cache that helps clients to get ARP responses much more reliably and with a shorter latency. In a common wireless mesh network, getting a broadcast packet (the ARP request) from the source to the proper destination (the host with the requested IP) would probably require several retransmissions because of the packet loss. DAT aims to improve this mechanism by increasing the ARP dialogue reliability and consequently reducing the experienced latency.
 
 h2. The idea
 
@@ -11,7 +11,7 @@ In this scenario a client served by node A has to retrieve the MAC address of a 
 
 !dat-net.png!
 
-Instead DAT will not use any broadcast packet. Node A gets the ARP requests, computes the nodes set related to the requested IP (in the following picture we assume only node E to be in this set) and sends the packet as unicast (green arrows). Node F will reply to node A (blue arrows) and the latter will first forward the packet to the client that originated the ARP request and then it will store the received entry in its local storage for further caching.
+Instead DAT will not use any broadcast packet. Node A gets the ARP requests, computes the nodes set related to the requested IP (in the following picture we assume only node E to be in this set) and sends the packet as unicast (green arrows). Node E will reply to node A (blue arrows) and the latter will first forward the packet to the client that originated the ARP request and then it will store the received entry in its local storage for further caching.
 
 !dat-net2.png!
 
