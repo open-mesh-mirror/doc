@@ -10,7 +10,7 @@ In the following illustrations we can see a comparison between the classic ARP m
 
 !dat-net.png!
 
-DAT will not use any broadcast packet. Node A gets the ARP request, computes the group of nodes related to the requested IP (in the following picture we assume only node D to be in this set) and sends the ARP request as unicast (green arrows). Node D will reply to node A (blue arrows), the latter will first forward the packet to the non-mesh client that originated the ARP request and then it will store the received entry in its local storage for further caching.
+DAT will not use any broadcast packet. Node A gets the ARP request, computes the group of nodes related to the requested IP (in the following picture we assume only node D to be in this group of nodes) and sends the ARP request as unicast (green arrows). Node D will reply to node A (blue arrows), the latter will first forward the packet to the non-mesh client that originated the ARP request and then it will store the received entry in its local storage for further caching.
 
 !dat-net2.png!
 
