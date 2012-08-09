@@ -11,7 +11,7 @@ A node actually uses the ARP replies issued by the clients it is serving to popu
 
 h2. Fallback mechanism
 
-Is is also possible that DAT does not have the entry for a particular IP (e.g. this is the first time this IP is asked or the entry has been purged out due to no activity). In this case DAT will not provide any answer to the ARP request asking for the translation of such IP. In this case the "blocked ARP request" is sent as broadcast packet (like a normal ARP papcket) after 300ms. In this way, the client can get its ARP reply anyway and DAT can learn the new enry by inspecting it.
+Is is also possible that DAT does not have the entry for a particular IP (e.g. this is the first time this IP is asked or the entry has been purged out due to no activity). In this case DAT will not provide any answer to the ARP request asking for the translation of such IP. In this case the "blocked ARP request" is sent as broadcast packet (like a normal ARP papcket) after 250ms. In this way, the client can get its ARP reply anyway and DAT can learn the new enry by inspecting it.
 
 h2. A new packet type UNICAST_4ADDR
 
