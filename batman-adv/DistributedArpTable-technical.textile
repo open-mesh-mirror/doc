@@ -8,7 +8,7 @@ DAT is a "Distributed Hash Table":http://en.wikipedia.org/wiki/Distributed_hash_
 
 h2. Snooping mechanism
 
-In order to let DAT correctly work, the batman-adv module has to analyze ARP messages going through and coming from the mesh network. For this reason a snooping mechanism has been provided.
+In order to let DAT work correctly, the batman-adv module has to analyze ARP messages going through and coming from the mesh network, therefore a snooping mechanism has been provided.
 A node actually uses the ARP replies issued by the clients it is serving to populate its local cache and the distributed table. Any ARP request going to the mesh network, instead, is blocked in order to ask DAT for the reply.
 
 h2. Fallback mechanism
