@@ -2,9 +2,9 @@ h1. ARPoverDHT
 
 This is a draft of the page describing the inner details of the implementation of DAT
 
-The target of this page is to explain the inner details abut the implementation of [[DistributedARPTable|DAT (Distributed ARP Table)]]. For the general idea and the problem that it is trying to solve, pelase refer to  the [[DistributedARPTable|DAT]] page.
+The target of this page is to explain the inner details abut the implementation of [[DistributedARPTable|DAT (Distributed ARP Table)]]. For the general idea and the problem that it is trying to solve, please refer to  the [[DistributedARPTable|DAT]] page.
 
-DAT is a "Distributed Hash Table":http://en.wikipedia.org/wiki/Distributed_hash_table aimed to store ARP entries in order to allow nodes to perform fast lookup operations. All the operation in the DHT (get and store) are performed on a set of nodes computed by means of a distributed hash function which input value is an IPv4 address.
+DAT is a "Distributed Hash Table":http://en.wikipedia.org/wiki/Distributed_hash_table aimed to store ARP entries and to allow nodes to perform fast lookup operations. All the operation in the DHT (get and store) are performed on a set of nodes computed by means of a distributed hash function which input value is an IPv4 address.
 
 h2. Snooping mechanism
 
