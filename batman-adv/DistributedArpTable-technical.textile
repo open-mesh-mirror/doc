@@ -2,10 +2,23 @@ h1. ARPoverDHT
 
 This is a draft of the page describing the inner details of the implementation of DAT
 
+The target of this page is to explain the inner details abut the implementation of [[DistributedARPTable|DAT (Distributed ARP Table)]]. For the general idea and the problem that it is trying to solve, pelase refer to  the [[DistributedARPTable|DAT]] page.
+
 h2. Snooping mechanism
+
+In order to let DAT correctly work, the batman-adv module has to analyze ARP messages going through and coming from the mesh network. For this reason a snooping mechanism has been provided.
+A node actually uses the ARP replies issued by the clients it is serving to populate its local cache and the distributed table. Any ARP request going to the mesh network, instead, is blocked in order to ask DAT for the reply.
 
 h2. Fallback mechanism
 
+Is is also possible that DAT does not have the entry for a particular IP (e.g. this is the first time this IP is asked or the entry has been purged out due to no activity). In this case DAT will not provide any answer to the ARP request asking for the translation of such IP. In this case the "blocked ARP request" is sent as broadcast packet (like a normal ARP papcket) after 300ms. In this way, the client can get its ARP reply anyway and DAT can learn the new enry by inspecting it.
+
 h2. A new packet type UNICAST_4ADDR
 
+In order to distinguish own DAT messages from classic unicast packets, a new packet type has been introduced: the UNICAST_4ADDR. This new packet type has both the source and the destination address (clasic unicast has only destination) and a subpacket-type field. Thanks to the latter, DAT is able to exactly distinguish different packets and to provide appropriate debugging information if needed.
+
 h2. Backward compatibility
+
+In order to prevent backward compatibility breakage, several measures have been taken:
+* the fallback mechanism prevent a DAT-enabled node to get stuck in case of no DAT nodes at the location where it was expecting them (node set holding a particular entry); 
+* if an ARP request is coming through a normal unicast packet, it means that the node sending it is not DAT-enabled, therefore also the reply will be sent by means of a commn UNICAST packet.
