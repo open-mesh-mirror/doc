@@ -98,3 +98,39 @@ h2. Documentation
  * "DELAYED_WORK":http://www.ibm.com/developerworks/linux/library/l-tasklets/
 
  * http://www.open-mesh.org/projects/open-mesh/wiki/2012-05-13-translation-table-in-a-nutshell
+
+h2. Yet another algorithm proposal
+
+To automatically adapt to round trip time and handle packet loss, here is another proposal how to implement the go-back-n algorithm:
+
+We use two modes for sending, called *initial sending* and *onack sending*. The algorithm is:
+
+# do "initial sending" as first step
+# whenever a new ack is received, do "onack sending"
+# if a timeout is hit, do "initial sending" again
+
+h3. intial sending
+
+ * Initial sending sends WINDOW_SIZE packets in one go. 
+ * then, the timeout timer is set to LONG_TIMEOUT.
+
+h3. onack sending
+
+ * if an acknowledgement is received, send as many *new* packets as the difference between the received ack and the previously received ack
+  -> for example, if WINDOW_SIZE=100, we just received the ack for packet no. 20 and had the ack for packet no 16 before, send packet 116, 117, 118 and 119
+
+ * *move* the timeout timer to now+SHORT_TIMEOUT
+
+h3. Discussion
+
+ * the idea is that we initially fill the pipeline with the "initial sending" and then only send subsequent packets when we got an ack
+ * the acks are assumed to be received in very short intervals
+ * if the stream of acks is interrupted (because of packet loss), we want to send the whole window again very quickly
+ * if the network is "perfect", we should never resend the whole window again :)
+ * if it is not perfect, we should recover quickly
+ * LONG_TIMEOUT should be a bit longer than the expected maximum round trip time
+ * SHORT_TIMEOUT should be a bit longer than the expected maximum interval of received ack packets
+
+h3. Illustration
+
+!gobackn-proposal.png
