@@ -134,3 +134,4 @@ h3. Discussion
 h3. Illustration
 
 !gobackn-proposal.png!
+!gobackn-proposal2.png!
