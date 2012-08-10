@@ -150,7 +150,17 @@ h3. Questions
 
 Please add any comments or questions for the next discussion here (for general question, please use the mailing list. more info: http://www.open-mesh.org/wiki/open-mesh/MailingList):
 
-Question (???, ???): Under Discussion -> Features you say "no BATMAN packets on the backbone".
-Why would you want to use the mash (which never has enough bandwidth anyway) if you have a fast, reliable backbone link between some of the nodes. Wouldn't it make more sense to get as much done through the backbone as possible?
+*Question*: Under Discussion -> Features you say "no BATMAN packets on the backbone".
+Why would you want to use the mesh (which never has enough bandwidth anyway) if you have a fast, reliable backbone link between some of the nodes. Wouldn't it make more sense to get as much done through the backbone as possible?
 
-Answer (Simon, 2012-02-12): you can explicitly use batman-adv on the mesh if you want to - batman-adv allows adding Ethernet interfaces as well. This is a good idea if you have full control over your LAN. However, there are users who don't want to see batman-adv ethernet frames (with its special ethertype 0x4305) on their LAN, because some firewalls recognize it as malicious traffic. Therefore, one design goal of blaII was to keep batman-adv packets out of the backbone LAN in the default case.
+*Answer*: you can explicitly use batman-adv on the mesh if you want to - batman-adv allows adding Ethernet interfaces as well. This is a good idea if you have full control over your LAN. However, there are users who don't want to see batman-adv ethernet frames (with its special ethertype 0x4305) on their LAN, because some firewalls recognize it as malicious traffic. Therefore, one design goal of blaII was to keep batman-adv packets out of the backbone LAN in the default case. -- _(Simon, 2012-02-12)_
+
+
+*Question*: So, does this mean that with current blaII, two meshes connected solely by ethernet backbone (which can't overhear each other OGMs through wifi) only know which macs are "on the other side of the ethernet backbone" so as to keep the single broadcast domain united, but are fragmented in terms of VIS data, gw, TT, and orig table?
+
+*Answer*: Yes, there are two separate meshes, and the only stuff which is supposed to be shared is the users payload traffic. -- _(Simon, 2012-08-07)_
+
+
+*Question*: Then, how can I make two separate meshes use a single DHCP server (using gw_mode feature) in current blaII design?
+
+*Answer*: Each node at the edge to the wired network may announce itself as a gateway, provided that a DHCP server is available in the LAN (or any network behind it, e.g. a mesh). From a concept view, a gateway (or maybe even multiple gateways) in mesh2 will not automatically announced in mesh1 - this must be configured manually, or let batman use Ethernet if this is explicitly required. -- _(Simon, 2012-08-07)_
