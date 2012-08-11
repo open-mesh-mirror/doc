@@ -1,26 +1,12 @@
 h1. BackwardsCompatibility
 
-h2 Branches
+h2 Repo
 
 * http://git.open-mesh.org/?p=batman-adv.git;a=shortlog;h=refs/heads/northpole/tvlv-clean
 
-Everything on this page is a suggestion and a work in progress therefore open to discussion and change.
-
 h2. Intro
 
-Right now batman does not have any  real backwards compatibility. We could implement real backward compatibility through the use of IEs (information elements) and more specifically TLVs (type/length/value) elements.
-
-First the closest thing I found in wireless information elements is the wifi ones. For everyone who is not aware of the basics, here is a "link":http://etutorials.org/Networking/802.11+security.+wi-fi+protected+access+and+802.11i/Part+II+The+Design+of+Wi-Fi+Security/Chapter+13.+Wi-Fi+LAN+Coordination+ESS+and+IBSS/WPA+RSN+Information+Element/ with a brief and general/abstract description
-
-
-h2.  In-Kernel functionality
-
-Most systems use tlvs for a variety of things (from Alsa that uses unencoded tlvs to set the sound levels to the wifi)
-
-There is already functionality for encoding/decoding 
-#CIFS http://lxr.linux.no/#linux+v3.3.5/fs/cifs/asn1.c#L2
-#nat_snmp_basic http://lxr.linux.no/#linux+v3.3.5/net/ipv4/netfilter/nf_nat_snmp_basic.c#L62
-
+Right now batman does not have any  real backwards compatibility. We could implement  backwards compatibility through the use of IEs (information elements) and more specifically TLVs (type/length/value) elements.
 
 h2.  TVLV concept
 
@@ -85,9 +71,9 @@ h3. Translation table / TT messages
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV 0x03   |    Version    |    Length     |     TTVN      | 
+ |   TVLV 0x03   |    Version    |    Length                           | 
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |             TT CRC            |
+ |     TTVN         |             TT CRC            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
@@ -181,159 +167,3 @@ h3. Multicast capability (TODO => Simon / Edo)
  * length: TBD
  * note: should not be considered for now, we can pick it up again as soon as it gets some love from a developer.
 
-===================================================
-
-TODO
-
-Currently Doing:
-
-* Building an emulated testing environment and familiriasing myself with the tools needed. -- Done (somewhat, stays on the currently doing list since its a constant work in progress)
-* first user: gateway settings                                                              -- done
-* apped all existing tvlvs from the list to the ogm                             --done
-* function names                                                                                 --see questions bellow
-* group re-occuring tasks in separate functions (like tvlv_find())    --w(h)ip
-* register/unregister gateway handler                                              --done
-* parse incoming tvlv                                                                          --done
-*The Gateway callback should call batadv_gw_node_update()	--done
-
-*  No more warnings                                                                            --done
-*  Tvlv handler list                                                                                 --done
-*  The Gateway callback should call batadv_gw_node_update()	--done
-*  Add the switch case to sysfs.c -> batadv_store_gw_mode() 	--done
-*  Fix identation                                                                                     --done
-*  Reduce easily reducable patches                                                     --w(h)ip  --schedule it for next week(?)
-*  fix merge conflicts                                                                            --w(h)ip  --schedule it for next week(?)
-
-Future Tasks:
-  
- The order is roughly as follows:
-* Gateway packets (w.i.p.)
-* Dat packets
-* Vis
-* ....to be decided
-
-h1. Todo after midterm
-
-I put here the todo list as it is after the mentors' remarks as well as my own todo's
-0. -sent the freifunk interview-
-
-1. fix the warnings you see with "make C=2"
-
->almost done (there are some warning about unused functions but these are the debug functions so they are used in the debug version )
- 
-2. -constantly check with checkpatch.pl --script if the commit you are creating are correctly formatted or not.-
-
-<pre>
-./checkpatch.pl --strict --no-tree --ignore COMPLEX_MACRO --strict --file batman-adv/*.h|less
-./checkpatch.pl --strict --no-tree --ignore COMPLEX_MACRO --strict --file batman-adv/*.c|less
- </pre>
->the above comes empty
- 
-3. -pay attention to the indentation (of parenthesis, parameters, whatever).-
-
->I reviewed the code and fixed it
- 
-4. -when you declare a new variable don't add a new line between it and the  previous ones, but add a newline after it so to have a clear separation  between variable declarations and the rest of the code.-
-
-
-5. -multiline comments should be of the form- 
-<pre>
-/* blabla
- * lol
- */
-</pre>
-  -so you need a * at the beginning of each line and end with a */ only-
-
-> found one "illegal comment and fixed it"
-
-
-6. -pay attention to what you did during your last rebase :) you accidentally removed the last fix introduced by Simon for batadv_bla_rx()  and the is_bcast parameter.-
- 
->done(?) http://pastebin.com/YfEPR6kU
- 
-7. -look at the invocation of tvlv_register() in gateway_common.c: you do not need  to have a newline for each param, you need a new line only if adding another  param would make the line longer than 80 chars. I saw you doing this several  times in the code.-
-
-8. -try to avoid adding or deleting blank line alone-
-
->i'll fix it in the rebase
- 
-9. -what does this comment mean: /*Gateway tvlvs i need a bat_priv aware function for this */ ? (it is in main.c in batadv_recv_handler_init()). I thought you  solved this problem-
-
->leftover comment, i removed it
- 
-10.  at some point.....you'll have to convert all your pr_warn in batadv_dbg
-
-11. -NEVER write code on the same line of a label like "end: return;". Label must be alone-
-
->ok, i think i fixed it everywhere
- 
-12. -when you have operations like a+b it must be a + b. If the statement is too  long because 'a' is something very long, try to use another var like:  tmp = very_long_long_statement;  tmp + b-
-
- 
-13. -when you define an enum, please add a coma also to the last element in the list-
-
-14.-why do we still have this: BATADV_TVLV= 0x09 ?-
-
->leftover,removed (damn, I cant get it to appear on strikethrough)
-
-15.  -looking at this function tvlv_handler_unregister(), you should use kfree_rcu() instead of kfree()-
-
-16. -you still have a lot of sizeof(uint8_t) in your code - please remove them-
-
-17 -in main.c/tvlv_process(), you move the iterator outside of the loop.-
-
->stupid mistake, fixed
-
-18. -your tree does not seem to be rebased on master (again)?-
-
->rebased, sorry
-
-19. test the prototype with long lists of tvlvs and handler functions and also with weird tvlv values
-
-20. ask someone to increase the wiki logout timeout (please?)
-
-21. keep the wiki clean
-
-22.  Have Two Patches one that introduces the tvlv concept and another that implements it for gw
-> created a new branch (tvlvTemp) and pushed two patches, I'm not sure they are the right patches though and I'd like another git quick lesson on 3 way merge (what each file represents) and on git diff-ing if that's possible
- 
-h3. Dont Forget The milk section:
-
-Build-Tests repo: git://git.open-mesh.org/build_test.git
-
-h2. For the next meeting
-
-* main.c : 678-692 (The if(tvlv) check ) I shouldnt under any circumastances get a null tvlv, right? So if I get one is it better to ignore it and try to move over to the next one or stop reading tvlvs there?
-<pre>
-if (tvlv) {
-			handler = tvlv_get_handler(bat_priv,
-						   tvlv->type);
-			if (!handler)
-				goto end;
-
-			tmp = (char *)tvlv + sizeof(struct shortTvlv);
-			handler->handler(bat_priv, orig_node, tmp);
-		
-
-		tmpLen = tvlv->length;
-		iterator = (char *)iterator + tmpLen + sizeof(struct shortTvlv);
-
-		i += tmpLen + sizeof(struct shortTvlv);
-		}
-		else
-		i++;
-		/* if I get a null tvlv
-		 * does that mean that maybe there is a non null one afterwards?
-		 * and if yes do I have to read it? and if yes its offset
-		 * is sizeof(struct shortTvlv or just one null value?)*/
-</pre>
-
-h3. Build Tests output
-make C=2 returns what I wrote in the todo
-cppcheck http://pastebin.com/YfmSqesM
-checkpatch.pl http://pastebin.com/MkLz2MAP
-brackets: http://pastebin.com/3s2VdtUn
-sparse http://pastebin.com/dsCzsh22
-comments: no errors
-find_unused_symbols: returns most batdv_* functions
-find_wrong namespace comes clean
