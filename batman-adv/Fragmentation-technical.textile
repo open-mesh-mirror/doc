@@ -17,16 +17,6 @@ The fragment header contains several fields:
 * Total size
    Used to determine whether a fragment should be merged before forwarding and also to determine if all fragments are received.
 
-The first feature is fulfilled with two fields:
-* Fragment number
-  Used to order the fragments before merging them. The field is 4 bits, giving up to 16 fragments. The number of fragments is a trade between how big the original packet be, and the risk of loosing one or more fragments in the air.
-* Total size
-  The size of the original packet is used by the receiver to determine when the last fragment is received.
-
-The second feature is supported by using encapsulation. This is done by using a header that is independent of the original packet. When a fragmented packet is merged, the original packet is handed to it corresponding handler as had it never been touched.
-
-The third feature is supported bu including the 
-
 h2. Creating Fragments
 
 Any type of unicast packet (e.g. @struct unicast_packet@, @struct tt_response@, @struct vis_packet@, etc) can be fragmented.
