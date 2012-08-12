@@ -38,6 +38,22 @@ Now the remaining part is small enough to transmit in one piece, so the fragment
 
 h2. Merging Fragments
 
+!rx.png!
+
+When receiving a fragment, it is passed to @recv_frag_packet()@ in @routing.c@, where it is either forwarded, buffered, or merged. Merged packets are passed to the primary receive function again and processed by its original handler.
+
+# *Check total size*
+  If destination fields contains another originator and the size of the original packet is greater than the MTU, the fragment is forwarded without merging.
+# *Buffer fragment*
+  The fragment is buffered in a list of fragments with equal sequence numbers from the same originator.
+# *Check for complete fragments*
+  If the accumulated size of the received fragments equals the total size given in the fragment header, the list moved out of the buffer and handed to the merge function.
+
 h2. Configuration
 
 h2. The TT Issue
+
+h2. Future Improvements
+
+* Checking total size of original packet uses the MTU of the incoming interface. In case of bonding, the fragment might be transmitted on another interface.
+* The fragment buffer in @struct orig_node@ should only allocated on demand, as most networks doesn't need fragmentation.
