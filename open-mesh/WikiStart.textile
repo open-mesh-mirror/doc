@@ -26,8 +26,8 @@ h2. Getting Started
 h2. Documentation
 
 * [[BranchesExplained|Branches explained]] - learn about the B.A.T.M.A.N. flavours
-* [[batman-adv:doc-overview|B.A.T.M.A.N. Advanced documentation]] 
-* [[batmand:doc-overview|B.A.T.M.A.N. daemon documentation]] 
+* [[batman-adv:doc-overview|B.A.T.M.A.N. Advanced Documentation]] 
+* [[batmand:doc-overview|B.A.T.M.A.N. Daemon Documentation]] 
 * [[FAQ|FAQ]] - Frequently Asked Questions
 * [[Experience|Experience]] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
 * [[MailingList|Mailing List]]/[[IRC|IRC]] - contact us
