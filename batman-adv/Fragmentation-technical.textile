@@ -36,7 +36,11 @@ Now the remaining part is small enough to transmit in one piece, so the fragment
 
 !third_fragment.png!
 
+These completes the creation of fragments.
+
 h2. Merging Fragments
+
+Fragments are identified by the packet type in the batman-adv common header.
 
 !rx.png!
 
@@ -45,9 +49,13 @@ When receiving a fragment, it is passed to @recv_frag_packet()@ in @routing.c@, 
 # *Check total size*
   If destination fields contains another originator and the size of the original packet is greater than the MTU, the fragment is forwarded without merging.
 # *Buffer fragment*
-  The fragment is buffered in a list of fragments with equal sequence numbers from the same originator.
+  The fragment is buffered (in reverse order) in a list of fragments with equal sequence numbers from the same originator.
 # *Check for complete fragments*
   If the accumulated size of the received fragments equals the total size given in the fragment header, the list moved out of the buffer and handed to the merge function.
+# *Merge fragments*
+  The first fragment in the list (which is the last received fragment, see item no. 2) is expanded to contain the payload of the rest of the fragments, which are then copied into the first fragment.
+# *Handle original packet*
+  The merged packet is passed to @batman_skb_recv()@ where it is processed as usual.
 
 h2. Configuration
 
