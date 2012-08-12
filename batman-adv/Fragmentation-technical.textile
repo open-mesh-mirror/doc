@@ -53,11 +53,24 @@ When receiving a fragment, it is passed to @recv_frag_packet()@ in @routing.c@, 
 # *Check for complete fragments*
   If the accumulated size of the received fragments equals the total size given in the fragment header, the list moved out of the buffer and handed to the merge function.
 # *Merge fragments*
-  The first fragment in the list (which is the last received fragment, see item no. 2) is expanded to contain the payload of the rest of the fragments, which are then copied into the first fragment.
+  The first fragment in the list (which is the last fragment, see item no. 2) is expanded to contain the payload of the rest of the fragments, which are then copied into the first fragment.
 # *Handle original packet*
   The merged packet is passed to @batman_skb_recv()@ where it is processed as usual.
 
 h2. Configuration
+
+First of all, fragmentation shouldn't be needed (except for tt-tables, see below). It is a fix for drivers/hardware that is unable to handle MTU's greater than 1528 bytes, it is slow (due to increase is packets), and is fragile to packet loss.
+
+It can be enabled and disabled in the sysfs file:
+<pre>
+%25 echo 1 > /sys/class/net/bat0/mesh/fragmentation # enable (default)
+%25 echo 0 > /sys/class/net/bat0/mesh/fragmentation # disable
+</pre>
+or by using @batctl@:
+<pre>
+%25 batctl f 1 # enable
+%25 batctl f 0 # disable
+</pre>
 
 h2. The TT Issue
 
