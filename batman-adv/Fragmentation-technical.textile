@@ -85,9 +85,9 @@ If the MTU is decreased to less than the size of the current local table, the lo
 
 There is one remaining issue for which I cannot see any solution: What to do when an intermediate node has an MTU lower than its two neighbors? If we have "A <-> B <-> C", where A and C have MTU=1550 and B has MTU=1000 bytes, B cannot respond with nor forward very-big-full-tables from A to C. If B receives a full-table-request from C to A, I have chosen to let B forward the request to A, and hope that the response will find another way to C :)
 
-The only perfect solution to the very-big-local-TT issue is a higher layer of fragmentation, but IMHO this requires too much complexity to a too rare situation. (E.g. what are the riscs of packet loss with, say, 128 fragments?) 
+The only perfect solution to the very-big-local-TT issue is a higher layer of fragmentation, but IMHO this requires too much complexity to a too rare situation. (E.g. what are the riscs of packet loss with, say, 128 fragments?)
 
 h2. Future Improvements
 
 * Checking total size of original packet uses the MTU of the incoming interface. In case of bonding, the fragment might be transmitted on another interface.
-* The fragment buffer in @struct orig_node@ should only allocated on demand, as most networks doesn't need fragmentation.
+* The fragment buffer in @struct orig_node@ should only be allocated on demand, as most networks doesn't need fragmentation.
