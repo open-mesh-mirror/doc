@@ -4,8 +4,16 @@ To transport packets through the mesh network, batman-adv prepends its own heade
 
 h2. Creating Fragments
 
-Any type of unicast packet (e.g. #struct unicast_packet#, #struct tt_response#, #struct vis_packet#, etc) can be fragmented.
+Any type of unicast packet (e.g. @struct unicast_packet@, @struct tt_response@, @struct vis_packet@, etc) can be fragmented.
 
 !tx.png!
 
-The size is checked in #send_skb_to_orig()# and if larger than the MTU of the selected outgoing interface (selected by [[batman-adv:Multi-link-optimizations-technical|bonding]])
+The size is checked in @send_skb_to_orig()@ and if larger than the MTU of the selected outgoing interface (selected by [[batman-adv:Multi-link-optimizations-technical|bonding]]) the packet is passed to @frag_send_packet()@. Here, fragments are created and sent from the tail of the original packet, so that the first fragment contains the end of the original packet:
+
+!first_fragment.png!
+
+h2. Merging Fragments
+
+h2. Configuration
+
+h2. The TT Issue
