@@ -5,16 +5,17 @@ To transport packets through the mesh network, batman-adv prepends its own heade
 h2. Protocol Header
 
 The fragment header contains several fields:
-* Batman-adv common header (Compatibility version, packet type, and time-to-live)
-* Destination
+* *Batman-adv common header* 
+  Compatibility version, packet type, and time-to-live
+* *Destination*
    Used to route fragments if it wouldn't make sense to merge them. (E.g. when the merged packet larger than the intermediate MTU and thus would be fragmented again anyways.)
-* Originator
+* *Originator*
    Used to group fragments in the buffer. This and the sequence number makes the original packet identifiable.
-* Fragment number
+* *Fragment number*
    Used to sort the fragments before merging them.
-* Sequence number
+* *Sequence number*
    Used to identify the group of fragments.
-* Total size
+* *Total size*
    Used to determine whether a fragment should be merged before forwarding and also to determine if all fragments are received.
 
 h2. Creating Fragments
