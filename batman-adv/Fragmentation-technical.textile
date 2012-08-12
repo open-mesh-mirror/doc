@@ -1,3 +1,11 @@
 h1. Fragmentation
 
 To transport packets through the mesh network, batman-adv prepends its own header to packets entering the mesh. Since clients and other sources of packet don't know about this additional header, packets are often optimized for the usual MTU of 1500 bytes, meaning that the additional header increases the size to e.g. 1528 bytes. To handle this, batman-adv recommends users to increase the MTU of the wireless interface to at least 1528 bytes. However, some drivers/hardware don't support an MTU larger than 1500 bytes, or batman-adv might need to transmit big protocol packets, and for this we need fragmentation.
+
+h2. Creating Fragments
+
+Any type of unicast packet (e.g. #struct unicast_packet#, #struct tt_response#, #struct vis_packet#, etc) can be fragmented.
+
+!tx.png!
+
+The size is checked in #send_skb_to_orig()# and if larger than the MTU of the selected outgoing interface (selected by [[batman-adv:Multi-link-optimizations-technical|bonding]])
