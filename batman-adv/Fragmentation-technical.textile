@@ -16,7 +16,9 @@ The first fragment is passed to @send_skb_packet()@ to be transmitted and if the
 
 !second_fragment.png!
 
-Now the remaining part is small enough to transmit in one piece, so the fragment header is added and the packet is passed to @send_skb_packet()@.
+Now the remaining part is small enough to transmit in one piece, so the fragment header is added and the packet is passed to @send_skb_packet()@:
+
+!third_fragment.png!
 
 h2. Merging Fragments
 
