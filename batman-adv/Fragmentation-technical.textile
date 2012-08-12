@@ -12,6 +12,10 @@ The size is checked in @send_skb_to_orig()@ and if larger than the MTU of the se
 
 !first_fragment.png!
 
+The first fragment is passed to @send_skb_packet()@ to be transmitted and if the size of the remaining part of the original packet is also larger than the MTU, another fragment is created:
+
+!second_fragment.png!
+
 h2. Merging Fragments
 
 h2. Configuration
