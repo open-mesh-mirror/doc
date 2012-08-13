@@ -232,7 +232,9 @@ a pointer to struct batadv orig_node
 a pointer to a value field
 and a version byte
 <pre>
- void callback(struct batadv_priv *bat_priv, struct batadv_orig_node *orig, uint8_t *value, uint8_t version);
+ void callback(struct batadv_priv *bat_priv,
+                       struct batadv_orig_node *orig,
+                       uint8_t *value, uint8_t version);
 </pre>
 
 h3. Handlers
