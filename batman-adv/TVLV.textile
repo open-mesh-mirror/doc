@@ -167,3 +167,7 @@ h3. Multicast capability (TODO => Simon / Edo)
  * length: TBD
  * note: should not be considered for now, we can pick it up again as soon as it gets some love from a developer.
 
+
+h2.  Description of the API
+
+A short API description can be found in the GSoC final report page: http://www.open-mesh.org/projects/batman-adv/wiki/GSoCfinalreportSpyros
