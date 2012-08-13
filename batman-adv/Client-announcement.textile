@@ -94,7 +94,8 @@ The new entry is added to the global TranslationTable and marked as _temporary_ 
 
 h2. Limitations
 
-* Too many local clients: If the number of local clients that connects to a node within one originator interval exceeds the limit of entries that fit into a single packet (1500 bytes) the exceeding clients won't be announced. This problem will be solved by the new fragmentation mechanism (not yet implemented) that will enable TT_Response to be fragmented.
+* Too many local clients: The size of the local translation table depends on the number served clients. This size cannot exceed the maximum packet size and if the limit is reached, new clients are ignored.
+* Decreased MTU: If an interface with and MTU less than the currently activated interfaces is added, the size of the local table might need to be reduced. Otherwise the node is unable to answer requests for full tables.
 
 h2. Notes
 
