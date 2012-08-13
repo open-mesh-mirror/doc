@@ -241,6 +241,7 @@ h3. Handlers
 
 There is a specieal field for the handlers named call_always this enables the handler to be called with a NULL as value and a 0 as version even if the appropriate tvlv wasnt received.
 Its useful for features which used to await a BATADV_NO_FLAGS in the ogm to turn off a feature or unregister something.
+If you want the handler to be called always you should register the handler with 1 as the call_always field value otherwise 0
 
 h2. Example
 
