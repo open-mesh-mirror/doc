@@ -186,7 +186,7 @@ In order to unregister the tvlv thus stop sending it you call
 <pre>void batadv_tvlv_unregister(struct batadv_priv *bat_priv, uint8_t type);</pre>
 
 Two restrictions apply:
-# For every tvlv there should be the appropriate handler which is registered and unregistered on ocassion by
+# If the tvlv shouldnt be ignored there should be the appropriate handler which is registered and unregistered on ocassion by
 
 <pre>void batadv_tvlv_handler_unregister(uint8_t type,
 				    struct batadv_priv *bat_priv);
