@@ -170,6 +170,120 @@ h3. Multicast capability (TODO => Simon / Edo)
  * note: should not be considered for now, we can pick it up again as soon as it gets some love from a developer.
 
 
-h2.  Description of the API
+h2.  Api description
+ 
+Its rather simple to change a feature to use tvlvs. All that is needed to be done is a call to 
+<pre>
+void batadv_tvlv_register(struct batadv_priv *bat_priv, uint8_t type,
+			  uint8_t version, uint16_t length,
+			  uint8_t *value);
 
-A short API description can be found in the GSoC final report page: http://www.open-mesh.org/projects/batman-adv/wiki/GSoCfinalreportSpyros
+</pre>
+in order to first register a tvlv. You can call the same function in order to update the value field,
+The value field can contain whatever is needed by the feature and was transported otherwise till now.
+In order to unregister the tvlv thus stop sending it you call
+
+<pre>void batadv_tvlv_unregister(struct batadv_priv *bat_priv, uint8_t type);</pre>
+
+Two restrictions apply:
+# For every tvlv there should be the appropriate handler which is registered and unregistered on ocassion by
+
+<pre>void batadv_tvlv_handler_unregister(uint8_t type,
+				    struct batadv_priv *bat_priv);
+
+void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
+				  void (*ptr)(struct batadv_priv *bat_priv,
+					      struct batadv_orig_node *orig,
+					      uint8_t *value),
+				  uint8_t type, uint8_t call_always);
+
+</pre>
+
+# A long tvlv's type must be bigger than 0x81 otherwise only the first 255 bytes will be considered for the value field
+
+h3. Handlers
+
+There is a specieal field for the handlers named call_always this enables the handler to be called with a NULL as value even if the appropriate tvlv wasnt received.
+Its useful for features which used to await a BATADV_NO_FLAGS in the ogm.
+
+h2. Example
+
+Bellow is an example using the easiest feature to be tvlved, the Gateway Feature.
+In order to register a new tvlv the following was added to sysfs.c:batadv_store_gw_mode()
+
+<pre>
+switch (gw_mode_tmp) {
+	case BATADV_GW_MODE_OFF:
+	case BATADV_GW_MODE_CLIENT:
+		batadv_tvlv_unregister(bat_priv, BATADV_GW_TVLV);
+		break;
+	case BATADV_GW_MODE_SERVER:
+		batadv_tvlv_register(bat_priv, BATADV_GW_TVLV, 1, 1,
+				     (uint8_t *)&bat_priv->gw_bandwidth);
+		break;
+	}
+</pre>
+The purpose of this code is to register and unregister a tvlv when batctl gw server and batctl gw client/off are runn respectively.
+
+In order to update the tvlv when the gateway bandwidth changes we needed the following in gateway_common.c:batadv_gw_bandwidth_set()
+<pre>
+if (atomic_read(&bat_priv->gw_mode) == BATADV_GW_MODE_SERVER) {
+		batadv_tvlv_register(bat_priv, BATADV_GW_TVLV, 1, 1,
+				     (uint8_t *)&gw_bandwidth_tmp);
+</pre>
+
+While the callback function is registered in main.c:batadv_tvlv_handler_init()
+<pre>
+batadv_tvlv_handler_register(bat_priv, batadv_gw_tvlv_callback,
+		                     BATADV_GW_TVLV, 1);
+</pre>
+The batadv_gw_tvlv_callback function is defined in gateway_client.c as follows
+<pre>
+void batadv_gw_tvlv_callback(struct batadv_priv *bat_priv,
+			     struct batadv_orig_node *orig_node,
+			     uint8_t *value)
+{
+	uint8_t gw_flags = *value;
+
+	if (!value)
+		gw_flags = BATADV_NO_FLAGS;
+
+	if (orig_node->gw_flags != gw_flags)
+		batadv_gw_node_update(bat_priv, orig_node, gw_flags);
+
+	orig_node->gw_flags = gw_flags;
+
+	/* restart gateway selection if fast or late switching was enabled */
+	if ((orig_node->gw_flags) &&
+	    (atomic_read(&bat_priv->gw_mode) == BATADV_GW_MODE_CLIENT) &&
+	    (atomic_read(&bat_priv->gw_sel_class) > 2))
+		batadv_gw_check_election(bat_priv, orig_node);
+}
+</pre>
+The following code part was moved in callback from bat_iv_ogm.c
+<pre>
+/* restart gateway selection if fast or late switching was enabled */
+	if ((orig_node->gw_flags) &&
+	    (atomic_read(&bat_priv->gw_mode) == BATADV_GW_MODE_CLIENT) &&
+	    (atomic_read(&bat_priv->gw_sel_class) > 2))
+		batadv_gw_check_election(bat_priv, orig_node);
+
+</pre>
+And thats it.
+
+h2. Api internal work
+
+There isn't much to the internals of the Api. After a tvlv is registered, on the next ogm interval the append function is called which goes through the tvlv_out_list and copies tvlvs to the end of the ogm packet. On receiving, the tvlv_process function goes through the appended tvlvs, parses them and if there is a handler registered for the tvlv, it calls the appropriate callback.
+Then it calls all the  call_always callback functions for which a tvlv wasn't received.
+
+h2. Features converted
+
+Currently there is only the gateway feature which is fully implemented and running.
+Translation table is work in progress and will be finished soon.
+Next feature is vis.
+
+
+h2.  Future work
+
+Having a (somewhat acceptable) infrastructure and after the GSoC mentors finish reviewing it and finish proposing changes, the patches will be sent to the mailing list for public review.
+After that hopefully tvlv will be part of the next compatibility bump.
