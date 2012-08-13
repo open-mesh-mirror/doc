@@ -197,11 +197,11 @@ You can call the same function in order to update the value field,
 
 Fields: 
 
-* uint8_t type: The tvlv's type should be defined as a field in enum tvlvs in packet.h
+* *uint8_t type*: The tvlv's type should be defined as a field in enum tvlvs in packet.h
 +NOTE+ since there are two types of tvlvs (short and long ones) the convention is that any tvlv with type bigger than 0x80 is a long one and smaller than that a short one, only difference that length will be assigned to a one byte variable for short tvlvs and two byte variable for long ones.
-* uint8_t version: Thats entirely up to you and its completely transparent to the tvlv infrastructure, only operations on it is copy to the packet and read from packet- pass to handler.
-* uint16_t length: The length of the value field, depending on the type field the size that will be copied on the packet is either one or two bytes.
-* uint8_t *value: A field of length "length" that contains whatever information you want to be transfered.
+* *uint8_t version*: Thats entirely up to you and its completely transparent to the tvlv infrastructure, only operations on it is copy to the packet and read from packet- pass to handler.
+* *uint16_t length*: The length of the value field, depending on the type field the size that will be copied on the packet is either one or two bytes.
+* *uint8_t *value:* A field of length "length" that contains whatever information you want to be transfered.
 
 In order to unregister the tvlv thus stop sending it you call
 
