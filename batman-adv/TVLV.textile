@@ -73,7 +73,7 @@ h3. DAT (Distributed ARP Table)
 
 h3. Translation table / TT messages
 
- * tvlv type: 0x03
+ * tvlv type: 0x81
  * function: Node local clients advertisement mechanism. This particular component needs some parameters that are were carried by the OGM. Now these fields can be encapsulated in the tvlv (see below to understand what fields I'm talking about).
  * purpose: nodes need to exchange TranslationTable state information
  * length: variable (it depends on the number of changes that the tvlv is carrying). Fixed tvlv fields:
@@ -84,7 +84,7 @@ h3. Translation table / TT messages
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV 0x03   |    Version    |    Length                           | 
+ |   TVLV 0x03   |    Version     |    Length                         | 
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |     TTVN         |             TT CRC            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
