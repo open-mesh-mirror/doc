@@ -172,39 +172,60 @@ h3. Multicast capability (TODO => Simon / Edo)
 
 h2.  Api description
  
-Its rather simple to change a feature to use tvlvs. All that is needed to be done is a call to 
+Its rather simple to change a feature to use tvlvs. All that is needed to be done is add a call to 
 <pre>
 void batadv_tvlv_register(struct batadv_priv *bat_priv, uint8_t type,
 			  uint8_t version, uint16_t length,
 			  uint8_t *value);
 
 </pre>
-in order to first register a tvlv. You can call the same function in order to update the value field,
-The value field can contain whatever is needed by the feature and was transported otherwise till now.
+in order to first register and start appending a tvlv to each ogm.
+You can call the same function in order to update the value field,
+
+Fields: 
+
+* uint8_t type: The tvlv's type should be defined as a field in enum tvlvs in packet.h
++NOTE+ since there are two types of tvlvs (short and long ones) the convention is that any tvlv with type bigger than 0x80 is a long one and smaller than that a short one, only difference that length will be assigned to a one byte variable for short tvlvs and two byte variable for long ones.
+* uint8_t version: Thats entirely up to you and its completely transparent to the tvlv infrastructure, only operations on it is copy to the packet and read from packet- pass to handler.
+* uint16_t length: The length of the value field, depending on the type field the size that will be copied on the packet is either one or two bytes.
+* uint8_t *value: A field of length "length" that contains whatever information you want to be transfered.
+
 In order to unregister the tvlv thus stop sending it you call
 
 <pre>void batadv_tvlv_unregister(struct batadv_priv *bat_priv, uint8_t type);</pre>
 
+Fields: 
+uint8_t type: The type of the tvlv you want to stop transporting.
+
 Two restrictions apply:
 # If the tvlv shouldnt be ignored there should be the appropriate handler which is registered and unregistered on ocassion by
 
-<pre>void batadv_tvlv_handler_unregister(uint8_t type,
-				    struct batadv_priv *bat_priv);
+<pre>void batadv_tvlv_handler_unregister(struct batadv_priv *bat_priv,uint8_t type);
 
 void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 				  void (*ptr)(struct batadv_priv *bat_priv,
 					      struct batadv_orig_node *orig,
-					      uint8_t *value),
+					      uint8_t *value,
+					      uint8_t version),
 				  uint8_t type, uint8_t call_always);
 
 </pre>
 
-# A long tvlv's type must be bigger than 0x81 otherwise only the first 255 bytes will be considered for the value field
++NOTES+ : 
+* A handler of type "type" handles a tvlv of type "type". 
+* Every Callback function should return nothing and accept three arguments 
+a pointer to struct batadv_priv
+a pointer to struct batadv orig_node
+a pointer to a value field
+and a version byte
+<pre>
+ void callback(struct batadv_priv *bat_priv, struct batadv_orig_node *orig, uint8_t *value, uint8_t version);
+</pre>
 
 h3. Handlers
 
-There is a specieal field for the handlers named call_always this enables the handler to be called with a NULL as value even if the appropriate tvlv wasnt received.
-Its useful for features which used to await a BATADV_NO_FLAGS in the ogm.
+There is a specieal field for the handlers named call_always this enables the handler to be called with a NULL as value and a 0 as version even if the appropriate tvlv wasnt received.
+Its useful for features which used to await a BATADV_NO_FLAGS in the ogm to turn off a feature or unregister something.
 
 h2. Example
 
@@ -223,7 +244,7 @@ switch (gw_mode_tmp) {
 		break;
 	}
 </pre>
-The purpose of this code is to register and unregister a tvlv when batctl gw server and batctl gw client/off are runn respectively.
+The purpose of this code is to register and unregister a tvlv when batctl gw server and batctl gw client/off are run respectively.
 
 In order to update the tvlv when the gateway bandwidth changes we needed the following in gateway_common.c:batadv_gw_bandwidth_set()
 <pre>
@@ -269,6 +290,9 @@ The following code part was moved in callback from bat_iv_ogm.c
 		batadv_gw_check_election(bat_priv, orig_node);
 
 </pre>
+
++NOTE+ : Notice that the gateway callback does not care about version at least for now.
+
 And thats it.
 
 h2. Api internal work
@@ -286,4 +310,4 @@ Next feature is vis.
 h2.  Future work
 
 Having a (somewhat acceptable) infrastructure and after the GSoC mentors finish reviewing it and finish proposing changes, the patches will be sent to the mailing list for public review.
-After that hopefully tvlv will be part of the next compatibility bump.
+After that hopefully tvlv will be part of the next compatibility bump along with the first three tvlv'ed features.
