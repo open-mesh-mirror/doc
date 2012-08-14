@@ -109,7 +109,7 @@ h2. How big networks does batman-adv support?
 That is a good question. It is not possible to give an exact answer, but there are several parameters limiting the number of nodes in your network:
 
 # *Capacity of the wireless network*
-  Usually, the performance of the wireless network renders unusable is you add too many nodes (huge delay and low throughput).
+  Usually, the performance of the wireless network renders unusable if you add too many nodes (huge delay and low throughput).
 # *Memory footprint*
   Each node in the mesh network holds information in memory about every other node, so little memory might limit the number of nodes.
 # *Protocol overhead*
