@@ -1,6 +1,6 @@
 h1. BackwardsCompatibility
 
-h2 Repo
+h2. Code
 
 * http://git.open-mesh.org/?p=batman-adv.git;a=shortlog;h=refs/heads/northpole/tvlv-clean
 
