@@ -7,9 +7,9 @@ h2. Branches
 
 h2. GENERAL DESCRIPTION
 
-This is a general description, the protocol description and a TODO are presented in the next sections. For a discussion on technical elements and implementation see "technical and debug page":http://www.open-mesh.org/projects/batman-adv/wiki/GSOC2012_BW_debug
+This section explains the project aim and shows how to use the bandwidth meter. The protocol is described in the next section, while a more technical details are discussed in the "technical and debug page":http://www.open-mesh.org/projects/batman-adv/wiki/GSOC2012_BW_debug
 
-The project aims to create a kernel-space tool that measures the throughput between two nodes and avoids problems experienced with user-space tools like iperf and netperf. With those tools main problems are encountered on machines that are low on resources, including routers, since packets must be copied from kernel-space to user-space memory and aligned. This computational load can slow the such devices, leading to packet losses, thus altering the test result. A TCP-like mode is implemented to *approximate* TCP behaviour (the protocol is indeed much simple).
+The project aim is to create a kernel-space tool that measures the throughput between two nodes and avoids problems experienced with user-space tools like iperf and netperf. With those tools main problems are encountered on machines that are low on resources, including routers, since packets must be copied from kernel-space to user-space memory and aligned. This computational load can slow such devices, leading to packet losses, thus altering the test result. A TCP-like mode is implemented to *approximate* TCP behaviour (the protocol is indeed much simple).
 
 The test is started through batctl:
 
@@ -39,9 +39,9 @@ Bandwidth meter called towards 00:00:00:00:00:01
 
 h2. PROTOCOL 
 
-The protocol is a connection oriented, "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N protocol with fixed window and cumulative acknowledgment. Of the two end nodes, one is the sender and the other the receiver; their behaviour is described in the next sections.
+The protocol is a connection oriented, "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N protocol with fixed window and cumulative acknowledgement. Of the two end nodes, one is the sender and the other the receiver; their behaviour is described in the next subsections.
 
-During all the test ICMP packets only are exchanged, so two fresh ICMP packet types are defined (BATADV_BW_METER, BATADV_BW_ACK). A node can participate in different tests at the same time, but with different nodes. This means that two or more tests cannot be performed at the same time between the same two nodes.
+During the test ICMP packets only are exchanged, so two fresh ICMP packet types are defined (BATADV_BW_METER, BATADV_BW_ACK). A node can participate in different tests at the same time, but with different nodes. This means that two or more tests cannot be performed at the same time between the same two nodes.
 
 Between two consecutive experiment runs at least one second should be waited, to assure connection is closed before its re-opening.
 
@@ -59,6 +59,8 @@ So BW_WINDOW_SIZE packets are sent, then the a timeout is started:
 * when the timeout expires, the whole window is transmitted again. This means BW_WINDOW_SIZE packets are transmitted, with sequence numbers starting from window_first, the last packet that has been acknowledged;
 * everytime an ack is received, the timer is updated. Update window_first to ack's "sequence number" and send from next_to_send to (window_first + BW_WINDOW_SIZE) new packets (with seqno starting from next_to_send). Every time a packet is sent, next_to_send is increased.
 
+!protocol1.png!
+
 h3. The receiver
 
 To begin the test, the receiver must receive the packet with seq 0: if another packet is received, the test is not considered started, no ack is sent back and no data structure is allocated on the receiver side. 
@@ -73,70 +75,3 @@ If a BW_METER packet is received on that connection, it's offset is checked: if 
 
 When a packet that is not full (its full size is different from that of the others) is received *in order* the test is finished. Send a normal ack back with the sequence number of the short packet, wait a certain amount of time and "declare the test finished" (i.e. free variables and accept new test packets). 
 The time to wait should be greater than sender's timeout + RTT: if the last ACK is lost, the sender should re-send all the missing packets of the last window after the timeout expires. If no packet is received in 1 second, the receiver declares the connection closed and aborts the test.
-
-h2. TODO
-
-* bitmap on receiver side to keep track of already received packets
-
-* report
-* send to the mailing list
-* wiki page
-
-* test protocol for deadlock situations ("spin":http://spinroot.com/spin/whatispin.html)
-* enable lockdep in the test kernel
-* No strange locking; http://rswiki.csie.org/lxr/http/source/arch/x86/kernel/cpu/mtrr/generic.c?v=linux-2.6.33#L582
-* Try to reduce locking (specially on receiver side)
-
-* what is a reasonable window size? See "window size":http://www.open-mesh.org/projects/batman-adv/wiki/GSOC2012_BW_debug/#Window-Size
-* add error handling in batpriv (look at ping and traceroute for examples);
-* the connection termination requires the receiver to wait a certain amount of time. A "three way" termination could speed up things. Is it a good idea?? *possible* uid, 
-
-* -hton/ntoh-
-* -wrap-around safeness(see batadv_seq_after, batadv_seq_before)-
-* -keep a counter for the number of retransmission of the same window-
-* -wsize is not used by now, and it's the only differnece between icmp_packet and icmp_packet_bw. Does it make sense to maintain a different header? If we remove, what about new features that must be introduced (e.i. sender/receiver choice)? *No*-
-* -use the msg-type and not the header size to distinguish between bw_meter and other icmp packets-
-* -introduce a receiver timeout to free structures if sender goes away *1 sec inactivity*- 
-* -Should the experiment be interruptable? It is-
-* -new branch with go-back-n- montik/gobackn
-* -control receiver off-by-one problem (that was already solved) and that leads to receiver freeze-
-* -integrate into batctl- *function* batadv_socket_receive_packet(), used to send packets to userspace through the socket, accepts batadv_icmp_packet_rr only. At the moment using casts to mask. Is it ok or is there a more suitable solution ? If structure passed (and according size) greater than that of icmp_packet_rr, kernel panic happens: http://bpaste.net/show/38333/,   http://bpaste.net/show/38334/. *No kernel panic with current implementation*
-* -create a list for bw_meter_vars or store it in origin_node? A list in bat_priv should be enought, since not many test would be run concurrently.- *list in bat_priv*
-* -concurrent access: check bw_meter_start concurrent access to bat_priv-
-* -account for the received size (check last pkg).-
-* -sometimes packets are not received- seems solved
-* -react to the ack reception : *kernel panic with cancel_delayed_work_sync* !!- implemented with worker, so never remove a work from queue
-* -initialize data structure on receiver side- used the same of the sender
-* -bug when send_whole_window is called by worker. Access to freed memory-
-* -can use __be16 seq of icmp_packet instead of a uint32_t offset ?? Are 16 bit of sequence number enought? 1500*2^16=93MB (seq can also wraparound??)- *Yes to both* use seq and consider wrapping 
-* -return the exit status in auxiliary functions-
-* -generate the ack-
-* -timeout {delayed work};-
-* -send all the window;-
-* -define and initialize a data structure bw_meter_vars for variables used. The structure should be sender-dependant; [Adding it to bat_priv by now]-
-
-* -define the BW_METER icmp packet header in packet.h- 
-<pre>
-/* icmp_packet_bw must start with all fields from imcp_packet
- * as this is assumed by code that handles ICMP packets
- */
-struct icmp_packet_bw {
-        struct batman_header header;
-        uint8_t  msg_type; /* see ICMP message types above */
-        uint8_t  dst[ETH_ALEN];
-        uint8_t  orig[ETH_ALEN];
-        __be16   seqno;
-        uint8_t  uid;
-        uint8_t  reserved;
-        uint32_t offset;
-        uint32_t wsize;
-} __packed;
-</pre>
-
-* -upon batcl bw invocation a single BW_METER is sent to the destination. Destination by now only logs the packet is received; tested ok with vm;-
-* -define and implement user-space interface (through batctl) [options still to be added]-
-** -created files bw_meter.c in batman-adv and in batctl
-if batctl bw is invoked from the command line, a function in kernel space get called, in a similar fashion as for ping (but the packet will be generated in kernel space)-
-
-* -define the protocol, based on Go-Back-N-
-* -set up virtual machines for testbed: using two virtual machine with Debian and kernel 3.2.12 to test the modifications introduced in order to call the bandwidth meter through batctl; the two machines are attached to two tun interfaces bridged together.-
