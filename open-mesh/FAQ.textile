@@ -104,5 +104,16 @@ h2. What is the batgat kernel module good for?
 The batman daemon maintains a tunnel connection to every "batman internet client". Every packet that goes to the internet or comes back has to go through this tunnel. As it is a user space tunnel a lot of copying between user space and kernel land is necessary. Depending on the number of clients and the CPU power available this might be a bottleneck.
 The batgat kernel module tries to overcome this limitation. Once loaded the batman daemon will detect its presence automatically on startup. The daemon will activate the kernel module to let it handle the tunneling, hence avoiding the expensive copy operations. There is no difference between the daemon tunneling and the kernel tunneling other than that.
 
+h2. How big networks does batman-adv support?
+
+That is a good question. It is not possible to give an exact answer, but there are several parameters limiting the number of nodes in your network:
+# Capacity of the wireless network
+  Usually, the performance of the wireless network renders unusable is you add too many nodes (huge delay and low throughput).
+# Memory footprint
+  Each node in the mesh network holds information in memory about every other node, so little memory might limit the number of nodes.
+# Protocol overhead
+  Each node sends "here-I-am" messages to the entire network at a regular interval. These messages are aggregated when possible, to reduce the overhead.
+  
+
 </pre>
 
