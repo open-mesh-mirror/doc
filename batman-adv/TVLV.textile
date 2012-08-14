@@ -235,9 +235,3 @@ h2. Features converted
 Currently there is only the gateway feature which is fully implemented and running.
 Translation table is work in progress and will be finished soon.
 Next feature is vis.
-
-
-h2.  Future work
-
-Having a (somewhat acceptable) infrastructure and after the GSoC mentors finish reviewing it and finish proposing changes, the patches will be sent to the mailing list for public review.
-After that hopefully tvlv will be part of the next compatibility bump along with the first three tvlv'ed features.
