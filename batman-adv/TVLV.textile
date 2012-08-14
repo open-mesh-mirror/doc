@@ -10,12 +10,14 @@ Right now batman does not have any  real backwards compatibility. We could imple
 
 h2.  TVLV concept
 
-Each OGM shall contain a set of tvlv (type-version-length-value) containers to announce the support of a feature set. The standard TLV concept has been enriched by a version field as it can be safely assumed features evolve over time. Every feature is assigned a unique tvlv type as identifier (see below). 
+At the end of each OGM are appended a set of tvlv (type-version-length-value) containers to announce the support of a feature set. The standard TLV concept has been enriched by a version field as it can be safely assumed features evolve over time. Every feature is assigned a unique tvlv type as identifier (see below). 
 
 Batman-adv tvlv definition:
 
-In batman-adv we will be using two kinds of tvlvs 
+In batman-adv we will be using three kinds of tvlvs 
+
 A short tvlv is defined bellow
+
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
@@ -23,7 +25,7 @@ A short tvlv is defined bellow
  |   TVLV Type   |    Version    |    Length     |  Value
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
-And a long one is defined bellow
+A long one is defined bellow
 
 <pre>
  0                   1                   2                   3
@@ -35,7 +37,16 @@ And a long one is defined bellow
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-+Note+: A tvlv with a length of zero and no value is allowed to simply announce the support of a feature.
+An empty tvlv  with a length of zeroand no value is allowed to simply announce the support of a feature
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV Type   |    Version    |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+Long tvlvs have a type bigger than 0x81, short tvlvs have a type shorter than 0x80 and zero tvlvs should have the type of the feature they announce support of.
 
 Due to the individual requirements of every feature a list of existing feature tvlv follows.
 
@@ -185,14 +196,15 @@ h3. Multicast capability (TODO => Simon / Edo)
 
 h2.  Api description
  
-Its rather simple to change a feature to use tvlvs. All that is needed to be done is add a call to 
+Its rather simple to change a feature to use tvlvs. 
+To turn tvlv sending on, thus send a tvlv with every ogm packet all that is needed to be done is add a call to 
 <pre>
 void batadv_tvlv_register(struct batadv_priv *bat_priv, uint8_t type,
 			  uint8_t version, uint16_t length,
 			  uint8_t *value);
 
 </pre>
-in order to first register and start appending a tvlv to each ogm.
+
 You can call the same function in order to update the value field,
 
 +NOTE+ since there are two types of tvlvs (short and long ones) the convention is that any tvlv with type bigger than 0x80 is a long one and smaller than that a short one, only difference that length will be assigned to a one byte variable for short tvlvs and two byte variable for long ones.
@@ -202,7 +214,7 @@ In order to unregister the tvlv thus stop sending it you call
 <pre>void batadv_tvlv_unregister(struct batadv_priv *bat_priv, uint8_t type);</pre>
 
 Two restrictions apply:
-# If the tvlv shouldnt be ignored there should be the appropriate handler which is registered and unregistered on ocassion by
+# If the tvlv shouldnt be ignored on receiving there should be the appropriate handler which is registered and unregistered on ocassion by
 
 <pre>void batadv_tvlv_handler_unregister(struct batadv_priv *bat_priv,uint8_t type);
 
@@ -220,7 +232,7 @@ void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 
 h3. Handlers
 
-There is a specieal field for the handlers named call_always this enables the handler to be called with BATADV_NO_FLAGS as value and a 0 as version even if the appropriate tvlv wasnt received.
+There is a special field for the handlers named call_always, it enables the handler to be called each time an OGM was received with BATADV_NO_FLAGS as value and a 0 as version even if the appropriate tvlv wasnt received.
 Its useful for features which used to await a BATADV_NO_FLAGS in the ogm to turn off a feature or unregister something.
 If you want the handler to be called always you should register the handler with 1 as the call_always field value otherwise 0
 
