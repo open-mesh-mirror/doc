@@ -16,7 +16,7 @@ Batman-adv tvlv definition:
 
 In batman-adv we will be using three kinds of tvlvs 
 
-A short tvlv is defined bellow
+h3. A short tvlv is defined bellow
 
 <pre>
  0                   1                   2                   3
@@ -25,7 +25,7 @@ A short tvlv is defined bellow
  |   TVLV Type   |    Version    |    Length     |  Value
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
-A long one is defined bellow
+h3. A long one is defined bellow
 
 <pre>
  0                   1                   2                   3
@@ -37,7 +37,7 @@ A long one is defined bellow
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-An empty tvlv  with a length of zeroand no value is allowed to simply announce the support of a feature
+h3. An empty tvlv  with a length of zeroand no value is allowed to simply announce the support of a feature
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
@@ -197,6 +197,8 @@ h3. Multicast capability (TODO => Simon / Edo)
 h2.  Api description
  
 Its rather simple to change a feature to use tvlvs. 
+
+h3. Sending
 To turn tvlv sending on, thus send a tvlv with every ogm packet all that is needed to be done is add a call to 
 <pre>
 void batadv_tvlv_register(struct batadv_priv *bat_priv, uint8_t type,
@@ -213,6 +215,7 @@ In order to unregister the tvlv thus stop sending it you call
 
 <pre>void batadv_tvlv_unregister(struct batadv_priv *bat_priv, uint8_t type);</pre>
 
+h3. Receiving
 Two restrictions apply:
 # If the tvlv shouldnt be ignored on receiving there should be the appropriate handler which is registered and unregistered on ocassion by
 
@@ -228,7 +231,7 @@ void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 </pre>
 
 +NOTES+ : 
-* A handler of type "type" handles a tvlv of type "type". 
+# A handler of type "type" handles a tvlv of type "type". 
 
 h3. Handlers
 
