@@ -237,9 +237,9 @@ void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 +NOTES+ : 
 # A handler of type "type" handles a tvlv of type "type".
 
-h3. Handlers
+h3. Call a handler without a received tvlv
 
-There is a special field for the handlers named call_always, it enables the handler to be called each time an OGM was received with BATADV_NO_FLAGS as value and a 0 as version even if the appropriate tvlv wasnt received.
+There is a special field for the handlers named +call_always+, it enables the handler to be called each time an OGM was received with a value of BATADV_NO_FLAGS  and a 0 as version even if the appropriate tvlv wasn't received.
 Its useful for features which used to await a BATADV_NO_FLAGS in the ogm to turn off a feature or unregister something.
 If you want the handler to be called always you should register the handler with 1 as the call_always field value otherwise 0
 
