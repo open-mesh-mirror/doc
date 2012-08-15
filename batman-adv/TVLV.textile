@@ -14,7 +14,7 @@ At the end of each OGM are appended a set of tvlv (type-version-length-value) co
 
 Batman-adv tvlv definition:
 
-In batman-adv we will be using three kinds of tvlvs 
+In batman-adv we will be using three kinds of tvlvs
 
 h3. A short tvlv is defined bellow
 
@@ -25,6 +25,7 @@ h3. A short tvlv is defined bellow
  |   TVLV Type   |    Version    |    Length     |  Value
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
+
 h3. A long one is defined bellow
 
 <pre>
