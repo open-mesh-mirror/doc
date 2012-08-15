@@ -220,8 +220,8 @@ In order to unregister the tvlv thus stop sending it you call
 
 h3. Receiving
 
-Two restrictions apply:
-# If the tvlv shouldnt be ignored on receiving there should be the appropriate handler which is registered and unregistered on ocassion by
+In order to pass a tvlv value to the feature specific function an intermediate handler function is needed.
+In order to register/unregister the handler function a call to each of the following is necessary.
 
 <pre>void batadv_tvlv_handler_unregister(struct batadv_priv *bat_priv,uint8_t type);
 
@@ -235,7 +235,7 @@ void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 </pre>
 
 +NOTES+ : 
-# A handler of type "type" handles a tvlv of type "type". 
+# A handler of type "type" handles a tvlv of type "type".
 
 h3. Handlers
 
