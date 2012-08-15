@@ -201,6 +201,7 @@ h2.  Api description
 Its rather simple to change a feature to use tvlvs. 
 
 h3. Sending
+
 To turn tvlv sending on, thus send a tvlv with every ogm packet all that is needed to be done is add a call to 
 <pre>
 void batadv_tvlv_register(struct batadv_priv *bat_priv, uint8_t type,
