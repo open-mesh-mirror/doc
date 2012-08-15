@@ -6,7 +6,7 @@ h2. Code
 
 h2. Intro
 
-Right now batman does not have any  real backwards compatibility. We could implement  backwards compatibility through the use of IEs (information elements) and more specifically TLVs (type/length/value) elements.
+Right now batman does not have any  real backwards compatibility. The project's goal is to implement  backwards compatibility through the use of IEs (information elements) and more specifically TLVs (type/length/value) elements.
 
 h2.  TVLV concept
 
