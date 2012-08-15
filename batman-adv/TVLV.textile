@@ -51,6 +51,64 @@ h3. An empty tvlv  with a length of zero and no value is allowed to simply annou
 +NOTE+
 Long tvlvs have a type bigger than 0x81, short tvlvs have a type shorter than 0x80 and zero tvlvs should have the type of the feature they announce support of.
 
+h2.  Api description
+ 
+Its rather simple to change a feature to use tvlvs. 
+
+h3. Sending
+
+To turn tvlv sending on, thus send a tvlv with every ogm packet all that is needed to be done is add a call to 
+<pre>
+void batadv_tvlv_register(struct batadv_priv *bat_priv, uint8_t type,
+			  uint8_t version, uint16_t length,
+			  uint8_t *value);
+
+</pre>
+
+You can call the same function in order to update the value field,
+
++NOTE+ since there are two types of tvlvs (short and long ones) the convention is that any tvlv with type bigger than 0x80 is a long one and smaller than that a short one, only difference that length will be assigned to a one byte variable for short tvlvs and two byte variable for long ones.
+
+In order to unregister the tvlv thus stop sending it you call
+
+<pre>void batadv_tvlv_unregister(struct batadv_priv *bat_priv, uint8_t type);</pre>
+
+h3. Receiving
+
+In order to pass a tvlv value to the feature specific function an intermediate handler function is needed.
+In order to register/unregister the handler function a call to each of the following is necessary.
+
+<pre>void batadv_tvlv_handler_unregister(struct batadv_priv *bat_priv,uint8_t type);
+
+void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
+				  void (*ptr)(struct batadv_priv *bat_priv,
+					      struct batadv_orig_node *orig,
+					      uint8_t *value,
+					      uint8_t version),
+				  uint8_t type, uint8_t call_always);
+
+</pre>
+
++NOTES+ : 
+# A handler of type "type" handles a tvlv of type "type".
+
+h3. Call a handler without a received tvlv
+
+There is a special field for the handlers named +call_always+, it enables the handler to be called each time an OGM was received with a value of BATADV_NO_FLAGS  and a 0 as version even if the appropriate tvlv wasn't received.
+Its useful for features which used to await a BATADV_NO_FLAGS in the ogm to turn off a feature or unregister something.
+If you want the handler to be called always you should register the handler with 1 as the call_always field value otherwise 0
+
+h2. Api internal work
+
+There isn't much to the internals of the Api. After a tvlv is registered, on the next ogm interval the append function is called which goes through the tvlv_out_list and copies tvlvs to the end of the ogm packet. On receiving, the tvlv_process function goes through the appended tvlvs, parses them and if there is a handler registered for the tvlv, it calls the appropriate callback.
+Then it calls all the  call_always callback functions for which a tvlv wasn't received.
+
+h2. Features converted
+
+Currently there is only the gateway feature which is fully implemented and running.
+Translation table is work in progress and will be finished soon.
+Next feature is vis.
+
 h2. BATMAN TVLV list
 
 h3. Due to the individual requirements of every feature a list of existing feature tvlv follows.
@@ -197,61 +255,3 @@ h3. Multicast capability (TODO => Simon / Edo)
  * purpose: TBD. We could use a TLV to announce the Multicast MAC addresses we want to listen to (similar to the early TT mechanism).
  * length: TBD
  * note: should not be considered for now, we can pick it up again as soon as it gets some love from a developer.
-
-h2.  Api description
- 
-Its rather simple to change a feature to use tvlvs. 
-
-h3. Sending
-
-To turn tvlv sending on, thus send a tvlv with every ogm packet all that is needed to be done is add a call to 
-<pre>
-void batadv_tvlv_register(struct batadv_priv *bat_priv, uint8_t type,
-			  uint8_t version, uint16_t length,
-			  uint8_t *value);
-
-</pre>
-
-You can call the same function in order to update the value field,
-
-+NOTE+ since there are two types of tvlvs (short and long ones) the convention is that any tvlv with type bigger than 0x80 is a long one and smaller than that a short one, only difference that length will be assigned to a one byte variable for short tvlvs and two byte variable for long ones.
-
-In order to unregister the tvlv thus stop sending it you call
-
-<pre>void batadv_tvlv_unregister(struct batadv_priv *bat_priv, uint8_t type);</pre>
-
-h3. Receiving
-
-In order to pass a tvlv value to the feature specific function an intermediate handler function is needed.
-In order to register/unregister the handler function a call to each of the following is necessary.
-
-<pre>void batadv_tvlv_handler_unregister(struct batadv_priv *bat_priv,uint8_t type);
-
-void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
-				  void (*ptr)(struct batadv_priv *bat_priv,
-					      struct batadv_orig_node *orig,
-					      uint8_t *value,
-					      uint8_t version),
-				  uint8_t type, uint8_t call_always);
-
-</pre>
-
-+NOTES+ : 
-# A handler of type "type" handles a tvlv of type "type".
-
-h3. Call a handler without a received tvlv
-
-There is a special field for the handlers named +call_always+, it enables the handler to be called each time an OGM was received with a value of BATADV_NO_FLAGS  and a 0 as version even if the appropriate tvlv wasn't received.
-Its useful for features which used to await a BATADV_NO_FLAGS in the ogm to turn off a feature or unregister something.
-If you want the handler to be called always you should register the handler with 1 as the call_always field value otherwise 0
-
-h2. Api internal work
-
-There isn't much to the internals of the Api. After a tvlv is registered, on the next ogm interval the append function is called which goes through the tvlv_out_list and copies tvlvs to the end of the ogm packet. On receiving, the tvlv_process function goes through the appended tvlvs, parses them and if there is a handler registered for the tvlv, it calls the appropriate callback.
-Then it calls all the  call_always callback functions for which a tvlv wasn't received.
-
-h2. Features converted
-
-Currently there is only the gateway feature which is fully implemented and running.
-Translation table is work in progress and will be finished soon.
-Next feature is vis.
