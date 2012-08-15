@@ -10,7 +10,7 @@ Right now batman does not have any  real backwards compatibility. The project's 
 
 h2.  TVLV concept
 
-At the end of each OGM are appended a set of tvlv (type-version-length-value) containers to announce the support of a feature set. The standard TLV concept has been enriched by a version field as it can be safely assumed features evolve over time. Every feature is assigned a unique tvlv type as identifier (see below). 
+At the end of each OGM are appended a set of tvlv (type-version-length-value) containers to announce the support of a feature set or to transfer messages of a feature. The standard TLV concept has been enriched by a version field as it can be safely assumed features evolve over time. Every feature is assigned a unique tvlv type as identifier (see below). 
 
 Batman-adv tvlv definition:
 
@@ -192,7 +192,6 @@ h3. Multicast capability (TODO => Simon / Edo)
  * purpose: TBD. We could use a TLV to announce the Multicast MAC addresses we want to listen to (similar to the early TT mechanism).
  * length: TBD
  * note: should not be considered for now, we can pick it up again as soon as it gets some love from a developer.
-
 
 h2.  Api description
  
