@@ -38,16 +38,6 @@ h3. A long one is defined bellow
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-h3. An empty tvlv  with a length of zero and no value is allowed to announce the support of a feature
-
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV Type   |    Version    |     0         |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
 +NOTE+
 Long tvlvs have a type bigger than 0x81, short tvlvs have a type shorter than 0x80 and zero tvlvs should have the type of the feature they announce support of.
 
