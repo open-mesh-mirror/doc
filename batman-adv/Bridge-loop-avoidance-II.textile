@@ -77,9 +77,9 @@ h3. Unicast, backbone->mesh:
 
 !LAN_mesh_unicast.dia.png!
 
-Nothing fancy should happen here, as a switch should do the right thing. If the client is not claimed, the frame is simply sent into the mesh.
+Nothing fancy should happen here, as a switch should do the right thing. If the sender (source of the Ethernet frame) is not claimed, the frame is simply sent into the mesh.
 
-However, when using hubs (or broken switches), also unicast packets might loop. Therefore, if the client (source of the Ethernet frame) is claimed by any backbone gateway, don't forward.
+However, when using hubs (or broken switches), also unicast packets might loop. Therefore, if the sender is claimed by any backbone gateway, don't forward.
 
 h3. mesh->backbone->mesh loop:
 
