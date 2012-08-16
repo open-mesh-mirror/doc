@@ -52,8 +52,6 @@ h3. An empty tvlv  with a length of zero and no value is allowed to simply annou
 Long tvlvs have a type bigger than 0x81, short tvlvs have a type shorter than 0x80 and zero tvlvs should have the type of the feature they announce support of.
 
 h2.  Api description
- 
-Its rather simple to change a feature to use tvlvs. 
 
 h3. Sending
 
