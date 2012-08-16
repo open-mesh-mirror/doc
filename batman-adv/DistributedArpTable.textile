@@ -16,14 +16,23 @@ DAT will not use any broadcast packet. Node A gets the ARP request, computes the
 
 h2. Enable/Disable DAT
 
-DAT cannot be enabled or disabled at runtime. Instead it is possible to decide whether to include DAT or not at compile time (default to ON).
+DAT can be enabled/disabled in two different manners:
+# at compile time
+# at runtime
+
+With (1) it is possible to decide whether to include DAT or in the final kernel module (default to ON). In this way, people confident enough that DAT is not needed at all can easily prevent batman-adv to compile and include it, so leading to a smaller binary size.
 To do so it is possible to customise the corresponding option in the package Makefile or by means of the menuconfig for the in-kernel module.
+
+With (2) instead (after having decided to compile DAT in the module at point (1)) it is possible to enable/disable DAT at runtime by means of the following batctl command:
+<pre>
+# batctl dat <0|1>
+</pre>
 
 h2. Inspecting the Local DAT table
 
 Since DAT is a network wide cache, each node stores a little piece of this big table in its own memory. To see what entries the node is currectly storing, it is possible to use the following command:
 <pre>
-# batctl dat
+# batctl dc
 </pre>
 
 An explanation of the output can be found here (link needed).
