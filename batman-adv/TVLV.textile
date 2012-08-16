@@ -38,7 +38,7 @@ h3. A long one is defined bellow
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-h3. An empty tvlv  with a length of zero and no value is allowed to simply announce the support of a feature
+h3. An empty tvlv  with a length of zero and no value is allowed to announce the support of a feature
 
 <pre>
  0                   1                   2                   3
