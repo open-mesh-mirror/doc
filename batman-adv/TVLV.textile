@@ -79,6 +79,7 @@ void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 
 +NOTES+ : 
 # A handler of type "type" handles a tvlv of type "type".
+# The API decides transparently wether to register and send a long or short tvlv based on the length.
 
 h3. Call a handler without a received tvlv
 
