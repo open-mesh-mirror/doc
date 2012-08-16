@@ -58,8 +58,8 @@ h3. Sending
 To turn tvlv sending on, thus send a tvlv with every ogm packet all that is needed to be done is add a call to 
 <pre>
 void batadv_tvlv_register(struct batadv_priv *bat_priv, uint8_t type,
-			           uint8_t version, uint16_t length,
-			           uint8_t *value);
+			              uint8_t version, uint16_t length,
+			              uint8_t *value);
 
 </pre>
 
