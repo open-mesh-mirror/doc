@@ -92,10 +92,14 @@ There isn't much to the internals of the Api. After a tvlv is registered, on the
 Then it calls all the  call_always callback functions for which a tvlv wasn't received.
 
 h2. Features converted
+Finished:
+* Gateway.
 
-Currently there is only the gateway feature which is fully implemented and running.
-Translation table is work in progress and will be finished soon.
-Next feature is vis.
+Work In Progress
+* Translation Table.
+
+Next in line:
+* Vis.
 
 h2. BATMAN TVLV list
 
