@@ -73,7 +73,7 @@ void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 					                          struct batadv_orig_node *orig,
 					                          uint8_t *value,
 					                          uint8_t version),
-				                 uint8_t type, uint8_t call_always);
+				                  uint8_t type, uint8_t call_always);
 
 </pre>
 
