@@ -51,8 +51,8 @@ To begin the test, the sender sends BW_WINDOW_SIZE packets in a burst and starts
 
 So BW_WINDOW_SIZE packets are sent, then the a timeout is started:
 
-* when the timeout expires, the whole window is transmitted again. This means BW_WINDOW_SIZE packets are transmitted, with sequence numbers starting from window_first, the last packet that has been acknowledged;
-* everytime an ack is received, the timer is updated. Update window_first to ack's "sequence number" and send from next_to_send to (window_first + BW_WINDOW_SIZE) new packets (with seqno starting from next_to_send). Every time a packet is sent, next_to_send is increased.
+* "when the timeout expires* the whole window is transmitted again. This means BW_WINDOW_SIZE packets are transmitted, with sequence numbers starting from window_first, the last packet that has been acknowledged;
+* *when ack is received* the timer is updated. Update window_first to ack's "sequence number" and send from next_to_send to (window_first + BW_WINDOW_SIZE) new packets (with seqno starting from next_to_send). Every time a packet is sent, next_to_send is increased.
 
 !protocol1.png!
 
