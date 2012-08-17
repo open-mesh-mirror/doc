@@ -7,9 +7,9 @@ h2. Branches
 
 h2. GENERAL DESCRIPTION
 
-This section explains the project aim and shows how to use the bandwidth meter. The protocol is described in the next section, while a more technical details are discussed in the "technical and debug page":http://www.open-mesh.org/projects/batman-adv/wiki/GSOC2012_BW_debug
+This section explains the project aim and shows how to use the bandwidth meter. The protocol is described in the next section, while more technical details are discussed in the "technical and debug page":http://www.open-mesh.org/projects/batman-adv/wiki/GSOC2012_BW_debug
 
-The project aim is to create a kernel-space tool that measures the throughput between two nodes and avoids problems experienced with user-space tools like iperf and netperf. With those tools main problems are encountered on machines that are low on resources, including routers, since packets must be copied from kernel-space to user-space memory and aligned. This computational load can slow such devices, leading to packet losses, thus altering the test result. A TCP-like mode is implemented to *approximate* TCP behaviour (the protocol is indeed much simple).
+The project aim is to create a kernel-space tool that measures the throughput between two nodes and avoids problems experienced with user-space tools like iperf and netperf. With those tools main problems are encountered on machines that are low on resources, including routers, since packets must be copied between user-space and kernel-space memory and aligned. This computational load can slow such devices, leading to packet losses, thus altering the test result. A TCP-like mode is implemented to *approximate* TCP behaviour (the protocol is indeed much simple).
 
 The test is started through batctl:
 
@@ -28,14 +28,7 @@ Test over in 3564 ms.
 Throughput 19640000 Byte/s
 </pre>
 
-The test doesn't print any output until it's termination; you can abort an ongoing test with CTRL-C. 
-Example:
-
-<pre>
-# batctl bw 00:00:00:00:00:01
-Bandwidth meter called towards 00:00:00:00:00:01
-^CTest aborted
-</pre>
+The test doesn't print any output until it's termination; you can abort an ongoing test with SIGINT (CTRL-C).
 
 h2. PROTOCOL 
 
@@ -43,7 +36,7 @@ The protocol is a connection oriented, "Go-Back-N":http://en.wikipedia.org/wiki/
 
 During the test ICMP packets only are exchanged, so two fresh ICMP packet types are defined (BATADV_BW_METER, BATADV_BW_ACK). A node can participate in different tests at the same time, but with different nodes. This means that two or more tests cannot be performed at the same time between the same two nodes.
 
-Between two consecutive experiment runs at least one second should be waited, to assure connection is closed before its re-opening.
+Between two consecutive experiment runs at least two seconds should be waited, to assure connection is closed before its re-opening.
 
 h3. The sender
 
