@@ -2,7 +2,7 @@ h1. *BANDWIDTH METER*
 
 h2. Branches
 
- * http://git.open-mesh.org/?p=batman-adv.git;a=shortlog;h=refs/heads/montik/bw1
+ * http://git.open-mesh.org/?p=batman-adv.git;a=shortlog;h=refs/heads/montik/gsoc-final
  * http://git.open-mesh.org/?p=batctl.git;a=shortlog;h=refs/heads/montik/bw1
 
 h2. GENERAL DESCRIPTION
