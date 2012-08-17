@@ -64,7 +64,7 @@ If that particular packet is received and no other bandwidth test is ongoing wit
 
 The receiver basically keeps a single variable, the beginning of the window:
 
-# window_first: the sequence number of the first packet of the window
+* *window_first* the sequence number of the first packet of the window, the first in order packet expected.
 
 If a BW_METER packet is received on that connection, it's offset is checked: if it belongs to the window, shift window_first and send back an ACK. Otherwise, just send back an ack to avoid protocol deadlock. The receiver also maintains a bitmap to keep track of the packets received not in order. The bitmap is composed of many bits as there are packets in a window. Every time a packet is received, the corresponding bit is set to 1. An ACK with the last *in order* sequence number received is sent back, whether the receiver window has advanced or not.
 
