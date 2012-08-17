@@ -42,8 +42,8 @@ h3. The sender
 
 The sender maintains, for each ongoing test, the following variables:
 
-# *next_to_send* the next packet in the window that is to be sent
-# *window_first* the sequence number (i.e. packet number) of the first packet of the current window, the first un-acknowledged packet;
+* *next_to_send* the next packet in the window that is to be sent
+* *window_first* the sequence number (i.e. packet number) of the first packet of the current window, the first un-acknowledged packet;
 
 !window.png!
 
