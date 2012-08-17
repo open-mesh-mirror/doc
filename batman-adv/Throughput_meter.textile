@@ -42,8 +42,10 @@ h3. The sender
 
 The sender maintains, for each ongoing test, the following variables:
 
-# next_to_send: next packet in the window that is to be sent
-# window_first: sequence number (i.e. packet number) of the first packet of the current window (i.e. last acknowledged packetd)
+# *next_to_send* the next packet in the window that is to be sent
+# *window_first* the sequence number (i.e. packet number) of the first packet of the current window, the first un-acknowledged packet;
+
+!window.png!
 
 To begin the test, the sender sends BW_WINDOW_SIZE packets in a burst and starts a timeout, waiting for an ack. An ACK is an ICMP packet of type BATADV_BW_ACK that carries the sequence number of the last received packet *in order* (cumulative acknowledgment), meaning that all the packets up to that sequence number have been received. If the ACK for a packet is not received before the timeout expires, all the unacked packets in the window are re-transmitted. The sender ICMP packet has message type BW_METER.
 
