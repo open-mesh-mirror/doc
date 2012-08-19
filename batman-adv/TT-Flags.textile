@@ -1,6 +1,6 @@
 h1. TT-Flags
 
-_Note: This page documents internal stuff of batman-adv. Part of it is not yet merged in the batman-adv but is part of the bridge loop avoidance II extension, so read with care_
+_Note: This page documents internal stuff of batman-adv. It describes the internal state representation of client entries in translation tables. Read with care_
 
 h2. Flags overview
 
