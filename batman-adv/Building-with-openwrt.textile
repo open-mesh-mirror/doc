@@ -137,7 +137,7 @@ It is also possible to modify the batman-adv version if you ever wanted to build
 
 stable version:
 
-Adjust the PKG_VERSION variable to download & build the stable release you are interested in.
+Adjust the PKG_VERSION variable configured in the package Makefile to download & build the stable release you are interested in.
 
 <pre>
 cat openwrt/feeds/packages/net/batman-adv/Makefile
@@ -149,14 +149,14 @@ PKG_VERSION:=2010.0.0
 
 developer version:
 
-Adjust the PKG_BATMAN_REV variable for batman-adv and the PKG_BATCTL_REV variable for batctl to download & build the git revision you are interested in:
+Adjust the batman-adv & batctl git revision via the OpenWrt configuration menu (aka "make menuconfig") to download & build the git revision you are interested in:
 
 <pre>
-cat openwrt/feeds/batman/batman-adv-devel/Makefile
-[..]
-PKG_BATMAN_REV:=3cc9ba15c95147eeb70529ca3892853b3c81a862
-PKG_BATCTL_REV:=6f77463027311b49d52bd3aef4d82c8aae27014f
-[..]
+Kernel modules ---> 
+   Network Support ---> 
+      kmod-batman-adv-devel
+        batman-adv git revision
+        batctl git revision
 </pre>
 
 
