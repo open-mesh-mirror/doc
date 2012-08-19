@@ -1,13 +1,13 @@
 h1. FAQ
 
-{{>TOC}}
+{{TOC}}
 
 If you are missing a question/answer (quite likely) please use the [[MailingList|BATMAN mailing list]] or [[IRC|IRC channel]] to trigger us.
 
 h2. General questions
 
 
-h3. Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support?
+h3. *Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support?*
 
 At this point no B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [[Emulation|read our emulation document]].
 
