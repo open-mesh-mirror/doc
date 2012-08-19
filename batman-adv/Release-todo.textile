@@ -13,41 +13,40 @@ h2. Release Scheduling
 
 h2. Documentation
 
-* [x] build changelog
-* [x] update README
-* [x] write release announcement
-* [x] update wiki documentation
+* [ ] build changelog
+* [ ] update README
+* [ ] write release announcement
+* [ ] update wiki documentation
 
 h2. Code
 
-* [x] make sure all code contains the release version strings
-* [x] update copyright years (if needed)
-* [x] remove dead code (if any)
-* [x] check against kernel versions
-* [x] check that maint branch is merged in next
-* [x] check for open patches on the ml
-* [x] git tag release
+* [ ] make sure all code contains the release version strings
+* [ ] update copyright years (if needed)
+* [ ] remove dead code (if any)
+* [ ] check against kernel versions
+* [ ] check that maint branch is merged in next
+* [ ] check for open patches on the ml
+* [ ] git tag release
 
 
 h2. Release
 
-* [x] build package tar.gz and generate checksums
-* [x] move packages/checksums to stable/sources / create symlinks from releases
-* [x] update download links in the redmine downloads page
-* [x] send release mail
-* [x] update IRC channel topic
+* [ ] build package tar.gz and generate checksums
+* [ ] move packages/checksums to stable/sources / create symlinks from releases
+* [ ] update download links in the redmine downloads page
+* [ ] send release mail
+* [ ] update IRC channel topic
 
 h2. Distributions
 
-* [x] update openwrt package
-* [x] update gentoo package
-* [x] update debian package
-
+* [ ] update openwrt package
+* [ ] update gentoo package
+* [ ] update debian package
 
 h2. Aftershow
 
-* [x] Merge next into master branch (to get changes on README, CHANGELOG, ...)
-* [x] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong)
-* [x] Merge patches from master into next (to get all the fancy new features)
+* [ ] Merge next into master branch (to get changes on README, CHANGELOG, ...)
+* [ ] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong)
+* [ ] Merge patches from master into next (to get all the fancy new features)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
-* [x] Enable daily check for next/master (symbol check, cppcheck, feature check)
+* [ ] Enable daily check for next/master (symbol check, cppcheck, feature check)
