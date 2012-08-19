@@ -143,14 +143,13 @@ h2. Visualization
 
 Despite its decentralized nature batman-adv offers an easy way to access topology information that can be visualized. The [[VisAdv|visualization document]] covers the necessary steps in detail.
 
-
 h2. Routing algorithm
 
 Batman-adv allows [[Tweaking|changing the routing algorithm]] at runtime. It also exports the list of available routing protocols:
 <pre>
 cat /sys/kernel/debug/batman_adv/routing_algos
 Available routing algorithms:
-BATMAN IV
+BATMAN_IV
 </pre>
 
 B.A.T.M.A.N. IV is the default routing algorithm and a safe choice unless you wish to experiment with routing algorithms.
