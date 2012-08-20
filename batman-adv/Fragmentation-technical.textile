@@ -59,7 +59,7 @@ When receiving a fragment, it is passed to @recv_frag_packet()@ in @routing.c@, 
 
 h2. Configuration
 
-First of all, fragmentation shouldn't be needed (except for tt-tables, see below). It is a fix for drivers/hardware that is unable to handle MTU's greater than 1528 bytes, it is slow (due to increase is packets), and is fragile to packet loss.
+First of all, fragmentation shouldn't be needed (except for tt-tables, see below). It is a fix for drivers/hardware that is unable to handle MTU's greater than 1528 bytes, it is slow (due to increase is packets), and is susceptible to packet loss.
 
 It can be enabled and disabled in the sysfs file:
 <pre>
@@ -77,15 +77,15 @@ h2. The TT Issue
 To summarize the very-big-local-TT issue:
 
 *Before:*
-If the size of the local table exceeds the MTU, we simply truncate the response. This response now leads to a wrong CRC at the receiver of the response, who then issues a new request. Thus loop will repeat until the local table fits the MTU again.
+If the size of the local table exceeds the MTU, batman-adv simply truncate the response. This response leads to a wrong CRC at the receiver of the response, who then issues a new request. This loop will repeat until the local table fits the MTU again.
 
 *After:*
-When the size of the local table hits the MTU limit (with or without fragmentation), new clients are ignored and packets from ignored clients are dropped. By dropping the packet, we avoid the creation of temporary global clients at the destination originator.
-If the MTU is decreased to less than the size of the current local table, the local table is brutally and dictator-wise truncated to fit the new minimum MTU (with or without fragmentation). I have chosen to simply delete the entries immediately as opposed to marking them as pending, because we cannot include them in a response anyways, so there is no point in keeping them. Until the next OGM is emitted with a new TTVN, any full-table responses are sent with temporaily increased ttvn, which causes the receiver to believe the CRC from the new table.
+When the size of the local table hits the MTU limit (with or without fragmentation), new clients are ignored and packets from ignored clients are dropped. By dropping the packet, batman-adv avoids the creation of temporary global clients at the destination originator.
+If the MTU is decreased to less than the size of the current local table, the local table is vigorously truncated to fit the new minimum MTU (with or without fragmentation). Immediately deleting the entries as opposed to marking them as pending is the most sensible approach, because we cannot include them in a response anyways, so there is no point in keeping them. Until the next OGM is emitted with a new TTVN, any full-table responses are sent with temporarily increased TTVN, which causes the receiver to believe the CRC from the new table.
 
-There is one remaining issue for which I cannot see any solution: What to do when an intermediate node has an MTU lower than its two neighbors? If we have "A <-> B <-> C", where A and C have MTU=1550 and B has MTU=1000 bytes, B cannot respond with nor forward very-big-full-tables from A to C. If B receives a full-table-request from C to A, I have chosen to let B forward the request to A, and hope that the response will find another way to C :)
+h2. Limitations 
 
-The only perfect solution to the very-big-local-TT issue is a higher layer of fragmentation, but IMHO this requires too much complexity to a too rare situation. (E.g. what are the riscs of packet loss with, say, 128 fragments?)
+If an intermediate node with an unexpectedly lower MTU exists, this scheme breaks. The scenario: "A <-> B <-> C", where A and C have MTU=1550 and B has MTU=1000 bytes, B cannot respond with nor forward very-big-full-tables from A to C. At the moment, batman-adv simply forwards the requests and hopes for the best.
 
 h2. Future Improvements
 
