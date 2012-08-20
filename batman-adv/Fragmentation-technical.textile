@@ -90,4 +90,4 @@ If an intermediate node with an unexpectedly lower MTU exists, this scheme break
 h2. Future Improvements
 
 * Checking total size of original packet uses the MTU of the incoming interface. In case of bonding, the fragment might be transmitted on another interface.
-* The fragment buffer in @struct orig_node@ should only be allocated on demand, as most networks doesn't need fragmentation.
+* The fragment buffer in @struct orig_node@ should only be allocated on demand, as most networks don't need fragmentation.
