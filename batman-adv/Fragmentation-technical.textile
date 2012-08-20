@@ -85,7 +85,7 @@ If the MTU is decreased to less than the size of the current local table, the lo
 
 h2. Limitations 
 
-If an intermediate node with an unexpectedly lower MTU exists, this scheme breaks. The scenario: "A <-> B <-> C", where A and C have MTU=1550 and B has MTU=1000 bytes, B cannot respond with nor forward very-big-full-tables from A to C. At the moment, batman-adv simply forwards the requests and hopes for the best.
+If an intermediate node with an unexpectedly lower MTU exists, this scheme breaks. In the scenario "A <-> B <-> C", where A and C have MTU=1550 and B has MTU=1000 bytes, B cannot respond with nor forward very-big-full-tables from A to C. At the moment, batman-adv simply forwards the requests and hopes for the best.
 
 h2. Future Improvements
 
