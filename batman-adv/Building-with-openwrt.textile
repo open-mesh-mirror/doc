@@ -52,7 +52,7 @@ developer version:
 Append the following line to your OpenWrt feed configuration file (either feeds.conf or feeds.conf.default):
 
 <pre>
-src-svn batman http://downloads.open-mesh.org/svn/openwrt-feed/
+src-git batman http://git.open-mesh.org/openwrt-feed-batman-adv.git
 </pre>
 
 Update the package information and add the development package:
