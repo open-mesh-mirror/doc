@@ -93,6 +93,7 @@ There isn't much to the internals of the Api. After a tvlv is registered, on the
 Then it calls all the  call_always callback functions for which a tvlv wasn't received.
 
 h2. Features converted
+
 Finished:
 * Gateway.
 
