@@ -4,7 +4,8 @@ h2. Code
 
 h2. Intro
 
-Right now batman does not have any  real backwards compatibility. The project's goal is to implement  backwards compatibility through the use of IEs (information elements) and more specifically TLVs (type/length/value) elements.
+In its current structure the batman-adv Originator packet is rather static and contains fields which transport feature-specific information. As a result every change to a feature message or every new feature breaks the protocol and needs an increase in the compat_version number.
+The project's goal is to implement  a framework to use and transport  IEs (information elements) and more specifically TLVs (type/length/value) elements.
 
 h2.  TVLV concept
 
