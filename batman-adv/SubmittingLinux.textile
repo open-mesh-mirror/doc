@@ -32,6 +32,7 @@ remote: Compressing objects: 100%25 (252781/252781), done.
 ....
 '-(%25)-> cd linux-merge
 '-(%25)-> git remote add net-next git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
+'-(%25)-> git remote add pkg git://git.open-mesh.org/batman-adv.git
 </pre>
 
 
@@ -59,7 +60,7 @@ h2. merge next into linux
 '-(%25)-(xyz)> git checkout merge/master
 Checking out files: 100%25 (32337/32337), done.
 Switched to branch 'merge/master'
-'-(%25)-(merge/master)> git merge -s subtree origin/standalone/next
+'-(%25)-(merge/master)> git merge -s subtree pkg/next
 Auto-merging net/batman-adv/Makefile
 CONFLICT (content): Merge conflict in net/batman-adv/Makefile
 CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in HEAD and modified in standalone/next. Version standalone/next of net/batman-adv/Makefile.kbuild left in tree.
@@ -81,7 +82,7 @@ rm 'net/batman-adv/compat.h'
 '-(%25)-(merge/master)> vim net/batman-adv/Makefile
 '-(%25)-(merge/master)> git add net/batman-adv/Makefile
 '-(%25)-(merge/master)> git commit
-[linux f2204f0] Merge remote branch 'origin/standalone/next' into merge/master
+[linux f2204f0] Merge remote branch 'pkg/next' into merge/master
 </pre>
 
 All changes to the the sysfs-class-net-* files can't be automatically merged because they reside in a different subfolder. As a consequence the new version has to be manually copied from a local git tree to 'Documentation/ABI/testing/'. The README file also requires manually handling: All relevant in-kernel changes have to be merged into 'Documentation/networking/batman-adv.txt' whereas out-of-kernel information has be stripped out.
@@ -99,7 +100,7 @@ h2. check difference with next
 
 
 <pre>
-git diff origin/standalone/next: merge/master:net/batman-adv/
+git diff pkg/next: merge/master:net/batman-adv/
 </pre>
 
 Here you should see the
