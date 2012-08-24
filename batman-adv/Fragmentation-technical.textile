@@ -77,7 +77,7 @@ h2. The TT Issue
 To summarize the very-big-local-TT issue:
 
 *Before:*
-If the size of the local table exceeds the MTU, batman-adv simply truncate the response. This response leads to a wrong CRC at the receiver of the response, who then issues a new request. This loop will repeat until the local table fits the MTU again.
+If the size of the local table exceeds the MTU, batman-adv simply truncates the response. This response leads to a wrong CRC at the receiver of the response, who then issues a new request. This loop will repeat until the local table fits the MTU again.
 
 *After:*
 When the size of the local table hits the MTU limit (with or without fragmentation), new clients are ignored and packets from ignored clients are dropped. By dropping the packet, batman-adv avoids the creation of temporary global clients at the destination originator.
