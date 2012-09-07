@@ -61,51 +61,28 @@ h4. Multicast Listener Announcements
 The MCA infrastructure takes care of announcing any potential multicast
 listener to any mesh node.
 
-Multicast listeners are obtained from either the local batman soft interface
-(i.e. bat0) or if present its master interface (e.g. a bridge interface).
-Furthermore if the batman interface is a bridge slave, then multicast
-listeners behind any other bridge port are obtained from the multicast
-snooping database of the bridge, too.
+Multicast listeners are obtained from either the local batman soft interface (i.e. bat0) or if present its master interface (e.g. a bridge interface).
+Furthermore if the batman interface is a bridge slave, then multicast listeners behind any other bridge port are obtained from the multicast snooping database of the bridge, too.
 
-MCAs are MAC address based. Those addresses are currently distributed via
-our periodic OGMs.
+MCAs are MAC address based. Those addresses are currently distributed via our periodic OGMs.
 
-A specific address is only announced if it has at least one matching
-non-link-local IPv4 multicast address or transient IPv6 multicast address:
-We on purpose exclude well-known multicast addresses as they are generally
-of "low" throughput and therefore not feasible for our multicast
-optimizations targeted at sparse, high throughput multicast streams.
+A specific address is only announced if it has at least one matching non-link-local IPv4 multicast address or transient IPv6 multicast address: We on purpose exclude well-known multicast addresses as they are generally of "low" throughput and therefore not feasible for our multicast optimizations targeted at sparse, high throughput multicast streams.
 
 h4. Multicast Flow Measurement
 
-Establishing the optimized multicast routing infrastructure comes with a bandwidth and
-complexity cost. This cost is marginal compared to the bandwidth cost of for
-instance multimedia multicast streams, but it defeats its purpose in case of
-infrequent, small multicast packets with many multicast listeners.
+Establishing the optimized multicast routing infrastructure comes with a bandwidth and complexity cost. This cost is marginal compared to the bandwidth cost of for instance multimedia multicast streams, but it defeats its purpose in case of infrequent, small multicast packets with many multicast listeners.
 
-The multicast flow functions provide the capability to count and keep track of our own
-multicast flow coming in from the soft interface. This allows us to only
-build up the forwarding infrastructure if a certain threshold of
-incoming multicast packets of a certain group is reached.
+The multicast flow functions provide the capability to count and keep track of our own multicast flow coming in from the soft interface. This allows us to only build up the forwarding infrastructure if a certain threshold of incoming multicast packets of a certain group is reached.
 
 h4. Multicast Path Tracking
 
-Multicast Path Tracking combines the MCA and flow infrastructures: On sufficient
-multicast data flow for a specific multicast destination MAC, small
-tracker packets are actively sent to mark all paths towards destinations,
-destinations which were previously announced via MCAs.
+Multicast Path Tracking combines the MCA and flow infrastructures: On sufficient multicast data flow for a specific multicast destination MAC, small tracker packets are actively sent to mark all paths towards destinations, destinations which were previously announced via MCAs.
 
 h4. Multicast Routing Table
 
-This part provides the functions for updating (e.g. when a multicast
-tracker packet arrives) and storing our multicast routing table
-(until entries time out).
+This part provides the functions for updating (e.g. when a multicast tracker packet arrives) and storing our multicast routing table (until entries time out).
 
-The routing table memorizes a tuple of a multicast group
-(e.g. a multicast MAC address), an originator and a next hop
-(+ its according interface) to be able to quickly determine the
-next hop(s) for a specific multicast data packet and whether to
-forward via unicast or broadcast packets.
+The routing table memorizes a tuple of a multicast group (e.g. a multicast MAC address), an originator and a next hop (+ its according interface) to be able to quickly determine the next hop(s) for a specific multicast data packet and whether to forward via unicast or broadcast packets.
 
 h3. Limitations
 
@@ -121,33 +98,21 @@ h4. Up to 255 multicast groups, up to 255 multicast listeners per group
 
 h4. 802.11 broadcast (un)reliability
 
-If reliability of a multicast transfer is of high importance then it is recommended
-to run a batman-adv instance on the multicast listener itself to be able to use 802.11
-unicast transfers as much as possible. Otherwise if the multicast listener is an 802.11
-station behind a batman-adv node (e.g. when bridging bat0 with a wifi interface)
-then a normal, low-rate, unreliable broadcast will still be used for the last hop.
+If reliability of a multicast transfer is of high importance then it is recommended to run a batman-adv instance on the multicast listener itself to be able to use 802.11 unicast transfers as much as possible. Otherwise if the multicast listener is an 802.11 station behind a batman-adv node (e.g. when bridging bat0 with a wifi interface) then a normal, low-rate, unreliable broadcast will still be used for the last hop.
 
-Furthermore it is recommended to increase the multicast rate within the wifi driver to
-be able to cope with the throughput of multicast multimedia streams.
-The usage of robust higher layer protocols (i.e. RFC3262 or RFC2198 for SIP/RTP) is suggested.
+Furthermore it is recommended to increase the multicast rate within the wifi driver to be able to cope with the throughput of multicast multimedia streams. The usage of robust higher layer protocols (i.e. RFC3262 or RFC2198 for SIP/RTP) is suggested.
 
-In the future it might be interesting to enhance the mac80211 Linux wifi stack to be multicast-aware
-and to use the lowest bitrate of the wifi-connected multicast listeners from the unicast bitrates
-selected by the rate selection algorithm.
+In the future it might be interesting to enhance the mac80211 Linux wifi stack to be multicast-aware and to use the lowest bitrate of the wifi-connected multicast listeners from the unicast bitrates selected by the rate selection algorithm.
 
-Also implementing NAK schemes, forward error correction and a more intelligent, mixed unicast+multicast
-forwarding scheme within batman-adv might be interesting enhancements in the future.
+Also implementing NAK schemes, forward error correction and a more intelligent, mixed unicast+multicast forwarding scheme within batman-adv might be interesting enhancements in the future.
 
 h4. Layer 2 Multicast Aware Forwarding only
 
-Might forward multicast packets to mesh nodes which are not actually interested in the packet
-due to multiple multicast groups being mapped onto the same multicast MAC address.
+Might forward multicast packets to mesh nodes which are not actually interested in the packet due to multiple multicast groups being mapped onto the same multicast MAC address.
 
 h4. Any-Source Multicast
 
-Although IPv4's IGMPv3 and IPv6's MLDv2 do support signaling interest in multicast packets
-from certain sources only (Source-Specific Multicast), we do ignore this information
-and provide an Any-Source optimization only.
+Although IPv4's IGMPv3 and IPv6's MLDv2 do support signaling interest in multicast packets from certain sources only (Source-Specific Multicast), we do ignore this information and provide an Any-Source optimization only.
 
 
 h2. Definitions
@@ -165,21 +130,17 @@ h3. Multicast Listener Announcements
 
 h4. Distribution
 
-A batman-adv node broadcasting its own OGM, an originator, has to attach a 6 byte multicast MAC address
-for any of its multicast listeners after the OGMs TT diff part.
+A batman-adv node broadcasting its own OGM, an originator, has to attach a 6 byte multicast MAC address for any of its multicast listeners after the OGMs TT diff part.
 
 Multicast listeners need to be obtained in the following ways:
 
-* Local multicast listeners: Either from the local batman-adv soft interface (i.e. bat0). Or if this
-soft interface is a slave of another network device (i.e. a bridge) using that one instead.
+* Local multicast listeners: Either from the local batman-adv soft interface (i.e. bat0). Or if this soft interface is a slave of another network device (i.e. a bridge) using that one instead.
 * Bridged-in multicast listeners: If the batman-adv soft interface is a slave of a bridge then any multicast listeners behind any other bridge slave need to be obtained via MLD/IGMP snooping.
 
 A multicast MAC should be ommited though if:
 
-* It is a multicast MAC address for an IPv4 multicast address and if any according IPv4 multicast listener address
-is a link-local one.
-* It is a multicast MAC address for an IPv6 multicast address and if any according IPv6 multicast listener address
-is a well-known one.
+* It is a multicast MAC address for an IPv4 multicast address and if any according IPv4 multicast listener address is a link-local one.
+* It is a multicast MAC address for an IPv6 multicast address and if any according IPv6 multicast listener address is a well-known one.
 
 h4. Reception
 
@@ -226,9 +187,7 @@ Each node periodically (Multicast Tracker interval) generates a Multicast Tracke
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-The body of a multicast tracker packet needs to be filled with a Multicast Tracker
-Packet Entry for any multicast MAC address which is present in the MCA buffer of other originators
-and which has a matching multicast flow state which is "high".
+The body of a multicast tracker packet needs to be filled with a Multicast Tracker Packet Entry for any multicast MAC address which is present in the MCA buffer of other originators and which has a matching multicast flow state which is "high".
 
 +Multicast Tracker Packet Entry Format:+
 
@@ -249,27 +208,19 @@ and which has a matching multicast flow state which is "high".
 
 A six bytes long MAC address, one for every multicast listener of this group.
 
-This generated Multicast Tracker Packet then gets scheduled for forwarding
-(see "Tracker Packet Forwarding").
+This generated Multicast Tracker Packet then gets scheduled for forwarding (see "Tracker Packet Forwarding").
 
 h4. Reactive Tracker Packet Transmission
 
-A Tracker Packet might further get generated if a multicast flow threshold
-state switched from "low" to "high" (see "Multicast Flow Measurement").
+A Tracker Packet might further get generated if a multicast flow threshold state switched from "low" to "high" (see "Multicast Flow Measurement").
 
-Such a tracker packet gets generated similar to the periodic one
-but for the specific multicast MAC address which triggered the state switch
-only. Which means that the reactively generated tracker packet will
-have a "Num Mcast Entr." set to 1 and only one Multicast Tracker Packet Entry.
+Such a tracker packet gets generated similar to the periodic one but for the specific multicast MAC address which triggered the state switch
+only. Which means that the reactively generated tracker packet will have a "Num Mcast Entr." set to 1 and only one Multicast Tracker Packet Entry.
 
-If possible then this tracker packet should be scheduled for transmission
-before the retransmission of the multicast data packet which triggered the
-state switch.
+If possible then this tracker packet should be scheduled for transmission before the retransmission of the multicast data packet which triggered the state switch.
 
-A reactively generated tracker packet should further be transmitted
-TRACKER_BURST_AMOUNT times on its according interfaces instead of just
-once compared to the periodic tracker packet and general tracker packet
-forwarding.
+A reactively generated tracker packet should further be transmitted TRACKER_BURST_AMOUNT times on its according interfaces instead of just
+once compared to the periodic tracker packet and general tracker packet forwarding.
 
 
 h4. Tracker Packet Forwarding
