@@ -1,0 +1,330 @@
+
+Update (2012-09-xx):
+
+Current status:
+
+ * there is a working, "feature complete", but not much tested "patchset for 2012.3.0":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase which should work for any IP multicast data (no more code changes other than bug, comment or commit message fixes intended)
+ * Multicast video streaming still sucks (anyone knowing a robust video codec?)
+ * More issues with the Linux bridge got fixed upstream (recent kernel recommended)
+
+----
+
+h1. B.A.T.M.A.N.-Adv Multicast Awareness
+
+WIP --- WIP --- WIP -- updated version of [[Multicast-ideas]]
+
+h2. Introduction
+
+As batman-adv has full control over all data traffic flowing through the mesh network multicast traffic also falls under its jurisdiction. At the time of writing this document batman-adv handles the multicast traffic by flooding the whole network with it. Although this approach is suitable for common multicast services sending a small number of packets (for instance IPv6 neighbor announcements) it fails its purpose when it comes to multicast streaming.
+
+In current 802.11 based Wireless Mesh Networks such packets are expensive: They cannot take advantage of rate adaptation schemes as done for the unicast frames and generally needs to use a rather low bitrate to ensure a reliable transfer as there is no acknowledgement scheme, in contrast to unicast frame delivery.
+
+Nevertheless a feasible multicast routing scheme for such data in WMNs is of increasing interest: They can in theory enable a variety of applications which would be very costly with pure unicast routing schemes otherwise: For instance video and audio streaming applications like IPTV or conferencing systems, or monitoring systems.
+
+The following concept is designed to enable efficient multicast packet delivery for multicast IP streams in WMNs with a sparse multicast group size, that is only a fraction of mesh nodes actually being interested in receiving such data.
+
+
+h2. Concept
+
+h3. Features
+
+The following concept basically provides two enhancements over the the so far classic flooding approach:
+
+h4. Group awareness
+
+It aims to only deliver packets to actually interested mesh nodes. For IPv4 and IPv6 such interest is explicitly announced (within the kernel itself or via IGMP/MLD on a link). We distribute this information through the mesh so that every mesh node is at least aware of the final destination addresses of a multicast data packet. This will be described in more detail in the section "Multicast Listener Announcements". Together with the previously established unicast routing protocol this is sufficient to provide such directed multicast packet delivery.
+
+To further decrease the overhead of the multicast routing in the previously described multicast streaming scenario we are actively marking the path from the multicast sender to any multicast listener with small, periodic unicast packets to any such destination. These "tracker packets" are therefore the key part of actually creating and maintaining entries in the multicast routing database. This concept is described in the section "Multicast Path Tracking".
+
+some-pic-from-slides-here.png
+
+h4. Unicast forwarding
+
+For another thing this multicast optimization tries to forward packets via unicast instead of broadcasting them if the number of interested neighbors is not too large. This is to ensure a more reliable, faster, less bandwidth consuming transfer.
+
+some-pic-from-slides-here2.png
+
+
+h3. Structure
+
+The new multicast optimization infrastructure can be devided into four parts:
+
+* Multicast Listener Announcements
+* Multicast Flow Measurement
+* Multicast Path Tracking
+* Multicast Routing Table
+
+!Flowchart.svg!
+
+
+h4. Multicast Listener Announcements
+
+The MCA infrastructure takes care of announcing any potential multicast
+listener to any mesh node.
+
+Multicast listeners are obtained from either the local batman soft interface
+(i.e. bat0) or if present its master interface (e.g. a bridge interface).
+Furthermore if the batman interface is a bridge slave, then multicast
+listeners behind any other bridge port are obtained from the multicast
+snooping database of the bridge, too.
+
+MCAs are MAC address based. Those addresses are currently distributed via
+our periodic OGMs.
+
+A specific address is only announced if it has at least one matching
+non-link-local IPv4 multicast address or transient IPv6 multicast address:
+We on purpose exclude well-known multicast addresses as they are generally
+of "low" throughput and therefore not feasible for our multicast
+optimizations targeted at sparse, high throughput multicast streams.
+
+h4. Multicast Flow Measurement
+
+Establishing the optimized multicast routing infrastructure comes with a bandwidth and
+complexity cost. This cost is marginal compared to the bandwidth cost of for
+instance multimedia multicast streams, but it defeats its purpose in case of
+infrequent, small multicast packets with many multicast listeners.
+
+The multicast flow functions provide the capability to count and keep track of our own
+multicast flow coming in from the soft interface. This allows us to only
+build up the forwarding infrastructure if a certain threshold of
+incoming multicast packets of a certain group is reached.
+
+h4. Multicast Path Tracking
+
+Multicast Path Tracking combines the MCA and flow infrastructures: On sufficient
+multicast data flow for a specific multicast destination MAC, small
+tracker packets are actively sent to mark all paths towards destinations,
+destinations which were previously announced via MCAs.
+
+h4. Multicast Routing Table
+
+This part provides the functions for updating (e.g. when a multicast
+tracker packet arrives) and storing our multicast routing table
+(until entries time out).
+
+The routing table memorizes a tuple of a multicast group
+(e.g. a multicast MAC address), an originator and a next hop
+(+ its according interface) to be able to quickly determine the
+next hop(s) for a specific multicast data packet and whether to
+forward via unicast or broadcast packets.
+
+h3. Limitations
+
+h4. Low Throughput Multicast
+
+Do not get optimized and still get flooded through the whole mesh.
+
+h4. Dense, High Throuphut Multicast Groups
+
+Might become more costly when enabling these multicast optimizations.
+
+h4. Up to 255 multicast groups, up to 255 multicast listeners per group
+
+h4. 802.11 broadcast (un)reliability
+
+If reliability of a multicast transfer is of high importance then it is recommended
+to run a batman-adv instance on the multicast listener itself to be able to use 802.11
+unicast transfers as much as possible. Otherwise if the multicast listener is an 802.11
+station behind a batman-adv node (e.g. when bridging bat0 with a wifi interface)
+then a normal, low-rate, unreliable broadcast will still be used for the last hop.
+
+Furthermore it is recommended to increase the multicast rate within the wifi driver to
+be able to cope with the throughput of multicast multimedia streams.
+The usage of robust higher layer protocols (i.e. RFC3262 or RFC2198 for SIP/RTP) is suggested.
+
+In the future it might be interesting to enhance the mac80211 Linux wifi stack to be multicast-aware
+and to use the lowest bitrate of the wifi-connected multicast listeners from the unicast bitrates
+selected by the rate selection algorithm.
+
+Also implementing NAK schemes, forward error correction and a more intelligent, mixed unicast+multicast
+forwarding scheme within batman-adv might be interesting enhancements in the future.
+
+h4. Layer 2 Multicast Aware Forwarding only
+
+Might forward multicast packets to mesh nodes which are not actually interested in the packet
+due to multiple multicast groups being mapped onto the same multicast MAC address.
+
+h4. Any-Source Multicast
+
+Although IPv4's IGMPv3 and IPv6's MLDv2 do support signaling interest in multicast packets
+from certain sources only (Source-Specific Multicast), we do ignore this information
+and provide an Any-Source optimization only.
+
+
+h2. Definitions
+
+h2. Conceptual Data Structures
+
+
+
+h2. Protocol Procedure
+
+!Flowchart.png! 
+
+
+h3. Multicast Listener Announcements
+
+h4. Distribution
+
+A batman-adv node broadcasting its own OGM, an originator, has to attach a 6 byte multicast MAC address
+for any of its multicast listeners after the OGMs TT diff part.
+
+Multicast listeners need to be obtained in the following ways:
+
+* Local multicast listeners: Either from the local batman-adv soft interface (i.e. bat0). Or if this
+soft interface is a slave of another network device (i.e. a bridge) using that one instead.
+* Bridged-in multicast listeners: If the batman-adv soft interface is a slave of a bridge then any multicast listeners behind any other bridge slave need to be obtained via MLD/IGMP snooping.
+
+A multicast MAC should be ommited though if:
+
+* It is a multicast MAC address for an IPv4 multicast address and if any according IPv4 multicast listener address
+is a link-local one.
+* It is a multicast MAC address for an IPv6 multicast address and if any according IPv6 multicast listener address
+is a well-known one.
+
+h4. Reception
+
+A batman-adv node receiving another node's OGM has to memorize the attached MCA information or update any already memorized such information.
+
+
+h3. Multicast Flow Measurement
+
+For any IP multicast packet forwarded into the batman-adv soft interface and this packet having a non-link-local IPv4 multicast address or transient IPv6 multicast address a node has to perform the following actions:
+
+* Increase a counter for the according MAC address.
+
+If the configured multicast flow threshold was reached:
+
+* Set the multicast flow threshold state to "high" if the configured flow threshold is reached or "low" otherwise.
+
+If just having switched from "low" to "high" with this packet then further:
+
+* Send a burst of multicast tracker packets for the according multicast MAC (see "Reactive Tracker Packet Transmission").
+
+
+h3. Multicast Path Tracking
+
+h4. Periodic Tracker Packet Transmission
+
+Each node periodically (Multicast Tracker interval) generates a Multicast Tracker Packet:
+
++Multicast Tracker Packet Header Format:+
+
+* Packet type: Initialize this field with the Multicast Tracker packet type.
+* Version: Set your internal compatibility version.
+* Num Mcast Entr.: The amount of attached Multicast Tracker Packet Entries.
+* Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Packet Type   |    Version    |      TTL      |Num Mcast Entr.|
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                     Originator Address                        |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |      Originator Address       |           Reserved            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+The body of a multicast tracker packet needs to be filled with a Multicast Tracker
+Packet Entry for any multicast MAC address which is present in the MCA buffer of other originators
+and which has a matching multicast flow state which is "high".
+
++Multicast Tracker Packet Entry Format:+
+
+* Multicast Address: Multicast MAC address suitable for optimization.
+* Num Dest: The amount of multicast listeners for this multicast address
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                    Multicast Address                          |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |       Multicast Address       |   Num Dest    |   Reserved    |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
++Multicast Tracker Packet Destination Entry Format:+
+
+A six bytes long MAC address, one for every multicast listener of this group.
+
+This generated Multicast Tracker Packet then gets scheduled for forwarding
+(see "Tracker Packet Forwarding").
+
+h4. Reactive Tracker Packet Transmission
+
+A Tracker Packet might further get generated if a multicast flow threshold
+state switched from "low" to "high" (see "Multicast Flow Measurement").
+
+Such a tracker packet gets generated similar to the periodic one
+but for the specific multicast MAC address which triggered the state switch
+only. Which means that the reactively generated tracker packet will
+have a "Num Mcast Entr." set to 1 and only one Multicast Tracker Packet Entry.
+
+If possible then this tracker packet should be scheduled for transmission
+before the retransmission of the multicast data packet which triggered the
+state switch.
+
+A reactively generated tracker packet should further be transmitted
+TRACKER_BURST_AMOUNT times on its according interfaces instead of just
+once compared to the periodic tracker packet and general tracker packet
+forwarding.
+
+
+h4. Tracker Packet Forwarding
+
+h4. Tracker Packet Reception
+
+
+h3. Multicast Routing Table
+
+h4. Multicast Data Transmission
+
++Multicast Data Header Format:+
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Packet Type   |    Version    |      TTL      |   Reserved    |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                       Sequence Number                         |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                     Originator Address                        |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |      Originator Address       |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+h4. Multicast Data Reception
+
+h4. Multicast Data Forwarding
+
+
+h2. Proposed Values for Constants
+
+* TRACKER_BURST_AMOUNT: 3
+
+h2. References
+
+h2. Further Ideas for Optimizations
+
+
+---
+
+h2. Code
+
+http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase
+
+h2. Changelog
+
+
+h2. TODO
+
+* finish this document
+* code review
+* (more) testing
+* Get the one bridge patch upstream? (or submit it together with the batman-adv ones?)
+* Would it make sense to wait for the TLV patches first before getting these multicast optimizations upstream?
