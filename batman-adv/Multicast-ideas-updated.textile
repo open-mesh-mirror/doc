@@ -2,7 +2,7 @@ Update (2012-09-xx):
 
 Current status:
 
- * there is a working, "feature complete", but not much tested "patchset for 2012.3.0":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase which should work for any IP multicast data (no more code changes other than bug, comment or commit message fixes intended)
+ * there is a working, "feature complete", but not much tested "patchset for the master branch":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase which should work for any IP multicast data (no more code changes other than bug, comment or commit message fixes intended)
  * Multicast video streaming still sucks (anyone knowing a robust video codec?)
  * More issues with the Linux bridge got fixed upstream (recent kernel recommended)
 
