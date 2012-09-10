@@ -58,13 +58,13 @@ The new multicast optimization infrastructure can be devided into four parts:
 
 h4. Multicast Listener Announcements
 
-The MCA infrastructure takes care of announcing any potential multicast
-listener to any mesh node.
+The MLA infrastructure takes care of announcing any potential multicast listener to any mesh node.
 
 Multicast listeners are obtained from either the local batman soft interface (i.e. bat0) or if present its master interface (e.g. a bridge interface).
+
 Furthermore if the batman interface is a bridge slave, then multicast listeners behind any other bridge port are obtained from the multicast snooping database of the bridge, too.
 
-MCAs are MAC address based. Those addresses are currently distributed via our periodic OGMs.
+MLAs are MAC address based. Those addresses are currently distributed via our periodic OGMs.
 
 A specific address is only announced if it has at least one matching non-link-local IPv4 multicast address or transient IPv6 multicast address: We on purpose exclude well-known multicast addresses as they are generally of "low" throughput and therefore not feasible for our multicast optimizations targeted at sparse, high throughput multicast streams.
 
@@ -76,7 +76,7 @@ The multicast flow functions provide the capability to count and keep track of o
 
 h4. Multicast Path Tracking
 
-Multicast Path Tracking combines the MCA and flow infrastructures: On sufficient multicast data flow for a specific multicast destination MAC, small tracker packets are actively sent to mark all paths towards destinations, destinations which were previously announced via MCAs.
+Multicast Path Tracking combines the MLA and flow infrastructures: On sufficient multicast data flow for a specific multicast destination MAC, small tracker packets are actively sent to mark all paths towards destinations, destinations which were previously announced via MLAs.
 
 h4. Multicast Routing Table
 
@@ -95,6 +95,10 @@ h4. Dense, High Throuphut Multicast Groups
 Might become more costly when enabling these multicast optimizations.
 
 h4. Up to 255 multicast groups, up to 255 multicast listeners per group
+
+h4. Optimization of non-link-local IPv4 multicast and transient IPv6 multicast only
+
+h4. No IGMP/MLD specific optimizations/filtering
 
 h4. 802.11 broadcast (un)reliability
 
@@ -119,6 +123,18 @@ h2. Definitions
 
 h2. Conceptual Data Structures
 
+h3. Multicast Listener Announcements
+
+h3. Multicast Flow Table
+
+h3. Multicast Routing Table
+
+The Multicast Routing Table holds routing entries of the following format:
+
+* Multicast Group:
+* Originator Address:
+* Next Hop Address:
+* Timeout:
 
 
 h2. Protocol Procedure
@@ -130,26 +146,26 @@ h3. Multicast Listener Announcements
 
 h4. Distribution
 
-A batman-adv node broadcasting its own OGM, an originator, has to attach a 6 byte multicast MAC address for any of its multicast listeners after the OGMs TT diff part.
+A batman-adv node broadcasting its own OGM, an originator, MUST attach a 6 byte multicast MAC address for any of its multicast listeners after the OGMs TT diff part.
 
 Multicast listeners need to be obtained in the following ways:
 
 * Local multicast listeners: Either from the local batman-adv soft interface (i.e. bat0). Or if this soft interface is a slave of another network device (i.e. a bridge) using that one instead.
 * Bridged-in multicast listeners: If the batman-adv soft interface is a slave of a bridge then any multicast listeners behind any other bridge slave need to be obtained via MLD/IGMP snooping.
 
-A multicast MAC should be ommited though if:
+A multicast MAC SHOULD be ommited though if:
 
 * It is a multicast MAC address for an IPv4 multicast address and if any according IPv4 multicast listener address is a link-local one.
 * It is a multicast MAC address for an IPv6 multicast address and if any according IPv6 multicast listener address is a well-known one.
 
 h4. Reception
 
-A batman-adv node receiving another node's OGM has to memorize the attached MCA information or update any already memorized such information.
+A batman-adv node receiving another node's OGM MUST memorize the attached MLA information or update any already memorized such information for every node.
 
 
 h3. Multicast Flow Measurement
 
-For any IP multicast packet forwarded into the batman-adv soft interface and this packet having a non-link-local IPv4 multicast address or transient IPv6 multicast address a node has to perform the following actions:
+For any IP multicast packet forwarded into the batman-adv soft interface and this packet having a non-link-local IPv4 multicast address or transient IPv6 multicast address a node MUST perform the following actions:
 
 * Increase a counter for the according MAC address.
 
@@ -187,7 +203,7 @@ Each node periodically (Multicast Tracker interval) generates a Multicast Tracke
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-The body of a multicast tracker packet needs to be filled with a Multicast Tracker Packet Entry for any multicast MAC address which is present in the MCA buffer of other originators and which has a matching multicast flow state which is "high".
+The body of a multicast tracker packet needs to be filled with a Multicast Tracker Packet Entry for any multicast MAC address which is present in the MLA buffer of other originators and which has a matching multicast flow state which is "high".
 
 +Multicast Tracker Packet Entry Format:+
 
@@ -206,26 +222,67 @@ The body of a multicast tracker packet needs to be filled with a Multicast Track
 
 +Multicast Tracker Packet Destination Entry Format:+
 
-A six bytes long MAC address, one for every multicast listener of this group.
+A six bytes long unicast MAC address, one for every multicast listener of this group.
 
-This generated Multicast Tracker Packet then gets scheduled for forwarding (see "Tracker Packet Forwarding").
+This generated Multicast Tracker Packet then gets scheduled for processing (see "Tracker Packet Processing").
 
 h4. Reactive Tracker Packet Transmission
 
-A Tracker Packet might further get generated if a multicast flow threshold state switched from "low" to "high" (see "Multicast Flow Measurement").
+A Tracker Packet SHOULD further get generated if a multicast flow threshold state switched from "low" to "high" (see "Multicast Flow Measurement").
 
-Such a tracker packet gets generated similar to the periodic one but for the specific multicast MAC address which triggered the state switch
-only. Which means that the reactively generated tracker packet will have a "Num Mcast Entr." set to 1 and only one Multicast Tracker Packet Entry.
+Such a tracker packet gets generated similar to the periodic one but for the specific multicast MAC address which triggered the state switch only. Which means that the reactively generated tracker packet will have a "Num Mcast Entr." set to 1 and only one Multicast Tracker Packet Entry.
 
-If possible then this tracker packet should be scheduled for transmission before the retransmission of the multicast data packet which triggered the state switch.
+This generated Multicast Tracker Packet then gets scheduled for processing (see "Tracker Packet Processing").
 
-A reactively generated tracker packet should further be transmitted TRACKER_BURST_AMOUNT times on its according interfaces instead of just
+If possible then this tracker packet SHOULD be scheduled for transmission before the retransmission of the multicast data packet which triggered the state switch.
+
+A reactively generated tracker packet SHOULD further be transmitted TRACKER_BURST_AMOUNT times on its according interfaces instead of just
 once compared to the periodic tracker packet and general tracker packet forwarding.
 
 
-h4. Tracker Packet Forwarding
-
 h4. Tracker Packet Reception
+
+A received multicast tracker packet MUST first be processed in the following way:
+
+h5. Preliminary Checks
+
+* *Version Check:* If the Tracker Packet contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
+* *Source Check:* If the sender address of the Tracker Packet is an ethernet multicast (including broadcast) address the message must be silently dropped.
+* *Destination Check:* If the destination address of the Tracker Packet is a multicast (including broadcast) address the message must be silently dropped.
+* *Own Message Check:* If the originator address of the Tracker Packet is our own the message must be silently dropped as this Tracker Packet originated from this node.
+
+
+h4. Tracker Packet Processing
+
+A locally generated or received multicast tracker packet which passed its preliminary checks MUST be processed in the following way:
+
+h5. Multicast Routing Table Updating
+
+For any Multicast Entry in the Tracker Packet:
+
+* Determine all next hops matching the Multicast Entry's Destination Entries.
+
+For all such next hops:
+
+* Check whether an entry in the Multicast Routing Table matching the multicast address and originator address of the tracker packet (entry) and determined next hop address exists:
+** If yes, reset its timeout to the currently configured Multicast Forwarding Timeout. Otherwise create one for this three tuple and set its timeout value to the currently configured Multicast Forwarding Timeout.
+
+h5. Tracker Packet Forwarding
+
+A Tracker Packet MUST further be processed and forwarded in the following way:
+
+* The TTL must be decremented by one. If the TTL becomes zero (after the decrementation) the packet must be dropped.
+
+Then:
+
+* Any destination entry of a Multicast Entry of this Tracker Packet matching its previously determined next hop needs to be removed.
+* Any (now) empty Multicast Entry needs to be removed.
+
+The Tracker Packet then MUST be split into an individual Tracker Packet for each previously determined next hop. Each of these Tracker Packets MUST only contain destination entries matching this next hop.
+
+For each of these new Tracker Packets:
+
+* Send this packet (TRACKER_BURST_AMOUNT times if it was reactively generated) to the determined next hop.
 
 
 h3. Multicast Routing Table
