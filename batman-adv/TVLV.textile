@@ -1,46 +1,49 @@
-h2. Code
+h1. TVLV
+
+This document describes in detail the TVLV format, the TVLV API and contains a list of TVLV definitions for reference. Be sure to have read the [[open-mesh:2012-09-xx-GSoC-2012-Spyros-Gasteros-Final-Report|TVLV introduction]] if you don't understand the scope of this document.
+
+
+h2. TVLV format
+
+A typical TVLV container is composed of the following fields:
+* Length flag: indicates whether the length field is 1byte or 2 bytes wide
+* TVLV type: TVLV type identifying the content of value (see below for list of types)
+* Version: version number of the TVLV type
+* Length: length of the value field in bytes
+* Value: the actual data of this TVLV
+
+The short length field limits the size of the TVLV value to 256bytes which is sufficient for most cases. If a larger payload is to be transmitted the "long TVLV" flag has to be set. On the other hand, certain TVLV containers have no payload at all (with a the length field set to zero and no value field) which can used to let the mesh know about a feature's availability.
+
+
+h3. Short TVLV
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |S| TVLV Type |    Version    |    Length     |  Value
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+h3. Long TVLV
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |L| TVLV Type |    Version    |             Length              | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                           Value 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+
+h2. API
+
+
 
 * http://git.open-mesh.org/?p=batman-adv.git;a=shortlog;h=refs/heads/northpole/tvlv-clean
 
-h2. Intro
-
-In its current structure the batman-adv Originator packet is rather static and contains fields which transport feature-specific information. As a result every change to a feature message or every new feature breaks the protocol and needs an increase in the compat_version number.
-The project's goal is to implement  a framework to use and transport  IEs (information elements) and more specifically TLVs (type/length/value) elements.
-
-h2.  TVLV concept
-
-At the end of each OGM are appended a set of tvlv (type-version-length-value) containers to announce the support of a feature set or to transfer messages of a feature. The standard TLV concept has been enriched by a version field as it can be safely assumed features evolve over time. Every feature is assigned a unique tvlv type as identifier (see below). 
-
-Batman-adv tvlv definition:
-
-In batman-adv we will be using three kinds of tvlvs
-
-h3. A short tvlv is defined bellow
-
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |TVLV Type(0x01)|    Version    |    Length     |  Value
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-h3. A long one is defined bellow
-
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |TVLV Type(0x81)|    Version    |        Length                 | 
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |    Value of length bytes long                                 |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-+NOTE+
-Long tvlvs have a type bigger than 0x81, short tvlvs have a type shorter than 0x80 and zero tvlvs should have the type of the feature they announce support of.
-
-h2.  Api description
 
 h3. Sending
 
