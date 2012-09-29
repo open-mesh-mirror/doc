@@ -100,8 +100,6 @@ h3. Gateway announcement
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-State: Done.
-
 h3. DAT (Distributed ARP Table)
 
  * tvlv type: 0x02
@@ -119,7 +117,7 @@ h3. DAT (Distributed ARP Table)
 
 h3. Translation table / TT messages
 
- * tvlv type: 0x81
+ * tvlv type: 0x03
  * function: Node local clients advertisement mechanism. This particular component needs some parameters that are were carried by the OGM. Now these fields can be encapsulated in the tvlv (see below to understand what fields I'm talking about).
  * purpose: nodes need to exchange TranslationTable state information
  * length: variable (it depends on the number of changes that the tvlv is carrying). Fixed tvlv fields:
@@ -135,16 +133,6 @@ h3. Translation table / TT messages
  |     TTVN      |             TT CRC            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
-
-State: W.I.P.
-
-h3. Bla(bridge loop avoidance)
-
- * tvlv type: 0x??
- * function: Bridge Loop Avoidance is used to avoid loops between a backbone network (e.g. LAN) and the mesh. More documentation at the wiki at: [[Bridge-loop-avoidance-II]]
- * purpose: TBD - so far, no compatibility has been defined between nodes which support BLA and nodes which don't.
- * length: 0 byte
- * note: needs more discussion whether we really need that.
 
 h3. Vis server
 
