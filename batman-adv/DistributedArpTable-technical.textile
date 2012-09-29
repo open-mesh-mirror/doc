@@ -1,4 +1,4 @@
-h1. ARPoverDHT
+h1. DistributedARPTable: technical details
 
 This is a draft of the page describing the inner details of the implementation of DAT
 
