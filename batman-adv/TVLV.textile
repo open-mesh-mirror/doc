@@ -85,6 +85,7 @@ Upon registering a handler it is possible to pass a couple of flags to tweak the
 
 h2. TVLV definitions
 
+
 h3. Gateway announcement
 
  * tvlv type: 0x01
@@ -100,6 +101,7 @@ h3. Gateway announcement
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
+
 h3. DAT (Distributed ARP Table)
 
  * tvlv type: 0x02
@@ -114,6 +116,23 @@ h3. DAT (Distributed ARP Table)
  |   TVLV 0x02   |    Version    |    Length     |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
+
+
+h3. Vis server
+
+ * tvlv type: 0x??
+ * function: The vis server allow to dump a complete network graph of the mesh network. To do this, vis clients send their neighbor and tt data to vis servers. The vis servers then share the collected data between each other.
+ * purpose: Clients may send their vis data to the server if the vis TLV is present.
+ * length: 0 byte
+ * definition:
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV 0x??   |    Version    |    Length     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
 
 h3. Translation table / TT messages
 
@@ -134,22 +153,26 @@ h3. Translation table / TT messages
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-h3. Vis server
 
- * tvlv type: 0x??
- * function: The vis server allow to dump a complete network graph of the mesh network. To do this, vis clients send their neighbor and tt data to vis servers. The vis servers then share the collected data between each other.
- * purpose: Clients may send their vis data to the server if the vis TLV is present.
- * length: 0 byte
+h3. Catwoman (network coding)
+
+ * tvlv type: to be decided upon merge into the master branch
+ * function: Nodes compiled with support for network and has enabled network coding, announces this, so that other nodes do not send coded packets to nodes unable to understand such.
+ * purpose: network encoded packets will only sent to nodes that have network coding enabled
+ * length: 0 (This is a boolean telling that this node knows how to decode nc-packets.)
  * definition:
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV 0x??   |    Version    |    Length     |
+ |   TVLV TBD    |    Version    |    Length     |  
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-h3. Vis information packet (PROPOSAL)
+
+h2. TVLV definitions (proposal)
+
+h3. Vis information packet
 
  * tvlv type: 0x??
  * function: The vis server allow to dump a complete network graph of the mesh network. To do this, vis clients send their neighbor and tt data to vis servers. The vis servers then share the collected data between each other.
@@ -193,22 +216,7 @@ h3. Vis information packet (PROPOSAL)
 </pre>
 
 
-h3. Catwoman (network coding)
-
- * tvlv type: to be decided upon merge into the master branch
- * function: Nodes compiled with support for network and has enabled network coding, announces this, so that other nodes do not send coded packets to nodes unable to understand such.
- * purpose: network encoded packets will only sent to nodes that have network coding enabled
- * length: 0 (This is a boolean telling that this node knows how to decode nc-packets.)
- * definition:
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV TBD    |    Version    |    Length     |  
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-h3. Multicast capability (TODO => Simon / Edo)
+h3. Multicast capability
 
  * tvlv type: to be decided upon merge into the master branch
  * function: The current (unfinished) implementation optimizes for sparse multicast networks, with groups (much) smaller than half the nodes of the network. It first sends out tracker packets to mark the multicast tree for the following stream.
