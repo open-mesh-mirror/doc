@@ -7,12 +7,12 @@ h2. TVLV format
 
 A typical TVLV container is composed of the following fields:
 * Length flag: indicates whether the length field is 1byte or 2 bytes wide
-* TVLV type: TVLV type identifying the content of value (see below for list of types)
+* TVLV type: TVLV type identifying the content of value (see below for the list of types)
 * Version: version number of the TVLV type
 * Length: length of the value field in bytes
 * Value: the actual data of this TVLV
 
-The short length field limits the size of the TVLV value to 256bytes which is sufficient for most cases. If a larger payload is to be transmitted the "long TVLV" flag has to be set. On the other hand, certain TVLV containers have no payload at all (with a the length field set to zero and no value field) which can used to let the mesh know about a feature's availability.
+The short length field limits the size of the TVLV value to 256bytes which is sufficient for most cases. If a larger payload is to be transmitted the "long TVLV" flag has to be set (extending the maximum length to 65536bytes). On the other hand, certain TVLV containers have no payload at all (with a the length field set to zero and no value field) which can be used to let the mesh know about a feature's availability.
 
 
 h3. Short TVLV
@@ -38,30 +38,24 @@ h3. Long TVLV
 </pre>
 
 
-h2. API
+h2. TVLV API
 
 
+h3. Transmitting
 
-* http://git.open-mesh.org/?p=batman-adv.git;a=shortlog;h=refs/heads/northpole/tvlv-clean
-
-
-h3. Sending
-
-To turn tvlv sending on, thus send a tvlv with every ogm packet all that is needed to be done is add a call to 
+To periodically transmit a TVLV container with every Originator Message (OGM) a register() call has to be performed. The function takes the TVLV type, version,  length and value as argument and internally stores this information. The aforementioned length handling, the periodic scheduling, etc happens transparently to the caller. The register() call also takes care of updates to an existing TVLV type + version container.
+ 
 <pre>
-void batadv_tvlv_register(struct batadv_priv *bat_priv, uint8_t type,
-			              uint8_t version, uint16_t length,
-			              uint8_t *value);
+void batadv_tvlv_ogm_register(struct batadv_priv *bat_priv, uint8_t type,
+			                  uint8_t version, uint16_t length,
+			                  uint8_t *value);
 
 </pre>
 
+To stop transmitting a TVLV type + version container the unregister() function has to be called.
 
-
-+NOTE+ since there are two types of tvlvs (short and long ones) the convention is that any tvlv with type bigger than 0x80 is a long one and smaller than that a short one, only difference that length will be assigned to a one byte variable for short tvlvs and two byte variable for long ones.
-
-In order to unregister the tvlv thus stop sending it you call
-
-<pre>void batadv_tvlv_unregister(struct batadv_priv *bat_priv, uint8_t type);</pre>
+<pre>void batadv_tvlv_ogm_unregister(struct batadv_priv *bat_priv, uint8_t type,
+			                    uint8_t version);</pre>
 
 h3. Receiving
 
