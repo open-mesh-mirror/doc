@@ -40,6 +40,13 @@ These information are used to update the old node's global table so that, in cas
 
 Due to this mechanism, immediately after a roaming the data packets might follow a slightly sub-optimal path (data flow is going through the old node) until the network is in sync again and every node has updated its global translation table. This strategy will help to avoid losing packets that are still flowing to the old node.
 
+It could also be the case that before nodes get in synch again, the clients roams once more. In this case the same procedure described above applies with some minor modifications:
+* the new node sends a ROAM_ADV to the old node (the very first node serving this client, not the one where the client roamed to in the first step)
+* the old node update its global table in order to reroute the packets to the correct (new) destination
+* the old node sends a ROAM_ADV to the one which was temporary serving the client to tell it that the roaming phase is over and that the client "came back"
+
+In this way the data will continue to flow to the old node first and then getting rerouted to the correct destination.
+
 h2. Routing data packets
 
 The enhanced data routing is built on top of the data routing procedure described in the [[Client-announcement]] page. When a mesh node receives a roaming advertisement concerning one of its former non-mesh clients it will mark the client entry with the roaming flag in its own translation table. The mesh node sending the roaming advertisement will do the same. This extra flag is needed as long as the translation tables are not in sync and will have to be deactivated once an OGM with the new ttvn arrives. 
@@ -57,8 +64,6 @@ However, neighboring nodes face an interesting problem: If the OGM from the new 
 h2. Limitations
 
 * MAC conflict: In case of more than one node announcing the same client MAC address, each node will interpret this situation as a "continued roaming" and will start sending roaming advertisement messages multiple times. To reduce the impact of this problematic scenario a roaming-protection has been provided: A client can roam on the same node a fixed amount of times in a fixed length period (look into main.h for the exact values). In case of exceeding the limit, the interested node will not issue any new roaming advertisement unless the protection period is terminated. However, this situation is usually caused by the same client being connected to two mesh nodes (by means of a switch for example) and in this case the [[Bridge-loop-avoidance]] will enable nodes to understand that the client is somehow "shared". On the other side, mesh nodes receiving the announcement of the same client from multiple originator, will store a list of node announcing the client and will choose the best (TQ based) to send the data to whenever needed.
-
-* multiple roaming in one OGM interval: In case of a node roaming from node A to B a roaming advertisement is sent from B to A, but if the client moves again from node B to C, before B issued a new OGM, C will send the roaming advertisement to A again! This happens because C doesn't know anything yet about the last client movement. A possible solution to this problem could consist in implementing a roaming advertisement forwarding procedure that in scenarios like this make the roaming advertisement message going through all the steps the client did. To counter this issue a new concept is currently under development. It is possible to find more details at [[MultipleRoaming|this page]]
 
 h2. Notes
 
