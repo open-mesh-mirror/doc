@@ -45,7 +45,7 @@ It could also be the case that before nodes get in synch again, the clients roam
 * the old node update its global table in order to reroute the packets to the correct (new) destination
 * the old node sends a ROAM_ADV to the one which was temporary serving the client to tell it that the roaming phase is over and that the client "came back"
 
-In this way the data will continue to flow to the old node first and then getting rerouted to the correct destination.
+In this way data will be still sent to the old node and then getting rerouted to the correct destination.
 
 h2. Routing data packets
 
