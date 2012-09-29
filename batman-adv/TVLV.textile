@@ -15,7 +15,7 @@ A typical TVLV container is composed of the following fields:
 * Length: length of the value field in bytes
 * Value: the actual data of this TVLV
 
-The short length field limits the size of the TVLV value to 256bytes which is sufficient for most cases. If a larger payload is to be transmitted the "long TVLV" flag has to be set (extending the maximum length to 65536bytes). On the other hand, certain TVLV containers have no payload at all (with a the length field set to zero and no value field) which can be used to let the mesh know about a feature's availability.
+The short length field limits the size of the TVLV value to 255bytes which is sufficient for most cases. If a larger payload is to be transmitted the "long TVLV" flag has to be set (extending the maximum length to 65535bytes). On the other hand, certain TVLV containers have no payload at all (with a the length field set to zero and no value field) which can be used to let the mesh know about a feature's availability.
 
 
 h3. Short TVLV
