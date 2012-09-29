@@ -86,7 +86,7 @@ Upon registering a handler it is possible to pass a couple of flags to tweak the
 
 Available handler_flags:
 
- * TVLV_OGM_FOUND: tells the callback whether the tvlv has been found or not. This is needed to differentiate an invocation triggered by TVLV_OGM_CALL_IFNFOUND from the case of a "boolean tvlv" (no value)
+ * TVLV_OGM_FOUND: tells the callback whether the tvlv has been found or not. This is needed to differentiate an invocation triggered by TVLV_OGM_CALL_IFNFOUND from the case of a "boolean tvlv" (a particulare case where the tvlv carry no value)
 
 h2. TVLV definitions
 
