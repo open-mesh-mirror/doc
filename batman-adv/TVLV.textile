@@ -82,11 +82,14 @@ void batadv_tvlv_handler_unregister(struct batadv_priv *bat_priv,uint8_t type);
 
 Upon registering a handler it is possible to pass a couple of flags to tweak the handler API behavior. For instance, some features need to be also called if a certain TVLV container was not found in an OGM to learn when the peer node has switched it off. The following flags are available:
 
+Handler register flags:
+
  * TVLV_OGM_CALL_IFNFOUND: If the TVLV type has not been found, call this handler anyway when the OGM parsing has been completed. In this case the length argument will be 0 and the value will be NULL.
 
-Available handler_flags:
+Flags passed to the handler by the TVLV API:
 
- * TVLV_OGM_FOUND: tells the callback whether the tvlv has been found or not. This is needed to differentiate an invocation triggered by TVLV_OGM_CALL_IFNFOUND from the case of a "boolean tvlv" (a particulare case where the tvlv carry no value)
+ * TVLV_OGM_FOUND: Signals the handler whether the TVLV container has been found or whether the call was invoked due to the TVLV_OGM_CALL_IFNFOUND flag.
+
 
 h2. TVLV definitions
 
