@@ -128,7 +128,7 @@ h3. DAT (Distributed ARP Table)
 
 h3. Vis server
 
- * tvlv type: 0x??
+ * tvlv type: 0x03
  * function: The vis server allow to dump a complete network graph of the mesh network. To do this, vis clients send their neighbor and tt data to vis servers. The vis servers then share the collected data between each other.
  * purpose: Clients may send their vis data to the server if the vis TLV is present.
  * length: 0 byte
@@ -137,14 +137,14 @@ h3. Vis server
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV 0x??   |    Version    |    Length     |
+ |   TVLV 0x03   |    Version    |    Length     |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
 
 h3. Translation table / TT messages
 
- * tvlv type: 0x03
+ * tvlv type: TBD
  * function: Node local clients advertisement mechanism. This particular component needs some parameters that are were carried by the OGM. Now these fields can be encapsulated in the tvlv (see below to understand what fields I'm talking about).
  * purpose: nodes need to exchange TranslationTable state information
  * length: variable (it depends on the number of changes that the tvlv is carrying). Fixed tvlv fields:
@@ -155,7 +155,7 @@ h3. Translation table / TT messages
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV 0x03   |    Version     |    Length                    | 
+ |   TVLV TBD    |    Version     |    Length                    | 
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |     TTVN      |             TT CRC            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
