@@ -1,4 +1,4 @@
-h1. DistributedARPTable: technical details
+h1. DistributedArpTable: technical details
 
 This is a draft of the page describing the inner details of the implementation of DAT
 
