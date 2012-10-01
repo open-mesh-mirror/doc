@@ -5,6 +5,7 @@ This page contains the links to previous news posts for archiving purposes.
 
 h3. 2012
 
+* *02.Jun. 2012* [[2012-06-02-gsoc2012-the-students-and-their-projects|GSoC 2012: The students and their projects]]
 * *13.May. 2012* [[2012-05-13-translation-table-in-a-nutshell|Translation table in a nutshell]]
 * *17.Apr. 2012* [[2012-04-17-batman-adv-2012-1-0-release|Batman-adv 2012.1.0 released]]
 * *30.Mar. 2012* [[2012-03-30-T-Shirts-available|B.A.T.M.A.N. T-Shirts available]]
