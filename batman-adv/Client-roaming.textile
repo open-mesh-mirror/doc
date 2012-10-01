@@ -40,12 +40,15 @@ These information are used to update the old node's global table so that, in cas
 
 Due to this mechanism, immediately after a roaming the data packets might follow a slightly sub-optimal path (data flow is going through the old node) until the network is in sync again and every node has updated its global translation table. This strategy will help to avoid losing packets that are still flowing to the old node.
 
-It could also be the case that before the network get in synch again the client roams once more. In this scenario the same procedure described above applies with some minor extensions. In particular this how the node involved in the roaming procedure will react:
-* the new node sends a ROAM_ADV to the old node (the very first node serving this client, not the one where the client roamed to the first time)
-* the old node updates its global table in order to reroute the packets to the correct (new) destination
-* the old node sends a ROAM_ADV to the one which was temporary serving the client to tell it that the roaming phase is over and that the client "came back"
+It could also be the case that before the network get in synch again the client roams once more. Let's assume this scenario: a client X is served by node A and roams to node B, then, before both nodes send the new OGM, client X moves to a third node C. Even in this case the same procedure described above applies, but with some minor extensions due to the second roaming event. In particular this how the nodes involved in the roaming procedure will react:
+# X moves from A to B
+# B sends a ROAM_ADV to A
+# X moves from B to C
+# C sends a ROAM_ADV to node A (same mechanism of point 2)
+# A updates its global table in order to reroute the packets to the correct (new) destination
+# A sends a ROAM_ADV to B to tell it that the roaming phase is over and that the client "came back" (new feature to avoid B to do not re-route packets correctly)
 
-In this way data will be still sent to the old node and then getting rerouted to the correct location with no loss.
+In this way data will be still sent to A first and then rerouted to the correct location with no loss.
 
 h2. Routing data packets
 
