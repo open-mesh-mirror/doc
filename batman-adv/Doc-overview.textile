@@ -14,6 +14,7 @@ h2. Getting started
 h2. Features
 
 * [[gateways|Gateway support]] - How batman-adv can be used to choose the nearest internet gateway node.
+* [[open-mesh:2012-05-13-translation-table-in-a-nutshell|TranslationTable in a nutshell]] -  The inner workings of the non-mesh client integration revealed.
 * [[bridge-loop-avoidance|Bridge loop avoidance]] - Document explaining the bridge loop avoidance implemented in batman-adv.
 * [[Multi-link-optimize|Multi-Link Optimizations]] - how to optimize traffic by using multiple links
 * [[VisAdv|Visualizing the 2nd layer]] - Creating graphics of the layer 2 network and differences to the layer 3 vis output explained.
