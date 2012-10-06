@@ -1,6 +1,6 @@
 h1. Bandwidth meter protocol
 
-This page explains the protocol and inner workings of the bandwidth meter. The motivation behind the bandwidth meter and its design is explained on the [[Bandwidth_meter|bandwidth meter page]]. More technical details are discussed on the [[bandwidth_meter_debug|technical and debug page]].
+This page explains the protocol and inner workings of the bandwidth meter. The motivation behind the bandwidth meter and its design is explained on the [[open-mesh:2012-10-06-GSoC-2012-Edo-Monticellis-Final-Report|bandwidth meter introduction page]]. More technical details are discussed on the [[bandwidth_meter_debug|technical and debug page]].
 
 h2. The bandwidth meter protocol
 
