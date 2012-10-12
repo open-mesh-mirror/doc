@@ -37,4 +37,4 @@ Since DAT is a network wide cache, each node stores a little piece of this big t
 
 An explanation of the output can be found here (link needed).
 
-If you want to read a bit more about DAT technical details, please consider visiting the [[ARPoverDHT|ARPoverDHT wikipage]].
+If you want to read a bit more about DAT technical details, please consider visiting the [[DistributedArpTable-technical|technical page]].
