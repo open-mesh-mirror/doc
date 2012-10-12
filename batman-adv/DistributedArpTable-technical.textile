@@ -24,3 +24,39 @@ h2. Backward compatibility
 In order to prevent backward compatibility breakage, several measures have been taken:
 * the fallback mechanism prevent a DAT-enabled node to get stuck in case of no DAT nodes at the location where it was expecting them (node set holding a particular entry); 
 * if an ARP request is coming through a normal unicast packet, it means that the node sending it is not DAT-enabled, therefore also the reply will be sent by means of a commn UNICAST packet.
+
+h3. Debug
+
+To simplify debugging operations a new log level has been added other that the already existent ones: the *dat* log level. To enable it the user just need to type the already known command: 
+<pre>
+# batctl ll dat
+</pre>
+On this log level it is possible to see any DAT/ARP related operation, including ARP messages parsing, DHT messages sending (with candidate election mechanism)
+
+h2. The Theory and the high-level mechanism
+
+h3. DHT basics
+
+The DHT which D.A.T. is based on is actually inspired by "CHORD":http://en.wikipedia.org/wiki/Chord_(peer-to-peer), which is one of the earliest Peer-to-Peer algorithm based on a DHT. B.A.T.M.A.N.-Advanced inherits the shape of the key space and the rule used to allocate objects onto participant nodes.
+
+Going a bit deeper into the details, the key space is represented by a ring on which the 2^16 keys are equally distributed. Being a ring means that arithmetic operations in the key space are modulo 2^16.
+
+As in CHORD, either the objects to distribute into the DHT and the participant nodes are mapped (by means of an hash function) to keys in the same space. Therefore, while scrolling the ring it is possible to find either keys mapping to an object and keys mapping to a node. This mechanism is definitely useful in order to decide which key is allocated on which node. In particular whenever there is a new object that we want to store in the DHT, the steps to follow are:
+# compute the key of the object by means of the hash function
+# locate the key on the ring
+# identify the 3 nodes with the closest (from the left) key on the ring
+# distribute the object content on these 3 nodes
+
+In this way, as soon as all the nodes shares the same vision of the ring, given a generic object, whatever node can identify the 3 participants that are storing the object content and query them.
+
+!dat_dht-90.png!
+
+In the figure above, it is possible to see a DHT ring populated with some participants. At some point a generic node in the network wants to retrieve the content for the red object. The node computes the key of the latter and then identifies the 3 nodes that store the content (the green ones in the figure). Now the node looking for the object content can directly query the selected participants and retrieve the data.
+
+h3. How D.A.T. merges ARP and the DHT
+
+Once the DHT concept has been introduced into B.A.T.M.A.N.-Advanced, the next step is to merge the ARP protocol and let D.A.T. born.
+
+D.A.T. actually exploits the DHT mechanism to store ARP entries of the form *[IP, MAC]* (this object is shaped like a normal ARP entry). The IP is used as input for the hash function as it is the always known part of the entry. In particular, whenever a node detects an ARP entry in the network (because of an ARP request/reply being sent/received by one of its clients) it simply activate the preiously explained mechanisn and stores such entry into the DHT.
+
+Whenever a node wants to retrieve a MAC address (e.g. due to an ARP request issued a client of its own) it will directly use the DHT to retrieve the ARP entry, and only if the DHT cannot provide the wanted answer (e.g. this entry has never been seen in the network) then the node fallbacks to the classic broadcast mechanism. As it is possible to understand, using the DHT will make the nodes avoid to use broadcast packets as much as possible and will make them rely on unicast packets sent to the node storing the data in the DHT directly.
