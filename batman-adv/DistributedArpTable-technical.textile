@@ -11,6 +11,18 @@ h2. Snooping mechanism
 In order to let DAT work correctly, the batman-adv module has to analyze ARP messages going through and coming from the mesh network, therefore a snooping mechanism has been provided.
 A node actually uses the ARP replies issued by the clients it is serving to populate its local cache and the distributed table. Any ARP request going to the mesh network, instead, is blocked in order to ask DAT for the reply.
 
+The snooping mechanism is actually made up by 4 events, which trigger different actions.
+The 4 possibilities are the following:
+
+# _Outgoing ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local repository:
+## it is: the node drops the request and immediately forges a reply that is delivered to the client
+## it is not: the node queries the DHT table using the requested IP as search key. If no answer is received within a fixed amount of time (actually 250ms) the ARP request is broadcasted like it is usually done.
+# _Incoming ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local repository:
+## it is: the node drops the request and immediately forges a reply that is sent over the mesh towards the client.
+## it is not: the request is delivered to the local soft interface (to the local clients)
+# _Incoming ARP Reply_: The packet is inspected, the node will save both the source and the destination entries in its local repository and then the message is delivered to the to the client, if the destination is part of the local known ones.
+# _Outgoing ARP Reply_: The packet is inspected, the node will save both the source and the destination entried in its local repository and then the message is sent to the DHT in order to populate it following the storing schema.
+
 h2. Fallback mechanism
 
 Is is also possible that DAT does not have the entry for a particular IP (e.g. this is the first time this IP is asked or the entry has been purged out due to no activity). In this case DAT will not provide any answer to the ARP request asking for the translation of such IP. In this case the "blocked ARP request" is sent as broadcast packet (like a normal ARP papcket) after 250ms. In this way, the client can get its ARP reply anyway and DAT can learn the new enry by inspecting it.
