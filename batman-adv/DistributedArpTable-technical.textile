@@ -25,9 +25,9 @@ h2. Fallback mechanism
 
 It is also possible that DAT does not have the entry for a particular IP (like described in the previous section), e.g. the first time this IP is asked or because the entry has been purged out due to missing activity. In this case DAT will not be able to provide any answer for the requested IP address. The "blocked ARP request" is therefore sent as broadcast packet (like a normal ARP request) after a timeout of 250ms is hit (during this period the node will wait for the answer from the DHT). This way the client can get the reply it was looking for through the normal ARP mechanism and DAT can learn the new entry by inspecting the incoming messages.
 
-h2. A new packet type UNICAST_4ADDR
+h2. The new packet type UNICAST_4ADDR
 
-In order to distinguish own DAT messages from classic unicast packets, a new packet type has been introduced: the UNICAST_4ADDR. This new packet type has both the source and the destination address (the classic unicast has only destination) and a *sub-packet-type* field. Thanks to the latter, DAT is able to exactly distinguish different packets and to provide appropriate debugging information if needed.
+In order to distinguish own DAT messages from classic unicast packets, a new packet type has been introduced: the UNICAST_4ADDR. This new packet type has both the source and the destination address (the classic unicast carries only the destination) and a sub-packet-type field. Thanks to the latter, DAT is able to exactly distinguish different packets and to provide appropriate debugging information if needed.
 
 h2. Backward compatibility
 
