@@ -1,6 +1,6 @@
 h1. DistributedArpTable: technical details
 
-The target of this page is to explain the inner details abut the implementation of [[DistributedARPTable|DAT (Distributed ARP Table)]]. For the general idea and the problem that it is trying to solve, please refer to  the [[DistributedARPTable|DAT]] page.
+The target of this page is to explain the inner details of the implementation of [[DistributedARPTable|DAT (Distributed ARP Table)]]. For the general idea and the problem that it is trying to solve, please refer to  the [[DistributedARPTable|DAT]] page.
 
 DAT is a "Distributed Hash Table":http://en.wikipedia.org/wiki/Distributed_hash_table aimed to store ARP entries and to allow nodes to perform fast lookup operations. All the operations in the DHT (get and store) are performed on a set of nodes computed by means of a distributed hash function which input value is an *IPv4 address*.
 
@@ -9,17 +9,17 @@ h2. Snooping mechanism
 In order to let DAT work correctly, the batman-adv module has to analyze ARP messages going to and coming from the mesh network, therefore a snooping mechanism has been provided.
 A node uses ARP *replies* issued by the clients it is serving to populate its local cache and the distributed table. Any ARP *request* going to the mesh network, instead, is blocked in order to ask DAT for the reply. If DAT is not able to provide an answer then the messages is delivered to the clients.
 
-The snooping mechanism is actually made up by 4 events, which trigger different actions.
+The snooping mechanism is actually made up of 4 events, which trigger different actions.
 The 4 possibilities are the following:
 
-# _Outgoing ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local repository:
-## if yes: the node drops the request and immediately forges a reply that is delivered to the client
+# _Outgoing ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local cache:
+## if yes: the node drops the request and immediately generates a reply that is delivered to the client
 ## if no: the node queries the DHT table using the requested IP as search key. If no answer is received within a fixed amount of time (currently is 250ms) the ARP request is broadcasted like it is usually done.
-# _Incoming ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local repository:
-## if yes: the node drops the request and immediately forges a reply that is sent over the mesh towards the requester.
-## if no: the request is delivered to the local soft interface (to the local clients)
-# _Incoming ARP Reply_: The packet is inspected, the node will save both the source and the destination entries in its local repository and then the message is delivered to the to the clients (only if the destination is one of them).
-# _Outgoing ARP Reply_: The packet is inspected, the node will save both the source and the destination entried in its local repository and then the message is sent to the DHT in order to populate it following the storing schema.
+# _Incoming ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local cache:
+## if yes: the node drops the request and immediately generates a reply that is sent over the mesh towards the requester.
+## if no: the request is delivered to the local soft interface (thus to the local clients)
+# _Incoming ARP Reply_: The packet is inspected, the node will save both the source and the destination entries in its local cache and then the message is delivered to the to the clients (only if the destination is one of them).
+# _Outgoing ARP Reply_: The packet is inspected, the node will save both the source and the destination entries in its local cache and then the message is sent to the DHT in order to populate it following the storing schema.
 
 h2. Fallback mechanism
 
