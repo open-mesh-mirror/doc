@@ -23,7 +23,7 @@ The 4 possibilities are the following:
 
 h2. Fallback mechanism
 
-Is is also possible that DAT does not have the entry for a particular IP (like described in 1) of the previous section), e.g. the first time this IP is asked or because the entry has been purged out due to no activity. In this case DAT will not be able to provide any answer for the requested IP address. The "blocked ARP request" is therefore sent as broadcast packet (like a normal ARP request) after a time of 250ms (during this period the node will wait for the answer from the DHT). The client can therefore get the reply it was looking for through the normal ARP mechanism and DAT can learn the new entry by inspecting the incoming messages.
+It is also possible that DAT does not have the entry for a particular IP (like described in the previous section), e.g. the first time this IP is asked or because the entry has been purged out due to missing activity. In this case DAT will not be able to provide any answer for the requested IP address. The "blocked ARP request" is therefore sent as broadcast packet (like a normal ARP request) after a timeout of 250ms is hit (during this period the node will wait for the answer from the DHT). This way the client can get the reply it was looking for through the normal ARP mechanism and DAT can learn the new entry by inspecting the incoming messages.
 
 h2. A new packet type UNICAST_4ADDR
 
