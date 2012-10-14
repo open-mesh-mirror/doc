@@ -1,4 +1,4 @@
-h1. DistributedArpTable: technical details
+h1. DistributedArpTable: technical documentation
 
 The target of this page is to explain the inner details of the implementation of [[DistributedARPTable|DAT (Distributed ARP Table)]]. For the general idea and the problem that it is trying to solve, please refer to  the [[DistributedARPTable|DAT]] page.
 
@@ -33,7 +33,7 @@ h2. Backward compatibility
 
 In order to prevent backward compatibility breakage, several measures have been taken:
 * the fallback mechanism prevent a DAT-enabled node to get stuck in case of no DAT nodes at the location where it was expecting them; 
-* if an ARP request is coming through a normal unicast packet, it means that the node sending it is not DAT-enabled, therefore also the reply will be sent by means of a commn UNICAST packet.
+* if an ARP request is coming through as a normal unicast packet, it means that the node sending it is not DAT-enabled, therefore also the reply will be sent by means of a standard unicast packet instead of using the unicast_4address packet type.
 
 h3. Debug
 
