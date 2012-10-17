@@ -41,8 +41,6 @@ h3. How can I connect non-mesh clients to my batman-adv network ?
 
 The [[batman-adv:Quick-start-guide|batman-adv quick-start-guide]] explains how to bridge your standard AP / Ethernet interfaces with bat0 which can be problematic if you only possess one WiFi card. In these cases it might be desirable to run adhoc mode and AP mode at the same time. Fortunately, some WiFi chips / drivers support a so-called "multi VAP" (virtual AP) or "multi SSID" mode to have multiple WiFi networks on the same WiFi interface.
 
-
-
 h3. How big networks does batman-adv support?
 
 That is a good question. It is not possible to give an exact answer, but there are several parameters limiting the number of nodes in your network:
@@ -53,6 +51,22 @@ That is a good question. It is not possible to give an exact answer, but there a
   Each node in the mesh network holds information in memory about every other node, so little memory might limit the number of nodes.
 # *Protocol overhead*
   Each node sends "here-I-am" messages to the entire network at a regular interval. These messages are aggregated when possible, to reduce the overhead.
+
+h3. How do I announce IP subnets using batman-adv?
+
+batman-adv is a layer2 routing protocol and it does not handle IP subnets at all. If you want to do IP subnetting, the suggestion is to split the mesh network in different sub-meshes (e.g. different ESSID/BSSID), and run a batman-adv instance in each of them.
+
+!quagga_integration.png!
+
+As shown in the picture, the result consists in having multiple meshes working independently from each other. In particular the border nodes like C, D and E will participate in more than one mesh network and will consequently have more than one batman-adv interface (e.g. bat0 and bat1): each of them assigned an IP belonging to a different subnet.
+
+At this point the border nodes can run an instance of any dynamic IP routing protocol (e.g. OSPF or BGP, both implemented in "Quagga":http://www.quagga.net/) which will see each of the batman-adv mesh network like a single link towards the other (border) nodes in that network.
+
+Note that also nodes connected to the Internet like A and B can be considered border nodes (this is configuration dependant) and can eventually run the IP routing protocol instance too. 
+
+It is extremely important to do not run any layer3 mesh routing protocol on top of nodes using batman-adv: this would result in wrong link quality computation by the overlying protocol which will see the whole batman-adv network as a single link (even if a path to a node is made up by multiple hops).
+
+However the interaction of Quagga with the mesh network will be "batman-adv-agnostic" since there is no way to exchange information between the two. The creation of a batman-adv plugin for Quagga could help in this direction by letting Quagga extract TQ (the metric used by batman-adv) information to compute link qualities towards other border nodes in the mesh network. This would avoid the IP routing protocol to choose bad mesh nodes as next hop in the IP routing. As extracting/using TQ in other protocols is just an idea/proposal right now, please contact us if you want to do that.
   
 h2. batman-adv - bridge loop avoidance questions
 
