@@ -40,12 +40,12 @@ h2. Distributions
 
 * [ ] update openwrt package
 * [ ] update gentoo package
-* [ ] update debian package
+* [x] update debian package
 
 h2. Aftershow
 
-* [ ] Merge next into master branch (to get changes on README, CHANGELOG, ...)
+* [x] Merge next into master branch (to get changes on README, CHANGELOG, ...)
 * [x] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong)
-* [ ] Merge patches from master into next (to get all the fancy new features)
+* [x] Merge patches from master into next (to get all the fancy new features)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
 * [ ] Enable daily check for next/master (symbol check, cppcheck, feature check)
