@@ -13,20 +13,20 @@ h2. Release Scheduling
 
 h2. Documentation
 
-* [ ] build changelog
-* [ ] update README
+* [x] build changelog
+* [x] update README
 * [ ] write release announcement
 * [ ] update wiki documentation
 
 h2. Code
 
-* [ ] make sure all code contains the release version strings
-* [ ] update copyright years (if needed)
-* [ ] remove dead code (if any)
-* [ ] check against kernel versions
-* [ ] check that maint branch is merged in next
-* [ ] check for open patches on the ml
-* [ ] git tag release
+* [x] make sure all code contains the release version strings
+* [x] update copyright years (if needed)
+* [x] remove dead code (if any)
+* [x] check against kernel versions
+* [x] check that maint branch is merged in next
+* [x] check for open patches on the ml
+* [x] git tag release
 
 
 h2. Release
@@ -46,7 +46,7 @@ h2. Distributions
 h2. Aftershow
 
 * [ ] Merge next into master branch (to get changes on README, CHANGELOG, ...)
-* [ ] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong)
+* [x] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong)
 * [ ] Merge patches from master into next (to get all the fancy new features)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
 * [ ] Enable daily check for next/master (symbol check, cppcheck, feature check)
