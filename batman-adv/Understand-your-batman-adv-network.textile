@@ -117,7 +117,7 @@ Claims announced for the mesh bat0 (orig fe:f0:00:00:02:01, group id 9b95)
 
 h3. Bridge loop avoidance backbone table
 
-This table is part of the [[bridge-loop-avoidance|bridge loop avoidance]] code and contains all backbone gateways . Each line contains a backbone gateway which is reachable via LAN and mesh (that means, it is in the same bla group):
+This table is part of the [[bridge-loop-avoidance|bridge loop avoidance]] code and contains all backbone gateways. Each line contains a backbone gateway which is reachable via LAN and mesh (that means, it is in the same bla group):
 
 <pre>
 <backbone gateway originator mac address>
@@ -129,7 +129,7 @@ This table is part of the [[bridge-loop-avoidance|bridge loop avoidance]] code a
 
 Note: 
 
- * the originator address is not printed
+ * the own originator address is not printed, only other backbone gateways
  * If no VLAN was found a VID of '-1' is printed. 
  * the last seen time should be between 0 and 10 seconds if there is no packet lost
 
