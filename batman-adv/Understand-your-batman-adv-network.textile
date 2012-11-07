@@ -115,6 +115,33 @@ Claims announced for the mesh bat0 (orig fe:f0:00:00:02:01, group id 9b95)
   * fe:f1:00:00:03:01 on    -1 by fe:f0:00:00:01:01 [ ] (3ba9)
 </pre>
 
+h3. Bridge loop avoidance backbone table
+
+This table is part of the [[bridge-loop-avoidance|bridge loop avoidance]] code and contains all backbone gateways . Each line contains a backbone gateway which is reachable via LAN and mesh:
+
+<pre>
+<backbone gateway originator mac address>
+   <vlan id> 
+      <originator claiming this client> 
+         <last seen time> 
+            <CRC checksum of the entire claim table> 
+</pre>
+
+Note: 
+
+ * the originator address is not printed
+ * If no VLAN was found a VID of '-1' is printed. 
+ * the last seen time should be between 0 and 10 seconds if there is no packet lost
+
+
+<pre>
+cat /sys/kernel/debug/batman_adv/bat0/bla_backbone_table 
+Backbones announced for the mesh bat0 (orig fe:f0:00:00:01:01, group id 9b95)
+   Originator           VID   last seen (CRC )
+ * fe:f0:00:00:02:01 on    -1    4.000s (0bab)
+ * fe:f0:00:00:01:01 on    -1    3.000s (3ba9)
+</pre>
+
 
 h2. ICMP
 
