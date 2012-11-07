@@ -59,3 +59,71 @@ h1. non-free papers
 * Quan, Z., Xinhua, J., Fumin, Z.: *Research on the Trunk Line’s Transmission Performance of Multi-hop WMN Based on 802.11 n*, Business, Economics, Financial Sciences, and Management, Springer, 631–636, 2012
 * Morais, A., Cavalli, A.: *Route Manipulation Attack in Wireless Mesh Networks*, Advanced Information Networking and Applications (AINA), 2011 IEEE International Conference on, 501–508, 2011
 * Reineri, M., Casetti, C., Chiasserini, C.F.: *Routing protocols for mesh networks with mobility support*, Wireless Communication Systems, 2009. ISWCS 2009. 6th International Symposium on, 71–75, 2009
+
+h1. free/non-free papers
+
+
+ * Ikeda, M., De Marco, G., Barollif, L., Takizawa, M.: *A BAT in the lab: Experimental results of new link state routing protocol*, Advanced Information Networking and Applications, 2008. AINA 2008. 22nd International Conference on, 295–302, 2008
+ * Ikeda, M., Kulla, E., Hiyama, M., Barolli, L., Takizawa, M., Miho, R.: *A Comparison Study Between Simulation and Experimental Results for MANETs*, Network-Based Information Systems (NBiS), 2010 13th International Conference on, 371–378, 2010
+ * Coyle, A., Nguyen, H.: *A frequency control algorithm for a mobile adhoc network*, Military Communications and Information Systems Conference (MilCIS), Canberra, Australia, 2010
+ * Sridhar, KN, Casetti, C., Chiasserini, C.F.: *A localized and distributed channel assignment scheme for wireless mesh networks*, Local Computer Networks, 2009. LCN 2009. IEEE 34th Conference on, 45–52, 2009
+ * Ikeda, M., Kulla, E., Hiyama, M., Barolli, L., Takizawa, M.: *Analysis of manet routing protocols for indoor environment*, Broadband, Wireless Computing, Communication and Applications (BWCCA), 2010 International Conference on, 9–16, 2010
+ * Murray, D., Dixon, M., Koziniec, T.: *An experimental comparison of routing protocols in multi hop ad hoc networks*, Telecommunication Networks and Applications Conference (ATNAC), 2010 Australasian, 159–164, 2010
+ * Xu, J., Wang, L., Li, Y., Qin, Z., Zhu, M.: *An Experimental Study of BATMAN Performance in a Campus Deployment of Wireless Mesh Networks*, Mobile Ad-hoc and Sensor Networks (MSN), 2011 Seventh International Conference on, 341–342, 2011
+ * Ntlatlapa, N.: *A Routing Metric and Algorithm for IEEE802. 16 Mesh Networks*, Broadband Communications, Information Technology & Biomedical Applications, 2008 Third International Conference on, 324–328, 2008
+ * Annese, S., Casetti, C., Chiasserini, C.F., Cipollone, P., Ghittino, A., Reineri, M.: *Assessing mobility support in mesh networks*, Proceedings of the 4th ACM international workshop on Experimental evaluation and characterization, 19–26, 2009
+ * Verma, A.: *A Study of Performance Comparisons of Simulated Ad hoc Network Routing Protocols*, Int. J. Comp. Tech. Appl 2(3), 565–569, 2011
+ * Barolli, L., Ikeda, M., Xhafa, F., Duresi, A.: *A testbed for manets: Implementation, experiences and learned lessons*, Systems Journal, IEEE 4(2), IEEE, 243–252, 2010
+ * Delosieres, L., Nadjm-Tehrani, S.: *BATMAN store-and-forward: The best of the two worlds*, Pervasive Computing and Communications Workshops (PERCOM Workshops), 2012 IEEE International Conference on, 721–727, 2012
+ * Zeiger, F., Kraemer, N., Sauer, M., Schilling, K.: *Challenges in realizing ad-hoc networks based on wireless LAN with mobile robots*, Modeling and Optimization in Mobile, Ad Hoc, and Wireless Networks and Workshops, 2008. WiOPT 2008. 6th International Symposium on, 632–639, 2008
+ * Palma, D., Goncalves, J., Curado, M.: *Challenging Wireless Networks, an Underground Experience*, Mobile Lightweight Wireless Systems, Springer, 312–321, 2012
+ * Zeiger, F., Kraemer, N., Schilling, K.: *Commanding mobile robots via wireless ad-hoc networks—A comparison of four ad-hoc routing protocol implementations*, Robotics and Automation, 2008. ICRA 2008. IEEE International Conference on, 590–595, 2008
+ * Hiyama, M., Kulla, E., Ikeda, M., Barolli, L., Durresi, A.: *Comparison Evaluation of Horizontal and Vertical Scenarios for Delay and Jitter Metrics Using a MANET Testbed*, Emerging Intelligent Data and Web Technologies (EIDWT), 2011 International Conference on, 6–13, 2011
+ * Kulla, E., Hiyama, M., Ikeda, M., Barolli, L.: *Comparison of Experimental Results of a MANET Testbed in Different Environments Considering BATMAN Protocol*, Intelligent Networking and Collaborative Systems (INCoS), 2011 Third International Conference on, 1–7, 2011
+ * Braun, L., Klein, A., Kaplan, L.A., Carle, G.: *Detecting Incidents in Wireless Mesh Networks using Flow and Routing Information*
+ * Rein, A.: *Development and Evaluation of a Trusted Mobile Ad-hoc Network*
+ * Kulla, E., Ikeda, M., Barolli, L., Miho, R., Koliçi, V.: *Effects of Source and Destination Movement on MANET Performance Considering OLSR and AODV Protocols*, Network-Based Information Systems (NBiS), 2010 13th International Conference on, 510–515, 2010
+ * Paramanathan, A., Rasmussen, U.W., Hundeboll, M., Rein, S.A., Fitzek, F.H.P., Ertli, G.: *Energy consumption model and measurement results for network coding-enabled IEEE 802.11 meshed wireless networks*, Computer Aided Modeling and Design of Communication Links and Networks (CAMAD), 2012 IEEE 17th International Workshop on, 286–291, 2012
+ * Kulla, E., Ikeda, M., Hiyama, M., Barolli, L.: *Evaluation of a MANET Testbed in Indoor Stairs Environment Considering OLSR Protocol*, Complex, Intelligent and Software Intensive Systems (CISIS), 2011 International Conference on, 160–167, 2011
+ * Raffelsberger, C., Hellwagner, H.: *Evaluation of MANET routing protocols in a realistic emergency response scenario*, Intelligent Solutions in Embedded Systems (WISES), 2012 Proceedings of the Tenth Workshop on, 88–92, 2012
+ * Wang, J.C.P., Hagelstein, B., Abolhasan, M.: *Experimental evaluation of IEEE 802.11 s path selection protocols in a mesh testbed*, Signal Processing and Communication Systems (ICSPCS), 2010 4th International Conference on, 1–3, 2010
+ * Reineri, M., Rubino, R., Casetti, C., Chiasserini, C.: *Experimental performance assessment of WMN routing protocols with mobile nodes*, Wireless Communications and Mobile Computing Conference (IWCMC), 2011 7th International, 1010–1015, 2011
+ * Kulla, E., Ikeda, M., Oda, T., Barolli, L., Xhafa, F., Biberaj, A.: *Experimental results from a MANET testbed in outdoor bridge environment considering BATMAN routing protocol*, Computing, Springer, 1–14, 2012
+ * Hiyama, M., Kulla, E., Oda, T., Ikeda, M., Barolli, L.: *Experimental Results of a MANET Testbed in a Mixed Environment Considering Horizontal and Vertical Topologies*, Advanced Information Networking and Applications (AINA), 2012 IEEE 26th International Conference on, 884–889, 2012
+ * Ikeda, M., Kulla, E., Hiyama, M., Barolli, L., Takizawa, M.: *Experimental Results of a MANET Testbed in Indoor Stairs Environment*, Advanced Information Networking and Applications (AINA), 2011 IEEE International Conference on, 779–786, 2011
+ * Franco Rosselló, N.: *Experiments about a real use of mobile ad-hoc networks*, Universitat Politècnica de Catalunya, 2011
+ * Maliwatu, R., Follett-Smith, D.C.: *I-BATMAN*, 2012
+ * Kulla, E., Ikeda, M., Barolli, L., Miho, R.: *Impact of source and destination movement on MANET performance considering BATMAN and AODV protocols*, Broadband, Wireless Computing, Communication and Applications (BWCCA), 2010 International Conference on, 94–101, 2010
+ * Rodr\iguez, A.B., López, M.J.F., Garc\ia, J.C.R., de Andrés Mart\inez, D.: *Improving The Fault Tolerance of Ad Hoc Routing Protocols using Aspect-oriented Programming*, 2012
+ * Hiyama, M., Kulla, E., Ikeda, M., Barolli, L.: *Investigation of Channel Usage and Packetloss in a MANET Testbed for Stairs Indoor Scenarios*, Broadband and Wireless Computing, Communication and Applications (BWCCA), 2011 International Conference on, 499–504, 2011
+ * Weiß, J., Glaremin, T.: *Konzeption und Aufbau eines drahtlosen Mesh-Netzwerks für Computerclubs in multikulturellen Stadtvierteln*
+ * Hart, A., Pezeshkian, N., Nguyen, H.: *Mesh networking optimized for robotic teleoperation*, Proceedings of SPIE, volume 8387, 83871E, 2012
+ * Friginal, J., Ruiz, J.C., de Andrés, D., Bustos, A.: *Mitigating the impact of ambient noise on Wireless Mesh Networks using adaptive link-quality-based packet replication*, Dependable Systems and Networks (DSN), 2012 42nd Annual IEEE/IFIP International Conference on, 1–8, 2012
+ * Hiyama, M., Ikeda, M., Barolli, L., De Marco, G., Xhafa, F., Durresi, A.: *Mobility effects in mobile ad hoc networks*, Computer Science and its Applications, 2009. CSA'09. 2nd International Conference on, 1–6, 2009
+ * Ikeda, M., Hiyama, M., Barolli, L., Xhafa, F., Durresi, A., Takizawa, M.: *Mobility effects of wireless multi-hop networks in indoor scenarios*, Advanced Information Networking and Applications (AINA), 2010 24th IEEE International Conference on, 495–502, 2010
+ * Ikeda, M., Hiyama, M., Barolli, L., Xhafa, F., Durresi, A.: *Mobility effects on the performance of mobile ad hoc networks*, Complex, Intelligent and Software Intensive Systems (CISIS), 2010 International Conference on, 230–237, 2010
+ * Chipeperekwa, T.M., Blake, E., Marsden, G.: *MPMobVis: Mesh Potato Mobile Visualization, Monitoring and Provisioning*
+ * Ikeda, M., Hiyama, M., Kulla, E., Barolli, L., Takizawa, M.: *Multi-hop Wireless Networks Performance Evaluation via NS-3 Simulator*, Broadband and Wireless Computing, Communication and Applications (BWCCA), 2011 International Conference on, 243–249, 2011
+ * Thomas, J., Robble, J.: *Off-Grid Communications with Android*, 2012
+ * Dely, P., Kassler, A., Bayer, N.: *Openflow for wireless mesh networks*, Computer Communications and Networks (ICCCN), 2011 Proceedings of 20th International Conference on, 1–6, 2011
+ * Hiyama, M., Ikeda, M., Barolli, L., Takizawa, M.: *Performance analysis of multi-hop ad-hoc network using multi-flow traffic for indoor scenarios*, Journal of Ambient Intelligence and Humanized Computing 1(4), Springer, 283–293, 2010
+ * Hiyama, M., Kulla, E., Ikeda, M., Barolli, L.: *Performance Evaluation of a MANET Testbed for Different Indoor Scenarios: A Comparison Study*, Complex, Intelligent and Software Intensive Systems (CISIS), 2011 International Conference on, 420–425, 2011
+ * SANDHU, D.S., SHARMA, S.: *PERFORMANCE EVALUATION OF BATMAN, DSR, OLSR ROUTING PROTOCOLS-A REVIEW*, 2012
+ * Sandhu, D.S., Sharma, S.: *Performance Evaluation of DSDV, DSR, OLSR, TORA Routing Protocols-A Review*
+ * Hiyama, M., Kulla, E., Ikeda, M., Barolli, L., Iwashige, J.: *Performance Evaluation of MANET Testbed in a Mixed Indoor and Outdoor Environment*, Intelligent Networking and Collaborative Systems (INCoS), 2011 Third International Conference on, 771–776, 2011
+ * Kulla, E., Ikeda, M., Hiyama, M., Barolli, L., Miho, R.: *Performance Evaluation of OLSR and BATMAN Protocols for Vertical Topology Using Indoor Stairs Testbed*, Broadband and Wireless Computing, Communication and Applications (BWCCA), 2011 International Conference on, 159–166, 2011
+ * Wolff, A., Sbeiti, M., Wietfeld, C.: *Performance evaluation of process-oriented wireless relay deployment in emergency scenarios*, Computers and Communications (ISCC), 2012 IEEE Symposium on, 000651–000654, 2012
+ * Al Basset Almamou, A., Wrede, R., Kumar, P., Labiod, H., Schiller, J.: *Performance evaluation of routing protocols in a real-world WSN*, Information Infrastructure Symposium, 2009. GIIS'09. Global, 1–5, 2009
+ * Ikeda, M., Kulla, E., Barolli, L., Takizawa, M., Miho, R.: *Performance evaluation of wireless mobile ad-hoc network via NS-3 simulator*, Network-Based Information Systems (NBiS), 2011 14th International Conference on, 135–141, 2011
+ * Hiyama, M., Kulla, E., Oda, T., Ikeda, M., Barolli, L., Takizawa, M.: *Performance Investigation of a MANET Testbed in Outdoor Stairs Environment for Different Scenarios*, Complex, Intelligent and Software Intensive Systems (CISIS), 2012 Sixth International Conference on, 284–289, 2012
+ * Kobo, H.I.: *Quality of Service-aware Routing for Static Mesh Networks with Mobile Nodes*
+ * Kulla, E., Ikeda, M., Hiyama, M., Barolli, L., Kamo, B.: *Real Data from a Testbed in Indoor Stairs Environment Considering BATMAN Protocol*, Network-Based Information Systems (NBiS), 2011 14th International Conference on, 35–41, 2011
+ * Wang, J.C.P.: *Routing instability in ad hoc networks*, Faculty of Informatics, University of Wollongong, 2010
+ * Annese, S., Casetti, C., Chiasserini, C.F., Di Maio, N., Ghittino, A., Reineri, M.: *Seamless connectivity and routing in vehicular networks with infrastructure*, Selected Areas in Communications, IEEE Journal on 29(3), IEEE, 501–514, 2011
+ * Follett-Smith, D.C.: *Smart Wireless Mesh networking: Introducing cognition in the protocol stack*
+ * Gardner-Stephen, P.: *The serval project: Practical wireless ad-hoc mobile telecommunications*, Rural, Remote & Humanitarian Telecommunications Fellow, Flinders University and Founder, Serval Project, Inc, 2011
+ * Dely, P.: *Towards an Architecture for OpenFlow and Wireless Mesh Networks*, 2011
+ * Friginal, J., De Andres, D., Ruiz, J.C., Gil, P.: *Towards benchmarking routing protocols in wireless mesh networks*, Ad Hoc Networks 9(8), Elsevier, 1374–1388, 2011
+ * Duran Rosich, E.: *Wifi mesh network nodes on guifi. net*, Universitat Politècnica de Catalunya, 2011
+ * Ikeda, M., Kulla, E., Barolli, L., Takizawa, M.: *Wireless ad-hoc networks performance evaluation using ns-2 and ns-3 network simulators*, Complex, Intelligent and Software Intensive Systems (CISIS), 2011 International Conference on, 40–45, 2011
+ * Pinto, R.: *WMM-Wireless mesh monitoring*, Ad Hoc Network 6(6), 445–487, 2009
