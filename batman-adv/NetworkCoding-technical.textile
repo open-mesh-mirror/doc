@@ -24,15 +24,15 @@ h3. Detect neighbors in range of each other
 
 A relay node exploits the TTL field of OGMs to detect when two neighbors are in range of each other:
 
-Node A emits an OGM, which is received by Node B and Node R.
+Node A emits an OGM, which is received by Node C and Node R.
 
 !ogm_step1.png!
 
-Node B decreases the TTL retransmits the OGM from Node A. The OGM is again received by Node R, who compare the TTL of the two received OGMs.
+Node C decreases the TTL retransmits the OGM from Node A. The OGM is again received by Node R, who compare the TTL of the two received OGMs.
 
 > !ogm_step2.png!
 
-If the difference if only 1, Node R can conclude that Node B is in range of Node A.
+If the difference if only 1, Node R can conclude that Node C is in range of Node A.
 
 h2. Required Work
 
