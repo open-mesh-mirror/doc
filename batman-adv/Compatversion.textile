@@ -17,6 +17,7 @@ Following changes were identified and documented. The changes are to the last CO
 |   12    | trunk, v2011.0.0, v2011.1.0              | unicast fragmentation added, gateway flags were readded |
 |   13    | next, v2010.2.0                | gateway flags were removed |
 |   14    | v2011.3.0, v2011.4.0, v2012.0.0, v2012.1.0, v2012.2.0, v2012.3.0 | 3-byte common header, tt queries and related fields added, roam adv packet added |
+|   15    | schedule for Q1 2013 | TVLV, packet alignment (__packed), vlan aware tt, fragmentation v2, packet type prefix and BATADV_TT_CLIENT_TEMP |
 
 (* means future version with already defined feature set)
 
