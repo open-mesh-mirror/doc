@@ -14,9 +14,9 @@ The implementation is based on 5 steps:
 
 # *Detect neighbors that are in range of each other*: This enables the relay to determine if a neighbor is likely to overhear packets from another neighbor.
 # *Hold back unicast packets before forwarding*: To get two packets to code, one must be buffered until the next arrives.
-# *Code and transmit combined packet*: This step searches the buffer with packets to be forwarded and checks if the destinations will be able to decode.
+# *Code and transmit combined packets*: This step searches the buffer with packets to be forwarded and checks if the destinations will be able to decode.
 # *Save overheard and transmitted packets*: To decode a a packet, the receiver must know one of the two combined packets, which can either originate from the receiver itself or be sniffed from another neighbor.
-# *Receive and decode network coded packet*: When receiving a coded packet, the overheard and saved packets are searched for the packet needed to decode.
+# *Receive and decode network coded packets*: When receiving a coded packet, the overheard and saved packets are searched for the packet needed to decode.
 
 Each step is explained in detail in the following sections.
 
@@ -41,6 +41,31 @@ h3. Hold back unicast packets before forwarding
 Whenever a unicast packet is ready to be forwarded, it is passed to the network coding system, where it added to a buffer (only if not coded with an already existing packet). The buffer is organized as a hash table with entries of src-dst pairs. Each entry has a linked list with packets that all come from a specific previous hop and are directed to a specific next hop (which is decided by the routing part of batman-adv). The linked list works as a FIFO:
 
 !packet_pool.png!
+
+A worker function traverses the list periodically and transmits timed out packets. The timeout is by default 10ms.
+
+
+h3. Code and transmit combined packets
+
+Before adding packets to the forward buffer, the buffer is searched for opportunities to network code. The algorithm to find such opportunities takes its starting point in the packet currently being added to the buffer, say /p1/:
+
+# The destination of a potentially network coded packet must be in range of the *source* of /p1/, so we loop nodes in range of the source of /p1/.
+# Since we also need the *destination* of /p1/ to be in range of another node, we loop the nodes that the destination is in range of.
+# For each pair of nodes in the two loops, we check of buffered packets and network code if any.
+
+
+h3. Save overheard and transmitted packets
+
+To be able to decode network coded packets, a node must possess one part of the coded packet. This is achieved by buffering both packets originating at the node and packets overheard by the node. The buffer is structured in the same way as the forward buffer in step 2, which makes is fast to search for decoding packets. To overhear packets from other nodes, the wireless interface must be put in promiscuous mode.
+
+
+h3. Receive and decode network coded packets
+
+To transmit a network coded packet to two destinations, the address of the additional receiver is put the batman-adv header, and thus this receiver is required to use promiscuous mode. Furthermore, the header contains information needed to identify the id of the original packets contained in the network coded packet.
+
+To identify the packet needed to decode, the receiver uses the source of the network coded packet, and a field in the header with the address of the sender of the original packet. These addresses are used to create a src-dst pair, which is used to locate the correct entry in the hash table, in which the packet list is searched for a matching CRC, which is also given in the header of the network coded packet.
+
+When the needed packet is located, its data is XOR'ed with the network coded packet, and the original unicast header is restored so that it can be processed as usual by batman-adv.
 
 
 h2. Required Work
