@@ -8,19 +8,23 @@ When forwarding packets in a wireless mesh network, airtime can be saved by expl
 
 For more information about the concept, read the news item about [[open-mesh:2011-08-18-network-coding-first-steps|Batman and Catwoman]].
 
-h2. Current State
+h2. Implementation Details
 
-The current code is available in out "git repository":http://git.open-mesh.org/?p=batman-adv.git;a=shortlog;h=refs/heads/hundeboll/catwoman (the "catwoman" branch) and supports the following features:
-* Discover coding neighbors (one-hop neighbors that overhear each other).
-* Code packets when both destinations has the information needed to decode.
-* Decode coded packets.
-* Recode decoded packets only when the destination(s) has the decoded packet (not always the case).
+The implementation is based on 5 steps:
 
-Catwoman is configured with the files in 
-/sys/devices/virtual/net/bat0/mesh/catwoman{|_hold|purge}.
+# *Detect neighbors that are in range of each other*: This enables the relay to determine if a neighbor is likely to overhear packets from another neighbor.
+# *Hold back unicast packets before forwarding*: To get two packets to code, one must be buffered until the next arrives.
+# *Code and transmit combined packet*: This step searches the buffer with packets to be forwarded and checks if the destinations will be able to decode.
+# *Save overheard and transmitted packets*: To decode a a packet, the receiver must know one of the two combined packets, which can either originate from the receiver itself or be sniffed from another neighbor.
+# *Receive and decode network coded packet*: When receiving a coded packet, the overheard and saved packets are searched for the packet needed to decode.
 
-To collect information about the processed packets, read
-/sys/kernel/debug/batman_adv/bat0/coding_stats
+Each step is explained in detail in the following sections.
+
+h3. Detect neighbors in range of each other
+
+A relay node exploits the TTL field of OGMs to detect when two neighbors are in range of each other:
+
+!ogm_step1.png! !ogm_step2.png!
 
 h2. Required Work
 
@@ -35,14 +39,13 @@ To make the implementation of catwoman complete, the following features must be 
 * -Refactor code into three files: catwoman.c, coding.c, and decoding.c-
 * -Remove nc_path after a certain timeout.-
 * Determine allowed holding times based on the tick time of the system.
-* Collect nc-related members of bat_priv in a nc-struct.
+* -Collect nc-related members of bat_priv in a nc-struct.-
 
 h2. Ideas
 
 * Send coded packets containing redundant packets to improve reliability.
 * Support the cross topology where more than two destinations are coded.
 * Implement Random Linear Network Coding (RLNC) on packets from the same flow, also to improve reliability.
-* Use checksums instead of packet_id's to identify decoding packets.
+* -Use checksums instead of packet_id's to identify decoding packets.-
 * Implement a "catwoman-support"-flag in OGM to allow mixing of nodes with and without catwoman enabled.
 * -Refactor function names and variables to cw_* (or nc_*) instead of catwoman_* and coding_*.-
-* ...
