@@ -20,6 +20,7 @@ The implementation is based on 5 steps:
 
 Each step is explained in detail in the following sections.
 
+
 h3. Detect neighbors in range of each other
 
 A relay node exploits the TTL field of OGMs to detect when two neighbors are in range of each other:
@@ -33,6 +34,14 @@ Node C decreases the TTL retransmits the OGM from Node A. The OGM is again recei
 > !ogm_step2.png!
 
 If the difference if only 1, Node R can conclude that Node C is in range of Node A.
+
+
+h3. Hold back unicast packets before forwarding
+
+Whenever a unicast packet is ready to be forwarded, it is passed to the network coding system, where it added to a buffer (only if not coded with an already existing packet). The buffer is organized as a hash table with entries of src-dst pairs. Each entry has a linked list with packets that all come from a specific previous hop and are directed to a specific next hop (which is decided by the routing part of batman-adv). The linked list works as a FIFO:
+
+!packet_pool.png!
+
 
 h2. Required Work
 
