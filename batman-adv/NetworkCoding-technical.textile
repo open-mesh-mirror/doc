@@ -21,7 +21,7 @@ The implementation is based on 5 steps:
 Each step is explained in detail in the following sections.
 
 
-h3. Detect neighbors in range of each other
+h3. 1. Detect neighbors in range of each other
 
 A relay node exploits the TTL field of OGMs to detect when two neighbors are in range of each other:
 
@@ -36,7 +36,7 @@ Node C decreases the TTL retransmits the OGM from Node A. The OGM is again recei
 If the difference if only 1, Node R can conclude that Node C is in range of Node A.
 
 
-h3. Hold back unicast packets before forwarding
+h3. 2. Hold back unicast packets before forwarding
 
 Whenever a unicast packet is ready to be forwarded, it is passed to the network coding system, where it added to a buffer (only if not coded with an already existing packet). The buffer is organized as a hash table with entries of src-dst pairs. Each entry has a linked list with packets that all come from a specific previous hop and are directed to a specific next hop (which is decided by the routing part of batman-adv). The linked list works as a FIFO:
 
@@ -45,7 +45,7 @@ Whenever a unicast packet is ready to be forwarded, it is passed to the network 
 A worker function traverses the list periodically and transmits timed out packets. The timeout is by default 10ms.
 
 
-h3. Code and transmit combined packets
+h3. 3. Code and transmit combined packets
 
 Before adding packets to the forward buffer, the buffer is searched for opportunities to network code. The algorithm to find such opportunities takes its starting point in the packet currently being added to the buffer, say /p1/:
 
@@ -54,12 +54,12 @@ Before adding packets to the forward buffer, the buffer is searched for opportun
 # For each pair of nodes in the two loops, we check of buffered packets and network code if any.
 
 
-h3. Save overheard and transmitted packets
+h3. 4. Save overheard and transmitted packets
 
 To be able to decode network coded packets, a node must possess one part of the coded packet. This is achieved by buffering both packets originating at the node and packets overheard by the node. The buffer is structured in the same way as the forward buffer in step 2, which makes is fast to search for decoding packets. To overhear packets from other nodes, the wireless interface must be put in promiscuous mode.
 
 
-h3. Receive and decode network coded packets
+h3. 5. Receive and decode network coded packets
 
 To transmit a network coded packet to two destinations, the address of the additional receiver is put the batman-adv header, and thus this receiver is required to use promiscuous mode. Furthermore, the header contains information needed to identify the id of the original packets contained in the network coded packet.
 
