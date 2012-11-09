@@ -128,3 +128,4 @@ h1. free/non-free papers
  * Ikeda, M., Kulla, E., Barolli, L., Takizawa, M.: *Wireless ad-hoc networks performance evaluation using ns-2 and ns-3 network simulators*, Complex, Intelligent and Software Intensive Systems (CISIS), 2011 International Conference on, 40–45, 2011
  * Pinto, R.: *WMM-Wireless mesh monitoring*, Ad Hoc Network 6(6), 445–487, 2009
  * F. Fitzek, L. Badia, M. Zorzi, G. Schulte, P. Seeling, and T. Henderson.: *Mobility and stability evaluation in wireless multi-hop networks using multi-player games*, In Proceedings of the 2nd workshop on Network and system support for games, page 77–87. ACM, 2003
+ * Follett-Smith, D., and Bagula, A. *IR-BAT: An Interference Metric For The BATMAN Routing Protocol*
