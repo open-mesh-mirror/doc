@@ -150,6 +150,7 @@ h3. Translation table / TT messages
  * length: variable (it depends on the number of changes that the tvlv is carrying). Fixed tvlv fields:
  ** batman_ogm_packet->ttvn (1Byte)
  ** batman_ogm_packet->tt_crc (2Bytes)
+ ** subtybe (1Byte): new field. It will tell TT whether this tvlv contains a full table or a changeset (we keep it general enough so that in the future we can possibly add more "sub-containers"). In this way we can use this tvlv for both tt_request/response and OGM.
  * definition:
 <pre>
  0                   1                   2                   3
