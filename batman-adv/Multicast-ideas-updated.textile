@@ -453,7 +453,7 @@ For next hop neighbors with multicast optimization awareness:
 
 For next hop neighbors without multicast optimization awareness:
 
-* Use the normal batman-adv broadcast packet but with a MULTI_COMPAT flag set. And otherwise forward like any batman-adv broadcast packet on all hard interfaces.
+* Use the normal batman-adv broadcast packet but with a MCAST_COMPAT flag set. And otherwise forward like any batman-adv broadcast packet on all hard interfaces.
 </code></pre>
 
 h3. (c)
@@ -471,6 +471,14 @@ The concept described above should be doable without the need of TVLV support an
 
 Then setups with a mixed set of batman-adv multicast optimization aware (both with it enabled or disabled) and old nodes which have no clue about the new multicast optimizations will live together in peace happily ever after.
 
+h3. MCAST_COMPAT option mcast_compat_ttl
+
+However when already having a large, non-multicast-optimization-aware network deployed it might is very likely undesireable to do multicast streaming tests even from a node having these multicast optimizations enabled: Still most of the mesh network would simply flood and congest the network as old nodes would keep to the current broadcast forwarding mechanism.
+
+To ease tests in mostly non-multicast-optimization-aware networks (so e.g. for debugging purposes) the addition of a 1 byte MCAST_COMPAT options field in a batman-adv multicast data header is suggested (e.g. instead of the reserved byte), consisting of:
+
+* *mcast_compat_ttl*: The initial, to be set TTL of a batman-adv broadcast packet with MCAST_COMPAT flag made from this multicast data packet. Setting it to 0 would disable sending an optimized multicast stream to any non-multicast-optimization-aware node (hence disabling any broadcast flooding of such packets).
+
 h2. Code
 
 http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase
@@ -484,4 +492,4 @@ h2. TODO
 * code review
 * (more) testing
 * Get the one bridge patch upstream? (or submit it together with the batman-adv ones?)
-* Would it make sense to wait for the TLV patches first before getting these multicast optimizations upstream?am?
+* Would it make sense to wait for the TLV patches first before getting these multicast optimizations upstream?
