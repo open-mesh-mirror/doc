@@ -464,7 +464,7 @@ h3. Backwards Compatibility without TVLV support
 
 The concept described above should be doable without the need of TVLV support and still without the need of increasing the COMPAT_VERSION, appliable on the current master branch.
 
-* Add a new OGM flag: "BATADV_MCAST_OPTIMIZATIONS = BIT(7)": Set this flag if multicast optimizations are enabled (e.g. via sysfs) or unset it otherwise.
+* Add a new OGM flag: "BATADV_MCAST_OPTIMIZATIONS = BIT(<code></code>7)": Set this flag if multicast optimizations are enabled (e.g. via sysfs) or unset it otherwise.
 * Make sure to _append_ and not insert the two new packet types "BATADV_MCAST_TRACKER = 0x09" and "BATADV_MCAST = 0x10"
 * Add the MULTI_COMPAT flag in the third, reserved byte of the batman-adv broadcast packet header
 * For (a), encapsulate the tracker packet in a batman-adv unicast packet like this: [ BATMAN_ADV_HDR(Ether-type: 0x4305, batman-adv packet type: "BATADV_UNICAST = 0x03" | BATMAN_ADV_HDR(Ether-type: 0x4305, batman-adv packet type: "BATADV_MCAST_TRACKER = 0x09") ]. Old clients will ignore the encapsulated tracker packet but still forward it via unicast, nodes with an enabled multicast optimization will check it as if the outter batman-adv unicast header wouldn't exist.
