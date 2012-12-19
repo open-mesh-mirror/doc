@@ -460,6 +460,16 @@ h3. (c)
 
 *New section:* Multicast Data Reception - _Receiving batman-adv Broadcast Packets with a MULTI_COMPAT flag_
 
+h3. Backwards Compatibility without TVLV support
+
+The concept described above should be doable without the need of TVLV support and still without the need of increasing the COMPAT_VERSION, appliable on the current master branch.
+
+* Add a new OGM flag: "BATADV_MCAST_OPTIMIZATIONS = BIT(7)": Set this flag if multicast optimizations are enabled (e.g. via sysfs) or unset it otherwise.
+* Make sure to _append_ and not insert the two new packet types "BATADV_MCAST_TRACKER = 0x09" and "BATADV_MCAST = 0x10"
+* Add the MULTI_COMPAT flag in the third, reserved byte of the batman-adv broadcast packet header
+* For (a), encapsulate the tracker packet in a batman-adv unicast packet like this: [ BATMAN_ADV_HDR(Ether-type: 0x4305, batman-adv packet type: "BATADV_UNICAST = 0x03" | BATMAN_ADV_HDR(Ether-type: 0x4305, batman-adv packet type: "BATADV_MCAST_TRACKER = 0x09") ]. Old clients will ignore the encapsulated tracker packet but still forward it via unicast, nodes with an enabled multicast optimization will check it as if the outter batman-adv unicast header wouldn't exist.
+
+Then setups with a mixed set of batman-adv multicast optimization aware (both with it enabled or disabled) and old nodes which have no clue about the new multicast optimizations will live together in peace happily ever after.
 
 h2. Code
 
@@ -474,4 +484,4 @@ h2. TODO
 * code review
 * (more) testing
 * Get the one bridge patch upstream? (or submit it together with the batman-adv ones?)
-* Would it make sense to wait for the TLV patches first before getting these multicast optimizations upstream?
+* Would it make sense to wait for the TLV patches first before getting these multicast optimizations upstream?am?
