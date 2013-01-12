@@ -25,7 +25,7 @@ h2. Code
 * [ ] remove dead code (if any)
 * [ ] check against kernel versions
 * [x] check that maint branch is merged in next
-* [ ] check for open patches on the ml
+* [x] check for open patches on the ml
 * [ ] git tag release
 
 h2. Release
