@@ -22,8 +22,8 @@ h2. Code
 
 * [x] make sure all code contains the release version strings
 * [x] update copyright years (if needed)
-* [ ] remove dead code (if any)
-* [ ] check against kernel versions
+* [x] remove dead code (if any)
+* [x] check against kernel versions
 * [x] check that maint branch is merged in next
 * [x] check for open patches on the ml
 * [ ] git tag release
