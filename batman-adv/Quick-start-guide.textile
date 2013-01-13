@@ -85,4 +85,4 @@ h3. Batman-adv OpenWrt sample configuration with uci
 
 Basic configuration: [[Batman-adv-openwrt-config|batman-adv OpenWrt config]]
 
-Advanced configuration: [[Batman-adv-openwrt-config-advanced|batman-adv OpenWrt config advanced]]
+Sophisticated configuration: [[Batman-adv-openwrt-config-sophisticated|batman-adv OpenWrt config (sophisticated)]]
