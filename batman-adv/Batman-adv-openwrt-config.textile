@@ -51,7 +51,39 @@ The 'interfaces' option is the key element here, as it tells batman-adv which in
 
 h2. Batman-adv 2013.0.0 and later
 
-With batman-adv 2013.0.0 the OpenWrt package was converted to integrate with OpenWrt's netifd system. This has some impact on the configuration but not much. 
+With batman-adv 2013.0.0 the OpenWrt package was converted to integrate with OpenWrt's netifd system. This has some impact on the configuration but not much.
+
+The wireless configuration remains identical:
+<pre>
+config wifi-device 'radio0'
+        option [..]
+
+config wifi-iface 'wmesh'
+        option device 'radio0'
+        option ifname 'adhoc0'
+        option network 'mesh'
+        option mode 'adhoc'
+        option ssid 'mesh'
+        option bssid '02:CA:FE:CA:CA:40'
+</pre>
+
+The network configuration now allows to specify batman-adv as protocol and the batman-adv interface name:
+<pre>
+config interface 'mesh'
+        option ifname 'adhoc0'
+        option mtu '1528'
+        option proto 'batadv'
+        option mesh 'bat0'
+</pre>
+
+The batman-adv configuration is somewhat simpler now because it only contains the batman-adv specific options:
+<pre>
+config mesh 'bat0'
+        option 'aggregated_ogms'
+        option 'ap_isolation' 
+        option [..]
+</pre>
+
 
 h2. Advanced configuration examples
 
