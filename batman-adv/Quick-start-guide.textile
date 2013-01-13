@@ -27,7 +27,7 @@ So where are we going to send data packets to if not to those interfaces we have
 h2. Examples
 
 
-h3. simple mesh network
+h3. Simple mesh network
 
 
 On all nodes, install batman-adv, load the module and enter the following commands:
@@ -47,7 +47,7 @@ You can now use the automatically assigned IPv6 link-local adresses on bat0 (usu
 
 +Note:+ batman-adv inserts an additional header of 28 bytes into each data packet being send over the mesh. Therefore we are increasing the maximum size of a packet over the plain interfaces to 1528, so that packets with the standard MTU of 1500 can pass normaly through bat0. You might also decrease the MTU to 1472 on all hosts but is usually just do-able in more or less static- and small-scaled mesh-networks.
 
-h3. mixing non-B.A.T.M.A.N. systems with batman-adv
+h3. Mixing non-B.A.T.M.A.N. systems with batman-adv
 
 
 If you have a couple of computers that you don't want to run batman-adv on but you still want make use of the mesh network, you will need to configure an entry point for them on a node running batman-adv. Any device running Linux (a notebook, a wifi-router, a pc with a wifi card, ...) can be setup to work as a mesh entry point. In addition to the usual mesh setup steps mentioned above it is necessary to configure a bridge over bat0 and the interface those 'non-B.A.T.M.A.N.' machines are connected to. Let's say eth0 is the interface on a mesh access point where those non-B.A.T.M.A.N. systems are attached to and wlan0 is the interface on a mesh access point through which we want to build the mesh network.
@@ -81,7 +81,8 @@ For the MTU-part have a look at the note above.
 
 _(How does batman-adv know where it has to send a data packet of an external computer, that is not using batman-adv, to another computer that is not using batman-adv either? It is automatically listening on bat0 and will keep track of any host mac address passing by this interface. Those host's mac addresses will then be announced to other batman-adv nodes in the mesh network automatically - so called HNA messages - so that every batman-adv node is going to know behind which other batman-adv node it can find which mac addresses.)_
 
-h3. configuring on OpenWRT with uci
+h3. Batman-adv OpenWrt sample configuration with uci
 
+Basic configuration: [[Batman-adv-openwrt-config|batman-adv OpenWrt config]]
 
-See [[Openwrt-config-examples|Example B.A.T.M.A.N. configuration snippets on OpenWRT]]
+Advanced configuration: [[Batman-adv-openwrt-config-advanced|batman-adv OpenWrt config advanced]]
