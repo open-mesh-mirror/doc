@@ -1,0 +1,13 @@
+h1. B.A.T.M.A.N. Advanced OpenWrt configuration
+
+This page showcases some basic batman-adv configurations on OpenWrt including wireless & network setups. However, the goal is to provide not more than a starting point. For a full reference of the OpenWrt uci system please visit the official "OpenWrt uci documentation":http://wiki.openwrt.org/doc/uci.
+
+h2. Batman-adv 2012.4.0 and older
+
+
+
+h2. Batman-adv 2013.0.0 and later
+
+h2. Advanced configuration examples
+
+More advanced OpenWrt config examples can be found [[Batman-adv-openwrt-config-advanced|here]].
