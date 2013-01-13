@@ -87,4 +87,4 @@ config mesh 'bat0'
 
 h2. Advanced configuration examples
 
-More advanced OpenWrt config examples can be found [[Batman-adv-openwrt-config-advanced|here]].
+More sophisticated OpenWrt config examples can be found [[Batman-adv-openwrt-config-sophisticated|here]].
