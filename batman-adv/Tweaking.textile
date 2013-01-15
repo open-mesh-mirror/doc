@@ -93,6 +93,7 @@ h3. distributed ARP table
 Available since: batman-adv 2013.0.0
 
 When enabled the distributed ARP table forms a mesh-wide ARP cache that helps non-mesh clients to get ARP responses much more reliably and without much delay. A comprehensive documentation has been made available in our wiki. One document focuses on the  [[batman-adv:DistributedARPTable|general DAT concept]] whereas the second document is about the [[DistributedArpTable-technical|technical details & implementation specifics]].
+It is necessary to activate the distributed ARP table at compile time before you can use this feature (consult "the README.external file":http://www.open-mesh.org/projects/batman-adv/repository/revisions/master/entry/README.external to learn how to set the compile option). 
 
 <pre>
 cat /sys/class/net/bat0/mesh/distributed_arp_table 
@@ -104,7 +105,7 @@ h3. bridge loop avoidance
 Available since: batman-adv 2012.2.0 (if bridge loop avoidance has been compiled-in)
 
 In bridged LAN setups it is advisable to enable the bridge loop avoidance in order to avoid broadcast loops that can bring the entire LAN to a standstill. The [[Bridge-loop-avoidance|bridge loop avoidance page]] explains the bridge loop problematic in greater detail as well as the batman-adv approach to address it.
-It is necessary to activate the bridge loop avoidance at compile time before you can use this feature (consult "the README file":http://www.open-mesh.org/projects/batman-adv/repository/revisions/master/entry/README.external to learn how to set the compile option). 
+It is necessary to activate the bridge loop avoidance at compile time before you can use this feature (consult "the README.external file":http://www.open-mesh.org/projects/batman-adv/repository/revisions/master/entry/README.external to learn how to set the compile option). 
 
 <pre>
 cat /sys/class/net/bat0/mesh/bridge_loop_avoidance 
