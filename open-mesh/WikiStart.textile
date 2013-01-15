@@ -10,11 +10,11 @@ B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a routing protocol
 
 h2. News
 
+* *15.Jan. 2013* [[2013-01-15-batman-adv-2013-0-0-release|Batman-adv 2013.0.0 released]]
 * *17.Nov. 2012* [[2012-11-17-batman-adv-in-south-america|Guest article: batman-adv in South America]]
 * *31.Oct. 2012* [[2012-10-31-batman-adv-2012-4-0-release|Batman-adv 2012.4.0 released]]
 * *06.Oct. 2012* [[2012-10-06-GSoC-2012-Edo-Monticellis-Final-Report|GSoC 2012: Edo Monticelli's Final Report]]
 * *01.Oct. 2012* [[2012-10-01-GSoC-2012-Spyros-Gasteros-Final-Report|GSoC 2012: Spyros Gasteratos' Final Report]]
-* *24.Sep. 2012* [[2012-09-24-GSoC-2012-Martin-Hundebolls-Final-Report|GSoC 2012: Martin Hundebøll's Final Report]]
 
 * [[news-archive|news archive]]
 
