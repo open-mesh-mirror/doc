@@ -48,10 +48,11 @@ After having added interfaces to a mesh cloud, batman-adv automatically creates 
 
 <pre>
 ls  /sys/class/net/bat0/mesh/
-aggregated_ogms        fragmentation          hop_penalty
+aggregated_ogms        fragmentation          log_level
 ap_isolation           gw_bandwidth           orig_interval
 bonding                gw_mode                routing_algo
 bridge_loop_avoidance  gw_sel_class           vis_mode
+distributed_arp_table  hop_penalty
 </pre>
 
 h3. aggregate originator messages
@@ -85,6 +86,17 @@ When running the mesh over multiple WiFi interfaces per node batman-adv is capab
 <pre>
 cat /sys/class/net/bat0/mesh/bonding 
 disabled
+</pre>
+
+h3. distributed ARP table
+
+Available since: batman-adv 2013.0.0
+
+When enabled the distributed ARP table forms a mesh-wide ARP cache that helps non-mesh clients to get ARP responses much more reliably and without much delay. A comprehensive documentation has been made available in our wiki. One document focuses on the  [[batman-adv:DistributedARPTable|general DAT concept]] whereas the second document is about the [[DistributedArpTable-technical|technical details & implementation specifics]].
+
+<pre>
+cat /sys/class/net/bat0/mesh/distributed_arp_table 
+enabled
 </pre>
 
 h3. bridge loop avoidance
