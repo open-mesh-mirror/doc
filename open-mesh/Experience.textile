@@ -9,6 +9,7 @@ h2. Projects:
 * B.A.T.M.A.N. with dashboard integration: http://www.open-mesh.com
 * The Batphone (VOIP + Mesh on your device): http://www.servalproject.org
 * MeOS - batman-adv firmware for SoHo mesh networks: http://lab.nomadnt.com
+* B.A.T.M.A.N. in Argentina: http://www.altermundi.net/ (english article: http://blog.altermundi.net/article/timeline-february-september-2012/ )
 
 h2. Press:
 
