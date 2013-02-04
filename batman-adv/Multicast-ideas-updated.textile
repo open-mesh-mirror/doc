@@ -2,7 +2,7 @@ Update (2012-12-xx):
 
 Current status:
 
- * there is a working, "feature complete", but not much tested "patchset for the master branch":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase which should work for any IP multicast data (no more code changes other than bug, comment or commit message fixes intended)
+ * there is a working, "feature complete", but not much tested "patchset based on v2013.0.0":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase which should work for any IP multicast data (no more code changes other than bug, comment or commit message fixes intended)
  * More issues with the Linux bridge got fixed upstream (recent kernel recommended)
  * Multicast video streaming still does not work reliably due to packet loss (anyone knowing a robust video codec? or the old FEC ideas could help)
  * What about compatibility? Should we break it? Or should we wait for TLV support? How should multicast-optimizating nodes interact with others (should they drop it? should we monitor MLD/IGMP messages coming from the mesh to find multicast listeners behind non-multicast-optimizing batman nodes?) Or should it be part of BATMAN V instead of being a stand-alone (optional?) feature? UPDATE: There is a suggestion at the bottom now.
