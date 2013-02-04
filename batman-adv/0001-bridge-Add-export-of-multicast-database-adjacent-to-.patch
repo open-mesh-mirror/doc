@@ -1,0 +1,154 @@
+From 4f91b0b53fd325cc173a1f03b4b3505d2adce00e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Linus=20L=C3=BCssing?= <linus.luessing@web.de>
+Date: Wed, 30 Jan 2013 18:47:40 +0100
+Subject: [RFC PATCH] bridge: Add export of multicast database adjacent to net_dev
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+With this new, exported function br_multicast_list_adjacent(net_dev) a
+list of IPv4/6 addresses is returned. This list contains all multicast
+addresses sensed by the bridge multicast snooping feature on all bridge
+ports of the bridge interface of net_dev, excluding addresses from the
+specified net_device itself.
+
+A multicast optimization currently implemented for batman-adv requires
+this data.
+
+Signed-off-by: Linus Lüssing <linus.luessing@web.de>
+---
+ include/linux/if_bridge.h |   17 +++++++++++++
+ net/bridge/br_multicast.c |   59 +++++++++++++++++++++++++++++++++++++++++++++
+ net/bridge/br_private.h   |   11 ---------
+ 3 files changed, 76 insertions(+), 11 deletions(-)
+
+diff --git a/include/linux/if_bridge.h b/include/linux/if_bridge.h
+index 1085ffe..86d71a8 100644
+--- a/include/linux/if_bridge.h
++++ b/include/linux/if_bridge.h
+@@ -16,9 +16,26 @@
+ #include <linux/netdevice.h>
+ #include <uapi/linux/if_bridge.h>
+ 
++struct br_ip {
++	union {
++		__be32	ip4;
++#if IS_ENABLED(CONFIG_IPV6)
++		struct in6_addr ip6;
++#endif
++	} u;
++	__be16		proto;
++};
++
++struct br_ip_list {
++	struct list_head list;
++	struct br_ip addr;
++};
++
+ extern void brioctl_set(int (*ioctl_hook)(struct net *, unsigned int, void __user *));
+ 
+ typedef int br_should_route_hook_t(struct sk_buff *skb);
+ extern br_should_route_hook_t __rcu *br_should_route_hook;
++extern int br_multicast_list_adjacent(struct net_device *net_dev,
++				      struct list_head *br_ip_list);
+ 
+ #endif
+diff --git a/net/bridge/br_multicast.c b/net/bridge/br_multicast.c
+index 6d6f265..773a8c2 100644
+--- a/net/bridge/br_multicast.c
++++ b/net/bridge/br_multicast.c
+@@ -11,6 +11,7 @@
+  */
+ 
+ #include <linux/err.h>
++#include <linux/export.h>
+ #include <linux/if_ether.h>
+ #include <linux/igmp.h>
+ #include <linux/jhash.h>
+@@ -1846,3 +1847,61 @@ unlock:
+ 
+ 	return err;
+ }
++
++/**
++ * br_multicast_list_adjacent - Returns snooped multicast addresses
++ * @dev:	The bridge port adjacent to which to retrieve addresses
++ * @br_ip_list:	The list to store found, snooped multicast IP addresses in
++ *
++ * Creates a list of IP addresses (struct br_ip_list) sensed by the multicast
++ * snooping feature on all bridge ports of dev's bridge device, excluding
++ * the addresses from dev itself.
++ *
++ * Returns the number of items added to br_ip_list.
++ *
++ * Notes:
++ * - br_ip_list needs to be initialized by caller
++ * - br_ip_list might contain duplicates in the end
++ *   (needs to be taken care of by caller)
++ * - br_ip_list needs to be freed by caller
++ */
++int br_multicast_list_adjacent(struct net_device *dev,
++			       struct list_head *br_ip_list)
++{
++	struct net_bridge *br;
++	struct net_bridge_port *port;
++	struct net_bridge_port_group *group;
++	struct br_ip_list *entry;
++	struct hlist_node *p;
++	int count = 0;
++
++	rcu_read_lock();
++	if (!br_ip_list || !br_port_exists(dev))
++		goto unlock;
++
++	port = br_port_get_rcu(dev);
++	if (!port || !port->br)
++		goto unlock;
++
++	br = port->br;
++
++	list_for_each_entry_rcu(port, &br->port_list, list) {
++		if (!port->dev || port->dev == dev)
++			continue;
++
++		hlist_for_each_entry_rcu(group, p, &port->mglist, mglist) {
++			entry = kmalloc(sizeof(struct br_ip_list), GFP_ATOMIC);
++			if (!entry)
++				goto unlock;
++
++			entry->addr = group->addr;
++			list_add(&entry->list, br_ip_list);
++			count++;
++		}
++	}
++
++unlock:
++	rcu_read_unlock();
++	return count;
++}
++EXPORT_SYMBOL(br_multicast_list_adjacent);
+diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
+index 711094a..edf3fd8 100644
+--- a/net/bridge/br_private.h
++++ b/net/bridge/br_private.h
+@@ -52,17 +52,6 @@ struct mac_addr
+ 	unsigned char	addr[6];
+ };
+ 
+-struct br_ip
+-{
+-	union {
+-		__be32	ip4;
+-#if IS_ENABLED(CONFIG_IPV6)
+-		struct in6_addr ip6;
+-#endif
+-	} u;
+-	__be16		proto;
+-};
+-
+ struct net_bridge_fdb_entry
+ {
+ 	struct hlist_node		hlist;
+-- 
+1.7.10.4
+
