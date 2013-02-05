@@ -2,4 +2,18 @@ h1. Wbmv6-batmandev-agenda
 
 h2. Celebration!
 
-Find something to celebrate (something different from last year)
+Find something to celebrate (something different from last year).
+
+h2. Testing
+
+* Catwoman (Throughput test)
+* Roaming
+
+h2. Concept discussion
+
+* ELP / OGMv2
+* Bandwidth based routing
+
+h2. Others
+
+* GSOC 2013 ?
