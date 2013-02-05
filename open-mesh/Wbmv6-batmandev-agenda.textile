@@ -14,6 +14,11 @@ h2. Concept discussion
 * OGMv3 (no-tt OGM)
 * Bandwidth based routing
 
+h2. Talk
+
+* Catwoman II (aka Fox)
+
 h2. Others
 
 * GSOC 2013
+* Drop David from the Throne
