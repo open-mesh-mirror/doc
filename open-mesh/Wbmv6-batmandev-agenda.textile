@@ -11,8 +11,9 @@ h2. Testing
 h2. Concept discussion
 
 * ELP / OGMv2
+* OGMv3 (no-tt OGM)
 * Bandwidth based routing
 
 h2. Others
 
-* GSOC 2013 ?
+* GSOC 2013
