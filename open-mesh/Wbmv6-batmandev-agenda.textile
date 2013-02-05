@@ -7,7 +7,6 @@ Find something to celebrate (something different from last year).
 h2. Testing
 
 * Catwoman (Throughput test)
-* Roaming
 
 h2. Concept discussion
 
