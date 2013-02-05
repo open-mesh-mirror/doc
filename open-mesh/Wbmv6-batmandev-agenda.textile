@@ -22,4 +22,6 @@ h2. Talk
 h2. Others
 
 * GSOC 2013
+** decide mentors availability
+** think about possible projects
 * Drop David from the Throne
