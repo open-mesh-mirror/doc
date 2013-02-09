@@ -13,7 +13,7 @@ h2. Concept discussion
 * ELP / OGMv2
 * OGMv3 (no-tt OGM)
 * Bandwidth based routing
-* Multicast support inclusion
+* Multicast (evolution) support inclusion
 
 h2. Talk
 
