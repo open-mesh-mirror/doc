@@ -1,16 +1,3 @@
-Update (2012-12-xx):
-
-Current status:
-
- * there is a working, "feature complete", but not much tested "patchset based on v2013.0.0":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase which should work for any IP multicast data (no more code changes other than bug, comment or commit message fixes intended)
- * More issues with the Linux bridge got fixed upstream (recent kernel recommended)
- * Multicast video streaming still does not work reliably due to packet loss (anyone knowing a robust video codec? or the old FEC ideas could help)
- * What about compatibility? Should we break it? Or should we wait for TLV support? How should multicast-optimizating nodes interact with others (should they drop it? should we monitor MLD/IGMP messages coming from the mesh to find multicast listeners behind non-multicast-optimizing batman nodes?) Or should it be part of BATMAN V instead of being a stand-alone (optional?) feature? UPDATE: There is a suggestion at the bottom now.
- * Does the proactive, redundant attching of MLA information to an OGM hinder the development of BATMAN V (bc. the idea of BATMAN V was to allow drastically increasing the proactive, periodic OGM interval to increase scalability - what impact would a very high OGM interval have on the usability of this multicast optimization feature?
- * What about the Bridge Loop Avoidance? If a batman-adv client sending multicast data is attached to two or more batman-adv nodes, will they all, redundantly send the multicast data to any multicast listener resulting in duplicate multicast data packets on the upper mesh layer? (though it at least shouldn't cause any loops, I think)
-
-----
-
 h1. B.A.T.M.A.N.-Adv Multicast Awareness
 
 WIP --- WIP --- WIP -- updated version of [[Multicast-ideas]]
@@ -485,11 +472,15 @@ http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-reba
 
 h2. Changelog
 
+----
 
-h2. TODO
+Update (2012-12-xx):
 
-* finish this document
-* code review
-* (more) testing
-* Get the one bridge patch upstream? (or submit it together with the batman-adv ones?)
-* Would it make sense to wait for the TLV patches first before getting these multicast optimizations upstream?
+Current status / Todo:
+
+ * there is a working, "feature complete", but not much tested "patchset based on v2013.0.0":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase which should work for any IP multicast data (no more code changes other than bug, comment or commit message fixes intended)
+ * More issues with the Linux bridge got fixed upstream (recent kernel recommended)
+ * Multicast video streaming still does not work reliably due to packet loss (anyone knowing a robust video codec? or the old FEC ideas could help)
+ * What about compatibility? Should we break it? Or should we wait for TLV support? How should multicast-optimizating nodes interact with others (should they drop it? should we monitor MLD/IGMP messages coming from the mesh to find multicast listeners behind non-multicast-optimizing batman nodes?) Or should it be part of BATMAN V instead of being a stand-alone (optional?) feature? UPDATE: There is a suggestion at the bottom now.
+ * Does the proactive, redundant attching of MLA information to an OGM hinder the development of BATMAN V (bc. the idea of BATMAN V was to allow drastically increasing the proactive, periodic OGM interval to increase scalability - what impact would a very high OGM interval have on the usability of this multicast optimization feature?
+ * What about the Bridge Loop Avoidance? If a batman-adv client sending multicast data is attached to two or more batman-adv nodes, will they all, redundantly send the multicast data to any multicast listener resulting in duplicate multicast data packets on the upper mesh layer? (though it at least shouldn't cause any loops, I think)
