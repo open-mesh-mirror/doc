@@ -89,6 +89,10 @@ Once the package had been selected a number of suboptions will become visible. Y
 
 In addition, the batman-adv package comes with an init script which is installed per default. This script will run at boot time and can be used to configure your desired batman-adv options. It reads the batman-adv uci file to retrieve the settings which allows to specify interfaces, intervals, log level and more.
 
+Basic configuration: [[Batman-adv-openwrt-config|batman-adv OpenWrt config]]
+
+Sophisticated configuration: [[Batman-adv-openwrt-config-sophisticated|batman-adv OpenWrt config (sophisticated)]]
+
 
 h2. Rebuilding the package
 
