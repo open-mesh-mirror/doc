@@ -12,6 +12,7 @@ h2. Projects:
 
 h2. Press:
 
+* "Kernel Log: Coming 3.8 - Drivers":http://www.h-online.com/open/features/Kernel-Log-Coming-in-3-8-Part-3-Drivers-1802696.html, The H Open (February 2013)
 * "Conway’s Game of Life on top of B.A.T.M.A.N.":http://hackaday.com/2012/02/04/using-routers-as-displays/, Hack a Day (February 2012)
 * "The dream of global mesh network":http://arstechnica.com/open-source/news/2011/11/the-darknet-plan-netroots-activists-dream-of-global-mesh-network.ars, Ars Technica (November 2011)
 * "Linux 2.6.38 release notes":http://kernelnewbies.org/Linux_2_6_38#head-17577655766f585c3c47df886fe91dba276f4c3f, kernelnewbies.org (March 2011)
