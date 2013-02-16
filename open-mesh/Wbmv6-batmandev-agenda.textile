@@ -14,6 +14,7 @@ h2. Concept discussion
 * OGMv3 (no-tt OGM)
 * Bandwidth based routing
 * Multicast (evolution) support inclusion
+* Gateway Bandwidth Class
 
 h2. Talk
 
@@ -24,4 +25,5 @@ h2. Others
 * GSOC 2013
 ** decide mentors availability
 ** think about possible projects
-* Drop David from the Throne
+* Push David from the Throne
+* Maint release cycle (i.e. Stable versions)
