@@ -14,7 +14,7 @@ h2. Concept discussion
 * OGMv3 (no-tt OGM)
 * Bandwidth based routing
 * Multicast (evolution) support inclusion
-* Gateway Bandwidth Class
+* "Howto to optimise the Bandwidth based GW selection":http://article.gmane.org/gmane.org.freifunk.batman/8881
 
 h2. Talk
 
