@@ -20,11 +20,11 @@ h2. Documentation
 
 h2. Code
 
-* [ ] make sure all code contains the release version strings
-* [ ] update copyright years (if needed)
-* [ ] remove dead code (if any)
+* [x] make sure all code contains the release version strings
+* [x] update copyright years (if needed)
+* [x] remove dead code (if any)
 * [ ] check against kernel versions
-* [ ] check that maint branch is merged in next
+* [x] check that maint branch is merged in next
 * [ ] check for open patches on the ml
 * [ ] git tag release
 
