@@ -37,11 +37,11 @@ The local translation table (mac addresses announced by this host) can be found 
 
 <pre>
 cat /sys/kernel/debug/batman_adv/bat0/transtable_local
-Locally retrieved addresses (from bat0) announced via TT (TTVN: 1):
+Locally retrieved addresses (from bat0) announced via TT (TTVN: 1 CRC: 0xaec3):
  * fe:fe:00:00:01:01 [RPNXW]
 </pre>
 
-The current translation table state is represented by the tt version number that is propagated in the mesh.
+The current translation table state is represented by the tt version number and the local tt crc that are propagated in the mesh.
 In particular, RPNXW are flags which bear the following meanings:
 * R/Roaming: this client moved to another node but it is still kept for consistency reasons until the next OGM is sent.
 * P/noPurge: this client represents the local soft interface and will never be deleted.
@@ -58,11 +58,11 @@ The global translation table (mac addresses announced by other hosts) can be fou
 <pre>
 cat /sys/kernel/debug/batman_adv/bat0/transtable_global 
 Globally announced TT entries received via the mesh bat0
-   Client            (TTVN)     Originator        (Curr TTVN) Flags
- * fe:fe:00:00:01:01  ( 12) via fe:fe:00:00:02:01       ( 50) [RXW]
+   Client            (TTVN)     Originator        (Curr TTVN) (CRC   ) Flags
+ * fe:fe:00:00:01:01  ( 12) via fe:fe:00:00:02:01       ( 50) (0xff9a) [RXW]
 </pre>
 
-Each line contains the announced mac address plus the ttvn at the point of the addition to the table and the mac of the batman node announcing it including the latest ttvn of that very node. The meaning of flags are similar to those above:
+Each line contains the announced mac address, the ttvn at the point of the addition to the table and the mac of the batman node announcing it including the latest ttvn and table crc of that very node. The meaning of flags are similar to those above:
 * R/Roaming: this client moved to another node but it is still kept for consistency reasons until the next OGM is sent.
 * X/delete: this client has to be removed for some reason, but it is still kept for consistency reasons until the next OGM is sent.
 * W/Wireless: this client is connected to the node through a wireless device.
