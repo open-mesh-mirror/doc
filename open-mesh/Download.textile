@@ -25,7 +25,6 @@ h2. Git Repository Access
 Since we started integrating the batman-adv kernel module into the mainline Linux tree, we maintain a git repository which contains the batman-adv maintenance branches. More information can be found [[UsingBatmanGit|on our git page]].
 On overview about all the git repositories can be found on our "git frontend":http://git.open-mesh.org. We also host individual repositories for development related to batman or meshing in general. Feel free to contact us if you are interested in getting a repository too.
 
-
 h2. batman-adv in the Linux tree
 
 
@@ -48,7 +47,7 @@ It follows an overview of linux versions and the batman-adv version they contain
 * linux 3.6 => batman-adv 2012.3.x (get batctl 2012.3.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 3.7 => batman-adv 2012.4.x (get batctl 2012.4.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 3.8 => batman-adv 2013.0.x (get batctl 2013.0.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 3.9 => batman-adv 2013.1.x (get batctl 2013.0.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 3.9 => batman-adv 2013.1.x (get batctl 2013.1.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 
 h2. Debian
 
