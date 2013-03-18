@@ -6,7 +6,7 @@ h1. B.A.T.M.A.N. V
 
 h2. Bandwidth estimation
 
-* *wireless*: maximum throughput from rc_stats
+* *wireless*: maximum throughput from rc_stats (number 1)
 * *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN)
 * *VPN*: 1Mbps, configurable via sysfs
 * *Unknown*: 1Mbps
