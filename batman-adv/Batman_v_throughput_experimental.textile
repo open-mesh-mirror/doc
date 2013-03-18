@@ -13,6 +13,7 @@ h2. Bandwidth estimation
 * *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
 
 h2. ELP
+
 ELP is fully explained in its [[ELP|wiki page]]. It will be used to exchange link information about its bandwidth and its characteristics (e.g. half/full duplex).
 
 h2. OGMv3
