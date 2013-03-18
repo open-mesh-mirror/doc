@@ -10,4 +10,4 @@ h2. Bandwidth estimation
 * *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN)
 * *VPN*: 1Mbps, configurable via sysfs
 * *Unknown*: 1Mbps
-* *generic*: the bandwidth meter might be used to estimate the real (current) throughtput on non-wireless interfaces
+* *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
