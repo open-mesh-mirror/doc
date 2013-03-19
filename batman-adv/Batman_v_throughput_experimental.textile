@@ -1,10 +1,45 @@
-h1. B.A.T.M.A.N. V
+h1. B.A.T.M.A.N. V (DRAFT)
 
-*Metric:* Bandwitdh instead of packet loss
-*Link/Neighbour Discovery:* [[ELP|ELP (Echo Locating Protocol)]]
-*Routing table construction:* [[Ogm-v2|OGMv2]]
+*Metric:* Estimated throughput
+*Neighbour Discovery and Link Metric Exchange:* [[ELP|ELP (Echo Locating Protocol)]]
+*Routing Table Construction:* [[Ogm-v2|OGMv2]]
 
-h2. Bandwidth estimation
+h2. General Overviev
+This is a draft of how the algorithm should work and what it needs.
+Later all this information will be split and reported into the proper pages (e.g. ELP or OGMv2)
+
+* ELP bandwidth aware
+** Broadcast message for neighbour discovery (one per interface)
+** Unicast message for link thgoughput exchange (one per neighbour)
+* OGMv2
+** Unicast message for metric propagation:
+*** one OGM per neighbour is sent when the node generates the OGM
+*** one OGM per neighbour is sent when the node is forwarding *one* received OGM
+
+h3. Stub Algorithm
+
++Link Metric estimation and exchange+
+* Each node in the network estimates the throughput towards each of its neighbours (one hop throughput)
+* The throughput information is shared with the related neighbour by means of ELP
+
++Path Metric computation+
+* Each node, say SRC, creates and sends its own OGMs to let all the other peers in the network build their routing table
+** For each neighbour N of SRC:
+*** one OGM is sent as unicast to N containing the link metric value (namely OGM.metric)
+** For each neighbour N of a generic node P receiving an OGM from R
+*** next_metric = f(OGM.metric, R, N) is computed
+where f(x, r, n) is a metric forwarding function.
+*** a new packet OGM' is created and OGM'.metric = next_metric is set
+*** OGM' is sent as unicast to N
+* Information to store in the routing table (mutli dimensional)
+** one classic routing table for *each interface* containing
+*** the best next-hop towards each possible destination
+
++Routing+
+* The outgoing interface is chosen depending on the incoming one (full/half duplex attribute may affect the choice).
+* After having chosen the interface, the next-hop is the best-next-hop for the given destination
+
+h2. One Hop Throughput Estimation
 
 * *wireless*: maximum throughput from rc_stats (this stats exist only for the minstrel RC algorithm. Therefore a new API in *struct rate_control_ops* will be added to let each implementation return the maximum throughput based on its internal stats). Devices implementing RC in HW do not export any stats. In this case a new API to be implemented in the driver can be evaluated. Ath9k, which is one of the most used driver, uses software RC.
 * *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN)
