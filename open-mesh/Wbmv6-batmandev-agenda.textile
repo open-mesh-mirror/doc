@@ -10,9 +10,8 @@ h2. Testing
 
 h2. Concept discussion
 
-* ELP / OGMv2
+* B.A.T.M.A.N. V (which includes bandwidth aware ELP and OGMv2)
 * OGMv3 (no-tt OGM)
-* Bandwidth based routing
 * Multicast (evolution) support inclusion
 * "Howto to optimise the Bandwidth based GW selection":http://article.gmane.org/gmane.org.freifunk.batman/8881
 
