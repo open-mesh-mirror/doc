@@ -25,3 +25,4 @@ h2. Others
 ** decide mentors availability
 ** think about possible projects
 * Maint release cycle (i.e. Stable versions)
+* Compat code maintenance (split kernel-module and out-of-the-kernel package development?)
