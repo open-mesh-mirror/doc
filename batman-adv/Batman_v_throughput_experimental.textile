@@ -19,22 +19,25 @@ Later all this information will be split and reported into the proper pages (e.g
 h3. Stub Algorithm
 
 +Link Metric estimation and exchange+
-* Each node in the network estimates the throughput towards each of its neighbours (one hop throughput)
-* The throughput information is shared with the related neighbour by means of ELP
-* No need to count sequence numbers anymore
+Each node in the network estimates the throughput towards each of its neighbours (one hop throughput)
+The throughput information is shared with the related neighbour by means of ELP
+No need to count sequence numbers anymore
 
 +Path Metric computation+
-* Each node, say SRC, creates and sends its own OGMs to let all the other peers in the network build their routing table
-** For each neighbour N of SRC:
-*** one OGM is sent as unicast to N containing the link metric value (namely OGM.metric)
-** For each neighbour N of a generic node P receiving an OGM from R
-*** next_metric = f(OGM.metric, R, N) is computed
-where f(x, r, n) is a metric forwarding function.
-*** a new packet OGM' is created and OGM'.metric = next_metric is set
-*** OGM' is sent as unicast to N
+Each node, say SRC, creates and sends its own OGMs to let all the other peers in the network build their routing table
+* For each neighbour N of SRC:
+** one OGM is sent as unicast to N containing the link metric value (namely OGM.metric) equal to 0
+* A generic node P receiving an OGM from R
+** computes next_hop_metric = nhm(OGM.metric, R)
+where nhm(x, r) is a metric alterating function which computes the path metric towards OGM.SRC by combining OGM.metric and the estimated throughput on the link P <-> R.
+** For each interface I
+*** computes forw_metric = fwm(next_hop_metric, I)
+where fwm(x, i) is a metric alterating function which computes the metric value that a node has to propagate over the given interface i
+*** a new packet OGM' is created and OGM'.metric = forw_metric is set
+*** OGM' is sent as broadcast over I
 * Information to store in the routing table (mutli dimensional)
 ** one classic routing table for *each interface* containing
-*** the best next-hop towards each possible destination
+*** the best next-hop towards each possible destination: the best next-hop is chosen based on the best next_hop_metric towards the destination
 
 +Routing+
 * The outgoing interface is chosen depending on the incoming one (full/half duplex attribute may affect the choice).
