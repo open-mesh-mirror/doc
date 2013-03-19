@@ -14,6 +14,6 @@ h2. Bandwidth estimation
 
 h2. ELP
 
-ELP is fully explained in its [[ELP|wiki page]]. It will be used to exchange link information about its bandwidth and its characteristics (e.g. half/full duplex).
+ELP is fully explained in its [[ELP|wiki page]]. It will be used to exchange link information about bandwidth and other attributes (e.g. half/full duplex).
 
 h2. OGMv3
