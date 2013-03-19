@@ -9,8 +9,8 @@ This is a draft of how the algorithm should work and what it needs.
 Later all this information will be split and reported into the proper pages (e.g. ELP or OGMv2)
 
 * ELP bandwidth aware
-** Broadcast message for neighbour discovery (one per interface)
-** Unicast message for link thgoughput exchange (one per neighbour)
+** Broadcast message for neighbour discovery (one per interface). [Beacon might be used on wifi interfaces]
+** Unicast message for link thgoughput exchange (one per neighbour). [One broadcast can be used on wired interface]
 * OGMv2
 ** Unicast message for metric propagation:
 *** one OGM per neighbour is sent when the node generates the OGM
