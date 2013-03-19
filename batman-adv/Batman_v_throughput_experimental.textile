@@ -2,7 +2,7 @@ h1. B.A.T.M.A.N. V (DRAFT)
 
 *Metric:* Estimated throughput
 *Neighbour Discovery and Link Metric Exchange:* [[ELP|ELP (Echo Locating Protocol)]]
-*Routing Table Construction:* [[Ogm-v2|OGMv2]]
+*Path Metric Computation:* [[Ogm-v2|OGMv2]]
 
 h2. General Overviev
 This is a draft of how the algorithm should work and what it needs.
