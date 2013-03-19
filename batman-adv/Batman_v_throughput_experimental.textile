@@ -2,7 +2,7 @@ h1. B.A.T.M.A.N. V
 
 *Metric:* Bandwitdh instead of packet loss
 *Link/Neighbour Discovery:* [[ELP|ELP (Echo Locating Protocol)]]
-*Routing table construction:* OGMv3
+*Routing table construction:* [[Ogm-v2|OGMv2]]
 
 h2. Bandwidth estimation
 
@@ -11,9 +11,3 @@ h2. Bandwidth estimation
 * *VPN*: 1Mbps, configurable via sysfs
 * *Unknown*: 1Mbps
 * *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
-
-h2. ELP
-
-ELP is fully explained in its [[ELP|wiki page]]. It will be used to exchange link information about bandwidth and other attributes (e.g. half/full duplex).
-
-h2. OGMv3
