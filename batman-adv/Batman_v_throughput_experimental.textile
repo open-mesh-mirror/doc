@@ -10,7 +10,7 @@ Later all this information will be split and reported into the proper pages (e.g
 
 * ELP bandwidth aware
 ** Broadcast message for neighbour discovery (one per interface). [Beacon might be used on wifi interfaces]
-** Unicast message for link thgoughput exchange (one per neighbour). [One broadcast can be used on wired interface]
+-** Unicast message for link thgoughput exchange (one per neighbour). [One broadcast can be used on wired interface]-
 * OGMv2
 ** Broadcast message for metric propagation:
 *** one OGM per interface is sent when the node generates the OGM
@@ -20,8 +20,8 @@ h3. Stub Algorithm
 
 +Link Metric estimation and exchange+
 Each node in the network estimates the throughput towards each of its neighbours (one hop throughput)
-The throughput information is shared with the related neighbour by means of ELP
-No need to count sequence numbers anymore since it was related to packet loss, but time since last ECLP packet can be considered in order to quickly switch route.
+-The throughput information is shared with the related neighbour by means of ELP-
+No need to count sequence numbers anymore since it was related to packet loss, but time since last ELP packet can be considered in order to quickly switch route.
 
 +Path Metric computation+
 Each node, say SRC, creates and sends its own OGMs to let all the other peers in the network build their routing table
