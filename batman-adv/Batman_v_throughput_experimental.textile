@@ -35,7 +35,7 @@ where nhm(x, r, i_in) is a metric alterating function which computes the path me
 where fwm(x, i_in, i) is a metric alterating function which computes the metric value that a node has to propagate over the given interface i that the path goes through interface i_in
 *** a new packet OGM' is created and OGM'.metric = forw_metric is set
 *** OGM' is sent as broadcast over I
-* Information to store in the routing table (mutli dimensional)
+* Information to store in the routing table
 ** one classic routing table for *each interface* containing
 *** the best next-hop towards each possible destination: the best next-hop is chosen based on the best next_hop_metric towards the destination
 
