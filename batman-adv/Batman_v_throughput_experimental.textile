@@ -21,7 +21,7 @@ h3. Stub Algorithm
 +Link Metric estimation and exchange+
 Each node in the network estimates the throughput towards each of its neighbours (one hop throughput)
 The throughput information is shared with the related neighbour by means of ELP
-No need to count sequence numbers anymore since it was related to packet loss, but timing can be considered in order to quickly switch route.
+No need to count sequence numbers anymore since it was related to packet loss, but time since last ECLP packet can be considered in order to quickly switch route.
 
 +Path Metric computation+
 Each node, say SRC, creates and sends its own OGMs to let all the other peers in the network build their routing table
