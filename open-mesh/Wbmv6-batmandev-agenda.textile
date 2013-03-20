@@ -14,6 +14,7 @@ h2. Concept discussion
 * OGMv3 (no-tt OGM)
 * Multicast (evolution) support inclusion
 * "Howto to optimise the Bandwidth based GW selection":http://article.gmane.org/gmane.org.freifunk.batman/8881
+* Multiple L3 border Gateways to the same network: how to choose the best one assuming each of them has a different (L3) cost to the destination
 
 h2. Talk
 
