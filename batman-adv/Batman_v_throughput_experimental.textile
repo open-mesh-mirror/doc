@@ -12,9 +12,9 @@ Later all this information will be split and reported into the proper pages (e.g
 ** Broadcast message for neighbour discovery (one per interface). [Beacon might be used on wifi interfaces]
 ** Unicast message for link thgoughput exchange (one per neighbour). [One broadcast can be used on wired interface]
 * OGMv2
-** Unicast message for metric propagation:
-*** one OGM per neighbour is sent when the node generates the OGM
-*** one OGM per neighbour is sent when the node is forwarding *one* received OGM
+** Broadcast message for metric propagation:
+*** one OGM per interface is sent when the node generates the OGM
+*** one OGM per interface is sent when the node is forwarding *one* received OGM
 
 h3. Stub Algorithm
 
