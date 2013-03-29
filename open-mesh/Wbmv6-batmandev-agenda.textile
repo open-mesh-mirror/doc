@@ -15,6 +15,12 @@ h2. Concept discussion
 * Multicast (evolution) support inclusion
 * "Howto to optimise the Bandwidth based GW selection":http://article.gmane.org/gmane.org.freifunk.batman/8881
 * Multiple L3 border Gateways to the same network: how to choose the best one assuming each of them has a different (L3) cost to the destination
+* Some notes were taken in the past about possible improvements to the GW feature. We may want to consider them:
+<pre>- Multiple gw for multiple networks
+Tag the GW so that you can choose the best among a single class and keep a
+list of the best gws (one per class).
+Each class can connect the mesh to a different network, therefore we would
+want to communicate to several gw at the same time, not in mutual exclusion.</pre>
 
 h2. Talk
 
