@@ -21,6 +21,7 @@ Tag the GW so that you can choose the best among a single class and keep a
 list of the best gws (one per class).
 Each class can connect the mesh to a different network, therefore we would
 want to communicate to several gw at the same time, not in mutual exclusion.</pre>
+* mac80211 like DebugFS structure
 
 h2. Talk
 
