@@ -11,6 +11,7 @@ h2. Would be good if we do
 ** FRAGv2
 ** CRC32 in TT
 ** Improve packet format design to avoid __packed (?)
+** bandwidth meter packet format integration (? not sure if this does really hurt since bw meter uses icmp)
 
 h2. Testing
 
