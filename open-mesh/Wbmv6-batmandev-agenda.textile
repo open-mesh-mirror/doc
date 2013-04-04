@@ -4,6 +4,14 @@ h2. Celebration!
 
 Find something to celebrate (something different from last year).
 
+h2. Would be good if we do
+
+* Big Compat Dump, consisting in integration of:
+** TVLV
+** FRAGv2
+** CRC32 in TT
+** Improve packet format design to avoid __packed (?)
+
 h2. Testing
 
 * Catwoman (Throughput test)
