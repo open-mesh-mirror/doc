@@ -22,7 +22,7 @@ list of the best gws (one per class).
 Each class can connect the mesh to a different network, therefore we would
 want to communicate to several gw at the same time, not in mutual exclusion.</pre>
 * mac80211 like DebugFS structure
-* Fragmentation v2 over TVLV (how to exploit frag2 capability information of other nodes)
+* Fragmentation v2: advertise MTUs to avoid re-fragmentation?
 
 h2. Talk
 
