@@ -1,1 +1,32 @@
-h1. Batman v
+h1. B.A.T.M.A.N. V (DRAFT)
+
+*Metric:* Estimated throughput (from RC algorithm for wireless devices)
+*Neighbour Discovery:* [[ELP|ELP (Echo Locating Protocol)]]
+*Path Metric Computation:* [[Ogm-v2|OGMv2]]
+
+h2. General Overviev
+This is a draft of how the algorithm should work and what it needs.
+Later all this information will be split and reported into the proper pages (e.g. ELP or OGMv2)
+
+* ELP bandwidth aware
+** Broadcast message for neighbour discovery (one per interface). [Beacon might be used on wifi interfaces]
+** Unicast message for thgoughput sampling (one per neighbour). This is useful when there is no traffic towards a given neighbor.
+* OGMv2
+** Broadcast message for metric propagation:
+*** one OGM per interface is sent when the node generates the OGM
+*** one OGM per interface is sent when the node is forwarding *one* received OGM
+
+
+h2. One Hop Throughput Estimation
+
+* *wireless*: maximum throughput from RC algorithm (API implemented for minstrel and minstrel_ht - not yet upstream).
+* *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN). Not yet implemented
+* *Unknown/VPN*: 1Mbps (customisable via sysfs)
+* *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
+* *forced by the user*: the user can manually oveeride the throughput estimation and set a fake value for each interface
+
+h2. Metric forwarding
+
+When forwarding an OGM the metric is decremented as follows:
+* new_metric = metric / 2 (if incoming interface is wifi/half-duplex - half-duplex recognition not yet implemented)
+* new_metric = metric * (1 - hop_penalty) otherwise
