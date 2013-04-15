@@ -43,22 +43,23 @@ h3. Long TVLV
 
 h2. TVLV API
 
-
 h3. OGM TVLV transmit
 
-To periodically transmit a TVLV container with every Originator Message (OGM) an ogm_register() call has to be performed. The function takes the TVLV type, version,  length and value as argument and internally stores this information. The aforementioned length handling, the periodic scheduling, etc happens transparently to the caller. The ogm_register() call also takes care of updates to an existing TVLV type + version container.
+To periodically transmit a TVLV container with every Originator Message (OGM) an container_register() call has to be performed. The function takes the TVLV type, version,  length and value as argument and internally stores this information. The aforementioned length handling, the periodic scheduling, etc happens transparently to the caller. The container_register() call also takes care of updates to an existing TVLV type + version container.
  
 <pre>
-void batadv_tvlv_ogm_register(struct batadv_priv *bat_priv, uint8_t type,
-			                  uint8_t version, uint16_t length,
-			                  uint8_t *value);
-
+void batadv_tvlv_container_register(struct batadv_priv *bat_priv,
+				                    uint8_t type, uint8_t version,
+				                    void *tvlv_value, uint16_t tvlv_value_len);
 </pre>
 
-To stop transmitting a TVLV type + version container the unregister() function has to be called.
+To stop transmitting a TVLV type + version container the container_unregister() function has to be invoked.
 
-<pre>void batadv_tvlv_ogm_unregister(struct batadv_priv *bat_priv, uint8_t type,
-							    uint8_t version);</pre>
+<pre>
+void batadv_tvlv_container_unregister(struct batadv_priv *bat_priv,
+				                      uint8_t type, uint8_t version);
+</pre>
+
 
 h3. Handle incoming TVLVs
 
