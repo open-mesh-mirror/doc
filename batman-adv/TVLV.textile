@@ -113,6 +113,8 @@ h3. Gateway announcement
  * function: Each batman-adv gateway server announces it's available internet connection speed, so that batman-adv gateway clients can select their preferable server.
  * purpose: Every node keeps a list of batman-adv gateways in the mesh to later the preferred gateway. 
  * length: 1 byte gateway flags
+ * Fixed TVLV fields:
+ ** gateway flags: announced gateway bandwidth (1Byte)
  * definition:
 <pre>
  0                   1                   2                   3
@@ -126,7 +128,7 @@ h3. Gateway announcement
 h3. DAT (Distributed ARP Table)
 
  * tvlv type: 0x02
- * function: D.A.T. is a DHT based global ARP cache
+ * function: D.A.T. is a DHT based global ARP cache.
  * purpose: the DAT component will only query other DAT-enabled nodes
  * length: 0 (This is a boolean telling that this node caches ARP requests / replies for the mesh.)
  * definition:
@@ -159,7 +161,8 @@ h3. Translation table messages
  * tvlv type: 0x04
  * function: Local non-mesh clients advertisement mechanism. This particular component needs some parameters that are propagated by the OGM. 
  * purpose: Exchange of translation table state information.
- * length: variable (depends on the number of TT changes that the TVLV container is carrying). Fixed TVLV fields:
+ * length: variable (depends on the number of TT changes that the TVLV container is carrying). 
+ * Fixed TVLV fields:
  ** flags: translation table flags (1Byte)
  ** ttvn: translation table version number (1Byte)
  ** num_entries: number of tt change structs inside the tt tvlv container (2Bytes)
@@ -174,6 +177,26 @@ h3. Translation table messages
  |   TT Flags    |     TTVN      |         CRC32 checksum        |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |        CRC32 checksum         |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+ * tvlv type: 0x05
+ * function:  Reduce a non-mesh client's packet loss when it roams from one AP to the next.
+ * purpose: Inform the old AP about the new location of the non-mesh client.
+ * length: 8 bytes non-mesh client information
+ * Fixed TVLV fields:
+ ** client mac address: mac address of the roaming non-mesh client (6 bytes)
+ ** vid: vlan tag id of the roaming non-mesh client (2 bytes)
+ * definition:
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV 0x05   |    Version    |             Length            | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                       Client mac address                      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |      Client mac address       |              VID              |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
