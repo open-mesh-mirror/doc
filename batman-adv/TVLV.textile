@@ -114,7 +114,7 @@ h3. Gateway announcement
  * tvlv type: 0x01
  * function: Each batman-adv gateway server announces it's available internet connection speed, so that batman-adv gateway clients can select their preferable server.
  * purpose: Every node keeps a list of batman-adv gateways in the mesh to later the preferred gateway. 
- * length: 1 byte gateway flags (see batman_ogm_packet->gw_flags)
+ * length: 1 byte gateway flags
  * definition:
 <pre>
  0                   1                   2                   3
@@ -141,12 +141,12 @@ h3. DAT (Distributed ARP Table)
 </pre>
 
 
-h3. Vis server
+h3. Network coding (also known as catwoman)
 
  * tvlv type: 0x03
- * function: The vis server allow to dump a complete network graph of the mesh network. To do this, vis clients send their neighbor and tt data to vis servers. The vis servers then share the collected data between each other.
- * purpose: Clients may send their vis data to the server if the vis TLV is present.
- * length: 0 byte
+ * function: Save packet transmissions & air time by combining packets.
+ * purpose: Network coding only works with other network coding enabled nodes.
+ * length: 0 byte (This is a boolean telling that this node knows how to decode nc-packets.)
  * definition:
 <pre>
  0                   1                   2                   3
@@ -157,87 +157,31 @@ h3. Vis server
 </pre>
 
 
-h3. Translation table / TT messages
+h3. Translation table messages
 
- * tvlv type: TBD
- * function: Node local clients advertisement mechanism. This particular component needs some parameters that are were carried by the OGM. Now these fields can be encapsulated in the tvlv (see below to understand what fields I'm talking about).
- * purpose: nodes need to exchange TranslationTable state information
- * length: variable (it depends on the number of changes that the tvlv is carrying). Fixed tvlv fields:
- ** batman_ogm_packet->ttvn (1Byte)
- ** batman_ogm_packet->tt_crc (2Bytes)
- ** subtybe (1Byte): new field. It will tell TT whether this tvlv contains a full table or a changeset (we keep it general enough so that in the future we can possibly add more "sub-containers"). In this way we can use this tvlv for both tt_request/response and OGM.
+ * tvlv type: 0x04
+ * function: Local non-mesh clients advertisement mechanism. This particular component needs some parameters that are propagated by the OGM. 
+ * purpose: Exchange of translation table state information.
+ * length: variable (depends on the number of TT changes that the TVLV container is carrying). Fixed TVLV fields:
+ ** flags: translation table flags (1Byte)
+ ** ttvn: translation table version number (1Byte)
+ ** num_entries: number of tt change structs inside the tt tvlv container (2Bytes)
+ ** crc: crc32 checksum of the local translation table (4Bytes)
  * definition:
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV TBD    |    Version     |    Length                    | 
+ |   TVLV 0x04   |    Version     |    Length                    | 
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |     TTVN      |             TT CRC            |
+ |   TT Flags   |   TTVN      |             TT CRC                 |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-
-h3. Catwoman (network coding)
-
- * tvlv type: to be decided upon merge into the master branch
- * function: Nodes compiled with support for network and has enabled network coding, announces this, so that other nodes do not send coded packets to nodes unable to understand such.
- * purpose: network encoded packets will only sent to nodes that have network coding enabled
- * length: 0 (This is a boolean telling that this node knows how to decode nc-packets.)
- * definition:
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV TBD    |    Version    |    Length     |  
+ |   CRC32 checksum                 |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
 
 h2. TVLV definitions (proposal)
-
-h3. Vis information packet
-
- * tvlv type: 0x??
- * function: The vis server allow to dump a complete network graph of the mesh network. To do this, vis clients send their neighbor and tt data to vis servers. The vis servers then share the collected data between each other.
- * purpose: information packet are sent from clients to servers or from servers to servers to propagate neighbor/client information. The packets are NOT attached to OGMs, but are sent via unicast instead
- * discussion: we may want to move target originator (maybe others?) in general headers so that non-vis-aware nodes can forward the packets.
- * length: variable - 23 byte + #entries * 7 byte
- * definition:
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV 0x??   |    Version    |    Length     |   VIS_TYPE    |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Sequence Number                                             |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Vis Originator                                              |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Vis Originator (cont'd)     |    Target Originator          |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Target Originator (cont'd)                                  |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Sender Originator                                           |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Sender Originator (cont'd)  |    ... (entries) ...          |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
- * entry definition:
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   SRC MAC                                                     |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   SRC MAC (cont'd)            |   DST MAC                     |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   DST MAC (cont'd)                                            |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   Quality     |
- +-+-+-+-+-+-+-+-+
-
-</pre>
 
 
 h3. Multicast capability
