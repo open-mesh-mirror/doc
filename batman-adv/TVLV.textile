@@ -60,37 +60,41 @@ void batadv_tvlv_container_unregister(struct batadv_priv *bat_priv,
 				                      uint8_t type, uint8_t version);
 </pre>
 
-
 h3. Handle incoming TVLVs
 
 The TVLV API processes incoming packets and parses their TVLV containers. If a TVLV container is found and a handler function was installed for this specific TVLV type, the handler is called with the TVLV data as argument along with a couple of other useful values. To install such a handler the handler_register() function has to be called: 
 
 <pre>
 void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
-				                  uint8_t type, uint8_t flags,
-				                  void (*ptr)(struct batadv_priv *bat_priv,
-					                          struct batadv_orig_node *orig,
-					                          uint8_t handler_flags,
-					                          uint8_t version,
-					                          uint16_t length,
-					                          uint8_t *value));
+				                  void (*optr)(struct batadv_priv *bat_priv,
+					                           struct batadv_orig_node *orig,
+					                           uint8_t flags,
+					                           void *tvlv_value,
+					                           uint16_t tvlv_value_len),
+				                  int (*uptr)(struct batadv_priv *bat_priv,
+					                          uint8_t *src, uint8_t *dst,
+					                          void *tvlv_value,
+					                          uint16_t tvlv_value_len),
+				                  uint8_t type, uint8_t version, uint8_t flags);
 </pre>
+
+TVLVs can be received through OGM packets and/or unicast TVLV packets. A callback handler for either TVLV type can be specified.
 
 To remove a handler a handler_unregister() is provided:
 <pre>
-void batadv_tvlv_handler_unregister(struct batadv_priv *bat_priv,uint8_t type);
+void batadv_tvlv_handler_unregister(struct batadv_priv *bat_priv,
+				                    uint8_t type, uint8_t version);
 </pre>
 
 Upon registering a handler it is possible to pass a couple of flags to tweak the handler API behavior. For instance, some features need to be also called if a certain TVLV container was not found in an OGM to learn when the peer node has switched it off. The following flags are available:
 
 Handler register flags:
 
- * TVLV_OGM_CALL_IFNFOUND: If the TVLV type has not been found, call this handler anyway when the OGM parsing has been completed. In this case the length argument will be 0 and the value will be NULL.
+ * BATADV_TVLV_HANDLER_OGM_CIFNOTFND: If the TVLV type has not been found, call this handler anyway when the OGM parsing has been completed. In this case the length argument will be 0 and the value will be NULL and a flag to indicate this condition will be passed.
 
 Flags passed to the handler by the TVLV API:
 
- * TVLV_OGM_FOUND: Signals the handler whether the TVLV container has been found or whether the call was invoked due to the TVLV_OGM_CALL_IFNFOUND flag.
-
+ * BATADV_TVLV_HANDLER_OGM_CIFNOTFND: Signals the handler whether the TVLV container has been found or whether the call was invoked due to the BATADV_TVLV_HANDLER_OGM_CIFNOTFND flag.
 
 h2. TVLV definitions
 
