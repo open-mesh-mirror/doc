@@ -156,7 +156,6 @@ h3. Network coding (also known as catwoman)
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-
 h3. Translation table messages
 
  * tvlv type: 0x04
@@ -172,14 +171,13 @@ h3. Translation table messages
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV 0x04   |    Version     |    Length                    | 
+ |   TVLV 0x04   |    Version    |          Length               | 
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TT Flags   |   TTVN      |             TT CRC                 |
+ |   TT Flags    |     TTVN      |             TT CRC            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   CRC32 checksum                 |
+ |                       CRC32 checksum                          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
-
 
 h2. TVLV definitions (proposal)
 
