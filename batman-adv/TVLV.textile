@@ -43,7 +43,7 @@ h3. Long TVLV
 
 h2. TVLV API
 
-h3. OGM TVLV transmit
+h3. OGM TVLV transmission
 
 To periodically transmit a TVLV container with every Originator Message (OGM) an container_register() call has to be performed. The function takes the TVLV type, version,  length and value as argument and internally stores this information. The aforementioned length handling, the periodic scheduling, etc happens transparently to the caller. The container_register() call also takes care of updates to an existing TVLV type + version container.
  
@@ -58,6 +58,16 @@ To stop transmitting a TVLV type + version container the container_unregister() 
 <pre>
 void batadv_tvlv_container_unregister(struct batadv_priv *bat_priv,
 				                      uint8_t type, uint8_t version);
+</pre>
+
+h3. Unicast TVLV transmission
+
+The API allows to send TVLVs directly to originators in the network (instead of broadcasting the TVLVs with each OGM). The function follows the container register semantics except for requiring a source and destination mac address:
+
+<pre>
+void batadv_tvlv_unicast_send(struct batadv_priv *bat_priv, uint8_t *src,
+			                  uint8_t *dst, uint8_t type, uint8_t version,
+			                  void *tvlv_value, uint16_t tvlv_value_len);
 </pre>
 
 h3. Handle incoming TVLVs
@@ -78,7 +88,7 @@ void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 				                  uint8_t type, uint8_t version, uint8_t flags);
 </pre>
 
-TVLVs can be received through OGM packets and/or unicast TVLV packets. A callback handler for either TVLV type can be specified.
+TVLVs can be received through OGM packets and/or unicast TVLV packets. A callback handler for both TVLV types can be registered.
 
 To remove a handler a handler_unregister() is provided:
 <pre>
