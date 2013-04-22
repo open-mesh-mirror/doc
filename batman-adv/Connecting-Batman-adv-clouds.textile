@@ -1,2 +1,19 @@
 h1. How to Interconnect different Batman-adv clouds (DRAFT)
+
+h2. Overview
+
+* Use case scenario (picture).
+* Need to combine intra and iter-cloud metrics.
+* Use batman-adv over both intra and inter connections to get metric combination for free.
+* Layer-3 routing protocol to exchange metrics
+* Layer-3 routing daemon and DHCP interaction for intra-cloud subnets advertisement
+* GW feature for global route decision
+
 !batman-l2-l3.png!
+
+h2. Layer-2 Anycast
+
+macvlan kernel module
+<pre>
+# ip link add link bat0 name veth0 type macvlan
+</pre>
