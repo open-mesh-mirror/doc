@@ -13,7 +13,15 @@ h2. Overview
 
 h2. Layer-2 Anycast
 
-The macvlan kernel module can be used to create several virtual interfaces on top of an already existent one. These new interfaces can have a user defined MAC address and will not apply any tagging (like a normal VLAN interface would do). This is an example on how to create a virtual interface on top of another one:
+L2 Anycast consists in assignng the same MAC address to two *different* non-mesh clients and in leaving to batman-adv the decision of which one should be contacted.
+Batman-adv will choose the best path towards the client (which looks like being one only since the two hosts have the same MAC address) on a metric basis.
+
+This mechanism works thanks to the Bridge Loop Avoidance II component which allows the same client to be reachable via different originators. The L2 Anycast exploits this feature by placing several non-mesh clients in the network having the same MAC address.
+The result will be again that *batman-adv will try to contact the client behind the best path*.
+
+The macvlan kernel module can be used to create several virtual interfaces on top of an already existing one. The new interfaces can have a user defined MAC address and will not apply any tagging, this way it is possible to create as many non-mesh clients as the user wants on the same node.
+This is an example on how to create a virtual interface on top of another one:
 <pre>
 # ip link add link bat0 name veth0 type macvlan
 </pre>
+
