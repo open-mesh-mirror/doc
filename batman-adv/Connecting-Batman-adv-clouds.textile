@@ -13,7 +13,7 @@ h2. Overview
 
 h2. Layer-2 Anycast
 
-macvlan kernel module
+The macvlan kernel module can be used to create several virtual interfaces on top of an already existent one. These new interfaces can have a user defined MAC address and will not apply any tagging (like a normal VLAN interface would do). This is an example on how to create a virtual interface on top of another one:
 <pre>
 # ip link add link bat0 name veth0 type macvlan
 </pre>
