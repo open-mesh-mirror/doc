@@ -31,7 +31,7 @@ To implement this concept batman-adv needs:
 # a metric injection and combination mechanism
 # a layer3 metric propagation
 
-For 1 we use L2 anycast, new GW tvlv with subnets announcement, TT_GW_FLAG and virtual GW table, possibly DHCP and L3 routing daemon interaction.
+For 1 we use L2 anycast, a particular GW tvlv with subnets announcement, a TT_CLIENT_GW flag, a virtual GW table, possibly DHCP and L3 routing daemon interaction.
 For 2 and 3 we use batman-adv on the external link as well. This give as a metric which can be easily combined into the batman-adv cloud (the metric inside and outside the cloud are the same and can be combined with the classic batman-adv schema).
 
 h2. Layer-2 Anycast
