@@ -10,7 +10,7 @@ Later all this information will be split and reported into the proper pages (e.g
 
 * ELP bandwidth aware
 ** Broadcast message for neighbour discovery (one per interface). [Beacon might be used on wifi interfaces]
-** Unicast message for thgoughput sampling (one per neighbour). This is useful when there is no traffic towards a given neighbor.
+** Unicast message for thgoughput sampling (two per neighbour). This is useful when there is no traffic towards a given neighbor.
 * OGMv2
 ** Broadcast message for metric propagation:
 *** one OGM per interface is sent when the node generates the OGM
@@ -24,6 +24,10 @@ h2. One Hop Throughput Estimation
 * *Unknown/VPN*: 1Mbps (customisable via sysfs)
 * *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
 * *forced by the user*: the user can manually oveeride the throughput estimation and set a fake value for each interface
+
+h2. Metric reception
+
+When an OGM is received the metric towards the originator is computed as the minimum between the value contained into the OGM and the metric of the link where the message has been received from
 
 h2. Metric forwarding
 
