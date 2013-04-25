@@ -2,14 +2,37 @@ h1. How to Interconnect different Batman-adv clouds (DRAFT)
 
 h2. Overview
 
-* Use case scenario (picture).
-* Need to combine intra and iter-cloud metrics.
-* Use batman-adv over both intra and inter connections to get metric combination for free.
-* Layer-3 routing protocol to exchange metrics
-* Layer-3 routing daemon and DHCP interaction for intra-cloud subnets advertisement
-* GW feature for global route decision
+A scenario which is becoming more and more common in mesh deployments is the existance of two or more batman-adv clouds interconnected via Layer3 routing.
+This is a normal consequence of the hierarchy introduced into a network in order to make it scale.
+
+A batman-adv cloud is a set of nodes which are all using batman-adv and so they are all sharing the same broadcast domain (meaning they are all in the same subnet). Many of these clouds can then be interconnected by means of Layer3 gateways which do usualy run a different routing protocol aimed to find the best Layer3 path between the source and the destination cloud.
+
+A very common situation can be the one depicted in the following picture, where one cloud may have more than one Layer3 exit point with different costs towards the final destination.
 
 !batman-l2-l3.png!
+
+Node A and B are the two possible exit points from cloud1 towards cloud2, while D and E are the two cloud2 entry points. In the normal "Gateway":http://www.open-mesh.org/projects/batman-adv/wiki/Gateways scenario batman-adv would choose the gateway which is reachable through the path with the Best TQ. In the picture node C would choose A because the TQ towards it is 90%25 while towards B it is 80%25. This seems to be the best choice because this way batman-adv is minimizing the probability of packet loss till the gateway, but it is not considering the rest of the path behind it towards the real destination: cloud2.
+
+Looking at the scenario with more attention it is possible to understand that choosing B as exit point is better because the resulting overall qualities are the following:
+* C -> A -> D : TQ = 90%25 * 50%25 = 45%25
+* C -> B -> E : TQ = 80%25 * 100%25 = 80%25
+
+Given these results it is possible to understand that the best local choice (node A) would result in a worse overall path towards cloud2.
+This conclusion lead to the problem that the local available information in a batman-adv cloud is not enough to make a proper decision at the source (node C).
+
+h2. The idea
+
+Injecting into the batman-adv cloud information about the external links can result in the possibility for any batman-adv node to compute the overall metric towards the selected destination (e.g. cloud2) and so to choose the "real best" exit point .
+
+Imagine that in the scenario shown in the previous picture node C knows about the TQ between A and D and between B and E: it would have chosen node B because it minimize the *overall* packet loss towards its destination (cloud2).
+
+To implement this concept batman-adv needs:
+# a smart gateway selection
+# a metric injection and combination mechanism
+# a layer3 metric propagation
+
+For 1 we use L2 anycast, new GW tvlv with subnets announcement, TT_GW_FLAG and virtual GW table, possibly DHCP and L3 routing daemon interaction.
+For 2 and 3 we use batman-adv on the external link as well. This give as a metric which can be easily combined into the batman-adv cloud (the metric inside and outside the cloud are the same and can be combined with the classic batman-adv schema).
 
 h2. Layer-2 Anycast
 
@@ -25,3 +48,6 @@ This is an example on how to create a virtual interface on top of another one:
 # ip link add link bat0 name veth0 type macvlan
 </pre>
 
+h2. Smart Gateway Selection
+
+Once the Layer2 Anycast has been settled each batman-adv node needs to know which are the external costs to be able to choose the "overall best" exit point. To do so batman-adv uses a new GW advertisement message which will contain the destination subnet, the MAC address used by the GWs and the cost towards the destination.
