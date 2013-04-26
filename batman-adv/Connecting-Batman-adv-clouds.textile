@@ -48,6 +48,6 @@ This is an example on how to create a virtual interface on top of another one:
 # ip link add link bat0 name veth0 type macvlan
 </pre>
 
-h2. Smart Gateway Selection
+h2. Border Gateway Selection
 
 Once the Layer2 Anycast has been settled each batman-adv node needs to know which are the external costs to be able to choose the "overall best" exit point. To do so batman-adv uses a new GW advertisement message which will contain the destination subnet, the MAC address used by the GWs and the cost towards the destination.
