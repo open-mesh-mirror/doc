@@ -27,7 +27,7 @@ Injecting into the batman-adv cloud information about the external links can res
 Imagine that in the scenario shown in the previous picture node C knows about the TQ between A and D and between B and E: it would have chosen node B because it minimize the *overall* packet loss towards its destination (cloud2).
 
 To implement this concept batman-adv needs:
-# a smart gateway selection
+# a border gateway selection
 # a metric injection and combination mechanism
 # a layer3 metric propagation
 
