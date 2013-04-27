@@ -48,12 +48,24 @@ This is an example on how to create a virtual interface on top of another one:
 # ip link add link bat0 name veth0 type macvlan
 </pre>
 
-h2. Border Gateway Selection
+h2. Border Gateway Advertisement
 
-Once the Layer2 Anycast has been settled each batman-adv node needs to know which are the external costs to be able to choose the "overall best" exit point. To do so batman-adv uses a new GW advertisement message which will contain the destination subnet, the MAC address used by the GWs and the cost towards the destination.
+Once the Layer2 Anycast has been settled each batman-adv node needs to know which are the external costs to be able to choose the "overall best" exit point. To do so batman-adv uses a new GW advertisement message which will contain the destination subnet, the MAC address used by the GWs and the cost towards the destination. This information is encapsulated in a proper TVLV, the *Border GW TVLV*.
+
+Each border gateway sends *one Border GW TVLV per subnet* that it can reach via Layer3. The TVLVs are appended to the OGMs as already done for other capabilities, so that each node in the network can acquire such information.
 
 In a few words, whenever batman-adv wants to reach the MAC address used by a border GW (so a MAC address announced via the new GW advertisement) instead of running the normal BLA2 selection routine (which would choose the best originator serving that MAC address) a particular table containing the external cost to reach the associated subnet (there is a 1-to-1 relation between a GW-MAC and a subnet) via each *border-originator* is accessed so that batman-adv can select the node which minimizes the cost of the overall path. Such cost is given by the combination of the TQ towards the selected originator and the cost of the external link towards the subnet via such node.
 
-h3. New GW Advertisement
+h3. MAC Generation
 
-A first consequence of this mechanism is that each border gateway which is able to route packets towards a given subnet, say S1, has to create a client configured with a MAC address which has to be the same on all the gws. Such MAC address can be computed using a function so that, given S1, Func(S1) gives the same result on all the nodes. It is also important that, given two subnets S1 and S2, Func(S1) is different from Func(S2), therefore Func must be built on top of a robust hash.
+A first consequence of this mechanism is that each border gateway which is able to route packets towards a given subnet has to create a client configured with a MAC address which has to be the same on all the gws. A client can be created as a virtual interface on top of the canonical bat0: to do this the administrator can use the _macvlan module_ as explained in the Layer2 Anycast section above.
+
+The MAC address to assign to the virtual interface can be computed by a function _SubMAC(Subnet)_ so that, given a subnet S1, SubMAC(S1) gives the same result on all the nodes. It is also important that, given two subnets S1 and S2, SubMAC(S1) is different from SubMAC(S2) for every pair S1 - S2, therefore SubMAC must be built on top of a robust hash.
+
+*Example function*:
+
+SubMAC(a.b.c.d/x) = 02:HEX(x):HEX(a):HEX(b):HEX(c):HEX(d)
+
+Setting the second LSB in the first octect of the MAC to 1 (meaning Locally administered address) should ensure that no standard client device should have such MAC address (unless manually configured).
+
+TODO: what about aggregation? if a border GW aggregate and another does not, we end up with different MAC addresses and the L2 anycast won't work anymore...
