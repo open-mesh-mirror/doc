@@ -53,3 +53,7 @@ h2. Border Gateway Selection
 Once the Layer2 Anycast has been settled each batman-adv node needs to know which are the external costs to be able to choose the "overall best" exit point. To do so batman-adv uses a new GW advertisement message which will contain the destination subnet, the MAC address used by the GWs and the cost towards the destination.
 
 In a few words, whenever batman-adv wants to reach the MAC address used by a border GW (so a MAC address announced via the new GW advertisement) instead of running the normal BLA2 selection routine (which would choose the best originator serving that MAC address) a particular table containing the external cost to reach the associated subnet (there is a 1-to-1 relation between a GW-MAC and a subnet) via each *border-originator* is accessed so that batman-adv can select the node which minimizes the cost of the overall path. Such cost is given by the combination of the TQ towards the selected originator and the cost of the external link towards the subnet via such node.
+
+h3. New GW Advertisement
+
+A first consequence of this mechanism is that each border gateway which is able to route packets towards a given subnet, say S1, has to create a client configured with a MAC address which has to be the same on all the gws. Such MAC address can be computed using a function so that, given S1, Func(S1) gives the same result on all the nodes. It is also important that, given two subnets S1 and S2, Func(S1) is different from Func(S2), therefore Func must be built on top of a robust hash.
