@@ -163,6 +163,26 @@ Distributed ARP Table (bat0):
  *     172.100.0.1 92:9d:f4:e3:54:40      0:30
 </pre>
 
+h3. Network coding - potential coding neighbor table
+
+This table is part of the [[NetworkCoding|network coding]] code and contains all detected incoming and outgoing network coding possibilities.
+TODO: explain the meaning of entries - how do they get there and what will the code do when they are listed ??
+
+<pre>
+<Node: originator mac address>
+   <Ingoing: mac address of ???>
+   <Outgoing: mac address of ???>
+</pre>
+
+For example:
+
+<pre>
+cat /sys/kernel/debug/batman_adv/bat0/nc_nodes 
+Node:      fe:fe:00:00:02:01
+ Ingoing:  fe:fe:00:00:02:01 
+ Outgoing: fe:fe:00:00:02:01
+</pre>
+
 h2. ICMP
 
 
