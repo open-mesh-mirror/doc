@@ -40,7 +40,6 @@ To deactivate an interface you have  to  write  "none"  into  its "mesh_iface" f
 echo none > /sys/class/net/eth0/batman_adv/mesh_iface
 </pre>
 
-
 h2. Mesh cloud handling
 
 
@@ -49,10 +48,10 @@ After having added interfaces to a mesh cloud, batman-adv automatically creates 
 <pre>
 ls  /sys/class/net/bat0/mesh/
 aggregated_ogms        fragmentation          log_level
-ap_isolation           gw_bandwidth           orig_interval
-bonding                gw_mode                routing_algo
-bridge_loop_avoidance  gw_sel_class           vis_mode
-distributed_arp_table  hop_penalty
+ap_isolation           gw_bandwidth           network_coding
+bonding                gw_mode                orig_interval
+bridge_loop_avoidance  gw_sel_class           routing_algo
+distributed_arp_table  hop_penalty            vis_mode
 </pre>
 
 h3. aggregate originator messages
