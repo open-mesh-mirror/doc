@@ -63,8 +63,9 @@ A first consequence of this mechanism is that each border gateway which is able 
 The MAC address to assign to the virtual interface can be computed by a function _SubMAC(Subnet)_ so that, given a subnet S1, SubMAC(S1) gives the same result on all the nodes. It is also important that, given two subnets S1 and S2, SubMAC(S1) is different from SubMAC(S2) for every pair S1 - S2, therefore SubMAC must be built on top of a robust hash.
 
 *Example function*:
-
+<pre>
 SubMAC(a.b.c.d/x) = 02:HEX(x):HEX(a):HEX(b):HEX(c):HEX(d)
+</pre>
 
 Setting the second LSB in the first octect of the MAC to 1 (meaning Locally administered address) should ensure that no standard client device should have such MAC address (unless manually configured).
 
