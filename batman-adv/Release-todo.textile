@@ -26,7 +26,7 @@ h2. Code
 * [x] check against kernel versions
 * [x] check that maint branch is merged in next
 * [x] check for open patches on the ml
-* [ ] git tag release
+* [x] git tag release
 
 h2. Release
 
