@@ -1,8 +1,5 @@
 h1. Packet-types
 
-??This page is work-in-progress and will be part of the new BATMAN V algorithm later??
-??The content of this page is a suggestion and may change without further notice??
-
 h2. Introduction
 
 One point critized during the development of batman-adv was that the compatibility version has been increased with each change in the protocol - this field did not ensure backward-compatibility, but made sure that only nodes with the same compatibility version would mesh with each other. 
@@ -10,71 +7,27 @@ One point critized during the development of batman-adv was that the compatibili
 To allow real backward compatibility and make sure that no updates on other nodes have to be done when a new feature is added in batman-adv, a new extensible packet format is necessary.
 
 This approach consists of two parts: 
- 1. Allow extensions for OGMs, the main routing and information packet format of batman-adv
+ 1. Define a general container format (TVLV - type version length value) for extensions of OGMs and direct transmissions (unicast to others). See the [[TVLV]] page for details.
  2. Classify further packet types to make adding new packet types easier
 
-h2. Adding extensions to the OGMs
+The combination of these two features allow us to keep the compatibility number at the same level and add or change certain features while maintaining overall compatibility in the network.
 
-As the main batman-adv packet type, the OGMs transport routing information as well as capability or additional information of the node.
+h2. TVLV extension
 
-Therefore, the OGM will be split into two parts:
+See the [[TVLV]] subpage for further information.
 
- * Routing part, which is only needed for routing
- * Information part, which includes information of the node such as TT changes, gateway information, vis information, ...
+h2. Common packet format
 
-The idea is to be able to split the routing part from the information part. The information part of an OGM may then be replaced with another, more up to date information part of another OGM.
+Many packet types in batman-adv are sent as unicast packets and rely on the routes chosen by the underlying routing capabilities of batman-adv. As many packet types added later still use the same basic routing (e.g. an ICMP packet is using unicast transport), it could be handled by an older, non-compatible node. This old node does not need to know how to handle the content, it is enough that it can forward the packet. However, it must be made sure that the destination finally is capable of understanding the new content.
 
-The Information Part will not have a static structure, but will consist of TLVs (Type Length Value) fields, which contain the information for corresponding subsystem. Each TLV consists of:
+Therefore the packet type assignments have been changed according to the following sections:
 
- * (1 byte) Type: The type of information. We may add additional types later
- * (1 byte) Length: Number of bytes we transport within this TLV 
- * ($Length byte): The actual information for this bit
+|0x00 - 0x3f|special packets| These packets have their own rules to be (re)forwarded and can not be handled in general. Examples: BATMAN IV OGMs, BATMAN V packets, Broadcasts, Network coding packets|
+|0x40 - 0x7f|unicast packets| Unicast packets are sent via the routes established by batman-adv. Examples: unicast, unicast_frag, unicast 4addr, tvlv unicast, icmp|
+|0x80 - 0xff|reserved| |
 
-TLVs which we have so far:
+All packets within the unicast class share a common header: This includes packet type, version, TTL, destination.
 
- * Gateway Information: Announce the Gateway. If this TLV is not present, this node is no gateway
- * TT Information: Information about the latest TT diff
- * VIS Information: Have this field if the node is a vis server (length = 0)
- * Capabilities: Announce the hosts Capabilities with a bit field (for later extension, e.g. to announce network coding, multicast capability, ...)
+If a new feature XY is added which uses unicast capabilities, it will get assigned a packet type number within the unicast class (say 0x37). An "old" node will not know how to interpret the new feature, but it can easily forward the packet as the routing information (destination, TTL, ...) is shared.
 
-h3. OGM packet type:
-
-<pre>
- 0                   1                   2                   3
- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  Packet Type  |    Version    |     TTL       |     TQ        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                       Sequence Number                         |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                          Interval                             |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                     Originator Address                        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |      Originator Address       |    ...
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-
-h2. Basic Packet Format
-
-As most packet types in batman-adv use the basic routing capabilities of batman-adv in a way, we can classify them in groups. As most packet types added later still use the basic routing (e.g. an Roaming-adv packet is using unicast transport), it may be added to the unicast packet types and can still be forwarded by an older, non-compatible node. The "old" node does not know how to handle the content, it is enough that it can forward the packet. However, it must be made sure that the destination finally is capable of understanding the new content.
-
-The packet types as known so far can therefore be classified in the following sections:
-
- * (00) local broadcasts: Is only emitted by one node and not further sent. Examples: ELP, (maybe network coding packets?)
- * (01) global broadcasts: Is flooded through the whole mesh, using a sequence number mechanism. Examples: Broadcasts, OGMs
- * (10) unicast: Unicast packets are sent via the routes established by batman-adv. Examples: unicast, unicast_frag, tt_query, icmp, roam_adv, vis
- * (11) multicast: Multicast packets (this must be refined later). Examples: Tracker packets, multicast data.
-
-All packets within one class share the same routing information (TODO: describe this). For example, unicast packets will include ttl, ttvn and destination, or broadcast packets will include a sequence number, ttl and originator address.
-
-Packet types are prefixed according their class. For example, unicast packets have "10" as their most significant bits. The packets within one class get their own packet type numbers assigned, e.g.:
-
- * 128 - unicast
- * 129 - unicast_frag
- * 130 - tt_query
- * 131 - ICMP
- ....
-
-If a new feature XY is added which uses unicast capabilities, it will get assigned a packet type number within the unicast class (say 142). An "old" node will not know how to interpret the new feature, but it can easily forward the packet as the routing information (destination, ttvn, TTL, ...) is shared.
+NOTE: Previous ideas to do the same for broadcast packets have been dropped. There is currently only broadcast payload packets itself which would use this feature, but it would require to handle more state (sequence number tracking etc) for each packet type. If required, the reserved packet type block (0x80-0xff) can be used later for such purposes.
