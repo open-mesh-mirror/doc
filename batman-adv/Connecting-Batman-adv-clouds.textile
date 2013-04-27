@@ -54,7 +54,9 @@ Once the Layer2 Anycast has been settled each batman-adv node needs to know whic
 
 Each border gateway sends *one Border GW TVLV per subnet* that it can reach via Layer3. The TVLVs are appended to the OGMs as already done for other capabilities, so that each node in the network can acquire such information.
 
-In a few words, whenever batman-adv wants to reach the MAC address used by a border GW (so a MAC address announced via the new GW advertisement) instead of running the normal BLA2 selection routine (which would choose the best originator serving that MAC address) a particular table containing the external cost to reach the associated subnet (there is a 1-to-1 relation between a GW-MAC and a subnet) via each *border-originator* is accessed so that batman-adv can select the node which minimizes the cost of the overall path. Such cost is given by the combination of the TQ towards the selected originator and the cost of the external link towards the subnet via such node.
+All the information stored in the TVLV are stored in proper internal structures, in particular the MAC address is added to the Global Translation Table and marked with the TT_CLIENT_GW flag, while the cost to reach the network is appended to a Border GW table, specific for this subnet, where each entry represents a different GW with its own L3 cost.
+
+This information is used by the selection mechanism explained later.
 
 h3. MAC Generation
 
@@ -62,9 +64,30 @@ A first consequence of this mechanism is that each border gateway which is able 
 
 The MAC address to assign to the virtual interface can be computed by a function _SubMAC(Subnet)_ so that, given a subnet S1, SubMAC(S1) gives the same result on all the nodes. It is also important that, given two subnets S1 and S2, SubMAC(S1) is different from SubMAC(S2) for every pair S1 - S2, therefore SubMAC must be built on top of a robust hash.
 
-*Example function*:
+*Example function for MAC generation*:
 <pre>
 SubMAC(a.b.c.d/x) = 02:HEX(x):HEX(a):HEX(b):HEX(c):HEX(d)
 </pre>
 
 Setting the second LSB in the first octect of the MAC to 1 (meaning Locally administered address) should ensure that no standard client device should have such MAC address (unless manually configured).
+
+However, this is not really important from the batman-adv point of view, because it only needs that all the border GW routing traffic towards a given network share the same MAC.
+
+h2. Border Gateway Selection
+
+h3. Assumption: Route installation
+
+For each external subnet reachable by a batman-adv cloud, there must be a unique IP which has to be used as GW by all the clients to route traffic towards such network.
+This unique IP is used by the Anycast setup, therefore each border GW able to route traffic towards the given subnet must use *the same couple IP:MAC* (L3/L2 Anycast). This means that, whatever the number of border GW, the clients will install only one route per network.
+
+h3. Mechanism
+
+A client willing to contact an host in a subnet different than its own tries to send its traffic to the GW defined in its routing table for that network. Given the assumpion explained above, the client gets the anycast IP from its routing table, converts it to a MAC using ARP, prepares the Ethernet frame using the latter address as destination and passes the packet to batman-adv.
+
+Batman-adv at this point queries its Translation Table to get the address of the originator serving the destination client. In this case, thanks to the Anycast setup, there are more than one matching originator and therefore a decision must be taken.
+
+As explained in the Anycast section, this situation is not new to batman-adv because when two or more nodes are connected through a batckbone LAN there are always shared clients reachable via all of them and this scenario is supported since the integration of the Bridge Loop Avoidance 2. In this case the best path is preferred and the orignator with the highest TQ is chosen as destination in the mesh.
+
+Instead in this scenario the Translation Table knows that the client that batman-adv matches the MAC address of a border GW and therefore, instead of choosing the originator with the highest TQ, choses the originator which maximises the "overall path quality" towards the destination subnet. This is possible because for each MAC address there is exactly one announced subnet and therefore the function in charge of picking the originator can look at the advertised costs (information that the local node got thanks to the Border GW TVLV) by each border GW and return the best.
+
+The traffic is then routed to the chosen border Gateway and it will forward its over its external link.
