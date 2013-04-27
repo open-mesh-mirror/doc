@@ -68,5 +68,3 @@ SubMAC(a.b.c.d/x) = 02:HEX(x):HEX(a):HEX(b):HEX(c):HEX(d)
 </pre>
 
 Setting the second LSB in the first octect of the MAC to 1 (meaning Locally administered address) should ensure that no standard client device should have such MAC address (unless manually configured).
-
-TODO: what about aggregation? if a border GW aggregate and another does not, we end up with different MAC addresses and the L2 anycast won't work anymore...
