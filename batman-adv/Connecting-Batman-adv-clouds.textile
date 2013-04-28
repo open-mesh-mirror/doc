@@ -88,6 +88,15 @@ Batman-adv at this point queries its Translation Table to get the address of the
 
 As explained in the Anycast section, this situation is not new to batman-adv because when two or more nodes are connected through a batckbone LAN there are always shared clients reachable via all of them and this scenario is supported since the integration of the Bridge Loop Avoidance 2. In this case the best path is preferred and the orignator with the highest TQ is chosen as destination in the mesh.
 
-Instead in this scenario the Translation Table knows that the client that batman-adv matches the MAC address of a border GW and therefore, instead of choosing the originator with the highest TQ, choses the originator which maximises the "overall path quality" towards the destination subnet. This is possible because for each MAC address there is exactly one announced subnet and therefore the function in charge of picking the originator can look at the advertised costs (information that the local node got thanks to the Border GW TVLV) by each border GW and return the best.
+Instead in this scenario the Translation Table knows that the client that batman-adv matches the MAC address of a border GW and therefore, instead of choosing the originator with the highest TQ, choses the originator which maximises the "overall path quality" towards the destination subnet by *combining the TQ towards the GW and the cost towards the other network*. This is possible because for each MAC address there is exactly one announced subnet and therefore the function in charge of picking the originator can look at the advertised costs (information that the local node got thanks to the Border GW TVLV) by each border GW and return the best.
 
 The traffic is then routed to the chosen border Gateway and it will forward its over its external link.
+
+h2. Layer3 metric combination
+
+As explained in the section before, a node willing to choose one of the available border gateways has to combine the TQ towards the GW with the cost from the GW to the network to be contacted.
+This is not trivial since the semantic of the metric used by the L3 protocol might be totally different from the TQ.
+
+To help in this direction the solution proposed here consists in *using batman-adv on each external link* connecting the border GW to any other node/network. This means that another instance of batman-adv can compute the TQ for those links. This information is then passed to the L3 routing protocol by means of a plugin so that it can use the TQ as its own metric (and possibly combine it with the TQ of all the links traversed between 2 different clouds).
+
+At this point another plugin/script should push into batman-adv the information gathered by the L3 routing daemon (subnet - TQ) and so create the different Border GW TVLVs.
