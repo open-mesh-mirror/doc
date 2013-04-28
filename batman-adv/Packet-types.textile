@@ -28,6 +28,6 @@ Therefore the packet type assignments have been changed according to the followi
 
 All packets within the unicast class share a common header: This includes packet type, version, TTL, destination.
 
-If a new feature XY is added which uses unicast capabilities, it will get assigned a packet type number within the unicast class (say 0x37). An "old" node will not know how to interpret the new feature, but it can easily forward the packet as the routing information (destination, TTL, ...) is shared.
+If a new feature XY is added which uses unicast capabilities, it will get assigned a packet type number within the unicast class (say 0x47). An "old" node will not know how to interpret the new feature, but it can easily forward the packet as the routing information (destination, TTL, ...) is shared.
 
 NOTE: Previous ideas to do the same for broadcast packets have been dropped. There is currently only broadcast payload packets itself which would use this feature, but it would require to handle more state (sequence number tracking etc) for each packet type. If required, the reserved packet type block (0x80-0xff) can be used later for such purposes.
