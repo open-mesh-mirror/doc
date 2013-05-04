@@ -23,7 +23,7 @@ h2. One Hop Throughput Estimation
 * *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN). Not yet implemented
 * *Unknown/VPN*: 1Mbps (customisable via sysfs)
 * *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
-* *forced by the user*: the user can manually oveeride the throughput estimation and set a fake value for each interface
+* *forced by the user*: the user can manually override the throughput estimation and set a fake value for each interface
 
 h2. Metric reception
 
