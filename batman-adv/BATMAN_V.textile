@@ -19,11 +19,11 @@ Later all this information will be split and reported into the proper pages (e.g
 
 h2. One Hop Throughput Estimation
 
-* *wireless*: maximum throughput from RC algorithm (API implemented for minstrel and minstrel_ht - not yet upstream).
-* *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN). Not yet implemented
+* *wireless*: estimated datarate. For details read at the top of this page.
+* *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN).
 * *Unknown/VPN*: 1Mbps (customisable via sysfs)
 * *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
-* *forced by the user*: the user can manually override the throughput estimation and set a fake value for each interface
+* *forced by the user*: the user can manually override the throughput estimation and set a fake value for each *interface*
 
 h2. Metric reception
 
@@ -34,5 +34,3 @@ h2. Metric forwarding
 When forwarding an OGM the metric is decremented as follows:
 * new_metric = metric / 2 (if incoming interface is half-duplex
 * new_metric = metric * (1 - hop_penalty) otherwise
-
-An interface is considered half-duplex if it is a common wifi interface or if ethtool reported that
