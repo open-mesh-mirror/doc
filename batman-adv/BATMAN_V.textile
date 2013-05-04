@@ -1,6 +1,6 @@
 h1. B.A.T.M.A.N. V (DRAFT)
 
-*Metric:* Estimated throughput (from RC algorithm for wireless devices)
+*Metric:* Estimated throughput (from RC algorithm for wireless devices). At the moment the used metric is the *current bitrate multiplied for the probability of success*. In the beginning the throughput directly estimated by the RC algorithm has been tested but it turned out to be too unstable for this purpose.
 *Neighbour Discovery:* [[ELP|ELP (Echo Locating Protocol)]]
 *Path Metric Computation:* [[Ogm-v2|OGMv2]]
 
