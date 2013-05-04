@@ -32,5 +32,7 @@ When an OGM is received the metric towards the originator is computed as the min
 h2. Metric forwarding
 
 When forwarding an OGM the metric is decremented as follows:
-* new_metric = metric / 2 (if incoming interface is wifi/half-duplex - half-duplex recognition not yet implemented)
+* new_metric = metric / 2 (if incoming interface is half-duplex
 * new_metric = metric * (1 - hop_penalty) otherwise
+
+An interface is considered half-duplex if it is a common wifi interface or if ethtool reported that
