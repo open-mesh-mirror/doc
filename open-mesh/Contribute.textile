@@ -13,12 +13,14 @@ h2. Reporting Bugs
 If you find a bug, please see if the problem is already known in the by Reading the Tickets:
 * for "batman-adv":http://www.open-mesh.org/projects/batman-adv/issues
 * for "batctl":http://www.open-mesh.org/projects/batctl/issues
+* for "alfred":http://www.open-mesh.org/projects/alfred/issues
 * for "batmand":http://www.open-mesh.org/projects/batmand/issues
 * for "vis":http://www.open-mesh.org/projects/vis/issues
 
 If not, please add a new Ticket:
 * for "batman-adv":http://www.open-mesh.org/projects/batman-adv/issues/new
 * for "batctl":http://www.open-mesh.org/projects/batctl/issues/new
+* for "alfred":http://www.open-mesh.org/projects/alfred/issues/new
 * for "batmand":http://www.open-mesh.org/projects/batmand/issues/new
 * for "vis":http://www.open-mesh.org/projects/vis/issues/new
 
