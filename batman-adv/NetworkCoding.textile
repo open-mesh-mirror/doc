@@ -3,6 +3,7 @@ h1. NetworkCoding
 Network Coding can enable a relay node to combine two packets into a single transmission, thus saving airtime. To make receivers able to decode a network coded packet, it must know one of the two combined packets. This is obtained by buffering own transmissions as well as packets overheard in promiscuous mode. Relays detects when neighbors should be able to overhear each other and tries to only code packets towards destinations that should be able to decode.
 
 An often used example of network coding is the X-topology, where two sets of nodes communicate through the same relay:
+p=. Center 
 !x_nc.png!
 
 Here Node C and Node D both receive the same network coded packet, and they both use the overheard packet (from Node A and Node B, respectively) to decode the received packet.
