@@ -1,0 +1,3 @@
+h1. Extended-isolation
+
+This feature wants to be a generalisation of the already existing [[AP-isolation]].
