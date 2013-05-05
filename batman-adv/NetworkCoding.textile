@@ -13,6 +13,10 @@ For network coding to work, it is required to have an enabled and working promis
 
 To enable network coding, enable it a compile time (consult "the README.external file":http://www.open-mesh.org/projects/batman-adv/repository/revisions/master/entry/README.external to learn how to set the compile option). It can be disabled at runtime with batctl or in sysfs:
 <pre>
-batctl nc 0
-echo 0 > /sys/class/net/bat0/mesh/network_coding
+# batctl nc 0
+# echo 0 > /sys/class/net/bat0/mesh/network_coding
 </pre>
+
+h3. Further Reading
+
+More details about the technical workings and implementation of network coding can be found [[NetworkCoding-technical|here]]. A master thesis behind the work is also "available":http://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf as well as a "paper":http://vbn.aau.dk/da/publications/catwoman(214ee21a-e786-495d-85c9-3efac4718ead).html on the subject.
