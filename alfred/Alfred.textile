@@ -30,8 +30,8 @@ There is also a packet feed for OpenWRT available for alfred:
 
 2. Update and install the feed:
 
-   scripts/feeds update
-   scripts/feeds install alfred
+ ./scripts/feeds update
+./scripts/feeds install alfred
 
 3. Run "make menuconfig" and select alfred (available under "Network  --->")
 
