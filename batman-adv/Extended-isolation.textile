@@ -1,6 +1,6 @@
 h1. Extended-isolation
 
-This feature wants to be a generalisation of the already existing [[AP-isolation]].
+This feature wants to be a generalisation of the already existing [[AP-isolation]]. Extended-isolation will replace the old feature but at the same time will be backward compatible.
 
 The idea is to not only let batman-adv drop any wirelsss-to-wireless traffic, but also to make the host system aware of what packet is coming from an "isolated" client so that the host itself can make a decision.
 This aspect helps to solve two problems:
