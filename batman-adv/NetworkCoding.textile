@@ -11,7 +11,8 @@ h3. Requirements
 
 For network coding to work, it is required to have an enabled and working promiscuous mode on all nodes, as promiscuity is used to both overhear packets an receive network coded packets. Be aware that many wireless devices has non-working promiscuous mode, so some testing might be required.
 
-To enable network coding, enable it a compile time (consult "the README.external file":http://www.open-mesh.org/projects/batman-adv/repository/revisions/master/entry/README.external to learn how to set the compile option). It can be disabled at runtime in sysfs:
+To enable network coding, enable it a compile time (consult "the README.external file":http://www.open-mesh.org/projects/batman-adv/repository/revisions/master/entry/README.external to learn how to set the compile option). It can be disabled at runtime with batctl or in sysfs:
 <pre>
-echo 0 > /sys/class/net/bat0/mesh/log_level 
+batctl nc 0
+echo 0 > /sys/class/net/bat0/mesh/network_coding
 </pre>
