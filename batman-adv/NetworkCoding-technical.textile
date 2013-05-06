@@ -68,7 +68,25 @@ When the needed packet is located, its data is XOR'ed with the network coded pac
 
 h2. Packet Format
 
+The header of a coded packet is rather large, as it has to carry the information needed to identify the packet needed to decode and restore the headers of the two decoded unicast packets:
+
 <pre>
+struct batadv_coded_packet {
+	struct batadv_header header;
+	uint8_t  first_ttvn;
+	/* uint8_t  first_dest[ETH_ALEN]; - saved in mac header destination */
+	uint8_t  first_source[ETH_ALEN];
+	uint8_t  first_orig_dest[ETH_ALEN];
+	__be32   first_crc;
+	uint8_t  second_ttl;
+	uint8_t  second_ttvn;
+	uint8_t  second_dest[ETH_ALEN];
+	uint8_t  second_source[ETH_ALEN];
+	uint8_t  second_orig_dest[ETH_ALEN];
+	__be32   second_crc;
+	__be16   coded_len;
+};
+
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
