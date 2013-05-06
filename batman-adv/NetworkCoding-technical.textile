@@ -122,6 +122,7 @@ To identify the packet needed to decode the network coded packet, the receiver m
 
 After identifying the right packet and decoding, the receiver reconstructs the original unicast header with the fields from the network coded header. E.g. mac_dest, mac_src, ttl, ttvn, orig_dest.
 
+The field coded_len is needed when the packets of different length is network coded, as only a part of the resulting packet will actually be coded. The coded_len field tells the receiver the length of the shortest combined packet, as the receiver of this only knows the length of the longer packet.
 
 h2. Todo
 
