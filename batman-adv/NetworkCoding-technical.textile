@@ -58,7 +58,6 @@ h3. 4. Save overheard and transmitted packets
 
 To be able to decode network coded packets, a node must possess one part of the coded packet. This is achieved by buffering both packets originating at the node and packets overheard by the node. The buffer is structured in the same way as the forward buffer in step 2, which makes is fast to search for decoding packets. To overhear packets from other nodes, the wireless interface must be put in promiscuous mode.
 
-
 h3. 5. Receive and decode network coded packets
 
 To transmit a network coded packet to two destinations, the address of the additional receiver is put the batman-adv header, and thus this receiver is required to use promiscuous mode. Furthermore, the header contains information needed to identify the id of the original packets contained in the network coded packet.
@@ -66,6 +65,8 @@ To transmit a network coded packet to two destinations, the address of the addit
 To identify the packet needed to decode, the receiver uses the source of the network coded packet, and a field in the header with the address of the sender of the original packet. These addresses are used to create a src-dst pair, which is used to locate the correct entry in the hash table, in which the packet list is searched for a matching CRC, which is also given in the header of the network coded packet.
 
 When the needed packet is located, its data is XOR'ed with the network coded packet, and the original unicast header is restored so that it can be processed as usual by batman-adv.
+
+h2. Packet Format
 
 h2. Todo
 
