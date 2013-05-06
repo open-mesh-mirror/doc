@@ -3,14 +3,17 @@ h1. NetworkCoding
 Network Coding can enable a relay node to combine two packets into a single transmission, thus saving airtime. To make receivers able to decode a network coded packet, it must know one of the two combined packets. This is obtained by buffering own transmissions as well as packets overheard in promiscuous mode. Relays detects when neighbors should be able to overhear each other and tries to only code packets towards destinations that should be able to decode.
 
 The most common and simplest example of network coding requires a 3 node setup. In the example illustrated below, the repeater R can save one transmission by sending the combined messages of A and B. A and B can calculate the message they want to receive by subtracting their own sent message.
+
 !alice_bob_coding.jpg!
 
 Another support scenario in which network coding can help to save air time is the X-topology, where two sets of nodes communicate through the same relay:
+
 !x_nc.png!
 
 Here Node C and Node D both receive the same network coded packet, and they both use the overheard packet (from Node A and Node B, respectively) to decode the received packet. 
 
 In certain scenarios (e.g. heavy load traffic intersects at a relay), Network Coding can give up to 1.6 times gain in total throughput. Under less load, the relay might hold back packets up to 10 ms before forwarding these, as it tries to get packets to combine. The following graphs illustrates the throughput in kb/s with and without network coding (blue and green line respectively) as well as the throughput gain (red line) achieved by network coding on a chain of 3 routers (example 1) with clients attached to each end:
+
 !nc_gain.png!
 
 h3. Requirements
