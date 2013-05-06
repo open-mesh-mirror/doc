@@ -75,12 +75,3 @@ There are few ideas that could make the implementation of network coding perform
 * Hold back packets only if the network is congested.
 * Determine allowed holding times based on the tick time of the system.
 * Support fragmented unicast packets.
-
-h2. Ideas
-
-* Send coded packets containing redundant packets to improve reliability.
-* Support the cross topology where more than two destinations are coded.
-* Implement Random Linear Network Coding (RLNC) on packets from the same flow, also to improve reliability.
-* -Use checksums instead of packet_id's to identify decoding packets.-
-* Implement a "catwoman-support"-flag in OGM to allow mixing of nodes with and without catwoman enabled.
-* -Refactor function names and variables to cw_* (or nc_*) instead of catwoman_* and coding_*.-
