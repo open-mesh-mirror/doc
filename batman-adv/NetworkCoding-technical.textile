@@ -67,21 +67,14 @@ To identify the packet needed to decode, the receiver uses the source of the net
 
 When the needed packet is located, its data is XOR'ed with the network coded packet, and the original unicast header is restored so that it can be processed as usual by batman-adv.
 
+h2. Todo
 
-h2. Required Work
-
-To make the implementation of catwoman complete, the following features must be implemented:
-* -Remove outdated nodes from the list of coding neighbors periodically.-
-* Support fragmented unicast packets.
-* -Use the link quality of overhearing links when looking for coding opportunities.-
-* -Support configuration with batctl.-
-* -Use bat_dbg instead of printk.-
+There are few ideas that could make the implementation of network coding perform even better:
 * Support setups with multiple interfaces. (Need to make sure that nc_nodes are on the same interface.)
-* -Maintain ref-counters for struct orig_node.-
-* -Refactor code into three files: catwoman.c, coding.c, and decoding.c-
-* -Remove nc_path after a certain timeout.-
+* Configure interfaces to promiscuous mode automatically.
+* Hold back packets only if the network is congested.
 * Determine allowed holding times based on the tick time of the system.
-* -Collect nc-related members of bat_priv in a nc-struct.-
+* Support fragmented unicast packets.
 
 h2. Ideas
 
