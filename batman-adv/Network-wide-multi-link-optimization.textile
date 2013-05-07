@@ -34,3 +34,7 @@ We consider all link qualities equal. What should happen according to the rules 
  * therefore, As OGM received on B1 are only forwarded on B2 (because no penalty is applied here). They are not re-forwarded on B1 because for this interface, the packets received on B2 have a better quality.
  * finally (assuming equal link qualities everywhere), the TQ values in the OGMs from A forwarded by B are equal too - but the internal routing table include the interface switching
  * putting it all together and assuming the other nodes behave the same way: If a packet is sent by D on D1, it will follow the dashed path. If it is sent on D2, it will follow the solid path. The interface alternation was implemented by local routing table decisions but forwarded information (unlike the original local-only interface alternation).
+
+Another possible scenario may be the following:
+
+!net-wide-multiif.png!
