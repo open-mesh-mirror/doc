@@ -1,0 +1,34 @@
+h1. Network Wide Multi Link Optimization
+
+The original batman-adv multi link optimization ([[Multi-link-optimizations-technical]]) works on a local level - which is fairly easy to implement and works well as long as as all nodes are configured the same way and have similar link qualities. But local decision may be wrong network wide - for example, consider some dual radio mesh nodes where the first node starts on 5 GHz, but after some hops (after switching between 2.4 and 5 GHz) it stops at a 2.4 GHz-only device. If it had chosen the other (2.4 Ghz) link in the first hop, the total path quality would be better.
+
+This limitation can be solved by relaying the information about multi interfaces over the whole mesh. This requires some changes to routing and forwarding, which are to be described here. (Original concept by Antonio)
+
+h2. Routing Table Per Interface
+
+The main idea is to use n + 1 routing tables instead of just one, with n the number of interfaces:
+
+ * there is one routing table based per incoming interface
+ * one extra routing table for packets generated locally (e.g. from soft-interface)
+
+The routing table is chosen based on the interface where the packet comes from.
+
+h2. OGM forwarding and penalties
+
+To propagate different paths, the OGM forwarding is changed:
+
+ * When there are multiple interfaces and an OGM is forwarded on the same interface, an additional penalty (e.g. "half duplex penalty) when re-forwarding the OGM on the same interface
+   -> the OGM value with the *applied* penalty is stored locally
+ * apply the strict "forward only from best neighbor" per interface
+
+For example, consider the following illustration:
+
+!alternation_chain.dia.jpg!
+
+We consider all link qualities equal. What should happen according to the rules (after some OGMs):
+
+ * OGMs from A are sent via A1 and A2
+ * B applies the new penalty when forwarding packets from A1 again on B1, and also when forwarding from A2 on B2
+ * therefore, As OGM received on B1 are only forwarded on B2 (because no penalty is applied here). They are not re-forwarded on B1 because for this interface, the packets received on B2 have a better quality.
+ * finally (assuming equal link qualities everywhere), the TQ values in the OGMs from A forwarded by B are equal too - but the internal routing table include the interface switching
+ * putting it all together and assuming the other nodes behave the same way: If a packet is sent by D on D1, it will follow the dashed path. If it is sent on D2, it will follow the solid path. The interface alternation was implemented by local routing table decisions.
