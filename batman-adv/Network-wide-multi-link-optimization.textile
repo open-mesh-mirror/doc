@@ -20,7 +20,7 @@ h2. OGM forwarding and penalties
 To propagate different paths, the OGM forwarding is changed:
 
  * When there are multiple interfaces and an OGM is forwarded on the same interface, an additional penalty (e.g. "half duplex penalty) when re-forwarding the OGM on the same interface
-   -> the OGM value with the *applied* penalty is stored locally
+   -> the metric with the *applied* penalty is stored locally
  * apply the strict "forward only from best neighbor" per interface
 
 For example, consider the following illustration:
@@ -33,4 +33,4 @@ We consider all link qualities equal. What should happen according to the rules 
  * B applies the new penalty when forwarding packets from A1 again on B1, and also when forwarding from A2 on B2
  * therefore, As OGM received on B1 are only forwarded on B2 (because no penalty is applied here). They are not re-forwarded on B1 because for this interface, the packets received on B2 have a better quality.
  * finally (assuming equal link qualities everywhere), the TQ values in the OGMs from A forwarded by B are equal too - but the internal routing table include the interface switching
- * putting it all together and assuming the other nodes behave the same way: If a packet is sent by D on D1, it will follow the dashed path. If it is sent on D2, it will follow the solid path. The interface alternation was implemented by local routing table decisions.
+ * putting it all together and assuming the other nodes behave the same way: If a packet is sent by D on D1, it will follow the dashed path. If it is sent on D2, it will follow the solid path. The interface alternation was implemented by local routing table decisions but forwarded information (unlike the original local-only interface alternation).
