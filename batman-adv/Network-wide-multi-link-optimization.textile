@@ -35,6 +35,12 @@ We consider all link qualities equal. What should happen according to the rules 
  * finally (assuming equal link qualities everywhere), the TQ values in the OGMs from A forwarded by B are equal too - but the internal routing table include the interface switching
  * putting it all together and assuming the other nodes behave the same way: If a packet is sent by D on D1, it will follow the dashed path. If it is sent on D2, it will follow the solid path. The interface alternation was implemented by local routing table decisions but forwarded information (unlike the original local-only interface alternation).
 
-Another possible scenario may be the following:
+h3. Another example: path diversity
 
 !net-wide-multiif.png!
+
+In the picture above it is possible to see another consequence of the mechanism explained in this page. Since the multi-interface optimisation is not per-link anymore but is now defined network wide, *packets can possibly be routed through two completely different paths in order to reach the same destination*.
+
+This possibility is given by the fact that on the path from A to E  B will choose G as best next-hop, while on the path from F to E B will choose C (assuming all perfect links).
+
+The result is that, with this new feature, multi-interface nodes can act as routing splitting point which leads to a first tempative of real multi-path routing.
