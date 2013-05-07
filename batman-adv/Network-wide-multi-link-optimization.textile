@@ -39,8 +39,18 @@ h3. Another example: path diversity
 
 !net-wide-multiif.png!
 
-In the picture above it is possible to see another consequence of the mechanism explained in this page. Since the multi-interface optimisation is not per-link anymore but is now defined network wide, *packets can possibly be routed through two completely different paths in order to reach the same destination*.
+Scenario:
+* Node B is equipped with 2 interfaces (imagine two wifi cards with sectored antennas)
+* Node A is connected to B through B1 and uses B as next hop towards E
+* Node F is connected to B through B2 and uses B as next hop towards E
+* All the links are perfect
+* Packets sent by A intended to E are received by B on B1 and forwarded using B2
+* Packets sent by F intended to E are received by B on B2 and forwarded using B1
+* B's nexthop to E using B1 is different from B's nexthop to E using B2
 
-This possibility is given by the fact that on the path from A to E  B will choose G as best next-hop, while on the path from F to E B will choose C (assuming all perfect links).
+The presented example is another consequence of the mechanism explained in this page.
+Since the multi-interface optimisation is not per-link anymore but is now defined network wide, *packets can possibly be routed through two completely different paths in order to reach the same destination*.
+
+This possibility is given by the fact that on the path from A to E  B will choose G as best next-hop, while on the path from F to E B will choose C.
 
 The result is that, with this new feature, multi-interface nodes can act as routing splitting point which leads to a first tempative of real multi-path routing.
