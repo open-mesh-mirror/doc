@@ -2,6 +2,8 @@ h1. Network Wide Multi Link Optimization
 
 The original batman-adv multi link optimization ([[Multi-link-optimizations-technical]]) works on a local level - which is fairly easy to implement and works well as long as as all nodes are configured the same way and have similar link qualities. But local decision may be wrong network wide - for example, consider some dual radio mesh nodes where the first node starts on 5 GHz, but after some hops (after switching between 2.4 and 5 GHz) it stops at a 2.4 GHz-only device. If it had chosen the other (2.4 Ghz) link in the first hop, the total path quality would be better.
 
+!alternation-limited-view.png!
+
 This limitation can be solved by relaying the information about multi interfaces over the whole mesh. This requires some changes to routing and forwarding, which are to be described here. (Original concept by Antonio)
 
 h2. Routing Table Per Interface
