@@ -41,7 +41,7 @@ h3. Drawbacks
 
 Since relays keep back packets to wait for opportunities to network code packets, it introduces a delay of up to 10ms at each hop in a network. If the load increases enough, more opportunities to network code should appear, and delay can actually be decreased by combining packets.
 
-For TCP traffic, the effect for two intersecting TCP flows is limited, as seen in the figure:
+For TCP traffic, the effect for two intersecting TCP flows is limited, as seen in the following figure, where the "Weighted TQ Selection" differs from "TQ Selection" by using the estimated link qualities towards the receivers to select the destination to be put in the MAC header.
 
 !tcp.png!
 
