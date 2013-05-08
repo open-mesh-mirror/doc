@@ -45,7 +45,11 @@ For TCP traffic, the effect for two intersecting TCP flows is limited, as seen i
 
 !tcp.png!
 
-This is due to the extra delay and jitter that do not interact well with the congestion avoidance algorithms of TCP. It is assumed that one would see a gain, if more than just two flows congest the links. 
+This is due to the extra delay and jitter that do not interact well with the congestion avoidance algorithms of TCP. It is assumed that one would see a gain, if more than just two flows congest the links. For the case of a single TCP flow, the TCP ACKs are the only packets to be coded, and we then see the following results:
+
+!tcp_uni.png!
+
+
 
 h3. Further Reading
 
