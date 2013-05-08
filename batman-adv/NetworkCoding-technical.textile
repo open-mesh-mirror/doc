@@ -1,4 +1,4 @@
-h1. Catwoman
+h1. Network Coding: technical documentation
 
 When forwarding packets in a wireless mesh network, airtime can be saved by exploiting the information already present at the destinations of a forward. One way of doing this is _Network Coding_, where two packets are XOR'ed together before transmission. To extract one of the included packets, the destination must simply XOR the network coded packet with the other included packet:
 
@@ -6,7 +6,7 @@ When forwarding packets in a wireless mesh network, airtime can be saved by expl
   (p1 XOR p2) XOR p2 = p1
 </pre>
 
-For more information about the concept, read the news item about [[open-mesh:2011-08-18-network-coding-first-steps|Batman and Catwoman]].
+For more information about the concept, read the [[NetworkCoding|NetworkCoding introduction]].
 
 h2. Implementation Details
 
@@ -71,22 +71,6 @@ h2. Packet Format
 The header of a coded packet is rather large, as it has to carry the information needed to identify the packet needed to decode and restore the headers of the two decoded unicast packets:
 
 <pre>
-struct batadv_coded_packet {
-	struct batadv_header header;
-	uint8_t  first_ttvn;
-	/* uint8_t  first_dest[ETH_ALEN]; - saved in mac header destination */
-	uint8_t  first_source[ETH_ALEN];
-	uint8_t  first_orig_dest[ETH_ALEN];
-	__be32   first_crc;
-	uint8_t  second_ttl;
-	uint8_t  second_ttvn;
-	uint8_t  second_dest[ETH_ALEN];
-	uint8_t  second_source[ETH_ALEN];
-	uint8_t  second_orig_dest[ETH_ALEN];
-	__be32   second_crc;
-	__be16   coded_len;
-};
-
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -119,7 +103,6 @@ struct batadv_coded_packet {
 Explanations of each field:
 * header: The usual header required for all batman-adv packets. It has the TTL of the first of the two combined packets.
 * first_ttvn: Version number of the used translation table for the first combined packet.
-* first_dest: Address of the first receiver of the network coded packet. This is commented out, as it is placed in the mac header.
 * first_source: Address of the node who sent the first of the two combined packets to the relay.
 * first_orig_dest: Address of the originator that the first of the two combined packets should to routed to.
 * first_crc: CRC checksum of the first of the two combined packets.
@@ -130,6 +113,8 @@ Explanations of each field:
 * second_orig_dest: Address of the originator that the second of the two combined packets should to routed to.
 * second_crc: CRC checksum of the second of the two combined packets.
 * coded_len: Length of the shortest of the two combined packets.
+
+A field "first_dest" (address of the first receiver of the network coded packet) is not needed because it is already present in the mac header following the network coding header.
 
 The header can be logically divided into two main parts: One part for each of the combined packets. For each packet, the header specifies the destination (although the first destination is given in the MAC header), the previous source, the final originator destination and a CRC32 checksum of the packet.
 
@@ -147,11 +132,10 @@ There are few ideas that could make the implementation of network coding perform
 * Hold back packets only if the network is congested.
 * Determine allowed holding times based on the tick time of the system.
 * Support fragmented unicast packets.
-* Construct a better algorithm to select which receiver to put in the MAC header destination field.
+* Construct a better algorithm to select which receiver to put in the MAC header destination field (weighted TQ).
 
 h2. Limitations
 
 Although network coding can provide a significant gain in throughput, there are a few limitations, which should be known:
 * To see a gain, two flows must intersect at a relay, who can network code packets.
 * Relays hold back packets for up to 10 ms to wait for other packets to be coded.
-* ...
