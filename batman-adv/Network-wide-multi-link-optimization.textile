@@ -54,3 +54,7 @@ Since the multi-interface optimisation is not per-link anymore but is now define
 This possibility is given by the fact that on the path from A to E  B will choose G as best next-hop, while on the path from F to E B will choose C.
 
 The result is that, with this new feature, multi-interface nodes can act as routing splitting point which leads to a first tempative of real multi-path routing.
+
+h3. Ideas for the future
+
+* Theoretically, a node generating traffic instead of using its own routing table could exploit the path diversity and route its traffic using all the routing tables of all the interfaces (the selection policy have to be defined..round robin would not work properly because when using two different paths TCP reordering may decrease the performance)
