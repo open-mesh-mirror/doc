@@ -20,6 +20,7 @@ h2. Features
 * [[VisAdv|Visualizing the 2nd layer]] - Creating graphics of the layer 2 network and differences to the layer 3 vis output explained.
 * [[ap-isolation|AP Isolation]] - How to prevent wifi-client to wifi-client communication.
 * [[DistributedArpTable|Distributed ARP Table]] - How batman-adv can speed up your mesh experience by caching ARP replies.
+* [[NetworkCoding|Network Coding]] - Combine two packets into a single transmission to save air time.
 
 h2. Troubleshooting
 
