@@ -6,7 +6,7 @@ The most common and simplest example of network coding requires a 3 node setup. 
 
 !alice_bob_coding.jpg!
 
-Another support scenario in which network coding can help to save air time is the X-topology, where two sets of nodes communicate through the same relay:
+Another supported scenario, in which network coding can help to save air time, is the X-topology, where two sets of nodes communicate through the same relay:
 
 !x_nc.png!
 
@@ -21,7 +21,7 @@ The following graphs illustrates the throughput in kb/s with and without network
 h3. Requirements
 
 There are a few requirements to your setup, if you want to benefit from network coding:
-* For network coding to work, it is required to have an enabled and working promiscuous mode on all nodes, as promiscuity is used to both overhear packets an receive network coded packets. Be aware that many wireless devices has non-working promiscuous mode, so some testing might be required.
+* For network coding to work, it is required to have an enabled and working promiscuous mode on all nodes, as promiscuity is used to both overhear packets and receive network coded packets. Be aware that many wireless devices have no functioning promiscuous mode, so some testing might be required.
 * Your wireless device must support an MTU of 1546, as the batman-adv header for network coded packets carries more information than usual unicast packets.
 
 To enable network coding, enable it a compile time (consult "the README.external file":http://www.open-mesh.org/projects/batman-adv/repository/revisions/master/entry/README.external to learn how to set the compile option). It can be disabled at runtime with batctl or in sysfs:
@@ -35,11 +35,11 @@ Remember to set promiscuous mode and adjust the MTU to the bigger batman-header 
 # ip link set dev wlan0 promisc on
 # ip link set dev wlan0 mtu 1546
 </pre>
-where "wlan0" is the wireless device you have added to batman-adv with @# batctl if add wlan0@.
+where "wlan0" is the wireless device you have added to batman-adv with "batctl if add wlan0".
 
 h3. Drawbacks
 
-Since relays keep back packets to wait for opportunities to network code packets, it introduces a delay of up to 10ms at each hop in a network. If the load increases enough, more opportunities to network code should appear, and delay can actually be decreased by combining packets.
+Since relays defer packet forwarding to wait for opportunities to network code packets, a delay of up to 10ms is introduced at each hop in the network. If the traffic load increases enough, more opportunities to network code should appear, and delay can actually be decreased by combining packets.
 
 For TCP traffic, the effect for two intersecting TCP flows is limited, as seen in the following figure, where the "Weighted TQ Selection" differs from "TQ Selection" by using the estimated link qualities towards the receivers to select the destination to be put in the MAC header.
 
