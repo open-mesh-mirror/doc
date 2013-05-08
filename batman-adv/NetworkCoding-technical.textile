@@ -147,6 +147,7 @@ There are few ideas that could make the implementation of network coding perform
 * Hold back packets only if the network is congested.
 * Determine allowed holding times based on the tick time of the system.
 * Support fragmented unicast packets.
+* Construct a better algorithm to select which receiver to put in the MAC header destination field.
 
 h2. Limitations
 
