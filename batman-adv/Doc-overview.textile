@@ -48,6 +48,7 @@ h2. Protocol Documentation
 * [[ELP|ELP protocol]] - B.A.T.M.A.N. V ELP protocol specification
 * [[Bridge-loop-avoidance-II]] - bridge loop avoidance to allow multiple gateways between LAN and mesh, redesigned
 * [[DistributedArpTable-technical|Distributed ARP Table]] - technical details regarding the inner working of the DAT mechanism
+* [[NetworkCoding-technical|Network Coding]] - technical details regarding the network coding implementation
 * "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011] 
 * "Bisect the batman-adv routing protocol (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-bisect.avi - the bisect tool explained & demonstrated by Marek [March 2011] 
 * "Project CATWOMAN - network coding with batman-adv (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-network_coding.avi - introduction into network coding with batman-adv by Martin and Jeppe [March 2011]
