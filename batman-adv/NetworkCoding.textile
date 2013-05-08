@@ -12,7 +12,9 @@ Another support scenario in which network coding can help to save air time is th
 
 Here Node C and Node D both receive the same network coded packet, and they both use the overheard packet (from Node A and Node B, respectively) to decode the received packet. 
 
-In certain scenarios (e.g. heavy load traffic intersects at a relay), Network Coding can give up to 1.6 times gain in total throughput. Under less load, the relay might hold back packets up to 10 ms before forwarding these, as it tries to get packets to combine. The following graphs illustrates the throughput in kb/s with and without network coding (blue and green line respectively) as well as the throughput gain (red line) achieved by network coding on a chain of 3 routers (example 1) with clients attached to each end:
+In certain scenarios (e.g. heavy load traffic intersects at a relay), Network Coding can give up to 1.6 times gain in total throughput. Under less load, the relay might hold back packets up to 10 ms before forwarding these, as it tries to get packets to combine.
+
+The following graphs illustrates the throughput in kb/s with and without network coding (blue and green line respectively) as well as the throughput gain (red line) achieved by network coding on a chain of 3 routers (example 1) with clients attached to each end:
 
 !nc_gain.png!
 
