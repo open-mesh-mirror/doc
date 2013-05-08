@@ -116,13 +116,28 @@ struct batadv_coded_packet {
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-The header is can be logically divided into two main parts: One part for each of the combined packets. For each packet, the header specifies the next-hop (although the "first next hop" is given in the MAC header), the previous source, the final originator destination and a CRC32 checksum of the packet.
+Explanations of each field:
+* header: The usual header required for all batman-adv packets. It has the TTL of the first of the two combined packets.
+* first_ttvn: Version number of the used translation table for the first combined packet.
+* first_dest: Address of the first receiver of the network coded packet. This is commented out, as it is placed in the mac header.
+* first_source: Address of the node who sent the first of the two combined packets to the relay.
+* first_orig_dest: Address of the originator that the first of the two combined packets should to routed to.
+* first_crc: CRC checksum of the first of the two combined packets.
+* second_ttl: TTL of the second combined packets.
+* second_ttvn: TTVN of the second combined packets.
+* second_dest: Address of the second of the two nodes that should receive this packet.
+* second_source: Address of the node who sent the second of the two combined packets to the relay.
+* second_orig_dest: Address of the originator that the second of the two combined packets should to routed to.
+* second_crc: CRC checksum of the second of the two combined packets.
+* coded_len: Length of the shortest of the two combined packets.
 
-To identify the packet needed to decode the network coded packet, the receiver must reconstruct a (src,dst,crc) tuple from the received network coded packet. The first field (src) is the original source, which is given as either first_source of second_source in the header. The second field (dst) is the source of the relay, which is found in the MAC header. The third field (crc) is found as either first_crc or second_crc in the header of the network coded packet.
+The header can be logically divided into two main parts: One part for each of the combined packets. For each packet, the header specifies the destination (although the first destination is given in the MAC header), the previous source, the final originator destination and a CRC32 checksum of the packet.
+
+To identify the packet needed to decode the network coded packet, the receiver must reconstruct a unique identifier, consisting of source, destination and packet checksum, from the received network coded packet. The first field (source) is the original source, which is given as either first_source of second_source in the header. The second field (destination) is the source of the relay, which is found as the source field in the MAC header. The third field (checksum) is found as either first_crc or second_crc in the header of the network coded packet.
 
 After identifying the right packet and decoding, the receiver reconstructs the original unicast header with the fields from the network coded header. E.g. mac_dest, mac_src, ttl, ttvn, orig_dest.
 
-The field coded_len is needed when the packets of different length is network coded, as only a part of the resulting packet will actually be coded. The coded_len field tells the receiver the length of the shortest combined packet, as the receiver of this only knows the length of the longer packet.
+The field coded_len is needed when the packets of different length are network coded, as only a part of the resulting packet will actually be coded. The coded_len field tells the receiver the length of the shortest combined packet, as the receiver of this only knows the length of the longer packet.
 
 h2. Todo
 
