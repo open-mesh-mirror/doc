@@ -26,7 +26,7 @@ To propagate different paths, the OGM forwarding is changed:
 +Path Metric computation+
 Each node, say SRC, creates and sends its own OGMs to let all the other peers in the network build their routing table
 * For each interface I belonging to SRC:
-** one OGM is sent as broadcast over I containing the link metric value (namely OGM.metric) equal to 0
+** one OGM is sent as broadcast over I containing the metric value (namely OGM.metric) equal to 0
 * A generic node P receiving an OGM from R on interface I_IN
 ** computes next_hop_metric = nhm(OGM.metric, R, I_IN)
 where nhm(x, r, i_in) is a metric alterating function which computes the path metric towards OGM.SRC by combining OGM.metric and the estimated throughput on the link P <-> r (through interface i_in).
