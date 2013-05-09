@@ -28,18 +28,14 @@ h3. 2.1. Neighbor List
 
 * Neighbor Address: The Ethernet source address of the received ELP message.
 * Originator Address: The originator address of the node.
-* Packet Count Window:
-* Current Window Sequence Number:
 * Last Received Sequence Number:
 * Last Seen:
 * Last Updated:
-* Link RQ:
-* Link TQ:
+* metric: the value of the metric towards this neighbor
 
 h3. 2.2. Originator List
 
 * Originator Address: The originator address of the node.
-* Best Link TQ
 
 h2. 3. Protocol Procedure
 
