@@ -19,7 +19,6 @@ h2. 1. Definitions
 * Node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface.
 * originator - A node broadcasting its own OGMs (see [[OGM]] for details) that is therefore addressable within the mesh network routing layer. It is uniquely identifiable by its originator address. [[batman-adv:Doc-overview|B.A.T.M.A.N.-Advanced]] uses the MAC address of its primary hard interface.
 * hard-interface - Network interface utilized by B.A.T.M.A.N. for its own Ethernet frames. 
-* sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of­-range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
 * Neighbor: An ELP sender within one hop distance (note, this is defined differently for the OGM protocol)
 
 h2. 2. Conceptual Data Structures
@@ -31,7 +30,7 @@ h3. 2.1. Neighbor List
 * Last Received Sequence Number:
 * Last Seen:
 * Last Updated:
-* metric: the value of the metric towards this neighbor
+* metric: the metric towards this neighbor
 
 h3. 2.2. Originator List
 
