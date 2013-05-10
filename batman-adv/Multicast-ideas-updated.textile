@@ -48,15 +48,11 @@ The new multicast optimization infrastructure can be devided into four parts:
 
 h4. Multicast Listener Announcements
 
-The MLA infrastructure takes care of reliably, timely announcing any potential multicast listener to any mesh node.
+Multicast listeners are reactively announced via the Translation Table infrastructure, providing any mesh node with the information about which mesh node has interested multicast listeners.
 
-Multicast listeners are obtained from either the local batman soft interface (i.e. bat0) or if present its master interface (e.g. a bridge interface).
+h4. Multicast Router Discovery
 
-Furthermore if the batman interface is a bridge slave, then multicast listeners behind any other bridge port are obtained from the multicast snooping database of the bridge, too.
-
-MLAs are MAC address based. Those addresses are currently distributed via our periodic OGMs.
-
-A specific address is only announced if it has at least one matching non-link-local IPv4 multicast address or transient IPv6 multicast address: We on purpose exclude well-known multicast addresses as they are generally of "low" throughput and therefore not feasible for our multicast optimizations targeted at sparse, high throughput multicast streams.
+TODO (RFC4286)
 
 h4. Multicast Flow Measurement
 
@@ -85,8 +81,6 @@ h4. Dense, High Throuphut Multicast Groups
 Might become more costly when enabling these multicast optimizations.
 
 h4. Up to 255 multicast groups, up to 255 multicast listeners per group
-
-h4. Optimization of non-link-local IPv4 multicast and transient IPv6 multicast only
 
 h4. No IGMP/MLD specific optimizations/filtering
 
@@ -118,7 +112,9 @@ h2. Conceptual Data Structures
 
 h3. Multicast Listener Announcements
 
-* MLA Buffer: Stores the latest MLA information of an originator (a set of multicast MAC addresses per originator).
+* MLA Buffer: Stores the latest MLA information of an originator (a set of multicast MAC addresses per originator) in the global translation table hash.
+
+h3. Multicast Router Discovery
 
 h3. Multicast Flow Table
 
@@ -150,22 +146,14 @@ h3. Multicast Listener Announcements
 
 h4. Distribution
 
-A batman-adv node broadcasting its own OGM, an originator, MUST attach a 6 byte multicast MAC address for any of its multicast listeners after the OGMs TT diff part.
+A batman-adv node must frequently update the translation table with any multicast MAC address of any of its registered multicast listeners.
 
 Multicast listeners need to be obtained in the following ways:
 
 * Local multicast listeners: Either from the local batman-adv soft interface (i.e. bat0). Or if this soft interface is a slave of another network device (i.e. a bridge) using that one instead.
 * Bridged-in multicast listeners: If the batman-adv soft interface is a slave of a bridge then any multicast listeners behind any other bridge slave need to be obtained via MLD/IGMP snooping.
 
-A multicast MAC SHOULD be ommited though if:
-
-* It is a multicast MAC address for an IPv4 multicast address and if any according IPv4 multicast listener address is a link-local one.
-* It is a multicast MAC address for an IPv6 multicast address and if any according IPv6 multicast listener address is a well-known one.
-
-h4. Reception
-
-A batman-adv node receiving another node's OGM MUST memorize the attached MLA information or update any already memorized such information for every node.
-
+h3. Multicast Router Discovery
 
 h3. Multicast Flow Measurement
 
@@ -380,91 +368,6 @@ h2. Proposed Values for Constants
 * NUM_BCAST: 3
 * BATADV_TTL: 50
 
-h2. References
-
-h2. Further Ideas for Optimizations
-
-
----
-
-h2. Proposed changes for backwards compatibility
-
-To maintain backwards compatibility between capable of these multicast optimizations and those which are not, the following changes in behaviour are suggested:
-
-* (a): Send a tracker packet to any non-multicast-optimization-aware node, too (via generic unicast TVLV).
-* (b): If a multicast-optimization-aware node needs to forward a data packet over a non-multicat-optimization-aware next hop neighbor node it'll use a normal batman-adv broadcast packet with an extra flag.
-* (c): Any multicast-optimization-aware node receiving a normal batman-adv broadcast packet with this extra flag set will check and forward it like a batman-adv multicast packet (and will not rebroadcast this original broadcast packet unless (a) holds).
-
-The following changes for the protocol specification in this document could be made to maintain backwards compatibility with a TVLV-feature-aware but non-multicast-optimization-aware node:
-
-h3. (a) 
-
-*Modification to:* _Multicast Path Tracking - Periodic Tracker Packet Transmission_
-
-*Old:*
-
-<pre><code>
-The body of a multicast tracker packet needs to be filled with a Multicast Tracker Packet Entry for any multicast MAC address which is present in the MLA buffer of other originators and which has a matching multicast flow state which is "high".
-</code></pre>
-
-*New:*
-
-<pre><code>
-The body of a multicast tracker packet needs to be filled with a Multicast Tracker Packet Entry for any multicast MAC address which is present in the MLA buffer of other originators or any non-multicast-optimization-aware originator, and which has a matching multicast flow state which is "high".
-</code></pre>
-
-h3. (b)
-
-*Modification to:* _Multicast Data Forwarding
-
-*Old:*
-
-<pre><code>
-Then for any batman-adv hard interface:
-
-* If there are less than or or equal to the configured MCAST_FANOUT next hop neighbors for this packet on this specific interface:
-** Transmit via unicast to any such next hop neighbors (set the destination address of the batman-adv ethernet frame to the address of the next hop neighbor).
-* Otherwise transmit via broadcast the configured NUM_BCAST times on this specific interface (set the destination address of the batman-adv ethernet frame to BCAST_ADDR).
-</code></pre>
-
-*New:*
-
-<pre><code>
-Then for any batman-adv hard interface:
-
-For next hop neighbors with multicast optimization awareness:
-
-* If there are less than or or equal to the configured MCAST_FANOUT next hop neighbors for this packet on this specific interface:
-** Transmit via unicast to any such next hop neighbors (set the destination address of the batman-adv ethernet frame to the address of the next hop neighbor).
-* Otherwise transmit via broadcast the configured NUM_BCAST times on this specific interface (set the destination address of the batman-adv ethernet frame to BCAST_ADDR).
-
-For next hop neighbors without multicast optimization awareness:
-
-* Use the normal batman-adv broadcast packet but with a MCAST_COMPAT flag set. And otherwise forward like any batman-adv broadcast packet on all hard interfaces.
-</code></pre>
-
-h3. (c)
-
-*New section:* Multicast Data Reception - _Receiving batman-adv Broadcast Packets with a MULTI_COMPAT flag_
-
-h3. Backwards Compatibility without TVLV support
-
-The concept described above should be doable without the need of TVLV support and still without the need of increasing the COMPAT_VERSION, appliable on the current master branch.
-
-* Add a new OGM flag: "BATADV_MCAST_OPTIMIZATIONS = BIT(<code></code>7)": Set this flag if multicast optimizations are enabled (e.g. via sysfs) or unset it otherwise.
-* Make sure to _append_ and not insert the two new packet types "BATADV_MCAST_TRACKER = 0x09" and "BATADV_MCAST = 0x10"
-* Add the MULTI_COMPAT flag in the third, reserved byte of the batman-adv broadcast packet header
-* For (a), encapsulate the tracker packet in a batman-adv unicast packet like this: [ BATMAN_ADV_HDR(Ether-type: 0x4305, batman-adv packet type: "BATADV_UNICAST = 0x03" | BATMAN_ADV_HDR(Ether-type: 0x4305, batman-adv packet type: "BATADV_MCAST_TRACKER = 0x09") ]. Old clients will ignore the encapsulated tracker packet but still forward it via unicast, nodes with an enabled multicast optimization will check it as if the outter batman-adv unicast header wouldn't exist.
-
-Then setups with a mixed set of batman-adv multicast optimization aware (both with it enabled or disabled) and old nodes which have no clue about the new multicast optimizations will live together in peace happily ever after.
-
-h3. MCAST_COMPAT option mcast_compat_ttl
-
-However when already having a large, non-multicast-optimization-aware network deployed it might is very likely undesireable to do multicast streaming tests even from a node having these multicast optimizations enabled: Still most of the mesh network would simply flood and congest the network as old nodes would keep to the current broadcast forwarding mechanism.
-
-To ease tests in mostly non-multicast-optimization-aware networks (so e.g. for debugging purposes) the addition of a 1 byte MCAST_COMPAT options field in a batman-adv multicast data header is suggested (e.g. instead of the reserved byte), consisting of:
-
-* *mcast_compat_ttl*: The initial, to be set TTL of a batman-adv broadcast packet with MCAST_COMPAT flag made from this multicast data packet. Setting it to 0 would disable sending an optimized multicast stream to any non-multicast-optimization-aware node (hence disabling any broadcast flooding of such packets).
 
 h2. Code
 
