@@ -373,6 +373,88 @@ h2. Code
 
 http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase
 
+h2. Roadmap
+
+A sketch for the different milestones for integration, including dependancies.
+
+<pre>
+1) BAT-BASIC
+     |----------------------------
+     |           |               |
+2) BAT-MRD   BR-QUERIER    BAT-MCAST-TRACKER
+                 |
+3)             BR-MRD
+                 |
+4)          BR-INCL-TRANS
+                 |
+5)          BAT-BR-INTEGR
+</pre>
+
+--
+
+h3. 1. BAT-BASIC - Basic Multicast Optimizations
+
+See 
+http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-basic
+
+h3. 2.1 BAT-MRD - Multicast Router Discovery in batman-adv
+
+IPv4 and IPv6 multicast traffic with a scope greater than link-local
+not only needs to be forwarded to multicast listeners on the local link
+but also to any multicast router on this link. Therefore batman-adv
+should parse Multicast Router Advertisements and emit Multicast
+Router Solicitations as specified in "RFC4286":https://tools.ietf.org/html/rfc4286.
+
+After that implemantion such multicast traffic can be optimized, too.
+
+
+h3. 2.2 BR-QUERIER - Multicast Listener Discovery Querier in Linux bridges
+
+Currently the MLD querier protocol as specified in "RFC3810":https://tools.ietf.org/html/rfc3810
+is only rudimentarily, incompletely implementated in the multicast
+snooping of the Linux bridge code and is actually deactivated
+by default. This should be fixed to ensure the forwarding of multicast
+data to listeners behind the bridge of a node.
+
+
+h3. 2.3 BR-MRD - Multicast Router Discovery in Linux bridge
+
+The bridge code lacks support for MRD and needs it for similar reasons
+as outlined in BAT-MRD. Currently the bridge only offers a manual switch
+to mark a bridge port as having a multicast router.
+
+
+h3. 2.4 BR-INCL-TRANS - Include Multicast Traffic with Transient Address Flag
+
+Currently the bridge code always floods multicast traffic with a
+destination address that has the transient flag unset. And also the
+internal snooping database only keeps track of multicast addresses
+that have the transient flag set.
+
+After BR-QUERIER and BR-MRD it should be safe to perform the multicast
+snooping in the bridge code for any IPv6 multicast traffic of scope
+greater than or equal to link-local (excluding ip6-all-nodes, ff02::1).
+
+
+h3. 2.5 BAT-BR-INTEGR - Integration of the Bridge Multicast Snooping Database
+
+After BR-INCL-TRANS the bridge multicast snooping and its database should
+be reliable and sufficient to be used for and with batman-adv.
+
+An RFC patch for the bridge code for such an exported interface was
+posted on the bridge mailing list "here":http://www.spinics.net/lists/linux-ethernet-bridging/msg04558.html.
+
+
+h3. 3. BAT-MCAST-TRACKER - Multicast Tracker Protocol for batman-adv
+
+The multicast tracker protocol offers tree-like forwarding of
+multicast traffic, therefore allowing optimized forwarding for
+multicast traffic having multiple listeners, too.
+
+This part is probably the largest part in terms of code size, but
+it has already been "implemented and tested on top of batman-adv 2013.0.0":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase
+
+
 h2. Changelog
 
 ----
