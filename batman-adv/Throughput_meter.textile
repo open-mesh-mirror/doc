@@ -4,45 +4,30 @@ This page explains the protocol and inner workings of the bandwidth meter. The m
 
 h2. The bandwidth meter protocol
 
-The goal of the protocol is to approximate TCP behavior (the bandwidth meter protocol is indeed much more lightweight) in order to measure a bandwidth close to what a standard TCP connection would achieve. The bandwidth meter protocol is a connection oriented, a "Go-Back-N":http://en.wikipedia.org/wiki/Go-back-N implementation with fixed window and cumulative acknowledgement. Of the two end nodes, one is the sender and the other the receiver; their behavior is described in the next subsections.
+The goal of the protocol is to approximate the behavior of TCP in order to measure a bandwidth close to what a standard TCP connection would achieve. The bandwidth meter protocol naïve implementation of of the TCP protocol with a congestion handling mechanism inspired by NewReno. The behavior is described in the next subsections.
  
+During the test ICMP packets only are exchanged. In particular a new ICMP packet type has been created: the ICMP_BW.
+This particular packet type is directly passed to the bandwitdh meter submodule which is in charge of handling the connection. The ICMP_BW packets can be of two particular subtype:
+* MSG
+* ACK
+Since the test is performed unidirectionally, ACKs are not piggybacked on normal message (like TCP does) and therefore two different packet type were required.
+A node can participate in different tests at the same time, but with different nodes. This means that two or more tests cannot be performed at the same time between the same pair of nodes.
 
-During the test ICMP packets only are exchanged, so two fresh ICMP packet types are defined (BATADV_BW_METER, BATADV_BW_ACK). A node can participate in different tests at the same time, but with different nodes. This means that two or more tests cannot be performed at the same time between the same two nodes.
-
-Between two consecutive experiment runs at least two seconds should be waited, to assure connection is closed before its re-opening.
+Between two consecutive experiment runs at least two seconds should be waited, to ensure the connection on the receiver side has been properly closed.
 
 h3. The sender
 
 The sender maintains, for each ongoing test, the following variables:
 
-* *next_to_send* the next packet in the window that is to be sent
-* *window_first* the sequence number (i.e. packet number) of the first packet of the current window, the first un-acknowledged packet;
-
-!window.png!
-
-To begin the test, the sender sends BW_WINDOW_SIZE packets in a burst and starts a timeout, waiting for an ack. An ACK is an ICMP packet of type BATADV_BW_ACK that carries the sequence number of the last received packet *in order* (cumulative acknowledgment), meaning that all the packets up to that sequence number have been received. If the ACK for a packet is not received before the timeout expires, all the unacked packets in the window are re-transmitted. The sender ICMP packet has message type BW_METER.
-
-So BW_WINDOW_SIZE packets are sent, then the a timeout is started:
-
-* "when the timeout expires* the whole window is transmitted again. This means BW_WINDOW_SIZE packets are transmitted, with sequence numbers starting from window_first, the last packet that has been acknowledged;
-* *when ack is received* the timer is updated. Update window_first to ack's "sequence number" and send from next_to_send to (window_first + BW_WINDOW_SIZE) new packets (with seqno starting from next_to_send). Every time a packet is sent, next_to_send is increased.
-
-!protocol1.png!
+* *last_acked* the last payload byte acked by the receiver
+* *last_sent* the next byte to be sent
 
 h3. The receiver
 
-To begin the test, the receiver must receive an ICMP packet with msg_type BW_METER and sequence number BATADV_BW_FIRST_SEQ: if another packet is received, the test is not considered started, no ack is sent back and no data structure is allocated on the receiver side. 
+To begin the test, the receiver must receive an ICMP packet with msg_type BW, subtype MSG and sequence number BATADV_BW_FIRST_SEQ: if another packet is received, the test is not started, no ack is sent back and no data structure is allocated on the receiver side.
 
-If that particular packet is received and no other bandwidth test is ongoing with the same node, the connection is opened.
+If that particular packet is received and no other bandwidth test is ongoing with the same node, the connection is opened and the resources are allocated.
 
-The receiver basically keeps a single variable, the beginning of the window:
-
-* *window_first* the sequence number of the first packet of the window, the first in order packet expected.
-
-If a BW_METER packet is received on that connection, it's offset is checked: if it belongs to the window, shift window_first and send back an ACK. Otherwise, just send back an ack to avoid protocol deadlock. The receiver also maintains a bitmap to keep track of the packets received not in order. The bitmap is composed of many bits as there are packets in a window. Every time a packet is received, the corresponding bit is set to 1. An ACK with the last *in order* sequence number received is sent back, whether the receiver window has advanced or not.
-
-When a packet that is not full (its full size is different from that of the others) is received *in order* the test is finished. Send a normal ACK back with the sequence number of the short packet, wait a certain amount of time and "declare the test finished" (i.e. free variables and accept new test packets). 
-The time to wait should be greater than sender's timeout + RTT: if the last ACK is lost, the sender should re-send all the missing packets of the last window after the timeout expires. If no packet is received in 1 second, the receiver declares the connection closed and aborts the test.
 
 h2. PROBLEMS and FURTHER DEVELOPMENT
 
