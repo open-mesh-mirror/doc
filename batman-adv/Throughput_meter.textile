@@ -8,9 +8,9 @@ The goal of the protocol is to approximate the behavior of TCP in order to measu
 The bandwidth meter protocol is the implementation of TCP with a congestion handling mechanism like NewReno.
 
 Details can be found in:
-* "RFC 5681":http://tools.ietf.org/html/rfc5681
-* "RFC 6582":http://tools.ietf.org/html/rfc6582
-* "RFC 6298":http://tools.ietf.org/html/rfc6298
+* "RFC 5681":http://tools.ietf.org/html/rfc5681 (TCP)
+* "RFC 6582":http://tools.ietf.org/html/rfc6582 (NewReno extension)
+* "RFC 6298":http://tools.ietf.org/html/rfc6298 (Retransmission Timeout computation)
  
 During the test ICMP packets only are exchanged. In particular a new ICMP packet type has been created: the ICMP_BW.
 This particular packet type is directly passed to the bandwitdh meter submodule which is in charge of handling the connection. The ICMP_BW packets can be of two particular subtype:
