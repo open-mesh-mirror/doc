@@ -7,13 +7,13 @@ h2. The bandwidth meter protocol
 The goal of the protocol is to approximate the behavior of TCP in order to measure a bandwidth close to what a common TCP connection would achieve. 
 The bandwidth meter protocol is the implementation of TCP using NewReno as congestion handling mechanism.
 
-Details can be found in:
+Since the implementations of the bandwidth meter tries to reflect the TCP one, more details can directly be found in the following documents:
 * "RFC 5681":http://tools.ietf.org/html/rfc5681 (TCP)
 * "RFC 6582":http://tools.ietf.org/html/rfc6582 (NewReno extension)
 * "RFC 6298":http://tools.ietf.org/html/rfc6298 (Retransmission Timeout computation)
  
-During the test batman-adv sends ICMP packets only. For this purpose a new ICMP packet type has been created: the ICMP_BW.
-Received ICMP_BW packets are directly passed to the bandwitdh meter submodule which is in charge of handling the test. It has two subtypes:
+During the test batman-adv sends ICMP packets only. For this purpose a new ICMP packet type has been created: the BW.
+Received BW packets are directly passed to the bandwitdh meter submodule which is in charge of handling the test. It has two subtypes:
 * MSG
 * ACK
 
@@ -21,13 +21,6 @@ Since the test is performed unidirectionally, ACKs are not piggybacked on normal
 A node can participate in different tests at the same time, but with different end-points. This means that two or more tests cannot be performed at the same time between the same pair of nodes.
 
 Between two consecutive experiment runs at least two seconds should be waited, to ensure the connection on the receiver side has been properly closed.
-
-h3. The sender
-
-The sender maintains, for each ongoing test, the following variables:
-
-* *last_acked* the last payload byte acked by the receiver
-* *last_sent* the next byte to be sent
 
 h3. The receiver
 
