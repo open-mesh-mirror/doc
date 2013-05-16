@@ -33,8 +33,11 @@ The solution with a single spinlock for both ack and send has been discarded: if
 
 h3. The Receiver
 
-The receiver uses a single spinlock to protect the bw_vars structure: the only operation is indeed to increase the variable window_first and send an ack. This should not take much time since the ack is then send outside of the cs. Concurrent access occurs only if while processing an ack another one is received, which should be prevented by the use of the lock.
+To begin the test, the receiver must receive an ICMP packet with msg_type BW, subtype MSG and sequence number BATADV_BW_FIRST_SEQ: if another packet is received, the test is not started, no ack is sent back and no data structure is allocated on the receiver side.
 
+If that particular packet is received and no other bandwidth test is ongoing with the same node, the connection is opened and the resources are allocated.
+
+The receiver uses a single spinlock to protect the bw_vars structure: the only operation is indeed to increase the variable window_first and send an ack. This should not take much time since the ack is then send outside of the cs. Concurrent access occurs only if while processing an ack another one is received, which should be prevented by the use of the lock.
 
 h2. BUGLIST
 
