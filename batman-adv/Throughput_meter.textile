@@ -23,13 +23,15 @@ Received BW packets are directly passed to the bandwitdh meter submodule which i
 Since the test is performed unidirectionally, ACKs are not piggybacked on normal messages (like TCP does) and therefore two different packet types are used.
 A node can participate in different tests at the same time, but with different end-points. This means that two or more tests cannot be performed at the same time between the same pair of nodes.
 
+h2. How to run a test
+
+The bandwidth meter is controlled by using batctl. For this purpose a the new *bw* command has been added.
+It is possible to start a test by issuing the following command:
+<pre># batctl bw -t 10000 <originator address></pre>
+where *-t 10000* is an option telling batman-adv how much _milliseconds_ the test should last.
+While the test is running it is also possible to interrupt it by pressing _CTRL+C_: batctl will send a message to batman-adv and tell it to terminate the test. batctl will then print the throughput obtained so far.
+
 Between two consecutive experiment runs at least two seconds should be waited, to ensure the connection on the receiver side has been properly closed.
-
-h3. Starting a new session on the receiver
-
-To begin the test, the receiver must receive an ICMP packet with msg_type BW, subtype MSG and sequence number BATADV_BW_FIRST_SEQ: if another packet is received, the test is not started, no ack is sent back and no data structure is allocated on the receiver side.
-
-If that particular packet is received and no other bandwidth test is ongoing with the same node, the connection is opened and the resources are allocated.
 
 h2. PROBLEMS and FURTHER DEVELOPMENT
 
