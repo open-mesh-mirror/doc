@@ -31,6 +31,8 @@ If that particular packet is received and no other bandwidth test is ongoing wit
 
 h2. PROBLEMS and FURTHER DEVELOPMENT
 
+- Performance registered by the bandwidth meter and by iperf on a simple topology made up by two nodes connected wirelessly is mostly the same. Theoretically we expected a not negligible difference due to the context switch, but this has not been verified. More tests in different setups will be reported.
+
 -Two main protocol limitations lies in the fixed size of the window and in the slow reaction of the timeout.-
 
 -The window problem depends on the fact that at most a window can be sent every round trip time, as shown in the image above. If the window size is small, this can limit the performances; the window size also affects retransmission, in case a packet is lost, the whole window is retransmitted.-
