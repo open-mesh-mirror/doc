@@ -1,5 +1,4 @@
-h1. BANDWIDTH METER TECHNICAL and DEBUG PAGE
-
+h1. Bandwidth meter technical page
 h2. Window Size
 
 Window size is an upper bound for throughput. At most a window is sent every RTT. But every time a packet is lost, the whole window is retransmitted!
