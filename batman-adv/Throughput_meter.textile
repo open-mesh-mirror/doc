@@ -1,6 +1,9 @@
-h1. Bandwidth meter protocol
+h1. Bandwidth meter
 
-This page explains the protocol and inner workings of the bandwidth meter. The motivation behind the bandwidth meter and its design is explained on the [[open-mesh:2012-10-06-GSoC-2012-Edo-Monticellis-Final-Report|bandwidth meter introduction page]]. More technical details are discussed on the [[bandwidth_meter_debug|technical and debug page]].
+This page is about a general overview of the Bandwith Meter tool in B.A.T.M.A.N.-Advanced.
+This project was started by Edo Monticelli during his 2012 Google Summer Of Code and it is possible to read his final report [[open-mesh:2012-10-06-GSoC-2012-Edo-Monticellis-Final-Report|here]].
+Since then, the project evolved a lot and the protocol used by it moved from a naïve Go-Back-N to the more sophisticated TCP NewReno.
+More technical details are discussed on the [[bandwidth_meter_debug|technical and debug page]].
 
 h2. The bandwidth meter protocol
 
