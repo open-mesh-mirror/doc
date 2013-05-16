@@ -22,12 +22,11 @@ A node can participate in different tests at the same time, but with different e
 
 Between two consecutive experiment runs at least two seconds should be waited, to ensure the connection on the receiver side has been properly closed.
 
-h3. The receiver
+h3. Starting a new session on the receiver
 
 To begin the test, the receiver must receive an ICMP packet with msg_type BW, subtype MSG and sequence number BATADV_BW_FIRST_SEQ: if another packet is received, the test is not started, no ack is sent back and no data structure is allocated on the receiver side.
 
 If that particular packet is received and no other bandwidth test is ongoing with the same node, the connection is opened and the resources are allocated.
-
 
 h2. PROBLEMS and FURTHER DEVELOPMENT
 
