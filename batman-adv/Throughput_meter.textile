@@ -31,7 +31,7 @@ If that particular packet is received and no other bandwidth test is ongoing wit
 
 h2. PROBLEMS and FURTHER DEVELOPMENT
 
-- Performance registered by the bandwidth meter and by iperf on a simple topology made up by two nodes connected wirelessly is mostly the same. Theoretically we expected a not negligible difference due to the context switch, but this has not been verified. More tests in different setups will be reported.
+* Performance registered by the bandwidth meter and by iperf on a simple topology made up by two nodes connected wirelessly is mostly the same. Theoretically we expected a not negligible difference due to the context switch, but this has not been verified. More tests in different setups will be reported.
 
 -Two main protocol limitations lies in the fixed size of the window and in the slow reaction of the timeout.-
 
