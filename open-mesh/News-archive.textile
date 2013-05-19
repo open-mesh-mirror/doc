@@ -5,6 +5,7 @@ This page contains the links to previous news posts for archiving purposes.
 
 h3. 2012
 
+* *17.Nov. 2012* [[2012-11-17-batman-adv-in-south-america|Guest article: batman-adv in South America]]
 * *31.Oct. 2012* [[2012-10-31-batman-adv-2012-4-0-release|Batman-adv 2012.4.0 released]]
 * *06.Oct. 2012* [[2012-10-06-GSoC-2012-Edo-Monticellis-Final-Report|GSoC 2012: Edo Monticelli's Final Report]]
 * *01.Oct. 2012* [[2012-10-01-GSoC-2012-Spyros-Gasteros-Final-Report|GSoC 2012: Spyros Gasteratos' Final Report]]
