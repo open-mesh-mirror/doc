@@ -28,4 +28,9 @@ For the BW Meter there are two available commands:
 The following picture depict the communication between batctl and batman-adv.
 !Bw1.png!
 
-Once the test is finished, batman-adv will send back a particular packet, namely the *ICMP BW RESULT*, containing the _time spent for the test_ and the _amount of bytes correctly acked by the receiver_. This information is then used by batctl to properly show the result to the user.
+The *bw_stop* command is used only when the user wants the test to be stopped before the predefined time elapses.
+
+Once the test is finished, batman-adv will send back a particular packet, namely the *ICMP BW RESULT*, containing the _time spent for the test_ and the _amount of bytes correctly acked by the receiver_.
+This information is then used by batctl to properly show the result to the user. The results are sent back in both the cases (test stopped by the user or test naturally ended because time is up).
+
+The major difference between this ICMP operation and the old ones like PING or TRACEROUTE are that the packet sent by batctl is not directly forwarded to the network, but instead it is processed and consumed directly on the local node.
