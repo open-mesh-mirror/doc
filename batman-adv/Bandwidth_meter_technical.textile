@@ -13,3 +13,19 @@ In the code it is also possible to find several references to RFC sections which
 A define of note is the _Receiver/Advertised Window size_, which has been fixed to *2^22* bytes. Common TCP implementations instead limit this size to 2^16 bytes and can reach such high value only if using the Window Scaling option.
 
 This value is important because it represents the limit for the _Transmit Window size_ and so for the maximum amount of in-flight data.
+
+h2. Interaction between batctl and batman-adv
+
+The BW meter is started using batctl, in particular is started by the batman-adv module when receiving a particular message on the ICMP socket. Such socket is used for communications between batctl and batman-adv which so far were limited to ICMP Echo Requests/Replies.
+
+To inctroduce the BW meter, a new particular ICMP packet has been introduced: the *ICMP USER packet*.
+Such packet is used to send *commands* from batctl to batman-adv.
+
+For the BW Meter there are two available commands:
+# *bw_start*: initiate a new a BW measurement towards a selected node
+# *bw_stop*: halt the selected BW measurement
+
+The following picture depict the communication between batctl and batman-adv.
+!Bw1.png!
+
+Once the test is finished, batman-adv will send back a particular packet, namely the *ICMP BW RESULT*, containing the time spent for the test and the amount of bytes correctly acked by the receiver. This information is then used by batctl to properly show the result to the user.
