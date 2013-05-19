@@ -28,4 +28,4 @@ For the BW Meter there are two available commands:
 The following picture depict the communication between batctl and batman-adv.
 !Bw1.png!
 
-Once the test is finished, batman-adv will send back a particular packet, namely the *ICMP BW RESULT*, containing the time spent for the test and the amount of bytes correctly acked by the receiver. This information is then used by batctl to properly show the result to the user.
+Once the test is finished, batman-adv will send back a particular packet, namely the *ICMP BW RESULT*, containing the _time spent for the test_ and the _amount of bytes correctly acked by the receiver_. This information is then used by batctl to properly show the result to the user.
