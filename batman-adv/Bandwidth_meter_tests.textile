@@ -1,18 +1,26 @@
 h1. Bandwitdh meter tests
 
-h2. Environment
+In this page some sample result of the bw meter executions are reported. In particular the results are compared with *iperf* and an *HTTP download* to see how much the obtained throughput varies in the different cases.
 
-* One OM2P-HS and one OM2P-LC nodes using ath9k based wifi devices connected in ad-hoc mode on *2.4GHz*.
+All the experiments have been executed between two nodes, directly connecteed via wireless ad-hoc. Different devices have been used for the tests. Major details about this are given later.
 
-h3. Scenarios
+The scenarios where the tests have been executed are the following:
 
-# bw meter from HS to LC (and viceversa)
-# iperf from HS to LC (and viceversa). Iperf was running on the nodes themselves
-# HTTP download from an host behind the HS to another one behind the LC (and viceversa). In particular:
-## host connected to the Ethernet port of the node
-## Ethernet interface bridged with the batman-adv soft interface
+# bw meter from node to node
+# iperf from node to node. Iperf was running on the nodes themselves
+# HTTP download from an host behind the first node node to another one behind the second node. In particular:
+## host is connected to the Ethernet port of the node
+## Ethernet interface is bridged with the batman-adv soft interface
 
 Test in scenarios 1 and 2 were executed alternatively (one bw meter, one iperf, one bw meter, one iperf, ...) while the HTTP downloads have been executed all together later on.
+
+h2. Environment 1
+
+One OM2P-HS and one OM2P-LC nodes using ath9k based wifi devices connected in ad-hoc mode on *2.4GHz*.
+The HS is 802.11n (2x2) capable
+The LC is 802.11n (1x1) capable
+
+h3. Results
 
 The table below shows the results in all the 3 scenarios.
 All the results are expressed in *Mbps*.
@@ -66,3 +74,37 @@ All the results are expressed in *Mbps*.
 |25.42|25.6|14.48|
 |25.23|26.4|14.40|
 
+h2. Environment 2
+
+two OM5P node using ath9k based wifi devices connected in ad-hoc mode on *5GHz*.
+The OM5P is 802.11n (2x2) capable
+
+
+h3. Results
+
+The table below shows the results in all the 3 scenarios.
+All the results are expressed in *Mbps*.
+
+*OM5P -> OM5P*
+
+|_. bw_meter |_. iperf |_. http |
+|85.82|94.3|28.88|
+|83.83|94.3|29.44|
+|85.42|94.3|27.12|
+|84.84|94.2|28.00|
+|84.33|94.2|28.96|
+|83.33|94.3|26.48|
+|86.70|94.2|28.32|
+|85.11|94.1|28.00|
+|83.62|94.3|29.36|
+|41.63|94.3|28.56|
+|760.00|94.2|29.68| <- outlier
+|83.22|94.3|29.68|
+|61.62|94.2|29.60|
+|84.78|94.3|26.56|
+|84.74|94.3|24.56|
+|83.98|94.2|26.56|
+|84.18|94.2|29.28|
+|84.90|94.3|26.56|
+|84.39|94.2|26.48|
+|45.03|94.3|30.72|
