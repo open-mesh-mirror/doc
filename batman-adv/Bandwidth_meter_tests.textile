@@ -14,6 +14,8 @@ The scenarios where the tests have been executed are the following:
 
 Test in scenarios 1 and 2 were executed alternatively (one bw meter, one iperf, one bw meter, one iperf, ...) while the HTTP downloads have been executed all together later on.
 
+*note:* results given by the http download seem to be wrong. There is probably something wrong in the setup which is slowing everything down.
+
 h2. Environment 1
 
 One OM2P-HS and one OM2P-LC nodes using ath9k based wifi devices connected in ad-hoc mode on *2.4GHz*.
