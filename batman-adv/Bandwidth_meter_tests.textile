@@ -1,0 +1,68 @@
+h1. Bandwitdh meter tests
+
+h2. Environment
+
+* One OM2P-HS and one OM2P-LC nodes using ath9k based wifi devices connected in ad-hoc mode on *2.4GHz*.
+
+h3. Scenarios
+
+# bw meter from HS to LC (and viceversa)
+# iperf from HS to LC (and viceversa). Iperf was running on the nodes themselves
+# HTTP download from an host behind the HS to another one behind the LC (and viceversa). In particular:
+## host connected to the Ethernet port of the node
+## Ethernet interface bridged with the batman-adv soft interface
+
+Test in scenarios 1 and 2 were executed alternatively (one bw meter, one iperf, one bw meter, one iperf, ...) while the HTTP downloads have been executed all together later on.
+
+The table below shows the results in all the 3 scenarios.
+All the results are expressed in *Mbps*.
+
+*HS -> LC*
+
+|_. bw_meter |_. iperf |_. http |
+|26.23|27.4|16.80|
+|26.26|27.4|16.80|
+|26.42|26.4|16.96|
+|25.92|26.8|16.96|
+|25.98|26.5|18.00|
+|26.47|26.7|17.28|
+|26.03|25.7|16.88|
+|25.27|26.2|16.32|
+|25.40|25.7|16.64|
+|25.83|26.2|16.56|
+|25.74|26.1|15.36|
+|25.86|26.3|16.16|
+|26.44|26.2|15.76|
+|27.14|27.0|16.40|
+|27.91|29.5|15.92|
+|35.45|33.8|16.24|
+|36.10|34.0|16.56|
+|36.02|34.1|16.48|
+|34.74|33.5|16.64|
+|34.66|33.9|17.04|
+
+
+*LC -> HS*
+
+|_. bw_meter |_. iperf |_. http |
+|25.06|26.6|14.48|
+|25.58|26.6|14.40|
+|24.83|26.7|14.24|
+|25.05|26.3|14.40|
+|25.42|25.1|14.24|
+|24.64|25.0|14.48|
+|23.34|25.7|14.48|
+|24.76|26.5|14.48|
+|25.14|26.4|14.56|
+|21.10|25.4|14.64|
+|24.33|26.5|14.32|
+|25.11|26.1|14.48|
+|24.82|26.2|14.24|
+|24.77|25.0|14.40|
+|24.76|25.3|14.48|
+|25.66|25.7|14.32|
+|25.00|26.8|14.64|
+|25.86|26.0|14.32|
+|25.42|25.6|14.48|
+|25.23|26.4|14.40|
+
