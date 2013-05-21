@@ -31,4 +31,4 @@ It is possible to start a test by issuing the following command:
 where *-t 10000* is an option telling batman-adv how much _milliseconds_ the test should last.
 While the test is running it is also possible to interrupt it by pressing _CTRL+C_: batctl will send a message to batman-adv and tell it to terminate the test. batctl will then print the throughput obtained so far.
 
-Between two consecutive experiment runs at least two seconds should be waited, to ensure the connection on the receiver side has been properly closed.
+Between two consecutive experiments at least two seconds must be waited, to ensure the connection on the receiver side has been properly closed.
