@@ -1,4 +1,4 @@
-h1. Bandwitdh meter tests
+h1. Bandwidth meter tests
 
 In this page some sample result of the bw meter executions are reported. In particular the results are compared with *iperf* and an *HTTP download* to see how much the obtained throughput varies in the different cases.
 
