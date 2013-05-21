@@ -10,7 +10,7 @@ The protocol used by the bandwidth meter is TCP NewReno. More technical details 
 Implementation of the BW meter took the TCP in-kernel module as example and some snippets of code are mostly indentical (e.g. SRTT/RTTVAR/RTO computation).
 In the code it is also possible to find several references to RFC sections which explain what the code is doing.
 
-A define of note is the _Receiver/Advertised Window size_, which has been fixed to *2^22* bytes. Common TCP implementations instead limit this size to 2^16 bytes and can reach such high value only if using the Window Scaling option.
+A define of note is the _Receiver/Advertised Window size_, which has been fixed to *2^29* bytes. Common TCP implementations instead limit this size to 2^16 bytes and can reach such high value only if using the Window Scaling option. In the latter case the window size must be less than 2^30 and this is why of the chosen value for this implementation.
 
 This value is important because it represents the limit for the _Transmit Window size_ and so for the maximum amount of in-flight data.
 
