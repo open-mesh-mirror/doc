@@ -33,7 +33,7 @@ The *bw_stop* command is used only when the user wants the test to be stopped be
 Once the test is finished, batman-adv will send back a particular packet, namely the *ICMP BW RESULT*, containing the _time spent for the test_ and the _amount of bytes correctly acked by the receiver_.
 This information is then used by batctl to properly show the result to the user. The results are sent back in both the cases (test stopped by the user or test naturally ended because time is up).
 
-The major difference between this ICMP operation and the old ones like PING or TRACEROUTE are that the packet sent by batctl is not directly forwarded to the network, but instead it is processed and consumed directly on the local node.
+The major difference between this ICMP operation and the old ones like PING or TRACEROUTE is that the packet sent by batctl is not directly forwarded to the network, but instead it is processed and consumed directly on the local node.
 
 h2. Performance
 
