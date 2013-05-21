@@ -32,21 +32,3 @@ where *-t 10000* is an option telling batman-adv how much _milliseconds_ the tes
 While the test is running it is also possible to interrupt it by pressing _CTRL+C_: batctl will send a message to batman-adv and tell it to terminate the test. batctl will then print the throughput obtained so far.
 
 Between two consecutive experiment runs at least two seconds should be waited, to ensure the connection on the receiver side has been properly closed.
-
-h2. PROBLEMS and FURTHER DEVELOPMENT
-
-* Performance registered by the bandwidth meter and by iperf on a simple topology made up by two nodes connected wirelessly is mostly the same. Theoretically we expected a not negligible difference due to the context switch, but this has not been verified. More tests in different setups will be reported.
-
--Two main protocol limitations lies in the fixed size of the window and in the slow reaction of the timeout.-
-
--The window problem depends on the fact that at most a window can be sent every round trip time, as shown in the image above. If the window size is small, this can limit the performances; the window size also affects retransmission, in case a packet is lost, the whole window is retransmitted.-
-
--When a packet is lost, no new ACKs are received: the window is not slit and thus, after having sent all the packets in the window, the protocol is stuck.-
--This undesiderable situation lasts until the timeout expires. This would suggest a short timeout is better since it avoids a long protocol locking. On the other hand, if the timeout is shorter than RTT, it expires before the ACKs can arrive, leading to many unnecessary retransmissions. Since RTT depends on the network structure, it is safer to have a more conservative timeout.-
-
--A possible solution to the first problem could be a dynamic window system similar to that of TCP: every time an ack is received, the window is enlarged (up to a maximum fixed size) and everytime something bad happens (timeout expires or ``fast retransmit"-like approaches could also be considered) it is reduced.-
-
--A dynamic timeout, based on RTT measured while test is performed, could make the protocol more performant even in case of high packet losses. Furthermore something similar to TCP's "fast-retransmit" could also be implemented easily: if three ACKs are received with the same packet number, that probably means the next packet has been lost and it can be resend alone, without the need to resend
-the whole window.-
-
--Since both the window size and the timeout are statically defined in the current implementation, the protocol performances greatly depends on how their chosen values adapt to the network scenario in which the test is performed.-
