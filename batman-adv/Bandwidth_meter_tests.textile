@@ -111,4 +111,4 @@ For this environment, one more scenario has been tested: *iperf host to host*, m
 |84.18|94.2|28.88|84.2|
 |84.90|94.3|27.92|81.5|
 |84.39|94.2|29.84|81.6|
-|45.03|94.3|30.64|80.9
+|45.03|94.3|30.64|80.9|
