@@ -34,3 +34,7 @@ where *-t 10000* is an option telling batman-adv how much _milliseconds_ the tes
 While the test is running it is also possible to interrupt it by pressing _CTRL+C_: batctl will send a message to batman-adv and tell it to terminate the test. batctl will then print the throughput obtained so far.
 
 Between two consecutive experiments at least two seconds must be waited, to ensure the connection on the receiver side has been properly closed.
+
+h2. Source code
+
+batman-adv featuring the Bandwidth meter can be found at the main batman-adv git repository in the "ordex/bw_meter branch":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/ordex/bw_meter
