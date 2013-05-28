@@ -5,6 +5,8 @@ This project was started by Edo Monticelli during his 2012 Google Summer Of Code
 Since then, the project evolved a lot and the protocol used by it moved from a naïve Go-Back-N to the more sophisticated TCP NewReno.
 More technical details are discussed on the [[bandwidth_meter_debug|technical page]].
 
+The main goal of the Bandwidth Meter is to measure the maximum reachable throughput in a TCP-like connection between two generic nodes in the network.
+
 h2. The bandwidth meter protocol
 
 The goal of the protocol is to approximate the behavior of TCP in order to measure a bandwidth close to what a common TCP connection would achieve. 
