@@ -47,5 +47,5 @@ h2. Example
 
 !ext-isola.png!
 
-In the picture above, traffic is allowed only between the wired and the non-isolated wireless interface.
+In the picture above, traffic is allowed only between the wired and the non-isolated wireless interface (both the interfaces must be isolated to block the traffic).
 Wireless to wireless traffic is blocked due to the already existing [[AP-isolation]] mechanism, while between the two isolatted-wired interfaces there is no communication because of the new Extended Isolation feature described in this page.
