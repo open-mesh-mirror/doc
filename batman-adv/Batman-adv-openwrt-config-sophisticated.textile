@@ -191,7 +191,7 @@ Just remove or comment out the corresponding section
 #set wireless.@wifi-iface[-1].ssid='$WPA_ESSID'
 </pre>
 
-h3. What if I am running batman-adv 2013.0.0?
+h3. What if I am running batman-adv 2013.0.0 or later ?
 
 Modify the bat0 and mesh0 networks to be as follows
 <pre>
