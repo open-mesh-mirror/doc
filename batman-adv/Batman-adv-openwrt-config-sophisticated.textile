@@ -8,7 +8,7 @@ You should run the script inside the OpenWRT host, assuming:
 * batman-adv is compiled in, or installed (opkg install kmod-batman-adv).
 * your uci config resembles a vanilla OpenWRT (no esoteric setups done yet)
 * all radios are connected
-* drivers for all radios are compiled in or instaled (ex. opkg install kmod-ath9k-htc)
+* drivers for all radios are compiled in or installed (ex. opkg install kmod-ath9k-htc)
 * all your radios/drivers support adhoc mode properly (unfortunately most USB don't, as of May 2012)
 * main radio (radio0) supports multiple, mixed VAPs (adhoc and ap)
 
