@@ -60,7 +60,7 @@ cat /sys/kernel/debug/batman_adv/bat0/transtable_global
 Globally announced TT entries received via the mesh bat0
    Client            (TTVN)     Originator        (Curr TTVN) (CRC   ) Flags
  * fe:fe:00:00:01:01  ( 12) via fe:fe:00:00:02:01       ( 50) (0xff9a) [RXW]
- + fe:fe:00:00:01:01  ( 24) via ca:ca:00:00:02:01      ( 32) [RXW]
+ + fe:fe:00:00:01:01  ( 24) via ca:ca:00:00:02:01       ( 32) [RXW]
 </pre>
 
 Each line contains the announced mac address, the ttvn at the point of the addition to the table and the mac of the batman node announcing it including the latest ttvn and table crc of that very node. The meaning of flags are similar to those above:
@@ -70,7 +70,7 @@ Each line contains the announced mac address, the ttvn at the point of the addit
 
 If any of the flags is not enabled, a '.' will substitute its symbol.
 
-Since the introduction of the Bridge Loop Avoidance 2, each client can be reached through multiple originators and therefore it is possible to have the same client appearing more than one in the list.
+Since the introduction of the [[Bridge-loop-avoidance-II|Bridge Loop Avoidance 2]], each client can be reached through multiple originators and therefore it is possible to have the same client appearing more than one in the list.
 In this case there will be one line starting with '*' indicating the default entry to be used to route traffic towards this client and some (zero or more) entries starting with '+' indicating other possible routes. The line related to "possible routes" do not have a CRC value.
 
 h3. Gateway table
