@@ -94,13 +94,13 @@ However as the links are only set up bidirectional, interferences can unfortunat
 For advanced testing it might be necessary to apply the aforementioned link defects to some packets only whereas other packets are able to traverse the emulated environment unharmed. Once you applied the 'ethertype' patch you can specify an ethertype which wirefilter will simply forward. To apply a packet loss of 50%25 to all packets except batman-adv packets, run:
 
 <pre>
-wirefilter --ether 4305 -l 50
+wirefilter --ether 0x4305 -l 50
 </pre>
 
 This patch also allows to filter batman-adv packet types. To apply a packet loss of 50%25 to all packets except batman-adv ICMP packets, run:
 
 <pre>
-wirefilter --ether 4305:02 -l 50
+wirefilter --ether 0x4305:02 -l 50
 </pre>
 
 You can specify up to 10 packet types (separated by colon). The patch against vde2-2.3.1 (current latest stable version) can be found here:
