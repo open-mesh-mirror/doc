@@ -1,0 +1,113 @@
+--- src/wirefilter.c	2013-08-05 13:04:14.324879116 +0200
++++ src/wirefilter.c	2013-08-14 16:50:34.244561753 +0200
+@@ -59,6 +59,9 @@
+ char debuglevel[NPFD];
+ char *progname;
+ char *mgmt;
++char ether_type[2];
++unsigned char ether_num_bytes;
++char ether_bytes[10];
+ int mgmtmode=0700;
+ #define LR 0
+ #define RL 1
+@@ -546,13 +549,39 @@
+ 
+ void handle_packet(int dir,const unsigned char *buf,int size)
+ {
++	int i;
++	
+ 	/* MTU */
+ 	/* if the packet is incosistent with the MTU of the line just drop it */
+ 	if (min_wirevalue(markov_current,MTU,dir) > 0 && size > min_wirevalue(markov_current,MTU,dir))
+ 		return;
+-
++	
++	/* if the packet has the whitelisted ethertype or etherbytes just send it */
++	if ((ether_type[0] == 0 && ether_type[1] == 0) || (size < 16))
++		goto wire_check;
++	
++	if ((ether_type[0] != buf[14]) || (ether_type[1] != buf[15]))
++		goto wire_check;
++	
++	if (ether_num_bytes == 0) {
++		writepacket(dir,buf,size);
++		return;
++	} else {
++		if (size < 17)
++			goto wire_check;
++		
++		for (i = 0; i < ether_num_bytes; i++) {
++			if (ether_bytes[i] != buf[16])
++				continue;
++			
++			writepacket(dir,buf,size);
++			return;
++		}
++	}
++	
+ 	/* LOSS */
+ 	/* Total packet loss */
++wire_check:
+ 	if (min_wirevalue(markov_current,LOSS,dir) >= 100.0)
+ 		return;
+ 	/* probabilistic loss */
+@@ -1425,6 +1454,7 @@
+ 			"\t--pidfile pidfile\n"
+ 			"\t--blink blinksocket\n"
+ 			"\t--blinkid blink_id_string\n"
++			"\t--ether ether_type<:byte><:byte>\n"
+ 			,progname);
+ 	exit (1);
+ }
+@@ -1436,6 +1466,7 @@
+ 	int option_index;
+ 	int mgmtindex=-1;
+ 	int consoleindex=-1;
++	char *ptr;
+ 	static struct option long_options[] = {
+ 		{"help",0 , 0, 'h'},
+ 		{"rcfile", 1, 0, 'f'},
+@@ -1457,17 +1488,20 @@
+ 		{"pidfile", 1, 0, PIDFILEARG},
+ 		{"blink",1,0,LOGSOCKETARG},
+ 		{"blinkid",1,0,LOGIDARG},
++		{"ether", 1, 0, 'e'},
+ 		{0,0,0,0}
+ 	};
+ 	progname=basename(argv[0]);
+ 	markov_resize(1);
+-
++	
+ 	setsighandlers();
+ 	atexit(cleanup);
+-
++	ether_num_bytes = 0;
++	memset(ether_bytes, 0, sizeof(ether_bytes));
++	
+ 	while(1) {
+ 		int c;
+-		c = GETOPT_LONG (argc, argv, "hl:n:d:M:D:m:b:s:c:v:L:f:",
++		c = GETOPT_LONG (argc, argv, "hnl:d:M:D:m:b:s:c:v:L:f:e:",
+ 				long_options, &option_index);
+ 		if (c<0)
+ 			break;
+@@ -1511,6 +1545,19 @@
+ 			case 'N':
+ 				nofifo=1;
+ 				break;
++			case 'e':
++				sscanf(optarg,"%2hhx%2hhx", &ether_type[0], &ether_type[1]);
++				ptr = optarg;
++				for (n = 0; n < sizeof(ether_bytes); n++) {
++					ptr = strchr(ptr, ':');
++					if (!ptr)
++						break;
++
++					ptr++;
++					sscanf(ptr, "%hhx", &ether_bytes[n]);
++					ether_num_bytes++;
++				}
++				break;	
+ 			case 'v':
+ 				{
+ 					char *colon;
