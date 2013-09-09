@@ -101,10 +101,10 @@ $ alfred -r 64
         "hostname" : "OpenWRT-node-1\n",
         "version" : "v42",
         "alignment" : "☮",
-        "cake.pdf" : "xNdFeLvUtSI+cH8zvZGQqk6cwbPThbg19+4IVBFLH2PlzszFnUQmllnlrT8Mj7o/w/A=",
+        "cake.pdf" : "VGhlIGNha2UgaXMgYSBsaWUhCg==",
         "config-backup" : "Wxj5fsra7gGLuD3VJf0aBsfmi2HEpTn+ZuAhJ0tyom1hX11vxqJDJn1q/Md+tDKUyLI="
     }
 }
-$ alfred -r 64 -n "cake.pdf" --binary "fe:f1:00:00:01:01" > /tmp/cake.pdf
+$ alfred -r 64 -n "cake.pdf" --binary "fe:f1:00:00:01:01" > /tmp/lie.txt
 $ alfred -r 64 -n "config-backup" --binary "fe:f1:00:00:01:01" | xz -dc > /tmp/etc.tar
 </pre>
