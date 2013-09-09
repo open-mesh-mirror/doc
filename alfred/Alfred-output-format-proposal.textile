@@ -44,7 +44,9 @@ $ alfred -r 64
 +Valid UTF8 text, non-ASCII:+
 
 _Store:_
+<pre>
 $ echo -n "\xe2\x98\xae" |  alfred -s 64
+</pre>
 
 _Read:_
 <pre>
