@@ -11,9 +11,7 @@ Here's a proposal which aims for the following three key benefits:
 
 h2. Valid UTF8 text only by default
 
-h3. Examples
-
-h4. Valid UTF8 text, ASCII, example 1:
++Valid UTF8 text, ASCII, example 1:+
 
 _Store:_
 <pre>
@@ -28,7 +26,7 @@ $ alfred -r 64
 }
 </pre>
 
-h4. Valid UTF8 text, ASCII, example 2:
++Valid UTF8 text, ASCII, example 2:+
 
 _Store:_
 <pre>
@@ -43,7 +41,7 @@ $ alfred -r 64
 }
 </pre>
 
-h4. Valid UTF8 text, non-ASCII:
++Valid UTF8 text, non-ASCII:+
 
 _Store:_
 $ echo -n "\xe2\x98\xae" |  alfred -s 64
@@ -56,7 +54,7 @@ $ alfred -r 64
 }
 </pre>
 
-h4. On non-UTF8 data:
++On non-UTF8 data:+
 
 Simply fail with an error return code and message, example:
 
