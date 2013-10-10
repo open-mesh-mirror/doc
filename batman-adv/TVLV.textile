@@ -95,24 +95,27 @@ Flags passed to the handler by the TVLV API:
 
 h2. TVLV definitions
 
-
 h3. Gateway announcement
 
  * tvlv type: 0x01
  * function: Each batman-adv gateway server announces it's available internet connection speed, so that batman-adv gateway clients can select their preferable server.
  * purpose: Every node keeps a list of batman-adv gateways in the mesh to later the preferred gateway. 
- * length: 1 byte gateway flags
+ * length: 8 byte gateway bandwidth information
  * Fixed TVLV fields:
- ** gateway flags: announced gateway bandwidth (1Byte)
+ ** download bandwidth: announced gateway bandwidth in MBit/s/10 (4Bytes)
+ ** upload bandwidth: announced gateway bandwidth in MBit/s/10 (4Bytes)
  * definition:
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TVLV 0x01   |    Version    |    Length     |    GW Flags   |
+ |   TVLV Type   |    Version    |             Length            | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                   gateway bandwidth down                      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                    gateway bandwidth up                       |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
-
 
 h3. DAT (Distributed ARP Table)
 
