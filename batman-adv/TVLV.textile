@@ -102,8 +102,8 @@ h3. Gateway announcement
  * purpose: Every node keeps a list of batman-adv gateways in the mesh to later the preferred gateway. 
  * length: 8 byte gateway bandwidth information
  * Fixed TVLV fields:
- ** download bandwidth: announced gateway bandwidth in MBit/s/10 (4Bytes)
- ** upload bandwidth: announced gateway bandwidth in MBit/s/10 (4Bytes)
+ ** gateway bandwidth down: announced gateway download bandwidth in MBit/s/10 (4Bytes)
+ ** gateway bandwidth up: announced gateway upload bandwidth in MBit/s/10 (4Bytes)
  * definition:
 <pre>
  0                   1                   2                   3
