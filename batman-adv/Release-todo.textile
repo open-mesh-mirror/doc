@@ -13,10 +13,10 @@ h2. Release Scheduling
 
 h2. Documentation
 
-* [ ] build changelog
-* [ ] update README
+* [x] build changelog
+* [x] update README
 * [x] write release announcement
-* [ ] update wiki documentation
+* [x] update wiki documentation
 
 h2. Code
 
