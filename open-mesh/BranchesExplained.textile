@@ -45,3 +45,15 @@ h2. batctl
 As batman-adv operates in kernelland a handy tool to manage the module and debug the network became necessary. The batctl tool was created to fill that gap and, since then, has become a valuable companion of batman-adv.
 
 
+h2. alfred
+
+alfred is a user space daemon for distributing arbitrary local information over
+the mesh/network in a decentralized fashion. This data can be anything which
+appears to be useful - originally designed to replace the batman-adv
+visualization (vis), you may distribute hostnames, phone books, administration
+information, DNS information, the local weather forecast ...
+
+Alfred does not strictly require batman-adv to operate, but can use neighborhood
+information from batman-adv when available. It is a nice additional service if there
+are additional information to be distributed over a mesh, but alfred is not required
+to run a batman-adv mesh network.
