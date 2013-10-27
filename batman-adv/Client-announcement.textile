@@ -94,8 +94,8 @@ The new entry is added to the global TranslationTable and marked as _temporary_ 
 
 h2. Limitations
 
-* Too many local clients: The size of the local translation table depends on the number served clients. This size cannot exceed the maximum packet size and if the limit is reached, new clients are ignored.
-* Decreased MTU: If an interface with and MTU less than the currently activated interfaces is added, the size of the local table might need to be reduced. Otherwise the node is unable to answer requests for full tables.
+* Too many local clients: The size of the local translation table depends on the number served clients. This size cannot exceed the maximum *fragmented* packet size and if the limit is reached, new clients are ignored. This is a virtual value given by the smallest MTU among all the hard-interfaces in use multiplied by the maximum number of allowed fragments (default to 8). This means that at compile time the user could potentially increase the number of fragments a node can send, thus increasing the local translation table maximum size.
+* Decreased MTU: If an interface with and MTU less than the currently activated interfaces is added, the size of the local table might need to be reduced to adapt to the maximum size computed as explained in the point above. Otherwise the node is unable to answer requests for full tables.
 
 h2. Notes
 
