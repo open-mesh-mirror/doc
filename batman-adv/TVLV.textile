@@ -177,6 +177,8 @@ h3. Translation table messages
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
+h3. Roaming Advertisement message
+
  * tvlv type: 0x05
  * function:  Reduce a non-mesh client's packet loss when it roams from one AP to the next.
  * purpose: Inform the old AP about the new location of the non-mesh client.
