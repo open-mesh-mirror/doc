@@ -157,8 +157,11 @@ h3. Translation table messages
  * Fixed TVLV fields:
  ** flags: translation table flags (1Byte)
  ** ttvn: translation table version number (1Byte)
- ** num_entries: number of tt change structs inside the tt tvlv container (2Bytes)
- ** crc: crc32 checksum of the local translation table (4Bytes)
+ ** num_vlan: number of TT VLAN data structures inside the tvlv container (2Bytes)
+ * Each TT VLAN data structure contains:
+ ** crc: crc32 checksum of the local translation (sub-)table containing entries belonging to this VLAN only (4Bytes)
+ ** vid: the identifier of this VLAN (2Bytes)
+ ** reserved: not used. Defined for alignment purposes (2Bytes)
  * definition:
 <pre>
  0                   1                   2                   3
@@ -166,9 +169,11 @@ h3. Translation table messages
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |   TVLV 0x04   |    Version    |             Length            | 
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |   TT Flags    |     TTVN      |         CRC32 checksum        |
+ |   TT Flags    |     TTVN      |       Number of VLANs         |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |        CRC32 checksum         |
+ |                        CRC32_vlan1                            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |       VID_vlan1               |       reserved_vlan1          |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
@@ -179,6 +184,7 @@ h3. Translation table messages
  * Fixed TVLV fields:
  ** client mac address: mac address of the roaming non-mesh client (6 bytes)
  ** vid: vlan tag id of the roaming non-mesh client (2 bytes)
+
  * definition:
 <pre>
  0                   1                   2                   3
