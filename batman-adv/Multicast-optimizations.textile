@@ -6,7 +6,7 @@ So far, this basic optimization reduces overhead in the following two ways:
 
 *_Discards IPv4/IPv6 packets with no multicast listener:_*
 
-!basic-multicast-not-receiver.png!
+!basic-multicast-no-receiver.png!
 
 *_Forwards IPv4/IPv6 packets with a single multicast listener via unicast:_*
 
