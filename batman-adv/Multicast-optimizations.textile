@@ -1,0 +1,27 @@
+h1. Basic Multicast Optimizations
+
+The current multicast optimizations in batman-adv provides a basic infrastructure for multicast awareness and reduced multicast overhead in some setups.
+
+So far, this basic optimization reduces overhead in the following two ways:
+
+*_Discards IPv4/IPv6 packets with no multicast listener:_*
+
+!basic-multicast-not-receiver.png!
+
+*_Forwards IPv4/IPv6 packets with a single multicast listener via unicast:_*
+
+!basic-multicast-single-receiver.png!
+
+If there is more than one receiver or if there is a node with a Linux bridge on top of its batman-adv interface, then packets are flooded as it was done so far:
+
+!basic-multicast-multiple-receivers.png!
+
+h2. 
+
+
+h2. Infrastructure
+
+h3. Multicast Listener Announcements
+
+h3. Multicast TVLV
+
