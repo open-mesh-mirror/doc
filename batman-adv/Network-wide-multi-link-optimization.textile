@@ -94,7 +94,7 @@ fe:f0:00:00:01:01    0.920s   (255) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:
 The individual tables per interface can be found in the respective folders which have been added as part of this patchset:
 
 <pre>
-cat /sys/kernel/debug/batman_adv/hardif/eth0/originators_multiif
+root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/hardif/eth0/originators_multiif
 [B.A.T.M.A.N. adv master-b82b9b2, IF/MAC: eth0/fe:f0:00:00:02:01 (bat0 BATMAN_IV)]
   Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
 fe:f1:00:00:03:01    0.170s   (255) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (255)
