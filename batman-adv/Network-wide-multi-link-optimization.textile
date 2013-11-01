@@ -11,7 +11,7 @@ h2. Routing Table Per Interface
 The main idea is to use n + 1 routing tables instead of just one, with n the number of interfaces:
 
  * there is one routing table based per incoming interface
- * one extra routing table for packets generated locally (e.g. from soft-interface)
+ * one 'default' extra routing table for packets generated locally (e.g. from soft-interface)
 
 The routing table is chosen based on the interface where the packet comes from.
 
