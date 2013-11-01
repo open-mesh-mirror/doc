@@ -24,20 +24,22 @@ To propagate different paths, the OGM forwarding is changed:
  * apply the strict "forward only from best neighbor" per interface
 
 +Path Metric computation+
-Each node, say SRC, creates and sends its own OGMs to let all the other peers in the network build their routing table
-* For each interface I belonging to SRC:
-** one OGM is sent as broadcast over I containing the metric value (namely OGM.metric) equal to 0
-* A generic node P receiving an OGM from R on interface I_IN
-** computes next_hop_metric = nhm(OGM.metric, R, I_IN)
-where nhm(x, r, i_in) is a metric alterating function which computes the path metric towards OGM.SRC by combining OGM.metric and the estimated throughput on the link P <-> r (through interface i_in).
-** For each interface I
-*** computes forw_metric = fwm(next_hop_metric, I_IN, I)
-where fwm(x, i_in, i) is a metric alterating function which computes the metric value that a node has to propagate over the given interface i that the path goes through interface i_in
-*** a new packet OGM' is created and OGM'.metric = forw_metric is set
-*** OGM' is sent as broadcast over I
-* Information to store in the routing table
-** one classic routing table for *each interface* containing
-*** the best next-hop towards each possible destination: the best next-hop is chosen based on the best next_hop_metric towards the destination
+Each node, creates and sends its own OGMs to let all the other peers in the network build their routing table
+
+* on each interface, one OGM is sent as broadcast containing the initial metric value
+
+* A generic node receiving an OGM from a neighbor on interface I. When forwarding, it will consider the output interface O:
+** perform the usual B.A.T.M.A.N. metric computations, including accepting OGMs only from the best neighbor
+** compare incoming interface I and outgoing interface O, and apply special rules based on that (e.g. a penalty if I and O are the same, and the interface is a wifi interface)
+** mark the computed metric in a special originator table for the interface O
+** forward the OGM with this computed metric only on interface O
+* all metric computations above are also performed for a virtual 'default' interface O, which is used for local traffic.
+
++Traffic forwarding+
+* traffic forwarding works in the reverse direction:
+** When forwarding traffic, use the originator table of the interface where the packet was received
+** for locally generated traffic, use the default originator table
+
 
 For example, consider the following illustration:
 
