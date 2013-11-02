@@ -1,6 +1,6 @@
 h1. Network Wide Multi Link Optimization
 
-The original batman-adv multi link optimization ([[Multi-link-optimizations-technical]]) works on a local level - which is fairly easy to implement and works well as long as as all nodes are configured the same way and have similar link qualities. But local decision may be wrong network wide - for example, consider some dual radio mesh nodes where the first node starts on 5 GHz, but after some hops (after switching between 2.4 and 5 GHz) it stops at a 2.4 GHz-only device. If it had chosen the other (2.4 Ghz) link in the first hop, choosing the same frequency twice could have been avoided, and the total path quality would be better.
+The original batman-adv multi link optimization ([[Multi-link-optimizations-technical]]) works on a local level - which is fairly easy to implement and works well as long as as all nodes are configured the same way and have similar link qualities. But local decision may be suboptimal network wide - for example, consider some dual radio mesh nodes where the first node starts on 5 GHz, but after some hops (including switches between 2.4 and 5 GHz) it stops at a 2.4 GHz-only device. If it had chosen the other (2.4 Ghz) link in the first hop, choosing the same frequency twice could have been avoided, and the total path quality would be better.
 
 !alternating-limited-view.png!
 
