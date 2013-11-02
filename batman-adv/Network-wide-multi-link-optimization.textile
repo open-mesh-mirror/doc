@@ -8,12 +8,13 @@ This limitation can be solved by relaying the information about multi-interfaces
 
 h2. Routing Table Per Interface
 
-The main idea is to use n + 1 routing tables instead of just one, with n the number of interfaces:
+The main idea is to use n + 1 routing tables instead of just one, with n being the number of configured interfaces:
 
- * there is one routing table based per incoming interface
- * one 'default' extra routing table for packets generated locally (e.g. from soft-interface)
+ * a routing table per incoming interface
+ * an additional 'default' routing table for packets generated locally (e.g. from the soft-interface)
 
-The routing table is chosen based on the interface where the packet comes from.
+The routing table is chosen based on the interface the packet entered the system by.
+
 
 h2. OGM forwarding and penalties
 
