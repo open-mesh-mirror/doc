@@ -4,7 +4,7 @@ The original batman-adv multi link optimization ([[Multi-link-optimizations-tech
 
 !alternating-limited-view.png!
 
-This limitation can be solved by relaying the information about multi interfaces over the whole mesh. This requires some changes to routing and forwarding, which are to be described here. (Original concept by Antonio)
+This limitation can be solved by relaying the information about multi-interfaces over the whole mesh. This requires some changes to routing and forwarding, which are to be described here.
 
 h2. Routing Table Per Interface
 
