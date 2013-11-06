@@ -38,10 +38,10 @@ h2. Release
 
 h2. Distributions
 
-* [ ] update alfred openwrt package
+* [x] update alfred openwrt package
 * [x] update batman-adv/batctl openwrt package
 * [ ] update gentoo package
-* [ ] update debian package
+* [x] update debian package
 
 h2. Aftershow
 
@@ -50,3 +50,4 @@ h2. Aftershow
 * [x] Merge patches from master into next (to get all the fancy new features - git merge --ff-only master)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
 * [x] Enable daily check for next/master (symbol check, cppcheck, feature check)
+* [ ] Update cppcheck, smatch, sparse on build server 
