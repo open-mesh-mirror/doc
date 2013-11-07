@@ -15,7 +15,7 @@ A common example may be to mark all the packets coming in through a given interf
 # tc filter add dev eth1 parent ffff: protocol all pref 10 u32 match u32 0 0 flowid 1:1 action skbedit mark 0x6
 </pre>
 
-With this intruction, all the packets coming in through eth1 will be marked with the value 0x6.
+With this instruction, all the packets coming in through eth1 will be marked with the value 0x6.
 
 batman-adv has to be configured properly, meaning that the administrator must tell it which is the value too look for in the mark field.
 <pre>
