@@ -20,6 +20,8 @@ With these commands, all the skbs of the packets coming in through eth1 will be 
 
 The next step it is to configure batman-adv properly, meaning that the administrator must tell it which is the value to match in the skb->mark field.
 <pre>
+# echo 6/0xffffffff >/sys/devices/virtual/net/bat0/mesh/isolation_mark
+or
 # batctl isola 0x06/0xFFFFFFFF # VALUE/MASK (todo: explain what this means)
 </pre>
 
