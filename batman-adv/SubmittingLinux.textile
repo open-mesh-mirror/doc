@@ -55,12 +55,13 @@ From git+ssh://open-mesh.org/marek/linux-merge
 
 h2. merge next into linux
 
+The git-merge.sh tool used below can be found in the git repo of git project :-) (https://github.com/git/git/blob/master/contrib/subtree/git-subtree.sh)
 
 <pre>
 '-(%25)-(xyz)> git checkout merge/master
 Checking out files: 100%25 (32337/32337), done.
 Switched to branch 'merge/master'
-'-(%25)-(merge/master)> git merge -s subtree pkg/next
+'-(%25)-(merge/master)> ./git-subtree.sh merge --prefix=net/batman-adv pkg/next
 Auto-merging net/batman-adv/Makefile
 CONFLICT (content): Merge conflict in net/batman-adv/Makefile
 CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in HEAD and modified in standalone/next. Version standalone/next of net/batman-adv/Makefile.kbuild left in tree.
@@ -115,10 +116,12 @@ Here you should see the
 
 h2. rebase on top of previous subtree merge/-rc1 merge 
 
+Since git is not able to properly guess the path where the merge has to be done anymore, the rebase command has been slightly changed to use a more advanced form of subtree strategy.
+With this new strategy, the path of the subtree can be manually specified.
 
 <pre>
 '-(%25)-(merge/master)> git checkout -b patches
-'-(%25)-(patches)> git rebase -s subtree origin/merge/master
+'-(%25)-(patches)> git rebase -s recursive -X subtree=net/batman-adv origin/merge/master
 First, rewinding head to replay your work on top of it...
 Auto-merging net/batman-adv/main.c
 Auto-merging net/batman-adv/routing.c
