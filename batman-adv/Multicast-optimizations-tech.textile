@@ -1,0 +1,54 @@
+h1. Basic Multicast Optimizations - Technical Description
+
+h2. Infrastructure
+
+h3. Multicast Listener Announcements
+
+The IPv4/IPv6 multicast listeners, more precisely the according multicast MAC addresses, of a batman-adv node are announced via the [[open-mesh:2012-05-13-translation-table-in-a-nutshell|translation table infrastructure]].
+
+h3. Multicast TVLV
+
+For one thing the availability of the Multicast TVLV signalizes the capability to perform Multicast Listener Announcements to other nodes.
+
+h4. Multicast TVLV format
+
+ * definition:
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV 0x06   |    Version    |             Length            | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | MCAST Flags   |
+ +-+-+-+-+-+-+-+-+
+</pre>
+
+h4. Multicast TVLV Flags
+
+<pre>
+ +-+-+-+-+-+-+-+-+
+ |0|1|2|3|4|5|6|7|
+ +-+-+-+-+-+-+-+-+
+</pre>
+
+h5. BATADV_MCAST_WANT_ALL_UNSNOOPABLES (Bit 0):
+
+Signalizes that this node wants all unsnoopable multicast traffic, that is traffic destined to the all-nodes address for IPv6 (ff02::1) and to link-local addresses for IPv4 (224.0.0.0/24). This is usually the case when a node uses a bridge device on top of bat0 and is therefore unable to detect potential bridged-in listeners.
+
+(not used yet, but implemented already for backwards compatibility reasons)
+
+h5. BATADV_MCAST_WANT_ALL_IPV4 (Bit 1):
+
+Signalizes that this node wants all IPv4 multicast traffic. This is usually the case when a node uses a bridge device on top of bat0, has an IGMP querier (no matter if IGMPv2 or IGMPv3) behind it and is therefore not able to reliably determine all of its IGMPv2 listeners.
+
+(not used yet, but implemented already for backwards compatibility reasons)
+
+h5. BATADV_MCAST_WANT_ALL_IPV6 (Bit 2):
+
+Signalizes that this node wants all IPv6 multicast traffic. This is usually the case when a node uses a bridge device on top of bat0, has an MLD querier (no matter if MLDv1 or MLDv2) behind it and is therefore not able to reliably determine all of its MLDv1 listeners.
+
+(not used yet, but implemented already for backwards compatibility reasons)
+
+h5. Bits 3 to 7:
+
+reserved for future extensions
