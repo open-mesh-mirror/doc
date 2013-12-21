@@ -1,5 +1,9 @@
 h1. Basic Multicast Optimizations - Technical Description
 
+Prior Readings:
+
+ * [[Basic-multicast-optimizations|Basic Multicast Optimizations]]
+
 h2. Multicast Listener Announcements
 
 !{width: 66%25;}basic-multicast-listener-announce.png!
@@ -24,8 +28,8 @@ h3. Multicast TVLV format
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |   TVLV 0x06   |    Version    |             Length            | 
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | MCAST Flags   |
- +-+-+-+-+-+-+-+-+
+ | MCAST Flags   |                 Reserved                      | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
 h3. Multicast TVLV Flags
