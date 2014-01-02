@@ -72,17 +72,6 @@ or by using @batctl@:
 %25 batctl f 0 # disable
 </pre>
 
-h2. The TT Issue
-
-To summarize the very-big-local-TT issue:
-
-*Before:*
-If the size of the local table exceeds the MTU, batman-adv simply truncates the response. This response leads to a wrong CRC at the receiver of the response, who then issues a new request. This loop will repeat until the local table fits the MTU again.
-
-*After:*
-When the size of the local table hits the MTU limit (with or without fragmentation), new clients are ignored and packets from ignored clients are dropped. By dropping the packet, batman-adv avoids the creation of temporary global clients at the destination originator.
-If the MTU is decreased to less than the size of the current local table, the local table is vigorously truncated to fit the new minimum MTU (with or without fragmentation). Immediately deleting the entries as opposed to marking them as pending is the most sensible approach, because we cannot include them in a response anyways, so there is no point in keeping them. Until the next OGM is emitted with a new TTVN, any full-table responses are sent with temporarily increased TTVN, which causes the receiver to believe the CRC from the new table.
-
 h2. Limitations 
 
 If an intermediate node with an unexpectedly lower MTU exists, this scheme breaks. In the scenario "A <-> B <-> C", where A and C have MTU=1550 and B has MTU=1000 bytes, B cannot respond with nor forward very-big-full-tables from A to C. At the moment, batman-adv simply forwards the requests and hopes for the best.
