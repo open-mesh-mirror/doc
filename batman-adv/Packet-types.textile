@@ -1,26 +1,8 @@
 h1. Packet-types
 
-h2. Introduction
+Many packet types in batman-adv are sent as unicast packets and rely on the routes chosen by the underlying routing capabilities of batman-adv. As many packet types added later still use the same basic routing (e.g. an ICMP packet is using unicast transport), they can be handled by older, non-compatible nodes. These old nodes do not need to know how to handle the content, it is enough that they can forward the packets. However, making sure that the destination finally is capable of understanding the new content is left to other mechanisms.
 
-One point critized during the development of batman-adv was that the compatibility version has been increased with each change in the protocol - this field did not ensure backward-compatibility, but made sure that only nodes with the same compatibility version would mesh with each other. 
-
-To allow real backward compatibility and make sure that no updates on other nodes have to be done when a new feature is added in batman-adv, a new extensible packet format is necessary.
-
-This approach consists of two parts: 
- 1. Define a general container format (TVLV - type version length value) for extensions of OGMs and direct transmissions (unicast to others). See the [[TVLV]] page for details.
- 2. Classify further packet types to make adding new packet types easier
-
-The combination of these two features allow us to keep the compatibility number at the same level and add or change certain features while maintaining overall compatibility in the network.
-
-h2. TVLV extension
-
-See the [[TVLV]] subpage for further information.
-
-h2. Common packet format
-
-Many packet types in batman-adv are sent as unicast packets and rely on the routes chosen by the underlying routing capabilities of batman-adv. As many packet types added later still use the same basic routing (e.g. an ICMP packet is using unicast transport), it could be handled by an older, non-compatible node. This old node does not need to know how to handle the content, it is enough that it can forward the packet. However, it must be made sure that the destination finally is capable of understanding the new content.
-
-Therefore the packet type assignments have been changed according to the following sections:
+To allow that, numbers for packet types are assigned in ranges as shown in the table below:
 
 |0x00 - 0x3f|special packets| These packets have their own rules to be (re)forwarded and can not be handled in general. Examples: BATMAN IV OGMs, BATMAN V packets, Broadcasts, Network coding packets|
 |0x40 - 0x7f|unicast packets| Unicast packets are sent via the routes established by batman-adv. Examples: unicast, unicast_frag, unicast 4addr, tvlv unicast, icmp|
