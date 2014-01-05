@@ -44,7 +44,7 @@ stable version:
 scripts/feeds update
 scripts/feeds install kmod-batman-adv
 </pre>
-+Note+: If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have "src-svn packages svn://svn.openwrt.org/openwrt/packages" instead of e.g. "src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_8.09".
++Note+: If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have "src-git routing git://github.com/openwrt-routing/packages.git" instead of e.g. "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x".
 
 
 developer version:
