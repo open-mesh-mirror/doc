@@ -5,7 +5,6 @@ h1. A.L.F.R.E.D - Almighty Lightweight Fact Remote Exchange Daemon
 
 h2. Introduction
 
-
 alfred is a user space daemon for distributing arbitrary local information over the mesh/network in a decentralized fashion. This data can be anything which appears to be useful - originally designed to replace the batman-adv visualization (vis), you may distribute hostnames, phone books, administration information, DNS information, the local weather forecast ...
 
 alfred runs as daemon in the background of the system. A user may insert information by using the alfred binary in client mode, or use special programs to communicate with alfred (done via unix sockets). alfred then takes care of distributing the local information to other alfred servers on other nodes. This is done via IPv6 link-local multicast, and does not require any configuration. A user can request data from alfred, and will receive the information available from all alfred servers in the network.
@@ -16,13 +15,26 @@ See the "README":http://git.open-mesh.org/alfred.git/blob_plain/refs/heads/maste
 
 h2. Download
 
-Alfred is currently under development and has no release yet, but you may want to check out the development branch:
+Release tarballs as well as snapshots are available:
 
+ * release tarballs: [[Download#Download-Released-Source-Code|Check the Download page]]
  * git web directory: http://git.open-mesh.org/alfred.git
  * git download: git clone git://git.open-mesh.org/alfred.git
  * snapshot:http://git.open-mesh.org/alfred.git/snapshot/refs/heads/master.tar.gz
 
-There is also a packet feed for OpenWRT available for alfred:
+h3. OpenWRT installation from routing feed
+
+Alfred is also part of the routing feed of OpenWRT. For newer OpenWRT, just use:
+
+1. Install the alfred package:
+
+./scripts/feeds install alfred
+
+3. Run "make menuconfig" and select alfred (available under "Network  --->")
+
+h3. OpenWRT development feed
+
+There is also a development packet feed for OpenWRT available for alfred:
 
 1. add the alfred feed by adding the following line into your feeds.conf:
 
