@@ -162,6 +162,11 @@ h3. Translation table messages
  ** crc: crc32 checksum of the local translation (sub-)table containing entries belonging to this VLAN only (4Bytes)
  ** vid: the identifier of this VLAN (2Bytes)
  ** reserved: not used. Defined for alignment purposes (2Bytes)
+ * Each TT client change (one per announced client) contains:
+ ** flags: flags associated with this client
+ ** reserved: not used. Defined for alignment purposes (3Bytes)
+ ** addr: mac address of the announced client
+ ** vid: identifier of the VLAN where this client is connected to
  * definition:
 <pre>
  0                   1                   2                   3
@@ -174,6 +179,12 @@ h3. Translation table messages
  |                        CRC32_vlan1                            |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |       VID_vlan1               |       reserved_vlan1          |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | flags_change1 |          reserved_change1                     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                       mac_addr_change1...                     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |     ...mac_addr_change1       |          vid_change1          |  
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
