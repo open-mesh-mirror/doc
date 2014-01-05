@@ -3,6 +3,9 @@ h1. A.L.F.R.E.D - Almighty Lightweight Fact Remote Exchange Daemon
 "alfred is a user space daemon to efficiently[tm] flood the network with useless data - like vis, weather data, network notes, etc"
 > - Marek Lindner, 2012
 
+
+{{TOC}}
+
 h2. Introduction
 
 alfred is a user space daemon for distributing arbitrary local information over the mesh/network in a decentralized fashion. This data can be anything which appears to be useful - originally designed to replace the batman-adv visualization (vis), you may distribute hostnames, phone books, administration information, DNS information, the local weather forecast ...
