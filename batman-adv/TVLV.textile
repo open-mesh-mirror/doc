@@ -169,12 +169,6 @@ h3. Translation table messages
  ** vid: identifier of the VLAN where this client is connected to
  * definition:
 <pre>
-The TVLV is structured as following:
-
-<Fixed TVLV fields><TT VLAN header1>..<TT VLAN headerN><TT client entry1>..<TT client entryM>
-
-which more in details is:
-
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -216,6 +210,10 @@ which more in details is:
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |     ...mac_addr_changeM       |          vid_changeM          |  
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+<pre>
+<Fixed TVLV fields><TT VLAN header1>..<TT VLAN headerN><TT client entry1>..<TT client entryM>
 </pre>
 
 h3. Roaming Advertisement message
