@@ -34,6 +34,7 @@ h2. Developer Information / Advanced Features
 * [[uevent|B.A.T.M.A.N. user space events]] - batman-adv's uevent documentation
 * [[open-mesh:UsingBatmanGit|Using the batman git repos]] - this page explains how the git repository is structured and how to use it
 * [[open-mesh:Emulation|Emulation HowTo]] - how to create an environment to emulate wireless setups using QEMU and VDE
+* [[TVLV|TVLV]] - details regarding the TVLV (type-version-length-value) API and defined TVLV containers
 
 
 h2. Protocol Documentation
@@ -44,7 +45,6 @@ h2. Protocol Documentation
 * [[Client-announcement|Client announcement]] - how batman-adv handles non-mesh clients bridged into the mesh
 * [[Client-roaming|Client roaming]] - non-mesh clients moving from one mesh node to the next
 * [[TT-Flags|TT Flags]] - explanation for internal flags used by the translation table code
-* [[TVLV|TVLV]] - details regarding the TVLV (type-version-length-value) API and defined TVLV containers
 * [[Packet-types|Batman-adv packet types]] - backward compatibility for batman-adv
 * [[Compatversion|Compat versions]] - packet versions / formats used by batman-adv
 * [[ELP|ELP protocol]] - B.A.T.M.A.N. V ELP protocol specification
