@@ -6,7 +6,7 @@ Many tutorials assume that you have batman-adv running on an OpenWrt system with
 h2. Getting the OpenWRT build environment
 
 
-First, you need to obtain a copy of the OpenWrt build system which contains all the build information to compile & package a complete Linux system. You can either checkout the last stable or the trunk directly from the OpenWrt SVN repository or get tarballs from the OpenWrt project website. We assume you intend to download the latest stable (Attitude Adjustment 12.09 at the point of writing this document) via [["SVN":https://dev.openwrt.org/wiki/GetSource#SVN]]:
+First, you need to obtain a copy of the OpenWrt build system which contains all the build information to compile & package a complete Linux system. You can either checkout the last stable or the trunk directly from the OpenWrt SVN repository or get tarballs from the OpenWrt project website. We assume you intend to download the latest stable (Attitude Adjustment 12.09 at the point of writing this document) via "SVN":https://dev.openwrt.org/wiki/GetSource#SVN:
 
 <pre>
 svn co svn://svn.openwrt.org/openwrt/branches/attitude_adjustment openwrt
