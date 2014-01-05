@@ -17,7 +17,6 @@ h2. Features
 * [[open-mesh:2012-05-13-translation-table-in-a-nutshell|TranslationTable in a nutshell]] -  The inner workings of the non-mesh client integration revealed.
 * [[bridge-loop-avoidance|Bridge loop avoidance]] - Document explaining the bridge loop avoidance implemented in batman-adv.
 * [[Multi-link-optimize|Multi-Link Optimizations]] - how to optimize traffic by using multiple links
-* [[VisAdv|Visualizing the 2nd layer]] - Creating graphics of the layer 2 network and differences to the layer 3 vis output explained.
 * [[ap-isolation|AP Isolation]] - How to prevent wifi-client to wifi-client communication.
 * [[DistributedArpTable|Distributed ARP Table]] - How batman-adv can speed up your mesh experience by caching ARP replies.
 * [[open-mesh:2012-09-24-GSoC-2012-Martin-Hundebolls-Final-Report|Fragmentation]] - basic concept behind the layer2 fragmentation (GSoC final report)
