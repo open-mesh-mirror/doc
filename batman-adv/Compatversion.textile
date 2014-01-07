@@ -16,8 +16,8 @@ Following changes were identified and documented. The changes are to the last CO
 |   11    | v2010.1.0                                       | gateway flags were removed |
 |   12    | v2011.0.0, v2011.1.0, v2012.2.0      | unicast fragmentation added, gateway flags were readded |
 |   13    | v2010.2.0                                       | gateway flags were removed |
-|   14    | v2011.3.0 and later | 3-byte common header, tt queries and related fields added, roam adv packet added |
-|   15    | scheduled for Q4 2013 | TVLV (backward compatibility), packet alignment (__packed), vlan aware tt, crc32 checksums for tt, fragmentation v2, packet type prefix and BATADV_TT_CLIENT_TEMP |
+|   14    | v2011.3.0 - v2013.4.0 | 3-byte common header, tt queries and related fields added, roam adv packet added |
+|   15    | v2014.0.0 and later | TVLV (backward compatibility), packet alignment (__packed), vlan aware tt, crc32 checksums for tt, fragmentation v2, packet type prefix and BATADV_TT_CLIENT_TEMP |
 
 (* means future version with already defined feature set)
 
