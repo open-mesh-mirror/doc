@@ -167,6 +167,10 @@ h3. Translation table messages
  ** reserved: not used. Defined for alignment purposes (3Bytes)
  ** addr: mac address of the announced client
  ** vid: identifier of the VLAN where this client is connected to
+ * layout:
+<pre>
+<Fixed TVLV fields><TT VLAN header1>..<TT VLAN headerN><TT client entry1>..<TT client entryM>
+</pre>
  * definition:
 <pre>
  0                   1                   2                   3
@@ -210,10 +214,6 @@ h3. Translation table messages
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |     ...mac_addr_changeM       |          vid_changeM          |  
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-<pre>
-<Fixed TVLV fields><TT VLAN header1>..<TT VLAN headerN><TT client entry1>..<TT client entryM>
 </pre>
 
 h3. Roaming Advertisement message
