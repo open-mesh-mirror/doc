@@ -37,7 +37,7 @@ Activate the gateway announcements on a node that has a DHCP server running:
 batctl gw_mode server
 </pre>
 
-Batman-adv always announces the gateway's internet bandwidth, so that clients can base their decision on the link quality towards the gateway as well as on the available bandwidth. Per default a bandwidth of 2048KBit/512KBit is assumed. To configure a download bandwidth of 5Mbit with an upload of 1Mbit run the following command:
+Batman-adv always announces the gateway's internet bandwidth, so that clients can base their decision on the link quality towards the gateway as well as on the available bandwidth. Per default a bandwidth of 10MBit/2MBit is assumed. To configure a download bandwidth of 5Mbit with an upload of 1Mbit run the following command:
 
 <pre>
 batctl gw_mode server 5mbit/1mbit
@@ -53,7 +53,7 @@ The client can be activated with the following command:
 batctl gw_mode client
 </pre>
 
-If multiple gateways are available batman-adv selects its best gateway based on certain criteria such as link quality / bandwidth / etc. The selection algorithm can be changed by appending the appropriate gateway selection class to the aforementioned command. To let batman-adv switch the gateway as soon as any gateway becomes 20TQ points better than the currently selected gateway:
+If multiple gateways are available batman-adv selects its best gateway based on certain criteria such as link quality / bandwidth / etc. The selection algorithm can be changed by appending the appropriate gateway selection class to the aforementioned command. To make batman-adv switch the gateway as soon as any gateway becomes 20TQ points better than the currently selected gateway:
 
 <pre>
 batctl gw_mode client 20
