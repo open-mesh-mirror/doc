@@ -22,7 +22,7 @@ h3. Another example: path diversity
 
 !net-wide-multiif.png!
 
-With the network wide multi interface optimization, multi-interface nodse can act as a routing splitting point which can leads to a first tempative of approach to multipath-routing. Considering the scenario illustrated above and assuming all paths to be perfect, node B will route the packets via C for the packets coming from F (green path) and route the packets via G for the packets coming from A (red path) for the destination E. This is different from the previous implementation, where all packets would have been routed via same path from B, as it now depends on which interface the packets are received.
+With the network wide multi interface optimization, multi-interface node can act as a routing splitting point which can lead to a first attempt of multipath-routing. Considering the scenario illustrated above and assuming all paths to be perfect, node B will route the packets via C if they are coming from F (green path) and route the packets via G if they are coming from A (red path) for the destination E. This is different from the previous implementation, where all packets would have been routed via same path from B, as it now depends on which interface the packets are received.
 
 h2. Interface bonding
 
