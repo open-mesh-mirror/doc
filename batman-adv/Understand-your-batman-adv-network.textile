@@ -36,9 +36,20 @@ To let non-batman nodes use the mesh infrastructure easily, batman-adv introduce
 The local translation table (mac addresses announced by this host) can be found in the transtable_local file:
 
 <pre>
+<non-mesh client mac address>
+   <VLAN tag> 
+      <flags> 
+         <last seen> 
+            <CRC> 
+</pre>
+
+Sample output:
+<pre>
 cat /sys/kernel/debug/batman_adv/bat0/transtable_local
-Locally retrieved addresses (from bat0) announced via TT (TTVN: 1 CRC: 0xaec3):
- * fe:fe:00:00:01:01 [RPNXW]
+Locally retrieved addresses (from bat0) announced via TT (TTVN: 2):
+       Client         VID Flags   Last seen (CRC       )
+ * fe:fe:00:00:01:01   -1 [.P...]   0.000   (0x0aeb181b)
+ * fe:fe:00:00:02:02   10 [RPNXW]   0.000   (0x6b08a689)
 </pre>
 
 The current translation table state is represented by the tt version number and the local tt crc that are propagated in the mesh.
