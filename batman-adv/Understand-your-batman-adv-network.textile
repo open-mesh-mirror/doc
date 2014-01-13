@@ -67,22 +67,33 @@ Note: Every batman node announces at least one mac address - the mac of the batX
 The global translation table (mac addresses announced by other hosts) can be found in the transtable_global file:
 
 <pre>
-cat /sys/kernel/debug/batman_adv/bat0/transtable_global 
-Globally announced TT entries received via the mesh bat0
-   Client            (TTVN)     Originator        (Curr TTVN) (CRC   ) Flags
- * fe:fe:00:00:01:01  ( 12) via fe:fe:00:00:02:01       ( 50) (0xff9a) [RXW]
- + fe:fe:00:00:01:01  ( 24) via ca:ca:00:00:02:01       ( 32) [RXW]
+<non-mesh client mac address>
+   <VLAN tag>
+      <TTVN adding the entry> 
+         <originator announcing non-mesh client mac address>
+            <originator's current TTVN>
+               <CRC>
+                  <flags>
 </pre>
 
-Each line contains the announced mac address, the ttvn at the point of the addition to the table and the mac of the batman node announcing it including the latest ttvn and table crc of that very node. The meaning of flags are similar to those above:
+Sample output:
+
+<pre>
+cat /sys/kernel/debug/batman_adv/bat0/transtable_global
+Globally announced TT entries received via the mesh bat0
+       Client         VID  (TTVN)       Originator      (Curr TTVN) (CRC       ) Flags
+ * fe:fe:00:00:01:01   -1   (  1) via fe:fe:00:00:02:02       ( 50) (0xddc9c4e4) [RXW]
+ + fe:fe:00:00:01:01   -1   ( 12) via fe:fe:00:00:03:03       ( 50) (0xddc9c4e4) [RXW]
+</pre>
+
+The meaning of flags are similar to those above:
 * R/Roaming: this client moved to another node but it is still kept for consistency reasons until the next OGM is sent.
 * X/delete: this client has to be removed for some reason, but it is still kept for consistency reasons until the next OGM is sent.
 * W/Wireless: this client is connected to the node through a wireless device.
 
 If any of the flags is not enabled, a '.' will substitute its symbol.
 
-Since the introduction of the [[Bridge-loop-avoidance-II|Bridge Loop Avoidance 2]], each client can be reached through multiple originators and therefore it is possible to have the same client appearing more than one in the list.
-In this case there will be one line starting with '*' indicating the default entry to be used to route traffic towards this client and some (zero or more) entries starting with '+' indicating other possible routes. The line related to "possible routes" do not have a CRC value.
+Since the introduction of the [[Bridge-loop-avoidance-II|Bridge Loop Avoidance 2]], each client can be reached through multiple originators and therefore it is possible to have the same client appearing more than one in the list. In this case, there will be one line starting with '*' indicating the default entry to be used to route traffic towards this client and some (zero or more) entries starting with '+' indicating other possible routes. The line related to "possible routes" do not have a CRC value.
 
 h3. Gateway table
 
