@@ -69,7 +69,7 @@ h3. ap isolation
 
 Available since: batman-adv 2011.4.0
 
-Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default).
+Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default). This setting only affects packets without any VLAN tag (untagged packets). The ap isolation setting for VLAN tagged packets is modifiable through the per-VLAN settings.  
 
 <pre>
 cat /sys/class/net/bat0/mesh/ap_isolation
@@ -226,3 +226,31 @@ echo BATMAN_IV > /sys/module/batman_adv/parameters/routing_algo
 </pre>
 
 How to retrieve the list of available routing algorithms is explained [[Understand-your-batman-adv-network|on this page]].
+
+
+h2. VLAN handling
+
+The batX mesh interface created by batman-adv also supports VLANs which enables the administrator to configure virtual networks with independent settings on top of a single mesh cloud. It might be desirable to run the different VLANs with different batman-adv settings. Therefore, batman-adv offers per-VLAN settings since batman-adv 2014.0.0.
+
+For each VLAN created on top of a batX interface the batman-adv kernel module creates a subfolder inside of the /sys/class/net/bat0/mesh/ directory. For example, after adding VLAN 0 and VLAN 1 on top of bat0 the following folder were created:
+<pre>
+ls -d /sys/class/net/bat0/mesh/vlan*
+/sys/class/net/bat0/mesh/vlan0  /sys/class/net/bat0/mesh/vlan1
+</pre>
+
+Each VLAN subfolder contains the per-VLAN settings:
+<pre>
+ls /sys/class/net/bat0/mesh/vlan0/
+ap_isolation
+</pre>
+
+h3. ap isolation
+
+Available since: batman-adv 2014.0.0
+
+Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default).
+
+<pre>
+cat /sys/class/net/bat0/mesh/ap_isolation
+disabled
+</pre>
