@@ -251,6 +251,6 @@ Available since: batman-adv 2014.0.0
 Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default).
 
 <pre>
-cat /sys/class/net/bat0/mesh/ap_isolation
+cat /sys/class/net/bat0/mesh/vlan0/ap_isolation
 disabled
 </pre>
