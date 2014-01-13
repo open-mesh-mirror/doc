@@ -94,15 +94,15 @@ The gateway table lists all available batman-adv gateways in this network (see t
       <TQ (transmit quality) value towards the gateway> 
          <next best hop> 
             <outgoing iface> 
-               <gateway class - announced throughput>
+               <announced throughput>
 </pre>
 
 For example:
 
 <pre>
-      Gateway      (#/255)           Nexthop [outgoingIF]: gw_class ... [B.A.T.M.A.N. adv devel 1886, [[MainIF]]/MAC: eth0/fe:fe:00:00:03:01 (bat0)]
-   fe:fe:00:00:01:01 (233) fe:fe:00:00:01:01 [      eth0]:  41 - 2048KBit/512KBit
-=> fe:fe:00:00:02:01 (243) fe:fe:00:00:02:01 [      eth0]:  41 - 2048KBit/512KBit
+      Gateway      (#/255)           Nexthop [outgoingIF]: advertised uplink bandwidth ... [B.A.T.M.A.N. adv 2014.0.0, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0)]
+   fe:fe:00:00:01:01 (233) fe:fe:00:00:01:01 [      eth0]:  2.0/0.5 MBit
+=> fe:fe:00:00:02:01 (255) fe:fe:00:00:02:01 [      eth0]: 10.0/2.0 MBit
 </pre>
 
 h3. Bridge loop avoidance claim table
