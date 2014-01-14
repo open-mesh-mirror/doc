@@ -177,7 +177,8 @@ A subset of the entries belonging to this cache are also the entries which the n
 <pre>
 <host IPv4 address>
    <host mac address>
-      <last ARP seen time>
+      <vlan id>
+         <last seen ARP activity>
 </pre>
 
 For example:
@@ -185,8 +186,8 @@ For example:
 <pre>
 cat /sys/kernel/debug/batman_adv/bat0/dat_cache 
 Distributed ARP Table (bat0):
-          IPv4             MAC           last-seen
- *     172.100.0.1 92:9d:f4:e3:54:40      0:30
+          IPv4             MAC        VID   last-seen
+ *   172.100.0.1 06:e0:9d:f6:05:c2   -1      0:03
 </pre>
 
 h3. Network coding - potential coding neighbor table
