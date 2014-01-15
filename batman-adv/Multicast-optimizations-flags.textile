@@ -33,7 +33,7 @@ As seen for the previous flag, MLD and IGMP messages are essential for a batman-
 
 Unfortunately there are cases for older MLD protocol and IGMP versions – i.e. MLDv1/IGMPv1/IGMPv2 – where not all such messages from all listeners behind a bridge arrive at the according batman-adv node. This is due to the following report suppression clause.
 
-h3. MLDv1/IGMPv1/IGMPv2 Report Suppression
+h3. The Problem: MLDv1/IGMPv1/IGMPv2 Report Suppression
 
 !{width: 80%25;}basic-multicast-switch.png!
 
@@ -47,7 +47,7 @@ h3. MLDv1/IGMPv1/IGMPv2 Report Suppression
 
 This on its own, not getting to know all listeners behind a bridge port, is not an issue as such as a batman-adv node would receive the according listener reports from a single listener behind a bridge port at least which would be sufficient.
 
-However, if a snooping switch were simply flooding such listener reports, then it would not be able to notice all listeners anymore:
+However, if a snooping switches were simply flooding such listener reports, then they themselves would not be able to notice all listeners anymore:
 
 !{width: 80%25;}basic-multicast-switch-uncertain.png!
 
@@ -59,19 +59,23 @@ Therefore another RFC mandates an additional report suppression for snooping swi
 
 > A snooping switch should forward IGMP Membership Reports only to those ports where multicast routers are attached. [...]
 
-Which in turn can potentially lead to a batman-adv node not receiving any MLD/IGMP report for a certain multicast address from a bridge port even though a listener behind that port exists:
-
-h3. The Problem
-
-This allows us to construct the following scenario which would cause packet loss for multicast packets:
+Which in turn can potentially lead to a batman-adv node not receiving any MLD/IGMP report for a certain multicast address from a bridge port even though a listener behind that port exists. For instance in the following scenario:
 
 !{width: 50%25;}basic-multicast-querier-scenario.png!
 
- * _*Querier:*_ An IGMP or MLD querier
+ * _*Querier:*_ An IGMP or MLD querier (i.e. a multicast router requesting IGMP/MLD Reports)
  * _*Snooping Switch:*_ A multicast aware layer 2 switch
  * _*Listener:*_ An IPv4 or IPv6 multicast listener
  * _*Bridge:*_ A Linux kernel bridge on top of a bat0 device of a batman-adv node
  * _*Sender:*_ An IPv4 or IPv6 multicast sender
  * _*Mesh:*_ A mesh network consisting of batman-adv nodes
 
+Note: An IGMPv3/MLDv2 querier may perform suppression on IGMPv1/IGMPv2/MLDv1 Reports (but not IGMPv3/MLDv2 Reports, too).
+
 h3. The Solution
+
+Therefore batman-adv has to not only forward multicast packets to the according listeners, but also IGMP/MLD Queriers (regardless of their version) behind bridges – even if the multicast packets actually have a link-local scope and therefore will never be routed on layer 3.
+
+Since the active, selected Querier is the root of a tree for all IGMPv1/IGMPv2/MLDv1 Listener Reports, the listener in the example scenario above will receive the multicast packets from the multicast sender then even though no listener report has ever reached the according bridge and its responsible batman-adv node.
+
+A batman-adv node noticing an IGMP/MLD Querier behind its bridge signalizes this by setting the BATADV_MCAST_WANT_ALL_IPV4/BATADV_MCAST_WANT_ALL_IPV6 multicast TVLV flag accordingly.
