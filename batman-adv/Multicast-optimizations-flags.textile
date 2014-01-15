@@ -35,6 +35,8 @@ Unfortunately there are cases for older MLD protocol and IGMP versions – i.e. 
 
 h3. MLDv1/IGMPv1/IGMPv2 Report Suppression
 
+!{width: 50%25;}basic-multicast-switch.png!
+
  * IGMPv2: RFC2236, section 3:
 
 > [...] If the host receives another host's Report (version 1 or 2) while it has a timer running, it stops its timer for the specified group and does not send a Report, in order to suppress duplicate Reports. [...]
@@ -47,6 +49,8 @@ This on its own, not getting to know all listeners behind a bridge port, is not 
 
 However, this surpression mechanism leads another RFC to mandate an additional report surpression. Which in turn can potentially lead to a batman-adv node not receiving any MLD/IGMP report for a certain multicast address from a bridge port even though a listener behind that port exists:
 
+!{width: 50%25;}basic-multicast-snooping-switch.png!
+
  * RFC4541, section 2.1.1.1)
 
 > A snooping switch should forward IGMP Membership Reports only to those ports where multicast routers are attached. [...]
@@ -55,7 +59,7 @@ h3. The Problem
 
 This allows us to construct the following scenario which would cause packet loss for multicast packets:
 
-!{width: 66%25;}basic-multicast-querier-scenario.png!
+!{width: 50%25;}basic-multicast-querier-scenario.png!
 
  * _*Querier:*_ An IGMP or MLD querier
  * _*Snooping Switch:*_ A multicast aware layer 2 switch
