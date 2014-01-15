@@ -31,7 +31,7 @@ h2. BATADV_MCAST_WANT_ALL_IPV4 / BATADV_MCAST_WANT_ALL_IPV6
 
 As seen for the previous flag, MLD and IGMP messages are essential for a batman-adv node to determine any multicast listeners behind a Linux bridge.
 
-Unfortunately there are cases for older MLD protocol and IGMP versions – e.g. MLDv1/IGMPv1/IGMPv2 – where not all such messages from all listeners behind a bridge arrive at the according batman-adv node. This is due to the following report suppression clause.
+Unfortunately there are cases for older MLD protocol and IGMP versions – i.e. MLDv1/IGMPv1/IGMPv2 – where not all such messages from all listeners behind a bridge arrive at the according batman-adv node. This is due to the following report suppression clause.
 
 h3. MLDv1/IGMPv1/IGMPv2 Report Suppression
 
@@ -43,10 +43,25 @@ h3. MLDv1/IGMPv1/IGMPv2 Report Suppression
 
 > If a node receives another node's Report from an interface for a multicast address while it has a timer running for that same address on that interface, it stops its timer and does not send a Report for that address, thus suppressing duplicate reports on the link.
 
-This on its own, not getting to know all listeners behind a bridge port, is not an issue for us as a batman-adv node would receive the according listener reports from a single listener behind a bridge port at least which would be sufficient.
+This on its own, not getting to know all listeners behind a bridge port, is not an issue as such as a batman-adv node would receive the according listener reports from a single listener behind a bridge port at least which would be sufficient.
 
-Unfortunately, this surpression mechanism leads another RFC to mandate an additional report surpression. Which in turn can potentially lead to a batman-adv node not receiving any MLD/IGMP report for a certain multicast address from a bridge port even though a listener behind that port exists:
+However, this surpression mechanism leads another RFC to mandate an additional report surpression. Which in turn can potentially lead to a batman-adv node not receiving any MLD/IGMP report for a certain multicast address from a bridge port even though a listener behind that port exists:
 
  * RFC4541, section 2.1.1.1)
 
 > A snooping switch should forward IGMP Membership Reports only to those ports where multicast routers are attached. [...]
+
+h3. The Problem
+
+This allows us to construct the following scenario which would cause packet loss for multicast packets:
+
+!{width: 66%25;}basic-multicast-querier-scenario.png!
+
+ * _*Querier:*_ An IGMP or MLD querier
+ * _*Snooping Switch:*_ A multicast aware layer 2 switch
+ * _*Listener:*_ An IPv4 or IPv6 multicast listener
+ * _*Bridge:*_ A Linux kernel bridge on top of a bat0 device of a batman-adv node
+ * _*Sender:*_ An IPv4 or IPv6 multicast sender
+ * _*Mesh:*_ A mesh network consisting of batman-adv nodes
+
+h3. The Solution
