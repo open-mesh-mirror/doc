@@ -42,4 +42,5 @@ Note: This only affects multicast traffic originating from this specific node.
 
 h2. Further Readings
 
-* [[Basic-multicast-optimizations-tech|Basic Multicast Optimizations - Technical Description]]
+* [[Basic-multicast-optimizations-tech|Basic Multicast Optimizations – Technical Description]]
+* [[Basic-multicast-optimizations-flags|Basic Multicast Optimizations – Flags Explained]]
