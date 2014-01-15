@@ -85,3 +85,26 @@ If the total count is...
  * ... 0, then this frame can be safely dropped.
  * ... 1, then this frame is encapsulated in and forwarded via a batman-adv unicast packet to the according destination.
  * > 1, then this frame is encapsulated in a batman-adv broadcast packet and forwarded via classic flooding to all nodes.
+
+
+h2. Multicast TVLV flags – Reasonings
+
+h3. BATADV_MCAST_WANT_ALL_UNSNOOPABLES
+
+For IP a host listening to certain multicast addresses announces these via ICMPv6-MLD (for IPv6) and/or IGMP (for IPv4) messages on a link:
+
+!{width: 66%25;}basic-multicast-snoopables-announce.png!
+
+However there are two excemptions to this:
+
+!{width: 66%25;}basic-multicast-snoopables-unknown.png!
+
+ * No MLD messages for the all-nodes IPv6 multicast (ff02::1) address. "RFC4541":https://tools.ietf.org/html/rfc4541, section 3:
+
+> [...] The only exception is the address FF02::1 which is the all hosts link-scope address for which MLD messages are never sent. [...]
+
+ * No requirement for IGMP messages for IPv4 link-local multicast addresses (224.0.0.x). "RFC4541":https://tools.ietf.org/html/rfc4541, section 2.1.2.2):
+
+> [...] This recommendation is based on the fact that many host systems do not send Join IP multicast addresses in the [224.0.0.x] range before sending or listening to IP multicast packets. [...]
+
+Instead of always flooding IPv4 link-local multicast and IPv6 all-nodes multicast traffic it was chosen to introduce this flag to allow performing multicast optimizations for these addresses too if no bridges are involved.
