@@ -35,7 +35,7 @@ Unfortunately there are cases for older MLD protocol and IGMP versions – i.e. 
 
 h3. MLDv1/IGMPv1/IGMPv2 Report Suppression
 
-!{width: 66%25;}basic-multicast-switch.png!
+!{width: 80%25;}basic-multicast-switch.png!
 
  * IGMPv2: RFC2236, section 3:
 
@@ -47,13 +47,19 @@ h3. MLDv1/IGMPv1/IGMPv2 Report Suppression
 
 This on its own, not getting to know all listeners behind a bridge port, is not an issue as such as a batman-adv node would receive the according listener reports from a single listener behind a bridge port at least which would be sufficient.
 
-However, this suppression mechanism leads another RFC to mandate an additional report suppression. Which in turn can potentially lead to a batman-adv node not receiving any MLD/IGMP report for a certain multicast address from a bridge port even though a listener behind that port exists:
+However, if a snooping switch were simply flooding such listener reports, then it would not be able to notice all listeners anymore:
 
-!{width: 66%25;}basic-multicast-snooping-switch.png!
+!{width: 80%25;}basic-multicast-switch-uncertain.png!
+
+Therefore another RFC mandates an additional report suppression for snooping switches:
+
+!{width: 80%25;}basic-multicast-snooping-switch.png!
 
  * RFC4541, section 2.1.1.1)
 
 > A snooping switch should forward IGMP Membership Reports only to those ports where multicast routers are attached. [...]
+
+Which in turn can potentially lead to a batman-adv node not receiving any MLD/IGMP report for a certain multicast address from a bridge port even though a listener behind that port exists:
 
 h3. The Problem
 
