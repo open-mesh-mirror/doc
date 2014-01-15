@@ -70,7 +70,7 @@ config wifi-iface 'wmesh'
 The network configuration now allows to specify batman-adv as protocol and the batman-adv interface name:
 <pre>
 config interface 'mesh'
-        option mtu '1528'
+        option mtu '1532'
         option proto 'batadv'
         option mesh 'bat0'
 </pre>
