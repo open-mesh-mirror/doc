@@ -95,7 +95,7 @@ For IP a host listening to certain multicast addresses announces these via ICMPv
 
 !{width: 85%25;}basic-multicast-snoopables-announce.png!
 
-However there are two excemptions to this:
+However there are two exemptions to this:
 
 !{width: 85%25;}basic-multicast-snoopables-unknown.png!
 
@@ -110,3 +110,5 @@ However there are two excemptions to this:
 Instead of always flooding IPv4 link-local multicast and IPv6 all-nodes multicast traffic it was chosen to introduce this flag to allow performing multicast optimizations for these addresses too if no bridges are involved.
 
 Although we are not supporting bridges yet (i.e. one bridge causes all other nodes to flood multicast traffic without any optimizations), the logic of this flag was implemented already to avoid a future compatibility break.
+
+h3. BATADV_MCAST_WANT_ALL_IPV4 / BATADV_MCAST_WANT_ALL_IPV6
