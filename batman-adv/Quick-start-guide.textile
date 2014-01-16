@@ -33,7 +33,7 @@ h3. Simple mesh network
 On all nodes, install batman-adv, load the module and enter the following commands:
 
 <pre>
-ifconfig wlan0 mtu 1528
+ifconfig wlan0 mtu 1532
 iwconfig wlan0 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
 </pre>
 
@@ -45,7 +45,7 @@ ifconfig bat0 up
 
 You can now use the automatically assigned IPv6 link-local adresses on bat0 (usually starting with fe80::...), modern operating systems should support this. Or you can assign IPv4 addresses manually on all those nodes (i.e. 'ifconfig bat0 192.168.123.x/24') or one of the laptops in range has to have a DHCP server running on the bat0 interface. As batman-adv is operating on layer 2, even dhcp-messages can be send over the mesh network.
 
-+Note:+ batman-adv inserts an additional header of 28 bytes into each data packet being send over the mesh. Therefore we are increasing the maximum size of a packet over the plain interfaces to 1528, so that packets with the standard MTU of 1500 can pass normaly through bat0. You might also decrease the MTU to 1472 on all hosts but is usually just do-able in more or less static- and small-scaled mesh-networks.
++Note:+ batman-adv inserts an additional header of 32 bytes into each data packet being send over the mesh. Therefore we are increasing the maximum size of a packet over the plain interfaces to 1532, so that packets with the standard MTU of 1500 can pass normaly through bat0. You might also decrease the MTU to 1468 on all hosts but is usually just do-able in more or less static- and small-scaled mesh-networks.
 
 h3. Mixing non-B.A.T.M.A.N. systems with batman-adv
 
@@ -55,7 +55,7 @@ If you have a couple of computers that you don't want to run batman-adv on but y
 On each mesh access point, install batman-adv first, load the module and enter the following commands:
 
 <pre>
-ifconfig wlan0 mtu 1528
+ifconfig wlan0 mtu 1532
 iwconfig wlan0 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
 </pre>
 
