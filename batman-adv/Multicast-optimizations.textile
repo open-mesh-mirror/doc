@@ -1,8 +1,17 @@
 h1. Basic Multicast Optimizations
 
+One neat thing about layer 2 mesh networking is, that you get multicast support "out-of-the-box". You can easily create an application which is able to send some information to multiple targets, for instance by simply sending to an IP multicast address. This can even potentially safe bandwidth because your packet only has to pass a link once even though you are addressing many hosts.
+
+However, especially in larger mesh networks the amount of multicast sending applications quickly accumulates. With a classic flooding approach, so simply distributing all multicast traffic to all hosts, this can become a non-negligable burdon on the overall mesh network.
+
+Looking at the multicast traffic more thoroughly often reveals that most of this multicast traffic is actually only having one, two or even zero hosts interested in it.
+
+Fortunately, IP multicast provides mechanisms to learn about the presence and amount of these so called multicast listeners. This is interesting for layer 3 IP multicast routers, but also professional layer 2 switches make use of this to reduce multicast overhead, advertising these products as "multicast aware" or "IGMP/MLD snooping switches".
+
+
 h2. Overview
 
-The current multicast optimizations in batman-adv provides a basic infrastructure for multicast awareness and reduced multicast overhead in some setups.
+The current multicast optimizations in batman-adv provides a basic infrastructure for multicast awareness and therefore reduced multicast overhead in some setups.
 
 So far, this basic optimization reduces overhead in the following two ways:
 
