@@ -50,29 +50,24 @@ h4. Bits 3 to 7:
 
 reserved for future extensions
 
-
 h2. Multicast Sender
 
 !{width: 66%25;}basic-multicast-sender-receiver.png!
 
-A batman-adv node wanting to send a multicast frame needs to perform the following preliminary checks before applying any multicast optimizations:
+Optimization for IPv4 or IPv6 multicast packets is performed by considering a few special cases. First, the number of nodes interested in a group is counted. Interest has been announced by either including the multicast group in TT entries, or setting the BATADV_MCAST_WANT_ALL_IPV4 or BATADV_MCAST_WANT_ALL_IPV6 flags in the Multicast TVLV flag.
 
- * Is this an IPv4 or IPv6 packet? Check the ethernet frame type
- * Does the frame have a multicast, non-broadcast destination? Check that the multicast bit in the destination MAC address in the ethernet frame is set and that the destination is not FF:FF:FF:FF:FF:FF
- * Do all other nodes have a Multicast TVLV?
- * Is the scope of the multicast destination IP address of scope link-local (IPv4: 224.0.0.0/24, IPv6: ffx2::/64)?
- * If the multicast destination IP is a link-local IPv4 (224.0.0.0/24) or the all-nodes IPv6 multicast (ff02::1) one, do all other nodes have the BATADV_MCAST_WANT_ALL_UNSNOOPABLES bit in their Multicast TVLV _unset_?
-
-If all these checks pass then the number of nodes interested in this frame needs to be determined by:
-
- * Counting the matching TT entries
- * Counting the number of nodes having a BATADV_MCAST_WANT_ALL_IPV4 or BATADV_MCAST_WANT_ALL_IPV6 (depending on the frame type) flag in their Multicast TVLV set.
-
-If the total count is...
+If the total number of nodes interested in a group is:
 
  * ... 0, then this frame can be safely dropped.
  * ... 1, then this frame is encapsulated in and forwarded via a batman-adv unicast packet to the according destination.
  * > 1, then this frame is encapsulated in a batman-adv broadcast packet and forwarded via classic flooding to all nodes.
+
+The latter case is the general fallback to broadcast, which is also used when the the multicast optimization is turned off.
+
+h3. link local multicast
+
+Note that there is a special case for link local multicast traffic. If the destination IP address of scope link-local (IPv4: 224.0.0.0/24, IPv6: ffx2::/64), the packets are only set if *not a single node* has set BATADV_MCAST_WANT_ALL_UNSNOOPABLES bit in their Multicast TVLV. These multicast IPs don't require IGMP or MLD to announce group membership, hence batman-adv on these nodes can't know if they have multicast listeners behind them or not.
+
 
 h2. Limitations
 
