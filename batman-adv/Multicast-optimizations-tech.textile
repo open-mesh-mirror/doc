@@ -79,6 +79,7 @@ h2. Limitations
  * No Bridge mode: So far a node with a Linux bridge on top of its batman-adv interface is not capable of detecting and announcing multicast listeners behind its bridge. Therefore such nodes do not attach a Multicast TVLV to their OGMs.
  * groups with two or more listeners don't get optimized
  * the whole mesh must have multicast support enabled
+ * optimization for link-local IPv4 (224.0.0.0/24) or all-nodes IPv6 multicast (ff02::1) is only done if no node announces BATADV_MCAST_WANT_ALL_UNSNOOPABLES, that is no node configures a  bridge on batman-adv.
  * TODO: more?
 
 h2. Next Steps / Roadmap
