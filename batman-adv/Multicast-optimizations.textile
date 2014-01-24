@@ -1,13 +1,12 @@
 h1. Basic Multicast Optimizations
 
-One neat thing about layer 2 mesh networking is, that you get multicast support "out-of-the-box". You can easily create an application which is able to send some information to multiple targets, for instance by simply sending to an IP multicast address. This can even potentially safe bandwidth because your packet only has to pass a link once even though you are addressing many hosts.
+Multicast allows to transmit data to a group of receivers, unlike unicast which transmits to just one receiver and broadcast which transmits to everyone. Multicast is used for applications like IPTV, internet radio or group communication. Also IPv6 relies on multicast for its basic services.
 
-However, especially in larger mesh networks the amount of multicast sending applications quickly accumulates. With a classic flooding approach, so simply distributing all multicast traffic to all hosts, this can become a non-negligable burdon on the overall mesh network.
+Without optimization, switches (including batman-adv) typically implement multicast as broadcast: if everyone gets the packet, all group members get it too. Therefore all layer 2 switches are automatically multicast compatible, but that comes with a cost: even if there are only a few multicast listeners interested, the whole mesh network is unnecessarily bothered with these multicast packets. Broadcast transmissions are particularly expensive operations in wifi and wireless mesh networks (in terms of bandwidth), and therefore optimizing multicast to only send to group members will greatly improve performance for these services.
 
-Looking at the multicast traffic more thoroughly often reveals that most of this multicast traffic is actually only having one, two or even zero hosts interested in it.
+The first step to optimize multicast is to find out who is in which multicast group. Fortunately, IP multicast provides mechanisms to learn about the presence and amount of these so called multicast listeners. This is interesting for layer 3 IP multicast routers, but also professional layer 2 switches make use of this to reduce multicast overhead, advertising these products as "multicast aware" or "IGMP/MLD snooping switches".
 
-Fortunately, IP multicast provides mechanisms to learn about the presence and amount of these so called multicast listeners. This is interesting for layer 3 IP multicast routers, but also professional layer 2 switches make use of this to reduce multicast overhead, advertising these products as "multicast aware" or "IGMP/MLD snooping switches".
-
+Looking at the multicast traffic more thoroughly often reveals that most of this multicast traffic is actually only having one, two or even zero hosts interested in it. Therefore optimizing these cases is the first step, with more sophisticated optimizations to be implemented later.
 
 h2. Overview
 
