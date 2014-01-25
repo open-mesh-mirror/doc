@@ -32,19 +32,19 @@ h4. BATADV_MCAST_WANT_ALL_UNSNOOPABLES (Bit 0):
 
 Signalizes that this node wants all unsnoopable multicast traffic, that is traffic destined to the all-nodes address for IPv6 (ff02::1) and to link-local addresses for IPv4 (224.0.0.0/24). This is usually the case when a node uses a bridge device on top of bat0 and is therefore unable to detect potential bridged-in listeners.
 
-(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later)
+(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later, see [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details)
 
 h4. BATADV_MCAST_WANT_ALL_IPV4 (Bit 1):
 
 Signalizes that this node wants all IPv4 multicast traffic. This is usually the case when a node uses a bridge device on top of bat0, has an IGMP querier (no matter if IGMPv2 or IGMPv3) behind it and is therefore not able to reliably determine all of its IGMPv2 listeners.
 
-(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later)
+(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later, see [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_IPV4-BATADV_MCAST_WANT_ALL_IPV6]] for details)
 
 h4. BATADV_MCAST_WANT_ALL_IPV6 (Bit 2):
 
 Signalizes that this node wants all IPv6 multicast traffic. This is usually the case when a node uses a bridge device on top of bat0, has an MLD querier (no matter if MLDv1 or MLDv2) behind it and is therefore not able to reliably determine all of its MLDv1 listeners.
 
-(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later)
+(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later, see  [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_IPV4-BATADV_MCAST_WANT_ALL_IPV6]] for details)
 
 h4. Bits 3 to 7:
 
@@ -74,14 +74,24 @@ h2. Limitations
  * No Bridge mode: So far a node with a Linux bridge on top of its batman-adv interface is not capable of detecting and announcing multicast listeners behind its bridge. Therefore such nodes do not attach a Multicast TVLV to their OGMs.
  * groups with two or more listeners don't get optimized
  * the whole mesh must have multicast support enabled
+ * optimization for traffic of scope greater than link-local is not supported yet
  * optimization for link-local IPv4 (224.0.0.0/24) or all-nodes IPv6 multicast (ff02::1) is only done if no node announces BATADV_MCAST_WANT_ALL_UNSNOOPABLES, that is no node configures a  bridge on batman-adv.
- * TODO: more?
+ * high multicast join/leave latency in setups with slow OGM intervals
+ * no awareness for source-specific multicasts
 
 h2. Next Steps / Roadmap
 
- * optimization for groups with two or more members: implement path tracking and use these patchs (see [[Multicast-ideas-updated]])
- * implement/fix IGMP/MLD snooping in bridge mode, and export its data to batman-adv
- * TODO: more?
+ * Linux bridge support:
+ ** Snoop/memorize ports with queriers behind
+ ** Export listeners/queriers to batman-adv
+ * optimization for groups with two or more members:
+ ** many-to-some: implement batman-adv multicast packet type supporting a list of destination addresses (to reduce ICMPv6 overhead like Neighbor Solicitatiion Messages, Router Solicitation Messages, MLD Reports, ...)
+ ** some-to-many / streaming: implement path tracking and use these patches (see [[Multicast-ideas-updated]])
+ * implement router discovery to support scopes greater than link-local, too
+ * implement some faster listener roaming mechanism for bridged in hosts (for instance announce (multicast-address, source address) pairs and use general TT roaming mechanism)
+ * perform multicast listener adition/reduction via TT immediately instead of every OGM interval to reduce join/leave latency in setups with a slow OGM interval
+ * implement source-specific multicast in Linux bridge and batman-adv
+ * ...
 
 h2. Further Readings
 
