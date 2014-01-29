@@ -74,6 +74,12 @@ Which in turn can potentially lead to a batman-adv node not receiving any MLD/IG
 
 Note: An IGMPv3/MLDv2 querier may perform suppression on IGMPv1/IGMPv2/MLDv1 Reports (but not IGMPv3/MLDv2 Reports), too.
 
+!{width: 80%25;}basic-multicast-querier-scenario-query.png!
+
+!{width: 80%25;}basic-multicast-querier-scenario-report.png!
+
+!{width: 80%25;}basic-multicast-querier-no-listener.png!
+
 h3. The Solution
 
 Therefore batman-adv has to not only forward multicast packets to the according listeners, but also IGMP/MLD Queriers (regardless of their version) behind bridges – even if the multicast packets actually have a link-local scope and therefore will never be routed on layer 3.
@@ -83,3 +89,11 @@ Since the active, selected Querier is the root of a tree for all IGMPv1/IGMPv2/M
 A batman-adv node noticing an IGMP/MLD Querier behind its bridge signalizes this by setting the BATADV_MCAST_WANT_ALL_IPV4/BATADV_MCAST_WANT_ALL_IPV6 multicast TVLV flag accordingly.
 
 Although we are not supporting bridges yet (i.e. one bridge causes all other nodes to flood multicast traffic without any optimizations), the logic of this flag was implemented already to avoid a future compatibility break.
+
+!{width: 80%25;}basic-multicast-querier-want.png!
+
+!{width: 80%25;}basic-multicast-querier-want-#1.png!
+
+!{width: 80%25;}basic-multicast-querier-want-#2.png!
+
+!{width: 80%25;}basic-multicast-querier-want-#3.png!
