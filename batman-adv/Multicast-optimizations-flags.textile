@@ -63,7 +63,7 @@ Therefore another RFC mandates an additional report suppression for snooping swi
 
 Which in turn can potentially lead to a batman-adv node not receiving any MLD/IGMP report for a certain multicast address from a bridge port even though a listener behind that port exists. For instance in the following scenario:
 
-!{width: 50%25;}basic-multicast-querier-scenario.png!
+!{width: 60%25;}basic-multicast-querier-scenario.png!
 
  * _*Querier:*_ An IGMP or MLD querier (i.e. a multicast router requesting IGMP/MLD Reports)
  * _*Snooping Switch:*_ A multicast aware layer 2 switch
@@ -74,11 +74,11 @@ Which in turn can potentially lead to a batman-adv node not receiving any MLD/IG
 
 Note: An IGMPv3/MLDv2 querier may perform suppression on IGMPv1/IGMPv2/MLDv1 Reports (but not IGMPv3/MLDv2 Reports), too.
 
-!{width: 80%25;}basic-multicast-querier-scenario-query.png!
+!{width: 66%25;}basic-multicast-querier-scenario-query.png!
 
 !{width: 80%25;}basic-multicast-querier-scenario-report.png!
 
-!{width: 80%25;}basic-multicast-querier-no-listener.png!
+!{width: 60%25;}basic-multicast-querier-no-listener.png!
 
 h3. The Solution
 
@@ -90,10 +90,10 @@ A batman-adv node noticing an IGMP/MLD Querier behind its bridge signalizes this
 
 Although we are not supporting bridges yet (i.e. one bridge causes all other nodes to flood multicast traffic without any optimizations), the logic of this flag was implemented already to avoid a future compatibility break.
 
-!{width: 80%25;}basic-multicast-querier-want.png!
+!{width: 60%25;}basic-multicast-querier-want.png!
 
-!{width: 80%25;}basic-multicast-querier-want-#1.png!
+!{width: 60%25;}basic-multicast-querier-want-#1.png!
 
-!{width: 80%25;}basic-multicast-querier-want-#2.png!
+!{width: 75%25;}basic-multicast-querier-want-#2.png!
 
 !{width: 80%25;}basic-multicast-querier-want-#3.png!
