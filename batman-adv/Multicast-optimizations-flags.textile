@@ -7,6 +7,8 @@ Prior Readings:
 
 h2. BATADV_MCAST_WANT_ALL_UNSNOOPABLES
 
+Signalizes that this node wants all unsnoopable multicast traffic, that is traffic destined to the all-nodes address for IPv6 (ff02::1) and to link-local addresses for IPv4 (224.0.0.0/24). This is usually the case when a node uses a bridge device on top of bat0 and is therefore unable to detect potential bridged-in listeners.
+
 For IP a host listening to certain multicast addresses announces these via "MLD":https://en.wikipedia.org/wiki/Multicast_Listener_Discovery (for IPv6) and/or "IGMP":https://en.wikipedia.org/wiki/IGMP (for IPv4) messages on a link:
 
 !{width: 85%25;}basic-multicast-snoopables-announce.png!
