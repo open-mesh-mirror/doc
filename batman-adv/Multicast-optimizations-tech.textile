@@ -64,9 +64,9 @@ If the total number of nodes interested in a group is:
 
 The latter case is the general fallback to broadcast, which is also used when the the multicast optimization is turned off.
 
-h3. link local multicast
+h3. unsnoopable link local multicast addresses
 
-Note that there is a special case for link local multicast traffic. If the destination IP address of scope link-local (IPv4: 224.0.0.0/24, IPv6: ffx2::/64), the packets are only set if *not a single node* has set BATADV_MCAST_WANT_ALL_UNSNOOPABLES bit in their Multicast TVLV. These multicast IPs don't require IGMP or MLD to announce group membership, hence batman-adv on these nodes can't know if they have multicast listeners behind them or not.
+Note that there is a special case for unsnoopable multicast traffic. If the destination IP address is the all-nodes address for IPv6 (ff02::1) or to link-local addresses for IPv4 (224.0.0.0/24), the packets are only set if *not a single node* has set BATADV_MCAST_WANT_ALL_UNSNOOPABLES bit in their Multicast TVLV. These multicast IPs don't require IGMP or MLD to announce group membership, hence batman-adv on these nodes can't know if they have multicast listeners behind them or not.
 
 
 h2. Limitations
