@@ -64,6 +64,17 @@ If the total number of nodes interested in a group is:
 
 The latter case is the general fallback to broadcast, which is also used when the the multicast optimization is turned off.
 
+h3. Handling rules depending on multicast address
+
+Depending on the IP destination of the multicast packet and if there are mesh nodes with the BATADV_MCAST_WANT_ALL_UNSNOOPABLES flag set, there are various limitations and exceptions. If multicast optimization is not supported for whatever reason, the packets will be sent as broadcast as a fallback solution.
+
+| address space       | addresses     | status | comment |
+| IPv4 link-local        | 224.0.0.0/24 | optimized if no host has WANT_UNSNOOPABLES| No IGMP  is required to announce group membership, therefore the bridge can't snoop if there are listeners|
+| IPv4 routed addresses | 224.0.0.0/16 without 224.0.0.0/24 | not optimized | 
+| IPv6 all-nodes       | ff02::1          | optimized if no host has WANT_UNSNOOPABLES | No MLD is required to announce group membership, therefore the bridge can't snoop if there are listeners|
+| .... | | |
+
+
 h3. unsnoopable link local multicast addresses
 
 Note that there is a special case for unsnoopable multicast traffic. If the destination IP address is the all-nodes address for IPv6 (ff02::1) or to link-local addresses for IPv4 (224.0.0.0/24), the packets are only set if *not a single node* has set BATADV_MCAST_WANT_ALL_UNSNOOPABLES bit in their Multicast TVLV. These multicast IPs don't require IGMP or MLD to announce group membership, hence batman-adv on these nodes can't know if they have multicast listeners behind them or not.
