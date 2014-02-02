@@ -7,13 +7,17 @@ Prior Readings:
 
 h2. BATADV_MCAST_WANT_ALL_UNSNOOPABLES
 
-Signalizes that this node wants all unsnoopable multicast traffic, that is traffic destined to the all-nodes address for IPv6 (ff02::1) and to link-local addresses for IPv4 (224.0.0.0/24). This is usually the case when a node uses a bridge device on top of bat0 and is therefore unable to detect potential bridged-in listeners.
+Signalizes that this node wants all unsnoopable multicast traffic, that is traffic destined to the all-nodes address for IPv6 (ff02::1) and to link-local addresses for IPv4 (224.0.0.0/24).
+
+This flag is an optimization to allow performing multicast optimizations for these addresses for nodes without a Linux bridge. When a Linux bridge is involved, optimization for these addresses on such nodes is unfortunately not possibe due to the following reason:
 
 For IP a host listening to certain multicast addresses announces these via "MLD":https://en.wikipedia.org/wiki/Multicast_Listener_Discovery (for IPv6) and/or "IGMP":https://en.wikipedia.org/wiki/IGMP (for IPv4) messages on a link:
 
 !{width: 85%25;}basic-multicast-snoopables-announce.png!
 
-However there are two exemptions to this:
+This link-local announcement allows layer 3 multicast routers, snooping switches or our batman-adv nodes to detect multicast listeners interested in certain multicast packets (in this example IPv6 multicast packets with a destination address of "ff12::123").
+
+However there are two exemptions for MLD/IGMP:
 
 !{width: 85%25;}basic-multicast-snoopables-unknown.png!
 
@@ -25,11 +29,15 @@ However there are two exemptions to this:
 
 > [...] This recommendation is based on the fact that many host systems do not send Join IP multicast addresses in the [224.0.0.x] range before sending or listening to IP multicast packets. [...]
 
-Instead of always flooding IPv4 link-local multicast and IPv6 all-nodes multicast traffic it was chosen to introduce this flag to allow performing multicast optimizations for these addresses too if no bridges are involved.
+This makes it impossible for us to reliably recognize a multicast listener bridged into our mesh which listens on these address ranges.
 
-Although we are not supporting bridges yet (i.e. one bridge causes all other nodes to flood multicast traffic without any optimizations), the logic of this flag was implemented already to avoid a future compatibility break.
+Instead of always flooding IPv4 link-local multicast and IPv6 all-nodes multicast traffic it was chosen to introduce this flag to allow performing multicast optimizations for these addresses on nodes without a bridge interface involved.
+
+Although we are not supporting bridges yet, the recognition of this flag on the sender side was implemented already to avoid a future compatibility break.
 
 h2. BATADV_MCAST_WANT_ALL_IPV4 / BATADV_MCAST_WANT_ALL_IPV6
+
+These two flags allow a batman-adv node to request any IPv4 or IPv6 multicast traffic regardless of the listeners (if any) this node announced via the translation table.
 
 As seen for the previous flag, MLD and IGMP messages are essential for a batman-adv node to determine any multicast listeners behind a Linux bridge.
 
@@ -72,28 +80,26 @@ Which in turn can potentially lead to a batman-adv node not receiving any MLD/IG
  * _*Mesh:*_ A mesh network consisting of batman-adv nodes
  * _*Sender:*_ An IPv4 or IPv6 multicast sender
 
-Note: An IGMPv3/MLDv2 querier may perform suppression on IGMPv1/IGMPv2/MLDv1 Reports (but not IGMPv3/MLDv2 Reports), too.
-
+# In the beginning the selected querier sends its query message to all hosts and therefore through the whole mesh, asking any multicast listener to reval themselves:
 !{width: 66%25;}basic-multicast-querier-scenario-query.png!
-
+# The listener behind the snooping switch will respond, but as previously described, the snooping switch will only forward this report to the querier:
 !{width: 80%25;}basic-multicast-querier-scenario-report.png!
-
+# The batman-adv node will not receive the report on its according bridge and therefore is not able to detect the listener. Any other node in the mesh, including the multicast sender is not able to sense this listener either:
 !{width: 60%25;}basic-multicast-querier-no-listener.png!
 
 h3. The Solution
 
 Therefore batman-adv has to not only forward multicast packets to the according listeners, but also IGMP/MLD Queriers (regardless of their version) behind bridges – even if the multicast packets actually have a link-local scope and therefore will never be routed on layer 3.
 
-Since the active, selected Querier is the root of a tree for all IGMPv1/IGMPv2/MLDv1 Listener Reports, the listener in the example scenario above will receive the multicast packets from the multicast sender then even though no listener report has ever reached the according bridge and its responsible batman-adv node.
-
-A batman-adv node noticing an IGMP/MLD Querier behind its bridge signalizes this by setting the BATADV_MCAST_WANT_ALL_IPV4/BATADV_MCAST_WANT_ALL_IPV6 multicast TVLV flag accordingly.
-
-Although we are not supporting bridges yet (i.e. one bridge causes all other nodes to flood multicast traffic without any optimizations), the logic of this flag was implemented already to avoid a future compatibility break.
-
+# A batman-adv node noticing an IGMP/MLD Querier _behind_ its bridge (i.e. by snooping the query message shown above) signalizes this by setting the BATADV_MCAST_WANT_ALL_IPV4/BATADV_MCAST_WANT_ALL_IPV6 multicast TVLV flag accordingly:
 !{width: 60%25;}basic-multicast-querier-want.png!
-
+# The multicast sender is now able to have its multicast packet forwarded to the batman-adv node with this flag set even though it did not notice any according multicast listener:
 !{width: 60%25;}basic-multicast-querier-want-#1.png!
-
+# The receiving batman-adv node will decapsulate and forward the multicast frame to its Linux bridge. The Linux bridge, which has snooping support too, will forward the frame even though it did not sense the listener either. Similar to batman-adv only having sensed the querier, the Linux bridge will forward towards the sensed, selected querier as well:
 !{width: 75%25;}basic-multicast-querier-want-#2.png!
-
+# The snooping switch on the other hand was able to detect the querier and the listener and will therefore forward the frame to both:
 !{width: 80%25;}basic-multicast-querier-want-#3.png!
+
+Since the active, selected Querier is the root of a tree for all IGMPv1/IGMPv2/MLDv1 Listener Reports, the solution described above will ensure despite suppression mechanisms that all multicast listeners will receive the multicast packets they signed up for.
+
+Although we are not supporting bridges yet, the recognition of this flag on the sender side was implemented already to avoid a future compatibility break.
