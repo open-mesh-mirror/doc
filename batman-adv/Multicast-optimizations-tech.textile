@@ -54,7 +54,7 @@ h2. Multicast Sender
 
 !{width: 66%25;}basic-multicast-sender-receiver.png!
 
-Optimization for IPv4 or IPv6 multicast packets is performed by considering a few special cases. First, the number of nodes interested in a group is counted. Interest has been announced by either including the multicast group in TT entries, or setting the BATADV_MCAST_WANT_ALL_IPV4 or BATADV_MCAST_WANT_ALL_IPV6 flags in the Multicast TVLV flag.
+Optimization for IPv4 or IPv6 multicast packets is performed by considering a few special cases. First, the number of nodes interested in a group is counted. Interest has been announced by either including the multicast group in TT entries, or setting the BATADV_MCAST_WANT_ALL_IPV4 or BATADV_MCAST_WANT_ALL_IPV6 flags or the BATADV_MCAST_WANT_ALL_UNSNOOPABLES flag in case of unsnoopable ranges in the Multicast TVLV flag.
 
 If the total number of nodes interested in a group is:
 
@@ -66,18 +66,30 @@ The latter case is the general fallback to broadcast, which is also used when th
 
 h3. Handling rules depending on multicast address
 
-Depending on the IP destination of the multicast packet and if there are mesh nodes with the BATADV_MCAST_WANT_ALL_UNSNOOPABLES flag set, there are various limitations and exceptions. If multicast optimization is not supported for whatever reason, the packets will be sent as broadcast as a fallback solution.
+Depending on the IP destination of the multicast packet and the flags of other nodes, there are various limitations and exceptions. If multicast optimization is not supported for whatever reason, the packets will be sent as broadcast as a fallback solution.
 
-| address space       | addresses     | status | comment |
-| IPv4 link-local        | 224.0.0.0/24 | optimized if no host has WANT_UNSNOOPABLES| No IGMP  is required to announce group membership, therefore the bridge can't snoop if there are listeners|
-| IPv4 routed addresses | 224.0.0.0/16 without 224.0.0.0/24 | not optimized | 
-| IPv6 all-nodes       | ff02::1          | optimized if no host has WANT_UNSNOOPABLES | No MLD is required to announce group membership, therefore the bridge can't snoop if there are listeners|
-| .... | | |
+| _address range_ |\2=. _address family_ |
+|                                    | *IPv4*          | *IPv6* |
+| *all nodes link-scope* |=. x¹ |=. x¹ |
+| *link-local*
+(excl. all nodes addr.) |=. x¹ |=. x |
+| *routable* |=. TODO² |=. TODO² |
 
+x: supported
+
+¹: These addresses cannot be considered for optimization towards nodes which have a bridge interface on top of their batman interface as they are not snoopable. See [[Basic-multicast-optimizations-tech#unsnoopable-link-local-multicast-addresses]] and [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details.
+
+²: Routable multicast addresses are not supported yet. See  [[Basic-multicast-optimizations-tech#routable-multicast-addresses]] for details.
+
+For details on IPv4 and IPv6 multicast address ranges check out this detailed article on "Wikipedia":https://en.wikipedia.org/wiki/Multicast_address.
 
 h3. unsnoopable link local multicast addresses
 
 Note that there is a special case for unsnoopable multicast traffic. If the destination IP address is the all-nodes address for IPv6 (ff02::1) or to link-local addresses for IPv4 (224.0.0.0/24), the packets are only set if *not a single node* has set BATADV_MCAST_WANT_ALL_UNSNOOPABLES bit in their Multicast TVLV. These multicast IPs don't require IGMP or MLD to announce group membership, hence batman-adv on these nodes can't know if they have multicast listeners behind them or not.
+
+h3. routable multicast addresses
+
+For routable multicast addresses, further consideration has to be given: The according multicast packets not only need to be forwarded to any multicast listener on the local link, but to any multicast router, too. Otherwise off-link listeners, which are only reachable via a layer 3 multicast router, would not receive these multicast packets anymore. To be on the safe side, batman-adv currently simply floods these address ranges. To support these address ranges later, too, "Multicast Router Discovery":https://tools.ietf.org/search/rfc4286 needs to be implemented in batman-adv (which was not done yet).
 
 
 h2. Limitations
@@ -85,7 +97,7 @@ h2. Limitations
  * No Bridge mode: So far a node with a Linux bridge on top of its batman-adv interface is not capable of detecting and announcing multicast listeners behind its bridge. Therefore such nodes do not attach a Multicast TVLV to their OGMs.
  * groups with two or more listeners don't get optimized
  * the whole mesh must have multicast support enabled
- * optimization for traffic of scope greater than link-local is not supported yet
+ * optimization for traffic of scope greater than link-local (routable addresses) is not supported yet
  * optimization for link-local IPv4 (224.0.0.0/24) or all-nodes IPv6 multicast (ff02::1) is only done if no node announces BATADV_MCAST_WANT_ALL_UNSNOOPABLES, that is no node configures a  bridge on batman-adv.
  * high multicast join/leave latency in setups with slow OGM intervals
  * no awareness for source-specific multicasts
@@ -96,9 +108,9 @@ h2. Next Steps / Roadmap
  ** Snoop/memorize ports with queriers behind
  ** Export listeners/queriers to batman-adv
  * optimization for groups with two or more members:
- ** many-to-some: implement batman-adv multicast packet type supporting a list of destination addresses (to reduce ICMPv6 overhead like Neighbor Solicitatiion Messages, Router Solicitation Messages, MLD Reports, ...)
+ ** many-to-some: implement batman-adv multicast packet type supporting a list of destination addresses (to reduce ICMPv6 overhead like Neighbor Solicitation Messages, Router Solicitation Messages, MLD Reports, ...)
  ** some-to-many / streaming: implement path tracking and use these patches (see [[Multicast-ideas-updated]])
- * implement router discovery to support scopes greater than link-local, too
+ * implement "Multicast Router Discovery":https://tools.ietf.org/search/rfc4286 to support scopes greater than link-local, too
  * implement some faster listener roaming mechanism for bridged in hosts (for instance announce (multicast-address, source address) pairs and use general TT roaming mechanism)
  * perform multicast listener adition/reduction via TT immediately instead of every OGM interval to reduce join/leave latency in setups with a slow OGM interval
  * implement source-specific multicast in Linux bridge and batman-adv
