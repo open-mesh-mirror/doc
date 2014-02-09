@@ -70,14 +70,22 @@ Depending on the IP destination of the multicast packet and the flags of other n
 
 | _address range_ |\2=. _address family_ |
 |                                    | *IPv4*          | *IPv6* |
-| *all nodes link-scope* |=. supported without bridges¹. Example: 224.0.0.1 (all nodes) |=. supported without bridges¹. Example: ff02::1 (all nodes) |
+| *all nodes link-scope* |=. supported without bridges¹.
+Example: 224.0.0.1 (all nodes) |=. supported without bridges¹.
+Example: ff02::1 (all nodes) |
 | *link-local*
-(excl. all nodes addr.) |=. supported without bridges¹ |=. supported. Example: ff12::39 |
-| *routable* |=. support planned² |=. support planned². Example: ff0e::101 (NTP) |
+(excl. all nodes addr.) |=. supported without bridges¹.
+Example: 224.0.0.251 (mDNS) |=. supported without bridges ².
+Example: ff12::39 (locally administrated) |
+| *routable* |=. support planned³.
+Example: 239.1.2.3 (locally administrated) |=. support planned³.
+Example: ff0e::101 (NTP) |
 
 ¹: These addresses cannot be considered for optimization towards nodes which have a bridge interface on top of their batman interface as they are not snoopable. See  [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details.
 
-²: Routable multicast addresses are not supported yet. See  [[Basic-multicast-optimizations-tech#routable-multicast-addresses]] for details.
+²: For supporting scenarios with bridges, the according nodes need integration between batman-adv and the snooping part of their Linux bridge. Support for this is planned.
+
+³: Routable multicast addresses are not supported yet. See  [[Basic-multicast-optimizations-tech#routable-multicast-addresses]] for details.
 
 For details on IPv4 and IPv6 multicast address ranges check out this detailed article on "Wikipedia":https://en.wikipedia.org/wiki/Multicast_address.
 
