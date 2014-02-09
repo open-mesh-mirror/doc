@@ -70,27 +70,14 @@ Depending on the IP destination of the multicast packet and the flags of other n
 
 | _address range_ |\2=. _address family_ |
 |                                    | *IPv4*          | *IPv6* |
-| *all nodes link-scope* |=. x¹ |=. x¹ |
+| *all nodes link-scope* |=. supported without bridges¹. Example: 224.0.0.1 (all nodes) |=. supported without bridges¹. Example: ff02::1 (all nodes) |
 | *link-local*
-(excl. all nodes addr.) |=. x¹ |=. x |
-| *routable* |=. TODO² |=. TODO² |
-
-x: supported
+(excl. all nodes addr.) |=. supported without bridges¹ |=. supported. Example: ff12::39 |
+| *routable* |=. support planned² |=. support planned². Example: ff0e::101 (NTP) |
 
 ¹: These addresses cannot be considered for optimization towards nodes which have a bridge interface on top of their batman interface as they are not snoopable. See  [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details.
 
 ²: Routable multicast addresses are not supported yet. See  [[Basic-multicast-optimizations-tech#routable-multicast-addresses]] for details.
-
-Examples, not optimized:
-
-* 239.1.2.3
-* ff0e::101 (global (e), well-known (1st 0) IPv6 multicast address for NTP (101) )
-
-Examples, optimized:
-
-* No bridges, ff12::39 (IPv6 link-local (2) multicast (ff) address, dynamically assigned (1))
-* No bridges, 224.0.0.1 (IPv4 all nodes link-scope multicast address)
-* No bridges, ff02::1 (IPv6 all nodes link-scope multicast address)
 
 For details on IPv4 and IPv6 multicast address ranges check out this detailed article on "Wikipedia":https://en.wikipedia.org/wiki/Multicast_address.
 
