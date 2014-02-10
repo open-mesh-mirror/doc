@@ -83,7 +83,7 @@ Example: ff0e::101 (NTP) |
 
 ¹: These addresses cannot be considered for optimization towards nodes which have a bridge interface on top of their batman interface as they are not snoopable. See  [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details.
 
-²: For supporting scenarios with bridges, the according nodes need integration between batman-adv and the snooping part of their Linux bridge. Support for this is planned.
+²: To support scenarios with bridges, the according nodes need integration between batman-adv and the snooping part of their Linux bridge. Support for this is planned.
 
 ³: Routable multicast addresses are not supported yet. See  [[Basic-multicast-optimizations-tech#routable-multicast-addresses]] for details.
 
@@ -103,6 +103,7 @@ h2. Limitations
  * optimization for link-local IPv4 (224.0.0.0/24) or all-nodes IPv6 multicast (ff02::1) is only done if no node announces BATADV_MCAST_WANT_ALL_UNSNOOPABLES, that is no node configures a  bridge on batman-adv.
  * high multicast join/leave latency in setups with slow OGM intervals
  * no awareness for source-specific multicasts
+ * multcast packets over VLANs are always flooded
 
 h2. Next Steps / Roadmap
 
@@ -116,6 +117,7 @@ h2. Next Steps / Roadmap
  * implement some faster listener roaming mechanism for bridged in hosts (for instance announce (multicast-address, source address) pairs and use general TT roaming mechanism)
  * perform multicast listener adition/reduction via TT immediately instead of every OGM interval to reduce join/leave latency in setups with a slow OGM interval
  * implement source-specific multicast in Linux bridge and batman-adv
+ * multicast TT announcements and forwarding have to be performed per VLAN
  * ...
 
 h2. Further Readings
