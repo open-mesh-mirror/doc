@@ -73,4 +73,4 @@ Whenever a node wants to retrieve a MAC address (e.g. due to an ARP request issu
 
 h3. Limitations
 
-* DAT has been implemented to work with the *Address Resolution Protocol* (ARP) only. Such protocol was made to resolve IPv4 into MAC Addresses, therefore DAT does not currently support IPv6. However the DHT caching mechanism has been designed to be general enough so that it could be re-used in a IPv6-enabled version of DAT. But in order to implement it a new snooping mechanism needs to be written (e.g. batman-adv a needs proper NDP/RA packets inspection...). _The IPv6 extension of DAT is currently work in progress_.
+* DAT has been implemented to work with the *Address Resolution Protocol* (ARP) only. Such protocol was made to resolve IPv4 into MAC Addresses, therefore DAT does not currently support IPv6. However the DHT caching mechanism has been designed to be general enough so that it could be re-used in a IPv6-enabled version of DAT. But in order to implement it a new snooping mechanism needs to be written (e.g. batman-adv needs proper NDP/RA packets inspection...). -The IPv6 extension of DAT is currently work in progress-.
