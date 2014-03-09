@@ -1,17 +1,17 @@
-h1. B.A.T.M.A.N. Advanced Обзор Документации
+h1. B.A.T.M.A.N. Advanced Documentation Overview
 
-Как поднять и запустить mesh-сеть, как настроить множество функций  B.A.T.M.A.N. Advanced, и как отключить ваши проблемы.
+How to get a mesh network up and running, how to configure the many features of B.A.T.M.A.N. Advanced, and how to shoot down your troubles. 
 
-h2. Первоначальный запуск
+h2. Getting started
 
-* [[Wiki|B.A.T.M.A.N. Advanced overview]] - информация про Layer 2 версию B.A.T.M.A.N.
+* [[Wiki|B.A.T.M.A.N. Advanced overview]] - information about the Layer 2 version of B.A.T.M.A.N.
 * [[building-with-openwrt|Building B.A.T.M.A.N. Advanced with OpenWRT]] - how to download and configure your OpenWRT build environment to compile batman-adv.
 * [[quick-start-guide|B.A.T.M.A.N. Advanced quick start guide]] - or: what the hell is bat0 for?
 * [[using-batctl|Features of batctl]] - A quick introduction to batctl.
 * "batctl online man page":http://downloads.open-mesh.org/batman/manpages/batctl.8.html - read the current batctl man page online
 * "Wireless Kernel Tweaking (video)":http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv - introduction to batman-advanced by Marek and Simon [December 2007] (also available at "google video":http://video.google.de/videoplay?docid=1355876033101731617)
 
-h2. Фукции
+h2. Features
 
 * [[gateways|Gateway support]] - How batman-adv can be used to choose the nearest internet gateway node.
 * [[open-mesh:2012-05-13-translation-table-in-a-nutshell|TranslationTable in a nutshell]] -  The inner workings of the non-mesh client integration revealed.
@@ -23,7 +23,7 @@ h2. Фукции
 * [[NetworkCoding|Network Coding]] - Combine two packets into a single transmission to save air time.
 * [[open-mesh:alfred|Alfred]] - Use alfred to send local information or visualize your mesh network
 
-h2. Поиск и устранение неисправностей
+h2. Troubleshooting
 
 * [[Understand-your-batman-adv-network|Available Information]] - Read about the information exported by the module.
 * [[troubleshooting|Troubleshooting FAQ]] - What if my batman-adv setup does not behave as expected ?
