@@ -48,9 +48,9 @@ h3. How to drop broadcast traffic
 
 Following the example reported in the previous sections, a set of tc commands can help to drop all the broadcast packets having been marked with a given fwmark:
 <pre>
-# tc qdisc add dev bat0.1 root handle 1: prio
-# tc qdisc add dev bat0.1 parent 1:3 handle 30: netem loss 100%25
-# tc filter add dev bat0.1 parent 1:0 protocol all prio 1 handle 6 fw classid 1:3
+# tc qdisc add dev eth1 root handle 1: prio
+# tc qdisc add dev eth1 parent 1:3 handle 30: netem loss 100%25
+# tc filter add dev eth1 parent 1:0 protocol all prio 1 handle 6 fw classid 1:3
 </pre>
 
 With this instructions two task are accomplished:
