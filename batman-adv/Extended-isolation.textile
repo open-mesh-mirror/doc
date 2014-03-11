@@ -1,6 +1,6 @@
 h1. Extended-isolation
 
-This feature wants to be a generalisation of the already existing [[AP-isolation]]. It replaces the old mechanism but at the same time keeps a backward compatible behaviour.
+This feature is an extension of the already existing [[AP-isolation]]. It improves the old mechanism and at the same time keeps a backward compatible behaviour.
 
 When the extended-isolation is enabled batman-adv drops all the wirelsss-to-wireless traffic and at the same time marks clients as +isolated+ based on the user configuration.
 This way batman-adv provides a mechanism to achieve the following goals:
