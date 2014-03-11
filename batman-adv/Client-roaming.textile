@@ -10,33 +10,9 @@ h2. Detect a roaming client
 
 To detect whether a recently detected non-mesh client is a roaming client or a new client, it is sufficient to search the global translation table for the clients mac address. In case of positive match (the same MAC address is already in the table but pointing to another mesh node) the node has to send a roaming advertisement message to the old mesh node to inform it about the roaming event.
 
-The roaming advertisement format:
-* Packet type: Initialize this field with the ROAM_ADV packet type.
-* Version: Set your internal compatibility version.
-* Destination Address: Address of the host this packet should be forwarded to.
-* TTL: Time-To-Live field decreased by with one with each hop. Packet is to be discarded when counter reaches 0.
-* Source Address: Address of the host sending this message.
-* Client Address: Address of the roaming client that the source node has to communicate to the destination one in order to update the global translation table.
+The roaming advertisement message is a unicast TVLV packet and its content is explained in the [[TVLV#Roaming-Advertisement-message|related TVLV section]].
 
-<pre>
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Packet Type   |    Version    |      TTL      |     Align     |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                       Destination Address                     |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |      Destination Address      |         Source Address        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                         Source Address                        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                         Client Address                        |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         Client Address        |                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-</pre>
-
-These information are used to update the old node's global table so that, in case of payload packet directed to him while the network is not in sync, with a payload destination equal to 'client address is redirected to 'source address'.
+The information contained in this packet is used to update the old node's global table so that, in case of payload packet directed to him while the network is not in sync, with a payload destination equal to 'client address is redirected to 'source address'.
 
 Due to this mechanism, immediately after a roaming the data packets might follow a slightly sub-optimal path (data flow is going through the old node) until the network is in sync again and every node has updated its global translation table. This strategy will help to avoid losing packets that are still flowing to the old node.
 
@@ -58,11 +34,11 @@ When payload data reaches either node (new or old mesh node) they will not only 
 
 h2. Translation table consistency
 
-As described in the [[Client-announcement|client announcement document]] each node computes a crc16 checksum value and floods it through the network using OGMs. The translation table changes triggered by the roaming advertisement message leads to a temporary inconsistent global translation table because the table changes happen outside of the ttvn/crc16 mechanism.
+As described in the [[Client-announcement|client announcement document]] each node computes a set of CRC32 checksum values and floods it through the network using OGMs. The translation table changes triggered by the roaming advertisement message leads to a temporary inconsistent global translation table because the table changes happen outside of the ttvn/CRC32 mechanism.
 
-A node receiving a roaming advertisement message will add a global translation table entry pointing towards the new mesh node, remove the client address from its local table and announces that change with the next OGM. The sender of the roaming advertisement message will complete a similar operation: The client's global entry is removed, the local entry is added and change propagated with the coming OGM. All inconsistencies will be cleaned up by the ttvn/crc16 system once the new OGMs reach the nodes.
+A node receiving a roaming advertisement message will add a global translation table entry pointing towards the new mesh node, remove the client address from its local table and announces that change with the next OGM. The sender of the roaming advertisement message will complete a similar operation: The client's global entry is removed, the local entry is added and change propagated with the coming OGM. All inconsistencies will be cleaned up by the ttvn/CRC32 system once the new OGMs reach the nodes.
 
-However, neighboring nodes face an interesting problem: If the OGM from the new mesh node containing the "add event" is received before the OGM with "delete event" is coming in, the delete event is silently discarded. But if a node receives the "delete event" first, it has no working route towards the client until the "add event" shows up. To solve this problem the "delete event" comes with a roaming flag (TT_GLOBAL_ROAM) which tells neighboring nodes to use this route until the "add event" arrives. It also excludes this entry from the crc16 checksum computation. 
+However, neighboring nodes face an interesting problem: If the OGM from the new mesh node containing the "add event" is received before the OGM with "delete event" is coming in, the delete event is silently discarded. But if a node receives the "delete event" first, it has no working route towards the client until the "add event" shows up. To solve this problem the "delete event" comes with a roaming flag (TT_GLOBAL_ROAM) which tells neighboring nodes to use this route until the "add event" arrives. It also excludes this entry from the CRC32 checksum computation. 
 
 h2. Limitations
 
