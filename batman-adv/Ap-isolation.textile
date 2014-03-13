@@ -23,16 +23,14 @@ Note that packets are checked either at the sender or the receiver node, therefo
 
 Remember that B.A.T.M.A.N.-Advanced AP-Isolation will provide "inter-meshnode communications" prevention only. Therefore if you want to block communications between clients connected to the same access point (actually mesh node) you may want to enable the "classic AP-Isolation" function provided by the access point itself.
 
+Broadcast and multicast packets instead do not have a single destination, therefore such packets could be destined for wireless clients as well as wired clients. B.A.T.M.A.N.-Advanced has no way to distinguish these cases. To not completely block needed broadcast traffic (ARP for instance) broadcast and multicast traffic is forwarded through the mesh even between wireless clients.
+
 h3. Extending the AP-Isolation
 
-The AP-Isolation mechanism allows the user to block wifi-to-wifi payload traffic, but this beaviour might be not enough in some setups where a more sophisticated solution is needed.
+The AP-Isolation mechanism allows the user to block wireless-to-wireless payload traffic, but this beaviour might be not enough in some setups where a more sophisticated solution is needed.
 
 The _[[Extended-Isolation|Extended AP Isolation]]_ is an improvement that allows the user to decide which client has to be classified as _isolated_ by means of firewall rules, thus increasing the flexibility of this feature. batman-adv extracts the fwmark that the firewall attached to each packet it receives through the soft-interface and decides based on this value if the source client has to be considered as isolated or not. Like other client attributes also the _isolated-state_ is announced throughout the network in order to inform all the other nodes.
 
-Like in the basic mechanism, also with this extension isolated-to-isolated payload traffic is dropped at the source, while broadcast packets are normally delivered but only after batman-adv has restored the original fwmark on them upon reception. This gives the user a chance to set other firewall rules that prevent, for example, this packet from being forwarded to unwanted interfaces.
+Like in the basic mechanism, also with this extension isolated-to-isolated traffic is possibly dropped at the source, while broadcast/multicast packets are normally delivered but only after batman-adv has restored the original fwmark. This gives the user a chance to set other firewall rules that prevent, for example, this packet from being forwarded to unwanted interfaces.
 
 For more details about the Extended Isolation and how to tell batman-adv which fwmark it has to look for, please read the [[Extended-Isolation|related page]].
-
-h3. Caveats
-
-To isolate wireless clients from each other B.A.T.M.A.N.-Advanced checks the source and destination address of a packet traveling through the mesh. If sender and receiver are wireless clients the packet is discarded. It is in the very nature of broadcast and multicast packets to not have a single destination, therefore the packet could be destined for wireless clients as well as wired clients. B.A.T.M.A.N.-Advanced has no way to distinguish these cases. To not completely block needed broadcast traffic (ARP for instance) broadcast and multicast traffic is forwarded through the mesh even between wireless clients.
