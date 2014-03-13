@@ -49,9 +49,9 @@ After having added interfaces to a mesh cloud, batman-adv automatically creates 
 ls  /sys/class/net/bat0/mesh/
 aggregated_ogms        fragmentation          isolation_mark
 ap_isolation           gw_bandwidth           log_level
-bonding                gw_mode                orig_interval
-bridge_loop_avoidance  gw_sel_class           routing_algo
-distributed_arp_table  hop_penalty
+bonding                gw_mode                network_coding
+bridge_loop_avoidance  gw_sel_class           orig_interval
+distributed_arp_table  hop_penalty            routing_algo
 </pre>
 
 h3. aggregate originator messages
@@ -238,7 +238,6 @@ echo BATMAN_IV > /sys/module/batman_adv/parameters/routing_algo
 </pre>
 
 How to retrieve the list of available routing algorithms is explained [[Understand-your-batman-adv-network|on this page]].
-
 
 h2. VLAN handling
 
