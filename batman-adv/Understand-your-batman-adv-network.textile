@@ -5,7 +5,6 @@ This document assumes you have created a batman-adv network and are interested i
 
 +Note+: Although this document focusses on the "raw" debugfs interface you always can use batctl for a more convenient access to the data. This document assumes debugfs was mounted at /sys/kernel/debug/. Please adjust the given examples if your system mounts the filesystem somewhere else. The batctl tool will automatically mount debugfs whenever you try to access functionality that require it. This document also assumes that you created a mesh cloud "bat0". [[tweaking|This page]] provides background information on how to handle mesh clouds.
 
-
 h2. Tables
 
 
@@ -28,6 +27,13 @@ cat /sys/kernel/debug/batman_adv/bat0/originators
 Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ... [B.A.T.M.A.N. adv 0.3.0-alpha, [[MainIF]]/MAC: eth0/fe:fe:00:00:01:01 (bat0)] 
 fe:fe:00:00:02:01  0.360s   (133) fe:fe:00:00:02:01 [      eth0]: fe:fe:00:00:02:01 (133)
 </pre>
+
+With batman 2014.1.0 the concept of a routing table per interface was introduced. As a result each interface will expose its routing table via debugfs:
+<pre>
+/sys/kernel/debug/batman_adv/${interface}/originators
+</pre>
+
+The routing table format is identical to the default table.
 
 h3. translation tables
 
