@@ -47,8 +47,8 @@ After having added interfaces to a mesh cloud, batman-adv automatically creates 
 
 <pre>
 ls  /sys/class/net/bat0/mesh/
-aggregated_ogms        fragmentation          log_level
-ap_isolation           gw_bandwidth           network_coding
+aggregated_ogms        fragmentation          isolation_mark
+ap_isolation           gw_bandwidth           log_level
 bonding                gw_mode                orig_interval
 bridge_loop_avoidance  gw_sel_class           routing_algo
 distributed_arp_table  hop_penalty
@@ -172,6 +172,18 @@ The hop penalty setting allows to modify batman-adv's preference for multihop ro
 <pre>
 cat /sys/class/net/bat0/mesh/hop_penalty 
 30
+</pre>
+
+
+h3. isolation_mark
+
+Available since: batman-adv 2014.1.0
+
+The isolation mark is an extension to the 'ap isolation' that allows the user to decide which client has to be classified as isolated by means of firewall rules, thus increasing the flexibility of the AP isolation feature. batman-adv extracts the fwmark that the firewall attached to each packet it receives through the soft-interface and decides based on this value if the source client has to be considered as isolated or not. The isolation mark needs to be configured in batman-adv in the form 'value/mask'. Configuration and application details can be found on the [[batman-adv:Extended-isolation|extended ap isolation page]].
+
+<pre>
+cat /sys/class/net/bat0/mesh/isolation_mark
+0x00000000/0x00000000
 </pre>
 
 h3. log level
