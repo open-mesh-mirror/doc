@@ -144,7 +144,7 @@ stable version:
 Adjust the PKG_VERSION variable configured in the package Makefile to download & build the stable release you are interested in.
 
 <pre>
-cat openwrt/feeds/packages/net/batman-adv/Makefile
+cat openwrt/feeds/routing/batman-adv/Makefile
 [..]
 PKG_VERSION:=2010.0.0
 [..]
