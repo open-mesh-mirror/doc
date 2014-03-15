@@ -239,13 +239,23 @@ h3. Roaming Advertisement message
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </pre>
 
-h2. TVLV definitions (proposal)
-
-
 h3. Multicast capability
 
- * tvlv type: to be decided upon merge into the master branch
- * function: The current (unfinished) implementation optimizes for sparse multicast networks, with groups (much) smaller than half the nodes of the network. It first sends out tracker packets to mark the multicast tree for the following stream.
- * purpose: TBD. We could use a TLV to announce the Multicast MAC addresses we want to listen to (similar to the early TT mechanism).
- * length: TBD
- * note: should not be considered for now, we can pick it up again as soon as it gets some love from a developer.
+ * tvlv type: 0x06
+ * function: Reduces the airtime consumed by multicast packets, e.g. by using multicast awareness to decide whether a frame can be sent via unicast or dropped.
+ * purpose: Lets other nodes know whether an originator is capable of announcing its multicast listeners via the translation table. The flags further inform other nodes about whether an originator needs to receive all multicast traffic of a certain type.
+ * length: 4 bytes (1 byte flag information)
+ * Fixed TVLV fields:
+ ** flags: multicast flags announced by the orig node (1 byte)
+ ** reserved: not used. Defined for alignment purposes (3 bytes)
+
+ * definition:
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV 0x06   |    Version    |             Length            | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |     flags     |                    reserved                   |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
