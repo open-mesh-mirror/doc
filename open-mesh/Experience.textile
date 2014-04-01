@@ -26,6 +26,7 @@ h2. Press:
 
 h2. Papers:
 
+* "Slides with introduction to features in B.A.T.M.A.N. V":http://downloads.open-mesh.org/batman/papers/batman-adv_v_intro.pdf
 * "Client announcement and Fast roaming in a Layer-2 mesh network":http://eprints.biblio.unitn.it/archive/00002269/
 * "Network Coding for Wireless Mesh Networks":http://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf
 * "B.A.T.M.A.N. routing protocol overhead analysis":http://downloads.open-mesh.org/batman/papers/OGMoverhead.pdf
