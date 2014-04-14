@@ -54,7 +54,7 @@ Following the example reported in the previous sections, a set of tc commands ca
 </pre>
 
 With this instructions two task are accomplished:
-# a netem queue is created telling to drop 100%25 of the packets entering this it
+# a netem queue is created telling to drop 100%25 of the packets entering it
 # a filter rule is added in order to redirect all the traffic matching the specified mark to the netem queue.
 
 Note that _tc_ is used instead of iptables because the latter would only be able to work on frames carrying IPv4/6 packets, while in this case the target is the entire traffic.
