@@ -41,7 +41,7 @@ h2. Protocol Documentation
 
 * [[open-mesh:BATMANConcept|B.A.T.M.A.N. Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
 * [[open-mesh:routing_scenarios|Routing scenarios]] - a collection of routing scenarios a routing protocol should be able to handle
-* [[multi-link-optimizations-technical|Multi-Link Optimizations]] - Use multiple links in batman-adv for fun and profit (technical documentation)
+* [[multi-link-optimizations-technical|Network-wide-multi-link-optimization]] - Use multiple links in batman-adv for fun and profit (technical documentation)
 * [[Client-announcement|Client announcement]] - how batman-adv handles non-mesh clients bridged into the mesh
 * [[Client-roaming|Client roaming]] - non-mesh clients moving from one mesh node to the next
 * [[TT-Flags|TT Flags]] - explanation for internal flags used by the translation table code
