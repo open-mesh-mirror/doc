@@ -67,3 +67,7 @@ There is also a development packet feed for OpenWRT available for alfred:
 3. Run "make menuconfig" and select alfred (available under "Network  --->")
 
 Finally, re-build Openwrt and enjoy using alfred! :)
+
+h2. Further resources
+
+ * Wireshark dissector for alfred: https://github.com/basros/alfred-dissector
