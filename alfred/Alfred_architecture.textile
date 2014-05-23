@@ -9,9 +9,9 @@ alfred runs as daemon in the background of the system. A user may insert informa
 h2. Alfred specific terms
 
 | node   | A node is a device which can run alfred |
-| server | an process of alfred which runs on the node, can communicate with alfred instances on other nodes and to clients running on the same node |
+| server | an process of alfred which runs on the node, can communicate with alfred processes on other nodes and with clients running on the same node |
 | client | a program which supports the alfred protocol and communicates with the alfred server on the same node |
-| master | an alfred server process which stores incoming data and synchronizes it with other master servers and accepts requests/data from slaves |
+| master | an alfred server process which stores incoming data, synchronizes it with other master servers and accepts requests/data from slaves |
 | slave  | an alfred server process which only manages its own data, pushes/requests the data to/from *its* master server  |
 
 h2. Network
