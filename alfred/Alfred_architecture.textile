@@ -32,9 +32,9 @@ h3. Network layer
 
 All communication between servers in an alfred network is done through IPv6 link-local UDP messages. This only allows communication in the current subnet but messages will not be routed between different subnets.
 
-The underlying layer can for example be batman-adv which makes all nodes in a mesh look like being connected to a big switch. This makes it possible to reach all even in situation where they would not be able to reach each other through the actual link medium. Therefore, link-local messages are a enough for this scenario. Different deployments may have to evaluate if they can provide a medium which also provides link-local comminucation between all nodes.
+The underlying layer can for example be batman-adv which makes all nodes in a mesh look like being connected to a big switch. This makes it possible to reach all nodes even in situation where they would not be able to reach each other through the actual link medium. Therefore, link-local messages are enough for this scenario. Deployments with a different kind of underlying layer may have to evaluate if they can provide a medium which also provides link-local communication between all nodes.
 
-All the communication is done through the unregistered UDP/IPv6 port 0x4242.
+All the messages are sent through the unregistered UDP/IPv6 port 0x4242.
 
 h3. Detection of neighbors
 
