@@ -138,6 +138,8 @@ The transaction id has to be unique during the time of the transaction but the s
 
 The payload of the <code>alfred_push_data</code> packet after the transaction information is split into an arbitrary number of <code>alfred_data</code> blocks. Each data block is started with the mac address of the server which initially stored the data. The next part is the TLV header which describes the data part of the <code>alfred_data</code> block. The type and version are user/client defined. The length is the number of bytes for the data stored after the TLV header.
 
+The number of <code>alfred_data</code> blocks for in a single <code>alfred_push_data</code> for communication over unix sockets has always to be *1*.
+
 Alfred allows type from 65 up to 255 as general types for client data. 0 - 64 are reserved (e. g. batadv-vis(1) and alfred-gpsd(2)). The version information has to be evaluated by a client to make sure that he can correctly interpret the data.
 
 One push data packet can be up to 65535 bytes in size. This limits the number of bytes per data block to 65517 bytes.
