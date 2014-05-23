@@ -70,7 +70,7 @@ This request can obviously fail for different reasons. The slave server uses an 
 
 !node_architecture_slave.png!
 
-The best practise for a client is to implement the handling of error messages even when it is only used together with master servers.
+The best practice for a client is to implement the handling of error messages even when it is only used together with master servers.
 
 h3. Synchronization
 
@@ -78,7 +78,7 @@ Data synchronizations are done master2master and slave2master. The slave will on
 
 !synchronization.png!
 
-The synchronization is started proactively by the slave or master server ever 10s. It is initiated by an alfred_push_data packet with a transaction id and the first data blocks. This transaction id should be unique for the time of the synchronization but the same for all packets of a synchronization transaction.
+The synchronization is started pro-actively by the slave or master server ever 10s. It is initiated by an alfred_push_data packet with a transaction id and the first data blocks. This transaction id should be unique for the time of the synchronization but the same for all packets of a synchronization transaction.
 
 The last packet is an alfred_status end packet with the number of of sent alfred_push_data packets during this synchronization transaction. If it doesn't match with the number of packets the master server received then the transaction failed and the remote master server drops the received data.
 
@@ -136,6 +136,6 @@ The transaction id has to be unique during the time of the transaction but the s
 
 The payload of the alfred_push_data after the transaction information is split into an arbitrary number of alfred_data blocks. Each data block is started with the mac address of the server which initially stored the data. The next part is the TLV header which describes the data part of the alfred_data block. The type and version are used defined. The length is the number of bytes for the data stored after the TLV header.
 
-Alfred allows type from 65 up to 255 used by client data. 0 - 64 are reserved (e.g. 1 for batadv-vis and 2 for alfred-gpsd). The version information has to be evaluated by a client to make sure that he can correctly interpret the data.
+Alfred allows type from 65 up to 255 used by client data. 0 - 64 are reserved (e. g. batadv-vis(1) and alfred-gpsd(2)). The version information has to be evaluated by a client to make sure that he can correctly interpret the data.
 
 One push data packet can be up to 65535 bytes in size. This limits the number of bytes per data block to 65517 bytes.
