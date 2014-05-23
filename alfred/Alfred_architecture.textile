@@ -88,7 +88,7 @@ h2. Packet formats
 
 h3. General format
 
-The data stored in the packet headers is always stored in network byte order (big endian). The packet format is TLV based (type, value, length) which appears in different headers. The type is always only defined by alfred for the outer TLV and can be PUSH_DATA(0), ANNOUNCE_MASTER(1), REQUEST(2), STATUS_TXEND(3), STATUS_ERROR(4). The only special type is MODESWITCH(5) which is used internally to switch a server between master and slave mode.
+The data stored in the packet headers is always stored in network byte order (big endian). The packet format is TLV based (type, value, length) which appears in different headers. The type is only defined by alfred for the outer TLV and can be <code>PUSH_DATA(0)</code>, <code>ANNOUNCE_MASTER(1)</code>, <code>REQUEST(2)</code>, <code>STATUS_TXEND(3)</code>, <code>STATUS_ERROR(4)</code>. The only special type is <code>MODESWITCH(5)</code> which is used internally to switch a server between master and slave mode.
 
 The length value is always the length of the payload following the TLV. This is especially important when multiple TLV + payload blocks appear after each other.
 
@@ -98,13 +98,13 @@ h3. Master announcement
 
 !packet_announce_master_v0.png!
 
-The announcement is only done by the master servers to announce them over link-local UDP/IPv6. It doesn't contain any more information than then the type and the receiver has to calculate the mac address of the sender by decoding the link-local IPv6 sender address.
+The announcement is only done by the master servers to announce them over link-local UDP/IPv6 multicast. It doesn't contain any more information than the type. The receiver has to calculate the mac address of the sender by decoding the link-local IPv6 sender address.
 
 h3. Request data
 
 !packet_request_v0.png!
 
-Requests are done by clients over unix socket or by slave servers over link-local UDP/IPv6.
+Requests are done by clients over unix socket or by slave servers over link-local UDP/IPv6 unicast.
 
 The requested type is the type of data which the transmitter wants to receive. The alfred_push_data packets sent as reply must only contain data blocks from this type.
 
@@ -114,7 +114,7 @@ h3. Finish transaction
 
 !packet_status_v0_end.png!
 
-Servers send status end packets over link-local UDP/IPv6. It is the last packet of a transaction (synchronization or reply to a request). The transaction id has to be equal to the transaction id of the alfred_push_data packets and the alfred_request. The number of packets has to be equal to the number of alfred_push_data packets with the same transaction id to accept the transaction as successful.
+Servers send status end packets over link-local UDP/IPv6 unicast. It is the last packet of a transaction (synchronization or reply to a request). The transaction id has to be equal to the transaction id of the alfred_push_data packets and the alfred_request. The number of packets has to be equal to the number of alfred_push_data packets with the same transaction id to accept the transaction as successful.
 
 h3. Inform about an error
 
@@ -134,8 +134,8 @@ The transaction id has to be unique during the time of the transaction but the s
 
 !packet_push_data_v0.png!
 
-The payload of the alfred_push_data after the transaction information is split into an arbitrary number of alfred_data blocks. Each data block is started with the mac address of the server which initially stored the data. The next part is the TLV header which describes the data part of the alfred_data block. The type and version are used defined. The length is the number of bytes for the data stored after the TLV header.
+The payload of the alfred_push_data packet after the transaction information is split into an arbitrary number of alfred_data blocks. Each data block is started with the mac address of the server which initially stored the data. The next part is the TLV header which describes the data part of the alfred_data block. The type and version are user/client defined. The length is the number of bytes for the data stored after the TLV header.
 
-Alfred allows type from 65 up to 255 used by client data. 0 - 64 are reserved (e. g. batadv-vis(1) and alfred-gpsd(2)). The version information has to be evaluated by a client to make sure that he can correctly interpret the data.
+Alfred allows type from 65 up to 255 as general types for client data. 0 - 64 are reserved (e. g. batadv-vis(1) and alfred-gpsd(2)). The version information has to be evaluated by a client to make sure that he can correctly interpret the data.
 
 One push data packet can be up to 65535 bytes in size. This limits the number of bytes per data block to 65517 bytes.
