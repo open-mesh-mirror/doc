@@ -46,11 +46,11 @@ The periodically (10s) transmitted announcement multicast messages will be recei
 
 !master_selection.png!
 
-The slave servers need therefore a way to find the best master server. The current strategy for non-batman-adv server is to choose one server and and don't use an extra metric. But on batman-adv networks already provide the TQ value to quantify the quality to a master server. The best master server is just the server with the best TQ for a slave server.
+The slave servers need therefore a way to find the best master server. The current strategy for non-batman-adv server is to choose one server and and don't use an extra metric. But batman-adv networks already provide the TQ value to quantify the quality to a master server. The best master server is just the server with the best TQ for a slave server.
 
 The mac address is used by alfred to associate the messages with an unique data source. It is calculated from the received UDP/IPv6 packet source address. This mac address can then be used to retrieve the master server TQ from the batman-adv debug tables. 
 
-Detected neighbor servers are automatically dropped after 60s after the last announcement was received.
+Detected neighbor servers are automatically dropped after a timeout of 60s since the last announcement was received.
 
 h3. Client data exchange
 
