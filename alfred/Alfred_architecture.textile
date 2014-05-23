@@ -58,15 +58,15 @@ The client communication is done through unix sockets on the same server. The pa
 
 The used packet format is shared between the server2server and the client2server communication. There are some minor differences which will be explained later.
 
-The easiest communication is the push of data to an server. The client just has to create a alfred_push_data packet with the attached data at the end. The server receives it, stores it, closes the client connection and handles the forwarding of the data to the other servers in the alfred network.
+The easiest communication is the push of data to an server. The client just has to create a <code>alfred_push_data</code> packet with the attached data at the end. The server receives it, stores it, closes the client connection and handles the forwarding of the data to the other servers in the alfred network.
 
-Slightly more complicated is the retrieval of data from a master server. The client has to send a alfred_request packet to the master server with the type it requests. The reply will be an arbitrary number of alfred_push_data packets of the requested type which contain the data set by the clients on this node and from other nodes. The data from other servers will only be as new as the latest successful data synchronization.
+Slightly more complicated is the request of data from a master server. The client has to send an <code>alfred_request</code> packet to the master server with the type it requests. The reply will be an arbitrary number of <code>alfred_push_data</code> packets of the requested type which contain the data set by the clients on this node and from other nodes. The data from other servers will only be as new as the latest successful data synchronization.
 
 !node_architecture_master.png!
 
-The alfred request to an slave server looks exactly the same as the request to a master server. But the slave server doesn't store all data which is currently in the alfred network. Instead the slave server has to ask its master server to send information for this type to the slave server. This is done the same way as a client would do it but through a link-local UDP/IPv6 message. The request will be replied by the server with alfred_push_data packets and a single alfred_status end packet containing the number of sent alfred_push_data packets.
+The alfred request to an slave server looks exactly the same as the request to a master server. But the slave server doesn't store all data which is currently in the alfred network. Instead the slave server has to ask its master server to send information for this type to the slave server. This is done the same way as a client would do it but through a link-local UDP/IPv6 message. The request will be replied by the server with <code>alfred_push_data</code> packets and a single <code>alfred_status</code> end packet containing the number of sent <code>alfred_push_data</code> packets.
 
-This request can obviously fail for different reasons. The slave server uses an timeout (10s) for these requests and informs the client using an alfred_packet_status error message that the request failed. Otherwise the slave server will reply with alfred_push_data packets the same way as a master server.
+This request can obviously fail for different reasons. The slave server uses an timeout (10s) for these requests and informs the client using an <code>alfred_packet_status</code> error message that the request failed. Otherwise the slave server will reply with <code>alfred_push_data</code> packets the same way as a master server.
 
 !node_architecture_slave.png!
 
@@ -78,9 +78,9 @@ Data synchronizations are done master2master and slave2master. The slave will on
 
 !synchronization.png!
 
-The synchronization is started pro-actively by the slave or master server ever 10s. It is initiated by an alfred_push_data packet with a transaction id and the first data blocks. This transaction id should be unique for the time of the synchronization but the same for all packets of a synchronization transaction.
+The synchronization is started pro-actively by the slave or master server ever 10s. It is initiated by an <code>alfred_push_data</code> packet with a transaction id and the first data blocks. This transaction id should be unique for the time of the synchronization but the same for all packets of a synchronization transaction.
 
-The last packet is an alfred_status end packet with the number of sent alfred_push_data packets during this synchronization transaction. If it doesn't match with the number of packets the master server received then the transaction failed and the remote master server drops the received data.
+The last packet is an <code>alfred_status</code> end packet with the number of sent <code>alfred_push_data</code> packets during this synchronization transaction. If it doesn't match with the number of packets the master server received then the transaction failed and the remote master server drops the received data.
 
 Data is automatically pruned from the server storage 600s after the last time it was received/refreshed.
 
@@ -106,7 +106,7 @@ h3. Request data
 
 Requests are done by clients over unix socket or by slave servers over link-local UDP/IPv6 unicast.
 
-The requested type is the type of data which the transmitter wants to receive. The alfred_push_data packets sent as reply must only contain data blocks from this type.
+The requested type is the type of data which the transmitter wants to receive. The <code>alfred_push_data packets</code> sent as reply must only contain data blocks from this type.
 
 The transaction id must be unique during the time the request is made and answered.
 
@@ -114,11 +114,11 @@ h3. Finish transaction
 
 !packet_status_v0_end.png!
 
-Servers send status end packets over link-local UDP/IPv6 unicast. It is the last packet of a transaction (synchronization or reply to a request). The transaction id has to be equal to the transaction id of the alfred_push_data packets and the alfred_request. The number of packets has to be equal to the number of alfred_push_data packets with the same transaction id to accept the transaction as successful.
+Servers send status end packets over link-local UDP/IPv6 unicast. It is the last packet of a transaction (synchronization or reply to a request). The transaction id has to be equal to the transaction id of the <code>alfred_push_data</code> packets and the <code>alfred_request</code>. The number of packets has to be equal to the number of <code>alfred_push_data</code> packets with the same transaction id to accept the transaction as successful.
 
 h3. Inform about an error
 
-Slave servers send error messages over unix sockets to clients. This tells the client that the retrieval of data from the master server failed. The transaction id has to be same as the transaction id of the alfred_request packet.
+Slave servers send error messages over unix sockets to clients. This tells the client that the request of data from the master server failed. The transaction id has to be same as the transaction id of the <code>alfred_request</code> packet.
 
 !packet_status_v0_error.png!
 
@@ -126,15 +126,15 @@ The only currently used error code is 1.
 
 h3. Push data
 
-Push data packets are sent/received by clients to send data over unix sockets to/from servers. Clients sent it to store data on a server. Servers send it to clients as answer to alfred_request packets.
+Push data packets are sent/received by clients to send data over unix sockets to/from servers. Clients sent it to store data on a server. Servers send it to clients as answer to <code>alfred_request</code> packets.
 
-Servers sent push data packets over UDP/IPv6 to synchronize data between them. Master server also sent them to slave server as answer to alfred_request packets.
+Servers sent push data packets over UDP/IPv6 to synchronize data between them. Master server also sent them to slave server as answer to <code>alfred_request</code> packets.
 
 The transaction id has to be unique during the time of the transaction but the same for all packets of one transaction. The sequence number has to be increased for each packet of a transaction.
 
 !packet_push_data_v0.png!
 
-The payload of the alfred_push_data packet after the transaction information is split into an arbitrary number of alfred_data blocks. Each data block is started with the mac address of the server which initially stored the data. The next part is the TLV header which describes the data part of the alfred_data block. The type and version are user/client defined. The length is the number of bytes for the data stored after the TLV header.
+The payload of the <code>alfred_push_data</code> packet after the transaction information is split into an arbitrary number of <code>alfred_data</code> blocks. Each data block is started with the mac address of the server which initially stored the data. The next part is the TLV header which describes the data part of the <code>alfred_data</code> block. The type and version are user/client defined. The length is the number of bytes for the data stored after the TLV header.
 
 Alfred allows type from 65 up to 255 as general types for client data. 0 - 64 are reserved (e. g. batadv-vis(1) and alfred-gpsd(2)). The version information has to be evaluated by a client to make sure that he can correctly interpret the data.
 
