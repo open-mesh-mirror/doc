@@ -20,13 +20,13 @@ h2. Network
 
 h3. Structure
 
-An alfred network used for exchanging data is build using different nodes running an alfred server. These server detecting each other and connect to each other automatically.
+An alfred network used for exchanging data is build using different nodes running an alfred server. These servers are detecting and connecting to each other automatically.
 
 !general_structure.png!
 
-Such a network has to contain at least one master server. These are used as global data storage and help to synchronize data with other nodes. This role is so important that they actively announce there presents to other nodes. Other master nodes are automatically synchronizing their stored data to have it distributed to all reachable master nodes.
+Such a network has to contain at least one master server. These are used as global data storage and help to synchronize data with other nodes. This role is so important that they actively announce there presence to all nodes. Other master nodes are automatically synchronizing their stored data to have it distributed to all reachable master nodes.
 
-The second type of servers are slaves. These don't try to gather all data stored in the alfred network. Instead they only connect to their best master server to request data when required and to push the data from local clients to the alfred network.
+The second type of servers are slaves. These don't try to gather all data stored in the alfred network. Instead they only connect to their best master server to request data when required and to push the data from local clients to the alfred network through master servers.
 
 h3. Network layer
 
