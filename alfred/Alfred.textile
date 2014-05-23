@@ -14,6 +14,8 @@ alfred runs as daemon in the background of the system. A user may insert informa
 
 See the "README":http://git.open-mesh.org/alfred.git/blob_plain/refs/heads/master:/README for more information or the "manpage":http://downloads.open-mesh.org/batman/manpages/alfred.8.html for usage.
 
+alfred internals are explained in the [[batman-adv:alfred architecture]] document.
+
 h2. Current applications
 
 There are a few applications currently implemented on top of alfred:
