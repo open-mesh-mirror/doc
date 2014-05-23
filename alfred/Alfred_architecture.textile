@@ -74,13 +74,13 @@ The best practice for a client is to implement the handling of error messages ev
 
 h3. Synchronization
 
-Data synchronizations are done master2master and slave2master. The slave will only send data from its clients to a single server. Master servers are sending the a part of their stored data to all other known master servers. This part only contains the data from their local clients and data pushed from slaves server.
+Data synchronizations are done master2master and slave2master. The slave will only send data from its clients to a single server. Master servers are sending their stored data to all other known master servers. This only contains the data from their local clients and data pushed from slaves server.
 
 !synchronization.png!
 
 The synchronization is started pro-actively by the slave or master server ever 10s. It is initiated by an alfred_push_data packet with a transaction id and the first data blocks. This transaction id should be unique for the time of the synchronization but the same for all packets of a synchronization transaction.
 
-The last packet is an alfred_status end packet with the number of of sent alfred_push_data packets during this synchronization transaction. If it doesn't match with the number of packets the master server received then the transaction failed and the remote master server drops the received data.
+The last packet is an alfred_status end packet with the number of sent alfred_push_data packets during this synchronization transaction. If it doesn't match with the number of packets the master server received then the transaction failed and the remote master server drops the received data.
 
 Data is automatically pruned from the server storage 600s after the last time it was received/refreshed.
 
