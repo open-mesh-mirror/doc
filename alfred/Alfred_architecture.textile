@@ -38,7 +38,7 @@ All the messages are sent through the unregistered UDP/IPv6 port 0x4242.
 
 h3. Detection of neighbors
 
-The master server will announce itself using IPv6 link-local multicast messages. This makes it possible to reach all nodes with these messages even in situation unless they are dropped while being forwarded/send.
+The master server will announce itself using IPv6 link-local multicast messages. This makes it possible to reach all nodes with a single message unless it is dropped while being forwarded/transmitted.
 
 !announce_master.png!
 
