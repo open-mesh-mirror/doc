@@ -54,17 +54,17 @@ Detected neighbor servers are automatically dropped after a timeout of 60s since
 
 h3. Client data exchange
 
-The client communication is done though unix sockets on the same server. The path is defined as <code>/var/run/alfred.sock</code>
+The client communication is done through unix sockets on the same server. The path is defined as <code>/var/run/alfred.sock</code>
 
 The used packet format is shared between the server2server and the client2server communication. There are some minor differences which will be explained later.
 
-The easiest communication is the push of data to an server. The client just has to create a alfred_push_data packet with the attached data at the end. The server just receives it, closes the client connection and handles the forwarding of the data to the other servers in the alfred network.
+The easiest communication is the push of data to an server. The client just has to create a alfred_push_data packet with the attached data at the end. The server receives it, stores it, closes the client connection and handles the forwarding of the data to the other servers in the alfred network.
 
 Slightly more complicated is the retrieval of data from a master server. The client has to send a alfred_request packet to the master server with the type it requests. The reply will be an arbitrary number of alfred_push_data packets of the requested type which contain the data set by the clients on this node and from other nodes. The data from other servers will only be as new as the latest successful data synchronization.
 
 !node_architecture_master.png!
 
-The alfred request to an slave server looks exactly the same as the request to an master server. But the slave server doesn't store all data which is currently in the alfred network. Instead the slave server has to ask its master server to sent information for this type to the slave server. This is done the same way as a client would do it but through link-local UDP/IPv6 messages. The request will be replied by the server with alfred_push_data packets and a single alfred_status end packet containing the number of sent alfred_push_data packets.
+The alfred request to an slave server looks exactly the same as the request to a master server. But the slave server doesn't store all data which is currently in the alfred network. Instead the slave server has to ask its master server to send information for this type to the slave server. This is done the same way as a client would do it but through a link-local UDP/IPv6 message. The request will be replied by the server with alfred_push_data packets and a single alfred_status end packet containing the number of sent alfred_push_data packets.
 
 This request can obviously fail for different reasons. The slave server uses an timeout (10s) for these requests and informs the client using an alfred_packet_status error message that the request failed. Otherwise the slave server will reply with alfred_push_data packets the same way as a master server.
 
