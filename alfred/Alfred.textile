@@ -16,6 +16,12 @@ See the "README":http://git.open-mesh.org/alfred.git/blob_plain/refs/heads/maste
 
 alfred internals are explained in the [[batman-adv:alfred architecture]] document.
 
+
+h2. Further resources
+
+ * Wireshark dissector for alfred: https://github.com/basros/alfred-dissector
+ * [[batman-adv:alfred architecture|Alfred architecture]] - technical information about alfred
+
 h2. Current applications
 
 There are a few applications currently implemented on top of alfred:
@@ -69,7 +75,3 @@ There is also a development packet feed for OpenWRT available for alfred:
 3. Run "make menuconfig" and select alfred (available under "Network  --->")
 
 Finally, re-build Openwrt and enjoy using alfred! :)
-
-h2. Further resources
-
- * Wireshark dissector for alfred: https://github.com/basros/alfred-dissector
