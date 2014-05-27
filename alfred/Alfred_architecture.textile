@@ -22,21 +22,21 @@ h2. Network
 
 h3. Structure
 
-An alfred network used for exchanging data is build using different nodes running an alfred server. These servers are detecting and connecting to each other automatically.
+An alfred network used for exchanging data is build using different nodes running an alfred server. Servers are detect and connect to each other automatically.
 
 !general_structure.png!
 
-Such a network has to contain at least one master server. These are used as global data storage and help to synchronize data with other nodes. This role is so important that they actively announce there presence to all nodes. Other master nodes are automatically synchronizing their stored data to have it distributed to all reachable master nodes.
+Such a network has to contain at least one master server. Master servers are used as global data storage and help to synchronize data with other nodes. This role is so important that they actively announce there presence to all nodes. Other master servers are automatically synchronizing their stored data to have it distributed to all reachable master nodes.
 
-The second type of servers are slaves. These don't try to gather all data stored in the alfred network. Instead they only connect to their best master server to request data when required and to push the data from local clients to the alfred network through master servers.
+The second type of servers are slaves. Slaves don't try to gather all data stored in the alfred network. Instead they only connect to their best master server to request data when required and to push the data from local clients to the alfred network through master servers.
 
 h3. Network layer
 
 All communication between servers in an alfred network is done through IPv6 link-local UDP messages. This only allows communication in the current subnet but messages will not be routed between different subnets.
 
-The underlying layer can for example be batman-adv which makes all nodes in a mesh look like being connected to a big switch. This makes it possible to reach all nodes even in situation where they would not be able to reach each other through the actual link medium. Therefore, link-local messages are enough for this scenario. Deployments with a different kind of underlying layer may have to evaluate if they can provide a medium which also provides link-local communication between all nodes.
+The underlying layer can for example be batman-adv which makes all nodes in a mesh look like being connected to a big switch. This makes it possible to reach all nodes even in situations where they would not be able to reach each other through the actual link medium. Therefore, link-local messages are enough for this scenario. Deployments with a different kind of underlying layer may have to evaluate if they can provide a medium which also provides IPv6 link-local communication between all nodes.
 
-All the messages are sent through the unregistered UDP/IPv6 port 0x4242.
+All the messages are sent through the IANA unregistered UDP/IPv6 port 0x4242 (in decimal: 16962).
 
 h3. Detection of neighbors
 
@@ -44,19 +44,19 @@ The master server will announce itself using IPv6 link-local multicast messages.
 
 !announce_master.png!
 
-The periodically (10s) transmitted announcement multicast messages will be received by the other alfred servers and be store for later. Master servers this information to synchronize data and slave servers to have access to the global data.
+The periodically (10s) transmitted announcement multicast messages will be received by the other alfred servers and be store for later. Master servers use this information to synchronize data and slave servers use it to have access to the global data.
 
 !master_selection.png!
 
-The slave servers need therefore a way to find the best master server. The current strategy for non-batman-adv server is to choose one server and and don't use an extra metric. But batman-adv networks already provide the TQ value to quantify the quality to a master server. The best master server is just the server with the best TQ for a slave server.
+The slave servers need therefore a way to find their best master server. The current strategy for non-batman-adv server is to choose one server randomly and and don't use an extra metric. But batman-adv networks already provide the TQ value to quantify the quality to a master server. The best master server is just the server with the best TQ for a slave node.
 
-The mac address is used by alfred to associate the messages with an unique data source. It is calculated from the received UDP/IPv6 packet source address. This mac address can then be used to retrieve the master server TQ from the batman-adv debug tables. 
+The mac address is used by alfred to associate the messages with an unique data source. It is calculated by evaluating the received UDP/IPv6 packet source address. This mac address can then be used to retrieve the master server TQ from the batman-adv debug tables. 
 
 Detected neighbor servers are automatically dropped after a timeout of 60s since the last announcement was received.
 
 h3. Client data exchange
 
-The client communication is done through unix sockets on the same server. The path is defined as <code>/var/run/alfred.sock</code>
+The client communication to the alfred server is done through unix sockets on the same node. The path is defined as <code>/var/run/alfred.sock</code>
 
 The used packet format is shared between the server2server and the client2server communication. There are some minor differences which will be explained later.
 
@@ -76,13 +76,13 @@ The best practice for a client is to implement the handling of error messages ev
 
 h3. Synchronization
 
-Data synchronizations are done master2master and slave2master. The slave will only send data from its clients to a single server. Master servers are sending their stored data to all other known master servers. This only contains the data from their local clients and data pushed from slaves server.
+Data synchronizations are done master2master and slave2master. The slave will only send data from its clients to a single server. Master servers are sending their stored data to all other known master servers. This only contains the data from their local clients and data pushed from slave server.
 
 !synchronization.png!
 
-The synchronization is started pro-actively by the slave or master server ever 10s. It is initiated by an <code>alfred_push_data</code> packet with a transaction id and the first data blocks. This transaction id should be unique for the time of the synchronization but the same for all packets of a synchronization transaction.
+The synchronization is started pro-actively by the slave or master server every 10s. It is initiated by an <code>alfred_push_data</code> packet with a transaction id and the first data blocks. This transaction id should be unique for the time of the synchronization but the same for all packets of a synchronization transaction.
 
-The last packet is an <code>alfred_status</code> end packet with the number of sent <code>alfred_push_data</code> packets during this synchronization transaction. If it doesn't match with the number of packets the master server received then the transaction failed and the remote master server drops the received data.
+The last packet is an <code>alfred_status</code> end packet with the number of sent <code>alfred_push_data</code> packets during this synchronization transaction. If it doesn't match with the number of packets the master server received, then the transaction failed and the remote master server drops the received data.
 
 Data is automatically pruned from the server storage 600s after the last time it was received/refreshed.
 
@@ -100,13 +100,13 @@ h3. Master announcement
 
 !packet_announce_master_v0.png!
 
-The announcement is only done by the master servers to announce them over link-local UDP/IPv6 multicast. It doesn't contain any more information than the type. The receiver has to calculate the mac address of the sender by decoding the link-local IPv6 sender address.
+The announcement is only done by the master servers to announce themselves via link-local UDP/IPv6 multicast. It doesn't contain any more information. The receiver has to calculate the mac address of the sender by decoding the link-local IPv6 sender address.
 
 h3. Request data
 
 !packet_request_v0.png!
 
-Requests are done by clients over unix socket or by slave servers over link-local UDP/IPv6 unicast.
+Requests are done by clients via unix socket or by slave servers via link-local UDP/IPv6 unicast.
 
 The requested type is the type of data which the transmitter wants to receive. The <code>alfred_push_data packets</code> sent as reply must only contain data blocks from this type.
 
@@ -116,11 +116,11 @@ h3. Finish transaction
 
 !packet_status_v0_end.png!
 
-Servers send status end packets over link-local UDP/IPv6 unicast. It is the last packet of a transaction (synchronization or reply to a request). The transaction id has to be equal to the transaction id of the <code>alfred_push_data</code> packets and the <code>alfred_request</code>. The number of packets has to be equal to the number of <code>alfred_push_data</code> packets with the same transaction id to accept the transaction as successful.
+Servers send status end packets via link-local UDP/IPv6 unicast. It is the last packet of a transaction (synchronization or reply to a request). The transaction id has to be equal to the transaction id of the <code>alfred_push_data</code> packets and the <code>alfred_request</code>. The number of packets has to be equal to the number of <code>alfred_push_data</code> packets with the same transaction id to accept the transaction as successful.
 
 h3. Inform about an error
 
-Slave servers send error messages over unix sockets to clients. This tells the client that the request of data from the master server failed. The transaction id has to be same as the transaction id of the <code>alfred_request</code> packet.
+Slave servers send error messages via unix sockets to clients. This tells the client that the request of data from the master server failed. The transaction id has to be same as the transaction id of the <code>alfred_request</code> packet.
 
 !packet_status_v0_error.png!
 
@@ -128,9 +128,9 @@ The only currently used error code is 1.
 
 h3. Push data
 
-Push data packets are sent/received by clients to send data over unix sockets to/from servers. Clients sent it to store data on a server. Servers send it to clients as answer to <code>alfred_request</code> packets.
+Push data packets are sent/received by clients to send data via unix sockets to/from servers. Clients send it to store data on a server. Servers send it to clients as answer to <code>alfred_request</code> packets.
 
-Servers sent push data packets over UDP/IPv6 to synchronize data between them. Master server also sent them to slave server as answer to <code>alfred_request</code> packets.
+Servers sent push data packets via UDP/IPv6 to synchronize data between them. Master server also sent them to slave server as answer to <code>alfred_request</code> packets.
 
 The transaction id has to be unique during the time of the transaction but the same for all packets of one transaction. The sequence number has to be increased for each packet of a transaction.
 
@@ -138,8 +138,8 @@ The transaction id has to be unique during the time of the transaction but the s
 
 The payload of the <code>alfred_push_data</code> packet after the transaction information is split into an arbitrary number of <code>alfred_data</code> blocks. Each data block is started with the mac address of the server which initially stored the data. The next part is the TLV header which describes the data part of the <code>alfred_data</code> block. The type and version are user/client defined. The length is the number of bytes for the data stored after the TLV header.
 
-The number of <code>alfred_data</code> blocks in a single <code>alfred_push_data</code> has always to be *1* for communication over unix sockets. The aggregation of multiple data blocks is only allowed for communication over UDP/IPv6
+The number of <code>alfred_data</code> blocks in a single <code>alfred_push_data</code> has always to be *1* for communication via unix sockets. The aggregation of multiple data blocks is only allowed for communication via UDP/IPv6.
 
-Alfred allows type from 65 up to 255 as general types for client data. 0 - 64 are reserved (e. g. batadv-vis(1) and alfred-gpsd(2)). The version information has to be evaluated by a client to make sure that he can correctly interpret the data.
+Alfred allows type from 65 up to 255 as general types for client data. 0 - 64 are reserved (e. g. batadv-vis(1) and alfred-gpsd(2)). The version information has to be evaluated by a client to make sure that it can correctly interpret the data.
 
 One push data packet can be up to 65535 bytes in size. This limits the number of bytes per data block to 65517 bytes.
