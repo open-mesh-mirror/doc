@@ -22,7 +22,7 @@ h2. Network
 
 h3. Structure
 
-An alfred network used for exchanging data is build using different nodes running an alfred server. Servers are detect and connect to each other automatically.
+An alfred network used for exchanging data is build using different nodes running an alfred server. Servers are detected and connect to each other automatically.
 
 !general_structure.png!
 
