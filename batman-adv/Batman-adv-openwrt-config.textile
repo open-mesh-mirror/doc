@@ -79,10 +79,20 @@ The batman-adv configuration is somewhat simpler now because it only contains th
 <pre>
 config mesh 'bat0'
         option 'aggregated_ogms'
-        option 'ap_isolation' 
+        option 'ap_isolation'
         option [..]
 </pre>
 
+*Since batman-adv 2014.2.0* VLAN specific options have to be configured in a separated stanza having protocol 'batadv_vlan'.
+
+In this particular section the user has to specify the name of the VLAN interface (that will be automatically created by netifd) and then list all the wanted options.
+At the moment the only available option for this section is 'ap_isolation':
+<pre>
+config interface 'my_bat_vlan1'
+	option protocol 'batadv_vlan'
+	option ifname 'bat0.1'
+	option ap_isolation '1'
+</pre>
 
 h2. Advanced configuration examples
 
