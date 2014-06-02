@@ -94,6 +94,8 @@ config interface 'my_bat_vlan1'
 	option ap_isolation '1'
 </pre>
 
+All the VLAN specific options are not supposed to be listed in the mesh section anymore.
+
 h2. Advanced configuration examples
 
 More sophisticated OpenWrt config examples can be found [[Batman-adv-openwrt-config-sophisticated|here]].
