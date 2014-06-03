@@ -94,6 +94,8 @@ config interface 'my_bat_vlan1'
 	option ap_isolation '1'
 </pre>
 
+Any VLAN specific option can still be listed in the batman-adv configuration for 'bat0' and in that case they will affect the behaviour only for the plain mesh interface (i.e. bat0 - the untagged LAN).
+
 h2. Advanced configuration examples
 
 More sophisticated OpenWrt config examples can be found [[Batman-adv-openwrt-config-sophisticated|here]].
