@@ -31,11 +31,10 @@ make
 
 The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your OpenWrt system, please see "the OpenWrt project website":http://www.openwrt.org.
 
+h2. Adding the batman-adv / batctl package
 
-h2. Adding the batman-adv package
 
-
-The standard OpenWrt package feed contains a batman-adv package which is intended to be used on a day to day basis, therefore it retrieves the latest batman-adv stable release. Since a lot of people want to experiment with the latest features or use OpenWrt to test their own batman-adv patches we also provide an OpenWrt package feed which contains the batman-adv development version.
+The standard OpenWrt package feed contains a batman-adv and a batctl package which is intended to be used on a day to day basis, therefore it retrieves the latest batman-adv / batctl stable release. Since a lot of people want to experiment with the latest features or use OpenWrt to test their own batman-adv patches we also provide an OpenWrt package feed which contains the batman-adv development version.
 
 
 stable version:
@@ -43,6 +42,7 @@ stable version:
 <pre>
 scripts/feeds update
 scripts/feeds install kmod-batman-adv
+scripts/feeds install batctl
 </pre>
 +Note+: If you downloaded an OpenWRT release but intend to build the latest batman-adv package you might need to modify your feeds.conf(.default). Make sure you have "src-git routing git://github.com/openwrt-routing/packages.git" instead of e.g. "src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x".
 
@@ -60,9 +60,8 @@ Update the package information and add the development package:
 <pre>
 scripts/feeds update
 scripts/feeds install kmod-batman-adv-devel
+scripts/feeds install batctl-devel
 </pre>
-
-
 
 h2. Configuring the batman-adv package
 
