@@ -1,8 +1,8 @@
-h1. Basic Multicast Optimizations – Technical Description
+h1. Multicast Optimizations – Technical Description
 
 Prior Readings:
 
- * [[Basic-multicast-optimizations|Basic Multicast Optimizations]]
+ * [[multicast-optimizations|Multicast Optimizations]]
 
 h2. Multicast Listener Announcements
 
@@ -32,19 +32,19 @@ h4. BATADV_MCAST_WANT_ALL_UNSNOOPABLES (Bit 0):
 
 Signalizes that this node wants all unsnoopable multicast traffic, that is traffic destined to the all-nodes address for IPv6 (ff02::1) and to link-local addresses for IPv4 (224.0.0.0/24). This is usually the case when a node uses a bridge device on top of bat0 and is therefore unable to detect potential bridged-in listeners.
 
-(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later, see [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details)
+(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later, see [[multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details)
 
 h4. BATADV_MCAST_WANT_ALL_IPV4 (Bit 1):
 
 Signalizes that this node wants all IPv4 multicast traffic. This is usually the case when a node uses a bridge device on top of bat0, has an IGMP querier (no matter if IGMPv2 or IGMPv3) behind it and is therefore not able to reliably determine all of its IGMPv2 listeners.
 
-(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later, see [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_IPV4-BATADV_MCAST_WANT_ALL_IPV6]] for details)
+(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later, see [[multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_IPV4-BATADV_MCAST_WANT_ALL_IPV6]] for details)
 
 h4. BATADV_MCAST_WANT_ALL_IPV6 (Bit 2):
 
 Signalizes that this node wants all IPv6 multicast traffic. This is usually the case when a node uses a bridge device on top of bat0, has an MLD querier (no matter if MLDv1 or MLDv2) behind it and is therefore not able to reliably determine all of its MLDv1 listeners.
 
-(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later, see  [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_IPV4-BATADV_MCAST_WANT_ALL_IPV6]] for details)
+(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later, see  [[multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_IPV4-BATADV_MCAST_WANT_ALL_IPV6]] for details)
 
 h4. Bits 3 to 7:
 
@@ -81,11 +81,11 @@ Example: ff12::39 (locally administrated) |
 Example: 239.1.2.3 (locally administrated) |=. support planned³.
 Example: ff0e::101 (NTP) |
 
-¹: These addresses cannot be considered for optimization towards nodes which have a bridge interface on top of their batman interface as they are not snoopable. See  [[Basic-multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details.
+¹: These addresses cannot be considered for optimization towards nodes which have a bridge interface on top of their batman interface as they are not snoopable. See  [[multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details.
 
 ²: To support scenarios with bridges, the according nodes need integration between batman-adv and the snooping part of their Linux bridge. Support for this is planned.
 
-³: Routable multicast addresses are not supported yet. See  [[Basic-multicast-optimizations-tech#routable-multicast-addresses]] for details.
+³: Routable multicast addresses are not supported yet. See  [[multicast-optimizations-tech#routable-multicast-addresses]] for details.
 
 For details on IPv4 and IPv6 multicast address ranges check out this detailed article on "Wikipedia":https://en.wikipedia.org/wiki/Multicast_address.
 
@@ -122,4 +122,4 @@ h2. Next Steps / Roadmap
 
 h2. Further Readings
 
-* [[Basic-multicast-optimizations-flags|Basic Multicast Optimizations – Flags Explained]]
+* [[multicast-optimizations-flags|Basic Multicast Optimizations – Flags Explained]]
