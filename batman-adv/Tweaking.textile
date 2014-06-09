@@ -177,7 +177,7 @@ cat /sys/class/net/bat0/mesh/hop_penalty
 15
 </pre>
 
-h3. isolation_mark
+h3. isolation mark
 
 Available since: batman-adv 2014.1.0
 
