@@ -47,11 +47,12 @@ After having added interfaces to a mesh cloud, batman-adv automatically creates 
 
 <pre>
 ls  /sys/class/net/bat0/mesh/
-aggregated_ogms        fragmentation          isolation_mark
-ap_isolation           gw_bandwidth           log_level
-bonding                gw_mode                network_coding
-bridge_loop_avoidance  gw_sel_class           orig_interval
-distributed_arp_table  hop_penalty            routing_algo
+aggregated_ogms        gw_bandwidth           multicast_mode
+ap_isolation           gw_mode                network_coding
+bonding                gw_sel_class           orig_interval
+bridge_loop_avoidance  hop_penalty            routing_algo
+distributed_arp_table  isolation_mark
+fragmentation          log_level
 </pre>
 
 h3. aggregate originator messages
