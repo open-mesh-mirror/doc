@@ -2,8 +2,8 @@ h1. Multicast Optimizations – Flags Explained
 
 Prior Readings:
 
- * [[Basic-multicast-optimizations|Multicast Optimizations]]
- * [[Basic-multicast-optimizations-tech|Multicast Optimizations – Technical Description]]
+ * [[multicast-optimizations|Multicast Optimizations]]
+ * [[multicast-optimizations-tech|Multicast Optimizations – Technical Description]]
 
 h2. BATADV_MCAST_WANT_ALL_UNSNOOPABLES
 
