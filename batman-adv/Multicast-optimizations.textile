@@ -1,4 +1,4 @@
-h1. Basic Multicast Optimizations
+h1. Multicast Optimizations
 
 Multicast allows to transmit data to a group of receivers, unlike unicast which transmits to just one receiver and broadcast which transmits to everyone. Multicast is used for applications like IPTV, internet radio or group communication and more. Also IPv6 relies on multicast for its basic services.
 
@@ -38,7 +38,7 @@ In the following cases multicast packets are still distributed via classic flood
 (These things are work in progress and will be supported at a later time.)
 
 
-h2. How to activate the basic multicast optimizations?
+h2. How to activate the multicast optimizations?
 
 By default multicast optimizations are activated. You can force the old behaviour, classic flooding of all multicast frames, on a certain node via the following command, executed as root (here: bat0):
 
@@ -48,5 +48,5 @@ Note: This only affects multicast traffic originating from this specific node.
 
 h2. Further Readings
 
-* [[Basic-multicast-optimizations-tech|Basic Multicast Optimizations – Technical Description]]
-* [[Basic-multicast-optimizations-flags|Basic Multicast Optimizations – Flags Explained]]
+* [[multicast-optimizations-tech|Multicast Optimizations – Technical Description]]
+* [[multicast-optimizations-flags|Multicast Optimizations – Flags Explained]]
