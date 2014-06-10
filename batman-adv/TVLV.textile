@@ -246,7 +246,7 @@ h3. Multicast capability
  * purpose: Lets other nodes know whether an originator is capable of announcing its multicast listeners via the translation table. The flags further inform other nodes about whether an originator needs to receive all multicast traffic of a certain type.
  * length: 4 bytes (1 byte flag information)
  * Fixed TVLV fields:
- ** flags: multicast flags announced by the orig node (1 byte)
+ ** flags: multicast flags announced by the orig node (1 byte), see [[Multicast-optimizations-flags|the multicast flags page]] for details
  ** reserved: not used. Defined for alignment purposes (3 bytes)
 
  * definition:
