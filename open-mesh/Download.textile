@@ -63,7 +63,7 @@ Batman-adv and Batctl are avaible in the "AUR":https://wiki.archlinux.org/index.
 * "batctl":https://aur.archlinux.org/packages/batctl/ - Latest Batctl
 * "batman-adv":https://aur.archlinux.org/packages/batman-adv/ - Latest Batman-adv
 * "batman-adv-v14":https://aur.archlinux.org/packages/batman-adv-v14/ - Last Batman-adv with compability-version 14 (2013.4)
-* "batctl-v14":https://aur.archlinux.org/packages/batctl-v14/ - Last Batman-adv with compability-version 14 (2013.4)
+* "batctl-v14":https://aur.archlinux.org/packages/batctl-v14/ - Last Batctl with compability-version 14 (2013.4)
 
 h2. Debian
 
