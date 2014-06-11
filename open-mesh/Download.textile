@@ -56,6 +56,15 @@ It follows an overview of linux versions and the batman-adv version they contain
 * linux 3.14 => batman-adv 2014.1.x (get batctl 2014.1.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 3.15 => batman-adv 2014.2.x (get batctl 2014.2.x from "here":http://downloads.open-mesh.org/batman/stable/sources/batctl/)
 
+h2. Arch Linux
+
+Batman-adv and Batctl are avaible in the "AUR":https://wiki.archlinux.org/index.php/AUR as PKGBUILD:
+
+* "batctl":https://aur.archlinux.org/packages/batctl/ - Latest Batctl
+* "batman-adv":https://aur.archlinux.org/packages/batman-adv/ - Latest Batman-adv
+* "batman-adv-v14":https://aur.archlinux.org/packages/batman-adv-v14/ - Last Batman-adv with compability-version 14 (2013.4)
+* "batctl-v14":https://aur.archlinux.org/packages/batctl-v14/ - Last Batman-adv with compability-version 14 (2013.4)
+
 h2. Debian
 
 
