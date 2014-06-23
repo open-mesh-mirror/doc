@@ -19,3 +19,5 @@ A batman-adv node is able to detect any multicast listener on a foreign, non-mes
 For this batman-adv interacts with the IGMP/MLD snooping feature of the Linux bridge: A Linux bridge already detects multicast listeners through snooping IGMP and MLD messages, which a multicast listener regularly sends.
 
 batman-adv is capable of fetching that information from a Linux bridge in kernels newer or equal to 3.16. With older kernels a batman-adv node will inform other nodes that it needs any multicast data and will receive such packets.
+
+Note that as pictured in the diagrams above you should run your local multicast receiving applications on the bridge instead of the bat0 device (just like you would use the bridge instead of the enslaved interface for IP address and route configuration, too).
