@@ -1,0 +1,21 @@
+h1. Multicast Optimizations with Bridges
+
+Prior Readings:
+
+ * [[multicast-optimizations|Multicast Optimizations]]
+
+So far, the batman-adv multicast optimizations were only enabled if no bridges were involved in the whole mesh network.
+
+For someone wanting to use the multicast optimizations feature in batman-adv, multicast listeners would only be possible directly on a batman-adv node, on the same kernel:
+
+Now it is also possible to use this feature with bridges:
+
+!{width: 66%25;}multicast-listener-fetching-no-bridge.png!
+
+A batman-adv node is able to detect any multicast listener on a foreign, non-mesh device behind a bridge, too:
+
+!{width: 66%25;}multicast-listener-fetching-with-bridge.png!
+
+For this batman-adv interacts with the IGMP/MLD snooping feature of the Linux bridge: A Linux bridge already detects multicast listeners through snooping IGMP and MLD messages, which a multicast listener regularly sends.
+
+batman-adv is capable of fetching that information from a Linux bridge in kernels newer or equal to 3.16. With older kernels a batman-adv node will inform other nodes that it needs any multicast data and will receive such packets.
