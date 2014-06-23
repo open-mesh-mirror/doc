@@ -1,4 +1,4 @@
-h1. Multicast Optimizations with Bridges
+h1. Multicast Optimizations - Bridges
 
 Prior Readings:
 
@@ -21,3 +21,9 @@ For this batman-adv interacts with the IGMP/MLD snooping feature of the Linux br
 batman-adv is capable of fetching that information from a Linux bridge in kernels newer or equal to 3.16. With older kernels a batman-adv node will inform other nodes that it needs any multicast data and will receive such packets.
 
 Note that as pictured in the diagrams above you should run your local multicast receiving applications on the bridge instead of the bat0 device (just like you would use the bridge instead of the enslaved interface for IP address and route configuration, too).
+
+h2. Further Readings
+
+
+* [[multicast-optimizations-tech|Multicast Optimizations – Technical Description]]
+* [[multicast-optimizations-flags|Multicast Optimizations – Flags Explained]]
