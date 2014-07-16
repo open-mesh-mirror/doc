@@ -13,7 +13,6 @@ _A topology involving bridges_
 
 In scenarios involving bridges it is not always possible to detect all multicast listeners behind a bridge. While the general "IGMP":https://en.wikipedia.org/wiki/IGMP (IPv4) / "MLD":https://en.wikipedia.org/wiki/Multicast_Listener_Discovery (IPv6) snooping mechanism works for detecting multicast listeners on other devices on the link in most cases, there are some special cases where such multicast listeners are not detectable via snooping.
 
-
 h2. Goal
 
 * Avoiding multicast packet loss towards hidden multicast listeners.
@@ -21,6 +20,8 @@ h2. Goal
 h2. Concept
 
 While it is not possible to detect these hidden multicast listeners (the specific cases will be listed below), we are at least able to detect whether there might potentially be hidden multicast listeners. If a node figures out, that it might have hidden multicast listeners, then the idea is to set according multicast flags to inform other batman-adv nodes to send certain multicast traffic towards us even though we did not specifically announce a (hidden) multicast listener - just to be on the safe side.
+
+Note that for nodes without bridges, the following issues will not arise, since batman-adv is able to directly get any IPv4 or IPv6 multicast listener on its kernel from its kernel. A node without a bridge will not set any of the flags listed at the bottom.
 
 h2. Hidden Multicast Listeners
 
