@@ -4,6 +4,7 @@ Prior Readings:
 
  * [[multicast-optimizations|Multicast Optimizations]]
  * [[multicast-optimizations-tech|Multicast Optimizations – Technical Description]]
+ * [[multicast-optimizations-flags|Multicast Optimizations – Flags Explained]]
 
 h2. The Problem: MLDv1/IGMPv1/IGMPv2 Report Suppression
 
