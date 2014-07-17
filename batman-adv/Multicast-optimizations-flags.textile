@@ -33,7 +33,7 @@ We would then know which hosts (TT clients in batman-adv speech) and their respo
 
 h3. Case !#1: Unsnoopable Multicast Addresses
 
-However there are two exemptions for MLD/IGMP for two address ranges where no reports will be or might be sent:
+There are exemptions for MLD/IGMP for two address ranges where no reports will be or might be sent:
 
 !{width: 85%25;}basic-multicast-snoopables-unknown.png!
 
