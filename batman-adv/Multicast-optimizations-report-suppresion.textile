@@ -6,7 +6,17 @@ Prior Readings:
  * [[multicast-optimizations-tech|Multicast Optimizations – Technical Description]]
  * [[multicast-optimizations-flags|Multicast Optimizations – Flags Explained]]
 
-h2. The Problem: MLDv1/IGMPv1/IGMPv2 Report Suppression
+h2. Scenario
+
+!{width: 90%25;}basic-multicast-snoopables-shadowing-querier.png!
+
+_A Querier behind a bridge potentially shadowing a multicast listener_
+
+When an IGMP or MLD Querier is not run on a batman-adv node directly but instead on a foreign device behind a bridge then reports from multicast listeners behind that bridge might potentially only reach the querier but not the bridge / batman-adv node.
+
+h2. Cause: Report Suppression
+
+The reason for this is a mechanism called "Report Suppression", defined by standards of MLD and IGMP in their old version (MLDv1, IGMPv1, IGMPv2):
 
 !{width: 80%25;}basic-multicast-switch.png!
 
@@ -20,7 +30,7 @@ h2. The Problem: MLDv1/IGMPv1/IGMPv2 Report Suppression
 
 This on its own, not getting to know all listeners behind a bridge port, is not an issue as such as a batman-adv node would receive the according listener reports from a single listener behind a bridge port at least which would be sufficient.
 
-However, if a snooping switches were simply flooding such listener reports, then they themselves would not be able to notice all listeners anymore:
+However, if snooping switches were simply flooding such listener reports, then they themselves would not be able to notice all listeners anymore:
 
 !{width: 80%25;}basic-multicast-switch-uncertain.png!
 
@@ -33,6 +43,8 @@ Therefore another RFC mandates an additional report suppression for snooping swi
 > A snooping switch should forward IGMP Membership Reports only to those ports where multicast routers are attached. [...]
 
 Which in turn can potentially lead to a batman-adv node not receiving any MLD/IGMP report for a certain multicast address from a bridge port even though a listener behind that port exists. For instance in the following scenario:
+
+h2. Report Suppression in a Mesh
 
 !{width: 60%25;}basic-multicast-querier-scenario.png!
 
@@ -50,7 +62,7 @@ Which in turn can potentially lead to a batman-adv node not receiving any MLD/IG
 # The batman-adv node will not receive the report on its according bridge and therefore is not able to detect the listener. Any other node in the mesh, including the multicast sender is not able to sense this listener either:
 !{width: 60%25;}basic-multicast-querier-no-listener.png!
 
-h3. The Solution
+h2. The Solution
 
 Therefore batman-adv has to not only forward multicast packets to the according listeners, but also IGMP/MLD Queriers (regardless of their version) behind bridges – even if the multicast packets actually have a link-local scope and therefore will never be routed on layer 3.
 
