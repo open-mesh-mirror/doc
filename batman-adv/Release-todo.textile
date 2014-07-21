@@ -15,8 +15,8 @@ h2. Documentation
 
 * [x] build changelog
 * [x] update README
-* [x] write release announcement
-* [x] update wiki documentation
+* [ ] write release announcement
+* [ ] update wiki documentation
 
 h2. Code
 
@@ -26,21 +26,21 @@ h2. Code
 * [x] remove dead code (if any)
 * [-] check against kernel versions
 * [-] check that maint branch is merged in next
-* [x] check for open patches on the ml
-* [x] git tag release
+* [ ] check for open patches on the ml
+* [ ] git tag release
 
 h2. Release
 
-* [x] build package tar.gz and generate checksums
-* [x] move packages/checksums to stable/sources / create symlinks from releases
-* [x] update download links in the redmine downloads page
-* [x] send release mail
+* [ ] build package tar.gz and generate checksums
+* [ ] move packages/checksums to stable/sources / create symlinks from releases
+* [ ] update download links in the redmine downloads page
+* [ ] send release mail
 * [ ] update IRC channel topic
 
 h2. Distributions
 
-* [x] update alfred openwrt package
-* [x] update batman-adv/batctl openwrt package
+* [ ] update alfred openwrt package
+* [ ] update batman-adv/batctl openwrt package
 * [ ] update gentoo package
 * [ ] update debian package
 
