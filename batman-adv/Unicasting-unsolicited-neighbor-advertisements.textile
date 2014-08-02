@@ -1,6 +1,11 @@
-h1. Unicasting Unsolicited Neighbor Advertisements
+h1. Proposal: Unicasting Unsolicited Neighbor Advertisements
 
 In a layer 2 mesh network, a lot of broadcast "noise" consists of so called Unsolicited Neighbor Advertisements. It is the main ICMPv6 packet overhead in a mesh network with devices dynamically joining, leaving and roaming.
+
+!{width: 80%25;}unsol-NA-flooded.png!
+
+_A device roaming from one node to another – and after that flooding Neighbor Advertisements_
+
 
 Just like regular, solicited neighbor advertisements, the purpose of this message is to inform other nodes about the MAC address belonging to the IPv6 address of the sender. The difference between unsolicited and solicited messages is that the former may even be sent if no one asked for it.
 
@@ -17,15 +22,33 @@ h3. Updating Switches after Roaming
 
 Secondly, Unsolicited Neighbor Advertisements are needed to update the MAC table in a switch promptly, to avoid potential packet loss after a host roamed.
 
+!{width: 80%25;}unsol-NA-lost-data.png!
+
+_Without unsol. NAs: The switch will not forward data from B to A via the mesh  – data is lost!_
+
 h2. Overhead Concerns regarding Unsol. NAs
 
-Unfortunately, Unsolicited Neighbor Advertisements are sent to the all-hosts multicast address (ff02::1). This means that everytime a host is roaming in the mesh network, it creates an Unsolicited Neighbor Advertisement which is flooded through the whole mesh. Since all hosts are addressed, the Multicast Optimization adding group-awareness is not having any effect.
+Unfortunately, Unsolicited Neighbor Advertisements are sent to the all-hosts multicast address (ff02::1). This means that everytime a host is roaming in the mesh network, it creates an Unsolicited Neighbor Advertisement which is flooded through the whole mesh. Since all hosts are addressed, the Multicast Optimization adding group-awareness is not having any effect. With many mobile devices, the overhead is significant.
+
+h2. Goals
+
+* Reducing broadcast overhead
+* Eliminating last, mandatory ICMPv6 overhead
+   ➔ no more flooding for IPv6 communication needed
+* Enhancing reliability of arrival of unsol. NAs and therefore roaming
 
 h2. Solution: Unicasting Unsol. NAs to Previous Node
 
 Fortunately, there is just one segment of the mesh where switches need to be updated: Any switch behind the node where the host roamed from.
 
+!{width: 80%25;}unsol-NA-unicast.png!
+
+_A unicasted unsol. NA updating the MAC table of the switch_
+
 h2. IPv4 Pendant: Gratuitous ARP Reply
 
 
 h2. Limitations
+
+* Device hot-swapping with up to a few minutes delay
+   (later, the arrival of IPv6 Neighbor Solicitations could be memorized, to know which other hosts might be interested in unsol. NAs after hot-swapping)
