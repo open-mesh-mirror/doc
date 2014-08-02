@@ -45,8 +45,12 @@ Fortunately, there is just one segment of the mesh where switches need to be upd
 
 _A unicasted unsol. NA updating the MAC table of the switch_
 
+For all the other batman-adv nodes potentially having a switches, nothing has changed for these switches even after the roaming: For them, host A is still somewhere in the mesh and therefore still behind the same switch port leading to the mesh.
+
+
 h2. IPv4 Pendant: Gratuitous ARP Reply
 
+For IPv4 a similar mechanism exists: Gratuitous ARP Replies are sent without having received any ARP Request beforehand. In the wild, implementations of this mechanism are a lot less common compared to ICMPv6 Unsolicited Neighbor Advertisements. Nevertheless they should be treated just like unsol. NAs and can be forwarded via unicast, too.
 
 h2. Limitations
 
