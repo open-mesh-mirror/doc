@@ -23,7 +23,7 @@ Unfortunately, Unsolicited Neighbor Advertisements are sent to the all-hosts mul
 
 h2. Solution: Unicasting Unsol. NAs to Previous Node
 
-
+Fortunately, there is just one segment of the mesh where switches need to be updated: Any switch behind the node where the host roamed from.
 
 h2. IPv4 Pendant: Gratuitous ARP Reply
 
