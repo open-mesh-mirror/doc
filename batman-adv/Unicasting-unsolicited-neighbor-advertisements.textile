@@ -1,0 +1,31 @@
+h1. Unicasting Unsolicited Neighbor Advertisements
+
+In a layer 2 mesh network, a lot of broadcast "noise" consists of so called Unsolicited Neighbor Advertisements. It is the main ICMPv6 packet overhead in a mesh network with devices dynamically joining, leaving and roaming.
+
+Just like regular, solicited neighbor advertisements, the purpose of this message is to inform other nodes about the MAC address belonging to the IPv6 address of the sender. The difference between unsolicited and solicited messages is that the former may even be sent if no one asked for it.
+
+
+h2. Purpose of Unsolicited Neighbor Advertisements
+
+Sending unsolicited additionally to solicited Neighbor Advertisements has two purposes:
+
+h3. Device Hot-swapping
+
+When the IPv6 stack notices, that the link-layer address below one of its IPv6 addresses has changed, then Unsolicited Neighbor Advertisements may be sent. The advantage of this is that a neighbor will not need to wait for the now outdated link-layer address in its neighbor table to time out.
+
+h3. Updating Switches after Roaming
+
+Secondly, Unsolicited Neighbor Advertisements are needed to update the MAC table in a switch promptly, to avoid potential packet loss after a host roamed.
+
+h2. Overhead Concerns regarding Unsol. NAs
+
+Unfortunately, Unsolicited Neighbor Advertisements are sent to the all-hosts multicast address (ff02::1). This means that everytime a host is roaming in the mesh network, it creates an Unsolicited Neighbor Advertisement which is flooded through the whole mesh. Since all hosts are addressed, the Multicast Optimization adding group-awareness is not having any effect.
+
+h2. Solution: Unicasting Unsol. NAs to Previous Node
+
+
+
+h2. IPv4 Pendant: Gratuitous ARP Reply
+
+
+h2. Limitations
