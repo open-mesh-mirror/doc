@@ -21,7 +21,7 @@ h2. Goal
 
 h2. Concept
 
-While it is not possible to detect these hidden multicast listeners (the specific cases will be listed below), we are at least able to detect whether there might potentially be hidden multicast listeners. If a node figures out, that it might have hidden multicast listeners, then the idea is to set according multicast flags to inform other batman-adv nodes to send certain multicast traffic towards us even though we did not specifically announce a (hidden) multicast listener - just to be on the safe side.
+While it is not possible to detect these hidden multicast listeners (the specific cases will be listed below), we are at least able to detect whether there might potentially be hidden multicast listeners. If a node figures out that it might have hidden multicast listeners, then the idea is to set according multicast flags to inform other batman-adv nodes to send certain multicast traffic towards us even though we did not specifically announce a (hidden) multicast listener - just to be on the safe side.
 
 h2. Hidden Multicast Listeners
 
@@ -29,7 +29,7 @@ Usually IP multicast listeners reveal themselves with so called IGMP or MLD repo
 
 !{width: 90%25;}basic-multicast-snoopables-announce.png!
 
-We would then know which hosts (TT clients in batman-adv speech) and their responsible batman-adv node want which multicast traffic. However there are three cases where a bridge/batman-adv will not see any such reports on a link.
+We would then know which hosts (local TT clients in batman-adv speech) and their responsible batman-adv node want which multicast traffic. However there are three cases where a bridge/batman-adv will not see any such reports on a link.
 
 h3. Case !#1: Unsnoopable Multicast Addresses
 
