@@ -19,9 +19,7 @@ All claim operations are sent using "special" gratuitous ARP frames. 4 types are
 
 The claim type is announced within the 4th byte of the Target HW address.
 
-+Note:+ Although this is a misuse of ARP packets, the "normal" ARP process should not be disturbed as the IP addresses
-(0.0.0.0) should not be in any sane ARP table. As far as I understand, a gratuitous ARP should only be considered if the 
-IP address is already in an ARP table [2].
++Note:+ Although this is a misuse of ARP packets, the "normal" ARP process should not be disturbed as the IP addresses (0.0.0.0) should not be in any sane ARP table. As far as I understand, a gratuitous ARP should only be considered if the IP address is already in an ARP table [2].
 
 [1] http://tools.ietf.org/html/rfc826
 [2] http://tools.ietf.org/html/rfc2002#section-4.6
