@@ -56,5 +56,3 @@ h3. Two meshes connected by one LAN
 
 Two meshes are connected to one LAN. The backbone gateways of each mesh should find themselves and share their claims, but should disregard claims for backbone gateways they are not part of (only possible with the backbone gateway grouping optimization)
 Every node should be able to reach every other node.
-
-+note:+ this patch requires the group forming patch to be included.
