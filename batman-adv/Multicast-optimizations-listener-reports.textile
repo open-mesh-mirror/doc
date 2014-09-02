@@ -2,6 +2,8 @@ h1. Multicast Optimizations - Considerations for IGMP/MLD Reports
 
 h2. Scenario
 
+!{width: 80%25;}basic-multicast-listener-router.png!
+
 _A multicast listener announcing it's presence and desire for a multicast group "A"_
 
 Hosts wanting to receive multicast traffic of a specific group announce this via IGMP/MLD reports. This way a multicast router knows about their presence and can tell upstream routers from another network segment (here labeled as "Internet) to route according multicast traffic towards the mesh network.
@@ -11,14 +13,14 @@ While with MLDv2 and IGMPv3 listeners send the reports directly to any multicast
 h3. Goals
 
 * Preventing loss of multicast packets from upstream multicast routers
-* Preventing loss of multicast packets on bridges (when multicast-bridge-support is going to be added)
+* Preventing packetloss on bridges (once multicast-bridge-support is implemented)
 
 h3. The Problem
 
-The destination address of MLDv1/IGMPv2 reports is usually one a multicast router is not listening to. A multicast router is not able to actively join every possible multicast group though. Only checking the multicast addresses in the translation table and forward the report to nodes matching the destination address would not be enough in the scenario described above. Node L would simply drop the report resulting in the multicast router not being aware of the listener on the link.
+The destination address of MLDv1/IGMPv2 reports is usually one a multicast router is not listening to. A multicast router is not able to actively join every possible multicast group though. Only checking the multicast addresses in the translation table and forward the report to nodes matching the destination address would not be enough in the scenario described above. Node L would simply drop the report resulting in the multicast router not being aware of the listener on the link. This in turn will cause the multicast router to tell upstream multicast router that this subnet has no interest in the according multicast traffic: The listener will not receive multicast traffic from the foreign network.
 
 Note that currently the querier code of the Linux bridge does not listen to the all-multicast-routers IP either. So in bridged scenarios the issue would be present for IGMPv3/MLDv2 too.
 
 h3. Solution
 
-RFC4541 recommends sending all reports directly and only to multicast routers (= the selected querier and hosts with multicast router announcements). However it is easier for for now and sufficient to always flood IGMP/MLD reports as we do not have to be concerned about IGMP/MLD report suppressions in the mesh. This could be optimized later to only forward to multicast routers or even implement some IGMP/MLD query/report proxying to reduce this overhead even further.
+RFC4541 recommends sending all reports directly and only to multicast routers (= the selected querier and hosts with multicast router announcements). However it is easier for now and sufficient to always flood IGMP/MLD reports as we do not have to be concerned about IGMP/MLD report suppressions in the mesh. This could be optimized later to only forward to multicast routers or even implement some IGMP/MLD query/report proxying to reduce this overhead even further.
