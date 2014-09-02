@@ -1,5 +1,7 @@
 h1. Multicast Optimizations - Considerations for IGMP/MLD Reports
 
+Dang! We are actually lucky with the current implementation without bridge-support: If the destination/group of an MLDv1/IGMPv2 report is link-local then there is no upstream traffic for that group. If the scope is greater than link-local then we currently flood the report (like any other multicast traffic too) anyway. Only the bridge-implementation needs extra care...
+
 h2. Scenario
 
 !{width: 80%25;}basic-multicast-listener-router.png!
