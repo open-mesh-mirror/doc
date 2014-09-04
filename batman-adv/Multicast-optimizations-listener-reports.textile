@@ -4,7 +4,7 @@ Dang! We are actually lucky with the current implementation without bridge-suppo
 
 h2. Scenario
 
-!{width: 80%25;}basic-multicast-listener-router.png!
+!{width: 80%25;}basic-multicast-listener-mldv1report.png!
 
 _A multicast listener announcing it's presence and desire for a multicast group "A"_
 
@@ -22,6 +22,8 @@ h3. The Problem
 The destination address of MLDv1/IGMPv2 reports is usually one a multicast router is not listening to. A multicast router is not able to actively join every possible multicast group though. Only checking the multicast addresses in the translation table and forward the report to nodes matching the destination address would not be enough in the scenario described above. Node L would simply drop the report resulting in the multicast router not being aware of the listener on the link. This in turn will cause the multicast router to tell upstream multicast router that this subnet has no interest in the according multicast traffic: The listener will not receive multicast traffic from the foreign network.
 
 Note that currently the querier code of the Linux bridge does not listen to the all-multicast-routers IP either. So in bridged scenarios the issue would be present for IGMPv3/MLDv2 too.
+
+!{width: 80%25;}basic-multicast-listener-mldv1report-canceled.png!
 
 h3. Solution
 
