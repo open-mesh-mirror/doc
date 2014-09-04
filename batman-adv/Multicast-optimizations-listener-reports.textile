@@ -15,9 +15,11 @@ h3. Goals
 
 h3. The Problem
 
-The destination address of MLDv1/IGMPv2 reports (in this example "ff12::123") is usually one a multicast router or snooping switch/bridge is not listening to: They are not able to actively join every possible multicast group. So only checking the multicast addresses in the translation table and forward the report to nodes matching the destination address would not be enough in the scenario described above. Node L needing to send a report after the querier asked for it would simply drop the report. This in turn would result in the bridge not forwarding the multicast data from the sender behind its bridge port even though a listener exists.
+The destination address of MLDv1/IGMPv2 reports (in this example "ff12::123") is usually one a multicast router or snooping switch/bridge is not listening to: They are not able to actively join every possible multicast group. So only checking the multicast addresses in the translation table and forward the report to nodes matching the destination address would not be enough in the scenario described above. Node L needing to send a report after the querier (here: on the node with the bridge) asked for it would simply drop the report. This in turn would result in the bridge not forwarding the multicast data from the sender behind its bridge port even though a listener exists.
 
 !{width: 80%25;}basic-multicast-listener-mldv1report-canceled.png!
+
+_Neither the Querier nor the Sender are listening to "ff12::123"_
 
 Note that even though MLDv2/IGMPv3 require listeners to report to the all-multicast-routers destination address (ff02::16, 224.0.0.22) the querier implementation in the Linux bridge code does not listen to them which creates the same problem as with MLDv1/IGMPv2. "RFC4541":http://tools.ietf.org/html/rfc4541 ("Considerations for Internet Group Management Protocol (IGMP) and Multicast Listener Discovery (MLD) Snooping Switches") leaves it open whether snooping switches/bridges (with or without a querier) should listen to the all-multicast-routers destination address.
 
