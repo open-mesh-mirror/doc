@@ -21,9 +21,9 @@ h2. How to setup B.A.T.M.A.N. in such way it will assign IP addresses automatica
 h2.  What about assigning IP addresses in a decentralized way?
 
 *Q:* How to assign IP addresses automatically in a decentralized way?
-*A:* IPv6 will help you to do this easier by using '[[http://en.wikipedia.org/wiki/Unique_local_address|Unique local address]]' (ULA). And 
+*A:* IPv6 will help you to do this easier by using "Unique local address":http://en.wikipedia.org/wiki/Unique_local_address (ULA). And 
 
 h2. What if I want to have a decentralized DNS solution?
 
 *Q:* I like to setup a decentralized mesh network. I don't want to use the internet (WWW) and still have have human readable 'domain names'  in a decentralized system?
-*A:* Take a look at [[https://github.com/mwarning/KadNode|KadNode]]. _Note:_ this is still beta software. 
+*A:* Take a look at ""KadNode":https://github.com/mwarning/KadNode. _Note:_ this is still beta software. 
