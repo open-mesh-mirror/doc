@@ -5,7 +5,9 @@ Below you can see a list of frequently asked questions and answers. If your ques
 h2. What can and can not do B.A.T.M.A.N.?
 
 *Q:* What offers batman? And what are the 'limitations'?
-*A:* The batman-adv kernel module can only be used to route the packages within a mesh network, it only simulates OSI layer 2. It does that as fast as possible and in a smart way. Just like a switch. Batman has no security implemented. Also assigning IP addresses to the node(s) is Batman's task.
+*A:* The batman-adv kernel module can only be used to route the packages within a mesh network, it only simulates OSI layer 2 (data link layer). It does that as fast as possible and in a smart way. Just like a switch. 
+
+Batman has no security implemented. Also assigning IP addresses to the node(s) is not Batman's task.
 You may want to use underlying security mechanisms, like: IBSS RSN.
 
 h2. Log file doesn't exists in debugfs?
