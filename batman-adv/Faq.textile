@@ -11,7 +11,8 @@ You may want to use underlying security mechanisms, like: IBSS RSN.
 h2. Log file doesn't exists in debugfs?
 
 *Q:* The /sys/kernel/debug/batman_adv/bat0/log file doesn't exists?
-*A:* You need to compile the batman-adv with logging support. Open the Makefile. And change the "CONFIG_BATMAN_ADV_DEBUG" to: 'y'. Finally, re-compile the module.
+*A:* You need to compile the batman-adv with logging support. Open the Makefile. 
+Change the following line: "CONFIG_BATMAN_ADV_DEBUG" to: 'y'. Finally, re-compile the module.
 
 h2. How to setup B.A.T.M.A.N. in such way it will assign IP addresses automatically?
 
