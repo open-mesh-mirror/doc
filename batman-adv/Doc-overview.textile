@@ -10,6 +10,7 @@ h2. Getting started
 * [[using-batctl|Features of batctl]] - A quick introduction to batctl.
 * "batctl online man page":http://downloads.open-mesh.org/batman/manpages/batctl.8.html - read the current batctl man page online
 * "Wireless Kernel Tweaking (video)":http://downloads.open-mesh.org/batman/misc/24C3-Wireless_Kernel_Tweaking.mkv - introduction to batman-advanced by Marek and Simon [December 2007] (also available at "google video":http://video.google.de/videoplay?docid=1355876033101731617)
+* [[faq|Frequently asked questions]] - A list of frequently asked questions and answers.
 
 h2. Features
 
