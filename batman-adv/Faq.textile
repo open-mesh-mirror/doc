@@ -1,6 +1,6 @@
 h1. FAQ
 
-Below you can see a list of frequently asked questions and answers. If your question is not listed below, please contact us.  You can contact us via IRC: [[http://webchat.freenode.net/?channels=batman|#batman channel]] on Freenode.org or by sending an e-mail to: [[b.a.t.m.a.n@lists.open-mesh.org]] (only plan-text).
+Below you can see a list of frequently asked questions and answers. If your question is not listed below, please contact us.  You can contact us via IRC: "#batman channel":http://webchat.freenode.net/?channels=batman on Freenode.org or by sending an e-mail to: "b.a.t.m.a.n@lists.open-mesh.org":b.a.t.m.a.n@lists.open-mesh.org (only plan-text).
 
 h2. What can B.A.T.M.A.N. does and also important what doesN'T B.A.T.M.A.N. for you?
 
