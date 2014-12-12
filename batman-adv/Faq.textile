@@ -1,0 +1,29 @@
+h1. FAQ
+
+Below you can see a list of frequently asked questions and answers. If your question is not listed below, please contact us.  You can contact us via IRC: [http://webchat.freenode.net/?channels=batman|#batman channel] on Freenode.org or by sending an e-mail to: b.a.t.m.a.n@lists.open-mesh.org (only plan-text).
+
+h2. What can B.A.T.M.A.N. does and also important what doesN'T B.A.T.M.A.N. for you?
+
+*Q:* What offers batman? And what are the 'limitations'?
+*A:* batman-adv is only used to route the packages within a mesh network, it only simulates OSI layer 2. It does that as fast as possible and in a smart way. Just like a switch. Batman has no security implemented. Also assigning IP addresses to the node(s) is Batman's task.
+You may want to use underlying security mechanisms, like: IBSS RSN.
+
+h2. Log file doesn't exists in debugfs?
+
+*Q:* The /sys/kernel/debug/batman_adv/bat0/log file doesn't exists?
+*A:* You need to compile the batman-adv with logging support. Open the Makefile. And change CONFIG_BATMAN_ADV_DEBUG to 'y'. Re-compile the module.
+
+h2. How to setup B.A.T.M.A.N. in such way it will assign IP addresses automatically?
+
+*Q:* How to assign IP addresses automatically?
+*A:* You can use for example a DHCP server.
+
+h2.  What about assigning IP addresses in a decentralized way?
+
+*Q:* How to assign IP addresses automatically in a decentralized way?
+*A:* IPv6 will help you to do this easier by using '[http://en.wikipedia.org/wiki/Unique_local_address|Unique local address|]' (ULA). And 
+
+h2. What if I want to have a decentralized DNS solution?
+
+*Q:* I like to setup a decentralized mesh network. I don't want to use the internet (WWW) and still have have human readable 'domain names'  in a decentralized system?
+*A:* Take a look at [https://github.com/mwarning/KadNode|KadNode]. _Note:_ this is still beta software. 
