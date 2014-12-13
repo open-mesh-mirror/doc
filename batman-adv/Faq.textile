@@ -19,7 +19,7 @@ Change the following line: "CONFIG_BATMAN_ADV_DEBUG" to: 'y'. Finally, re-compil
 h2. Batman-adv give an error when loading the module?
 
 *Q:* When I try to load the kernel module, it says: _ERROR: could not insert module batman-adv.ko: Unknown symbol in module_?
-*A:* Check dmesg command for logging output. If it says 'Unknown symbol crc32c'. First load the libcrc32c module, using: sudo modprobe libcrc32c.
+*A:* Check dmesg logging output (using dmesg command). If it says 'Unknown symbol crc32c'. First load the libcrc32c module, using: sudo modprobe libcrc32c.
 
 h2. How to setup B.A.T.M.A.N. so it automatically assign IP addresses?
 
