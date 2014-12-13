@@ -129,8 +129,12 @@ h3. What if I want to have a decentralized DNS solution?
 *Q:* I like to setup a decentralized mesh network and would like to have a DNS solution. I don't want to use the internet (WWW), but I do want to have a human readable 'domains' names, just like DNS. What are the options?
 *A:* Take a look at "KadNode":https://github.com/mwarning/KadNode. _Note:_ This software is still in beta.
 
-
 h2. B.A.T.M.A.N. Advanced - Bridge Loop Avoidance questions
+
+h3 What is Bridge Loop Avoidance?
+
+*Q:* What can you do with BLA?
+*A:* Bridge Loop Avoidance is used to detect and avoid loops due to multiple batX interfaces. "Read more...":http://www.open-mesh.org/projects/batman-adv/wiki/Bridge-loop-avoidance
 
 h3. Why do we need BLA II if we can just use mesh on Ethernet?
 
@@ -150,4 +154,3 @@ h3. What about DHCP server for separate meshes?
 Or: Then, how can I make two separate meshes use a single DHCP server (using gw_mode feature) in current blaII design?
 
 Each node at the edge to the wired network may announce itself as a gateway, provided that a DHCP server is available in the LAN (or any network behind it, e.g. a mesh). From a concept view, a gateway (or maybe even multiple gateways) in mesh2 will not automatically announced in mesh1 - this must be configured manually, or let batman use Ethernet if this is explicitly required.
-
