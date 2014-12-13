@@ -110,10 +110,6 @@ h3. What if I want to have a decentralized DNS solution?
 *Q:* I like to setup a decentralized mesh network and would like to have a DNS solution. I don't want to use the internet (WWW), but I do want to have a human readable 'domains' names, just like DNS. What are the options?
 *A:* Take a look at "KadNode":https://github.com/mwarning/KadNode. _Note:_ This software is still in beta.
 
-
-
-
-
 h2. B.A.T.M.A.N. Advanced - Bridge Loop Avoidance questions
 
 
@@ -127,16 +123,16 @@ h3. Why do we need BLA II if we can just use mesh on Ethernet?
 Under Discussion -> Features you say "no BATMAN packets on the backbone".
 *Q:* Why would you want to use the mesh (which never has enough bandwidth anyway) if you have a fast, reliable backbone link between some of the nodes (eg. LAN)?
  _Or:_ Wouldn't it make more sense to get as much done through the backbone as possible?
+
 *A:* You can explicitly use batman-adv on the mesh if you want to - batman-adv allows adding Ethernet interfaces as well. This is a good idea if you have full control over your LAN. However, there are users who don't want to see batman-adv ethernet frames (with its special ethertype 0x4305) on their LAN, because some firewalls recognize it as malicious traffic. Therefore, one design goal of blaII was to keep batman-adv packets out of the backbone LAN in the default case.
 
 h3. What about two meshes interconnected by a LAN?
 
-Or: So, does this mean that with current blaII, two meshes connected solely by ethernet backbone (which can't overhear each other OGMs through wifi) only know which macs are "on the other side of the ethernet backbone" so as to keep the single broadcast domain united, but are fragmented in terms of VIS data, gw, TT, and orig table?
+*Q:* Can I setup two meshes and connect them by LAN? _Or:_ So, does this mean that with current blaII, two meshes connected solely by ethernet backbone (which can't overhear each other OGMs through wifi) only know which macs are "on the other side of the ethernet backbone" so as to keep the single broadcast domain united, but are fragmented in terms of VIS data, gw, TT, and orig table?
 
-Yes, there are two separate meshes, and the only stuff which is supposed to be shared is the users payload traffic.
+*A:* Yes, there are two separate meshes, and the only stuff which is supposed to be shared is the users payload traffic.
 
 h3. What about DHCP server for separate meshes?
 
-Or: Then, how can I make two separate meshes use a single DHCP server (using gw_mode feature) in current blaII design?
-
-Each node at the edge to the wired network may announce itself as a gateway, provided that a DHCP server is available in the LAN (or any network behind it, e.g. a mesh). From a concept view, a gateway (or maybe even multiple gateways) in mesh2 will not automatically announced in mesh1 - this must be configured manually, or let batman use Ethernet if this is explicitly required.
+*Q:* I would like to setup a DHCP server in separate meshes? _Or:_ How can I make two separate meshes use a single DHCP server (using gw_mode feature) in current blaII design?
+*A:* Each node at the edge to the wired network may announce itself as a gateway, provided that a DHCP server is available in the LAN (or any network behind it, e.g. a mesh). From a concept view, a gateway (or maybe even multiple gateways) in mesh2 will not automatically announced in mesh1 - this must be configured manually, or let batman use Ethernet if this is explicitly required.
