@@ -2,7 +2,7 @@ h1. FAQ
 
 Below you can see a list of frequently asked questions and answers. If your question is not listed below, please contact us.  You can contact us via IRC: "#batman channel":http://webchat.freenode.net/?channels=batman on Freenode.org or by sending an e-mail to: "b.a.t.m.a.n@lists.open-mesh.org":mailto:b.a.t.m.a.n@lists.open-mesh.org (only plan-text).
 
-h2. What can and can not do B.A.T.M.A.N.?
+h2. What can B.A.T.M.A.N.? And can't do?
 
 *Q:* What offers batman? And what are the 'limitations'?
 *A:* The batman-adv kernel module can only be used to route the packages within a mesh network, it only simulates OSI layer 2 (data link layer). It does that as fast as possible and in a smart way. Just like a switch. 
