@@ -12,6 +12,8 @@ h2. What can B.A.T.M.A.N. do? And can't do?
 Batman has no security implemented. Also assigning IP addresses to the node(s) is not Batman's task.
 You may want to use underlying security mechanisms, like: IBSS RSN.
 
+Read more about [[Wiki|BATMAN]].
+
 h2. Log file doesn't exists in debugfs?
 
 *Q:* The /sys/kernel/debug/batman_adv/bat0/log file doesn't exists?
