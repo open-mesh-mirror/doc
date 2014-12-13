@@ -12,19 +12,20 @@ If you still can't get any setup working at all, go through this checklist:
 
 h3. Any warnings or errors in the kernel log?
 
-Check dmesg/logread/syslog for warnings, errors or kernel oopses. If you are seeing a kernel oops, write a "report ticket":http://open-mesh.org/projects/open-mesh/issues/new and post the log there, describe your setup and hardware, and ideally how this crash could be reproduced. If the kernel log is just showing cryptic numbers it will be difficult to help you. You can increase the chances of finding the bug by enabling the kernel symbol table which will translate these numbers to function names that can help developers to see what is happening. Please check the "advanced" section of [[building-with-openwrt|this article]] to learn how to enable this functionality on OpenWRT.
+Check dmesg/logread/syslog for warnings, errors or kernel oopses. If you are seeing a kernel oops, write a "report ticket":http://open-mesh.org/projects/open-mesh/issues/new and post the log there, describe your setup and hardware, and ideally how this crash could be reproduced.  If the module displays an error, see go to the next heading.
 
-
-h3. Are both nodes having the same cell id?
-
-Check with 'iwconfig'. Some wifi drivers are a little buggy and do not always merge two ad-hoc cells, therefore you're usually best advised to choose and configure one manually (i.e. 'iwconfig wlan0 ap 02:XX:XX:XX:XX:XX'). While configuring a cell-id manually, you should set the 7th bit of the first byte - or start it with "02:" in other words. To keep this id (mostly) unique, using one of the routers mac-address for the rest is usually the safest way to go.
-
+If the kernel log is just showing cryptic numbers it will be difficult to help you. You can increase the chances of finding the bug by enabling the kernel symbol table which will translate these numbers to function names that can help developers to see what is happening. Please check the "advanced" section of [[building-with-openwrt|this article]] to learn how to enable this functionality on OpenWRT.
 
 h3. Batman-adv is giving me an error when loading the module? 
 
 It says: _ERROR: could not insert module batman-adv.ko: Unknown symbol in module_?
 
 Check dmesg logging output (using dmesg command). If it says 'Unknown symbol crc32c'. First load the libcrc32c module, using: sudo modprobe libcrc32c. Installing the module (sudo make install) will fix this problem as well. As it will check for dependencies using modprobe.
+
+h3. Are both nodes having the same cell id?
+
+Check with 'iwconfig'. Some wifi drivers are a little buggy and do not always merge two ad-hoc cells, therefore you're usually best advised to choose and configure one manually (i.e. 'iwconfig wlan0 ap 02:XX:XX:XX:XX:XX'). While configuring a cell-id manually, you should set the 7th bit of the first byte - or start it with "02:" in other words. To keep this id (mostly) unique, using one of the routers mac-address for the rest is usually the safest way to go.
+
 
 h3. Is 'batctl if' showing the used interfaces as active?
 
