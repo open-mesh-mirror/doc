@@ -98,7 +98,9 @@ Change the following line: "CONFIG_BATMAN_ADV_DEBUG" to: 'y'. Finally, re-compil
 h3. How to setup B.A.T.M.A.N. so it automatically assign IP addresses?
 
 *Q:* How to assign IP addresses automatically?
-*A:* You can use for example a DHCP server.
+*A:* Batman-adv is not responsible for assigning IP addresses. However, you can use for example a DHCP server.
+
+
 
 h3. What about assigning IP addresses in a decentralized way?
 
