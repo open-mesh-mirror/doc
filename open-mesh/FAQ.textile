@@ -10,4 +10,4 @@ h1. FAQ
 "Please, see wiki page":http://www.open-mesh.org/projects/batmand/wiki/Faq
 
 * Or do you have *general* questions about B.A.T.M.A.N.?
-"Please, see wiki page":http://www.open-mesh.org/projects/batman-adv/wiki/Faq
+"Please, see wiki page":http://www.open-mesh.org/projects/batman-adv/wiki/Faq#BATMAN-General-questions
