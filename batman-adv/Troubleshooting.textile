@@ -21,16 +21,9 @@ h2. Are both nodes having the same cell id?
 Check with 'iwconfig'. Some wifi drivers are a little buggy and do not always merge two ad-hoc cells, therefore you're usually best advised to choose and configure one manually (i.e. 'iwconfig wlan0 ap 02:XX:XX:XX:XX:XX'). While configuring a cell-id manually, you should set the 7th bit of the first byte - or start it with "02:" in other words. To keep this id (mostly) unique, using one of the routers mac-address for the rest is usually the safest way to go.
 
 
-h2. Log file doesn't exists in debugfs?
+h2. Batman-adv is giving me an error when loading the module? It says: _ERROR: could not insert module batman-adv.ko: Unknown symbol in module_?
 
-*Q:* The /sys/kernel/debug/batman_adv/bat0/log file doesn't exists?
-*A:* You need to compile the batman-adv with logging support. Open the Makefile. 
-Change the following line: "CONFIG_BATMAN_ADV_DEBUG" to: 'y'. Finally, re-compile the module.
-
-h2. Batman-adv give an error when loading the module?
-
-*Q:* When I try to load the kernel module, it says: _ERROR: could not insert module batman-adv.ko: Unknown symbol in module_?
-*A:* Check dmesg logging output (using dmesg command). If it says 'Unknown symbol crc32c'. First load the libcrc32c module, using: sudo modprobe libcrc32c. Installing the module (sudo make install) will fix this problem as well. As it will check for dependencies using modprobe.
+Check dmesg logging output (using dmesg command). If it says 'Unknown symbol crc32c'. First load the libcrc32c module, using: sudo modprobe libcrc32c. Installing the module (sudo make install) will fix this problem as well. As it will check for dependencies using modprobe.
 
 h2. Is 'batctl if' showing the used interfaces as active?
 
