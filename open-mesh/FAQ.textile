@@ -1,90 +1,14 @@
 h1. FAQ
 
-{{TOC}}
+Do you have questions about B.A.T.M.A.N. Advanced (batman-adv)?
+[[batman-adv/wiki/Faq|See this FAQ wiki page]]
 
-If you are missing a question/answer (quite likely) please use the [[MailingList|BATMAN mailing list]] or [[IRC|IRC channel]] to trigger us.
+Do you have B.A.T.M.A.N. Advanced Brigde Loop Avoidance related questions?
+[[batman-adv/wiki/Faq|See this FAQ wiki page]]
 
-h2. General questions
 
+Do you have questions about B.A.T.M.A.N. deamon (batmand)?
+[[batman-adv/wiki/Faq|See this FAQ wiki page]]
 
-h3. *Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support?*
-
-At this point no B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [[Emulation|read our emulation document]].
-
-h3. How to make my mesh network secure ?
-
-What kind of security do you need? Security is a big field. Maybe you just mean encryption and authentication.....
-
-When you only want to make the whole wlan stuff unreadable for the outside, you could just use WPA_NONE or IBSS RSN. But this doesn't resolve the problem that the key could leak and make the mesh attackable - but that is something which could always happen. So it is probably not a solution for wifi community projects, but for mesh networks controlled by a company.
-
-There are other ideas for traffic over batman-adv. Just forget about encrypting your data on the wifi layer, but instead do everything some layers above. Some people experimented with the idea of implementing the needed authentication and encryption over IPsec. 
-
-And most of the encryption and authentication stuff has to be resolved by the user and not by the network provider. This means https for sensible data instead of http, ssh instead of telnet, pop3s instead of pop3 and so on.
-
-So it really depends what you want and cannot be resolved in a "security for everything, against any attack and for every purpose" blob.
-
-h3. Why does batman need so much time to detect a "dead" node ?
-
-Or: Why can I see a node in the originator table a long time after it died ?
-
-Or: Does batman really need 200 seconds (PURGE_TIMEOUT) to switch the route ?
-
-Batman switches the route as soon as it learns about a better path towards a destination which can take a fraction of a second up to several seconds very much depending on the settings and situation. When no more new originator messages are sent by a node (because it died), no more routing updates regarding this node are exchanged. Batman will not immediately delete this node from its database because the connection could just have a temporary problem and might recover. Only after a timeout period of (currently) 200 seconds the node is removed entirely from batman's internal database. It does not hurt to give the node a little extra time to recover from a connection loss as it speeds up the resume process. All routes using this "lost" node as intermediate hop will have changed towards another path in the meantime and are of no concern.
-
-h2. batman-adv - general questions
-
-h3. Can batman-adv run on interfaces in AP / Station / etc mode ?
-
-batman-adv doesn't know anything about stuff below the ethernet interface. So you could also use it over layer 2 ethernet tunnels, wifi ap, wifi sta, wifi adhoc, ethernet or even write a virtual interface which prints everything on paper and scans the paper on the remote machine (but you should be fast or increase the ogm interval).
-
-h3. How can I connect non-mesh clients to my batman-adv network ?
-
-The [[batman-adv:Quick-start-guide|batman-adv quick-start-guide]] explains how to bridge your standard AP / Ethernet interfaces with bat0 which can be problematic if you only possess one WiFi card. In these cases it might be desirable to run adhoc mode and AP mode at the same time. Fortunately, some WiFi chips / drivers support a so-called "multi VAP" (virtual AP) or "multi SSID" mode to have multiple WiFi networks on the same WiFi interface.
-
-h3. How big networks does batman-adv support?
-
-That is a good question. It is not possible to give an exact answer, but there are several parameters limiting the number of nodes in your network:
-
-# *Capacity of the wireless network*
-  Usually, the performance of the wireless network renders unusable if you add too many nodes (huge delay and low throughput).
-# *Memory footprint*
-  Each node in the mesh network holds information in memory about every other node, so little memory might limit the number of nodes.
-# *Protocol overhead*
-  Each node sends "here-I-am" messages to the entire network at a regular interval. These messages are aggregated when possible, to reduce the overhead.
-
-h3. How do I announce IP subnets using batman-adv?
-
-batman-adv is a layer2 routing protocol and it does not handle IP subnets at all. If you want to do IP subnetting, the suggestion is to split the mesh network in different sub-meshes (e.g. different ESSID/BSSID), and run a batman-adv instance in each of them.
-
-!quagga_integration.png!
-
-As shown in the picture, the result consists in having multiple meshes working independently from each other. In particular the border nodes like C, D and E will participate in more than one mesh network and will consequently have more than one batman-adv interface (e.g. bat0 and bat1): each of them assigned an IP belonging to a different subnet.
-
-At this point the border nodes can run an instance of any dynamic IP routing protocol (e.g. OSPF or BGP, both implemented in "Quagga":http://www.quagga.net/) which will see each of the batman-adv mesh network like a single link towards the other (border) nodes in that network.
-
-Note that also nodes connected to the Internet like A and B can be considered border nodes (this is configuration dependant) and can eventually run the IP routing protocol instance too. 
-
-It is extremely important to do not run any layer3 mesh routing protocol on top of nodes using batman-adv: this would result in wrong link quality computation by the overlying protocol which will see the whole batman-adv network as a single link (even if a path to a node is made up by multiple hops).
-
-However the interaction of Quagga with the mesh network will be "batman-adv-agnostic" since there is no way to exchange information between the two. The creation of a batman-adv plugin for Quagga could help in this direction by letting Quagga extract TQ (the metric used by batman-adv) information to compute link qualities towards other border nodes in the mesh network. This would avoid the IP routing protocol to choose bad mesh nodes as next hop in the IP routing. As extracting/using TQ in other protocols is just an idea/proposal right now, please contact us if you want to do that.
-  
-h2. batman-adv - bridge loop avoidance questions
-
-h3. Why do we need BLA II if we can just use mesh on Ethernet?
-
-Or: Under Discussion -> Features you say "no BATMAN packets on the backbone".
-Why would you want to use the mesh (which never has enough bandwidth anyway) if you have a fast, reliable backbone link between some of the nodes. Wouldn't it make more sense to get as much done through the backbone as possible?
-
-You can explicitly use batman-adv on the mesh if you want to - batman-adv allows adding Ethernet interfaces as well. This is a good idea if you have full control over your LAN. However, there are users who don't want to see batman-adv ethernet frames (with its special ethertype 0x4305) on their LAN, because some firewalls recognize it as malicious traffic. Therefore, one design goal of blaII was to keep batman-adv packets out of the backbone LAN in the default case.
-
-h3. What about two meshes interconnected by a LAN?
-
-Or: So, does this mean that with current blaII, two meshes connected solely by ethernet backbone (which can't overhear each other OGMs through wifi) only know which macs are "on the other side of the ethernet backbone" so as to keep the single broadcast domain united, but are fragmented in terms of VIS data, gw, TT, and orig table?
-
-Yes, there are two separate meshes, and the only stuff which is supposed to be shared is the users payload traffic.
-
-h3. What about DHCP server for separate meshes?
-
-Or: Then, how can I make two separate meshes use a single DHCP server (using gw_mode feature) in current blaII design?
-
-Each node at the edge to the wired network may announce itself as a gateway, provided that a DHCP server is available in the LAN (or any network behind it, e.g. a mesh). From a concept view, a gateway (or maybe even multiple gateways) in mesh2 will not automatically announced in mesh1 - this must be configured manually, or let batman use Ethernet if this is explicitly required.
+Or do you have general questions about B.A.T.M.A.N.?
+[[batman-adv/wiki/Faq#BATMAN-General-questions|See this FAQ wiki page]]
