@@ -107,6 +107,29 @@ It is extremely important to do not run any layer3 mesh routing protocol on top 
 
 However the interaction of Quagga with the mesh network will be "batman-adv-agnostic" since there is no way to exchange information between the two. The creation of a batman-adv plugin for Quagga could help in this direction by letting Quagga extract TQ (the metric used by batman-adv) information to compute link qualities towards other border nodes in the mesh network. This would avoid the IP routing protocol to choose bad mesh nodes as next hop in the IP routing. As extracting/using TQ in other protocols is just an idea/proposal right now, please contact us if you want to do that.
 
+
+h3. Log file doesn't exists in debugfs?
+
+*Q:* The /sys/kernel/debug/batman_adv/bat0/log file doesn't exists?
+*A:* You need to compile the batman-adv with logging support. Open the Makefile. 
+Change the following line: "CONFIG_BATMAN_ADV_DEBUG" to: 'y'. Finally, re-compile the module.
+
+h3. How to setup B.A.T.M.A.N. so it automatically assign IP addresses?
+
+*Q:* How to assign IP addresses automatically?
+*A:* You can use for example a DHCP server.
+
+h3. What about assigning IP addresses in a decentralized way?
+
+*Q:* How to assign IP addresses automatically in a decentralized way?
+*A:* IPv6 will help you to do this easier by using "Unique local address":http://en.wikipedia.org/wiki/Unique_local_address (ULA).
+
+h3. What if I want to have a decentralized DNS solution?
+
+*Q:* I like to setup a decentralized mesh network and would like to have a DNS solution. I don't want to use the internet (WWW), but I do want to have a human readable 'domains' names, just like DNS. What are the options?
+*A:* Take a look at "KadNode":https://github.com/mwarning/KadNode. _Note:_ This software is still in beta.
+
+
 h2. B.A.T.M.A.N. Advanced - Bridge Loop Avoidance questions
 
 h3. Why do we need BLA II if we can just use mesh on Ethernet?
