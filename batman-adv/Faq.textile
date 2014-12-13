@@ -8,34 +8,29 @@ If you got any problems? See: the [[Troubleshooting|Troubleshooting]] page.
 
 h2. B.A.T.M.A.N. General questions
 
-h3. *Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support?*
+h3. Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support?
 
-At this point no B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [[Emulation|read our emulation document]].
+*Q:* Does B.A.T.M.A.N. have his own simulator?
+*A:*  At this point no, but B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [[Emulation|read our emulation document]].
 
 h3. How to make my mesh network secure ?
 
-What kind of security do you need? Security is a big field. Maybe you just mean encryption and authentication.....
+*Q:* Can I make my mesh network secure?
+*A:* This depends on the security you want or need. Security is a big field. Probably you mean encryption and authentication.
 
-When you only want to make the whole wlan stuff unreadable for the outside, you could just use WPA_NONE or IBSS RSN. But this doesn't resolve the problem that the key could leak and make the mesh attackable - but that is something which could always happen. So it is probably not a solution for wifi community projects, but for mesh networks controlled by a company.
+When you only want to make the whole WLAN stuff unreadable for the outside, you could just use WPA_NONE or IBSS RSN. But this doesn't resolve the problem that the key could leak and make the mesh attackable - but that is something which could always happen. So it is probably not a solution for WiFi community projects, but for mesh networks controlled by a company.
 
-There are other ideas for traffic over batman-adv. Just forget about encrypting your data on the wifi layer, but instead do everything some layers above. Some people experimented with the idea of implementing the needed authentication and encryption over IPsec. 
+There are other ideas for traffic over batman-adv. Just forget about encrypting your data on the WiFi layer, but instead do everything some layers above. Some people experimented with the idea of implementing the needed authentication and encryption over IPsec. 
 
-And most of the encryption and authentication stuff has to be resolved by the user and not by the network provider. This means https for sensible data instead of http, ssh instead of telnet, pop3s instead of pop3 and so on.
+And most of the encryption and authentication stuff has to be resolved by the user and not by the network provider. This means HTTPS for sensible data instead of HTTP, SSH instead of Telnet, pop3s instead of pop3 and so on.
 
 So it really depends what you want and cannot be resolved in a "security for everything, against any attack and for every purpose" blob.
 
 h3. Why does batman need so much time to detect a "dead" node ?
+*Q:*  Why can I see a node in the originator table a long time after it died? _Or:_ Does batman really need 200 seconds (PURGE_TIMEOUT) to switch the route?
+*A:* Batman switches the route as soon as it learns about a better path towards a destination which can take a fraction of a second up to several seconds very much depending on the settings and situation. 
 
-Or: Why can I see a node in the originator table a long time after it died ?
-
-Or: Does batman really need 200 seconds (PURGE_TIMEOUT) to switch the route ?
-
-Batman switches the route as soon as it learns about a better path towards a destination which can take a fraction of a second up to several seconds very much depending on the settings and situation. When no more new originator messages are sent by a node (because it died), no more routing updates regarding this node are exchanged. Batman will not immediately delete this node from its database because the connection could just have a temporary problem and might recover. Only after a timeout period of (currently) 200 seconds the node is removed entirely from batman's internal database. It does not hurt to give the node a little extra time to recover from a connection loss as it speeds up the resume process. All routes using this "lost" node as intermediate hop will have changed towards another path in the meantime and are of no concern.
-
-
-h3. *Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support?*
-
-At this point no B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [[Emulation|read our emulation document]].
+When no more new originator messages are sent by a node (because it died), no more routing updates regarding this node are exchanged. Batman will not immediately delete this node from its database because the connection could just have a temporary problem and might recover. Only after a timeout period of (currently) 200 seconds the node is removed entirely from batman's internal database. It does not hurt to give the node a little extra time to recover from a connection loss as it speeds up the resume process. All routes using this "lost" node as intermediate hop will have changed towards another path in the meantime and are of no concern.
 
 h3. How to make my mesh network secure ?
 
