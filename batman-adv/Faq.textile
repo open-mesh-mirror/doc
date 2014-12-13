@@ -35,6 +35,7 @@ When no more new originator messages are sent by a node (because it died), no mo
 
 
 
+
 h2. B.A.T.M.A.N. Advanced Questions
 
 
@@ -51,15 +52,18 @@ Read more about [[Wiki|BATMAN]].
 
 h3. Can batman-adv run on interfaces in AP / Station / etc mode ?
 
-batman-adv doesn't know anything about stuff below the ethernet interface. So you could also use it over layer 2 ethernet tunnels, wifi ap, wifi sta, wifi adhoc, ethernet or even write a virtual interface which prints everything on paper and scans the paper on the remote machine (but you should be fast or increase the ogm interval).
+*Q:* Can BATMAN advanced run on interfaces in AP / Station mode?
+*A:* Yes, because batman-adv doesn't know anything about stuff below the ethernet interface. So you could also use it over layer 2 ethernet tunnels, wifi ap, wifi sta, wifi adhoc, ethernet or even write a virtual interface which prints everything on paper and scans the paper on the remote machine (but you should be fast or increase the ogm interval).
 
 h3. How can I connect non-mesh clients to my batman-adv network ?
 
-The [[batman-adv:Quick-start-guide|batman-adv quick-start-guide]] explains how to bridge your standard AP / Ethernet interfaces with bat0 which can be problematic if you only possess one WiFi card. In these cases it might be desirable to run adhoc mode and AP mode at the same time. Fortunately, some WiFi chips / drivers support a so-called "multi VAP" (virtual AP) or "multi SSID" mode to have multiple WiFi networks on the same WiFi interface.
+*Q:* How can I connect non-mesh clients to batman-adv network?
+*A: * The [[batman-adv:Quick-start-guide|batman-adv quick-start-guide]] explains how to bridge your standard AP / Ethernet interfaces with bat0 which can be problematic if you only possess one WiFi card. In these cases it might be desirable to run adhoc mode and AP mode at the same time. Fortunately, some WiFi chips / drivers support a so-called "multi VAP" (virtual AP) or "multi SSID" mode to have multiple WiFi networks on the same WiFi interface.
 
 h3. How big networks does batman-adv support?
 
-That is a good question. It is not possible to give an exact answer, but there are several parameters limiting the number of nodes in your network:
+*Q:* How big networks (maximum nodes) does batman-adv support?
+*A:* That is a good question. It is not possible to give an exact answer, but there are several parameters limiting the number of nodes in your network:
 
 # *Capacity of the wireless network*
   Usually, the performance of the wireless network renders unusable if you add too many nodes (huge delay and low throughput).
@@ -84,7 +88,6 @@ It is extremely important to do not run any layer3 mesh routing protocol on top 
 
 However the interaction of Quagga with the mesh network will be "batman-adv-agnostic" since there is no way to exchange information between the two. The creation of a batman-adv plugin for Quagga could help in this direction by letting Quagga extract TQ (the metric used by batman-adv) information to compute link qualities towards other border nodes in the mesh network. This would avoid the IP routing protocol to choose bad mesh nodes as next hop in the IP routing. As extracting/using TQ in other protocols is just an idea/proposal right now, please contact us if you want to do that.
 
-
 h3. Log file doesn't exists in debugfs?
 
 *Q:* The /sys/kernel/debug/batman_adv/bat0/log file doesn't exists?
@@ -106,7 +109,12 @@ h3. What if I want to have a decentralized DNS solution?
 *Q:* I like to setup a decentralized mesh network and would like to have a DNS solution. I don't want to use the internet (WWW), but I do want to have a human readable 'domains' names, just like DNS. What are the options?
 *A:* Take a look at "KadNode":https://github.com/mwarning/KadNode. _Note:_ This software is still in beta.
 
+
+
+
+
 h2. B.A.T.M.A.N. Advanced - Bridge Loop Avoidance questions
+
 
 h3. What is Bridge Loop Avoidance?
 
