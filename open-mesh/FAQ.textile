@@ -11,4 +11,4 @@ Do you have questions about B.A.T.M.A.N. deamon (batmand)?
 [[batman-adv/wiki/Faq|See this FAQ wiki page]]
 
 Or do you have general questions about B.A.T.M.A.N.?
-[[batman-adv/wiki/Faq#BATMAN-General-questions|See this FAQ wiki page]]
+"See this FAQ wiki page":http://www.open-mesh.org/projects/batman-adv/wiki/Faq
