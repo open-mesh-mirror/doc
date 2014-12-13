@@ -33,25 +33,6 @@ h3. Why does batman need so much time to detect a "dead" node?
 
 When no more new originator messages are sent by a node (because it died), no more routing updates regarding this node are exchanged. Batman will not immediately delete this node from its database because the connection could just have a temporary problem and might recover. Only after a timeout period of (currently) 200 seconds the node is removed entirely from batman's internal database. It does not hurt to give the node a little extra time to recover from a connection loss as it speeds up the resume process. All routes using this "lost" node as intermediate hop will have changed towards another path in the meantime and are of no concern.
 
-h3. How to make my mesh network secure ?
-
-What kind of security do you need? Security is a big field. Maybe you just mean encryption and authentication.....
-
-When you only want to make the whole wlan stuff unreadable for the outside, you could just use WPA_NONE or IBSS RSN. But this doesn't resolve the problem that the key could leak and make the mesh attackable - but that is something which could always happen. So it is probably not a solution for wifi community projects, but for mesh networks controlled by a company.
-
-There are other ideas for traffic over batman-adv. Just forget about encrypting your data on the wifi layer, but instead do everything some layers above. Some people experimented with the idea of implementing the needed authentication and encryption over IPsec. 
-
-And most of the encryption and authentication stuff has to be resolved by the user and not by the network provider. This means https for sensible data instead of http, ssh instead of telnet, pop3s instead of pop3 and so on.
-
-So it really depends what you want and cannot be resolved in a "security for everything, against any attack and for every purpose" blob.
-
-h3. Why does batman need so much time to detect a "dead" node ?
-
-Or: Why can I see a node in the originator table a long time after it died ?
-
-Or: Does batman really need 200 seconds (PURGE_TIMEOUT) to switch the route ?
-
-Batman switches the route as soon as it learns about a better path towards a destination which can take a fraction of a second up to several seconds very much depending on the settings and situation. When no more new originator messages are sent by a node (because it died), no more routing updates regarding this node are exchanged. Batman will not immediately delete this node from its database because the connection could just have a temporary problem and might recover. Only after a timeout period of (currently) 200 seconds the node is removed entirely from batman's internal database. It does not hurt to give the node a little extra time to recover from a connection loss as it speeds up the resume process. All routes using this "lost" node as intermediate hop will have changed towards another path in the meantime and are of no concern.
 
 
 h2. B.A.T.M.A.N. Advanced Questions
