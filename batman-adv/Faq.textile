@@ -26,7 +26,8 @@ And most of the encryption and authentication stuff has to be resolved by the us
 
 So it really depends what you want and cannot be resolved in a "security for everything, against any attack and for every purpose" blob.
 
-h3. Why does batman need so much time to detect a "dead" node ?
+h3. Why does batman need so much time to detect a "dead" node?
+
 *Q:*  Why can I see a node in the originator table a long time after it died? _Or:_ Does batman really need 200 seconds (PURGE_TIMEOUT) to switch the route?
 *A:* Batman switches the route as soon as it learns about a better path towards a destination which can take a fraction of a second up to several seconds very much depending on the settings and situation. 
 
