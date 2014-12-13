@@ -8,6 +8,7 @@ h2. Getting started
 * [[VisualizeMesh|Visualizing the network]] - this document explains how to get fancy graphics of the batman mesh
 * [[AnnouncingNetworks|Announcing networks]] - learn how to announce and / or revoke HNA on the fly
 * "B.A.T.M.A.N. online man page":http://downloads.open-mesh.org/batman/manpages/batmand.8.html - read the current batman man page online
+* [[Faq|Frequently Asked Questions]] - list of questions and answers of batmand.
 
 h2. Developer Information / Advanced Features
 
