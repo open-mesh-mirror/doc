@@ -1,14 +1,14 @@
 h1. FAQ
 
-Do you have questions about B.A.T.M.A.N. Advanced (batman-adv)?
+Do you have questions about *B.A.T.M.A.N. Advanced* (batman-adv)?
 [[batman-adv/wiki/Faq|See this FAQ wiki page]]
 
-Do you have B.A.T.M.A.N. Advanced Brigde Loop Avoidance related questions?
+Do you have B.A.T.M.A.N. Advanced *Brigde Loop Avoidance* related questions?
 [[batman-adv/wiki/Faq|See this FAQ wiki page]]
 
 
-Do you have questions about B.A.T.M.A.N. deamon (batmand)?
+Do you have questions about *B.A.T.M.A.N. deamon* (batmand)?
 [[batman-adv/wiki/Faq|See this FAQ wiki page]]
 
-Or do you have general questions about B.A.T.M.A.N.?
-"See this FAQ wiki page":http://www.open-mesh.org/projects/batman-adv/wiki/Faq
+Or do you have *general* questions about B.A.T.M.A.N.?
+"Please, see this FAQ wiki page":http://www.open-mesh.org/projects/batman-adv/wiki/Faq
