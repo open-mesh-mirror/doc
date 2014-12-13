@@ -29,7 +29,7 @@ h2. How to setup B.A.T.M.A.N. so it automatically assign IP addresses?
 h2. What about assigning IP addresses in a decentralized way?
 
 *Q:* How to assign IP addresses automatically in a decentralized way?
-*A:* IPv6 will help you to do this easier by using "Unique local address":http://en.wikipedia.org/wiki/Unique_local_address (ULA). And
+*A:* IPv6 will help you to do this easier by using "Unique local address":http://en.wikipedia.org/wiki/Unique_local_address (ULA).
 
 h2. What if I want to have a decentralized DNS solution?
 
