@@ -74,7 +74,8 @@ h3. How big networks does batman-adv support?
 
 h3. How do I announce IP subnets using batman-adv?
 
-batman-adv is a layer2 routing protocol and it does not handle IP subnets at all. If you want to do IP subnetting, the suggestion is to split the mesh network in different sub-meshes (e.g. different ESSID/BSSID), and run a batman-adv instance in each of them.
+*Q:* Can I setup differnt IP subnets using batman-adv?
+*A:* Batman-adv is a OSI layer 2 routing protocol and it does not handle IP subnets at all. If you want to do IP subnetting, the suggestion is to split the mesh network in different sub-meshes (e.g. different ESSID/BSSID), and run a batman-adv instance in each of them.
 
 !quagga_integration.png!
 
@@ -123,10 +124,10 @@ h3. What is Bridge Loop Avoidance?
 
 h3. Why do we need BLA II if we can just use mesh on Ethernet?
 
-Or: Under Discussion -> Features you say "no BATMAN packets on the backbone".
-Why would you want to use the mesh (which never has enough bandwidth anyway) if you have a fast, reliable backbone link between some of the nodes. Wouldn't it make more sense to get as much done through the backbone as possible?
-
-You can explicitly use batman-adv on the mesh if you want to - batman-adv allows adding Ethernet interfaces as well. This is a good idea if you have full control over your LAN. However, there are users who don't want to see batman-adv ethernet frames (with its special ethertype 0x4305) on their LAN, because some firewalls recognize it as malicious traffic. Therefore, one design goal of blaII was to keep batman-adv packets out of the backbone LAN in the default case.
+Under Discussion -> Features you say "no BATMAN packets on the backbone".
+*Q:* Why would you want to use the mesh (which never has enough bandwidth anyway) if you have a fast, reliable backbone link between some of the nodes (eg. LAN)?
+ _Or:_ Wouldn't it make more sense to get as much done through the backbone as possible?
+*A:* You can explicitly use batman-adv on the mesh if you want to - batman-adv allows adding Ethernet interfaces as well. This is a good idea if you have full control over your LAN. However, there are users who don't want to see batman-adv ethernet frames (with its special ethertype 0x4305) on their LAN, because some firewalls recognize it as malicious traffic. Therefore, one design goal of blaII was to keep batman-adv packets out of the backbone LAN in the default case.
 
 h3. What about two meshes interconnected by a LAN?
 
