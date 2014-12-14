@@ -29,7 +29,7 @@ h2. Examples
 h3. Simple mesh network
 
 
-On all nodes, install batman-adv, load the module and enter the following commands:
+On all nodes, install batman-adv, load the module and enter the following commands (as root):
 
 <pre>
 ifconfig wlan0 mtu 1532
