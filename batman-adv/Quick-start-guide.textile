@@ -26,7 +26,6 @@ So where are we going to send data packets to if not to those interfaces we have
 
 h2. Examples
 
-
 h3. Simple mesh network
 
 
@@ -44,6 +43,10 @@ ifconfig bat0 up
 </pre>
 
 You can now use the automatically assigned IPv6 link-local adresses on bat0 (usually starting with fe80::...), modern operating systems should support this. Or you can assign IPv4 addresses manually on all those nodes (i.e. 'ifconfig bat0 192.168.123.x/24') or one of the laptops in range has to have a DHCP server running on the bat0 interface. As batman-adv is operating on layer 2, even dhcp-messages can be send over the mesh network.
+
+To use Avahi automatic IPv4 IP address assigning, execute:
+
+<pre>sudo avahi-autoipd bat0</pre>
 
 +Note:+ batman-adv inserts an additional header of 32 bytes into each data packet being send over the mesh. Therefore we are increasing the maximum size of a packet over the plain interfaces to 1532, so that packets with the standard MTU of 1500 can pass normaly through bat0. You might also decrease the MTU to 1468 on all hosts but is usually just do-able in more or less static- and small-scaled mesh-networks.
 
