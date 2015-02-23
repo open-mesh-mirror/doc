@@ -4,11 +4,12 @@ This page aims to provide a collection of links towards press reviews & papers r
 
 h2. Projects:
 
-* building mesh potatoes with B.A.T.M.A.N.: http://villagetelco.org
+* Building mesh potatoes with B.A.T.M.A.N.: http://villagetelco.org
 * B.A.T.M.A.N. with dashboard integration: http://www.open-mesh.com
 * The Batphone (VOIP + Mesh on your device): http://www.servalproject.org
 * MeOS - batman-adv firmware for SoHo mesh networks: http://lab.nomadnt.com
 * B.A.T.M.A.N. in Argentina: http://www.altermundi.net/ (english article: http://blog.altermundi.net/article/timeline-february-september-2012/ )
+* B.A.T.M.A.N. in Portugal: http://wirelesspt.net and own "batman-adv firmware":http://wirelesspt.net/wiki/mvwrt
 * B.A.T.M.A.N. in German Freifunk communities (sorted by size):
 ** "Hamburg":http://hamburg.freifunk.net/ ("graph":http://graph.hamburg.freifunk.net/graph.html),
 ** "Paderborn":http://paderborn.freifunk.net/ ("graph":http://map.paderborn.freifunk.net/graph.html),
