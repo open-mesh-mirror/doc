@@ -16,6 +16,7 @@ h2. Projects:
 ** "Lübeck":http://luebeck.freifunk.net/ ("graph":http://luebeck.freifunk.net/map/nodes.html),
 ** "Kiel":http://kiel.freifunk.net/ ("graph":http://freifunk.in-kiel.de/ffmap/nodes.html),
 ** "Köln/Bonn/Umgebung":http://kbu.freifunk.net/ ("stats":http://register.kbu.freifunk.net/nodes)
+* RADIUSdesk and MESHdesk -  User-friendly Open Source GUI to centrally deploy and manage batman-adv mesh networks: http://www.radiusdesk.com
 
 h2. Press:
 
