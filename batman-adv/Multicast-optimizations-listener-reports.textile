@@ -66,3 +66,14 @@ Similar to the proposed solution. But instead of having the query parsing burdon
 h4. IGMP/MLD proxying
 
 Split the IGMP/MLD broadcast domain between the local segment and the rest of the mesh. batman-adv would participate as a multicast querier on its local segment only and would generate multicast reports from the multicast addresses in the global translation table. Requirement: More flexible and generic translation table, in that being able to store IPv4+IPv6 addresses instead of just MAC addresses, too.
+
+----
+
+h4. Side note: Why does the current implementation without bridge support have no such issues?
+
+There are usually two parties interested in multicast listener reports. For one thing, bridges ("software switches") and snooping switches (enterprise hardware switches). For another thing, multicast routers want IGMP/MLD reports. If the former, a bridge, exists then multicast optimizations are disabled at the moment, so the issue can't occure. For the latter, reports to multicast routers, let's consider the following two cases:
+
+a) Multicast listeners joining a link-local address
+b) Multicast listeners joining a non-link-local address
+
+Multicast routers need reports to learn and tell other routers about multicast traffic their part of the network is interested in. Link-local multicast is not routed, so multicast routers aren't actually interested in reports of case a). For b), the current implementation in batman-adv is flooding multicast packets with a routable destination everywhere unconditionally, so every node and therefore any potential multicast router will receive them.
