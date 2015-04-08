@@ -11,10 +11,10 @@ B.A.T.M.A.N. (better approach to mobile ad-hoc networking) is a routing protocol
 h2. News
 
 * *24.Mar 2015* [[2015-03-24_the_batman_project_endorses_the_battle_of_the_mesh_v8|The B.A.T.M.A.N. project endorses the Battle of the Mesh v8]]
+* *05.Jan. 2015* [[2015-01-05-batman-adv-2014-4-0-release|Batman-adv 2014.4.0 released]]
 * *22.Jul. 2014* [[2014-07-22-batman-adv-2014-3-0-release|Batman-adv 2014.3.0 released]]
 * *09.Jun. 2014* [[2014-06-09-batman-adv-2014-2-0-release|Batman-adv 2014.2.0 released]]
 * *13.Mar. 2014* [[2014-03-13-batman-adv-2014-1-0-release|Batman-adv 2014.1.0 released]]
-* *10.Feb 2014* [[2014-02-10_the_batman_project_endorses_the_battle_of_the_mesh_v7|The B.A.T.M.A.N. project endorses the Battle of the Mesh v7]]
 
 
 
