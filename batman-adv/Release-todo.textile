@@ -5,11 +5,11 @@ This page contains a checklist of things that need to be done for a release.
 
 h2. Release Scheduling
 
-!/attachments/526/release_scheduling.svg!
+!/attachments/528/release_scheduling.svg!
 
-* next branch is released as feature release 20_ _.a.0 after linux 3.x-rc3 is tagged
+* next branch is released as feature release 20_ _.a.0 after linux 4.x-rc2 is tagged
 * maint branch is released on demand (for example after security issues)
-* a feature release +must+ be done before 3.x-rc6. The time till 3.x-rc7 is needed to merge new features into next and submit them to the linux maintainers for 2.6.y
+* a feature release +must+ be done before 4.x-rc6. The time till 4.x-rc7 is needed to merge new features into next and submit them to the linux maintainers for 4.y
 
 h2. Documentation
 
