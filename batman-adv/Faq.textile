@@ -92,8 +92,12 @@ However the interaction of Quagga with the mesh network will be "batman-adv-agno
 h3. Log file doesn't exists in debugfs?
 
 *Q:* The /sys/kernel/debug/batman_adv/bat0/log file doesn't exists?
-*A:* You need to compile the batman-adv with logging support. Open the Makefile. 
-Change the following line: "CONFIG_BATMAN_ADV_DEBUG" to: 'y'. Finally, re-compile the module.
+*A:* You need to compile the batman-adv with logging support.
+
+ * Linux tree
+ ** go to *<code>Networking support  ---> Networking options  ---> B.A.T.M.A.N. Advanced Meshing Protocol</code>* and select *<code>B.A.T.M.A.N. debugging</code>*
+ * external module
+ ** compile with make parameter *<code>CONFIG_BATMAN_ADV_DEBUG=y</code>*
 
 h3. How to setup B.A.T.M.A.N. so it automatically assign IP addresses?
 
