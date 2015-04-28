@@ -16,14 +16,14 @@ h2. Documentation
 * [x] build changelog
 * [x] update README
 * [ ] write release announcement
-* [x] update wiki documentation
+* [ ] update wiki documentation
 
 h2. Code
 
 * [x] make sure all code contains the release version strings
 * [x] update copyright years (if needed)
 * [ ] check coverity scan status
-* [ ] remove dead code (if any)
+* [x] remove dead code (if any)
 * [-] check against kernel versions
 * [x] check that maint branch is merged in next
 * [x] check for open patches on the ml
@@ -39,10 +39,10 @@ h2. Release
 
 h2. Distributions
 
-* [x] update alfred openwrt package
-* [x] update batman-adv/batctl openwrt package
+* [ ] update alfred openwrt package
+* [ ] update batman-adv/batctl openwrt package
 * [ ] update gentoo package
-* [x] update debian batctl package
+* [ ] update debian batctl package
 
 h2. Aftershow
 
@@ -51,4 +51,4 @@ h2. Aftershow
 * [x] Merge patches from master into next (to get all the fancy new features - git merge --ff-only master)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
 * [x] Enable daily check for next/master (symbol check, cppcheck, feature check)
-* [ ] Update cppcheck, smatch, sparse on build server
+* [x] Update cppcheck, smatch, sparse on build server
