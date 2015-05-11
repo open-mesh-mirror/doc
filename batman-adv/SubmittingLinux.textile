@@ -26,10 +26,10 @@ h2. get the linux-integration repository
 
 <pre>
 '-(%25)-> git clone git+ssh://git@open-mesh.org/linux-merge.git
-Initialized empty Git repository in /home/batman/linux-merge/.git/
-remote: Counting objects: 1544059, done.
-remote: Compressing objects: 100%25 (252781/252781), done.
-....
+    Initialized empty Git repository in /home/batman/linux-merge/.git/
+    remote: Counting objects: 1544059, done.
+    remote: Compressing objects: 100%25 (252781/252781), done.
+    ....
 '-(%25)-> cd linux-merge
 '-(%25)-> git remote add net-next git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
 '-(%25)-> git remote add pkg git://git.open-mesh.org/batman-adv.git
@@ -41,15 +41,15 @@ h2. get the newest patches from next
 
 <pre>
 '-(%25)-(merge/master)> git remote update
-Fetching origin
-remote: Counting objects: 1387, done.
-remote: Compressing objects: 100%25 (211/211), done.
-remote: Total 823 (delta 651), reused 762 (delta 602)
-Receiving objects: 100%25 (823/823), 136.90 KiB | 254 KiB/s, done.
-Resolving deltas: 100%25 (651/651), completed with 228 local objects.
-From git+ssh://open-mesh.org/marek/linux-merge
-   bfa88ea..151b6a5  standalone/master     -> origin/standalone/master
-   c9f7cbe..078eb6a  standalone/next       -> origin/standalone/next
+    Fetching origin
+    remote: Counting objects: 1387, done.
+    remote: Compressing objects: 100%25 (211/211), done.
+    remote: Total 823 (delta 651), reused 762 (delta 602)
+    Receiving objects: 100%25 (823/823), 136.90 KiB | 254 KiB/s, done.
+    Resolving deltas: 100%25 (651/651), completed with 228 local objects.
+    From git+ssh://open-mesh.org/marek/linux-merge
+       bfa88ea..151b6a5  standalone/master     -> origin/standalone/master
+       c9f7cbe..078eb6a  standalone/next       -> origin/standalone/next
 </pre>
 
 
@@ -59,31 +59,31 @@ The git-merge.sh tool used below can be found in the git repo of git project :-)
 
 <pre>
 '-(%25)-(xyz)> git checkout merge/master
-Checking out files: 100%25 (32337/32337), done.
-Switched to branch 'merge/master'
+    Checking out files: 100%25 (32337/32337), done.
+    Switched to branch 'merge/master'
 '-(%25)-(merge/master)> ./git-subtree.sh merge --prefix=net/batman-adv pkg/next
-Auto-merging net/batman-adv/Makefile
-CONFLICT (content): Merge conflict in net/batman-adv/Makefile
-CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in HEAD and modified in standalone/next. Version standalone/next of net/batman-adv/Makefile.kbuild left in tree.
-CONFLICT (delete/modify): net/batman-adv/compat.h deleted in HEAD and modified in next. Version next of net/batman-adv/compat.h left in tree.
-Auto-merging net/batman-adv/main.c
-Auto-merging net/batman-adv/originator.c
-Auto-merging net/batman-adv/routing.c
-Auto-merging net/batman-adv/send.c
-Auto-merging net/batman-adv/soft-interface.c
-Auto-merging net/batman-adv/translation-table.c
-Auto-merging net/batman-adv/vis.c
-Automatic merge failed; fix conflicts and then commit the result.
+    Auto-merging net/batman-adv/Makefile
+    CONFLICT (content): Merge conflict in net/batman-adv/Makefile
+    CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in HEAD and modified in standalone/next. Version standalone/next of net/batman-adv/Makefile.kbuild left in tree.
+    CONFLICT (delete/modify): net/batman-adv/compat.h deleted in HEAD and modified in next. Version next of net/batman-adv/compat.h left in tree.
+    Auto-merging net/batman-adv/main.c
+    Auto-merging net/batman-adv/originator.c
+    Auto-merging net/batman-adv/routing.c
+    Auto-merging net/batman-adv/send.c
+    Auto-merging net/batman-adv/soft-interface.c
+    Auto-merging net/batman-adv/translation-table.c
+    Auto-merging net/batman-adv/vis.c
+    Automatic merge failed; fix conflicts and then commit the result.
 '-(%25)-(merge/master)> git rm net/batman-adv/Makefile.kbuild net/batman-adv/compat.h
-net/batman-adv/Makefile: needs merge
-net/batman-adv/Makefile.kbuild: needs merge
-net/batman-adv/compat.h: needs merge
-rm 'net/batman-adv/Makefile.kbuild'
-rm 'net/batman-adv/compat.h'
+    net/batman-adv/Makefile: needs merge
+    net/batman-adv/Makefile.kbuild: needs merge
+    net/batman-adv/compat.h: needs merge
+    rm 'net/batman-adv/Makefile.kbuild'
+    rm 'net/batman-adv/compat.h'
 '-(%25)-(merge/master)> vim net/batman-adv/Makefile
 '-(%25)-(merge/master)> git add net/batman-adv/Makefile
 '-(%25)-(merge/master)> git commit
-[linux f2204f0] Merge remote branch 'pkg/next' into merge/master
+    [linux f2204f0] Merge remote branch 'pkg/next' into merge/master
 </pre>
 
 All changes to the the sysfs-class-net-* files can't be automatically merged because they reside in a different subfolder. As a consequence the new version has to be manually copied from a local git tree to 'Documentation/ABI/testing/'. The README file also requires manually handling: All relevant in-kernel changes have to be merged into 'Documentation/networking/batman-adv.txt' whereas out-of-kernel information has be stripped out.
@@ -122,79 +122,79 @@ With this new strategy, the path of the subtree can be manually specified.
 <pre>
 '-(%25)-(merge/master)> git checkout -b patches
 '-(%25)-(patches)> git rebase -s recursive -X subtree=net/batman-adv origin/merge/master
-First, rewinding head to replay your work on top of it...
-Auto-merging net/batman-adv/main.c
-Auto-merging net/batman-adv/routing.c
-Auto-merging net/batman-adv/send.c
-Auto-merging net/batman-adv/soft-interface.c
-Auto-merging net/batman-adv/vis.c
-[detached HEAD 166b2ca] batman-adv: Convert names from Java to C style
- Author: Antonio Quartulli <ordex@ritirata.org>
- 7 files changed, 18 insertions(+), 18 deletions(-)
-Committed: 0001 batman-adv: Convert names from Java to C style
-Auto-merging net/batman-adv/translation-table.c
-[detached HEAD 5cd6523] batman-adv: Avoid rounding issues for local hna timeout
- Author: Linus Lüssing <linus.luessing@web.de>
- 1 files changed, 1 insertions(+), 1 deletions(-)
-Committed: 0002 batman-adv: Avoid rounding issues for local hna timeout
-Auto-merging net/batman-adv/originator.c
-Auto-merging net/batman-adv/translation-table.c
-Auto-merging net/batman-adv/vis.c
-[detached HEAD 83d1bc8] batman-adv: Lower resolution for timeouts
- Author: Simon Wunderlich <siwu@hrz.tu-chemnitz.de>
- 5 files changed, 7 insertions(+), 10 deletions(-)
-Committed: 0003 batman-adv: Lower resolution for timeouts
-Auto-merging net/batman-adv/send.c
-[detached HEAD 9e9605f] batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
- Author: Marek Lindner <lindner_marek@yahoo.de>
- 1 files changed, 4 insertions(+), 4 deletions(-)
-Committed: 0004 batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
-[detached HEAD 043aa9a] batman-adv: Add sysfs abi documentation about bonding
- Author: Marek Lindner <lindner_marek@yahoo.de>
- 1 files changed, 8 insertions(+), 0 deletions(-)
-Committed: 0005 batman-adv: Add sysfs abi documentation about bonding
-[detached HEAD f6d8bab] batman-adv: adapting source version to revised versioning scheme
- Author: Marek Lindner <lindner_marek@yahoo.de>
- 1 files changed, 1 insertions(+), 1 deletions(-)
-Committed: 0006 batman-adv: adapting source version to revised versioning scheme
-Auto-merging net/batman-adv/Makefile
-CONFLICT (content): Merge conflict in net/batman-adv/Makefile
-
-When you have resolved this problem run "git rebase --continue".
-If you would prefer to skip this patch, instead run "git rebase --skip".
-To restore the original branch and stop rebasing run "git rebase --abort".
+    First, rewinding head to replay your work on top of it...
+    Auto-merging net/batman-adv/main.c
+    Auto-merging net/batman-adv/routing.c
+    Auto-merging net/batman-adv/send.c
+    Auto-merging net/batman-adv/soft-interface.c
+    Auto-merging net/batman-adv/vis.c
+    [detached HEAD 166b2ca] batman-adv: Convert names from Java to C style
+     Author: Antonio Quartulli <ordex@ritirata.org>
+     7 files changed, 18 insertions(+), 18 deletions(-)
+    Committed: 0001 batman-adv: Convert names from Java to C style
+    Auto-merging net/batman-adv/translation-table.c
+    [detached HEAD 5cd6523] batman-adv: Avoid rounding issues for local hna timeout
+     Author: Linus Lüssing <linus.luessing@web.de>
+     1 files changed, 1 insertions(+), 1 deletions(-)
+    Committed: 0002 batman-adv: Avoid rounding issues for local hna timeout
+    Auto-merging net/batman-adv/originator.c
+    Auto-merging net/batman-adv/translation-table.c
+    Auto-merging net/batman-adv/vis.c
+    [detached HEAD 83d1bc8] batman-adv: Lower resolution for timeouts
+     Author: Simon Wunderlich <siwu@hrz.tu-chemnitz.de>
+     5 files changed, 7 insertions(+), 10 deletions(-)
+    Committed: 0003 batman-adv: Lower resolution for timeouts
+    Auto-merging net/batman-adv/send.c
+    [detached HEAD 9e9605f] batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+     Author: Marek Lindner <lindner_marek@yahoo.de>
+     1 files changed, 4 insertions(+), 4 deletions(-)
+    Committed: 0004 batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+    [detached HEAD 043aa9a] batman-adv: Add sysfs abi documentation about bonding
+     Author: Marek Lindner <lindner_marek@yahoo.de>
+     1 files changed, 8 insertions(+), 0 deletions(-)
+    Committed: 0005 batman-adv: Add sysfs abi documentation about bonding
+    [detached HEAD f6d8bab] batman-adv: adapting source version to revised versioning scheme
+     Author: Marek Lindner <lindner_marek@yahoo.de>
+     1 files changed, 1 insertions(+), 1 deletions(-)
+    Committed: 0006 batman-adv: adapting source version to revised versioning scheme
+    Auto-merging net/batman-adv/Makefile
+    CONFLICT (content): Merge conflict in net/batman-adv/Makefile
+    
+    When you have resolved this problem run "git rebase --continue".
+    If you would prefer to skip this patch, instead run "git rebase --skip".
+    To restore the original branch and stop rebasing run "git rebase --abort".
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> vim net/batman-adv/Makefile
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git add net/batman-adv/Makefile
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rebase -s subtree --continue
-Already applied: 0007 batman-adv: Use nproc to get number of available processors
-CONFLICT (delete/modify): net/batman-adv/compat.h deleted in origin/merge/master and modified in HEAD~1. Version HEAD~1 of net/batman-adv/compat.h left in tree.
-
-When you have resolved this problem run "git rebase --continue".
-If you would prefer to skip this patch, instead run "git rebase --skip".
-To restore the original branch and stop rebasing run "git rebase --abort".
+    Already applied: 0007 batman-adv: Use nproc to get number of available processors
+    CONFLICT (delete/modify): net/batman-adv/compat.h deleted in origin/merge/master and modified in HEAD~1. Version HEAD~1 of net/batman-adv/compat.h left in tree.
+    
+    When you have resolved this problem run "git rebase --continue".
+    If you would prefer to skip this patch, instead run "git rebase --skip".
+    To restore the original branch and stop rebasing run "git rebase --abort".
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rm net/batman-adv/compat.h
-net/batman-adv/compat.h: needs merge
-rm 'net/batman-adv/compat.h'
+    net/batman-adv/compat.h: needs merge
+    rm 'net/batman-adv/compat.h'
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rebase -s subtree --continue
-[detached HEAD a85d1b4] batman-adv: Add include guards to all header files
- 17 files changed, 78 insertions(+), 12 deletions(-)
-Committed: 0008 batman-adv: Add include guards to all header files
-Auto-merging net/batman-adv/Makefile
-CONFLICT (content): Merge conflict in net/batman-adv/Makefile
-CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in origin/merge/master and modified in HEAD~0. Version HEAD~0 of net/batman-adv/Makefile.kbuild left in tree.
-
-When you have resolved this problem run "git rebase --continue".
-If you would prefer to skip this patch, instead run "git rebase --skip".
-To restore the original branch and stop rebasing run "git rebase --abort".
+    [detached HEAD a85d1b4] batman-adv: Add include guards to all header files
+     17 files changed, 78 insertions(+), 12 deletions(-)
+    Committed: 0008 batman-adv: Add include guards to all header files
+    Auto-merging net/batman-adv/Makefile
+    CONFLICT (content): Merge conflict in net/batman-adv/Makefile
+    CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in origin/merge/master and modified in HEAD~0. Version HEAD~0 of net/batman-adv/Makefile.kbuild left in tree.
+    
+    When you have resolved this problem run "git rebase --continue".
+    If you would prefer to skip this patch, instead run "git rebase --skip".
+    To restore the original branch and stop rebasing run "git rebase --abort".
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git rm net/batman-adv/Makefile.kbuild
-net/batman-adv/Makefile: needs merge
-net/batman-adv/Makefile.kbuild: needs merge
-rm 'net/batman-adv/Makefile.kbuild'
+    net/batman-adv/Makefile: needs merge
+    net/batman-adv/Makefile.kbuild: needs merge
+    rm 'net/batman-adv/Makefile.kbuild'
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> vim net/batman-adv/Makefile
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git add net/batman-adv/Makefile
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git rebase -s subtree --continue
-Already applied: 0009 batman-adv: Add support for git revision string
-All done.
+    Already applied: 0009 batman-adv: Add support for git revision string
+    All done.
 '-(%25)-(patches)> git diff merge/master
 </pre>
 
@@ -206,7 +206,7 @@ h2. squash/cleanup patches
 
 <pre>
 '-(%25)-(patches)> git rebase -i origin/merge/master
-Successfully rebased and updated refs/heads/patches
+    Successfully rebased and updated refs/heads/patches
 </pre>
 
 
@@ -216,46 +216,46 @@ We assume that the linux-merge tree was already build with @make allnoconfig@ an
 
 <pre>
 '-(%25)-(patches)> git rev-list --reverse origin/merge/master..
-166b2caa61fce5260aed4e119671764331fdc62a
-5cd65234b12021fe1f28e28e455a6b6a06712ec2
-83d1bc8bb328bcfa42be492fe0e2648b77c18af2
-9e9605f0fe000f1097cb43271540ab2b76b2a782
-043aa9a54a5296c6027a5bcd808b8d29cea8a474
-f6d8baba5fce6161bc2cee9c97e0afbc139942c0
-a85d1b45e4cde0c882a41baaefeec0cd5502416f
+    166b2caa61fce5260aed4e119671764331fdc62a
+    5cd65234b12021fe1f28e28e455a6b6a06712ec2
+    83d1bc8bb328bcfa42be492fe0e2648b77c18af2
+    9e9605f0fe000f1097cb43271540ab2b76b2a782
+    043aa9a54a5296c6027a5bcd808b8d29cea8a474
+    f6d8baba5fce6161bc2cee9c97e0afbc139942c0
+    a85d1b45e4cde0c882a41baaefeec0cd5502416f
 '-(%25)-(patches)> cd net/batman-adv/
 '-(%25)-(patches)> git checkout 166b2caa61fce5260aed4e119671764331fdc62a
-Previous HEAD position was a85d1b4... batman-adv: Avoid rounding issues for local hna timeout
-HEAD is now at 166b2ca... batman-adv: Convert names from Java to C style
+    Previous HEAD position was a85d1b4... batman-adv: Avoid rounding issues for local hna timeout
+    HEAD is now at 166b2ca... batman-adv: Convert names from Java to C style
 '-(%25)-(166b2caa61fce5260aed4e119671764331fdc62a)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../../ M=`pwd`
 ...
 '-(%25)-(166b2caa61fce5260aed4e119671764331fdc62a)> git checkout 5cd65234b12021fe1f28e28e455a6b6a06712ec2
-Previous HEAD position was 166b2ca... batman-adv: Convert names from Java to C style
-HEAD is now at 5cd6523... batman-adv: Avoid rounding issues for local hna timeout
+    Previous HEAD position was 166b2ca... batman-adv: Convert names from Java to C style
+    HEAD is now at 5cd6523... batman-adv: Avoid rounding issues for local hna timeout
 '-(%25)-(83d1bc8bb328bcfa42be492fe0e2648b77c18af2)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../../ M=`pwd`
 ....
 '-(%25)-(83d1bc8bb328bcfa42be492fe0e2648b77c18af2)> git checkout 9e9605f0fe000f1097cb43271540ab2b76b2a782
-Previous HEAD position was 83d1bc8... batman-adv: Lower resolution for timeouts
-HEAD is now at 9e9605f... batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+    Previous HEAD position was 83d1bc8... batman-adv: Lower resolution for timeouts
+    HEAD is now at 9e9605f... batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
 '-(%25)-(9e9605f0fe000f1097cb43271540ab2b76b2a782)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../../ M=`pwd`
 ....
 '-(%25)-(9e9605f0fe000f1097cb43271540ab2b76b2a782)> git checkout 043aa9a54a5296c6027a5bcd808b8d29cea8a474
-Previous HEAD position was 9e9605f... batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
-HEAD is now at 043aa9a... batman-adv: Add sysfs abi documentation about bonding
+    Previous HEAD position was 9e9605f... batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+    HEAD is now at 043aa9a... batman-adv: Add sysfs abi documentation about bonding
 '-(%25)-(043aa9a54a5296c6027a5bcd808b8d29cea8a474)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../../ M=`pwd`
 ...
 '-(%25)-(043aa9a54a5296c6027a5bcd808b8d29cea8a474)> git checkout f6d8baba5fce6161bc2cee9c97e0afbc139942c0
-Previous HEAD position was 043aa9a... batman-adv: Add sysfs abi documentation about bonding
-HEAD is now at f6d8bab... batman-adv: adapting source version to revised versioning scheme
+    Previous HEAD position was 043aa9a... batman-adv: Add sysfs abi documentation about bonding
+    HEAD is now at f6d8bab... batman-adv: adapting source version to revised versioning scheme
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../../ M=`pwd`
 ...
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git checkout a85d1b45e4cde0c882a41baaefeec0cd5502416f
-Previous HEAD position was f6d8bab... batman-adv: adapting source version to revised versioning scheme
-HEAD is now at a85d1b4... batman-adv: Add include guards to all header files
+    Previous HEAD position was f6d8bab... batman-adv: adapting source version to revised versioning scheme
+    HEAD is now at a85d1b4... batman-adv: Add include guards to all header files
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> make CONFIG_BATMAN_ADV=m CC=cgcc -C ../../ M=`pwd`
 ...
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git checkout patches
-Switched to branch 'patches'
+    Switched to branch 'patches'
 '-(%25)-(patches)> cd ../../../
 </pre>
 
@@ -275,13 +275,13 @@ h2. format patches
 
 <pre>
 '-(%25)-(patches)> git format-patch --patience -s -M origin/merge/master
-0001-batman-adv-Convert-names-from-Java-to-C-style.patch
-0002-batman-adv-Avoid-rounding-issues-for-local-hna-timeo.patch
-0003-batman-adv-Lower-resolution-for-timeouts.patch
-0004-batman-adv-replace-manual-calculation-by-msecs_to_ji.patch
-0005-batman-adv-Add-sysfs-abi-documentation-about.patch
-0006-batman-adv-adapting-source-version-to-revised-versio.patch
-0007-batman-adv-Add-include-guards-to-all-header-files.patch
+    0001-batman-adv-Convert-names-from-Java-to-C-style.patch
+    0002-batman-adv-Avoid-rounding-issues-for-local-hna-timeo.patch
+    0003-batman-adv-Lower-resolution-for-timeouts.patch
+    0004-batman-adv-replace-manual-calculation-by-msecs_to_ji.patch
+    0005-batman-adv-Add-sysfs-abi-documentation-about.patch
+    0006-batman-adv-adapting-source-version-to-revised-versio.patch
+    0007-batman-adv-Add-include-guards-to-all-header-files.patch
 '-(%25)-(patches)> vim 00*.patch
 </pre>
 
@@ -293,27 +293,27 @@ h2. checkpatch patches
 
 <pre>
 '-(%25)-(patches)> ./scripts/checkpatch.pl --strict 00*.patch
-total: 0 errors, 0 warnings, 0 checks, 135 lines checked
-
-0001-batman-adv-Convert-names-from-Java-to-C-styl.patch has no obvious style problems and is ready for submission.
-total: 0 errors, 0 warnings, 0 checks, 8 lines checked
-
-0002-batman-adv-Avoid-rounding-issues-for-local-h.patch has no obvious style problems and is ready for submission.
-total: 0 errors, 0 warnings, 0 checks, 55 lines checked
-
-0003-batman-adv-Lower-resolution-for-timeouts.patch has no obvious style problems and is ready for submission.
-total: 0 errors, 0 warnings, 0 checks, 19 lines checked
-
-0004-batman-adv-replace-manual-calculation-by-mse.patch has no obvious style problems and is ready for submission.
-total: 0 errors, 0 warnings, 0 checks, 14 lines checked
-
-0005-batman-adv-Add-sysfs-abi-documentation-about.patch has no obvious style problems and is ready for submission.
-total: 0 errors, 0 warnings, 0 checks, 8 lines checked
-
-0006-batman-adv-adapting-source-version-to-revise.patch has no obvious style problems and is ready for submission.
-total: 0 errors, 0 warnings, 0 checks, 239 lines checked
-
-0007-batman-adv-Add-include-guards-to-all-header-.patch has no obvious style problems and is ready for submission.
+    total: 0 errors, 0 warnings, 0 checks, 135 lines checked
+    
+    0001-batman-adv-Convert-names-from-Java-to-C-styl.patch has no obvious style problems and is ready for submission.
+    total: 0 errors, 0 warnings, 0 checks, 8 lines checked
+    
+    0002-batman-adv-Avoid-rounding-issues-for-local-h.patch has no obvious style problems and is ready for submission.
+    total: 0 errors, 0 warnings, 0 checks, 55 lines checked
+    
+    0003-batman-adv-Lower-resolution-for-timeouts.patch has no obvious style problems and is ready for submission.
+    total: 0 errors, 0 warnings, 0 checks, 19 lines checked
+    
+    0004-batman-adv-replace-manual-calculation-by-mse.patch has no obvious style problems and is ready for submission.
+    total: 0 errors, 0 warnings, 0 checks, 14 lines checked
+    
+    0005-batman-adv-Add-sysfs-abi-documentation-about.patch has no obvious style problems and is ready for submission.
+    total: 0 errors, 0 warnings, 0 checks, 8 lines checked
+    
+    0006-batman-adv-adapting-source-version-to-revise.patch has no obvious style problems and is ready for submission.
+    total: 0 errors, 0 warnings, 0 checks, 239 lines checked
+    
+    0007-batman-adv-Add-include-guards-to-all-header-.patch has no obvious style problems and is ready for submission.
 </pre>
 
 
@@ -323,25 +323,25 @@ h2. submit patches
 <pre>
 '-(%25)-(patches)> git checkout batman-adv/next
 '-(%25)-(batman-adv/next)> git rev-parse batman-adv/next
-12513b76a021e5b41a9d5d5981da75dfd6480890
+    12513b76a021e5b41a9d5d5981da75dfd6480890
 '-(%25)-(batman-adv/next)> git am -3 00*.patch
-Applying: batman-adv: Convert names from Java to C style
-Applying: batman-adv: Avoid rounding issues for local hna timeout
-Applying: batman-adv: Lower resolution for timeouts
-Applying: batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
-Applying: batman-adv: Add sysfs abi documentation about bonding
-Applying: batman-adv: adapting source version to revised versioning scheme
-Applying: batman-adv: Add include guards to all header files
+    Applying: batman-adv: Convert names from Java to C style
+    Applying: batman-adv: Avoid rounding issues for local hna timeout
+    Applying: batman-adv: Lower resolution for timeouts
+    Applying: batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+    Applying: batman-adv: Add sysfs abi documentation about bonding
+    Applying: batman-adv: adapting source version to revised versioning scheme
+    Applying: batman-adv: Add include guards to all header files
 '-(%25)-(batman-adv/next)> git diff merge/master -- net/batman-adv/
 '-(%25)-(batman-adv/next)> git rebase net-next/master
-First, rewinding head to replay your work on top of it...
-Applying: batman-adv: Convert names from Java to C style
-Applying: batman-adv: Avoid rounding issues for local hna timeout
-Applying: batman-adv: Lower resolution for timeouts
-Applying: batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
-Applying: batman-adv: Add sysfs abi documentation about bonding
-Applying: batman-adv: adapting source version to revised versioning scheme
-Applying: batman-adv: Add include guards to all header files
+    First, rewinding head to replay your work on top of it...
+    Applying: batman-adv: Convert names from Java to C style
+    Applying: batman-adv: Avoid rounding issues for local hna timeout
+    Applying: batman-adv: Lower resolution for timeouts
+    Applying: batman-adv: replace manual calculation by msecs_to_jiffies() for better readability
+    Applying: batman-adv: Add sysfs abi documentation about bonding
+    Applying: batman-adv: adapting source version to revised versioning scheme
+    Applying: batman-adv: Add include guards to all header files
 '-(%25)-(batman-adv/next)> git push -f origin batman-adv/next
 '-(%25)-(batman-adv/next)> git push origin
 '-(%25)-(batman-adv/next)> git tag -d batman-adv-for-davem
