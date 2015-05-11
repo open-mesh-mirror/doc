@@ -6,15 +6,15 @@ We currently submit patches for Linux from our next branch. I try to give a shor
 Following steps must always be done:
 * get the linux-integration repository (we assume that the merge/master branch is up to date. The latest -rc1 must always be merged into merge/master, batman-adv/maint and batman-adv/next; The merge in batman-adv/maint and batman-adv/next must be a fast forward merge or somebody did something extremely wrong)
 * get the newest patches from next
-* merge standalone/next into merge/master
+* merge pkg/next into merge/master
 * check for compat code
-* check difference with standalone/next
+* check difference with pkg/next
 * rebase on top of previous version
 * rebase on top of net-next/master
 * squash/cleanup patches
 * check if all versions compile cleanly using sparse (cgcc)
 * format patches
-* check commit messages author/signed-off-by of patches (Cc: stable@kernel.org for important bugfixes for older kernel)
+* check commit messages author/signed-off-by of patches (Inform David about patches which have to send to stable@kernel.org by him)
 * Add "batman-adv: " before each commit subject
 * check if all patches are checkpatch.pl clean
 * submit patches
@@ -48,23 +48,21 @@ h2. get the newest patches from next
     Receiving objects: 100%25 (823/823), 136.90 KiB | 254 KiB/s, done.
     Resolving deltas: 100%25 (651/651), completed with 228 local objects.
     From git+ssh://open-mesh.org/marek/linux-merge
-       bfa88ea..151b6a5  standalone/master     -> origin/standalone/master
-       c9f7cbe..078eb6a  standalone/next       -> origin/standalone/next
+       bfa88ea..151b6a5  pkg/master     -> origin/pkg/master
+       c9f7cbe..078eb6a  pkg/next       -> origin/pkg/next
 </pre>
 
 
 h2. merge next into linux
 
-The git-merge.sh tool used below can be found in the git repo of git project :-) (https://github.com/git/git/blob/master/contrib/subtree/git-subtree.sh)
-
 <pre>
 '-(%25)-(xyz)> git checkout merge/master
     Checking out files: 100%25 (32337/32337), done.
     Switched to branch 'merge/master'
-'-(%25)-(merge/master)> ./git-subtree.sh merge --prefix=net/batman-adv pkg/next
+'-(%25)-(merge/master)> git merge pkg/next
     Auto-merging net/batman-adv/Makefile
     CONFLICT (content): Merge conflict in net/batman-adv/Makefile
-    CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in HEAD and modified in standalone/next. Version standalone/next of net/batman-adv/Makefile.kbuild left in tree.
+    CONFLICT (delete/modify): net/batman-adv/Makefile.kbuild deleted in HEAD and modified in pkg/next. Version pkg/next of net/batman-adv/Makefile.kbuild left in tree.
     CONFLICT (delete/modify): net/batman-adv/compat.h deleted in HEAD and modified in next. Version next of net/batman-adv/compat.h left in tree.
     Auto-merging net/batman-adv/main.c
     Auto-merging net/batman-adv/originator.c
@@ -73,55 +71,34 @@ The git-merge.sh tool used below can be found in the git repo of git project :-)
     Auto-merging net/batman-adv/soft-interface.c
     Auto-merging net/batman-adv/translation-table.c
     Auto-merging net/batman-adv/vis.c
+    ...
     Automatic merge failed; fix conflicts and then commit the result.
-'-(%25)-(merge/master)> git rm net/batman-adv/Makefile.kbuild net/batman-adv/compat.h
-    net/batman-adv/Makefile: needs merge
-    net/batman-adv/Makefile.kbuild: needs merge
-    net/batman-adv/compat.h: needs merge
-    rm 'net/batman-adv/Makefile.kbuild'
-    rm 'net/batman-adv/compat.h'
+'-(%25)-(merge/master)> git rm -rf CHANGELOG README.external compat.h compat-include/ gen-compat-autoconf.sh
+    CHANGELOG: needs merge
+    README.external: needs merge
+    compat.h: needs merge
+    rm 'CHANGELOG'
+    rm 'README.external'
+    ...
 '-(%25)-(merge/master)> vim net/batman-adv/Makefile
+'-(%25)-(merge/master)> git checkout merge/master Makefile README
 '-(%25)-(merge/master)> git add net/batman-adv/Makefile
 '-(%25)-(merge/master)> git commit
     [linux f2204f0] Merge remote branch 'pkg/next' into merge/master
 </pre>
 
-All changes to the the sysfs-class-net-* files can't be automatically merged because they reside in a different subfolder. As a consequence the new version has to be manually copied from a local git tree to 'Documentation/ABI/testing/'. The README file also requires manually handling: All relevant in-kernel changes have to be merged into 'Documentation/networking/batman-adv.txt' whereas out-of-kernel information has be stripped out.
-
-
-h2. check for compat code
-
-
-<pre>
-'-(%25)-(merge/master)> git grep compat. net/batman-adv/
-</pre>
-
-
 h2. check difference with next
 
 
 <pre>
-git diff pkg/next: merge/master:net/batman-adv/
+git diff pkg/next merge/master -- net/batman-adv/
 </pre>
-
-Here you should see the
-* Removed CHANGELOG
-* new added Kconfig
-* A special Makefile which only contains obj-$(CONFIG_BATMAN_ADV) and many batman-adv-y lines
-* removed Makefile.kbuild, README, README.external, compat.c, compat.h, gen-compat-autoconf.sh
-* removed references to compat.h from main.h
-* (Re)Moved sysfs-class-net-batman-adv and sysfs-class-net-mesh
-
-
 
 h2. rebase on top of previous subtree merge/-rc1 merge 
 
-Since git is not able to properly guess the path where the merge has to be done anymore, the rebase command has been slightly changed to use a more advanced form of subtree strategy.
-With this new strategy, the path of the subtree can be manually specified.
-
 <pre>
 '-(%25)-(merge/master)> git checkout -b patches
-'-(%25)-(patches)> git rebase -s recursive -X subtree=net/batman-adv origin/merge/master
+'-(%25)-(patches)> git rebase origin/merge/master
     First, rewinding head to replay your work on top of it...
     Auto-merging net/batman-adv/main.c
     Auto-merging net/batman-adv/routing.c
@@ -165,7 +142,7 @@ With this new strategy, the path of the subtree can be manually specified.
     To restore the original branch and stop rebasing run "git rebase --abort".
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> vim net/batman-adv/Makefile
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git add net/batman-adv/Makefile
-'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rebase -s subtree --continue
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rebase --continue
     Already applied: 0007 batman-adv: Use nproc to get number of available processors
     CONFLICT (delete/modify): net/batman-adv/compat.h deleted in origin/merge/master and modified in HEAD~1. Version HEAD~1 of net/batman-adv/compat.h left in tree.
     
@@ -175,7 +152,7 @@ With this new strategy, the path of the subtree can be manually specified.
 '-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rm net/batman-adv/compat.h
     net/batman-adv/compat.h: needs merge
     rm 'net/batman-adv/compat.h'
-'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rebase -s subtree --continue
+'-(%25)-(f6d8baba5fce6161bc2cee9c97e0afbc139942c0)> git rebase --continue
     [detached HEAD a85d1b4] batman-adv: Add include guards to all header files
      17 files changed, 78 insertions(+), 12 deletions(-)
     Committed: 0008 batman-adv: Add include guards to all header files
@@ -192,7 +169,7 @@ With this new strategy, the path of the subtree can be manually specified.
     rm 'net/batman-adv/Makefile.kbuild'
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> vim net/batman-adv/Makefile
 '-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git add net/batman-adv/Makefile
-'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git rebase -s subtree --continue
+'-(%25)-(a85d1b45e4cde0c882a41baaefeec0cd5502416f)> git rebase --continue
     Already applied: 0009 batman-adv: Add support for git revision string
     All done.
 '-(%25)-(patches)> git diff merge/master
@@ -263,7 +240,7 @@ We assume that the linux-merge tree was already build with @make allnoconfig@ an
 
 h2. check if all patches build cleanly
 
-It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+/-MODULES@,@+INET@) as module/builtin and allyesconfig as module/builtin
+It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+CRC32C@,@+/-MODULES@,@+INET@) as module/builtin and allyesconfig as module/builtin
 
 <pre>
 '-(%25)-(patches)> make
@@ -274,7 +251,7 @@ h2. format patches
 
 
 <pre>
-'-(%25)-(patches)> git format-patch --patience -s -M origin/merge/master
+'-(%25)-(patches)> git format-patch --histogram -s -M origin/merge/master
     0001-batman-adv-Convert-names-from-Java-to-C-style.patch
     0002-batman-adv-Avoid-rounding-issues-for-local-hna-timeo.patch
     0003-batman-adv-Lower-resolution-for-timeouts.patch
@@ -348,7 +325,7 @@ h2. submit patches
 '-(%25)-(batman-adv/next)> git push origin :batman-adv-for-davem
 '-(%25)-(batman-adv/next)> git tag -s batman-adv-for-davem
 '-(%25)-(batman-adv/next)> git push origin batman-adv-for-davem
-'-(%25)-(batman-adv/next)> git format-patch -s -M --patience net-next/master..batman-adv-for-davem
+'-(%25)-(batman-adv/next)> git format-patch -s -M --histogram net-next/master..batman-adv-for-davem
 '-(%25)-(batman-adv/next)> git request-pull net-next/master git://git.open-mesh.org/linux-merge.git batman-adv-for-davem > shortlog
 '-(%25)-(batman-adv/next)> git send-email --compose --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
