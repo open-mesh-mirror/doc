@@ -189,7 +189,7 @@ h2. squash/cleanup patches
 
 h2. check if all patches compile cleanly against our linux tree with sparse (cgcc) 
 
-We assume that the linux-merge tree was already build with @make allnoconfig@ and then enabling @CONFIG_NET=y@, @CONFIG_MODULES=y@  and @CONFIG_CRC16=y@ (enable CONFIG_INET=y if you want to compile also DAT or BLA)
+We assume that the linux-merge tree was already build with @make allnoconfig@ and then enabling @CONFIG_NET=y@, @CONFIG_MODULES=y@, @CONFIG_LIBCRC32C=y@  and @CONFIG_CRC16=y@ (enable CONFIG_INET=y if you want to compile also DAT or BLA)
 
 <pre>
 '-(%25)-(patches)> git rev-list --reverse origin/merge/master..
@@ -240,7 +240,7 @@ We assume that the linux-merge tree was already build with @make allnoconfig@ an
 
 h2. check if all patches build cleanly
 
-It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+CRC32C@,@+/-MODULES@,@+INET@) as module/builtin and allyesconfig as module/builtin
+It must be checked whether it builds with allnoconfig (@+NET@,@+CRC16@,@+LIBCRC32C=y,@+/-MODULES@,@+INET@) as module/builtin and allyesconfig as module/builtin
 
 <pre>
 '-(%25)-(patches)> make
