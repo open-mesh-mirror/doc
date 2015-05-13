@@ -293,7 +293,6 @@ h2. checkpatch patches
     0007-batman-adv-Add-include-guards-to-all-header-.patch has no obvious style problems and is ready for submission.
 </pre>
 
-
 h2. submit patches
 
 
@@ -333,84 +332,103 @@ h2. submit patches
 Now I will write something like
 
 <pre>
-From Sven Eckelmann <sven@narfation.org> # This line is ignored.
+From Antonio Quartulli <antonio@meshcoding.com> # This line is ignored.
 GIT: Lines beginning in "GIT:" will be removed.
 GIT: Consider including an overall diffstat or table of contents
 GIT: for the patch you are writing.
 GIT:
 GIT: Clear the body content if you don't wish to send a summary.
-From: Sven Eckelmann <sven@narfation.org>
+From: Antonio Quartulli <antonio@meshcoding.com>
 Subject: pull request: batman-adv 2011-06-20
 In-Reply-To:
 
-Hi,
+Hello David,
 
-I would like to propose following changes for net-next/3.1. The
-first part (1-4) are only only small cleanup patches. The last 8 patches
-are related to Antonio Quartulli's research "Client announcement and
-Fast roaming in a Layer-2 mesh network". The technical report isn't
-published yet, but will hopefully follow soon. He tried to document all
-important parts in some (unofficial) documents [1,2,3].
+this is a batch of patches intended for net-next.
 
-thanks,
-        Sven
+In this patchset you have mostly cleanups and small corrections to issues
+reported by checkpatch.
 
-[1] http://www.open-mesh.org/wiki/batman-adv/Client-announcement
-[2] http://www.open-mesh.org/wiki/batman-adv/Client-roaming
-[3] http://www.open-mesh.org/wiki/batman-adv/Uevent
+One notable change is the addition of the DEBUG_FS dependency to the
+BATMAN_ADV_DEBUG symbol by Markus Pargmann. We add this dependency because all
+the information provided by the DEBUG feature is accessible only through
+debugfs.
 
 
-The following changes since commit ecbd532108cb21d9d3770f73e168bad65d14d9eb:
+Please pull or let me know of any problem!
 
-  batman-adv: use NO_FLAGS define instead of hard-coding 0 (2011-06-09 20:40:38 +0200)
+Thanks a lot,
+	Antonio
+
+
+
+The following changes since commit 44d84d7272e5848878a96029b8a8b6e86854f146:
+
+  Merge git://git.kernel.org/pub/scm/linux/kernel/git/davem/net (2015-01-06 22:29:20 -0500)
 
 are available in the git repository at:
-  git://git.open-mesh.org/ecsv/linux-merge.git batman-adv/next
 
-Antonio Quartulli (8):
-      batman-adv: Unify the first 3 bytes in each packet
-      batman-adv: improved client announcement mechanism
-      batman-adv: improved roaming mechanism
-      batman-adv: protect the local and the global trans-tables with rcu
-      batman-adv: add wrapper function to throw uevent in userspace
-      batman-adv: gateway election code refactoring
-      batman-adv: throw uevent in userspace on gateway add/change/del event
-      batman-adv: improved gateway tq-based selection
+  git://git.open-mesh.org/linux-merge.git tags/batman-adv-for-davem
 
-David Howells (1):
-      batman-adv: count_real_packets() in batman-adv assumes char is signed
+for you to fetch changes up to 9535395640edb23ba5cec2abb026c4ee51899722:
 
-Sven Eckelmann (3):
-      batman-adv: Move compare_orig to originator.c
-      batman-adv: Keep interface_tx as local function
-      batman-adv: Reduce usage of char
+  batman-adv: Kconfig, Add missing DEBUG_FS dependency (2015-01-07 22:17:11 +0100)
 
- net/batman-adv/Kconfig             |    1 +
- net/batman-adv/aggregation.c       |   25 +-
- net/batman-adv/aggregation.h       |    8 +-
- net/batman-adv/bat_sysfs.c         |   73 ++-
- net/batman-adv/bat_sysfs.h         |    2 +
- net/batman-adv/bitarray.c          |    8 +-
- net/batman-adv/bitarray.h          |    8 +-
- net/batman-adv/gateway_client.c    |  238 +++++--
- net/batman-adv/gateway_client.h    |    3 +-
- net/batman-adv/gateway_common.c    |    6 +-
- net/batman-adv/hard-interface.c    |   17 +-
- net/batman-adv/main.c              |   18 +-
- net/batman-adv/main.h              |   27 +-
- net/batman-adv/originator.c        |   17 +-
- net/batman-adv/originator.h        |    8 -
- net/batman-adv/packet.h            |   92 ++-
- net/batman-adv/routing.c           |  317 +++++++--
- net/batman-adv/routing.h           |    7 +-
- net/batman-adv/send.c              |   92 ++-
- net/batman-adv/send.h              |    2 +-
- net/batman-adv/soft-interface.c    |   26 +-
- net/batman-adv/soft-interface.h    |    1 -
- net/batman-adv/translation-table.c | 1428 ++++++++++++++++++++++++++++++------
- net/batman-adv/translation-table.h |   38 +-
- net/batman-adv/types.h             |   64 ++-
- net/batman-adv/unicast.c           |    3 +
- net/batman-adv/vis.c               |   13 +-
- 27 files changed, 2080 insertions(+), 462 deletions(-)
+----------------------------------------------------------------
+Included changes:
+- remove useless return in void functions
+- remove unused member 'primary_iface' from 'struct orig_node'
+- improve existing kernel doc
+- fix several checkpatch complaints
+- ensure socket's control block is cleared for received skbs
+- add missing DEBUG_FS dependency to BATMAN_ADV_DEBUG symbol
+
+----------------------------------------------------------------
+Antonio Quartulli (7):
+      batman-adv: avoid useless return in void functions
+      batman-adv: checkpatch - else is not generally useful after a break or return
+      batman-adv: checkpatch - No space is necessary after a cast
+      batman-adv: checkpatch - Please use a blank line after declarations
+      batman-adv: checkpatch - Please don't use multiple blank lines
+      batman-adv: checkpatch - remove unnecessary parentheses
+      batman-adv: fix misspelled words
+
+Markus Pargmann (1):
+      batman-adv: Kconfig, Add missing DEBUG_FS dependency
+
+Martin Hundebøll (5):
+      batman-adv: kernel doc fixes for bat_iv_ogm.c
+      batman-adv: kernel doc fixes for bridge_loop_avoidance.c
+      batman-adv: kernel doc fix for distributed-arp-table.h
+      batman-adv: kernel doc fixes for main.{c, h}
+      batman-adv: clear control block of received socket buffers
+
+Simon Wunderlich (2):
+      batman-adv: remove obsolete variable primary_iface from orig_node
+      batman-adv: Start new development cycle
+
+ net/batman-adv/Kconfig                 |  1 +
+ net/batman-adv/bat_iv_ogm.c            | 15 +++++++--------
+ net/batman-adv/bitarray.c              |  1 -
+ net/batman-adv/bitarray.h              |  3 +--
+ net/batman-adv/bridge_loop_avoidance.c | 17 +++++++----------
+ net/batman-adv/debugfs.c               |  2 +-
+ net/batman-adv/distributed-arp-table.c |  1 +
+ net/batman-adv/distributed-arp-table.h |  4 +---
+ net/batman-adv/fragmentation.c         |  1 -
+ net/batman-adv/fragmentation.h         |  3 +--
+ net/batman-adv/gateway_client.c        |  1 +
+ net/batman-adv/main.c                  | 10 ++++++----
+ net/batman-adv/main.h                  | 15 +++++++--------
+ net/batman-adv/multicast.h             |  3 ---
+ net/batman-adv/network-coding.c        |  3 +--
+ net/batman-adv/originator.c            |  1 -
+ net/batman-adv/originator.h            |  1 -
+ net/batman-adv/packet.h                |  5 +++--
+ net/batman-adv/routing.c               |  3 +--
+ net/batman-adv/soft-interface.c        |  1 -
+ net/batman-adv/sysfs.c                 |  1 -
+ net/batman-adv/translation-table.c     |  8 +++-----
+ net/batman-adv/types.h                 |  4 +---
+ 23 files changed, 43 insertions(+), 61 deletions(-)
 </pre>
