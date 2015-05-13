@@ -23,7 +23,8 @@ h2. Usage
 
 Usage: ./joker -i <interface> [other options]
 
-h3. GENERAL OPTIONS:
+h3. General options
+
 -i <interface>
    Select the Interface that is connected to the BATMAN network
 -m <mac-addr>
@@ -40,7 +41,8 @@ h3. GENERAL OPTIONS:
    (Flood) Use STA flooding instead of route flooding
    (Fuzz) If given a mutation-based fuzzing is executed (otherwise random packets)
 
-h3. PENETRATION TESTS:
+h3. Penetration tests:
+
 -f
    Starts a Flooding penetration test. First a fake node is announced in the network, and after 30 seconds,
    huge amounts of random Routes and HNAs via this node are published.
