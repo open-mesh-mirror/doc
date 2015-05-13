@@ -83,10 +83,13 @@ h3. Penetration tests:
    Either run a standard fuzzing, where joker collects Target addresses for -t seconds,
    Or run a mutation-based fuzzing test using incoming packets with -v
 
-h2.  RUN
+h2.  Run
 
+<pre>
 make
 ./joker
+</pre>
+
 
 h2. Tests 
 
