@@ -105,10 +105,12 @@ Sometimes the malformed packets are spread through the entire network, leading t
 The B.A.T.M.A.N. protocol implementation seems not to be affected by any of the randomly modified and malformed packets of The Joker's Fuzzing.
 
 h3.  Conclusion
+
 This work builds a base for further research to improve the resilience of routing protocols.
 Since B.A.T.M.A.N. has a limitation for maximum routing information, it showed a very good performance and stable connections while executing the Flooding tests.
 Blackhole and Loop Forming broke the connections in our test, but related to all three penetration test vectors B.A.T.M.A.N. recovered fast from the impact.
 
 h2. Authors
+
 pedro.larbig@seemoo.tu-darmstadt.de
 alex.oberle@seemoo.tu-darmstadt.de
