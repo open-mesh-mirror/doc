@@ -44,3 +44,4 @@ h2. Papers:
 * "mesh performance analysis with B.A.T.M.A.N.":http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf
 * "BATMAN Advanced / AODV performance comparison in a real testbed":http://www.kom.tu-darmstadt.de/en/publications/publications-details/publications/SKH11-1/
 * "Energy aware routing survey in WMNs and a proposal for BATMAN-adv":http://downloads.open-mesh.org/batman/papers/WMNs%2520protocols%2520survey%2520and%2520a%2520real%2520scenario%2520with%2520BATMAN-adv.pdf (Italian language)
+* "Distribution of location data in Wireless Mesh Networks":Positionsdaten_in_Wireless_Mesh_Networks (German language)
