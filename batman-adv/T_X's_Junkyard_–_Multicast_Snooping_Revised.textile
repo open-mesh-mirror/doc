@@ -98,4 +98,4 @@ For instance: IEEE 802.11 wifi interfaces in access-point mode -> Treat STAs lik
 
 Generic network interfaces: Even they may refrain from transmitting multicast traffic scheduled by the IP stack after having performed multicast snooping on the link.
 
-h3. Notes on Switch-internal Queriersa
+h3. Notes on Switch-internal Queriers
