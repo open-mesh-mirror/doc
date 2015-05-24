@@ -1,4 +1,4 @@
-*WARNING:* Just some rough scribblings follow below.
+*WARNING:* Just some rough scribblings follow below. Some thoughts on how RFC4541 could be revised.
 
 -----
 
@@ -67,6 +67,10 @@ When a bridge port gets added and up repeat the last received multicast query of
 
 (TODO: Or send a query with our own address on that specific port? RFC4541 says something about )
 
+h4. Query Z-Flag: RFC4541 Multicast Router List Suppression
+
+The fourth bit of the IGMP/MLD query message reserved field is declared as the Z-flag. A snooping switch as described in this document which participates as a querier MUST set the Z-flag when transmitting its query.
+
 h4. No Querier Present
 
 Flood any multicast traffic if no querier is present.
@@ -75,20 +79,13 @@ h4. VLANs
 
 Either always flood VLAN tagged multicast traffic. Or keep separate databases and state for each discovered VLAN.
 
-h3. Optional Optimizations
+h3. Compatibility Measures with RFC4541
 
-h4. IGMP/MLD Domain segmentation (IGMP/MLD proxying)
+If an IGMP or MLD query which has the new Z-flag unset is received on a port then this port must be added to the router list of that port.
 
+h3. Compatibility Measures with Multicast Routers Incapable of MRD
 
-h3. TODO: Measures for Compatibility with RFC4541?
-
-Maybe convert an IN'(Query-"tainted")' to an OUT'(MLDv2 Query + MRD)'? A tainted query would be one which got through an RFC4541 snooping switch - is there a way to detect such a switch?
-
-(Maybe send ICMPv6 echo requests to ff02::1 and calculate solicited multicast addresses form source addresses of the replies, compare with received reports? Or send queries with an address one lower than the one from the selected querier on that port every 10min.?)
-
-Or convert any IN'(Query)' to an OUT'(MLDv2 Query + MRD-RA)' - nah, still stupid for cases with multiple snooping switches... Or do this conversion and require any query transmitted/forwarded by a snooping switch implemented as specified in this document to set a certain flag in the query? Set the "Code" field of a query to 1 for instance (though this would still leave many "false positives" and Multicast Router Advertisements...)?
-
-Or simply consider the manual "multicast router" switch of a bridge port as a compatibility measure?
+If multicast routers incapable of MRD are present on a port then the "multicast router" switch should be manually enabled on that port.
 
 h3. Notes on Devices Similar to Switches
 
@@ -98,4 +95,12 @@ For instance: IEEE 802.11 wifi interfaces in access-point mode -> Treat STAs lik
 
 Generic network interfaces: Even they may refrain from transmitting multicast traffic scheduled by the IP stack after having performed multicast snooping on the link.
 
-h3. Notes on Switch-internal Queriers
+h3. Switch-internal Queriers
+
+A switch implementing the multicast querier process must set the new Z-flag in its own query messages and must provide a way to manually disable the participation as a querier.
+
+TODO - more details
+
+h3. TODO: Further detangle link-local and routable multicast traffic
+
+Multicast routers should only receive routable multicast traffic. Queries from multicast routers are still indistinguishable from queries from RFC4541 snooping switches. So if a multicast router were becoming the selected querier then it would receive link-local multicast traffic too. TODO: How to prevent that?
