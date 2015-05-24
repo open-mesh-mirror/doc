@@ -86,14 +86,16 @@ Maybe convert an IN'(Query-"tainted")' to an OUT'(MLDv2 Query + MRD)'? A tainted
 
 (Maybe send ICMPv6 echo requests to ff02::1 and calculate solicited multicast addresses form source addresses of the replies, compare with received reports? Or send queries with an address one lower than the one from the selected querier on that port every 10min.?)
 
+Or convert any IN'(Query)' to an OUT'(MLDv2 Query + MRD-RA)' - nah, still stupid for cases with multiple snooping switches... Or do this conversion and require any query transmitted/forwarded by a snooping switch implemented as specified in this document to set a certain flag in the query? Set the "Code" field of a query to 1 for instance (though this would still leave many "false positives" and Multicast Router Advertisements...)?
+
 Or simply consider the manual "multicast router" switch of a bridge port as a compatibility measure?
 
-Or convert any IN'(Query)' to an OUT'(MLDv2 Query + MRD)' - nah, still stupid for cases with multiple snooping switches... Or do this conversion and require any query transmitted/forwarded by a snooping switch implemented as specified in this document to set a certain flag in the query? Set the "Code" field of a query to 1 for instance?
-
-h4. Notes on Devices Similar to Switches
+h3. Notes on Devices Similar to Switches
 
 Devices, which similar to switches might profit from snooping capabilities.
 
 For instance: IEEE 802.11 wifi interfaces in access-point mode -> Treat STAs like a bridge port each.
 
 Generic network interfaces: Even they may refrain from transmitting multicast traffic scheduled by the IP stack after having performed multicast snooping on the link.
+
+h3. Notes on Switch-internal Queriersa
