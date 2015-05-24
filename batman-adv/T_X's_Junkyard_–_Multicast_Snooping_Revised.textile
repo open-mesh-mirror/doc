@@ -1,0 +1,95 @@
+Ressources:
+
+* http://tools.ietf.org/rfc/rfc4541.txt
+* http://www.open-mesh.org/projects/batman-adv/wiki/Multicast-optimizations-listener-reports
+* http://www.open-mesh.org/projects/batman-adv/wiki/Multicast-optimizations-flags
+
+h1. Multicast Snooping Revised
+
+h2. Abstract
+
+Multicast snooping on the link layer is tough. IGMPv1/v2 and MLDv1 did not have something like multicast snooping on their radar. Especially their report suppression mechanism makes multicast snooping difficult.
+
+Currently there is RFC4541 which at least specifies a way on how a switch can perform multicast snooping without breaking networking protocols. Unfortunately, RFC4541 has one major drawback:
+
+It assumes a querier always wants all multicast traffic, the RFC does not make a clean distinction between layer 3 multicast routers and snooping switches in that regard. Even if you do not have a layer 3 multicast router in your network and simply want to use multicast on the link layer together with multicast snooping, you will need at least one querier which will receive any multicast traffic.
+
+The querier is selected by the lowest IP address. Unfortunately and especially in a decentral and dynamic mesh network the host with the lowest IP address might not be in a good spot within network - maybe it is a device behind a bad wifi link with frequent disturbances from cheap microwaves. Also, having one specific root/sink for all multicast traffic is not really decentral.
+
+
+Even in setups with a multicast router, link layer multicast traffic will unnecessarily be forwarded to the multicast router.
+
+This document tries to describe an alternative approach.
+
+h3. Requirements and Changes Compared to RFC4541
+
+h4. Handling of Multicast Reports
+
+Instead of forwarding incoming IGMPv1/IGMPv2/MLDv1 reports towards the querier and routers discovered by MRD, convert them to IGMPv3/MLDv2 reports first.
+
+Then either flood IGMPv3/MLDv2 reports, both original or converted ones, to the adjacent switch ports. Or flood them on ports with a listener to ff02::16 for IPv6 or 224.0.0.22 for IPv4 only.
+
+h4. Handling of Multicast Queries
+
+Similar to reports, convert them to IGMPv3/MLDv2 queries.
+
+(TODO: Check whether we might need to convert IGMPv3/MLDv2 reports back to IGMPv2/MLDv1 when forwarding them on a port behind which an IGMPv1/v2 or MLDv1 querier resides)
+
+h4. Join ff02::16 and 224.0.0.22
+
+Perform the IGMPv3/MLDv2 protocol for joining ff02::16 and 224.0.0.22 to signalize that we, the snooping switch, need to receive multicast reports.
+
+h4. No "::" Source Address for Query Messages
+
+MLD requires multicast listeners to consider query messages with such a source address as broken - they will not respond. Explicitly forbid sending queries with a "::" source address as it seems to be a common misconception that a switch may use it. If a snooping switch is not able to obtain a link-local source address then multicast snooping must be disabled.
+
+In other words, require a snooping switch to be capable of performing the IPv6 protocol for obtaining a link-local address.
+
+(TODO: What about IPv4? Should 0.0.0.0 OK there? Or allow/suggest "fe80::"/00:00:00:00:00:00 as the query source address without the IPv6 procedure for link-local multicast? Or even suggest 0.0.0.0/fe80::/00:00:00:00:00:00 as with this document this will not imply becoming the root/sink for all multicast traffic anymore?)
+
+h4. Multicast Data Handling
+
+Always flood ff02::1 / 224.0.0.0/24. Forward any other link-local multicast traffic to multicast listeners on the link only.
+
+Forward multicast traffic of scope greater than link-local on ports with according multicast listeners and on ports with multicast router discovered via MRD.
+
+h4. Require MRD as the way to discover multicast routers
+
+RFC4541 says that the list of routers can be constructed in three ways. Scratch queries from the list, only discover them via MRD and explicitly configured ports. And make it a "MUST", not "can".
+
+h4. Adding Bridge Ports
+
+When a bridge port gets added and up repeat the last received multicast query of the selected multicast querier.
+
+(TODO: Or send a query with our own address on that specific port? RFC4541 says something about )
+
+h4. No Querier Present
+
+Flood any multicast traffic if no querier is present.
+
+h4. VLANs
+
+Either always flood VLAN tagged multicast traffic. Or keep separate databases and state for each discovered VLAN.
+
+h3. Optional Optimizations
+
+h4. IGMP/MLD Domain segmentation (IGMP/MLD proxying)
+
+
+h3. TODO: Measures for Compatibility with RFC4541?
+
+Maybe convert an IN'(Query-"tainted")' to an OUT'(MLDv2 Query + MRD)'? A tainted query would be one which got through an RFC4541 snooping switch - is there a way to detect such a switch?
+
+(Maybe send ICMPv6 echo requests to ff02::1 and calculate solicited multicast addresses form source addresses of the replies, compare with received reports? Or send queries with an address one lower than the one from the selected querier on that port every 10min.?)
+
+Or simply consider the manual "multicast router" switch of a bridge port as a compatibility measure?
+
+Or convert any IN'(Query)' to an OUT'(MLDv2 Query + MRD)' - nah, still stupid for cases with multiple snooping switches... Or do this conversion and require any query transmitted/forwarded by a snooping switch implemented as specified in this document to set a certain flag in the query? Set the "Code" field of a query to 1 for instance?
+
+h4. Notes on Devices Similar to Switches
+
+Devices, which similar to switches might profit from snooping capabilities.
+
+For instance: IEEE 802.11 wifi interfaces in access-point mode -> Treat STAs like a bridge port each.
+
+Generic network interfaces: Even they may refrain from transmitting multicast traffic scheduled by the IP stack after having performed multicast snooping on the link.
