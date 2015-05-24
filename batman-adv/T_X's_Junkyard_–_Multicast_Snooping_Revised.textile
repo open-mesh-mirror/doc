@@ -1,3 +1,7 @@
+*WARNING:* Just some rough scribblings follow below.
+
+-----
+
 Ressources:
 
 * http://tools.ietf.org/rfc/rfc4541.txt
