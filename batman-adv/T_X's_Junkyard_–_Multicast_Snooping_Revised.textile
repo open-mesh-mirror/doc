@@ -22,7 +22,7 @@ h3. RFC4541 Drawbacks
 
 _Multicast Traffic to Selected Querier:_
 
-RFC4541 makes the assumption that the selected querier is a multicast router. Many snooping switches implement the querier protocol, too though (generally for valid reasons as without a querier snooping is not possible). However if a snooping switch becomes the selected querier then it will receive all multicast traffic too even if it is neither interested in it as a multicast listener or as a multicast router.
+RFC4541 makes the assumption that the selected querier is a multicast router. Many snooping switches implement the querier protocol, too though (generally for valid reasons as without a querier snooping is not possible). However if a snooping switch becomes the selected querier then it will receive all multicast traffic too even if it is neither interested in it as a multicast listener nor as a multicast router.
 
 _Unpredictable Traffic Flow through Querier Election:_
 
@@ -37,7 +37,6 @@ Furthermore RFC4541 does not distinguish between link-local and routable multica
 This document tries to describe an alternative approach to RFC4541. The main concept is to translate IGMPv1/v2 and MLDv1 reports to IGMPv3 and MLDv2 reports before forwarding them - instead of altering and limiting the forwarding path of reports. Furthermore it does not make any assumptions about the interest of multicast traffic of the selected querier and requires MRD instead.
 
 With these two approaches the short comings mentioned above are addressed.
-
 
 h3. Requirements and Changes Compared to RFC4541
 
