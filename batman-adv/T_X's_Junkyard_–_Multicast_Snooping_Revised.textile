@@ -12,7 +12,7 @@ h1. Multicast Snooping Revised
 
 h2. Abstract
 
-The idea of multicast snooping is to reduce multicast overhead in large broadcast domains: Intelligent intermediaries like switches are supposed to learn about potential recipients, e.g. multicast listeners and multicast routers, by sniffing and parsing IGMP/MLD and Multicast Router Discovery messages. And can then forward multicast data packets to the potential recipients they previously learned about only.
+The idea of multicast snooping is to reduce multicast overhead in large broadcast domains: Intermediaries like switches are supposed to learn about potential recipients, i.e. multicast listeners and multicast routers, by sniffing and parsing IGMP/MLD and Multicast Router Discovery messages. And can then forward multicast data packets to the potential recipients they previously learned about only.
 
 Multicast snooping on the link layer is tough though: IGMPv1/v2 and MLDv1 did not have something like multicast snooping on their radar. Especially their report suppression mechanism makes multicast snooping difficult.
 
@@ -22,7 +22,7 @@ h3. RFC4541 Drawbacks
 
 _Multicast Traffic to Selected Querier:_
 
-RFC4541 makes the assumption that the selected querier is a multicast router. Many snooping switches implement the querier protocol, too though (generally for valid reasons as without a querier snooping is not possible). However if a snooping switch becomes the selected querier then it will receive all multicast traffic too even if it is neither interested in it as a multicast listener nor as a multicast router.
+RFC4541 makes the assumption that the selected querier is a multicast router. Many snooping switches implement the querier protocol, too though (in general for valid reasons as without a querier multicast snooping is not possible). However if a snooping switch becomes the selected querier then it will receive all multicast traffic too even if it is neither interested in it as a multicast listener nor as a multicast router.
 
 _Unpredictable Traffic Flow through Querier Election:_
 
@@ -34,41 +34,39 @@ Furthermore RFC4541 does not distinguish between link-local and routable multica
 
 ----
 
-This document tries to describe an alternative approach to RFC4541. The main concept is to translate IGMPv1/v2 and MLDv1 reports to IGMPv3 and MLDv2 reports before forwarding them - instead of altering and limiting the forwarding path of reports. Furthermore it does not make any assumptions about the interest of multicast traffic of the selected querier and requires MRD instead.
+This document tries to describe an alternative approach to RFC4541. The main concept is to translate IGMPv1/v2 and MLDv1 messages to IGMPv3 and MLDv2 messages before forwarding them - instead of altering and limiting the forwarding path of reports. Furthermore it does not make any assumptions about the interest of multicast traffic of the selected querier and requires MRD instead.
 
 With these two approaches the short comings mentioned above are addressed.
 
 h3. Requirements and Changes Compared to RFC4541
 
-h4. Handling of Multicast Reports
-
-Instead of forwarding incoming IGMPv1/IGMPv2/MLDv1 reports towards the querier and routers discovered by MRD, convert them to IGMPv3/MLDv2 reports first.
-
-Then either flood IGMPv3/MLDv2 reports, both original or converted ones, to the adjacent switch ports. Or flood them on ports with a listener to ff02::16 for IPv6 or 224.0.0.22 for IPv4 only.
-
 h4. Handling of Multicast Queries
 
-Similar to reports, convert them to IGMPv3/MLDv2 queries.
+Incoming IGMPv1/v2 and MLDv1 queries from the selected querier need to be converted to IGMPv3 and MLDv2 queries.
 
-(TODO: Check whether we might need to convert IGMPv3/MLDv2 reports back to IGMPv2/MLDv1 when forwarding them on a port behind which an IGMPv1/v2 or MLDv1 querier resides)
+Then flood any IGMPv3/MLDv2 query from the selected querier, both original or converted ones, to the adjacent switch ports.
+
+If an IGMPv1/v2 or MLDv1 query was received from the selected querier then mark the according port as "legacy IGMP querier present" or "legacy MLD querier present".
+
+h4. Handling of Multicast Reports
+
+If a port marked as "legacy IGMP querier present" or "legacy MLD querier present" exists then do the following for the according protocol(s):
+
+Forward an incoming report towards the selected querier as IGMPv2 or MLDv1 respectively. For any port other then the querier or incoming port, forward it as an IGMPv3 or MLDv2 report respectively.
+
+Otherwise forward an incoming report towards all ports other than the incoming one as an IGMPv3 or MLDv2 report respectively.
+
+Instead of forwarding reports to all adjacent ports we MAY forward them to ports with a listener to ff02::16 for IPv6 or 224.0.0.22 for IPv4 and if present a "legacy querier present" port only.
 
 h4. Join ff02::16 and 224.0.0.22
 
 Perform the IGMPv3/MLDv2 protocol for joining ff02::16 and 224.0.0.22 to signalize that we, the snooping switch, need to receive multicast reports.
 
-h4. No "::" Source Address for Query Messages
+h4. Handling of Multicast Data
 
-MLD requires multicast listeners to consider query messages with such a source address as broken - they will not respond. Explicitly forbid sending queries with a "::" source address as it seems to be a common misconception that a switch may use it. If a snooping switch is not able to obtain a link-local source address then multicast snooping must be disabled.
+Always flood ff02::1 / 224.0.0.0/24. Forward any other link-local multicast traffic to multicast listeners on the local link only.
 
-In other words, require a snooping switch to be capable of performing the IPv6 protocol for obtaining a link-local address.
-
-(TODO: What about IPv4? Should 0.0.0.0 OK there? Or allow/suggest "fe80::"/00:00:00:00:00:00 as the query source address without the IPv6 procedure for link-local multicast? Or even suggest 0.0.0.0/fe80::/00:00:00:00:00:00 as with this document this will not imply becoming the root/sink for all multicast traffic anymore?)
-
-h4. Multicast Data Handling
-
-Always flood ff02::1 / 224.0.0.0/24. Forward any other link-local multicast traffic to multicast listeners on the link only.
-
-Forward multicast traffic of scope greater than link-local on ports with according multicast listeners and on ports with multicast router discovered via MRD.
+Forward multicast traffic of scope greater than link-local on ports with according multicast listeners and on ports with multicast routers discovered via MRD.
 
 h4. Require MRD as the way to discover multicast routers
 
@@ -90,11 +88,17 @@ Either always flood VLAN tagged multicast traffic. Or keep separate databases an
 
 h3. Compatibility Measures with RFC4541
 
-If an IGMP or MLD query which has the new Z-flag unset is received on a port then this port must be added to the router list of that port.
+If a querier behind one of our ports exists then we need to find out whether an RFC4541 snooping switch exists between that port and the querier (including the querier potentially being an RFC4541 snooping switch):
+
+If a query is received from that port but no multicast report with the same source address then this means an RFC4541 snooping switch was suppressing IGMP/MLD reports. Otherwise we would have at least received a report for 224.0.0.20 and ff02::16 from a snooping switch.
+
+If such a snooping switch is detected behind that port then we need to forward all multicast traffic (both link-local and routable multicast) received on any other other port towards the port of the selected querier.
+
+An administrative option MAY exist to disable this compatibility measure but SHOULD NOT be enabled in implementations by default.
 
 h3. Compatibility Measures with Multicast Routers Incapable of MRD
 
-If multicast routers incapable of MRD are present on a port then the "multicast router" switch should be manually enabled on that port.
+An administrative option MUST exist to manually mark a port as "multicast router present".
 
 h3. Notes on Devices Similar to Switches
 
@@ -106,10 +110,27 @@ Generic network interfaces: Even they may refrain from transmitting multicast tr
 
 h3. Switch-internal Queriers
 
-A switch implementing the multicast querier process must set the new Z-flag in its own query messages and must provide a way to manually disable the participation as a querier.
+Must provide a way to manually disable the participation as a querier.
 
 TODO - more details
 
-h3. TODO: Further detangle link-local and routable multicast traffic
+h4. No "::" Source Address for Query Messages
 
-Multicast routers should only receive routable multicast traffic. Queries from multicast routers are still indistinguishable from queries from RFC4541 snooping switches. So if a multicast router were becoming the selected querier then it would receive link-local multicast traffic too. TODO: How to prevent that?
+MLD requires multicast listeners to consider query messages with such a source address as broken - they will not respond. Explicitly forbid sending queries with a "::" source address as it seems to be a common misconception that a switch may use it. If a snooping switch is not able to obtain a link-local source address then multicast snooping must be disabled.
+
+In other words, require a snooping switch to be capable of performing the IPv6 protocol for obtaining a link-local address.
+
+(TODO: What about IPv4? Should 0.0.0.0 OK there? Or allow/suggest "fe80::"/00:00:00:00:00:00 as the query source address without the IPv6 procedure for link-local multicast? Or even suggest 0.0.0.0/fe80::/00:00:00:00:00:00 as with this document this will not imply becoming the root/sink for all multicast traffic anymore?)
+
+h3. Security Measures
+
+
+
+
+h2. Appendix
+
+h3. Security Considerations
+
+h2. Further TODOs
+
+* Specify what to do with invalid reports or queries. Or queries which we received from an address higher than the currently selected one.
