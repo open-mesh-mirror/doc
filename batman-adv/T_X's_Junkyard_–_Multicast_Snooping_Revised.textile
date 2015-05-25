@@ -90,7 +90,7 @@ h3. Compatibility Measures with RFC4541
 
 If a querier behind one of our ports exists then we need to find out whether an RFC4541 snooping switch exists between that port and the querier (including the querier potentially being an RFC4541 snooping switch):
 
-If a query is received from that port but no multicast report with the same source address was received then this means an RFC4541 snooping switch was suppressing IGMP/MLD reports. Otherwise we would have at least received a report for 224.0.0.20 and ff02::16 or the solicited link-local multicast address of the querier.
+If a query is received from that port but no multicast report with the same source address was received then this means an RFC4541 snooping switch was suppressing IGMP/MLD reports. Otherwise we would have at least received a report for 224.0.0.20 and ff02::16.
 
 If such a snooping switch is detected behind that port then we need to forward all multicast traffic (both link-local and routable multicast) received on any other port towards the port of the selected querier.
 
