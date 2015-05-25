@@ -22,7 +22,7 @@ h3. RFC4541 Drawbacks
 
 _Multicast Traffic to Selected Querier:_
 
-RFC4541 makes the assumption that the selected querier is a multicast router. Many snooping switches implement the querier protocol, too though (in general for valid reasons as without a querier multicast snooping is not possible). However if a snooping switch becomes the selected querier then it will receive all multicast traffic too even if it is neither interested in it as a multicast listener nor as a multicast router.
+RFC4541 makes the assumption that the selected querier is a multicast router. Many snooping switches implement the querier protocol, too though (in general for valid motivations as without a querier multicast snooping is not possible). However if a snooping switch becomes the selected querier then it will receive all multicast traffic too even if it is neither interested in it as a multicast listener nor as a multicast router.
 
 _Unpredictable Traffic Flow through Querier Election:_
 
