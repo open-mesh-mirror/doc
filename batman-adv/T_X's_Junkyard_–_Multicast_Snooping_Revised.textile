@@ -12,18 +12,32 @@ h1. Multicast Snooping Revised
 
 h2. Abstract
 
-Multicast snooping on the link layer is tough. IGMPv1/v2 and MLDv1 did not have something like multicast snooping on their radar. Especially their report suppression mechanism makes multicast snooping difficult.
+The idea of multicast snooping is to reduce multicast overhead in large broadcast domains: Intelligent intermediaries like switches are supposed to learn about potential recipients, e.g. multicast listeners and multicast routers, by sniffing and parsing IGMP/MLD and Multicast Router Discovery messages. And can then forward multicast data packets to the potential recipients they previously learned about only.
 
-Currently there is RFC4541 which at least specifies a way on how a switch can perform multicast snooping without breaking networking protocols. Unfortunately, RFC4541 has one major drawback:
+Multicast snooping on the link layer is tough though: IGMPv1/v2 and MLDv1 did not have something like multicast snooping on their radar. Especially their report suppression mechanism makes multicast snooping difficult.
 
-It assumes a querier always wants all multicast traffic, the RFC does not make a clean distinction between layer 3 multicast routers and snooping switches in that regard. Even if you do not have a layer 3 multicast router in your network and simply want to use multicast on the link layer together with multicast snooping, you will need at least one querier which will receive any multicast traffic.
+Currently there is RFC4541 which at least specifies a way on how a switch can perform multicast snooping despite the short comings of IGMPv1/v2 and MLDv1 without breaking network protocols. Unfortunately, RFC4541 has a few drawbacks:
 
-The querier is selected by the lowest IP address. Unfortunately and especially in a decentral and dynamic mesh network the host with the lowest IP address might not be in a good spot within network - maybe it is a device behind a bad wifi link with frequent disturbances from cheap microwaves. Also, having one specific root/sink for all multicast traffic is not really decentral.
+h3. RFC4541 Drawbacks
 
+_Multicast Traffic to Selected Querier:_
 
-Even in setups with a multicast router, link layer multicast traffic will unnecessarily be forwarded to the multicast router.
+RFC4541 makes the assumption that the selected querier is a multicast router. Many snooping switches implement the querier protocol, too though (generally for valid reasons as without a querier snooping is not possible). However if a snooping switch becomes the selected querier then it will receive all multicast traffic too even if it is neither interested in it as a multicast listener or as a multicast router.
 
-This document tries to describe an alternative approach.
+_Unpredictable Traffic Flow through Querier Election:_
+
+IGMP and MLD specify that from a set of potential queriers the one with the lowest IP address shall become the selected querier. In a dynamic and decentral network, for instance layer 2 wireless mesh networks, the selected querier might be a "random" node behind an unreliable and/or low-throughput wireless link. Such a node might be overwhelmed if receiving all multicast traffic in the network as described above.
+
+_Link-Local Multicast Traffic Forwarded to Multicast Routers:_
+
+Furthermore RFC4541 does not distinguish between link-local and routable multicast traffic. While routable multicast traffic needs to be forwarded to both multicast routers and multicast listeners on the local link link-local multicast does not: Link-local multicast traffic needs to be forwarded to multicast listeners only as multicast routers are not allowed to route them to other broadcast domains anyways.
+
+----
+
+This document tries to describe an alternative approach to RFC4541. The main concept is to translate IGMPv1/v2 and MLDv1 reports to IGMPv3 and MLDv2 reports before forwarding them - instead of altering and limiting the forwarding path of reports. Furthermore it does not make any assumptions about the interest of multicast traffic of the selected querier and requires MRD instead.
+
+With these two approaches the short comings mentioned above are addressed.
+
 
 h3. Requirements and Changes Compared to RFC4541
 
@@ -66,10 +80,6 @@ h4. Adding Bridge Ports
 When a bridge port gets added and up repeat the last received multicast query of the selected multicast querier.
 
 (TODO: Or send a query with our own address on that specific port? RFC4541 says something about )
-
-h4. Query Z-Flag: RFC4541 Multicast Router List Suppression
-
-The fourth bit of the IGMP/MLD query message reserved field is declared as the Z-flag. A snooping switch as described in this document which participates as a querier MUST set the Z-flag when transmitting its query.
 
 h4. No Querier Present
 
