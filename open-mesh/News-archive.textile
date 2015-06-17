@@ -6,6 +6,7 @@ This page contains the links to previous news posts for archiving purposes.
 
 h3. 2014
 
+* *09.Jun. 2014* [[2014-06-09-batman-adv-2014-2-0-release|Batman-adv 2014.2.0 released]]
 * *13.Mar. 2014* [[2014-03-13-batman-adv-2014-1-0-release|Batman-adv 2014.1.0 released]]
 * *10.Feb 2014* [[2014-02-10_the_batman_project_endorses_the_battle_of_the_mesh_v7|The B.A.T.M.A.N. project endorses the Battle of the Mesh v7]]
 * *07.Jan. 2014* [[2014-01-07-batman-adv-2014-0-0-release|Batman-adv 2014.0.0 released]]
