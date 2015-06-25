@@ -25,32 +25,15 @@ Note that even though MLDv2/IGMPv3 require listeners to report to the all-multic
 
 h3. Solution
 
-RFC4541, section 2.1.1.1) recommends sending all reports directly and only to multicast routers (= the selected querier and hosts with multicast router announcements).
-
-A simple implementation could do the following: A node snoops multicast query messages coming from the mesh and memorizes where the selected querier resides. This node then snoops multicast report messages coming from its segment and forwards them to the selected querier only.
-
-_Advantages:_
-
- * Very low MLD/IGMP overhead for most nodes
- * Low memory overhead for switches and bridges on most nodes
-
-_Disadvantages:_
-
- * Every node has the multicast query parsing burdon
- * Central querier(s)
-
-----
-
-h3. Alternative Solutions
-
 h4. Flooding Report Messages
 
-Another approach could be to simply flood multicast reports to all other batman-adv nodes.
+One easy approach is to simply flood multicast reports to all other batman-adv nodes.
 
 _Advantages:_
 
- * Simplicity
- * No multicast query snooping needed, only multicast report snooping
+ * Simplicity:
+   * No multicast query snooping needed, only multicast report snooping
+   * No state for querier
 
 _Disadvantages:_
 
@@ -59,13 +42,34 @@ _Disadvantages:_
  * Might cause issues for switches if more than 4k hosts on the network: Usually the MAC table of hardware switches only allows up to 4k clients (there are batman-adv networks with 1.5k hosts already).
  * Central querier(s)
 
+These disadvantages can mostly be tackled by segmenting the IGMP/MLD domain via ebtables too though.
+
+----
+
+h3. Alternative Solutions
+
+h4. Snooping Queries and MRD
+
+RFC4541, section 2.1.1.1) recommends sending all reports directly and only to multicast routers. Can be determined via IGMP/MLD querier and MRD (Multicast Router Discovery) Multicast Router Advertisements.
+
+A simple implementation could do the following: Snoop these messages coming from the mesh and memorize their originators. Forward IGMP/MLD reports to these nodes only then.
+
+_Advantages:_
+
+ * Low(er) MLD/IGMP traffic and memory overhead for batman-adv and the bridge
+
+_Disadvantages:_
+
+ * Every node has the multicast query parsing burdon
+ * Central querier(s)
+
 h4. WANT_ALL_{IGMP,MLD}_REPORTS flag
 
-Similar to the proposed solution. But instead of having the query parsing burdon on multicast traffic coming from the mesh (mesh-ingress), having it on the mesh-egress side instead. Compared to the proposed solution, the advantage would be a better Denial-of-Service robustness. The disadvantage is increased complexity (yet another flag and counter).
+Instead of having the query and MRD RA parsing burdon on multicast traffic coming from the mesh (mesh-ingress), having it on the mesh-egress side instead. Compared to the proposed solution, the advantage would be a better Denial-of-Service robustness. The disadvantage is increased complexity (yet another flag and counter).
 
 h4. IGMP/MLD proxying
 
-Split the IGMP/MLD broadcast domain between the local segment and the rest of the mesh. batman-adv would participate as a multicast querier on its local segment only and would generate multicast reports from the multicast addresses in the global translation table. Requirement: More flexible and generic translation table, in that being able to store IPv4+IPv6 addresses instead of just MAC addresses, too.
+Proxy the IGMP/MLD between the local segment and the rest of the mesh. batman-adv would participate as a multicast querier on its local segment only and would generate multicast reports from the multicast addresses in the global translation table. Requirement: More flexible and generic translation table, in that being able to store IPv4+IPv6 addresses instead of just MAC addresses, too.
 
 ----
 
