@@ -42,7 +42,7 @@ h2. Distributions
 * [x] update alfred openwrt package
 * [ ] update batman-adv/batctl openwrt package
 * [ ] update gentoo package
-* [ ] update debian batctl package
+* [x] update debian batctl package
 
 h2. Aftershow
 
@@ -50,5 +50,5 @@ h2. Aftershow
 * [x] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
 * [x] Merge patches from master into next (to get all the fancy new features - git merge --ff-only master)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
-* [ ] Enable daily check for next/master (symbol check, cppcheck, feature check)
-* [ ] Update cppcheck, smatch, sparse on build server
+* [x] Enable daily check for next/master (symbol check, cppcheck, feature check)
+* [x] Update cppcheck, smatch, sparse on build server
