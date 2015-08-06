@@ -6,7 +6,7 @@ Often batman-adv is used to cover a bigger area with wireless access to the inte
 h2. Announcements
 
 To make the internet uplink known in the mesh network, batman-adv allows to enable the so-called 'gateway mode'. The user specified internet uplink bandwidth is propagated in the mesh network using the [[batman-adv:TVLV#Gateway-announcement|gateway TVLVs]]. All other mesh participants receive these announcements and maintain a list of internet gateways in the network (see: [[batman-adv:Understand-your-batman-adv-network#Gateway-table|gateway table]]).
-To take advantage of this knowledge, each batman-adv node without an internet connection needs to enable the 'gateway client mode' by choosing one of the available gateway selection strategies (check the [[http://downloads.open-mesh.org/batman/manpages/batctl.8.html|batctl manpage]] for details). If no gateway selection strategy is configured the gateway announcements have no effect on any routing or forwarding decision.
+To take advantage of this knowledge, each batman-adv node without an internet connection needs to enable the 'gateway client mode' by choosing one of the available gateway selection strategies (check the "batctl manpage":http://downloads.open-mesh.org/batman/manpages/batctl.8.html for details). If no gateway selection strategy is configured the gateway announcements have no effect on any routing or forwarding decision.
 
 
 h2. Routing towards the best internet uplink
