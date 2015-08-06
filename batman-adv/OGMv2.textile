@@ -87,6 +87,12 @@ The following steps check whether the Neighbor we received the OGM from is a pot
 If the OGM has not been dropped after these preliminary checks, the OGM will be modified in the following way to obtain the path TQ of the received OGM:
 * *Update TQ:* The OGM's TQ field needs to be multiplied with the best link TQ towards the according neighbor. This new TQ value is further referenced as path TQ.
 
+---> update internal stats
+-------> check protection window
+-------> update neigh_ifinfo if seq_diff >= 0
+-------> no average is performed on the global/path metric. We always use the latest value
+
+
 After that, we check the OGM against the current data we have (currently selected router and current entry):
 
 * If an originator entry matching the originator address of the OGM and a Selected Router exist:
