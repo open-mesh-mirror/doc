@@ -1,1 +1,1 @@
-p=. *%{background:red;color:white}THE INFORMATION PROVIDED ON THIS PAGE IS OUTDATED%*
+p=. !/attachments/download/543/outdated.svg!
