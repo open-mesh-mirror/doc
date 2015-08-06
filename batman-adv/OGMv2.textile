@@ -97,7 +97,10 @@ If the OGM has not been dropped after these preliminary checks, the OGM will be 
 After that, we check the OGM against the current data we have (currently selected router and current entry):
 
 * If an originator entry matching the originator address of the OGM and a Selected Router exist:
+** *check protection window*
 ** *drop if seqno smaller:* If the OGMs Sequence Number is smaller than the Selected Router's Sequence Number then the message must be silently dropped.
+** *update internal stats*
+** *check if we have a route towards this neighbour*
 ** *drop if not best router:* If the OGMs Sequence Number is equal or higher than the Selected Router's Sequence Number, but the the router is not our best router, the message must be silently dropped.
 ** *seqno same, but TQ smaller:* If the OGM's Sequence Number is equal to the Selected Router's Sequence Number and the OGM's path TQ is lower than the Selected Router's path TQ then the message must be silently dropped. 
 
