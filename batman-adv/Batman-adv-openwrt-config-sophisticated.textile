@@ -1,4 +1,4 @@
-!{{include(open-mesh:TemplateDeprecated)}}
+{{include(open-mesh:TemplateDeprecated)}}
 
 h1. Example B.A.T.M.A.N. configuration snippets on OpenWRT
 
