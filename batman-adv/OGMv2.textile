@@ -89,6 +89,7 @@ If the OGM has not been dropped after these preliminary checks, the OGM will be 
 
 ---> update internal stats
 -------> check protection window
+-------> drop ogm if seq num is old
 -------> update neigh_ifinfo if seq_diff >= 0
 -------> no average is performed on the global/path metric. We always use the latest value
 
