@@ -78,6 +78,7 @@ The following checks are simple sanity checks which don't affect the routing log
 * *Version Check:* If the OGM contains a version which is different to the own internal version the message must be silently dropped (thus, it must not be further processed).
 * *Source Check:* If the sender address of the OGM is an ethernet multicast (including broadcast) address the message must be silently dropped.
 * *Destination Check* If the destination address of the OGM is a unicast address the message must be silently dropped.
+-----> in the future we might want to use unicast OGM, therefore we should alter this check by also allowing unicast to our address.
 * *Own Message Check:* If the originator address of the OGM is our own the message must be silently dropped as this OGM originated from this node.
 
 h4. 4.2.2. Potential Router Checks
