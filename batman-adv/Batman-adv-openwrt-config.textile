@@ -17,7 +17,7 @@ config wifi-device 'radio0'
 config wifi-iface 'wmesh'
         option device 'radio0'
         option ifname 'adhoc0'
-        option network 'mesh'
+        option network 'batnet'
         option mode 'adhoc'
         option ssid 'mesh'
         option 'mcast_rate' '18000'
@@ -37,7 +37,7 @@ More information can be found in the "OpenWrt wireless configuration":http://wik
 
 The network configuration in '/etc/config/network' allows to specify batman-adv as protocol and the batman-adv interface name:
 <pre>
-config interface 'mesh'
+config interface 'batnet'
         option mtu '1532'
         option proto 'batadv'
         option mesh 'bat0'
@@ -74,7 +74,7 @@ config wifi-device 'radio0'
 config wifi-iface 'wmesh'
         option device 'radio0'
         option ifname 'adhoc0'
-        option network 'mesh'
+        option network 'batnet'
         option mode 'adhoc'
         option ssid 'mesh'
         option 'mcast_rate' '18000'
@@ -94,7 +94,7 @@ More information can be found in the "OpenWrt wireless configuration":http://wik
 
 Configure the MTU in '/etc/config/network'
 <pre>
-config interface 'mesh'
+config interface 'batnet'
         option ifname 'adhoc0'
         option mtu '1528'
         option proto 'none'
