@@ -170,10 +170,9 @@ h3. 6. Re-broadcasting other nodes' OGMs
 When an OGM is to be re-broadcasted some of the message fields must be changed others must be left unchanged.  All fields not mentioned in the following section remain untouched:
 
 * The TTL must be decremented by one. If the TTL becomes zero (after the decrementation) the packet must be dropped.
-* The hop penalty must be applied on the OGM's TQ field.  If the OGM's TQ becomes zero (after hop penalty) the packet must be dropped. The hop penalty is applied by reducing the path TQ by HOP_PENALTY percent.
+* The forward penalty (link/hop penalty) must be applied on the OGM's metric field. If the link is full duplex or the link metric is below 1Mbps we apply the hop penalty, otherwise we apply the half duplex one. The hop penalty is applied by reducing the path TQ by HOP_PENALTY percent.
 
 Note: The Hop penalty is especially required in loss-less networks where shorter path should be favored. It is also useful to select the shortest path in lossy networks where the TQ values are very similar.
-
 
 h2. 8. Proposed Values for Constants
 
@@ -275,4 +274,4 @@ When for any originator thes compared to the link quality used for the last rebr
 
 h2. No OGMs if no hosts
 
-To be able to reduce the overhead by just putting some intelligent "repeater" nodes somewhere without them sending their own OGMs 
+To be able to reduce the overhead by just putting some intelligent "repeater" nodes somewhere without them sending their own OGMs
