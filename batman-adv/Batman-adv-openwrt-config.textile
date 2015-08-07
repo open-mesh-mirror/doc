@@ -9,7 +9,7 @@ h2. Batman-adv 2013.0.0 and newer
 
 With batman-adv 2013.0.0 the OpenWrt package was converted to integrate with OpenWrt's netifd system. This has some impact on the configuration but not much.
 
-The wireless configuration remains identical:
+The wireless configuration in '/etc/config/wireless':
 <pre>
 config wifi-device 'radio0'
         option [..]
@@ -20,10 +20,22 @@ config wifi-iface 'wmesh'
         option network 'mesh'
         option mode 'adhoc'
         option ssid 'mesh'
+        option 'mcast_rate' '18000'
         option bssid '02:CA:FE:CA:CA:40'
 </pre>
 
-The network configuration now allows to specify batman-adv as protocol and the batman-adv interface name:
+It is assumed you configured the 'wifi-device' depending on your requirements and your hardware. The interesting part is the 'wifi-iface' stanza with its options:
+
+ * 'device' points back to your radio (wifi-device) interface
+ * 'ifname' allows you to specify an arbitrary name for your adhoc interface (which we are going to re-use later)
+ * 'network' points to the corresponding stanza in '/etc/config/network'
+ * 'mode' defines the wifi mode (adhoc in our case)
+ * 'mcast_rate' helps to avoid low bandwidth routes (routes with a lower throughput rate than the mcast rate will not be visible to batman-adv)
+ * 'ssid' and 'bssid' are basic wireless settings you might want to set to your liking
+
+More information can be found in the "OpenWrt wireless configuration":http://wiki.openwrt.org/doc/uci/wireless
+
+The network configuration in '/etc/config/network' allows to specify batman-adv as protocol and the batman-adv interface name:
 <pre>
 config interface 'mesh'
         option mtu '1532'
@@ -31,7 +43,7 @@ config interface 'mesh'
         option mesh 'bat0'
 </pre>
 
-The batman-adv configuration is somewhat simpler now because it only contains the batman-adv specific options:
+The batman-adv configuration in '/etc/config/batman-adv' only contains the batman-adv specific options:
 <pre>
 config mesh 'bat0'
         option 'aggregated_ogms'
@@ -41,8 +53,7 @@ config mesh 'bat0'
 
 *Since batman-adv 2014.2.0* VLAN specific options have to be configured in a separated stanza having protocol 'batadv_vlan'.
 
-In this particular section the user has to specify the name of the VLAN interface (that will be automatically created by netifd) and then list all the wanted options.
-At the moment the only available option for this section is 'ap_isolation':
+In this particular section the user has to specify the name of the VLAN interface (that will be automatically created by netifd) and then list all the wanted options. At the moment the only available option for this section is 'ap_isolation':
 <pre>
 config interface 'my_bat_vlan1'
 	option protocol 'batadv_vlan'
@@ -55,7 +66,7 @@ Any VLAN specific option can still be listed in the batman-adv configuration for
 
 h2. Batman-adv 2012.4.0 and older
 
-First, the wifi interface needs to be configured in '/etc/config/wireless':
+The wifi interface needs to be configured in '/etc/config/wireless':
 <pre>
 config wifi-device 'radio0'
         option [..]
@@ -66,16 +77,20 @@ config wifi-iface 'wmesh'
         option network 'mesh'
         option mode 'adhoc'
         option ssid 'mesh'
+        option 'mcast_rate' '18000'
         option bssid '02:CA:FE:CA:CA:40'
 </pre>
 
 It is assumed you configured the 'wifi-device' depending on your requirements and your hardware. The interesting part is the 'wifi-iface' stanza with its options:
 
  * 'device' points back to your radio (wifi-device) interface
- * 'ifname' allows you to specifiy an arbitrary name for your adhoc interface (which we are going to re-use later)
+ * 'ifname' allows you to specify an arbitrary name for your adhoc interface (which we are going to re-use later)
  * 'network' points to the corresponding stanza in '/etc/config/network'
  * 'mode' defines the wifi mode (adhoc in our case)
+ * 'mcast_rate' helps to avoid low bandwidth routes (routes with a lower throughput rate than the mcast rate will not be visible to batman-adv)
  * 'ssid' and 'bssid' are basic wireless settings you might want to set to your liking
+
+More information can be found in the "OpenWrt wireless configuration":http://wiki.openwrt.org/doc/uci/wireless
 
 Configure the MTU in '/etc/config/network'
 <pre>
