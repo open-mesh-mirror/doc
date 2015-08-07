@@ -103,6 +103,7 @@ After that, we check the OGM against the current data we have (currently selecte
 ** *update internal stats*
 ** *check if we have a route towards this neighbour*
 ** *seqno same, but metric smaller:* If the OGM's Sequence Number is equal to the Selected Router's Sequence Number and the OGM's path TQ is lower than the Selected Router's path TQ then the message must be silently dropped. 
+----> perform route update
 ** *drop if not best router:* If the OGMs Sequence Number is equal or higher than the Selected Router's Sequence Number, but the the router is not our best router, the message must be silently dropped.
 
 If the OGM has not been dropped so far, we will further call this Neighbor a potential Router or just Router and will pass on to the Router Ranking.
