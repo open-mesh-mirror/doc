@@ -87,5 +87,3 @@ _(How does batman-adv know where it has to send a data packet of an external com
 h3. Batman-adv OpenWrt sample configuration with uci
 
 Basic configuration: [[Batman-adv-openwrt-config|batman-adv OpenWrt config]]
-
-Sophisticated configuration: [[Batman-adv-openwrt-config-sophisticated|batman-adv OpenWrt config (sophisticated)]]
