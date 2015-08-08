@@ -107,7 +107,6 @@ make package/batman-adv-devel/clean
 make package/batman-adv-devel/compile V=99
 </pre>
 
-
 h2. Applying patches
 
 
@@ -116,13 +115,13 @@ The package offers an easy way to apply custom patches whenever batman-adv is bu
 stable version:
 	 
 <pre>
-Openwrt/feeds/packages/net/batman-adv/patches
+openwrt/feeds/packages/net/batman-adv/patches
 </pre>
 
 developer version:
 
 <pre>
-Openwrt/feeds/batman/batman-adv-devel/patches
+openwrt/feeds/batman/batman-adv-devel/patches
 </pre>
 
 h2. Changing the batman-adv / batctl version
