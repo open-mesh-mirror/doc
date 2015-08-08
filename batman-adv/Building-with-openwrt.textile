@@ -6,7 +6,7 @@ Many tutorials assume that you have batman-adv running on an Openwrt system with
 h2. Getting the Openwrt build environment
 
 
-First, you need to obtain a copy of the Openwrt build system which contains all the build information to compile & package a complete Linux system. You can either checkout the sources via git or get tarballs from the Openwrt project website. The various versions of Openwrt (bleeding edge 'trunk', last stable release, previous release, etc) can be downloaded directly from the "Openwrt repositories":https://dev.Openwrt.org/wiki/GetSource.
+First, you need to obtain a copy of the Openwrt build system which contains all the build information to compile & package a complete Linux system. You can either checkout the sources via git or get tarballs from the Openwrt project website. The various versions of Openwrt (bleeding edge 'trunk', last stable release, previous release, etc) can be downloaded directly from the "Openwrt repositories":https://dev.openwrt.org/wiki/GetSource.
 
 Once downloaded change into the Openwrt directory and configure the system to meet you needs (e.g. choose the platform and additional packages you intend to use).
 
@@ -25,7 +25,7 @@ cd openwrt
 make
 </pre>
 
-The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your Openwrt system, please see "the Openwrt project website":http://www.Openwrt.org.
+The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your Openwrt system, please see "the Openwrt project website":http://www.openwrt.org.
 
 h2. Adding the batman-adv / batctl package
 
@@ -133,7 +133,7 @@ stable version:
 
 Adjust the PKG_VERSION variable configured in the package Makefile to download & build the stable release you are interested in.
 
-cat Openwrt/feeds/routing/batman-adv/Makefile
+cat openwrt/feeds/routing/batman-adv/Makefile
 <pre>
 [..]
 PKG_VERSION:=2013.4.0
@@ -158,7 +158,7 @@ PKG_MD5SUM:=1a2b3c4d5e6f7g # http://downloads.open-mesh.org/batman/releases/batm
 [..]
 </pre>
 
-And be careful when changing versions, your build may fail. Build with make V=99 so you can see what is going on, and if applying some batman-adv patch fails, locate it under /home/user/Openwrt/feeds/routing/batman-adv/patches and remove it.
+And be careful when changing versions, your build may fail. Build with make V=99 so you can see what is going on, and if applying some batman-adv patch fails, locate it under /home/user/openwrt/feeds/routing/batman-adv/patches and remove it.
 
 developer version:
 
