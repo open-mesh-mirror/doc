@@ -33,15 +33,16 @@ h2. Press:
 
 h2. Papers:
 
+* "Location data in wireless mesh networks (written in German)":http://downloads.open-mesh.org/batman/papers/Positionsdaten_in_Wireless_Mesh_Networks.pdf.
 * "Slides with introduction to features in B.A.T.M.A.N. V":http://downloads.open-mesh.org/batman/papers/batman-adv_v_intro.pdf
 * "Client announcement and Fast roaming in a Layer-2 mesh network":http://eprints.biblio.unitn.it/archive/00002269/
 * "Network Coding for Wireless Mesh Networks":http://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf
 * "B.A.T.M.A.N. routing protocol overhead analysis":http://downloads.open-mesh.org/batman/papers/OGMoverhead.pdf
-* "Improving B.A.T.M.A.N. Routing Stability and Performance":http://downloads.open-mesh.org/batman/papers/Improving%2520BATMAN%2520Routing%2520Stability%2520and%2520Performance.pdf
-* "Performance Analysis of the B.A.T.M.A.N. protocol":http://downloads.open-mesh.org/batman/papers/SANLAB%2520technical%2520report.Batrytis.pdf
+* "Improving B.A.T.M.A.N. Routing Stability and Performance":http://downloads.open-mesh.org/batman/papers/Improving%20BATMAN%20Routing%20Stability%20and%20Performance.pdf
+* "Performance Analysis of the B.A.T.M.A.N. protocol":http://downloads.open-mesh.org/batman/papers/SANLAB%20technical%20report.Batrytis.pdf
 * "B.A.T.M.A.N. performance comparison paper":http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
 * "B.A.T.M.A.N. / BABEL / OLSR performance comparison":http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1747&amp;context=infopapers
 * "mesh performance analysis with B.A.T.M.A.N.":http://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf
 * "BATMAN Advanced / AODV performance comparison in a real testbed":http://www.kom.tu-darmstadt.de/en/publications/publications-details/publications/SKH11-1/
-* "Energy aware routing survey in WMNs and a proposal for BATMAN-adv":http://downloads.open-mesh.org/batman/papers/WMNs%2520protocols%2520survey%2520and%2520a%2520real%2520scenario%2520with%2520BATMAN-adv.pdf (Italian language)
+* "Energy aware routing survey in WMNs and a proposal for BATMAN-adv":http://downloads.open-mesh.org/batman/papers/WMNs%20protocols%20survey%20and%20a%20real%20scenario%20with%20BATMAN-adv.pdf (Italian language)
 * "Distribution of location data in Wireless Mesh Networks":http://downloads.open-mesh.org/batman/papers/Positionsdaten_in_Wireless_Mesh_Networks.pdf (German language)
