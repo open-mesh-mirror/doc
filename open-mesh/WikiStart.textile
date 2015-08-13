@@ -28,7 +28,7 @@ h2. Documentation
 * [[BranchesExplained|Branches explained]] - learn about the B.A.T.M.A.N. flavours
 * [[batman-adv:doc-overview|B.A.T.M.A.N. Advanced Documentation]] 
 * [[batmand:doc-overview|B.A.T.M.A.N. Daemon Documentation]] 
-* [[alfred|A.L.F.R.E.D.]] - Almighty Lightweight Fact Remote Exchange Daemon, can be used to distribute arbitrary information over a mesh network
+* [[alfred:|A.L.F.R.E.D.]] - Almighty Lightweight Fact Remote Exchange Daemon, can be used to distribute arbitrary information over a mesh network
 * [[FAQ|FAQ]] - Frequently Asked Questions
 * [[Experience|Experience]] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
 * [[MailingList|Mailing List]]/[[IRC|IRC]] - contact us
