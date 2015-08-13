@@ -1,0 +1,36 @@
+h1. Building information
+
+
+Release tarballs as well as snapshots are available:
+
+ * release tarballs: [[Download#Download-Released-Source-Code|Check the Download page]]
+ * git web directory: http://git.open-mesh.org/alfred.git
+ * git download: git clone git://git.open-mesh.org/alfred.git
+ * snapshot:http://git.open-mesh.org/alfred.git/snapshot/refs/heads/master.tar.gz
+
+h3. OpenWRT installation from routing feed
+
+Alfred is also part of the routing feed of OpenWRT. For newer OpenWRT, just use:
+
+1. Install the alfred package:
+
+./scripts/feeds install alfred
+
+3. Run "make menuconfig" and select alfred (available under "Network  --->")
+
+h3. OpenWRT development feed
+
+There is also a development packet feed for OpenWRT available for alfred:
+
+1. add the alfred feed by adding the following line into your feeds.conf:
+
+   src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git
+
+2. Update and install the feed:
+
+ ./scripts/feeds update
+./scripts/feeds install alfred
+
+3. Run "make menuconfig" and select alfred (available under "Network  --->")
+
+Finally, re-build Openwrt and enjoy using alfred! :)
