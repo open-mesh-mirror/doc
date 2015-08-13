@@ -21,7 +21,7 @@ h2. Getting started
 
 h2. Developer information
 
- * [[Alfred architecture]] - information about topologies, internal architecture and packet format
+ * [[batman-adv:Alfred architecture]] - information about topologies, internal architecture and packet format
 
 h2. Further resources
 
