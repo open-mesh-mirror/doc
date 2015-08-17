@@ -25,7 +25,7 @@ h2. Features
 * [[open-mesh:2012-09-24-GSoC-2012-Martin-Hundebolls-Final-Report|Fragmentation]] - basic concept behind the layer2 fragmentation (GSoC final report)
 * [[Basic-multicast-optimizations|Multicast Optimizations]] - multicast optimizations overview
 * [[NetworkCoding|Network Coding]] - Combine two packets into a single transmission to save air time.
-* [[open-mesh:alfred|Alfred]] - Use alfred to send local information or visualize your mesh network
+* [[alfred:alfred|Alfred]] - Use alfred to send local information or visualize your mesh network
 
 h2. Troubleshooting
 
