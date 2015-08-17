@@ -18,7 +18,7 @@ h2. Further resources
 
  * alfred slave on android: https://github.com/basros/alfreda
  * Wireshark dissector for alfred: https://github.com/basros/alfred-dissector
- * [[batman-adv:alfred architecture|Alfred architecture]] - technical information about alfred
+ * [[alfred:alfred architecture|Alfred architecture]] - technical information about alfred
 
 h2. Current applications
 
