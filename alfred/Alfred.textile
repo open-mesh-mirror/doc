@@ -42,7 +42,7 @@ h2. Download
 
 Release tarballs as well as snapshots are available:
 
- * release tarballs: [[Download#Download-Released-Source-Code|Check the Download page]]
+ * release tarballs: [[open-mesh:Download#Download-Released-Source-Code|Check the Download page]]
  * git web directory: http://git.open-mesh.org/alfred.git
  * git download: git clone git://git.open-mesh.org/alfred.git
  * snapshot:http://git.open-mesh.org/alfred.git/snapshot/refs/heads/master.tar.gz
