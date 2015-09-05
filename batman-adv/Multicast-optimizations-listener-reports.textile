@@ -82,3 +82,10 @@ Multicast routers need reports to learn and tell other routers about multicast t
 
 h4. Side note #2: Compatibility Concerns
 
+As described above, while there is no issue for the current implementation as is it faces compatibility issues with any upcoming bridge integration. Bridged nodes need to be able to rely on any other node, including non-bridged / "old" ones, to forward its own reports properly.
+
+To avoid packet loss, bridged nodes will force any old node to hand over any reports: This is done by increasing the multicast tvlv version number to two.
+
+From the perspective of an old node with insufficient report handling and multicast tvlv version one the bridged node will then appear to be incapable of announcing its own listeners. The old node will turn off its own multicast optimizations and flood any multicast packet.
+
+To avoid regressions for non-bridged setups currently relying on multicast optimizations, the following is done: A non-bridged node capable of proper report handling will register both a multicast tvlv version one and two.
