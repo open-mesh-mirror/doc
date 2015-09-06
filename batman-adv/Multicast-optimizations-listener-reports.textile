@@ -14,7 +14,7 @@ h3. Goals
 
 h3. The Problem
 
-* MLDv1/IGMPv2 reports not arriving at bridges, bridges dropping multicast packets
+* MLD/IGMP reports not arriving at bridges, bridges dropping multicast packets
 
 The destination address of MLDv1/IGMPv2 reports (in this example "ff12::123") is usually one a multicast router or snooping switch/bridge is not listening to: They are not able to actively join every possible multicast group. So only checking the multicast addresses in the translation table and forward the report to nodes matching the destination address would not be enough in the scenario described above. Node L needing to send a report after the querier (here: on the node with the bridge) asked for it would simply drop the report. This in turn would result in the bridge not forwarding the multicast data from the sender behind its bridge port even though a listener exists.
 
