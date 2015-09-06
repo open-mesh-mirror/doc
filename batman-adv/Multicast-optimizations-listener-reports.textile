@@ -14,6 +14,8 @@ h3. Goals
 
 h3. The Problem
 
+* MLDv1/IGMPv2 reports not arriving at bridges, bridges dropping multicast packets
+
 The destination address of MLDv1/IGMPv2 reports (in this example "ff12::123") is usually one a multicast router or snooping switch/bridge is not listening to: They are not able to actively join every possible multicast group. So only checking the multicast addresses in the translation table and forward the report to nodes matching the destination address would not be enough in the scenario described above. Node L needing to send a report after the querier (here: on the node with the bridge) asked for it would simply drop the report. This in turn would result in the bridge not forwarding the multicast data from the sender behind its bridge port even though a listener exists.
 
 !{width: 80%;}basic-multicast-listener-mldv1report-canceled.png!
@@ -71,7 +73,7 @@ Proxy the IGMP/MLD between the local segment and the rest of the mesh. batman-ad
 
 ----
 
-h4. Side note #1: Why does the current implementation without bridge support have no such issues?
+h4. Side note 1: Why does the current implementation without bridge support have no such issues?
 
 There are usually two parties interested in multicast listener reports. For one thing, bridges ("software switches") and snooping switches (enterprise hardware switches). For another thing, multicast routers want IGMP/MLD reports. If the former, a bridge, exists then multicast optimizations are disabled at the moment, so the issue can't occure. For the latter, reports to multicast routers, let's consider the following two cases:
 
@@ -80,7 +82,7 @@ b) Multicast listeners joining a non-link-local address
 
 Multicast routers need reports to learn and tell other routers about multicast traffic their part of the network is interested in. Link-local multicast is not routed, so multicast routers aren't actually interested in reports of case a). For b), the current implementation in batman-adv is flooding multicast packets with a routable destination everywhere unconditionally. IGMPv2/MLDv1 reports for routable traffic have a routable multicast destination, so every node and therefore any potential multicast router will receive them.
 
-h4. Side note #2: Compatibility Concerns
+h4. Side note 2: Compatibility Concerns
 
 As described above, while there is no issue for the current implementation as is it faces compatibility issues with any upcoming bridge integration. Bridged nodes need to be able to rely on any other node, including non-bridged / "old" ones, to forward its own reports properly.
 
