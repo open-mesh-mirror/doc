@@ -30,7 +30,7 @@ Check with 'iwconfig'. Some wifi drivers are a little buggy and do not always me
 h3. Is 'batctl if' showing the used interfaces as active?
 
 
-If batman-adv is saying "inactive" for one of the mesh-port interfaces, make sure this one is up (i.e. 'ifconfig wlan0 up')
+If batman-adv is saying "inactive" for one of the mesh-port interfaces, make sure this one is up (i.e. 'ip link set up dev wlan0')
 
 
 h3. Is 'batctl o' showing the other node?
