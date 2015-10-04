@@ -30,7 +30,7 @@ NUM=$(ip link show eth0 | awk '/ether/ {print $2}'| sed -e 's/.*://' -e 's/[\n\ 
 ip addr add 192.168.$((0x$NUM)).2/24 dev  eth1
 ip link set up dev eth1
 ip link set down dev br-lan
-brctl delbr br-lan
+ip link del dev br-lan
 
 # set up log server
 
