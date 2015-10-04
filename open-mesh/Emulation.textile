@@ -26,10 +26,10 @@ Furthermore, to enjoy an automatic network device setup on boot you can use the 
 #!/bin/sh
 
 # kill default openwrt network config
-
-NUM=$(ifconfig eth0| grep HWaddr | sed 's/:01[\n\ ]*$//' | sed 's/.*://'| sed 's/[\n\ ].*//')
-ifconfig eth1 inet 192.168.$((0x$NUM)).2 up
-ifconfig br-lan down
+NUM=$(ip link show eth0 | awk '/ether/ {print $2}'| sed -e 's/.*://' -e 's/[\n\ ].*//')
+ip addr add 192.168.$((0x$NUM)).2/24 dev  eth1
+ip link set up dev eth1
+ip link set down dev br-lan
 brctl delbr br-lan
 
 # set up log server
@@ -44,11 +44,12 @@ chmod 755 /tmp/logserver.sh
 /tmp/logserver.sh&
 
 # setup batman
-ifconfig eth0 up
+ip link set up dev eth0
 echo "" > /proc/net/batman-adv/interfaces
 echo eth0 > /proc/net/batman-adv/interfaces
 echo 15 > /proc/net/batman-adv/log_level
-ifconfig bat0 inet 192.168.0.${NUM} up
+ip addr add 192.168.0.${NUM}/24 dev bat0
+ip link set up dev bat0
 </pre>
 
 The script above is far from perfect, it takes some minutes after the rc.local file is finally started. Suggestions welcome.
@@ -91,13 +92,13 @@ wirefilter is a tool where you can simulate various link defects and limits:
 
 However as the links are only set up bidirectional, interferences can unfortunately not be simulated with this system.
 
-For advanced testing it might be necessary to apply the aforementioned link defects to some packets only whereas other packets are able to traverse the emulated environment unharmed. Once you applied the 'ethertype' patch you can specify an ethertype which wirefilter will simply forward. To apply a packet loss of 50%25 to all packets except batman-adv packets, run:
+For advanced testing it might be necessary to apply the aforementioned link defects to some packets only whereas other packets are able to traverse the emulated environment unharmed. Once you applied the 'ethertype' patch you can specify an ethertype which wirefilter will simply forward. To apply a packet loss of 50% to all packets except batman-adv packets, run:
 
 <pre>
 wirefilter --ether 0x4305 -l 50
 </pre>
 
-This patch also allows to filter batman-adv packet types. To apply a packet loss of 50%25 to all packets except batman-adv ICMP packets, run:
+This patch also allows to filter batman-adv packet types. To apply a packet loss of 50% to all packets except batman-adv ICMP packets, run:
 
 <pre>
 wirefilter --ether 0x4305:02 -l 50
@@ -144,7 +145,8 @@ do
     ${VDESWITCH} \
         -d --hub --sock num${i}.ctl -f colourful.rc
     ${SUDO} ip tuntap add tapwrt${i} mode tap
-    ${SUDO} /sbin/ifconfig tapwrt${i} inet 192.168.${i}.1 up
+    ${SUDO} ip addr add 192.168.${i}.1/24 dev tapwrt${i}
+    ${SUDO} ip link set up dev tapwrt${i}
 done
 
 for i in $(seq 1 9);
@@ -152,7 +154,7 @@ do
     cp ${IMAGE} num${i}.image
     screen ${SUDO} ${QEMU} \
         -no-acpi -m 32M \
-        -net vde,sock=num${i}.ctl,port=1 -net nic,macaddr=fe:fe:00:00:$(printf %2502x $i):01 \
+        -net vde,sock=num${i}.ctl,port=1 -net nic,macaddr=fe:fe:00:00:$(printf %02x $i):01 \
         -net nic -net tap,ifname=tapwrt${i},script=no,downscript=no \
         -nographic num${i}.image
     sleep 3
