@@ -52,33 +52,6 @@ _Disadvantages:_
 
 ----
 
-h3. Alternative Solutions
-
-h4. Snooping Queries and MRD
-
-RFC4541, section 2.1.1.1) recommends sending all reports directly and only to multicast routers. Can be determined via IGMP/MLD querier and MRD (Multicast Router Discovery) Multicast Router Advertisements.
-
-A simple implementation could do the following: Snoop these messages coming from the mesh and memorize their originators. Forward IGMP/MLD reports to these nodes only then.
-
-_Advantages:_
-
- * Low(er) MLD/IGMP traffic and memory overhead for batman-adv and the bridge
-
-_Disadvantages:_
-
- * Every node has the multicast query parsing burdon
- * Central querier(s)
-
-h4. WANT_ALL_{IGMP,MLD}_REPORTS flag
-
-Instead of having the query and MRD RA parsing burdon on multicast traffic coming from the mesh (mesh-ingress), having it on the mesh-egress side instead. Compared to the proposed solution, the advantage would be a better Denial-of-Service robustness. The disadvantage is increased complexity (yet another flag and counter).
-
-h4. IGMP/MLD proxying
-
-Proxy the IGMP/MLD between the local segment and the rest of the mesh. batman-adv would participate as a multicast querier on its local segment only and would generate multicast reports from the multicast addresses in the global translation table. Requirement: More flexible and generic translation table, in that being able to store IPv4+IPv6 addresses instead of just MAC addresses, too.
-
-----
-
 h4. Side note 1: Why does the current implementation without bridge support have no such issues?
 
 There are usually two parties interested in multicast listener reports. For one thing, bridges ("software switches") and snooping switches (enterprise hardware switches). For another thing, multicast routers want IGMP/MLD reports. If the former, a bridge, exists then multicast optimizations are disabled at the moment, so the issue can't occure. For the latter, reports to multicast routers, let's consider the following two cases:
