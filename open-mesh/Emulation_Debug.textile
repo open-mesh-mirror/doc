@@ -2,6 +2,8 @@ h1. Emulation Debug
 
 h2. Create an Image
 
+Download the fstab and rc.local file attached to this wiki page into your directory before getting started.
+
 <pre>
 qemu-img create debian.img 8G
 sudo mkfs.ext2 -F debian.img
