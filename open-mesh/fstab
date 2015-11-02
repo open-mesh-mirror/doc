@@ -1,0 +1,2 @@
+host            /host   9p      trans=virtio,version=9p2000.L 0 0
+none            /sys/kernel/debug       debugfs default     0       0
