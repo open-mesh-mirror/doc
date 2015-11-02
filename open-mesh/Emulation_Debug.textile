@@ -8,7 +8,6 @@ sudo mkfs.ext2 -F debian.img
 sudo mkdir debian
 sudo mount -o loop debian.img debian
 sudo debootstrap jessie debian
-sudo chroot debian /usr/bin/passwd
 sudo chroot debian apt-get update
 sudo chroot debian apt-get install build-essential vim openssh-server \
  pkg-config libnl-3-dev
@@ -26,7 +25,12 @@ sudo rm debian.img
 
 h2. Kernel compile
 
+Any recent kernel can be used for the setup. The build result @arch/x86/boot/bzImage@ has to be copied to the same directory as the debian.img
+
 <pre>
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+cd linux-next
+
 # small configuration
 
 make allnoconfig
@@ -175,4 +179,12 @@ The two node environment must be started inside a screen session. The hub (bridg
 screen
 ./hub.sh # just bridges eth0 with newly created tap devices and runs dhclient on top of bridge
 ./run.sh # warning, the shared directory has to be changed to a valid one; mounted as /host in client
+</pre>
+
+h2. Building the batman-adv module
+
+The kernel module can be build outside the virtual environment and shared over the 9p mount. The path to the kernel sources have to be provided to the make process
+
+<pre>
+make KERNELPATH=/home/batman/linux-next
 </pre>
