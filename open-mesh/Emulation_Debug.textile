@@ -175,10 +175,13 @@ h2. Start of the simple environment
 
 The two node environment must be started inside a screen session. The hub (bridge with eth0 + 2 tap devices) has to be started first to have a simple network. A more complex network setup can be on the page [[Emulation]]
 
+The @ETH@ in hub.sh has to be changed to the real interface which provides internet-connectivity
+The @SHARED_PATH@ in run.sh has to be changed to a valid path which is used to share the precompiled batman-adv.ko and other tools
+
 <pre>
 screen
-./hub.sh # just bridges eth0 with newly created tap devices and runs dhclient on top of bridge
-./run.sh # warning, the shared directory has to be changed to a valid one; mounted as /host in client
+./hub.sh
+./run.sh
 </pre>
 
 h2. Building the batman-adv module
