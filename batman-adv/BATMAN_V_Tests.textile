@@ -152,7 +152,6 @@ h3. New neighbor
                 64 bytes from 192.168.0.3: icmp_req=12 ttl=64 time=2.13 ms
                 64 bytes from 192.168.0.3: icmp_req=17 ttl=64 time=1.23 ms
                 64 bytes from 192.168.0.3: icmp_req=18 ttl=64 time=1.54 ms
-
         2->1: 5 seconds
                 64 bytes from 192.168.0.3: icmp_req=5 ttl=64 time=1.08 ms
                 64 bytes from 192.168.0.3: icmp_req=6 ttl=64 time=2.26 ms
@@ -206,19 +205,16 @@ h3. New distant neighbor
                 64 bytes from 192.168.0.6: icmp_req=73 ttl=64 time=1.71 ms
 
         BATMAN_V:
-                --> neighbor timeout? like 3 minutes?
         1->2:   6 seconds
                 64 bytes from 192.168.0.6: icmp_req=4 ttl=64 time=3.28 ms
                 64 bytes from 192.168.0.6: icmp_req=5 ttl=64 time=1.94 ms
                 64 bytes from 192.168.0.6: icmp_req=11 ttl=64 time=1.75 ms
                 64 bytes from 192.168.0.6: icmp_req=12 ttl=64 time=1.68 ms
-
         2->1:   5 seconds
                 64 bytes from 192.168.0.6: icmp_req=25 ttl=64 time=3.01 ms
                 64 bytes from 192.168.0.6: icmp_req=26 ttl=64 time=2.09 ms
                 64 bytes from 192.168.0.6: icmp_req=31 ttl=64 time=2.48 ms
                 64 bytes from 192.168.0.6: icmp_req=32 ttl=64 time=2.10 ms
-
         1->2:   5 seconds
                 64 bytes from 192.168.0.6: icmp_req=49 ttl=64 time=1.33 ms
                 64 bytes from 192.168.0.6: icmp_req=50 ttl=64 time=1.72 ms
@@ -230,7 +226,6 @@ h3. Mobile Node
 
 !mob_node.png!
 
-        Mobile Node:
                 ping 192.168.0.6
                 kill $(cat killmeMOBILE.pid) ; \
                 wirefilter --daemon -v num0_7.ctl:num0_6.ctl --pidfile killmeMOBILE.pid
@@ -240,7 +235,7 @@ h3. Mobile Node
                 wirefilter --daemon -v num0_7.ctl:num0_4.ctl --pidfile killmeMOBILE.pid
 
 
-BATMAN_IV:
+  BATMAN_IV:
         6->5: 12 seconds
                 64 bytes from 192.168.0.6: icmp_req=7 ttl=64 time=1.23 ms
                 64 bytes from 192.168.0.6: icmp_req=8 ttl=64 time=0.913 ms
@@ -253,13 +248,12 @@ BATMAN_IV:
                 64 bytes from 192.168.0.6: icmp_req=42 ttl=64 time=2.05 ms
 
 
-BATMAN_V:
+  BATMAN_V:
         6 -> 5: 6 seconds
                 64 bytes from 192.168.0.6: icmp_req=38 ttl=64 time=1.29 ms
                 64 bytes from 192.168.0.6: icmp_req=39 ttl=64 time=1.43 ms
                 64 bytes from 192.168.0.6: icmp_req=45 ttl=64 time=1.28 ms
                 64 bytes from 192.168.0.6: icmp_req=46 ttl=64 time=1.20 ms
-
         5 -> 4: 6 seconds
                 64 bytes from 192.168.0.6: icmp_req=49 ttl=64 time=1.10 ms
                 64 bytes from 192.168.0.6: icmp_req=50 ttl=64 time=0.550 ms
