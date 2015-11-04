@@ -162,11 +162,7 @@ EOF
 # for GCC 5+
 cat >> .config << EOF
 CONFIG_KASAN=y
-EOF
-
-# only for slowpath testing
-cat >> .config << EOF
-CONFIG_DEBUG_WW_MUTEX_SLOWPATH=y
+CONFIG_KASAN_INLINE=y
 EOF
 
 make olddefconfig
