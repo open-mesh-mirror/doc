@@ -46,6 +46,8 @@ BATMAN_V: OGM table recovers within 30 seconds
 
 Both recovery times are due to the protection window
 
+h2. Convergence times
+
 h3. The triangle
 
 Scenario:
