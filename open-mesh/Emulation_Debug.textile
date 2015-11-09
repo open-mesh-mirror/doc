@@ -21,8 +21,8 @@ sudo cp rc.local debian/etc/rc.local
 sudo chmod a+x debian/etc/rc.local
 sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
 sudo umount debian
-sudo qemu-img convert -f raw -O qcow2 debian.img debian.qcow2
-sudo rm debian.img
+#sudo qemu-img convert -f raw -O qcow2 debian.img debian.qcow2
+#sudo mv debian.qcow2 debian.img
 </pre>
 
 h2. Kernel compile
