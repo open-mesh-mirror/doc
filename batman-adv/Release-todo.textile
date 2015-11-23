@@ -13,10 +13,10 @@ h2. Release Scheduling
 
 h2. Documentation
 
-* [x] build changelog ([[open-mesh:2015-07-19-batman-adv-2015-1-release|stub]])
-* [x] update README
+* [ ] build changelog ([[open-mesh:2015-07-19-batman-adv-2015-1-release|stub]])
+* [ ] update README
 * [ ] write release announcement
-* [x] update wiki documentation
+* [ ] update wiki documentation
 
 h2. Code
 
@@ -24,31 +24,31 @@ h2. Code
 * [x] update copyright years (if needed)
 * [ ] check coverity scan status
 * [x] remove dead code (if any)
-* [x] check against kernel versions
+* [ ] check against kernel versions
 * [x] check that maint branch is merged in next
 * [x] check for open patches on the ml
-* [x] git tag release
+* [ ] git tag release
 
 h2. Release
 
-* [x] build package tar.gz and generate checksums
-* [x] move packages/checksums to stable/sources / create symlinks from releases
-* [x] update download links in the redmine downloads page
+* [ ] build package tar.gz and generate checksums
+* [ ] move packages/checksums to stable/sources / create symlinks from releases
+* [ ] update download links in the redmine downloads page
 * [ ] send release mail ([[open-mesh:2015-07-19-batman-adv-2015-1-release|stub]])
-* [x] update IRC channel topic
+* [ ] update IRC channel topic
 
 h2. Distributions
 
-* [x] update alfred openwrt package
+* [ ] update alfred openwrt package
 * [ ] update batman-adv/batctl openwrt package
 * [ ] update gentoo package
-* [x] update debian batctl package
+* [ ] update debian batctl package
 
 h2. Aftershow
 
-* [x] Merge next into master branch (to get changes on README, CHANGELOG, ... - git merge origin/next)
-* [x] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
-* [x] Merge patches from master into next (to get all the fancy new features - git merge --ff-only master)
+* [ ] Merge next into master branch (to get changes on README, CHANGELOG, ... - git merge origin/next)
+* [ ] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
+* [ ] Merge patches from master into next (to get all the fancy new features - git merge --ff-only master)
 * [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
-* [x] Enable daily check for next/master (symbol check, cppcheck, feature check)
-* [x] Update cppcheck, smatch, sparse on build server
+* [ ] Enable daily check for next/master (symbol check, cppcheck, feature check)
+* [ ] Update cppcheck, smatch, sparse on build server
