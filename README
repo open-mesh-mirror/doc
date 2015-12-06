@@ -1,18 +1,18 @@
 Requirements
 ============
 
- * GNU make - http://www.gnu.org/software/make/
+ * GNU make - https://www.gnu.org/software/make/
  * xmlto - https://fedorahosted.org/xmlto/
- * docbook-xml (>= 4.5) - http://www.oasis-open.org/docbook/xml/
- * docbook-xsl - http://wiki.docbook.org/topic/DocBookXslStylesheets
- * fop - http://xmlgraphics.apache.org/fop/
+ * docbook-xml (>= 4.5) - https://www.oasis-open.org/docbook/xml/
+ * docbook-xsl - http://wiki.docbook.org/DocBookXslStylesheets
+ * fop - https://xmlgraphics.apache.org/fop/
  * ghostscript - http://www.ghostscript.com/
- * coreutils - http://www.gnu.org/software/coreutils/
+ * coreutils - https://www.gnu.org/software/coreutils/coreutils.html
  * gnuplot - http://gnuplot.sourceforge.net/
- * dia - http://live.gnome.org/Dia
- * texlive-latex-base - http://www.tug.org/texlive/
- * texlive-base - http://www.tug.org/texlive/
- * ps2eps - http://www.tm.uka.de/~bless/ps2eps
+ * dia - https://wiki.gnome.org/action/show/Apps/Dia
+ * texlive-latex-base - https://www.tug.org/texlive/
+ * texlive-base - https://www.tug.org/texlive/
+ * ps2eps - https://www.tm.uka.de/~bless/ps2eps
  * imagemagick - http://www.imagemagick.org/
 
 
@@ -31,4 +31,4 @@ Troubleshooting
  * "libjli.so: cannot open shared object file: No such file or directory"
    Make sure that /proc is mounted and `/bin/ls -l /proc/self/exe` prints
    [...] /proc/self/exe -> /bin/ls
-   See http://bugs.debian.org/435293 for more informations
+   See https://bugs.debian.org/435293 for more informations

@@ -18,7 +18,7 @@
         <listitem><para>libpthread</para></listitem>
       </orderedlist></listitem>
       <listitem><para>Download the B.A.T.M.A.N. daemon code from the website
-      <ulink url="http://www.open-mesh.net/wiki/Download" /></para></listitem>
+      <ulink url="https://www.open-mesh.org/projects/open-mesh/wiki/Download" /></para></listitem>
     </itemizedlist>
   </section>
   <section>
@@ -26,7 +26,7 @@
     <para>All you have to do is untar and make, then you will see the executable
     file called <emphasis>batmand</emphasis>.</para>
     <programlisting><userinput>$ wget \
-http://downloads.open-mesh.net/batman/stable/sources/batman/batman-0.3.tar.gz
+https://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz
 $ tar xzvf batman-0.3.tar.gz
 $ cd batman-0.3
 $ make</userinput></programlisting>
