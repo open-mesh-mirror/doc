@@ -122,7 +122,7 @@ h2. B.A.T.M.A.N. Advanced - Bridge Loop Avoidance questions
 h3. What is Bridge Loop Avoidance?
 
 *Q:* What can you do with BLA?
-*A:* Bridge Loop Avoidance is used to detect and avoid loops due to multiple batX interfaces. "Read more...":http://www.open-mesh.org/projects/batman-adv/wiki/Bridge-loop-avoidance
+*A:* Bridge Loop Avoidance is used to detect and avoid loops due to multiple batX interfaces. [[Bridge-loop-avoidance|Read more...]]
 
 h3. Why do we need BLA II if we can just use mesh on Ethernet?
 
