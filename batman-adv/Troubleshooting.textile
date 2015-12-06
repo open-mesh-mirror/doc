@@ -12,7 +12,7 @@ If you still can't get any setup working at all, go through this checklist:
 
 h3. Any warnings or errors in the kernel log?
 
-Check dmesg/logread/syslog for warnings, errors or kernel oopses. If you are seeing a kernel oops, write a "report ticket":https://www.open-mesh.org/projects/batman-adv/issues/new and post the log there, describe your setup and hardware, and ideally how this crash could be reproduced.  If the module displays an error, see go to the next heading.
+Check dmesg/logread/syslog for warnings, errors or kernel oopses. If you are seeing a kernel oops, write a "report ticket":/projects/batman-adv/issues/new and post the log there, describe your setup and hardware, and ideally how this crash could be reproduced.  If the module displays an error, see go to the next heading.
 
 If the kernel log is just showing cryptic numbers it will be difficult to help you. You can increase the chances of finding the bug by enabling the kernel symbol table which will translate these numbers to function names that can help developers to see what is happening. Please check the "advanced" section of [[building-with-openwrt|this article]] to learn how to enable this functionality on OpenWRT.
 
