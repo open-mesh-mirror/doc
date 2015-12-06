@@ -8,7 +8,7 @@ Further pages on this topic:
 
 h2. Situation
 
-!situation.dia.png!:http://www.open-mesh.org/attachments/download/135/situation.dia.png
+!situation.dia.png!
 
 This is the example we will use to discuss the concept: multiple mesh nodes (called backbone gateways throughout the text) are connected to a big, single LAN (the backbone) as well as mesh nodes which are not connected to the backbone. backbone connections are drawn with solid lines, mesh connections with dotted lines. You can see an internet gateway connected through the LAN (this could be any other network device as well) at the top and a client (e.g. your laptop) connected/bridged through a mesh node in the bottom.
 
