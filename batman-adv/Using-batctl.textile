@@ -1,6 +1,6 @@
 h1. Using batctl
 
-Batctl is the configuration and debugging tool for batman-adv. It is thoroughly documented in its man page, so please refer to "man batctl" on your system or "this online version":http://downloads.open-mesh.org/batman/manpages/batctl.8.html .
+Batctl is the configuration and debugging tool for batman-adv. It is thoroughly documented in its man page, so please refer to "man batctl" on your system or "this online version":https://downloads.open-mesh.org/batman/manpages/batctl.8.html .
 
 h2. Using batctl for configuration
 
