@@ -63,4 +63,4 @@ h2. Protocol Documentation
 
 h2. Who uses B.A.T.M.A.N. Advanced?
 
-* Find out who uses B.A.T.M.A.N. Advanced: https://www.open-mesh.org/projects/open-mesh/wiki/Experience
+* [[open-mesh:Experience|Find out who uses B.A.T.M.A.N. Advanced]]
