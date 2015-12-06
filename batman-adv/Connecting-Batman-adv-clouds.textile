@@ -11,11 +11,11 @@ A very common situation can be the one depicted in the following picture, where 
 
 !batman-l2-l3.png!
 
-Node A and B are the two possible exit points from cloud1 towards cloud2, while D and E are the two cloud2 entry points. In the normal "Gateway":http://www.open-mesh.org/projects/batman-adv/wiki/Gateways scenario batman-adv would choose the gateway which is reachable through the path with the Best TQ. In the picture node C would choose A because the TQ towards it is 90%25 while towards B it is 80%25. This seems to be the best choice because this way batman-adv is minimizing the probability of packet loss till the gateway, but it is not considering the rest of the path behind it towards the real destination: cloud2.
+Node A and B are the two possible exit points from cloud1 towards cloud2, while D and E are the two cloud2 entry points. In the normal [[batman-adv:Gateways|Gateway]] scenario batman-adv would choose the gateway which is reachable through the path with the Best TQ. In the picture node C would choose A because the TQ towards it is 90% while towards B it is 80%. This seems to be the best choice because this way batman-adv is minimizing the probability of packet loss till the gateway, but it is not considering the rest of the path behind it towards the real destination: cloud2.
 
 Looking at the scenario with more attention it is possible to understand that choosing B as exit point is better because the resulting overall qualities are the following:
-* C -> A -> D : TQ = 90%25 * 50%25 = 45%25
-* C -> B -> E : TQ = 80%25 * 100%25 = 80%25
+* C -> A -> D : TQ = 90% * 50% = 45%
+* C -> B -> E : TQ = 80% * 100% = 80%
 
 Given these results it is possible to understand that the best local choice (node A) would result in a worse overall path towards cloud2.
 This conclusion lead to the problem that the local available information in a batman-adv cloud is not enough to make a proper decision at the source (node C).
