@@ -8,13 +8,13 @@ h2. Checkout
 To retrieve the latest changes you can pull from the read-only http frontend.
 
 <pre>
-git clone http://git.open-mesh.org/batman-adv.git batman-adv
+git clone https://git.open-mesh.org/batman-adv.git batman-adv
 </pre>
 
 There is also a repository for kernel integration. You are about to download 300MB of sources - that may take a while!
 
 <pre>
-git clone http://git.open-mesh.org/linux-merge.git
+git clone https://git.open-mesh.org/linux-merge.git
 </pre>
 
 h2. Branches
@@ -67,7 +67,7 @@ The linux-merge repository is a clone of Linus Torvalds developer branch. With t
 
 <pre>
 git checkout standalone/next
-git pull http://git.open-mesh.org/batman-adv.git next
+git pull https://git.open-mesh.org/batman-adv.git next
 </pre>
 
 and merge the next branch into this one:
