@@ -12,7 +12,7 @@ Current status:
 
 More Info:
 
- * "Batman-adv multicast optimization (video)":http://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011], slides are attached at the end of this document
+ * "Batman-adv multicast optimization (video)":https://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011], slides are attached at the end of this document
  * The specification for the 2010.2.0 version is attached as well
 
 ---
@@ -85,16 +85,16 @@ To decrease the time needed for the initial infrastructure creation, the multica
 h3. still broadcast smaller/rare, but important multicast packets
 
 The smaller the packets, the less harmful the broadcasting would be for the mesh itself. However, the broadcasting would make the transportation of these packtes more robust in most topologies. The critirea for a "small" multicast packet could be:
-* An IPv4 multicast packet from the "Local Network and Internet Work Control Blocks" (224.0.0.0/24, 224.0.1.0/24 - "RFC3171":http://tools.ietf.org/html/rfc3171). These are for instance IGMP- or mDNS-packets.
+* An IPv4 multicast packet from the "Local Network and Internet Work Control Blocks" (224.0.0.0/24, 224.0.1.0/24 - "RFC3171":https://tools.ietf.org/html/rfc3171). These are for instance IGMP- or mDNS-packets.
 * Well-known IPv6 multicast addresses, having the transient-flag unset. These are for instance the important IPv6 neighbor- and router-discovery packets or mDNS- or DHCPv6-packets.
 * Threshold-triggering: Only if there've been sent for instance 5KB/s during the last second to the same multicast group destination, start building the optimised multicast distribution infrastructure.
 
-For a nice table of multicast IP- and MAC-address ranges, also see "this":http://en.wikipedia.org/wiki/Multicast_address nice wikipedia-article 
+For a nice table of multicast IP- and MAC-address ranges, also see "this":https://en.wikipedia.org/wiki/Multicast_address nice wikipedia-article 
 
 
 h3. broadcasting in dense multicast networks
 
-If already about 50%25 of the nodes are part of the same multicast group, then such an optimised multicast distribution infrastructure's gain by minimising the number of forwarding nodes is not that much and because of the very high maintenance overhead the total-"gain" would even be negative. Therefore, if a multicast member notices that there are about 50%25 of the nodes in the originator table in the same multicast group, this node would not start sending mcast_pathsel packets and send the multicast data packets via BAT_BCAST instead.
+If already about 50% of the nodes are part of the same multicast group, then such an optimised multicast distribution infrastructure's gain by minimising the number of forwarding nodes is not that much and because of the very high maintenance overhead the total-"gain" would even be negative. Therefore, if a multicast member notices that there are about 50% of the nodes in the originator table in the same multicast group, this node would not start sending mcast_pathsel packets and send the multicast data packets via BAT_BCAST instead.
 
 Another optimization for this broadcasting approach in dense multicast networks would be for a node to still check the following:
 * Are all other multicast members I know of behind the same neighbor I just received the multicast data packet from?
@@ -117,7 +117,7 @@ So if a forwarding node sitting on a crotch receives a multicast data packet via
 
 h3. NAKs  between neighbors
 
-In wireless networks all unicast traffic is being acknowledged and in case of a loss resend until a certain amount of times. We usually don't have this feature for broadcasted packets, especially because of the mobile characteristics of the mesh it can be quite tough to tell on link layer if there was no ACK because of interference or because the neighbor got out of range. It is therefore a lot easier to use NAKs in this case - if a neigbor who is part of the distribution infrastructure detects a missing sequence number, it could request it again and receive it via unicast from the according neighbor. PGM ("RFC3208":http://tools.ietf.org/html/rfc3208)is also using the NAK approach on the transport layer for multicast packets for instance.
+In wireless networks all unicast traffic is being acknowledged and in case of a loss resend until a certain amount of times. We usually don't have this feature for broadcasted packets, especially because of the mobile characteristics of the mesh it can be quite tough to tell on link layer if there was no ACK because of interference or because the neighbor got out of range. It is therefore a lot easier to use NAKs in this case - if a neigbor who is part of the distribution infrastructure detects a missing sequence number, it could request it again and receive it via unicast from the according neighbor. PGM ("RFC3208":https://tools.ietf.org/html/rfc3208)is also using the NAK approach on the transport layer for multicast packets for instance.
 
 
 h3. Only send MCAs as a receiver(/sender), if there is a sender(/receiver) too
@@ -143,8 +143,8 @@ Only then an optimised multicast path would be established to the MCA's originat
 h3. Resources:
 
 * ADAMA (-SM/DM - sparse and dense mode) - "Multicast-Routing in mobilen Ad-hoc-Netzen", Oliver Stanze, ISBN-13: 978-3832266141
-* ODMRP "draft-ietf-manet-odmrp-04":http://tools.ietf.org/html/draft-ietf-manet-odmrp-04,"wcnc99.pdf":http://www.hpl.hp.com/personal/Sung-Ju_Lee/abstracts/papers/wcnc99.pdf, 
-* SMF "draft-ietf-manet-smf-10":http://tools.ietf.org/html/draft-ietf-manet-smf-10
-* PGM "rfc3208":http://tools.ietf.org/html/rfc3208
+* ODMRP "draft-ietf-manet-odmrp-04":https://tools.ietf.org/html/draft-ietf-manet-odmrp-04,"wcnc99.pdf":http://www.hpl.hp.com/personal/Sung-Ju_Lee/abstracts/papers/wcnc99.pdf, 
+* SMF "draft-ietf-manet-smf-10":https://tools.ietf.org/html/draft-ietf-manet-smf-10
+* PGM "rfc3208":https://tools.ietf.org/html/rfc3208
 
 </code></pre>
