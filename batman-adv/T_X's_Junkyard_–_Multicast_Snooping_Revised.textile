@@ -5,8 +5,8 @@
 Ressources:
 
 * http://tools.ietf.org/rfc/rfc4541.txt
-* http://www.open-mesh.org/projects/batman-adv/wiki/Multicast-optimizations-listener-reports
-* http://www.open-mesh.org/projects/batman-adv/wiki/Multicast-optimizations-flags
+* [[Multicast-optimizations-listener-reports]]
+* [[Multicast-optimizations-flags]]
 
 h1. Multicast Snooping Revised
 
