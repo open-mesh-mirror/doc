@@ -4,7 +4,7 @@ h1. FAQ
 
 See below a list of batmand (B.A.T.M.A.N. deamon) related questions and answers. 
 
-If your question is not listed below, please contact us.  You can contact us via IRC: "#batman channel":http://webchat.freenode.net/?channels=batman on Freenode.org or by sending an e-mail to: "b.a.t.m.a.n@lists.open-mesh.org":mailto:b.a.t.m.a.n@lists.open-mesh.org (only plan-text).
+If your question is not listed below, please contact us.  You can contact us via IRC: "#batman channel":https://webchat.freenode.net/?channels=batman on Freenode.org or by sending an e-mail to: "b.a.t.m.a.n@lists.open-mesh.org":mailto:b.a.t.m.a.n@lists.open-mesh.org (only plan-text).
 
 h2. Understanding the version and compatibility number
 
@@ -45,7 +45,7 @@ If you use a firewall, NAT or any other problematic network setup you can swap t
 h2. Update many Openwrt based systems
 
 
-   1. Download the update script: "update script":http://downloads.open-mesh.org/batman/useful-scripts-and-tools/update_batman.sh
+   1. Download the update script: "update script":https://downloads.open-mesh.org/batman/useful-scripts-and-tools/update_batman.sh
    2. Edit the the variables in the configuration section of the script to match your needs.
    3. Run the script. ;-)
 
