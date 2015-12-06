@@ -25,7 +25,7 @@ cd openwrt
 make
 </pre>
 
-The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your Openwrt system, please see "the Openwrt project website":http://www.openwrt.org.
+The rest of the document will focus on the batman-adv package. It is assumed that you configured the system to work on your platform. If you require additional information on how to tweak your Openwrt system, please see "the Openwrt project website":https://www.openwrt.org.
 
 h2. Adding the batman-adv / batctl package
 
@@ -48,7 +48,7 @@ developer version:
 Append the following line to your Openwrt feed configuration file (either feeds.conf or feeds.conf.default):
 
 <pre>
-src-git batman http://git.open-mesh.org/openwrt-feed-batman-adv.git
+src-git batman https://git.open-mesh.org/openwrt-feed-batman-adv.git
 </pre>
 
 Update the package information and add the development package:
@@ -142,7 +142,7 @@ PKG_VERSION:=2013.4.0
 you will probably want to change md5sum also:
 <pre>
 [..]
-PKG_MD5SUM:=1a2b3c4d5e6f7g # http://downloads.open-mesh.org/batman/releases/batman-adv-2013.4.0/batman-adv-2013.4.0.tar.gz.md5
+PKG_MD5SUM:=1a2b3c4d5e6f7g # https://downloads.open-mesh.org/batman/releases/batman-adv-2013.4.0/batman-adv-2013.4.0.tar.gz.md5
 [..]
 </pre>
 
@@ -154,7 +154,7 @@ BATCTL_VERSION:=2013.4.0
 </pre>
 <pre>
 [..]
-PKG_MD5SUM:=1a2b3c4d5e6f7g # http://downloads.open-mesh.org/batman/releases/batman-adv-2013.4.0/batctl-2013.4.0.tar.gz.md5
+PKG_MD5SUM:=1a2b3c4d5e6f7g # https://downloads.open-mesh.org/batman/releases/batman-adv-2013.4.0/batctl-2013.4.0.tar.gz.md5
 [..]
 </pre>
 
