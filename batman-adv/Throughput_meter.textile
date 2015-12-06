@@ -13,9 +13,9 @@ The goal of the protocol is to approximate the behavior of TCP in order to measu
 The bandwidth meter protocol is the implementation of TCP using NewReno as congestion handling mechanism.
 
 Since the implementations of the bandwidth meter tries to reflect the TCP one, more details can directly be found in the following documents:
-* "RFC 5681":http://tools.ietf.org/html/rfc5681 (TCP)
-* "RFC 6582":http://tools.ietf.org/html/rfc6582 (NewReno extension)
-* "RFC 6298":http://tools.ietf.org/html/rfc6298 (Retransmission Timeout computation)
+* "RFC 5681":https://tools.ietf.org/html/rfc5681 (TCP)
+* "RFC 6582":https://tools.ietf.org/html/rfc6582 (NewReno extension)
+* "RFC 6298":https://tools.ietf.org/html/rfc6298 (Retransmission Timeout computation)
  
 During the test batman-adv sends ICMP packets only. For this purpose a new ICMP packet type has been created: the BW.
 Received BW packets are directly passed to the bandwitdh meter submodule which is in charge of handling the test. It has two subtypes:
@@ -37,4 +37,4 @@ Between two consecutive experiments at least two seconds must be waited, to ensu
 
 h2. Source code
 
-batman-adv featuring the Bandwidth meter can be found at the main batman-adv git repository in the "ordex/bw_meter branch":http://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/ordex/bw_meter
+batman-adv featuring the Bandwidth meter can be found at the main batman-adv git repository in the "ordex/bw_meter branch":https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/ordex/bw_meter
