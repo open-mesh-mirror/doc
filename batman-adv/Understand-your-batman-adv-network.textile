@@ -226,7 +226,7 @@ Traditional network debugging tools based on the ICMP protocol such as ping or t
 h2. Logging
 
 
-Batman-adv offers extended logging to understand & debug the routing protocol internals. After you activated debugging at compile time (instructions can be found in "the README file":http://www.open-mesh.org/projects/batman-adv/repository/revisions/master/entry/README ) and the appropriate log level has been set (read about the log levels [[tweaking|here]]) you can retrieve the logs by simply reading the 'log' file:
+Batman-adv offers extended logging to understand & debug the routing protocol internals. After you activated debugging at compile time (instructions can be found in "the README file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external ) and the appropriate log level has been set (read about the log levels [[tweaking|here]]) you can retrieve the logs by simply reading the 'log' file:
 
 <pre>
 cat /sys/kernel/debug/batman_adv/bat0/log
