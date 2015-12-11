@@ -92,7 +92,6 @@ Each node periodically (OGM interval) generates a single OGM which is broadcaste
 
 h3. 4.2. Receiving Originator Messages
 
-
 Upon receiving an OGM a node must perform the following checks before the packet is further processed:
 
 h4. 4.2.1. Preliminary Checks
@@ -119,10 +118,11 @@ If the initial checks above have passed, the internal stats are updated:
 
  * the last seen timestamps of the router and the originator are updated
  * the last sequence number and ttl values are adopted
+ * Path Throughput is adopted if its lower than the link throughput to the neighbor, otherwise the link throughput is adopted
  * Forward penalties are applied:
    * if the considered interface is the *default* interface, no penalty is applied
    * if the incoming and considered outgoing interface is the same *half duplex* interface and the reported throughput is larger than 1 MBit/s, the throughput is reduced by 50%
-   * Otherwise, a hop penalty is applied and the throughput is reduced by the according value (default 5.8% or 15/255)
+   * Otherwise, a hop penalty is applied and the throughput is reduced by the according value (default 5.8% or 15/255). This is especially useful for "perfect" networks to create a decreasing metric over multiple hops.
  * The throughput value with the penalties applied is stored for the router
 
 h4. 4.2.3. Route Update
@@ -142,74 +142,19 @@ If the OGM2 has been received by the (now) selected router, the OGM is forwarded
 
 Furthermore, TVLV data is processed when this OGM2 was newer than previously received OGM2s.
 
-h3. 5. Router Ranking
+h3. 5. Re-broadcasting other nodes' OGM2s
 
-The Router Ranking checks whether just an according Router or even completely new Originator entry needs to be created or an already existing Router entry matching the Router we received this OGM from just updated. Or whether also the currently Selected Router needs to be switched. Furthermore step 5.2. will force relinquishing the so far Selected Router if its information became too old because of this OGM received via a Router other than the Selected Router.
+When an OGM2 is to be re-broadcasted some of the message fields must be changed others must be left unchanged.  All fields not mentioned in the following section remain untouched:
 
-If this OGM just results in updating a Router in the Router list which is not and not going to be the currently Selected Router, then no rebroadcasting of this OGM will take place in step 5.3. for now.
+ * The TTL must be decremented by one. If the TTL becomes zero (after the decrementation) the packet must be dropped. 
+ * The Path throughput for the considered outgoing interface is adopted
 
-For the Router Ranking the following actions must be performed:
-
-h4. 5.1. Creating or Updating Originator and Router Entries
-
-The following steps need to be undertaken in the updating and creating process:
-
-* If no originator entry matching the originator address of the OGM exists:
-** Create a new originator entry with the originator address and originator's sequence number set to ones from the OGM.
-
-* If no router entry matching the OGM's originator and the neighbor the OGM was received from exists:
-** Create a new router entry with the Router Address set to the address of the Router we received the OGM from. Buffer the complete OGM in this entry. (TODO: really?)
-** Unset this new router entry's Rebroadcasted flag.
-* Otherwise:
-** Delete the old buffered OGM and buffer this newly received OGM instead. (TODO: really?)
-** Unset the Rebroadcasted flag in this matching router entry.
-
-h4. 5.2. Purging Outdated Router Entries
-
-It might happen that for instance from a certain Neighbor we would receive an OGM of perfect quality first and will chose that Router. However after that the path over that Selected Router could suddenly be jammed, leading to no more updates from that Router, resulting in a stale entry. Newer and newer (higher sequence number) OGMs might arrive over other potential Routers, but would never be chosen because of a path TQ never being better than perfect, highest path TQ of the currently Selected Router. Therefore we need to at some point consider this Selected Router as outdated and switch to one of the alternative Routers in our list which provide more up-to-date information. This is not being done time-based but based on the sequence number, a Selected Router may only be chosen if its OGM has not been older than OGM_SEQ_RANGE sequence numbers.
-
-Note that a lower OGM_SEQ_RANGE favors choosing Routers with the most-up-to date information: This especially penalizes asymmetric links and paths - although we do not receive that many OGMs from such a Router with such an asymmetric path (showing a not that good receive quality), it might still be the best choice for transmitting our own data packets though. And could lead to fast route flapping also in symmetric topologies when OGMs in general have a low probability of arrival. However having a too large OGM_SEQ_RANGE might favor too old, outdated information too much, as described with the example before.
-
-More precisely we have to:
-
-* If the OGM's Sequence Number is newer than the Originator's Sequence Number:
-** The new Originator's Sequence Number must be set to the Sequence Number contained in the received OGM.
-** for all Routers of the OGM's originator: if the Originators Sequence Number is by OGM_SEQ_RANGE newer than the Routers Sequence Number, purge the router from the OGM's originator's Router List.
-
-Note that this step can result in rebroadcasting an OGM in step 5.3. which is not the one we have actually received and are currently processing - which is intended: This incoming OGM might be the cause of purging outdated entries, however there might be still other Routers in the Router list which have a higher path TQ and are therefore more desirable to chose as the new Selected Router than the Router we received this OGM from.
-
-h4. 5.3. Switching to (or Keeping) best Router
-
-This step ensures a good Router selection to the best knowledge of a node. The Routers values are updated regardless whether it is the selected router or not. If the Rebroadcasted Flag is set for the selected router and the OGM was not received by this router, the OGM will not be rebroadcasted.
-
-Specifically, we must undertake the following actions:
-
-* Set the Selected Router to the Router with the highest path TQ.
-* If the Selected Router's Rebroadcasted flag is not set:
-** Rebroadcast the OGM of this Selected Router.
-** Set the Selected Router's Rebroadcasted flag.
-
-h4. 5.4. Purging non-potential Routers
-
-To keep the routers list short and clean, we will purge routers with old sequence numbers which are not the selected router or have a lower TQ. These Routers are obsolete and will not be chosen in the future.
-
-If an OGM was rebroadcasted in the previous step:
-* Purge all routers with a sequence number smaller than the Selected Router's Sequence Number.
-* Purge all routers with a sequence number equal to the Selected Router's Sequence Number and a path TQ smaller than the Selected Router's path TQ.
-
-Note: If no OGM was rebroadcasted in the previous section then no purging will be done in this section anyways. (TODO: can we skip this condition?)
-
-h3. 6. Re-broadcasting other nodes' OGMs
-
-When an OGM is to be re-broadcasted some of the message fields must be changed others must be left unchanged.  All fields not mentioned in the following section remain untouched:
-
-* The TTL must be decremented by one. If the TTL becomes zero (after the decrementation) the packet must be dropped.
-* The forward penalty (link/hop penalty) must be applied on the OGM's metric field. If the link is full duplex or the link metric is below 1Mbps we apply the hop penalty, otherwise we apply the half duplex one. The hop penalty is applied by reducing the path TQ by HOP_PENALTY percent.
-
-Note: The Hop penalty is especially required in loss-less networks where shorter path should be favored. It is also useful to select the shortest path in lossy networks where the TQ values are very similar.
+The OGM2 is then rebroadcasted on the specific outgoing interface.
 
 h2. 8. Values for Constants
 
-OGM_SEQ_RANGE: 5
 BATADV_THROUGHPUT_MAX_VALUE: 0xFFFFFFFF
 BATADV_TTL: 50
+OGM_MAX_ORIG_DIFF: 5
+BATADV_OGM_MAX_AGE: 64
+BATADV_EXPECTED_SEQNO_RANGE: 65536
