@@ -111,10 +111,12 @@ The following steps check whether the Neighbor we received the OGM2 from is a po
 Each step is performed per potential outgoing interface where the OGM2 may be rebroadcasted to allow [[Multi Link Optimizations]]. This a *default* interface next to the configured hard interfaces, which is used for locally generated traffic.
 
 The following checks are performed before updating the metric:
+
  * Protection window check: If the OGM2s sequence number is older than BATADV_OGM_MAX_AGE or newer than the BATADV_EXPECTED_SEQNO_RANGE, and the protection window is active, the packet is silently dropped. If both conditions are met but the protection window is not active yet, the OGM2 is allowed but the protection window gets activated.
  * If the sequence number is strictly older than the last OGM2, the packet is silently dropped. The only exception is when the protection window has just been activated, then the OGM2 can pass.
 
 If the initial checks above have passed, the internal stats are updated:
+
  * the last seen timestamps of the router and the originator are updated
  * the last sequence number and ttl values are adopted
  * Forward penalties are applied:
