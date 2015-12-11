@@ -45,17 +45,16 @@ An originator list holds all addressable and to a certain degree reachable origi
 
 h3. 3.2 Router List
 
-A router list holds all potential routers, routers that might be switched to at any time without creating a routing loop. An entry buffers the newest, valid OGM from the according router and according originator of the OGM to be able to rebroadcast an OGM later when switching to another potential router.
+A router list holds all potential routers, routers that might be switched to at any time without creating a routing loop. An entry buffers the newest, valid OGM2 from the according router and according originator of the OGM2 to be able to rebroadcast an OGM2 later when switching to another potential router.
 
-* Router Originator Address: Originator address of the router an OGM was received from.
+* Router Originator Address: Originator address of the router an OGM2 was received from.
 * Rebroadcasted: This flag indicates whether the current Router Entry settings have been rebroadcasted yet.
 * Received OGM, the following properties are of special interest for the routing decisions:
-** Path TQ: The path TQ towards the originator of the OGM multiplied with the best link TQ at the time of reception.
+** Path throughput: The path throughput towards the originator of the OGM2 multiplied with the best link throughput at the time of reception.
 ** Router's Sequence Number: The sequence number of the last accepted OGM received via the according router.
-** TTL: The TTL of the last accepted OGM received via the according router.
-* As well as all other properties of the OGM like:
+** TTL: The TTL of the last accepted OGM2 received via the according router.
+* As well as all other properties of the OGM2 like:
 ** Interval, Flags, Gateway Flags, TT Num Changes, TT VN, TT CRC and a possible TT change entry (see [[Client-announcement]] for TT related field descriptions)
-
 
 h2. 4. Protocol Procedure
 
