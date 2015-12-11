@@ -5,33 +5,33 @@ It is a rework based on the original [[OGM]] page and will supercede it after co
 
 h2. 1. Introduction
 
-The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
+[[batman_v|B.A.T.M.A.N. V]] uses the Originator Messages 2 (OGM2) to make routing decisions and  transport information about mesh participants through the whole mesh. It is complemented by the [[ELP|Echo Location Protocol(ELP)]] which is used for neighbor sensing. The previous versions of the B.A.T.M.A.N. protocols (version I to IV) used the original OGM messages for both neighbor sensing and route finding.
 
-With the new concept of a separate [[ELP|ELP]] the tasks performed by OGMs becomes way simpler: It only determines and choses the best router towards another originator without having any knowledge about possibly multiple interfaces, while any link specific work is done by ELP.
-
-This bears the following advantages from the OGM point of view:
-* Reduced overhead, as OGMs can then be send with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desireable.
-* The BATMAN core routing protocol becomes less entangled with other mechanisms and features, making it easier understand and to perform theoretical analysis on.
+The new OGM2 protocol bears the following advantages:
+ * Reduced overhead, as OGMs can then be sent with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desireable.
+ * Neighbor sensing and metric data collection can be performed individually, at different intervals or even different techniques
+ * Efforts for multiple interfaces handling can be reduced
+ * The BATMAN core routing protocol becomes less entangled with other mechanisms and features, making it easier understand and to perform theoretical analysis on.
 
 
 
 h2. 2. Definitions
 
 * Node - A mesh router which utilizes the B.A.T.M.A.N. protocol as specified in this document on at least one network interface.
-* originator - A node broadcasting its own OGMs (see [[OGM#41-Broadcasting-own-Originator-Message-OGM|section 4.1]] for details)  that is therefore addressable within the mesh network routing layer. It is uniquely identifiable by its originator address. [[/|B.A.T.M.A.N.-Advanced]] uses the MAC address of its primary hard interface.
+* originator - A node broadcasting its own OGMs that is therefore addressable within the mesh network routing layer. It is uniquely identifiable by its originator address. B.A.T.M.A.N.-Advanced uses the MAC address of its primary hard interface.
 * hard interface - Network interface utilized by B.A.T.M.A.N. for its own ethernet frames.
 * sliding window - Sequence numbers are recorded in dedicated sliding windows until they are considered out-of range. Thus, such a sliding window always contains the set of recently received sequence numbers. The amount of sequence numbers recorded in the sliding window is used as a metric for the quality of detected links and paths.
 * duplicate - A received OGM message from a neighbor containing an already received sequence number.
 * out of order - A received OGM message from a neighbor containing a sequence number that is older than the newest sequence number ever received from this neighbor.
 * Neighbor: An originator within one hop distance.
 * Router: A neighbor which is a potential, loop-free next hop for forwarding data packets towards a specific originator.
-* link TQ: link TQ from one interface to a neighbor's interface (see ELP for details).
-* best link TQ: The best of all link TQ values towards a neighbor (see ELP for details).
-* path TQ:  The incoming OGM's TQ multiplied with the best link TQ of the according neighbor.
+* link throughput: link throughput from one interface to a neighbor's interface (see [[ELP]] for details).
+* best link throughput: The best of all link throughput values towards a neighbor (see [[ELP]] for details).
+* path throughput:  The incoming OGM's throughput combined with the best link throughput of the according neighbor.
 * Originator entry: Local data structure in the originator list (see 'Conceptual Data Structures' for details).
 * Router entry: Local data structure in the router list (see 'Conceptual Data Structures' for details).
 
-The TQ is a number between zero (worst) and one (best). A TQ in a packet is linearly mapped to one byte, 0x00 representing a zero TQ, 0xFF a TQ of one.
+Throughputs are specified in units of 100 kbit/s.
 
 h2. 3. Conceptual Data Structures
 
