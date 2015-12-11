@@ -117,6 +117,7 @@ If the initial checks above have passed, the internal stats are updated:
  * the last sequence number and ttl values are adopted
  * Path Throughput is adopted if its lower than the link throughput to the neighbor, otherwise the link throughput is adopted
  * Forward penalties are applied:
+
    * if the considered interface is the *default* interface, no penalty is applied
    * if the incoming and considered outgoing interface is the same *half duplex* interface and the reported throughput is larger than 1 MBit/s, the throughput is reduced by 50%
    * Otherwise, a hop penalty is applied and the throughput is reduced by the according value (default 5.8% or 15/255). This is especially useful for "perfect" networks to create a decreasing metric over multiple hops.
