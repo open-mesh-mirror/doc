@@ -59,11 +59,39 @@ A router list holds all potential routers, routers that might be switched to at 
 
 h2. 4. Protocol Procedure
 
-h3. 4.1 Broadcasting own Originator Message (OGM)
+h3. 4.1 Broadcasting own Originator Message 2 (OGM2)
 
 Each node periodically (OGM interval) generates a single OGM which is broadcasted on all hard interfaces. A jitter may be applied to avoid collisions.
 
-For the packet type definition see the [[packet-types]] page.
++The Originator Message 2 (OGM2) Format:+
+
+ * Packet type: Initialize this field with the ELP packet type.
+ * Version: Set your internal compatibility version.
+ * TTL: Initialize with BATADV_TTL
+ * Flags: not used
+ * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following OGM2.
+ * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
+ * TVLV length: Length of the TLVL data appended to the OGM
+ * Throughput: Throughput metric value in 100 kbit/s. Initialize with BATADV_THROUGHPUT_MAX_VALUE
+ * TVLV data: Appended TVLV data for the originator. See [[TVLV]] for a detailed description.
+
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Packet Type   |    Version    |      TTL      |   Flags       |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                       Sequence Number                         |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                     Originator Address                        |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |  (cont'd) Originator Address  |  TVLV length                  |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                         Throughput                            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                        TVLV data ...                          |
+</pre>
+
 
 h3. 4.2. Receiving Originator Messages
 
