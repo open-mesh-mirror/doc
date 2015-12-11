@@ -201,9 +201,8 @@ When an OGM is to be re-broadcasted some of the message fields must be changed o
 
 Note: The Hop penalty is especially required in loss-less networks where shorter path should be favored. It is also useful to select the shortest path in lossy networks where the TQ values are very similar.
 
-h2. 8. Proposed Values for Constants
-
+h2. 8. Values for Constants
 
 OGM_SEQ_RANGE: 5
-
-TQ_MAX: 0xFF
+BATADV_THROUGHPUT_MAX_VALUE: 0xFFFFFFFF
+BATADV_TTL: 50
