@@ -1,4 +1,19 @@
-h1. B.A.T.M.A.N. V (DRAFT)
+h1. B.A.T.M.A.N. V
+
+h2. 1. Introduction
+
+B.A.T.M.A.N. V uses the Originator Messages version 2 (OGMv2) to make routing decisions and  transport information about mesh participants through the whole mesh. It is complemented by the [[ELP|Echo Location Protocol(ELP)]] which is used for neighbor sensing. The previous versions of the B.A.T.M.A.N. protocols (version I to IV) used the original OGM messages for both neighbor sensing and route finding.
+
+The new OGM2 protocol bears the following advantages:
+
+ * Reduced overhead, as OGMs can then be sent with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desireable.
+ * Neighbor sensing and metric data collection can be performed individually, at different intervals or even different techniques
+ * Efforts for multiple interfaces handling can be reduced
+ * The BATMAN core routing protocol becomes less entangled with other mechanisms and features, making it easier understand and to perform theoretical analysis on.
+
+
+
+
 
 *Metric:* Estimated throughput (from RC algorithm for wireless devices). At the moment the used metric is the *current bitrate multiplied for the probability of success*. In the beginning the throughput directly estimated by the RC algorithm has been tested but it turned out to be too unstable for this purpose.
 *Neighbour Discovery:* [[ELP|ELP (Echo Locating Protocol)]]
