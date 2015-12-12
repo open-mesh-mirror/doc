@@ -4,7 +4,7 @@ _The original idea from Linus has been discussed and enhanced by an internationa
 
 h2. Background
 
-The new [[Ogm-v2|OGM protocol in BATMAN V]] is designed to send OGMs at much lower regular intervals than BATMAN IV, because we split the local link detection part off into ELP. The general idea is to reduce overhead of messages flooded through the network. The disadvantage is that reaction to link failures will also become slower. This RIP protocol (maybe we need a better name?) is designed to react to drastic link changes or outages. It is an extension to the new OGM protocol and works (only) along with it.
+The new [[OGMv2|OGM protocol in BATMAN V]] is designed to send OGMs at much lower regular intervals than BATMAN IV, because we split the local link detection part off into ELP. The general idea is to reduce overhead of messages flooded through the network. The disadvantage is that reaction to link failures will also become slower. This RIP protocol (maybe we need a better name?) is designed to react to drastic link changes or outages. It is an extension to the new OGM protocol and works (only) along with it.
 
 h2. Algorithm Idea
 
