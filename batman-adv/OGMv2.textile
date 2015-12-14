@@ -115,13 +115,13 @@ h4. 3.2.3. Route Update
 After that, we check the OGM2 whether a router update should be done and the OGM2 should be rebroadcasted
 
  * If the received neighbor is not (yet) a router, drop the OGM2
- * If the OGM2 sequence number is not newer than the last received one and if the throughput is not better, drop the OGM2
+ * If the OGM2 sequence number is not newer or equal compared to the last received OGM2 (from any neighbor for this originator) and if the throughput is not better, drop the OGM2
 
 The passing OGM2 will be considered for a router update:
 
  * If the OGM2 has been received from the best router, no change is necessary
  * If the throughput from the received router is higher than the throughput via the selected router, the received router becomes the  selected router
- * Also, if the sequence number is by OGM_MAX_ORIG_DIFF higher than the last received sequence number from the selected router, the received router becomes the selected router.
+ * Also, if the sequence number is by at least OGM_MAX_ORIG_DIFF higher than the last received sequence number from the selected router, the received router becomes the selected router.
 
 If the OGM2 has been received by the (now) selected router, the OGM is forwarded on the considered outgoing interface (except for the *default* interface).
 
