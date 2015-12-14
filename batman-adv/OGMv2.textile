@@ -42,7 +42,7 @@ h2. 3. Protocol Procedure
 
 h3. 3.1 Broadcasting own Originator Message 2 (OGM2)
 
-Each node periodically (OGM interval) generates a single OGM which is broadcasted on all hard interfaces. A jitter may be applied to avoid collisions.
+Each node periodically (OGM interval) generates a single OGM which is broadcasted on all hard interfaces. A jitter may be applied to avoid collisions. The default interval in batman-adv is 1 second.
 
 +The Originator Message 2 (OGM2) Format:+
 
@@ -72,7 +72,6 @@ Each node periodically (OGM interval) generates a single OGM which is broadcaste
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                        TVLV data ...                          |
 </pre>
-
 
 h3. 3.2. Receiving Originator Messages
 
