@@ -120,6 +120,7 @@ After that, we check the OGM2 whether a router update should be done and the OGM
 The passing OGM2 will be considered for a router update:
 
  * If the OGM2 has been received from the best router, no change is necessary
+ * If no router has been selected yet, the received router becomes the selected router immediately
  * If the throughput from the received router is higher than the throughput via the selected router, the received router becomes the  selected router
  * Also, if the sequence number is by at least OGM_MAX_ORIG_DIFF higher than the last received sequence number from the selected router, the received router becomes the selected router.
 
