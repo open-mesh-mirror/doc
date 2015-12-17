@@ -38,6 +38,8 @@ From the algorithm sketch, we can see:
  * the death notes are broadcasted only through the affected part of the mesh. Outside nodes use Unicast to reach the Originator - this saves bandwidth
  * we can keep long originator interval and still react to changes fast - at least negative ones.
 
+ * Remark from me/Linus: Deleting the routes (meaning forgetting about the last seqno+metric?) via the death notes can cause routing loops, if a late OGM arrives at N3 via yet another alternative path, I think. Simply forwarding the death note without route deletion should be safe and sufficient.
+
 h3. Death Note packet format
 
 Death Notes and OGM Update Requests may share a packet type and be distinguished by a flag. They basicly contain:
