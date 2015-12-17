@@ -4,13 +4,21 @@ The new BATMAN V implementation is a simple and clean implementation of the gene
 
 This page contains a list of potential improvements to reduce convergence times even further (and by that allowing higher intervals which in turn reduces overhead). They are backwards compatible to the current, simple BATMAN V protocol.
 
-# Sequence Number Polling
+Suggested milestones named "Mach 1" to "Mach 3".
+
+h2. BATMAN V, Mach 1
+
+ak. "BATMAN V simple"
+
+h2. BATMAN V, Mach 2
+
+h3. Sequence Number Polling
 
 A reactive mechanism can allow to drastically lower the periodic OGM intervals. Just like BABEL already does, we can poll for newer sequence numbers upon detecting broken links to be able to change to alternative routes faster.
 
 For BATMAN this was first sketched on the MGO page and is currently work in progress under the name RIP.
 
-# Potential Router List / Store & Forward Mechanism
+h3. Potential Router List / Store & Delayed Forward Mechanism ("OGM on hold")
 
 In a mesh network with low packet loss (at least for OGMs), BATMAN V will ideally converge to its optimum within one sequence number. However, for the worst case the current, simple BATMAN V algorithm may need an amount of sequence numbers relative to the diameter of the mesh to converge.
 
@@ -23,13 +31,22 @@ Nodes which receive an OGM with a new sequence number from a neighbor other than
 TODO: Draw and explain an example. Easy one would be "The circle, I" from the BATMAN V test examples, but with a link becoming worse on the selected path instead of one node failing completely. Upper path has a latency greater than the alternative, bottom one.
 
 
-# Forwarding OGMs via unicast
+h3. Forwarding OGMs via unicast
 
-# Weaker Feasibility Conditions
+To achieve the low-loss-OGM case to utilize the "Potential Router List" described above as best as possible, OGMs should be forwarded to neighbors via unicast.
 
-A feasibility condition ensures that accepting an OGM / route update does not create a loop. While the current feasibility condition in BATMAN V to accept a route only if it has either a newer sequence number or, alternatively, the same sequence number but a lower one is a safe choice feasibility conditions with a quicker convergence time exist.
 
-The weaker (= better) the feasibility condition is, the more likely we can switch an alternative route without having to wait for the next sequence number.
+h2. BATMAN V, Mach 3
+
+h3. Weaker Feasibility Conditions
+
+TODO: Do weaker feasibility conditions actually enhance anything right now? Or would it only help if we wanted to react to link changes without needing a new seqno/RIP(-alikes)?
+
+A feasibility condition ensures that accepting an OGM / route update does not create a loop. While the current feasibility condition in BATMAN V to accept a route only if it has either a newer sequence number or, alternatively, the same sequence number and a better metric is a safe choice. However feasibility conditions with a quicker convergence time exist.
+
+The weaker (= better) the feasibility condition is, the more likely we can switch to an alternative route without having to wait for the next sequence number.
+
+A weaker feasibility condition allows us to not only 
 
 One such slightly better condition is described in the BABEL RFC and talks.
 
