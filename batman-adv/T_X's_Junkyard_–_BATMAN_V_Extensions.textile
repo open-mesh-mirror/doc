@@ -53,3 +53,13 @@ One such slightly better condition is described in the BABEL RFC and talks.
 Furthermore the TTL could be added to the feasibility condition too.
 
 (Maybe the address of the last n nodes the OGM went through plus the throughput the OGM had before these two nodes - if we are not part of these n nodes we can check feasibility with the throughput of the OGM before these n nodes)
+
+h2. BATMAN V, Mach 1.5?
+
+After "Mach 1" we have a clean and simple BATMAN V algorithm within the kernel for easy, out-of-the-box use. It would be relatively easy to port that to userspace now. Before growing the kernel size yet again, maybe we should reconsider implementing a userspace daemon for the BATMAN V algorithm and its extensions now?
+
+For instance next to the routing algorithm options "BATMAN IV" and "BATMAN V" configurable via sysfs another option named "external"? A userspace daemon would then be allowed to set arbitrary layer 2 routes within the kernel module through netlink.
+
+This should make it easier to test and validate BATMAN V (for instance in simulations or with gdb, valgrind etc.) and easier to extend. And should be easier for others (researchers etc.) to experiment with.
+
+Currently we have many data structures shared and accessible through several submodules / features in batman-adv. This, right now, makes it very hard to debug the current kernel panics. Having a separate userspace daemon for the unicast routing algorithm and a clean API to the kernel module would allow us to eliminate the userspace code from causing any kernel panics (separation of concerns).
