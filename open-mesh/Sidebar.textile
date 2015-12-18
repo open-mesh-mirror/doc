@@ -1,6 +1,6 @@
 h3. Wikis
 
 *[[open-mesh:]]*
-* &nbsp;&nbsp; » [[batman-adv:]]
-** &nbsp;&nbsp;&nbsp;&nbsp; » [[alfred:]]
-* &nbsp;&nbsp; » [[batmand:]]
+* &nbsp;›&nbsp;[[batman-adv:]]
+** &nbsp;&nbsp;&nbsp;&nbsp;»&nbsp;[[alfred:]]
+* &nbsp;›&nbsp;[[batmand:]]
