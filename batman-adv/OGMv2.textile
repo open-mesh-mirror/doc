@@ -27,17 +27,17 @@ An originator list holds all addressable and to a certain degree reachable origi
 
 h2. 3. Protocol Procedure
 
-h3. 3.1 Broadcasting own Originator Message 2 (OGM2)
+h3. 3.1 Broadcasting own Originator Message 2 (OGMv2)
 
 Each node periodically (OGM interval) generates a single OGM which is broadcasted on all hard interfaces. A jitter may be applied to avoid collisions. The default interval in batman-adv is 1 second.
 
-+The Originator Message 2 (OGM2) Format:+
++The Originator Message 2 (OGMv2) Format:+
 
  * Packet type: Initialize this field with the ELP packet type.
  * Version: Set your internal compatibility version.
  * TTL: Initialize with BATADV_TTL
  * Flags: not used
- * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following OGM2.
+ * Sequence number: On first broadcast set the sequence number to an arbitrary value and increment the field by one for each following OGMv2.
  * Originator Address: Set this field to the primary MAC address of this B.A.T.M.A.N. node.
  * TVLV length: Length of the TLVL data appended to the OGM
  * Throughput: Throughput metric value in 100 kbit/s. Initialize with BATADV_THROUGHPUT_MAX_VALUE
@@ -75,14 +75,14 @@ The following checks are simple sanity checks which don't affect the routing log
 
 h4. 3.2.2. Metric Update
 
-The following steps check whether the Neighbor we received the OGM2 from is a potential Router. 
+The following steps check whether the Neighbor we received the OGMv2 from is a potential Router. 
 
-Each step is performed per potential outgoing interface where the OGM2 may be rebroadcasted to allow [[Multi Link Optimizations]]. This a *default* interface next to the configured hard interfaces, which is used for locally generated traffic.
+Each step is performed per potential outgoing interface where the OGMv2 may be rebroadcasted to allow [[Multi Link Optimizations]]. This a *default* interface next to the configured hard interfaces, which is used for locally generated traffic.
 
 The following checks are performed before updating the metric:
 
- * *Protection window check:* If the OGM2s sequence number is older than BATADV_OGM_MAX_AGE or newer than the BATADV_EXPECTED_SEQNO_RANGE, and the protection window is active, the packet is silently dropped. If both conditions are met but the protection window is not active yet, the OGM2 is allowed but the protection window gets activated.
- * *Age check:* If the sequence number is strictly older than the last OGM2, the packet is silently dropped. The only exception is when the protection window has just been activated, then the OGM2 can pass.
+ * *Protection window check:* If the OGMv2s sequence number is older than BATADV_OGM_MAX_AGE or newer than the BATADV_EXPECTED_SEQNO_RANGE, and the protection window is active, the packet is silently dropped. If both conditions are met but the protection window is not active yet, the OGMv2 is allowed but the protection window gets activated.
+ * *Age check:* If the sequence number is strictly older than the last OGMv2, the packet is silently dropped. The only exception is when the protection window has just been activated, then the OGMv2 can pass.
 
 If the initial checks above have passed, the internal stats are updated:
 
@@ -98,30 +98,30 @@ If the initial checks above have passed, the internal stats are updated:
 
 h4. 3.2.3. Route Update
 
-After that, we check the OGM2 whether a router update should be done and the OGM2 should be rebroadcasted
+After that, we check the OGMv2 whether a router update should be done and the OGMv2 should be rebroadcasted
 
- * If the received neighbor is not (yet) a router, drop the OGM2
- * If the OGM2 sequence number is not newer or equal compared to the last received OGM2 (from any neighbor for this originator) and if the throughput is not better, drop the OGM2
+ * If the received neighbor is not (yet) a router, drop the OGMv2
+ * If the OGMv2 sequence number is not newer or equal compared to the last received OGMv2 (from any neighbor for this originator) and if the throughput is not better, drop the OGMv2
 
-The passing OGM2 will be considered for a router update:
+The passing OGMv2 will be considered for a router update:
 
- * If the OGM2 has been received from the best router, no change is necessary
+ * If the OGMv2 has been received from the best router, no change is necessary
  * If no router has been selected yet, the received router becomes the selected router immediately
  * If the throughput from the received router is higher than the throughput via the selected router, the received router becomes the  selected router
  * Also, if the sequence number is by at least OGM_MAX_ORIG_DIFF higher than the last received sequence number from the selected router, the received router becomes the selected router.
 
-If the OGM2 has been received by the (now) selected router, the OGM is forwarded on the considered outgoing interface (except for the *default* interface).
+If the OGMv2 has been received by the (now) selected router, the OGM is forwarded on the considered outgoing interface (except for the *default* interface).
 
-Furthermore, TVLV data is processed when this OGM2 was newer than previously received OGM2s.
+Furthermore, TVLV data is processed when this OGMv2 was newer than previously received OGMv2s.
 
-h3. 4. Re-broadcasting other nodes' OGM2s
+h3. 4. Re-broadcasting other nodes' OGMv2s
 
-When an OGM2 is to be re-broadcasted some of the message fields must be changed others must be left unchanged.  All fields not mentioned in the following section remain untouched:
+When an OGMv2 is to be re-broadcasted some of the message fields must be changed others must be left unchanged.  All fields not mentioned in the following section remain untouched:
 
  * The TTL must be decremented by one. If the TTL becomes zero (after the decrementation) the packet must be dropped. 
  * The Path throughput for the considered outgoing interface is adopted
 
-The OGM2 is then rebroadcasted on the specific outgoing interface.
+The OGMv2 is then rebroadcasted on the specific outgoing interface.
 
 h2. 5. Values for Constants
 
