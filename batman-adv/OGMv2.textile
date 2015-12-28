@@ -1,4 +1,4 @@
-h1. Originator Message (OGM)
+h1. Originator Message (OGM) version 2
 
 
 h2. 1. Definitions
