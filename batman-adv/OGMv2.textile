@@ -77,7 +77,7 @@ h4. 3.2.2. Metric Update
 
 The following steps check whether the Neighbor we received the OGMv2 from is a potential Router. 
 
-Each step is performed per potential outgoing interface where the OGMv2 may be rebroadcasted to allow [[Multi Link Optimizations]]. This a *default* interface next to the configured hard interfaces, which is used for locally generated traffic.
+Each step is performed per potential outgoing interface where the OGMv2 may be rebroadcasted to allow [[Multi-link-optimizations-technical|Multi Link Optimizations]]. This a *default* interface next to the configured hard interfaces, which is used for locally generated traffic.
 
 The following checks are performed before updating the metric:
 
