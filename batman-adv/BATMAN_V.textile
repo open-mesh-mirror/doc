@@ -23,25 +23,18 @@ The task separation (neighbor discovery vs mesh routing) bears the following adv
  * Efforts for multiple interfaces handling can be reduced.
 
 
-h2. Mesh metric
+h2. Throughput based metric
 
+Since a packet loss based metric as used by B.A.T.M.A.N. IV isn't adequate to handle the increasing number devices & link types with no packet loss but very different throughput capabilities B.A.T.M.A.N. V uses packet throughput as mesh-wide metric. Depending on the link type B.A.T.M.A.N. is able to determine the throughput automatically:
 
+* wireless: Modern WiFi drivers export the estimated throughput per WiFi neighbor. This value is retrieved on a periodic basis and averaged before propagated in the mesh. 
+* wired: Most Ethernet capable devices export their theoretical throughput and duplex capabilities via the ethtool API.
+* unknown/override: B.A.T.M.A.N. V allows to specify a throughput value per interface via sysfs. Consequently. B.A.T.M.A.N. V will assume the specified throughput for any neighbor discovered over that interface.
+* throughput meter (upcoming): If the throughput can not be queried via some API and is not manually configured, B.A.T.M.A.N. V will run a periodic throughput test with its built-in throughput test protocol.
 
-*Metric:* Estimated throughput (from RC algorithm for wireless devices). At the moment the used metric is the *current bitrate multiplied for the probability of success*. In the beginning the throughput directly estimated by the RC algorithm has been tested but it turned out to be too unstable for this purpose.
+Note: The WiFi neighbor throughput estimation relies on the WiFi driver being able to estimate the throughput. Commonly, the WiFi driver needs payload traffic to be sent to each neighbor for the estimation to be accurate. On idle links B.A.T.M.A.N. V will initiate payload traffic from time to time to feed the WiFi driver's estimation logic.
 
-* ELP bandwidth aware
-** Broadcast message for neighbour discovery (one per interface). [Beacon might be used on wifi interfaces]
-** Unicast message for thgoughput sampling (two per neighbour). This is useful when there is no traffic towards a given neighbor.
-
-
-When an OGM is received the metric towards the originator is computed as the minimum between the value contained into the OGM and the metric of the link where the message has been received from
-
-
-* *wireless*: estimated datarate. For details read at the top of this page.
-* *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN).
-* *Unknown/VPN*: 1Mbps (customisable via sysfs)
-* *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
-* *forced by the user*: the user can manually override the throughput estimation and set a fake value for each *interface*
+The path throughput between node A and node B is computed as the minimum between the throughput value of all given links on the path between node A and node B.
 
 
 h2. Backward compatibility
@@ -57,9 +50,9 @@ RIP
 
 h2. Technical documentation:
 
- * Neighbour Discovery: [[ELP|ELP (Echo Locating Protocol)]]
- * Path Metric Computation: [[Ogm-v2|OGMv2]]
- * routing tests
+ * neighbor discovery: [[ELP|ELP (Echo Locating Protocol)]]
+ * path metric computation: [[Ogmv2|Originator Message version 2 (OGMv2)]]
+ * routing tests: [[BATMAN_V_Tests|B.A.T.M.A.N. IV vs B.A.T.M.A.N. V]]
  * RIP
- * [[Throughput_meter|throughput meter]] 
+ * throughput test: [[Throughput_meter|Throughput meter]]
 
