@@ -1,6 +1,10 @@
 h1. B.A.T.M.A.N. V
 
-h2. 1. Introduction
+This page gives a brief introduction into the major differences between B.A.T.M.A.N. IV and B.A.T.M.A.N. V.
+
+{{toc}}
+
+h2. Separating neighbor sensing from mesh routing
 
 
 The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
@@ -9,18 +13,13 @@ This approach was chosen for its simplicity during the protocol design phase and
 * Wireless interfaces usually come with some packet loss, therefore a higher broadcast rate is desirable to allow a fast reaction on flaky connections. Other interfaces of the same host might be connected to Ethernet LANs / VPNs / etc which rarely exhibit packet loss would benefit from a lower broadcast rate to reduce overhead.
 * It generally is more desirable to detect local link quality changes at a faster rate than propagating all these changes through the entire mesh (the far end of the mesh does not need to care about local link quality changes that much). Other optimizations strategies, like reducing overhead, might be possible if OGMs weren't used for all tasks in the mesh at the same time. 
 
-As a result detecting new neighbors and determine link qualities shall be handled by an independent protocol, ELP, whereas the OGM message type remains responsible for flooding the mesh with these link quality information and determining the overall path transmit qualities.
+B.A.T.M.A.N. V adopts the strategy of 'divide & conquer' to handle these different uses cases better: For neighbor sensing the [[ELP|Echo Location Protocol (ELP)]] is introduced. This packet type is never forwarded or rebroadcasted in the mesh. The [[OGMv2|Originator Messages version 2 (OGMv2)]] protocol remains responsible for flooding the mesh with link quality information and determining the overall path transmit qualities.
 
+The task separation (neighbor sensing vs mesh routing) bears the following advantages:
 
-
-B.A.T.M.A.N. V uses the Originator Messages version 2 (OGMv2) to make routing decisions and  transport information about mesh participants through the whole mesh. It is complemented by the [[ELP|Echo Location Protocol(ELP)]] which is used for neighbor sensing. The previous versions of the B.A.T.M.A.N. protocols (version I to IV) used the original OGM messages for both neighbor sensing and route finding.
-
-The new OGM2 protocol bears the following advantages:
-
- * Reduced overhead, as OGMs can then be sent with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desireable.
- * Neighbor sensing and metric data collection can be performed individually, at different intervals or even different techniques
- * Efforts for multiple interfaces handling can be reduced
- * The BATMAN core routing protocol becomes less entangled with other mechanisms and features, making it easier understand and to perform theoretical analysis on.
+ * Reduced overhead, as OGMs can then be sent with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desirable.
+ * Neighbor sensing and metric data collection can be performed individually, at different intervals or even different techniques.
+ * Efforts for multiple interfaces handling can be reduced.
 
 
 
