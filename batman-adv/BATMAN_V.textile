@@ -4,7 +4,8 @@ This document gives a brief introduction into the major differences between B.A.
 
 {{toc}}
 
-h2. Separating neighbor sensing from mesh routing
+
+h2. Separating neighbor discovery from mesh routing
 
 
 The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
@@ -13,36 +14,28 @@ This approach was chosen for its simplicity during the protocol design phase and
 * Wireless interfaces usually come with some packet loss, therefore a higher broadcast rate is desirable to allow a fast reaction on flaky connections. Other interfaces of the same host might be connected to Ethernet LANs / VPNs / etc which rarely exhibit packet loss would benefit from a lower broadcast rate to reduce overhead.
 * It generally is more desirable to detect local link quality changes at a faster rate than propagating all these changes through the entire mesh (the far end of the mesh does not need to care about local link quality changes that much). Other optimizations strategies, like reducing overhead, might be possible if OGMs weren't used for all tasks in the mesh at the same time. 
 
-B.A.T.M.A.N. V adopts the strategy of 'divide & conquer' to handle these different uses cases better: For neighbor sensing the [[ELP|Echo Location Protocol (ELP)]] is introduced. This packet type is never forwarded or rebroadcasted in the mesh. The [[OGMv2|Originator Messages version 2 (OGMv2)]] protocol remains responsible for flooding the mesh with link quality information and determining the overall path transmit qualities.
+B.A.T.M.A.N. V adopts the strategy of 'divide & conquer' to handle these different uses cases better: For neighbor discovery the [[ELP|Echo Location Protocol (ELP)]] is introduced. This packet type is never forwarded or rebroadcasted in the mesh. The [[OGMv2|Originator Messages version 2 (OGMv2)]] protocol remains responsible for flooding the mesh with link quality information and determining the overall path transmit qualities.
 
-The task separation (neighbor sensing vs mesh routing) bears the following advantages:
+The task separation (neighbor discovery vs mesh routing) bears the following advantages:
 
  * Reduced overhead, as OGMs can then be sent with a slower interval. The BATMAN routing algorithm still has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desirable.
- * Neighbor sensing and metric data collection can be performed individually, at different intervals or even different techniques.
+ * Neighbor discovery and metric data collection can be performed individually, at different intervals or even different techniques.
  * Efforts for multiple interfaces handling can be reduced.
 
 
+h2. Mesh metric
 
 
 
 *Metric:* Estimated throughput (from RC algorithm for wireless devices). At the moment the used metric is the *current bitrate multiplied for the probability of success*. In the beginning the throughput directly estimated by the RC algorithm has been tested but it turned out to be too unstable for this purpose.
-*Neighbour Discovery:* [[ELP|ELP (Echo Locating Protocol)]]
-*Path Metric Computation:* [[Ogm-v2|OGMv2]]
-
-h2. General Overviev
-This is a draft of how the algorithm should work and what it needs.
-Later all this information will be split and reported into the proper pages (e.g. ELP or OGMv2)
 
 * ELP bandwidth aware
 ** Broadcast message for neighbour discovery (one per interface). [Beacon might be used on wifi interfaces]
 ** Unicast message for thgoughput sampling (two per neighbour). This is useful when there is no traffic towards a given neighbor.
-* OGMv2
-** Broadcast message for metric propagation:
-*** one OGM per interface is sent when the node generates the OGM
-*** one OGM per interface is sent when the node is forwarding *one* received OGM
 
 
-h2. One Hop Throughput Estimation
+When an OGM is received the metric towards the originator is computed as the minimum between the value contained into the OGM and the metric of the link where the message has been received from
+
 
 * *wireless*: estimated datarate. For details read at the top of this page.
 * *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN).
@@ -50,12 +43,23 @@ h2. One Hop Throughput Estimation
 * *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
 * *forced by the user*: the user can manually override the throughput estimation and set a fake value for each *interface*
 
-h2. Metric reception
 
-When an OGM is received the metric towards the originator is computed as the minimum between the value contained into the OGM and the metric of the link where the message has been received from
+h2. Backward compatibility
 
-h2. Metric forwarding
 
-When forwarding an OGM the metric is decremented as follows:
-* new_metric = metric / 2 (if incoming interface is half-duplex
-* new_metric = metric * (1 - hop_penalty) otherwise
+h2. Upcoming extensions
+
+throughput meter
+
+RIP
+
+
+
+h2. Technical documentation:
+
+ * Neighbour Discovery: [[ELP|ELP (Echo Locating Protocol)]]
+ * Path Metric Computation: [[Ogm-v2|OGMv2]]
+ * routing tests
+ * RIP
+ * [[bandwidth_meter_protocol|bandwidth meter]] 
+
