@@ -46,13 +46,10 @@ throughput meter
 
 RIP
 
-
-
 h2. Technical documentation:
 
- * neighbor discovery: [[ELP|ELP (Echo Locating Protocol)]]
+ * neighbor discovery: [[ELP|Echo Location Protocol (ELP)]]
  * path metric computation: [[Ogmv2|Originator Message version 2 (OGMv2)]]
  * routing tests: [[BATMAN_V_Tests|B.A.T.M.A.N. IV vs B.A.T.M.A.N. V]]
  * RIP
  * throughput test: [[Throughput_meter|Throughput meter]]
-
