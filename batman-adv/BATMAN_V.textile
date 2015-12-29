@@ -61,5 +61,5 @@ h2. Technical documentation:
  * Path Metric Computation: [[Ogm-v2|OGMv2]]
  * routing tests
  * RIP
- * [[bandwidth_meter_protocol|bandwidth meter]] 
+ * [[Throughput_meter|throughput meter]] 
 
