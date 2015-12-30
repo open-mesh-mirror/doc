@@ -50,7 +50,7 @@ h2. Protocol Documentation
 * [[TT-Flags|TT Flags]] - explanation for internal flags used by the translation table code
 * [[Packet-types|Batman-adv packet types]] - backward compatibility for batman-adv
 * [[Compatversion|Compat versions]] - packet versions / formats used by batman-adv
-* [[ELP|ELP protocol]] - B.A.T.M.A.N. V ELP protocol specification
+* [[BATMAN_V|B.A.T.M.A.N. V]] - throughput based mesh routing with B.A.T.M.A.N. V
 * [[Bridge-loop-avoidance-II]] - bridge loop avoidance to allow multiple gateways between LAN and mesh, redesigned
 * [[DistributedArpTable-technical|Distributed ARP Table]] - technical details regarding the inner working of the DAT mechanism
 * [[Fragmentation-technical|Fragmentation]] - technical details explaining the layer2 fragmentation
