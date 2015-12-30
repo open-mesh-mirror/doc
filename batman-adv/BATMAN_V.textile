@@ -1,6 +1,6 @@
 h1. B.A.T.M.A.N. V
 
-This document gives a brief introduction into the major differences between B.A.T.M.A.N. IV and B.A.T.M.A.N. V.
+This document gives a brief introduction into the major differences between B.A.T.M.A.N. IV and B.A.T.M.A.N. V. Links to the technical documentation for further reading are provided at the end of this document.
 
 {{toc}}
 
