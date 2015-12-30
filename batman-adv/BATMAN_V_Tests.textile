@@ -26,8 +26,8 @@ ifconfig bat0 inet 192.168.0.$(printf %d 0x${NUM}) up
 
 Originator interval:
 
-* B.A.T.M.A.N. IV:
-* B.A.T.M.A.N. V:
+* B.A.T.M.A.N. IV: 1 second (default)
+* B.A.T.M.A.N. V: 1 second (default)
 
 
 h1. Tests
