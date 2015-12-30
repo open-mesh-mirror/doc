@@ -38,15 +38,13 @@ The path throughput between node A and node B is computed as the minimum between
 
 h2. Backward compatibility
 
-Though it appears natural to assume that B.A.T.M.A.N. IV and B.A.T.M.A.N. V are incompatible on the protocol layer due to the different packet types and metrics it might be desirable to support both mesh protocols during the experimentation and/or migration phase. To support these use cases the batman-adv kernel module is able to run multiple independent mesh networks in parallel on the same host. From user space this ability can be managed by creating multiple batX mesh interfaces - each having assigned different slave interface(s) to run the mesh on. When such a mesh interface is created, batman-adv can be configured to use a specific mesh protocol (B.A.T.M.A.N. IV or B.A.T.M.A.N. V).
+Though it appears natural to assume that B.A.T.M.A.N. IV and B.A.T.M.A.N. V are incompatible due to the different packet types and metrics it might be desirable to support both mesh protocols during the experimentation and/or migration phase. To support these use cases the batman-adv kernel module is able to run multiple independent mesh networks in parallel on the same host. From user space this ability can be managed by creating multiple batX mesh interfaces - each having assigned different slave interface(s) to run the mesh on. When such a mesh interface is created, batman-adv can be configured to use a specific mesh protocol (B.A.T.M.A.N. IV or B.A.T.M.A.N. V).
 
 This allows different compatibility strategies:
 
-* A 'compatibility node' could be placed in-between 2 incompatible mesh clouds (one running B.A.T.M.A.N. IV and the other running B.A.T.M.A.N. V). The compatibility node connects to both clouds via a distinct interface using the compatible protocol. Consequently, the compatibility node will have 2 batX mesh interfaces - one configured with B.A.T.M.A.N. IV and the other with B.A.T.M.A.N. V. The incompatible mesh clouds can now be connected on the payload layer by either bridging or routing from one batX interface to the other.
+* A 'compatibility node' could be placed in-between 2 incompatible mesh clouds (one running B.A.T.M.A.N. IV and the other running B.A.T.M.A.N. V). The compatibility node connects to both clouds via a distinct interface using the appropriate protocol. Consequently, the compatibility node will have 2 batX mesh interfaces - one configured with B.A.T.M.A.N. IV and the other with B.A.T.M.A.N. V. The incompatible mesh clouds can now be connected on the payload layer by either bridging or routing from one batX interface to the other.
 
-* By logically separating the slave interfaces (for example VLANs) each host could run both mesh protocols on its own 'logic' interface. In the case of VLANs, a given VID could be dedicated to B.A.T.M.A.N. IV while another is dedicated to B.A.T.M.A.N. V. This type of setup is ideal to perform direct comparison tests between the mesh protocols but bears the disadvantage of additional protocol overhead.
-
-
+* By logically separating the slave interfaces (for example via VLANs) each host could run both mesh protocols on its own 'logic' interface. In the case of VLANs, a given VLAN ID could be dedicated to B.A.T.M.A.N. IV while another is dedicated to B.A.T.M.A.N. V. This type of setup is ideal to perform direct comparison tests between the mesh protocols but bears the disadvantage of additional protocol overhead.
 
 h2. Technical documentation:
 
