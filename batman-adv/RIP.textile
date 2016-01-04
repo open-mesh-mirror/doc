@@ -39,6 +39,7 @@ From the algorithm sketch, we can see:
  * we can keep long originator interval and still react to changes fast - at least negative ones.
 
  * Remark from me/Linus: Deleting the routes (meaning forgetting about the last seqno+metric?) via the death notes can cause routing loops, if a late OGM arrives at N3 via yet another alternative path, I think. Simply forwarding the death note without route deletion should be safe and sufficient.
+ * The name is awesome, fitting and easy to remember. However, there actually exists a prominent distance vector routing protocol with the same name. Should we change it, for the same reason we changed NDP to ELP? (if yes, a suggestion: BATSIG - BATMAN Sequence number Increment Generator; in reference to the bat signal which Gordon might use after looking at a dead, mutilated body)
 
 h3. Death Note packet format
 
