@@ -1,6 +1,7 @@
 h1. Originator Message version 2 (OGMv2)
 
-!batman_ogm.svg!
+!batman_ogm.png!
+_Image Source_: "Martin Hundebøll, Jeppe Ledet-Pedersen, Network Coding for Wireless Mesh Networks":https://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf
 
 h2. 1. Definitions
 
