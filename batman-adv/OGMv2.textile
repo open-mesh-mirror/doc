@@ -1,5 +1,6 @@
 h1. Originator Message version 2 (OGMv2)
 
+!batman_ogm.svg!
 
 h2. 1. Definitions
 
