@@ -28,7 +28,7 @@ h2. get the linux-integration repository
 $ git clone git+ssh://git@open-mesh.org/linux-merge.git
     Initialized empty Git repository in /home/batman/linux-merge/.git/
     remote: Counting objects: 1544059, done.
-    remote: Compressing objects: 100%25 (252781/252781), done.
+    remote: Compressing objects: 100% (252781/252781), done.
     ....
 $ cd linux-merge
 $ git remote add net-next git://git.kernel.org/pub/scm/linux/kernel/git/davem/net-next.git
@@ -43,10 +43,10 @@ h2. get the newest patches from next
 (merge/master)$ git remote update
     Fetching origin
     remote: Counting objects: 1387, done.
-    remote: Compressing objects: 100%25 (211/211), done.
+    remote: Compressing objects: 100% (211/211), done.
     remote: Total 823 (delta 651), reused 762 (delta 602)
-    Receiving objects: 100%25 (823/823), 136.90 KiB | 254 KiB/s, done.
-    Resolving deltas: 100%25 (651/651), completed with 228 local objects.
+    Receiving objects: 100% (823/823), 136.90 KiB | 254 KiB/s, done.
+    Resolving deltas: 100% (651/651), completed with 228 local objects.
     From git+ssh://open-mesh.org/marek/linux-merge
        bfa88ea..151b6a5  pkg/master     -> origin/pkg/master
        c9f7cbe..078eb6a  pkg/next       -> origin/pkg/next
@@ -57,7 +57,7 @@ h2. merge next into linux
 
 <pre>
 (xyz)$ git checkout merge/master
-    Checking out files: 100%25 (32337/32337), done.
+    Checking out files: 100% (32337/32337), done.
     Switched to branch 'merge/master'
 (merge/master)$ git merge pkg/next
     Auto-merging net/batman-adv/Makefile
@@ -262,8 +262,7 @@ h2. format patches
 (patches)$ vim 00*.patch
 </pre>
 
-Usually I add "batman-adv: " right when checking the signed-off-by and author (from) line. Patches which are also important bugfixes for older kernels (Kernel-Oops, Deadlock, ...) must also submitted to stable@kernel.org. It is done by adding  "Cc: stable@kernel.org" to this patch.
-
+Usually I add "batman-adv: " right when checking the signed-off-by and author (from) line. Patches which are also important bugfixes for older kernels (Kernel-Oops, Deadlock, ...) must also be explicitly mentioned in the companion email so that David can queue them for submission to stable (CC'ing stable@kernel.org is not what David expects anymore).
 
 h2. checkpatch patches
 
