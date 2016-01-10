@@ -102,7 +102,7 @@ h4. 3.2.3. Route Update
 
 After that, we check the OGMv2 whether a router update should be done and the OGMv2 should be rebroadcasted
 
- * If the received neighbor is not (yet) a router, drop the OGMv2
+ * If the OGMv2 was received through a neighbor that is not (yet) a router, drop the OGMv2
  * If the OGMv2 sequence number is not newer or equal compared to the last received OGMv2 (from any neighbor for this originator) and if the throughput is not better, drop the OGMv2
 
 The passing OGMv2 will be considered for a router update:
