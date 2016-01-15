@@ -90,7 +90,7 @@ If the initial checks above have passed, the internal stats are updated:
 
  * the last seen timestamps of the router and the originator are updated
  * the last sequence number and ttl values are adopted
- * Path Throughput is adopted if its lower than the link throughput to the neighbor, otherwise the link throughput is adopted
+ * if the link throughput to the neighbor this OGMv2 was forwarded by is *lower* than the path throughput of the OGMv2, then this lower link throughput is adopted
  * Forward penalties are applied:
 
    * if the considered interface is the *default* interface, no penalty is applied
