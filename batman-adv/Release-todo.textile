@@ -15,13 +15,13 @@ h2. Documentation
 
 * [x] build changelog ([[open-mesh:2015-07-19-batman-adv-2015-1-release|stub]])
 * [x] update README
-* [ ] write release announcement
+* [x] write release announcement
 * [ ] update wiki documentation
 
 h2. Code
 
 * [x] make sure all code contains the release version strings
-* [x] update copyright years (if needed)
+* [ ] update copyright years (if needed)
 * [ ] check coverity scan status
 * [x] remove dead code (if any)
 * [x] check against kernel versions
@@ -35,7 +35,7 @@ h2. Release
 * [x] move packages/checksums to stable/sources / create symlinks from releases
 * [x] update download links in the redmine downloads page
 * [ ] send release mail ([[open-mesh:2015-07-19-batman-adv-2015-1-release|stub]])
-* [ ] update IRC channel topic
+* [x] update IRC channel topic
 
 h2. Distributions
 
