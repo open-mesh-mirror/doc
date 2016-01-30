@@ -8,9 +8,28 @@ This document assumes you have created a batman-adv network and are interested i
 h2. Tables
 
 
+h3. neighbor table
+
+Each batman node maintains a list of all single hop neighbors it detects. Whether or not a single hop neighbor is routed to directly or via another single hop neighbor is decided based on the link quality.
+The printed table begins with a header line with some more or less useful status data, followed by the single hop neighbor table: 
+
+<pre>
+<interface>
+   <single hop neighbor>
+      <last-seen> 
+</pre>
+
+Sample output:
+<pre>
+cat /sys/kernel/debug/batman_adv/bat0/neighbors
+[B.A.T.M.A.N. adv d5e8ba8, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0 BATMAN_IV)]
+           IF        Neighbor      last-seen
+         eth0   fe:fe:00:00:02:01    0.280s
+</pre>
+
 h3. originator table
 
-Each batman node maintains a list of all other nodes in the network and remembers in which direction to send the packets if data should be transmitted. The direction manifests itself in the form of the "best next neighbor" which basically is the next step towards the destination. You can retrieve batman's internal originator table by reading the originators file. The printed table begins with a header line with some more or less useful status data, followed by the data. Each line contains information regarding a specific originator: 
+Each batman node maintains a list of all other nodes in the network and remembers in which direction to send the packets if data should be transmitted. The direction manifests itself in the form of the "best next neighbor" which basically is the next step towards the destination. You can retrieve batman's internal originator table by reading the originators file. The printed table begins with a header line with some more or less useful status data, followed by the originator table. Each line contains information regarding a specific originator: 
 
 <pre>
 <originator>
