@@ -164,6 +164,8 @@ EOF
 cat >> .config << EOF
 CONFIG_KASAN=y
 CONFIG_KASAN_INLINE=y
+CONFIG_UBSAN_SANITIZE_ALL=y
+CONFIG_UBSAN=y
 EOF
 
 make olddefconfig
