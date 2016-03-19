@@ -10,12 +10,7 @@ h2. Projects:
 * MeOS - batman-adv firmware for SoHo mesh networks: http://lab.nomadnt.com
 * B.A.T.M.A.N. in Argentina: https://www.altermundi.net/ (english article: https://blog.altermundi.net/article/timeline-february-september-2012/ )
 * B.A.T.M.A.N. in Portugal: https://wirelesspt.net/ and own "batman-adv firmware":https://wirelesspt.net/wiki/mvwrt
-* B.A.T.M.A.N. in German Freifunk communities (sorted by size):
-** "Hamburg":https://hamburg.freifunk.net/ ("graph":https://graph.hamburg.freifunk.net/graph.html),
-** "Paderborn":https://paderborn.freifunk.net/ ("graph":https://map.paderborn.freifunk.net/graph.html),
-** "Lübeck":https://luebeck.freifunk.net/ ("graph":https://luebeck.freifunk.net/map/nodes.html),
-** "Kiel":https://kiel.freifunk.net/ ("graph":https://freifunk.in-kiel.de/ffmap/nodes.html),
-** "Köln/Bonn/Umgebung":https://kbu.freifunk.net/ ("stats":https://register.kbu.freifunk.net/nodes)
+* B.A.T.M.A.N. in Freifunk communities: https://freifunk.net/en/how-to-join/find-your-nearest-community/
 * RADIUSdesk and MESHdesk -  User-friendly Open Source GUI to centrally deploy and manage batman-adv mesh networks: http://www.radiusdesk.com
 
 h2. Press:
