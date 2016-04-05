@@ -20,7 +20,19 @@ sudo cp fstab debian/etc/fstab
 sudo cp rc.local debian/etc/rc.local
 sudo chmod a+x debian/etc/rc.local
 sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
+
+## optionally: enable autologin for user root
+#sudo mkdir debian/etc/systemd/system/serial-getty@ttyS0.service.d/
+#sudo sh -c 'cat << EOF > debian/etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf
+#[Service]
+#ExecStart=
+#ExecStart=-/sbin/agetty --autologin root -s %I 115200,38400,9600 vt102
+#EOF'
+
 sudo umount debian
+
+
+## optionally: convert image to qcow2
 #sudo qemu-img convert -f raw -O qcow2 debian.img debian.qcow2
 #sudo mv debian.qcow2 debian.img
 </pre>
