@@ -4,7 +4,7 @@ h1. Originator Message (OGM)
 
 h2. 1. Introduction
 
-The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":http://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
+The B.A.T.M.A.N. protocol originally only used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading these link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|BATMAN concept page]] and explained in details in "the RFC draft":https://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
 
 With the new concept of a separate [[ELP|ELP]] the tasks performed by OGMs becomes way simpler: It only determines and choses the best router towards another originator without having any knowledge about possibly multiple interfaces, while any link specific work is done by ELP.
 
@@ -298,7 +298,7 @@ h2. Strict hop-penalty
 In BATMAN V the hop penalty always decreases the OGM's path TQ (at least by 1/255: minimum selectable
 hop penalty: 1, path TQ always rounded downwards)
 
-Routing loops could potentially occure if a link has 0%25 packet loss and:
+Routing loops could potentially occure if a link has 0% packet loss and:
 * Either if the hop penalty is set to 0.
 * (Or if the received OGMs path TQ is very low (and hop penalty would not change the path TQ
 due to rounding issues?)
