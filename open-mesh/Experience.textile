@@ -7,7 +7,6 @@ h2. Projects:
 * Building mesh potatoes with B.A.T.M.A.N.: http://villagetelco.org
 * B.A.T.M.A.N. with dashboard integration: https://www.open-mesh.com
 * The Batphone (VOIP + Mesh on your device): http://www.servalproject.org
-* MeOS - batman-adv firmware for SoHo mesh networks: http://lab.nomadnt.com
 * B.A.T.M.A.N. in Argentina: https://www.altermundi.net/ (english article: https://blog.altermundi.net/article/timeline-february-september-2012/ )
 * B.A.T.M.A.N. in Portugal: https://wirelesspt.net/ and own "batman-adv firmware":https://wirelesspt.net/wiki/mvwrt
 * B.A.T.M.A.N. in Freifunk communities: https://freifunk.net/en/how-to-join/find-your-nearest-community/
@@ -17,11 +16,11 @@ h2. Press:
 
 * "Kernel Log: Coming 3.10 - Networking":http://www.h-online.com/open/features/Kernel-Log-Coming-in-3-10-Part-1-Networking-1885040.html, The H Open (June 2013)
 * "Kernel Log: Coming 3.8 - Drivers":http://www.h-online.com/open/features/Kernel-Log-Coming-in-3-8-Part-3-Drivers-1802696.html, The H Open (February 2013)
-* "Conway’s Game of Life on top of B.A.T.M.A.N.":http://hackaday.com/2012/02/04/using-routers-as-displays/, Hack a Day (February 2012)
-* "The dream of global mesh network":http://arstechnica.com/open-source/news/2011/11/the-darknet-plan-netroots-activists-dream-of-global-mesh-network.ars, Ars Technica (November 2011)
+* "Conway’s Game of Life on top of B.A.T.M.A.N.":https://hackaday.com/2012/02/04/using-routers-as-displays/, Hack a Day (February 2012)
+* "The dream of global mesh network":https://arstechnica.com/information-technology/2011/11/the-darknet-plan-netroots-activists-dream-of-global-mesh-network/, Ars Technica (November 2011)
 * "Linux 2.6.38 release notes":http://kernelnewbies.org/Linux_2_6_38#head-17577655766f585c3c47df886fe91dba276f4c3f, kernelnewbies.org (March 2011)
 * "Kernel Log: Network drivers and infrastructure":http://www.h-online.com/open/features/Kernel-Log-Coming-in-2-6-38-Part-3-Network-drivers-and-infrastructure-1197480.html, The H Open (February 2011)
-* "Mesh networking with batman-adv":http://lwn.net/Articles/426947/, LWN.net (February 2011)
+* "Mesh networking with batman-adv":https://lwn.net/Articles/426947/, LWN.net (February 2011)
 * "Kernel Trends: Outlook on 2.6.38":http://www.h-online.com/open/features/What-s-new-in-Linux-2-6-37-1163376.html?page=6, The H Open (January 2011)
 * "Kernel Log: Coming in 2.6.33 - Drivers":http://www.h-online.com/open/news/item/Kernel-Log-Coming-in-2-6-33-Part-5-Drivers-931993.html, The H Open (February 2010)
 * "The Mesh Potato":https://www.linuxjournal.com/magazine/mesh-potato , Linux Journal (December 2009)
@@ -38,6 +37,6 @@ h2. Papers:
 * "B.A.T.M.A.N. performance comparison paper":http://wirelessafrica.meraka.org.za/wiki/images/9/98/Batman_ifip.pdf
 * "B.A.T.M.A.N. / BABEL / OLSR performance comparison":https://ro.uow.edu.au/cgi/viewcontent.cgi?article=1747&amp;context=infopapers
 * "mesh performance analysis with B.A.T.M.A.N.":https://users.ece.gatech.edu/~cortes/files/Wi-Me.pdf
-* "BATMAN Advanced / AODV performance comparison in a real testbed":http://www.kom.tu-darmstadt.de/en/publications/publications-details/publications/SKH11-1/
+* "BATMAN Advanced / AODV performance comparison in a real testbed":https://www.kom.tu-darmstadt.de/en/research-results/publications/publications-details/publications/SKH11-1/
 * "Energy aware routing survey in WMNs and a proposal for BATMAN-adv":https://downloads.open-mesh.org/batman/papers/WMNs%20protocols%20survey%20and%20a%20real%20scenario%20with%20BATMAN-adv.pdf (Italian language)
 * "Distribution of location data in Wireless Mesh Networks":https://downloads.open-mesh.org/batman/papers/Positionsdaten_in_Wireless_Mesh_Networks.pdf (German language)
