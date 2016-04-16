@@ -2,7 +2,7 @@ h1. FAQ
 
 {{TOC}}
 
-Below you can see a list of frequently asked questions and answers. If your question is not listed below, please contact us.  You can contact us via IRC: "#batman channel":http://webchat.freenode.net/?channels=batman on Freenode.org or by sending an e-mail to: "b.a.t.m.a.n@lists.open-mesh.org":mailto:b.a.t.m.a.n@lists.open-mesh.org (only plan-text).
+Below you can see a list of frequently asked questions and answers. If your question is not listed below, please contact us.  You can contact us via IRC: "#batman channel":https://webchat.freenode.net/?channels=batman on Freenode.org or by sending an e-mail to: "b.a.t.m.a.n@lists.open-mesh.org":mailto:b.a.t.m.a.n@lists.open-mesh.org (only plan-text).
 
 If you got any problems? See: the [[Troubleshooting|Troubleshooting]] page.
 
@@ -109,7 +109,7 @@ h3. How to setup B.A.T.M.A.N. so it automatically assign IP addresses?
 h3. What about assigning IP addresses in a decentralized way?
 
 *Q:* How to assign IP addresses automatically in a decentralized way?
-*A:* IPv6 will help you to do this easier by using "Unique local address":http://en.wikipedia.org/wiki/Unique_local_address (ULA).
+*A:* IPv6 will help you to do this easier by using "Unique local address":https://en.wikipedia.org/wiki/Unique_local_address (ULA).
 
 h3. What if I want to have a decentralized DNS solution?
 
