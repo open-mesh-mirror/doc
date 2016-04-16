@@ -53,4 +53,4 @@ This is due to the extra delay and jitter that do not interact well with the con
 
 h3. Further Reading
 
-More details about the technical workings and implementation of network coding can be found [[NetworkCoding-technical|here]]. A master thesis behind the work is also "available":https://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf as well as a "paper":http://vbn.aau.dk/da/publications/catwoman(214ee21a-e786-495d-85c9-3efac4718ead).html on the subject.
+More details about the technical workings and implementation of network coding can be found [[NetworkCoding-technical|here]]. A master thesis behind the work is also "available":https://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf as well as a "paper":https://vbn.aau.dk/da/publications/catwoman(214ee21a-e786-495d-85c9-3efac4718ead).html on the subject.
