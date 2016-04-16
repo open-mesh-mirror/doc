@@ -7,7 +7,7 @@ h2. Architecture
 
 The test stack consists of the following components:
 
-* "OpenWrt":http://openwrt.org/, kamikaze trunk version for x86 with minimal modifications (see below)
+* "OpenWrt":https://openwrt.org/, kamikaze trunk version for x86 with minimal modifications (see below)
 * one (unmodified) "QEMU":http://www.qemu.org/ instance per host (KVM or any other virtual machine)
 * one (modified, see below) "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking per instance. You need multiple instances to allow interconnection with wirefilter.
 * one (unmodified) "wirefilter":http://wiki.virtualsquare.org/wiki/index.php/VDE#wirefilter per link between hosts.
