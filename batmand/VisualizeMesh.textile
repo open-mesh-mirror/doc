@@ -39,7 +39,7 @@ Make sure that all mentioned ports are not blocked by a firewall. You can verify
 
 h2. Fancy graphics
 
-If you intend to create images like the one below you need to use one of the many tools available. That screenshot was made by connecting mesh3d (which is part of the "s3d tools":http://s3d.berlios.de/ - debian packages are available) to the vis servers dot draw output (on port 2004).
+If you intend to create images like the one below you need to use one of the many tools available. That screenshot was made by connecting mesh3d (which is part of the "s3d tools":http://s3d.sourceforge.net/ - debian packages are available) to the vis servers dot draw output (on port 2004).
 
 If you have impressive screenshots don't hesitate to let us know. :-)
 
