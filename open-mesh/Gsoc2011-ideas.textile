@@ -49,7 +49,7 @@ h4. Improve Throughput Bonding
 
 *Brief description:* Improve performance gain of the throughput bonding mode.
 
-The current bonding mode implementation simply sends a data packet in a round robin fashion to the interfaces available for bonding. However, the throughput gain seems to be only about 66%25 instead of doubling the throughput in case of TCP, even if there is no other interference involved. This seems to be the case due to a heavy reordering issue.
+The current bonding mode implementation simply sends a data packet in a round robin fashion to the interfaces available for bonding. However, the throughput gain seems to be only about 66% instead of doubling the throughput in case of TCP, even if there is no other interference involved. This seems to be the case due to a heavy reordering issue.
 Furthermore, the interface with the lowest capacity is a bottleneck for the throughput bonding performance: In case of one interface of 1MBit/s throughput and five more with 2MBit/s throughput, the actual throughput will be just 6x 1MBit/s. However in mixed wireless and wired networks, it might be desirable to accumulate the throughput of a Gigabit-Ethernet interface and a 802.11g interface.
 Therefore checks for links' capacities (detect full queues etc.) to gain performance of IF1 + IF2 + ... instead of min(IF1, IF2, ...) shall be implemented. If an interface is busy, it shall be skipped in this round robin cycle. Furthermore simple per hop pre-ordering on batman-adv's layer shall be implemented to increase the TCP performance.
 
@@ -65,14 +65,14 @@ h4. IPv6 Stateless Autoconf Gateway Solution
 
 *Brief description:* Implement a gateway solution for IPv6 stateless autoconfiguration
 
-batman-adv operates on layer 2, therefore intelligent layer 3 gateway handling is not straightforward. batman-adv currently supports intelligent gateway handling for DHCP (both IPv4 and IPv6), in that it forwards any DHCP discovery or request packet to the best (according to batman's metric) gateway available only, via unicast. However, this is not doable for IPv6 stateless autoconfiguration, as usually not the client is not actively requesting an IP address, but the router is advertising it's gateway capabilities periodically. However, such a stateless configuration is usually more desirable than a stateful configuration as in DHCP in dynamic mesh networks as it allows smoother transitions between subnets and is not as prone to packet loss. Therefore a solution for IPv6 Stateless autoconfiguration shall be implemented. This may be done by exploiting the router preference fields in the router advertisement messages, "RFC4191":http://tools.ietf.org/html/rfc4191 , and/or by limiting the range of router advertisements with the help of batman-adv's broadcast packet's TTL field or by introducing a new TQ limit field. A TQ limit field could be dynamically adapted to minimze the overhead of such router advertisements in case of many gateways but ensuring the availability of the best/closest of all gateways in the mesh network.
+batman-adv operates on layer 2, therefore intelligent layer 3 gateway handling is not straightforward. batman-adv currently supports intelligent gateway handling for DHCP (both IPv4 and IPv6), in that it forwards any DHCP discovery or request packet to the best (according to batman's metric) gateway available only, via unicast. However, this is not doable for IPv6 stateless autoconfiguration, as usually not the client is not actively requesting an IP address, but the router is advertising it's gateway capabilities periodically. However, such a stateless configuration is usually more desirable than a stateful configuration as in DHCP in dynamic mesh networks as it allows smoother transitions between subnets and is not as prone to packet loss. Therefore a solution for IPv6 Stateless autoconfiguration shall be implemented. This may be done by exploiting the router preference fields in the router advertisement messages, "RFC4191":https://tools.ietf.org/html/rfc4191 , and/or by limiting the range of router advertisements with the help of batman-adv's broadcast packet's TTL field or by introducing a new TQ limit field. A TQ limit field could be dynamically adapted to minimze the overhead of such router advertisements in case of many gateways but ensuring the availability of the best/closest of all gateways in the mesh network.
 
 
 h4. Improve Broadcast Data Performance
 
 *Brief description:* Optimize the flooding of broadcast data to reduce overhead and increase its packet delivery ratio.
 
-So far broadcast data packets are flooded through the whole mesh network. As broadcast packets do not have an ARQ mechanism to reduce packet losses like unicast data transfer has, batman-adv (re)transmits broadcast packets on each hop by default. In dense topologies this can introduce unnecessary overhead, in sparse topologies the packet delivery ratio might be too low. Therefore a smarter mechanism than classic flooding shall be implemented to improve batman-adv's performance for broadcast data packets. This may done taking link qualities in the local neighborhood into account and adjusting the number of rebroadcasts dynamically. Or by introducing "MPR":http://en.wikipedia.org/wiki/Multipoint_relay-like mechanisms.
+So far broadcast data packets are flooded through the whole mesh network. As broadcast packets do not have an ARQ mechanism to reduce packet losses like unicast data transfer has, batman-adv (re)transmits broadcast packets on each hop by default. In dense topologies this can introduce unnecessary overhead, in sparse topologies the packet delivery ratio might be too low. Therefore a smarter mechanism than classic flooding shall be implemented to improve batman-adv's performance for broadcast data packets. This may done taking link qualities in the local neighborhood into account and adjusting the number of rebroadcasts dynamically. Or by introducing "MPR-like":https://en.wikipedia.org/wiki/Multipoint_relay mechanisms.
 
 
 h4. Reduce ARP (/ND) latency and overhead
@@ -106,11 +106,11 @@ h3. Further Tasks
   -> decrease latency of reactive tracker packet mode: attaching small data packets to tracker packet, if MTU fits (otherwise broadcast) in react. mode? ...?
   -> ultimately, make proactive tracker mode obsolete
   -> optimize number of rebroadcasts (we have the info about the number of next hop nodes)
-  -> don't send tracker packets if <= 1 destination or > 50%25 of all nodes are destinations
+  -> don't send tracker packets if <= 1 destination or > 50% of all nodes are destinations
   -> Enhance HNA, host network announcements, improvement scheme to also support MCAs, multicast announcements
   -> ...
 * Further HNA roaming improvements
-* "Network Coding":http://en.wikipedia.org/wiki/Network_coding?
+* "Network Coding?":https://en.wikipedia.org/wiki/Linear_network_coding
 * Packet signing: Add a signing mechanism to identify OGM's sender and drop malicious nodes
 * built-in bandwidth test tool ?
 
