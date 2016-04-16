@@ -2,7 +2,7 @@ h1. DistributedArpTable: technical documentation
 
 The target of this page is to explain the inner details of the implementation of [[DistributedARPTable|DAT (Distributed ARP Table)]]. For the general idea and the problem that it is trying to solve, please refer to  the [[DistributedARPTable|DAT]] page.
 
-DAT is a "Distributed Hash Table":http://en.wikipedia.org/wiki/Distributed_hash_table aimed to store ARP entries and to allow nodes to perform fast lookup operations. All the operations in the DHT (get and store) are performed on a set of nodes computed by means of a distributed hash function which input value is an *IPv4 address*.
+DAT is a "Distributed Hash Table":https://en.wikipedia.org/wiki/Distributed_hash_table aimed to store ARP entries and to allow nodes to perform fast lookup operations. All the operations in the DHT (get and store) are performed on a set of nodes computed by means of a distributed hash function which input value is an *IPv4 address*.
 
 h2. Snooping mechanism
 
@@ -47,7 +47,7 @@ h2. The Theory and the high-level mechanism
 
 h3. DHT basics
 
-The DHT which D.A.T. is based on is actually inspired by "CHORD":http://en.wikipedia.org/wiki/Chord_(peer-to-peer), which is one of the earliest Peer-to-Peer algorithm based on a DHT. B.A.T.M.A.N.-Advanced inherits the shape of the key space and the rule used to allocate objects onto participant nodes.
+The DHT which D.A.T. is based on is actually inspired by "CHORD":https://en.wikipedia.org/wiki/Chord_(peer-to-peer), which is one of the earliest Peer-to-Peer algorithm based on a DHT. B.A.T.M.A.N.-Advanced inherits the shape of the key space and the rule used to allocate objects onto participant nodes.
 
 Going a bit deeper into the details, the key space is represented by a ring on which the 2^16 keys are equally distributed. Being a ring means that arithmetic operations in the key space are modulo 2^16.
 
