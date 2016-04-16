@@ -46,4 +46,4 @@ h2. Limitations
 
 h2. Notes
 
-A research project has been done on this topic and the final technical report is freely available here: http://eprints.biblio.unitn.it/archive/00002269/.
+A research project has been done on this topic and the final technical report is freely available here: https://eprints.biblio.unitn.it/2269/.
