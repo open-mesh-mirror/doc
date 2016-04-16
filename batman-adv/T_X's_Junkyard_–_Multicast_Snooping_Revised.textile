@@ -4,7 +4,7 @@
 
 Ressources:
 
-* http://tools.ietf.org/rfc/rfc4541.txt
+* https://tools.ietf.org/rfc/rfc4541.txt
 * [[Multicast-optimizations-listener-reports]]
 * [[Multicast-optimizations-flags]]
 
