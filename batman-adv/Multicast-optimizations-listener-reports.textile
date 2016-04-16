@@ -28,7 +28,7 @@ This in turn would result in the bridge not forwarding the multicast data from t
 
 _Bridge dropping packets bc. of missing reports_
 
-Note that even though MLDv2/IGMPv3 require listeners to report to the all-multicast-routers destination address (ff02::16, 224.0.0.22) the querier implementation in the Linux bridge code does not listen to them which creates the same problem as with MLDv1/IGMPv2. "RFC4541":http://tools.ietf.org/html/rfc4541 ("Considerations for Internet Group Management Protocol (IGMP) and Multicast Listener Discovery (MLD) Snooping Switches") leaves it open whether snooping switches/bridges (with or without a querier) should listen to the all-multicast-routers destination address.
+Note that even though MLDv2/IGMPv3 require listeners to report to the all-multicast-routers destination address (ff02::16, 224.0.0.22) the querier implementation in the Linux bridge code does not listen to them which creates the same problem as with MLDv1/IGMPv2. "RFC4541":https://tools.ietf.org/html/rfc4541 ("Considerations for Internet Group Management Protocol (IGMP) and Multicast Listener Discovery (MLD) Snooping Switches") leaves it open whether snooping switches/bridges (with or without a querier) should listen to the all-multicast-routers destination address.
 
 h3. Solution
 
