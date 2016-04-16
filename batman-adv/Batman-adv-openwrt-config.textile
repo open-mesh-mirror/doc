@@ -1,6 +1,6 @@
 h1. B.A.T.M.A.N. Advanced OpenWrt configuration
 
-This page showcases some basic batman-adv configurations on OpenWrt including wireless & network setups. However, the goal is to provide not more than a starting point. For a full reference of the OpenWrt uci system please visit the official "OpenWrt uci documentation":http://wiki.openwrt.org/doc/uci.
+This page showcases some basic batman-adv configurations on OpenWrt including wireless & network setups. However, the goal is to provide not more than a starting point. For a full reference of the OpenWrt uci system please visit the official "OpenWrt uci documentation":https://wiki.openwrt.org/doc/uci.
 
 The configuration for the following common example is provided: One AP with a wireless adhoc interface is supposed to run batman-adv (essentially, the setup explained in our [[Quick-start-guide|Quick-start-guide]]). 
 
@@ -33,7 +33,7 @@ It is assumed you configured the 'wifi-device' depending on your requirements an
  * 'mcast_rate' helps to avoid low bandwidth routes (routes with a lower throughput rate than the mcast rate will not be visible to batman-adv)
  * 'ssid' and 'bssid' are basic wireless settings you might want to set to your liking
 
-More information can be found in the "OpenWrt wireless configuration":http://wiki.openwrt.org/doc/uci/wireless
+More information can be found in the "OpenWrt wireless configuration":https://wiki.openwrt.org/doc/uci/wireless
 
 The network configuration in '/etc/config/network' allows to specify batman-adv as protocol and the batman-adv interface name:
 <pre>
@@ -90,7 +90,7 @@ It is assumed you configured the 'wifi-device' depending on your requirements an
  * 'mcast_rate' helps to avoid low bandwidth routes (routes with a lower throughput rate than the mcast rate will not be visible to batman-adv)
  * 'ssid' and 'bssid' are basic wireless settings you might want to set to your liking
 
-More information can be found in the "OpenWrt wireless configuration":http://wiki.openwrt.org/doc/uci/wireless
+More information can be found in the "OpenWrt wireless configuration":https://wiki.openwrt.org/doc/uci/wireless
 
 Configure the MTU in '/etc/config/network'
 <pre>
