@@ -1,7 +1,7 @@
 h1. Echo Location Protocol (ELP)
 
-!http://upload.wikimedia.org/wikipedia/commons/e/e1/Animal_echolocation.svg!:http://en.wikipedia.org/wiki/File:Animal_echolocation.svg
-_Image Source_: "Petteri Aimonen, Wikimedia Commons":http://en.wikipedia.org/wiki/File:Animal_echolocation.svg
+!https://upload.wikimedia.org/wikipedia/commons/e/e1/Animal_echolocation.svg!:https://en.wikipedia.org/wiki/File:Animal_echolocation.svg
+_Image Source_: "Petteri Aimonen, Wikimedia Commons":https://en.wikipedia.org/wiki/File:Animal_echolocation.svg
 
 ----
 
