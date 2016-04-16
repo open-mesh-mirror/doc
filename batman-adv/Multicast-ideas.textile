@@ -143,7 +143,7 @@ Only then an optimised multicast path would be established to the MCA's originat
 h3. Resources:
 
 * ADAMA (-SM/DM - sparse and dense mode) - "Multicast-Routing in mobilen Ad-hoc-Netzen", Oliver Stanze, ISBN-13: 978-3832266141
-* ODMRP "draft-ietf-manet-odmrp-04":https://tools.ietf.org/html/draft-ietf-manet-odmrp-04,"wcnc99.pdf":http://www.hpl.hp.com/personal/Sung-Ju_Lee/abstracts/papers/wcnc99.pdf, 
+* ODMRP "draft-ietf-manet-odmrp-04":https://tools.ietf.org/html/draft-ietf-manet-odmrp-04, "wcnc99.pdf":https://sites.google.com/site/wewantsj/home/publications/wcnc99.pdf 
 * SMF "draft-ietf-manet-smf-10":https://tools.ietf.org/html/draft-ietf-manet-smf-10
 * PGM "rfc3208":https://tools.ietf.org/html/rfc3208
 
