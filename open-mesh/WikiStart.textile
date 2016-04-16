@@ -36,7 +36,7 @@ h2. Documentation
 h2. Merchandise
 
 * [[Logos|Logos]] - download logos
-* "T-Shirts":http://www.freewear.org/?org=B.A.T.M.A.N%2e - get T-Shirts
+* "T-Shirts":https://www.freewear.org/?org=B.A.T.M.A.N%2e - get T-Shirts
 
 h2. Other Projects on open-mesh.org
 
