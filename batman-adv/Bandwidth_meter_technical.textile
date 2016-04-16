@@ -3,9 +3,9 @@ h1. Bandwidth meter technical
 h2. The Protocol
 
 The protocol used by the bandwidth meter is TCP NewReno. More technical details can be found in the following documents:
-* "RFC 5681":http://tools.ietf.org/html/rfc5681 (TCP)
-* "RFC 6582":http://tools.ietf.org/html/rfc6582 (NewReno extension)
-* "RFC 6298":http://tools.ietf.org/html/rfc6298 (Retransmission Timeout computation)
+* "RFC 5681":https://tools.ietf.org/html/rfc5681 (TCP)
+* "RFC 6582":https://tools.ietf.org/html/rfc6582 (NewReno extension)
+* "RFC 6298":https://tools.ietf.org/html/rfc6298 (Retransmission Timeout computation)
 
 Implementation of the BW meter took the TCP in-kernel module as example and some snippets of code are mostly indentical (e.g. SRTT/RTTVAR/RTO computation).
 In the code it is also possible to find several references to RFC sections which explain what the code is doing.
