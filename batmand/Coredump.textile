@@ -1,7 +1,7 @@
 h1. What is a coredump ?
 
 
-A coredump is the state of the programs memory when it crashed. It allows programmers to exactly nail down the line in the code which caused the segfault. See http://en.wikipedia.org/wiki/Coredump for more information.
+A coredump is the state of the programs memory when it crashed. It allows programmers to exactly nail down the line in the code which caused the segfault. See https://en.wikipedia.org/wiki/Core_dump for more information.
 
 
 h2. Why do I need ulimit and what does it do ?
