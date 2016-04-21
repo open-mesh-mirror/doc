@@ -39,7 +39,7 @@ h2. Release
 
 h2. Distributions
 
-* [ ] update alfred openwrt package
+* [x] update alfred openwrt package
 * [ ] update batman-adv/batctl openwrt package
 * [ ] update gentoo package
 * [ ] update debian batctl package
