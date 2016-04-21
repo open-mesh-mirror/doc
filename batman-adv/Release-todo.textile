@@ -13,20 +13,20 @@ h2. Release Scheduling
 
 h2. Documentation
 
-* [ ] build changelog
-* [ ] update README
+* [x] build changelog
+* [x] update README
 * [ ] write release announcement
 * [ ] update wiki documentation
 
 h2. Code
 
-* [ ] make sure all code contains the release version strings
-* [ ] update copyright years (if needed)
-* [ ] check coverity scan status
-* [ ] remove dead code (if any)
-* [ ] check against kernel versions
-* [ ] check that maint branch is merged in next
-* [ ] check for "open patches on the ml":https://patchwork.open-mesh.org/project/batman/list/
+* [x] make sure all code contains the release version strings
+* [x] update copyright years (if needed)
+* [x] check coverity scan status
+* [x] remove dead code (if any)
+* [x] check against kernel versions
+* [x] check that maint branch is merged in next
+* [x] check for "open patches on the ml":https://patchwork.open-mesh.org/project/batman/list/
 * [ ] git tag release
 
 h2. Release
