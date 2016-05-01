@@ -26,7 +26,7 @@ h2. Code
 * [x] remove dead code (if any)
 * [x] check against kernel versions
 * [x] check that maint branch is merged in next
-* [x] check for "open patches on the ml":https://patchwork.open-mesh.org/project/batman/list/
+* [x] check for "open patches on the ml":https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/
 * [x] git tag release
 
 h2. Release
@@ -42,7 +42,7 @@ h2. Distributions
 * [x] update alfred openwrt package
 * [ ] update batman-adv/batctl openwrt package
 * [ ] update gentoo package
-* [ ] update debian batctl package
+* [x] update debian batctl package
 
 h2. Aftershow
 
