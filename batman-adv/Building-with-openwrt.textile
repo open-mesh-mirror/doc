@@ -162,14 +162,13 @@ And be careful when changing versions, your build may fail. Build with make V=99
 
 developer version:
 
-Adjust the batman-adv & batctl git revision via the Openwrt configuration menu (aka "make menuconfig") to download & build the git revision you are interested in:
+Adjust the batman-adv & batctl git branch / tag via the Openwrt configuration menu (aka "make menuconfig") to download & build the git revision you are interested in:
 
 <pre>
 Kernel modules ---> 
    Network Support ---> 
       kmod-batman-adv-devel
-        batman-adv git revision
-        batctl git revision
+        batman-adv git branch
 </pre>
 
 h2. Building from a different branch
