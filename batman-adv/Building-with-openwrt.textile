@@ -168,7 +168,7 @@ Adjust the batman-adv & batctl git branch / tag via the Openwrt configuration me
 Kernel modules ---> 
    Network Support ---> 
       kmod-batman-adv-devel
-        batman-adv git branch
+        batman-adv branch
 </pre>
 
 h2. Building from a different branch
