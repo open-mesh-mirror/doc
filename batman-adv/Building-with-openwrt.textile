@@ -48,7 +48,7 @@ developer version:
 Append the following line to your Openwrt feed configuration file (either feeds.conf or feeds.conf.default):
 
 <pre>
-src-git batman https://git.open-mesh.org/openwrt-feed-batman-adv.git
+src-git batman https://git.open-mesh.org/openwrt-feed-devel.git
 </pre>
 
 Update the package information and add the development package:
