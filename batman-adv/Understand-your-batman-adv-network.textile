@@ -49,6 +49,7 @@ h3. originator table
 
 Each batman node maintains a list of all other nodes in the network and remembers in which direction to send the packets if data should be transmitted. The direction manifests itself in the form of the "best next neighbor" which basically is the next step towards the destination. You can retrieve batman's internal originator table by reading the originators file. The printed table begins with a header line with some more or less useful status data, followed by the originator table. Each line contains information regarding a specific originator: 
 
++B.A.T.M.A.N. IV+:
 <pre>
 <originator>
    <last-seen> 
@@ -61,8 +62,27 @@ Each batman node maintains a list of all other nodes in the network and remember
 Sample output:
 <pre>
 cat /sys/kernel/debug/batman_adv/bat0/originators
-Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ... [B.A.T.M.A.N. adv 0.3.0-alpha, [[MainIF]]/MAC: eth0/fe:fe:00:00:01:01 (bat0)] 
-fe:fe:00:00:02:01  0.360s   (133) fe:fe:00:00:02:01 [      eth0]: fe:fe:00:00:02:01 (133)
+[B.A.T.M.A.N. adv d5e8ba8, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0 BATMAN_IV)]
+  Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
+fe:fe:00:00:02:01    0.390s   (254) fe:fe:00:00:02:01 [      eth0]: fe:fe:00:00:02:01 (254)
+</pre>
+
++B.A.T.M.A.N. V+:
+<pre>
+<originator>
+   <last-seen> 
+      <throughput towards the originator> 
+         <next best hop> 
+            <outgoing iface> 
+               <alternative best next hops>
+</pre>
+
+Sample output:
+<pre>
+cat /sys/kernel/debug/batman_adv/bat0/originators
+[B.A.T.M.A.N. adv 2016.1, MainIF/MAC: eth1/fe:fe:00:00:01:01 (bat0 BATMAN_V)]
+  Originator      last-seen ( throughput)           Nexthop [outgoingIF]:   Potential nexthops ...
+fe:fe:00:00:02:01    0.130s (       10.0) fe:fe:00:00:02:01 [      eth1]: fe:fe:00:00:02:01 (       10.0)
 </pre>
 
 With batman 2014.1.0 the concept of a routing table per interface was introduced. As a result each interface will expose its routing table via debugfs:
