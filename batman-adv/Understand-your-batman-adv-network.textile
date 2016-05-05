@@ -13,6 +13,7 @@ h3. neighbor table
 Each batman node maintains a list of all single hop neighbors it detects. Whether or not a single hop neighbor is routed to directly or via another single hop neighbor is decided based on the link quality.
 The printed table begins with a header line with some more or less useful status data, followed by the single hop neighbor table: 
 
++B.A.T.M.A.N. IV+:
 <pre>
 <interface>
    <single hop neighbor>
@@ -26,6 +27,23 @@ cat /sys/kernel/debug/batman_adv/bat0/neighbors
            IF        Neighbor      last-seen
          eth0   fe:fe:00:00:02:01    0.280s
 </pre>
+
++B.A.T.M.A.N. V+:
+<pre>
+<neighbor>
+   <last-seen>
+      <throughput> 
+         <interface> 
+</pre>
+
+Sample output:
+<pre>
+cat /sys/kernel/debug/batman_adv/bat0/neighbors
+[B.A.T.M.A.N. adv 2016.1, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat1 BATMAN_V)]
+  Neighbor        last-seen ( throughput) [        IF]
+fe:fe:00:00:02:01    0.190s (       10.0) [      eth0]
+</pre>
+
 
 h3. originator table
 
