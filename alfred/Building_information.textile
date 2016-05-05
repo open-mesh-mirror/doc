@@ -24,7 +24,7 @@ There is also a development packet feed for OpenWRT available for alfred:
 
 1. add the alfred feed by adding the following line into your feeds.conf:
 
-   src-git alfred git://git.open-mesh.org/openwrt-feed-alfred.git
+   src-git batman git://git.open-mesh.org/openwrt-feed-devel.git
 
 2. Update and install the feed:
 
