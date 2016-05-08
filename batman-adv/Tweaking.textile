@@ -14,7 +14,8 @@ After loading batman-adv, it will scan your systems interfaces to search for com
 
 <pre>
 ls /sys/class/net/eth0/batman_adv/
-iface_status  mesh_iface
+elp_interval         mesh_iface
+iface_status         throughput_override
 </pre>
 
 If an interface does not have the "batman_adv" subfolder it probably is not supported. Not supported interfaces are: loopback, non-ethernet and batman's own interfaces.
