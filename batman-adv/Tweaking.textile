@@ -41,7 +41,6 @@ To deactivate an interface you have  to  write  "none"  into  its "mesh_iface" f
 echo none > /sys/class/net/eth0/batman_adv/mesh_iface
 </pre>
 
-
 h3. ELP interval
 
 Available since: batman-adv 2016.1
@@ -50,7 +49,7 @@ Defines the interval in milliseconds in which B.A.T.M.A.N. V emits probing packe
 
 <pre>
 cat /sys/class/net/eth0/batman_adv/elp_interval 
-0
+500
 </pre>
 
 h3. Throughput override
