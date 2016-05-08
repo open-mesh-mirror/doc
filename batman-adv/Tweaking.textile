@@ -41,6 +41,30 @@ To deactivate an interface you have  to  write  "none"  into  its "mesh_iface" f
 echo none > /sys/class/net/eth0/batman_adv/mesh_iface
 </pre>
 
+
+h3. ELP interval
+
+Available since: batman-adv 2016.1
+
+Defines the interval in milliseconds in which B.A.T.M.A.N. V emits probing packets for neighbor sensing (ELP). The more packets are sent the faster ELP / B.A.T.M.A.N. V detects a new neighbor or link failure at the cost of overhead. B.A.T.M.A.N. IV ignores the setting entirely.
+
+<pre>
+cat /sys/class/net/eth0/batman_adv/elp_interval 
+0
+</pre>
+
+h3. Throughput override
+
+Available since: batman-adv 2016.1
+
+Defines the throughput value to be used by B.A.T.M.A.N. V when estimating the link throughput for all neighbors connected to this interface. If the value is set to 0 then batman-adv will try to estimate the throughput by itself by either querying the WiFi driver or the Ethernet interface. B.A.T.M.A.N. IV ignores the setting entirely.
+
+<pre>
+cat /sys/class/net/eth0/batman_adv/throughput_override 
+0.0 MBit
+</pre>
+
+
 h2. Mesh cloud handling
 
 
@@ -228,7 +252,7 @@ h3. originator interval
 
 Available since: batman-adv 2010.0.0
 
-The value specifies interval (milliseconds) in which batman-adv floods the network with its protocol information. The default value of one message per second allows batman to recognize a route change (in its near neighborhood) within a timeframe of maximal one minute (most likely much sooner). In a very static environment (batman nodes are not moving, rare ups & downs of nodes) you might want to increase the value to save bandwidth. On the other hand, it might prove helpful to decrease the value in a highly mobile environment (e.g. the aforementioned cars) but keep in mind that this will drastically increase the traffic. Unless you experience problems with your setup, it is suggested you keep the default value.
+The value specifies the interval (milliseconds) in which batman-adv floods the network with its protocol information. The default value of one message per second allows batman to recognize a route change (in its near neighborhood) within a timeframe of maximal one minute (most likely much sooner). In a very static environment (batman nodes are not moving, rare ups & downs of nodes) you might want to increase the value to save bandwidth. On the other hand, it might prove helpful to decrease the value in a highly mobile environment (e.g. the aforementioned cars) but keep in mind that this will drastically increase the traffic. Unless you experience problems with your setup, it is suggested you keep the default value.
 
 <pre>
 cat /sys/class/net/bat0/mesh/orig_interval 
