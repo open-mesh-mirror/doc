@@ -1,3 +1,7 @@
+h1. This page is OUTDATED!
+
+This page was superseded with an update for the feature, [[Network-wide-multi-link-optimization|documentered here]]
+
 h1. Multi-link Optimizations (technical documentation)
 
 Mesh nodes with multiple physical links to other mesh nodes can use this capability to gain various benefits, for example:
@@ -67,7 +71,7 @@ In bonding, we split a single stream and distribute the packets over multiple li
 
 !bonding_roundrobin.dia.jpg!
 
-Practice shows however that the theoretical bandwidth gain is not reached - even if the links are physically disjoint. E.g. using a 2.4 GHz and a 5 GHz with a modulation of 54 Mbit/s both has shown to gain 150%25 bandwith boost over a single link, not 200%25 as expected in theory. Possible reasons may be the packet reordering and slightly different queue load caused by random backoffs, retries, etc. For these reasons, bonding must be enabled explicitly.
+Practice shows however that the theoretical bandwidth gain is not reached - even if the links are physically disjoint. E.g. using a 2.4 GHz and a 5 GHz with a modulation of 54 Mbit/s both has shown to gain 150% bandwith boost over a single link, not 200% as expected in theory. Possible reasons may be the packet reordering and slightly different queue load caused by random backoffs, retries, etc. For these reasons, bonding must be enabled explicitly.
 
 h2. Discussion and further work
 
