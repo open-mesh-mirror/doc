@@ -1,3 +1,7 @@
+h1. This page is OUTDATED!
+
+This page was superseded with an update for the feature, [[Multi-link-optimize|documentered here]]
+
 h1. Multi-link Optimizations
 
 batman-adv is able to work on different interfaces - multiple WiFi interfaces, but also Ethernet interfaces. If two or more nodes are interconnected through batman-adv on multiple interfaces, they may leverage some features to increase throughput, which are explained here.
@@ -14,7 +18,7 @@ Interface alternating is only performed if the two candidate links to the next h
 
 h2. Interface bonding
 
-When multiple links (with similar transmit quality) are available to the same neighbor, batman-adv may distribute the frames to be sent over these available links. The individual frames are sent over the links in a round robin fashion as illustrated below. Using this technique, the throughput may be increased by the number of links involved in the bonding. In practical tests over two WiFi links, we have seen more than 50%25 of throughput gain.
+When multiple links (with similar transmit quality) are available to the same neighbor, batman-adv may distribute the frames to be sent over these available links. The individual frames are sent over the links in a round robin fashion as illustrated below. Using this technique, the throughput may be increased by the number of links involved in the bonding. In practical tests over two WiFi links, we have seen more than 50% of throughput gain.
 
 !bonding_roundrobin.dia.jpg!
 
