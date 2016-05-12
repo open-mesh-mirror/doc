@@ -8,7 +8,7 @@ This document gives a brief introduction into the major differences between B.A.
 h2. Separating neighbor discovery from mesh routing
 
 
-The B.A.T.M.A.N. protocol originally used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading this link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|B.A.T.M.A.N.]] concept page and explained in details in "the RFC draft":https://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
+The B.A.T.M.A.N. protocol originally used a single message type (called OGM) to determine the link qualities to the direct neighbors and spreading this link quality information through the whole mesh. This procedure is summarized on the [[open-mesh:BATMANConcept|B.A.T.M.A.N.]] concept page and explained in detail in "the RFC draft":https://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 published in 2008.
 This approach was chosen for its simplicity during the protocol design phase and the first implementation. However, it also bears some drawbacks:
 
 *  Wireless interfaces usually come with packet loss varying over time, therefore a higher protocol transmission rate is desirable to allow a fast reaction on flaky connections. Other interfaces of the same host might be connected to Ethernet LANs / VPNs / etc which rarely exhibit packet loss or link state changes. Those would benefit from a lower protocol transmission rate to reduce overhead.
