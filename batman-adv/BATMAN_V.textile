@@ -22,7 +22,6 @@ The task separation (neighbor discovery vs mesh routing) bears the following adv
  * Neighbor discovery and metric data collection can be performed individually, at different intervals or even different techniques.
  * Effort for multiple interface handling can be reduced.
 
-
 h2. Throughput based metric
 
 Since a packet loss based metric as used by B.A.T.M.A.N. IV isn't adequate to handle the increasing number devices & link types with little to no packet loss but very different throughput capabilities B.A.T.M.A.N. V uses packet throughput as mesh-wide metric. Depending on the link type batman-adv is able to determine the throughput automatically: 
@@ -34,7 +33,7 @@ Since a packet loss based metric as used by B.A.T.M.A.N. IV isn't adequate to ha
 
 Note: The WiFi neighbor throughput estimation relies on the WiFi driver being able to estimate the throughput. Commonly, the WiFi driver needs payload traffic to be sent to each neighbor for the estimation to be accurate. On idle links B.A.T.M.A.N. V will initiate payload traffic from time to time to feed the WiFi driver's estimation logic.
 
-The path throughput between node A and node B is computed as the minimum between the throughput value of all given links on the path between node A and node B.
+The path throughput between node A and node B is computed as the minimum between the throughput value of all given links on the path between node A and node B (other factors are also included in the computation - for further details please check our OGMv2 wikipage).
 
 h2. Backward compatibility
 
