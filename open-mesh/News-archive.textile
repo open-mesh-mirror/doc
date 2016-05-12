@@ -5,6 +5,7 @@ This page contains the links to previous news posts for archiving purposes.
 
 h3. 2015
 
+* *10.Aug 2015* [[2015-08-10-batman-adv-2015-1-release|Batman-adv 2015.1 released]]
 * *16.Jun 2015* [[2015-06-16_Introducing_Alfreda|Introducing AlfredA]]
 * *16.May 2015* [[2015-05-16_the_joker_attacks|The Joker attacks]]
 * *28.Apr. 2015* [[2015-04-28-batman-adv-2015-0-release|Batman-adv 2015.0 released]]
