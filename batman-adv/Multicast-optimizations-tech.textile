@@ -6,7 +6,7 @@ Prior Readings:
 
 h2. Multicast Listener Announcements
 
-!{width: 66%25;}basic-multicast-listener-announce.png!
+!{width: 66%;}basic-multicast-listener-announce.png!
 
 The IPv4/IPv6 multicast code in the Linux kernel keeps track of any of its applications requesting to receive multicast packets for a certain group.
 
@@ -52,7 +52,7 @@ reserved for future extensions
 
 h2. Multicast Sender
 
-!{width: 66%25;}basic-multicast-sender-receiver.png!
+!{width: 66%;}basic-multicast-sender-receiver.png!
 
 Optimization for IPv4 or IPv6 multicast packets is performed by considering a few special cases. First, the number of nodes interested in a group is counted. Interest has been announced by either including the multicast group in TT entries, or setting the BATADV_MCAST_WANT_ALL_IPV4 or BATADV_MCAST_WANT_ALL_IPV6 flags or the BATADV_MCAST_WANT_ALL_UNSNOOPABLES flag in case of unsnoopable ranges in the Multicast TVLV flag.
 
@@ -75,7 +75,7 @@ Example: 224.0.0.1 (all nodes) |=. supported without bridges¹.
 Example: ff02::1 (all nodes) |
 | *link-local*
 (excl. all nodes addr.) |=. supported without bridges¹.
-Example: 224.0.0.251 (mDNS) |=. supported without bridges ².
+Example: 224.0.0.251 (mDNS) |=. supported².
 Example: ff12::39 (locally administrated) |
 | *routable* |=. support planned³.
 Example: 239.1.2.3 (locally administrated) |=. support planned³.
@@ -83,7 +83,7 @@ Example: ff0e::101 (NTP) |
 
 ¹: These addresses cannot be considered for optimization towards nodes which have a bridge interface on top of their batman interface as they are not snoopable. See  [[multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details.
 
-²: To support scenarios with bridges, the according nodes need integration between batman-adv and the snooping part of their Linux bridge. Support for this is planned.
+²: In bridged scenarios, an IGMP/MLD querier needs to be present in the mesh. Also, a 3.17 kernel or newer is required.
 
 ³: Routable multicast addresses are not supported yet. See  [[multicast-optimizations-tech#routable-multicast-addresses]] for details.
 
