@@ -14,29 +14,33 @@ The current multicast optimizations in batman-adv provide a basic infrastructure
 
 h3. Discards IPv4/IPv6 packets with no multicast listener
 
-!{width: 66%25;}basic-multicast-no-receiver.png!
+!{width: 66%;}basic-multicast-no-receiver.png!
 
 batman-adv detects whether there are any potential IPv4/IPv6 multicast listeners interested in traffic to the given multicast destination address. If not then the packet is never forwarded into the mesh network.
 
 h3. Forwards IPv4/IPv6 packets with a single multicast listener via unicast
 
-!{width: 66%25;}basic-multicast-single-receiver.png!
+!{width: 66%;}basic-multicast-single-receiver.png!
 
 If a single multicast listener was detected then the packet is forwarded directly to the corresponding batman-adv node.
 
 
 h3. Limitations
 
-!{width: 66%25;}basic-multicast-multiple-receivers.png!
+!{width: 66%;}basic-multicast-multiple-receivers.png!
 
 In the following cases multicast packets are still distributed via classic flooding:
 
 * If there is more than one listener for a specific multicast group.
-* If there is a node with a Linux bridge on top of its batman-adv interface.
 * If the multicast packets have a scope greater than link-local.
 
 (These things are work in progress and will be supported at a later time.)
 
+Additionally, in bridged scenarios multicast packets are still flooded in the following cases:
+
+* If there is no IGMP/MLD querier.
+* If the IPv4 multicast destination is between 224.0.0.1 and 224.0.0.255.
+* If the IPv6 multicast destination is ff02::1.
 
 h2. How to activate the multicast optimizations?
 
