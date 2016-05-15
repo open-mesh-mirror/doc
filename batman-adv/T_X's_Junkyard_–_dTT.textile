@@ -16,6 +16,6 @@ Many global TT entries are never used by a node. We could use the current TT glo
 
 h3. USB-Storage
 
-A few GB large USB sticks are cheap+tiny and many wifi routers come with a USB port these days. Storing databases on such USB devices is fast and has no packet loss compared to remote storage. batman-adv could search for mounted devices with a magic folder "wayne-enterprises" in their root directory.
+Instead of using a DHT, we could use local storage. The flash storage of these wifi routers is usually even smaller than the RAM. However, a few GB large USB sticks are cheap+tiny and many wifi routers come with a USB port these days. Storing databases on such USB devices is fast and has no packet loss compared to remote storage. batman-adv could search for mounted devices with a magic folder "wayne-enterprises" in their root directory.
 
 (for the few devices without USB, we could come up with an "Ethernet-to-USB" converter, utilizing the USB-over-IP feature of the Linux kernel? Would need the OS to discover and configure it, would be ugly to do all this from batman-adv...)
