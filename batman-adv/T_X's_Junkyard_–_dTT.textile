@@ -18,4 +18,4 @@ h3. USB-Storage
 
 Instead of using a DHT, we could use local storage. The flash storage of these wifi routers is usually even smaller than the RAM. However, a few GB large USB sticks are cheap+tiny and many wifi routers come with a USB port these days. Storing databases on such USB devices is fast and has no packet loss compared to remote storage. batman-adv could search for mounted devices with a magic folder "wayne-enterprises" in their root directory.
 
-(for the few devices without USB, we could come up with an "Ethernet-to-USB" converter, utilizing the USB-over-IP feature of the Linux kernel? Would need the OS to discover and configure it, would be ugly to do all this from batman-adv...)
+(for the few devices without USB, we could come up with an "Ethernet-to-USB" converter, utilizing the USB-over-IP feature of the Linux kernel? Would need the OS to discover and configure it, would be ugly to do all this from batman-adv... More headaches: What to do if storage fails or userspace messes with it? Maybe use raw devices instead, ones which are marked as wayne-fs in the partition table?)
