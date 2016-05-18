@@ -73,7 +73,7 @@ h2. merge next into linux
     Auto-merging net/batman-adv/vis.c
     ...
     Automatic merge failed; fix conflicts and then commit the result.
-(merge/master)$ git rm -rf CHANGELOG README.external compat.h compat-include/ gen-compat-autoconf.sh
+(merge/master)$ git rm -rf CHANGELOG README.external compat.h compat-include/ compat-sources/ gen-compat-autoconf.sh
     CHANGELOG: needs merge
     README.external: needs merge
     compat.h: needs merge
