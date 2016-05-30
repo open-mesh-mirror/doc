@@ -144,6 +144,7 @@ CONFIG_NET_IPGRE_BROADCAST=y
 EOF
 
 #debug stuff
+# make sure that libelf-dev is installed or module build will fail with something like "No rule to make target 'net/batman-adv/bat_algo.o'"
 
 cat >> .config << EOF
 CONFIG_CC_STACKPROTECTOR_STRONG=y
@@ -199,7 +200,7 @@ CONFIG_UBSAN=y
 EOF
 
 make olddefconfig
-make all -j9
+make all -j$(nproc || echo 1)
 </pre>
 
 h2. Start of the simple environment
@@ -221,4 +222,10 @@ The kernel module can be build outside the virtual environment and shared over t
 
 <pre>
 make KERNELPATH=/home/batman/linux-next
+</pre>
+
+The kernel module can also be compiled for better readability for the calltraces:
+
+<pre>
+make EXTRA_CFLAGS="-fno-inline -O1 -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/linux-next V=1
 </pre>
