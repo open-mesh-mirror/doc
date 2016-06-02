@@ -10,4 +10,38 @@ Some information about kmem-cache can be found "here":https://static.lwn.net/ima
 
 h2. Test setup
 
+h3. Hardware & Connectivity
+
 !kmalloc-kmem-cache-setup.png!
+
+The test setup consists of two machines:
+
+* WLAN-Mesh-Router: TP-Link TL-WR841ND v8, 32MB RAM
+* x86_64 PC: 3x ethernet interfaces, 8GB RAM
+
+Those two devices are connected via two network cables. One dedicated for polling the status from and controlling the embedded device. The other one dedicated for the batman-adv mesh. Finally the x86 PC has a third ethernet interface for external access to control and monitor the tests.
+
+h3. Software & Configuration
+
+* WLAN-Mesh-Router:
+
+  * Gluon v2016.1.3
+  * Gluon site config from Freifunk Rhein-Neckar, v0.5.4
+  * batman-adv v2016.1
+
+* x86_64 PC:
+
+  * Debian Sid
+  * 3.16 Linux kernel
+  * batman-adv v2016.1
+
+For the embedded device, WLAN-Mesh-Router, two patches were added to Gluon/batman-adv:
+
+* Upgrade to batman-adv v2016.1 (Gluon / OpenWRT CC currently provides v2015.1 for the package feed)
+* Global translation table count patch (outputs the number of global TT objects via debugfs directly)
+
+Next to these two patches, three variants for the image for the embedded device were created:
+
+* kmalloc (vanilla, uses kmalloc() for TT)
+* kmem-cache-aligned (Sven's original patch, with SLAB_HWCACHE_ALIGN flag)
+* kmem-cache-unaligned (Sven's patch but with no SLAB_HWCACHE_ALIGN flag)
