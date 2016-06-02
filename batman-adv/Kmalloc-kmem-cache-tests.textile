@@ -4,9 +4,15 @@ h2. Abstract
 
 In various, larger Freifunk mesh communities some issues happening after a certain broadcast domain size threshold occured. 32MB of RAM devices start to have load issues and reboot frequently with a "Gluon 2016.1.3":https://github.com/freifunk-gluon/gluon/ (batman-adv 2015.1) firmware "once they reach about 3100 clients":https://github.com/freifunk-gluon/gluon/issues/753 (3100 entries in the global translation table).
 
-While several other changes probably introduced a higher memory usage (e.g. switch to FQ-Codel with OpenWRT Chaos Calmer, larger kernel, ...), too, the possibilities to increase efficiency of the translation table by kmem-cache-alloc() instead of kmalloc() was considered and is the focus of of this article.
+While several other changes probably introduced a higher memory usage (e.g. switch to FQ-Codel with OpenWRT Chaos Calmer, larger kernel, ...), too, the possibilities to increase efficiency of the translation table by kmem-cache-alloc() instead of kmalloc() was considered and is the focus and primary motivation of this article.
 
 Some information about kmem-cache can be found "here":https://static.lwn.net/images/pdf/LDD3/ch08.pdf. General information about kmem-caches can usually be found in /proc/slabinfo (if the kernel was compiled with slabinfo support).
+
+-----
+
+The idea of these tests is to feed one 32MB RAM, embedded device with as many global TT entries as possible from a second, more powerful device. The test scripts continuously fetch the number of global TT entries until the embedded device reboots due to an Out-of-Memory error.
+
+We then compare this count with various configurations, for instance with kmalloc() vs. kmem-cache-alloc() vs. kmem-cache-alloc(SLAB_HWCACHE_ALIGN). But also with wifi enabled/disabled or full global TT dump + count vs. direct, global TT count access.
 
 h2. Test setup
 
@@ -16,7 +22,7 @@ h3. Hardware & Connectivity
 
 The test setup consists of two machines:
 
-* WLAN-Mesh-Router: TP-Link TL-WR841ND v8, 32MB RAM
+* WLAN-Mesh-Router: TP-Link TL-WR841ND v8, 32MB RAM, MIPS, ar71xx
 * x86_64 PC: 3x ethernet interfaces, 8GB RAM
 
 Those two devices are connected via two network cables. One dedicated for polling the status from and controlling the embedded device. The other one dedicated for the batman-adv mesh. Finally the x86 PC has a third ethernet interface for external access to control and monitor the tests.
@@ -34,6 +40,7 @@ h3. Software & Configuration
   * Debian Sid
   * 3.16 Linux kernel
   * batman-adv v2016.1
+  * Mausezahn 
 
 For the embedded device, WLAN-Mesh-Router, two patches were added to Gluon/batman-adv:
 
@@ -45,3 +52,61 @@ Next to these two patches, three variants for the image for the embedded device 
 * kmalloc (vanilla, uses kmalloc() for TT)
 * kmem-cache-aligned (Sven's original patch, with SLAB_HWCACHE_ALIGN flag)
 * kmem-cache-unaligned (Sven's patch but with no SLAB_HWCACHE_ALIGN flag)
+
+h3. Test runs
+
+The following configurations were tested.
+
+h4. kmalloc vs. kmem-cache-alloc ("kmalloc" vs. "kmem-cache-aligned" vs. "kmem-cache-unaligned" runs)
+
+Currently, batman-adv uses kmalloc() to allocate memory for a global translation table. This option tries using dedicated kmem-caches for local and global TT entries, as well as global TT orig entries via Sven's patch.
+
+This test configuration also both tries using kmem-cache-alloc() with and without setting the SLAB_HWCACHE_ALIGN flag.
+
+h4. Wifi (hidden) vs. No Wifi ("nowifi" run)
+
+Gluon, by default, provides both a mesh interface (either IBSS or 802.11s w/o fwd.; here: IBSS) for the mesh routing protocol. And a wifi AP interface for clients to connect.
+
+Tests were performed once with these two wifi interfaces enabled, but hidden. And once with no wifi interfaces (UCI wifi interface sections disabled).
+
+h4. Bridge FDB (Forwarding Database) enabled vs. disabled ("nofdb" run)
+
+By default, the bridge keeps track of behind which bridge port which MAC address can be found. This information is stored in the so called forwarding database, or FDB for short.
+
+This is similar to how batman-adv stores which client and according MAC address can be found on which mesh node. And by that also not strictly necessary for a bridged mesh network to function correctly.
+
+The bridge allows to disable the FDB learning on specific ports as well as to configure on which ports ethernet frames with an unknown destination MAC should be flooded.
+
+The "nofdb" test run disables learning on the bat0 bridge port and lets the bridge simply flood frames with unknown destination to bat0. Then batman-adv will determine via its global translation table if an appropriate host in the mesh exists and if so, forwards the frame further.
+
+h4. Full Global Translation Table Dump vs. Count Dump only ("notg" run)
+
+Currently batman-adv exports the global translation table via debugfs (patches for netlink exports are currently work-in-progress). For the export, one buffer to store the full, human-readable, ASCII-encoded table is created where translation table information is copied into.
+
+Due to the human-readable format, a translation table with about four thousand clients can easily need a 256KB buffer. Additionally, once the buffer is full, the kernel will try to create a new buffer of double the size and copy things over. This leads to noticeable, discrete jumps in load and memory usage every time the number of mesh clients roughly doubles.
+
+Further more, buffer allocations are first tried via kmalloc(), which needs a consecutive memory area, which might be tricky for a 256KB or 512KB bulk on an embedded device without much spare RAM. Current kernel versions (including Gluon v2016.1.3) will try to fallback to vmalloc() which will allocate several smaller, scattered memory regions instead once a kmalloc() fails with an -ENOMEM.
+
+Still, even with the recent vmalloc()-fallback patch, this debugfs behaviour might create high loads or memory usage temporarily.
+
+Therefore a small, custom patch for batman-adv was added to provide just the count of the global translation table via debugfs. The "notg" test run then uses this new trans_table_global_count instead of a line count of the full trans_table_global.
+
+h3. Overview Test Procedure
+
+All combinations of the test runs described above (in total: 24) were performed with 30 runs each to lower the standard error.
+
+The x86 PC performing the test runs creates 25 batman-adv instances. Then the tool mausezahn sends 1500 frames with a random source MAC address over each batman-adv instance, one by one with a short delay. This will create about 25 times 1500 = 37500 global translation table entries maximum.
+
+While mausezahn runs and the embedded device is reachable, the global translation table size and /proc/meminfo is collected once every second over ssh through the network interface dedicated for monitoring.
+
+h3. Results (short)
+
+h3. Results (extended)
+
+h3. Conclusion
+
+h3. Appendix
+
+* Logs
+* Test scripts
+* Images
