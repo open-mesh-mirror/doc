@@ -1,0 +1,13 @@
+h1. Kmalloc vs. Kmem-cache Tests
+
+h2. Abstract
+
+In various, larger Freifunk mesh communities some issues happening after a certain broadcast domain size threshold occured. 32MB of RAM devices start to have load issues and reboot frequently with a "Gluon 2016.1.3":https://github.com/freifunk-gluon/gluon/ (batman-adv 2015.1) firmware "once they reach about 3100 clients":https://github.com/freifunk-gluon/gluon/issues/753 (3100 entries in the global translation table).
+
+While several other changes probably introduced a higher memory usage (e.g. switch to FQ-Codel with OpenWRT Chaos Calmer, larger kernel, ...), too, the possibilities to increase efficiency of the translation table by kmem-cache-alloc() instead of kmalloc() was considered and is the focus of of this article.
+
+Some information about kmem-cache can be found "here":https://static.lwn.net/images/pdf/LDD3/ch08.pdf. General information about kmem-caches can usually be found in /proc/slabinfo (if the kernel was compiled with slabinfo support).
+
+h2. Test setup
+
+!kmem-cache-setup.png!
