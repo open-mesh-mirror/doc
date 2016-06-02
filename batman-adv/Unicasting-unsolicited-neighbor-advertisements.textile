@@ -1,10 +1,13 @@
-h1. Proposal: Unicasting Unsolicited Neighbor Advertisements
+h1. T_X's Junkyard - Proposal: Unicasting Unsolicited Neighbor Advertisements
+
+_Update 2. June 2016:_ Another look at various Freifunk communities seems to indicate that the number of unsolicited neighbor advertisements is currently rather low. It seems that at least Linux'es (including Androids) do not send unsolicited neighbor advertisements upon roaming.
+
 
 h2. Scenario
 
 In a layer 2 mesh network, a lot of broadcast "noise" consists of so called Unsolicited Neighbor Advertisements. It is the main ICMPv6 packet overhead in a mesh network with devices dynamically joining, leaving and roaming.
 
-!{width: 80%25;}unsol-NA-flooded.png!
+!{width: 80%;}unsol-NA-flooded.png!
 
 _A device roaming from one node to another – and after that flooding Neighbor Advertisements_
 
@@ -30,7 +33,7 @@ h3. Updating Switches after Roaming
 
 Secondly, Unsolicited Neighbor Advertisements are needed to update the MAC table in a switch promptly, to avoid potential packet loss after a host roamed.
 
-!{width: 80%25;}unsol-NA-lost-data.png!
+!{width: 80%;}unsol-NA-lost-data.png!
 
 _Without unsol. NAs: The switch will not forward data from B to A via the mesh  – data is lost!_
 
@@ -42,7 +45,7 @@ h2. Solution: Unicasting Unsol. NAs to Previous Node
 
 Fortunately, there is just one segment of the mesh where switches need to be updated: Any switch behind the node where the host roamed from.
 
-!{width: 80%25;}unsol-NA-unicast.png!
+!{width: 80%;}unsol-NA-unicast.png!
 
 _A unicasted unsol. NA updating the MAC table of the switch_
 
