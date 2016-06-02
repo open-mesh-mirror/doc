@@ -93,7 +93,7 @@ Therefore a small, custom patch for batman-adv was added to provide just the cou
 
 h2. 4) Overview Test Procedure
 
-All combinations of the test runs described above (in total: 24) were performed with 30 runs each to lower the standard error.
+All combinations of the test runs described above (in total: 24) were performed. They were run 30 times each to lower the standard error.
 
 The x86 PC performing the test runs creates 25 batman-adv instances. Then the tool mausezahn sends 1500 frames with a random source MAC address over each batman-adv instance, one by one with a short delay. This will create about 25 times 1500 = 37500 global translation table entries maximum.
 
