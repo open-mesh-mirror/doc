@@ -1,0 +1,42 @@
+From e45d51395004bff7c131c3a79107c878bda0c078 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Linus=20L=C3=BCssing?= <linus.luessing@c0d3.blue>
+Date: Fri, 27 May 2016 03:41:56 +0200
+Subject: [PATCH 3/3] batman-adv: don't use SLAB_HWCACHE_ALIGN
+
+to safe some more memory
+---
+ net/batman-adv/translation-table.c |   11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 82b8a3f..ea23d5b 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -3928,19 +3928,18 @@ int __init batadv_tt_cache_init(void)
+ 	size_t tg_size = sizeof(struct batadv_tt_global_entry);
+ 	size_t tt_orig_size = sizeof(struct batadv_tt_orig_list_entry);
+ 
+-	batadv_tl_cache = kmem_cache_create("batadv_tl_cache", tl_size, 0,
+-					    SLAB_HWCACHE_ALIGN, NULL);
++	batadv_tl_cache = kmem_cache_create("batadv_tl_cache", tl_size, 0, 0,
++					    NULL);
+ 	if (!batadv_tl_cache)
+ 		return -ENOMEM;
+ 
+-	batadv_tg_cache = kmem_cache_create("batadv_tg_cache", tg_size, 0,
+-					    SLAB_HWCACHE_ALIGN, NULL);
++	batadv_tg_cache = kmem_cache_create("batadv_tg_cache", tg_size, 0, 0,
++					    NULL);
+ 	if (!batadv_tg_cache)
+ 		goto err_tg_alloc;
+ 
+ 	batadv_tt_orig_cache = kmem_cache_create("batadv_tt_orig_cache",
+-						 tt_orig_size, 0,
+-						 SLAB_HWCACHE_ALIGN, NULL);
++						 tt_orig_size, 0, 0, NULL);
+ 	if (!batadv_tt_orig_cache)
+ 		goto err_tt_orig_alloc;
+ 
+-- 
+1.7.10.4
+
