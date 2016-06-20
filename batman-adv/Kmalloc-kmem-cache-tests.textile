@@ -151,6 +151,7 @@ The median chart uses the median values from 5.1 instead of its average values.
 !kmalloc_vs_kmem-cache.png!
 
 <pre>
+$ ./eval+plot-kmalloc_vs_kmem-cache.sh
 Size gain factor kmalloc-01 vs kmem-cache-aligned-01:
   ave: 1.34133, med: 1.35506
 
