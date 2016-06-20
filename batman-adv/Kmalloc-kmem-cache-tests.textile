@@ -167,4 +167,4 @@ h2. 8) Appendix
 
 * Logs
 * Test scripts
-* Images
+* "Images":http://metameute.de/~tux/batman-adv/kmalloc_vs_kmem-cache/images.tar.xz
