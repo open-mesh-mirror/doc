@@ -101,6 +101,55 @@ While mausezahn runs and the embedded device is reachable, the global translatio
 
 h2. 5) Results (short)
 
+h3. 5.1) Raw/Text
+
+<Average> describes the average number of global TT entries of 30 test rounds which could be created on a run until the node rebooted due to being out-of-memory.
+
+<Median> is similar to the average number of TT entries, but filters out outliers in the measurements. And can be an indicator on how convincing the average is.
+
+Similarly, the <Standard Error> is an indicator regarding whether the number of test rounds was sufficiently large.
+
+<pre>
+$ ./eval-all.sh
+<Name>: <Average> <Median> <Standard Deviation> <Standard Error> <# of Test Rounds>
+
+## logs/kmalloc-01:
+  logs/kmalloc-01/_: 11366.666667 11466.000000 1286.673109 234.913295 30
+  logs/kmalloc-01/nofdb: 11744.366667 12175.000000 1588.274567 289.977936 30
+  logs/kmalloc-01/notg: 13318.066667 13486.500000 1613.411767 294.567340 30
+  logs/kmalloc-01/notg-nofdb: 14900.266667 15748.500000 2565.820998 468.452680 30
+  logs/kmalloc-01/nowifi: 15402.933333 15265.500000 1698.790804 310.155348 30
+  logs/kmalloc-01/nowifi-nofdb: 16616.733333 16221.500000 1250.387751 228.288526 30
+  logs/kmalloc-01/nowifi-notg: 19189.800000 19199.500000 857.763270 156.605431 30
+  logs/kmalloc-01/nowifi-notg-nofdb: 21919.766667 22328.500000 840.369311 153.429743 30
+## logs/kmem-cache-aligned-01:
+  logs/kmem-cache-aligned-01/_: 14849.133333 14631.000000 2521.004558 460.270355 30
+  logs/kmem-cache-aligned-01/nofdb: 16657.200000 17596.500000 3056.207818 557.984654 30
+  logs/kmem-cache-aligned-01/notg: 16289.800000 16961.500000 5142.746046 938.932672 30
+  logs/kmem-cache-aligned-01/notg-nofdb: 21636.333333 23740.000000 4241.577987 774.402648 30
+  logs/kmem-cache-aligned-01/nowifi: 21737.300000 21781.500000 1034.813386 188.930211 30
+  logs/kmem-cache-aligned-01/nowifi-nofdb: 24014.933333 23901.000000 788.844130 144.022575 30
+  logs/kmem-cache-aligned-01/nowifi-notg: 24083.300000 23984.500000 586.224084 107.029385 30
+  logs/kmem-cache-aligned-01/nowifi-notg-nofdb: 26726.700000 26897.000000 1354.035971 247.212015 30
+## logs/kmem-cache-unaligned-01:
+  logs/kmem-cache-unaligned-01/_: 14592.266667 14951.500000 3087.529724 563.703226 30
+  logs/kmem-cache-unaligned-01/nofdb: 16375.633333 16065.500000 2291.323846 418.336586 30
+  logs/kmem-cache-unaligned-01/notg: 16511.766667 17114.000000 3959.415493 722.887060 30
+  logs/kmem-cache-unaligned-01/notg-nofdb: 22112.066667 23868.500000 3473.455781 634.163361 30
+  logs/kmem-cache-unaligned-01/nowifi: 22368.566667 22648.500000 1172.829504 214.128392 30
+  logs/kmem-cache-unaligned-01/nowifi-nofdb: 24047.266667 23558.500000 1195.256038 218.222898 30
+  logs/kmem-cache-unaligned-01/nowifi-notg: 24636.566667 24545.500000 698.748915 127.573514 30
+  logs/kmem-cache-unaligned-01/nowifi-notg-nofdb: 28171.033333 28426.500000 1802.042313 329.006408 30
+</pre>
+
+h3. 5.2) kmalloc vs. kmem-cache
+
+The following diagram shows the gain factor for the number of global TT entries between kmalloc and kmem-cache-aligned/unaligned. It is an average of all test types (_, nofdb, notg, ... nowifi-notg-nofdb) and rounds. So an average gain factor of various combinations with 240 rounds in total.
+
+The median chart uses the median values from 5.1 instead of its average values.
+
+!kmalloc_vs_kmem-cache.png!
+
 h2. 6) Results (extended)
 
 h2. 7) Conclusion
