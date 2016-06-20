@@ -1,0 +1,105 @@
+From 70c9cea4d7293f673a5ada6ae27120ffd7821149 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Linus=20L=C3=BCssing?= <linus.luessing@c0d3.blue>
+Date: Fri, 27 May 2016 03:16:23 +0200
+Subject: [PATCH 1/3] export global translation table count to debugfs
+
+---
+ net/batman-adv/debugfs.c           |   10 ++++++++++
+ net/batman-adv/translation-table.c |   33 +++++++++++++++++++++++++++++++++
+ net/batman-adv/translation-table.h |    1 +
+ 3 files changed, 44 insertions(+)
+
+diff --git a/net/batman-adv/debugfs.c b/net/batman-adv/debugfs.c
+index 48253cf..f055e13 100644
+--- a/net/batman-adv/debugfs.c
++++ b/net/batman-adv/debugfs.c
+@@ -306,6 +306,13 @@ static int batadv_transtable_global_open(struct inode *inode, struct file *file)
+ 	return single_open(file, batadv_tt_global_seq_print_text, net_dev);
+ }
+ 
++static int batadv_transtable_global_count_open(struct inode *inode, struct file *file)
++{
++	struct net_device *net_dev = (struct net_device *)inode->i_private;
++
++	return single_open(file, batadv_tt_global_count_seq_print_text, net_dev);
++}
++
+ #ifdef CONFIG_BATMAN_ADV_BLA
+ static int batadv_bla_claim_table_open(struct inode *inode, struct file *file)
+ {
+@@ -391,6 +398,8 @@ static BATADV_DEBUGINFO(originators, S_IRUGO, batadv_originators_open);
+ static BATADV_DEBUGINFO(gateways, S_IRUGO, batadv_gateways_open);
+ static BATADV_DEBUGINFO(transtable_global, S_IRUGO,
+ 			batadv_transtable_global_open);
++static BATADV_DEBUGINFO(transtable_global_count, S_IRUGO,
++			batadv_transtable_global_count_open);
+ #ifdef CONFIG_BATMAN_ADV_BLA
+ static BATADV_DEBUGINFO(bla_claim_table, S_IRUGO, batadv_bla_claim_table_open);
+ static BATADV_DEBUGINFO(bla_backbone_table, S_IRUGO,
+@@ -410,6 +419,7 @@ static struct batadv_debuginfo *batadv_mesh_debuginfos[] = {
+ 	&batadv_debuginfo_originators,
+ 	&batadv_debuginfo_gateways,
+ 	&batadv_debuginfo_transtable_global,
++	&batadv_debuginfo_transtable_global_count,
+ #ifdef CONFIG_BATMAN_ADV_BLA
+ 	&batadv_debuginfo_bla_claim_table,
+ 	&batadv_debuginfo_bla_backbone_table,
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 9b4551a..ab05ecf 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -1703,6 +1703,39 @@ out:
+ 	return 0;
+ }
+ 
++int batadv_tt_global_count_seq_print_text(struct seq_file *seq, void *offset)
++{
++	struct net_device *net_dev = (struct net_device *)seq->private;
++	struct batadv_priv *bat_priv = netdev_priv(net_dev);
++	struct batadv_hashtable *hash = bat_priv->tt.global_hash;
++	struct batadv_tt_common_entry *tt_common_entry;
++	struct batadv_hard_iface *primary_if;
++	struct hlist_head *head;
++	unsigned int count = 0;
++	u32 i;
++
++	primary_if = batadv_seq_print_text_primary_if_get(seq);
++	if (!primary_if)
++		goto out;
++
++	for (i = 0; i < hash->size; i++) {
++		head = &hash->table[i];
++
++		rcu_read_lock();
++		hlist_for_each_entry_rcu(tt_common_entry,
++					 head, hash_entry) {
++			count++;
++		}
++		rcu_read_unlock();
++	}
++
++	seq_printf(seq, "%u\n", count);
++out:
++	if (primary_if)
++		batadv_hardif_put(primary_if);
++	return 0;
++}
++
+ /**
+  * _batadv_tt_global_del_orig_entry - remove and free an orig_entry
+  * @tt_global_entry: the global entry to remove the orig_entry from
+diff --git a/net/batman-adv/translation-table.h b/net/batman-adv/translation-table.h
+index 7c7e2c0..cea0114 100644
+--- a/net/batman-adv/translation-table.h
++++ b/net/batman-adv/translation-table.h
+@@ -33,6 +33,7 @@ u16 batadv_tt_local_remove(struct batadv_priv *bat_priv,
+ 			   const char *message, bool roaming);
+ int batadv_tt_local_seq_print_text(struct seq_file *seq, void *offset);
+ int batadv_tt_global_seq_print_text(struct seq_file *seq, void *offset);
++int batadv_tt_global_count_seq_print_text(struct seq_file *seq, void *offset);
+ void batadv_tt_global_del_orig(struct batadv_priv *bat_priv,
+ 			       struct batadv_orig_node *orig_node,
+ 			       s32 match_vid, const char *message);
+-- 
+1.7.10.4
+
