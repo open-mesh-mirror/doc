@@ -1,5 +1,7 @@
 h1. B.A.T.M.A.N. OpenWrt configuration
 
+{{>toc}}
+
 This page showcases some basic batman-adv configurations on OpenWrt including wireless & network setups. However, the goal is to provide not more than a starting point. For a full reference of the OpenWrt uci system please visit the official "OpenWrt uci documentation":https://wiki.openwrt.org/doc/uci.
 
 The configuration for the following common example is provided: One AP with a wireless adhoc interface is supposed to run batman-adv (essentially, the setup explained in our [[Quick-start-guide|Quick-start-guide]]).
