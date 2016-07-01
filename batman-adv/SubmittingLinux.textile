@@ -253,126 +253,139 @@ h2. check if all patches are in linux-merge
 
 TODO
 
-
 h2. submit patches
 
 TODO
 
 A good commit in has to be chosen. We should not send more than 20 patches for net-next for each pull request. A lower number (6?) of patches should be used for net.
 
-Lets assume a good commit is ebe24cea95ab969f76f2922032f6c390fdc816f2
+Lets assume a good commit is 4e3e823b5a503235630921287f130e1d8d22d200
 
 <pre>
-git tag -s batadv-next-for-davem-20160518 ebe24cea95ab969f76f2922032f6c390fdc816f2
+git tag -s batadv-next-for-davem-20160701 4e3e823b5a503235630921287f130e1d8d22d200
 # write a good commit message
-git push origin batadv-next-for-davem-20160518
+git push origin batadv-next-for-davem-20160701
 </pre>
 
 The patches then have to be prepared and the cover letter has to be created for the pull request. For net-next it would look like:
 
 <pre>
-git format-patch base/net-next..batadv-next-for-davem-20160518
-git request-pull base/net-next git://git.open-mesh.org/linux-merge.git batadv-next-for-davem-20160518
+git format-patch --cover-letter base/net-next..batadv-net-for-davem-20160701
+sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
+git request-pull base/net-next git://git.open-mesh.org/linux-merge.git batadv-net-for-davem-20160701 >> 0000-cover-letter.patch
 # write cover letter
-git send-email --no-thread --in-reply-to=$MESSAGE_ID_FROM_COVER_LETTER --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
+git send-email --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
 
 or for net:
 
 <pre>
-git format-patch base/net..batadv-next-for-davem-20160518
-git request-pull base/net git://git.open-mesh.org/linux-merge.git batadv-for-davem-20160518
+git format-patch --cover-letter base/net-next..batadv-next-for-davem-20160701
+sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
+git request-pull base/net-next git://git.open-mesh.org/linux-merge.git batadv-next-for-davem-20160701 >> 0000-cover-letter.patch
 # write cover letter
-git send-email --no-thread --in-reply-to=$MESSAGE_ID_FROM_COVER_LETTER --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
+git send-email --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
 
 Now I will write something like
 
 <pre>
-Subject: pull request [net-next]: batman-adv 20160518
+Subject: pull request for net-next: batman-adv 2016-07-01
 
 Hi David,
 
-these are the fixes that couldn't make it for linux-4.6 rebased on top
-of net-next.
-
-They were all supposed to be applied on 4.6, therefore it would be nice
-if you could queue them for inclusion in the 4.6.1 stable release.
+we are a bit late to submit our feature patches, but I hope we make it in time.
+Antonio is taking a pause in his upstream work, so I'll be submitting our
+batman-adv patches for now. It is my first time, so please bear with me. 
 
 Please pull or let me know of any problem!
 
+Thank you,
+      Simon
 
-I also have a question: I have another bugfix that should only be
-applied to 4.6 and not to 4.7/net-next - should I directly send it
-to stable@vger.kernel.org ?
+The following changes since commit 99860208bc62d8ebd5c57495b84856506fe075bc:
 
-
-Thanks a lot,
-        Antonio
-
-The following changes since commit 917fa5353da05e8a0045b8acacba8d50400d5b12:
-
-  Revert "phy dp83867: Fix compilation with CONFIG_OF_MDIO=m" (2016-05-17 14:49:55 -0400)
+  sched: remove NET_XMIT_POLICED (2016-06-12 22:02:11 -0400)
 
 are available in the git repository at:
 
-  git://git.open-mesh.org/linux-merge.git tags/batadv-next-for-davem-20160518
+  git://git.open-mesh.org/linux-merge.git tags/batadv-next-for-davem-20160701
 
-for you to fetch changes up to ebe24cea95ab969f76f2922032f6c390fdc816f2:
+for you to fetch changes up to 4e3e823b5a503235630921287f130e1d8d22d200:
 
-  batman-adv: initialize ELP orig address on secondary interfaces (2016-05-18 11:49:44 +0800)
-
-----------------------------------------------------------------
-During the Wireless Battle Mesh v9 in Porto (PT) at the beginning of
-May, we managed to uncover and fix some important bugs in our
-new B.A.T.M.A.N. V algorithm. These are the fixes we came up with
-together with others that I collected in the past weeks:
-- avoid potential crash due to NULL pointer dereference in
-  B.A.T.M.A.N. V routine when a neigh_ifinfo object is not found, by
-  Sven Eckelmann
-- avoid use-after-free of skb when counting outgoing bytes, by Florian
-  Westphal
-- fix neigh_ifinfo object reference counting imbalance when using
-  B.A.T.M.A.N. V, by Sven Eckelmann. Such imbalance may lead to the
-  impossibility of releasing the related netdev object on shutdown
-- avoid invalid memory access in case of error while allocating
-  bcast_own_sum when a new hard-interface is added, by Sven Eckelmann
-- ensure originator address is updated in OMG/ELP packet content upon
-  primary interface address change, by Antonio Quartulli
-- fix integer overflow when computing TQ metric (B.A.T.M.A.N. IV), by
-  Sven Eckelmann
-- avoid race condition while adding new neigh_node which would result
-  in having two objects mapping to the same physical neighbour, by
-  Linus Lüssing
-- ensure originator address is initialized in ELP packet content on
-  secondary interfaces, by Marek Lindner
+  batman-adv: Add debugfs table for mcast flags (2016-06-30 10:29:43 +0200)
 
 ----------------------------------------------------------------
-Antonio Quartulli (1):
-      batman-adv: make sure ELP/OGM orig MAC is updated on address change
+This feature patchset includes the following changes:
 
-Florian Westphal (1):
-      batman-adv: fix skb deref after free
+ - two patches with minimal clean up work by Antonio Quartulli and
+   Simon Wunderlich
 
-Linus Lüssing (1):
-      batman-adv: Avoid duplicate neigh_node additions
+ - eight patches of B.A.T.M.A.N. V, API and documentation clean
+   up work, by Antonio Quartulli and Marek Lindner
 
-Marek Lindner (1):
-      batman-adv: initialize ELP orig address on secondary interfaces
+ - Andrew Lunn fixed the skb priority adoption when forwarding
+   fragmented packets (two patches)
 
-Sven Eckelmann (4):
-      batman-adv: Avoid nullptr derefence in batadv_v_neigh_is_sob
-      batman-adv: Fix refcnt leak in batadv_v_neigh_*
-      batman-adv: Fix unexpected free of bcast_own on add_if error
-      batman-adv: Fix integer overflow in batadv_iv_ogm_calc_tq
+ - Multicast optimization support is now enabled for bridges which
+   comes with some protocol updates, by Linus Luessing
 
- net/batman-adv/bat_iv_ogm.c |  9 +++----
- net/batman-adv/bat_v.c      | 66 +++++++++++++++++++++++++++++++++++++++------
- net/batman-adv/bat_v_elp.c  | 31 ++++++++++++++-------
- net/batman-adv/bat_v_elp.h  |  2 ++
- net/batman-adv/originator.c |  6 +++--
- net/batman-adv/routing.c    |  4 ++-
- 6 files changed, 93 insertions(+), 25 deletions(-)
+----------------------------------------------------------------
+Andrew Lunn (2):
+  batman-adv: Set skb priority in fragments
+  batman-adv: Include frame priority in fragment header
+
+Antonio Quartulli (4):
+  batman-adv: statically print gateway table header
+  batman-adv: remove ogm_emit and ogm_schedule API calls
+  batman-adv: remove useless inline attribute for sysfs helper function
+  batman-adv: move GW mode and selection class to private data structure
+
+Linus Lüssing (4):
+  batman-adv: Always flood IGMP/MLD reports
+  batman-adv: Add multicast optimization support for bridged setups
+  batman-adv: Adding logging of mcast flag changes
+  batman-adv: Add debugfs table for mcast flags
+
+Marek Lindner (5):
+  batman-adv: document sysfs files in alphabetical order
+  batman-adv: update elp interval documentation
+  batman-adv: refactor batadv_neigh_node_* functions to follow common
+    style
+  batman-adv: remove unused callback from batadv_algo_ops struct
+  batman-adv: init ELP tweaking options only once
+
+Simon Wunderlich (2):
+  batman-adv: Start new development cycle
+  batman-adv: remove unused vid local variable in tt seq print
+
+ .../ABI/testing/sysfs-class-net-batman-adv         |  20 +-
+ net/batman-adv/Kconfig                             |   2 +-
+ net/batman-adv/bat_algo.h                          |   7 +-
+ net/batman-adv/bat_iv_ogm.c                        |  72 ++-
+ net/batman-adv/bat_v.c                             |  29 +-
+ net/batman-adv/bat_v_elp.c                         |   4 +-
+ net/batman-adv/bat_v_ogm.c                         |   4 +-
+ net/batman-adv/debugfs.c                           |  23 +
+ net/batman-adv/fragmentation.c                     |  12 +-
+ net/batman-adv/gateway_client.c                    |  15 +-
+ net/batman-adv/gateway_common.c                    |   6 +-
+ net/batman-adv/hard-interface.c                    |   6 +-
+ net/batman-adv/main.c                              |   2 -
+ net/batman-adv/main.h                              |   6 +-
+ net/batman-adv/multicast.c                         | 499 +++++++++++++++++++--
+ net/batman-adv/multicast.h                         |   3 +
+ net/batman-adv/originator.c                        |  40 +-
+ net/batman-adv/originator.h                        |   6 +-
+ net/batman-adv/packet.h                            |   7 +-
+ net/batman-adv/routing.c                           |   2 +
+ net/batman-adv/send.c                              |  61 +--
+ net/batman-adv/send.h                              |   4 +-
+ net/batman-adv/soft-interface.c                    |  10 +-
+ net/batman-adv/sysfs.c                             |  22 +-
+ net/batman-adv/translation-table.c                 |   2 -
+ net/batman-adv/types.h                             |  32 +-
+ 26 files changed, 704 insertions(+), 192 deletions(-)
 </pre>
 
 h2. update base patches after successful pull request
