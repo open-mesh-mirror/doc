@@ -165,7 +165,7 @@ The rest of the rebase process works similar to the next process
 cd batman-adv
 git branch -D rebase
 git checkout -b rebase --no-track origin/maint
-git rebase -i origin/maint --onto "${LM_MAINT}"
+git rebase -i "${LM_MAINT}"
 </pre>
 
 This patches have to be cleaned up. First these these changes have to be squashed so that "Fixes: " patches are squashed together with the patches which introduced the problem (when they exist). Also compat code has to be removed. Both things can be identified with git log:
