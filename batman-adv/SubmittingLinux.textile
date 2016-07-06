@@ -12,6 +12,7 @@ Following steps must always be done:
 * check for compat code
 * squash/cleanup patches
 * fix "Fixes: " and other commit id references
+* check if coccinelle prints new warnings
 * check if all versions compile cleanly using sparse (cgcc)
 * do a merge in a temporary branch and compare the result with batman-adv:next.git
 * check commit messages author/signed-off-by of patches
@@ -244,6 +245,12 @@ git merge --ff-only origin/batadv/net
 ./scripts/checkpatch --strict "${EXPORTED_PATCHES_MAINT}"/*.patch
 git am -s "${EXPORTED_PATCHES_MAINT}"/*.patch
 git push origin batadv/net
+</pre>
+
+h2. check if coccinelle prints new warnings
+
+<pre>
+make MODE=patch coccicheck KBUILD_EXTMOD=net/batman-adv/
 </pre>
 
 h2. check if all versions compile cleanly using sparse (cgcc)
