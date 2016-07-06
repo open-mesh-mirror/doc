@@ -250,7 +250,7 @@ git push origin batadv/net
 h2. check if coccinelle prints new warnings
 
 <pre>
-make MODE=patch coccicheck KBUILD_EXTMOD=net/batman-adv/
+make coccicheck KBUILD_EXTMOD=net/batman-adv/
 </pre>
 
 h2. check if all versions compile cleanly using sparse (cgcc)
