@@ -103,7 +103,9 @@ h3. from next
 cd batman-adv
 git branch -D rebase
 git checkout -b rebase --no-track origin/next
+git rev-list --reverse --no-merges "${LM_NEXT}..origin/next" --not "origin/maint"|awk '{ print "pick "$1}' > new_patches
 git rebase -i origin/maint --onto "${LM_NEXT}"
+# insert content of new_patches 
 </pre>
 
 This patches have to be cleaned up. First these these changes have to be squashed so that "Fixes: " patches are squashed together with the patches which introduced the problem (when they exist). Also compat code has to be removed. Both things can be identified with git log:
