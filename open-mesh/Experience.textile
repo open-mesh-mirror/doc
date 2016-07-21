@@ -8,7 +8,7 @@ h2. Projects:
 * B.A.T.M.A.N. with dashboard integration: https://www.open-mesh.com
 * The Batphone (VOIP + Mesh on your device): http://www.servalproject.org
 * B.A.T.M.A.N. in Argentina: https://www.altermundi.net/ (english article: https://blog.altermundi.net/article/timeline-february-september-2012/ )
-* B.A.T.M.A.N. in Portugal: https://wirelesspt.net/ and own "batman-adv firmware":https://wirelesspt.net/wiki/mvwrt
+* B.A.T.M.A.N. in Portugal: https://wirelesspt.net/ ("batman-adv firmware":https://wirelesspt.net/wiki/MvWRT)
 * B.A.T.M.A.N. in Freifunk communities: https://freifunk.net/en/how-to-join/find-your-nearest-community/
 * RADIUSdesk and MESHdesk -  User-friendly Open Source GUI to centrally deploy and manage batman-adv mesh networks: http://www.radiusdesk.com
 
