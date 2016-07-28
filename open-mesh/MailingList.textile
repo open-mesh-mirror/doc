@@ -5,5 +5,3 @@ You can subscribe to our Mailing Lists "here":https://lists.open-mesh.org/. You 
 +Note+: HTML email will be rejected - just plain text is allowed (this cuts the rate of SPAM mails dramatically).
 
 Old messages can be read in the "B.A.T.M.A.N. archives":https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/.
-
-If you prefer a NNTP client, read our Mailing List on "GMANE":http://dir.gmane.org/gmane.org.freifunk.batman.
