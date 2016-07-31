@@ -88,6 +88,8 @@ For the MTU-part have a look at the note above.
 
 _(How does batman-adv know where it has to send a data packet of an external computer, that is not using batman-adv, to another computer that is not using batman-adv either? It is automatically listening on bat0 and will keep track of any host mac address passing by this interface. Those host's mac addresses will then be announced to other batman-adv nodes in the mesh network automatically - so called HNA messages - so that every batman-adv node is going to know behind which other batman-adv node it can find which mac addresses.)_
 
+[[Debian_batman-adv_AutoStartup]]
+
 h3. Batman-adv OpenWrt sample configuration with uci
 
 Basic configuration: [[Batman-adv-openwrt-config|batman-adv OpenWrt config]]
