@@ -3,6 +3,9 @@ h1. Debian batman-adv AutoStartup
 This Page describes how to configure a Debian (or Derived Distribution like Ubuntu, Mint, etc) so that batman-adv starts automatically on boot up. First we'll start the the same "Simple mesh network" example from the [[quick-start-guide|B.A.T.M.A.N. Advanced quick start guide]].
 
 h2. Simple mesh network
+
+For this example it is assumed that your 'eth0' network interface is already configured for you network, if not do this now. I will not cover how to do this as this is not specific to batman-adv and is well covered in the Debian, Ubuntu, Mint, etc documentation.
+
 h3. Load the module
 
 First we need to ensure that the batman-adv module is loaded before we attempt to use it.
