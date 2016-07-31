@@ -92,9 +92,11 @@ _(How does batman-adv know where it has to send a data packet of an external com
 
 h2. Distribution specific examples
 
-h3. Debian
+h3. Debian, Ubuntu, Mint etc.
 
-[[Debian_batman-adv_AutoStartup]]
+This may also work with other distributions that use the /etc/network/interfaces file.
+
+[[Debian_batman-adv_AutoStartup|Configuring Debian based distro's to enable your batman-adv mesh on boot]]
 
 h3. OpenWrt with uci
 
