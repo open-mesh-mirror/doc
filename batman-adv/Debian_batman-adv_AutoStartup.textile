@@ -2,8 +2,14 @@ h1. Debian batman-adv AutoStartup
 
 This Page describes how to configure a Debian (or Derived Distribution like Ubuntu, Mint, etc) so that batman-adv starts automatically on boot up.
 
-1. Load the module
-> 
-2. Configure the wlan adapter
-> 
-3. Configure the bat0 interface
+h2. Load the module
+
+*TODO*
+
+h2. Configure the wlan adapter
+
+*TODO*
+
+h2. Configure the bat0 interface
+
+*TODO*
