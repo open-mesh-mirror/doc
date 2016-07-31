@@ -1,5 +1,7 @@
 h1. B.A.T.M.A.N. Advanced quick start guide
 
+{{>toc}}
+
 This page shall show a couple of easy examples of how to use and setup a mesh network with B.A.T.M.A.N.-Advanced (further referenced as batman-adv). It is assumed, the tool 'batctl' was installed which allows a more intuitive configuration, though everything can be configured by accessing '/sys/class/net/$iface/batman-adv/...' directly without the need of installing batctl.
 
 h2. Configuring interfaces
@@ -88,8 +90,12 @@ For the MTU-part have a look at the note above.
 
 _(How does batman-adv know where it has to send a data packet of an external computer, that is not using batman-adv, to another computer that is not using batman-adv either? It is automatically listening on bat0 and will keep track of any host mac address passing by this interface. Those host's mac addresses will then be announced to other batman-adv nodes in the mesh network automatically - so called HNA messages - so that every batman-adv node is going to know behind which other batman-adv node it can find which mac addresses.)_
 
+h2. Distribution specific examples
+
+h3. Debian
+
 [[Debian_batman-adv_AutoStartup]]
 
-h3. Batman-adv OpenWrt sample configuration with uci
+h3. OpenWrt with uci
 
 Basic configuration: [[Batman-adv-openwrt-config|batman-adv OpenWrt config]]
