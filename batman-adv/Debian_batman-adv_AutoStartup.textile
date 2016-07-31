@@ -36,6 +36,8 @@ Next we want to configure the wlan adapter (wlan0 in this example), to do this w
 
 As we won't be using any ip address on this interface it doesn't actually matter whether you use inet or inet6, so where I have used inet6 in this section, you can substitute inet if you wish.
 
+Edit /etc/network/interfaces and add or modify the wlan0 section:
+
 <pre>
 sudo nano /etc/network/interfaces
 </pre> 
@@ -55,7 +57,51 @@ iface wlan0 inet6 manual
 
 h3. Configure the bat0 interface
 
-*TODO*
+Finally we need to configure the 'bat0' interface, before we jump into this you first need to determine your IP addressing configuration for your mesh. For this example I will use two examples, first automatic IPv6, and second manually configured IPv4 with address 192.168.123.3/24 and default gateway of 192.168.123.1.
 
+Again we edit /etc/network/interfaces this time we add or modify the bat0 section:
 
+<pre>
+sudo nano /etc/network/interfaces
+</pre> 
+
+For automatic IPv6 we would use the following:
+
+<pre>
+auto bat0
+iface bat0 inet6 auto
+	pre-up /usr/sbin/batctl if add dev eth0
+	pre-up /usr/sbin/batctl if add dev wlan0
+</pre>
+
+For manual IPv4 we would use the following:
+
+<pre>
+auto bat0
+iface bat0 inet auto
+	address 192.168.123.3
+	netmask 255.255.255.0
+	gateway 192.168.123.1
+	pre-up /usr/sbin/batctl if add dev eth0
+	pre-up /usr/sbin/batctl if add dev wlan0
+</pre>
+
+If you have both IPv6 and IPv4 on your mesh then you can combine them, it doesn't matter which order you put them in, just put the two pre-up lines in the first iface stanza.
+
+<pre>
+auto bat0
+iface bat0 inet6 auto
+	pre-up /usr/sbin/batctl if add dev eth0
+	pre-up /usr/sbin/batctl if add dev wlan0
+iface bat0 inet auto
+	address 192.168.123.3
+	netmask 255.255.255.0
+	gateway 192.168.123.1
+</pre>
+
+Thats it, now you can reboot your computer and when it starts up it should join your mesh automatically.
+
+h2. More examples
+
+* TODO *
 
