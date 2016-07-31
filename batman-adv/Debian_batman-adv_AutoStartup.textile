@@ -4,7 +4,21 @@ This Page describes how to configure a Debian (or Derived Distribution like Ubun
 
 h2. Load the module
 
-*TODO*
+> First we need to ensure that the batman-adv module is loaded before we attempt to use it.
+> Edit /etc/modules and add the batman-adv to a new line in the file
+<pre>
+>sudo nano /etc/modules
+</pre> 
+<pre>
+># /etc/modules: kernel modules to load at boot time.
+>#
+># This file contains the names of kernel modules that should be loaded
+># at boot time, one per line. Lines begining with '#' are ignored.
+>
+>batman-adv
+>
+</pre> 
+> 
 
 h2. Configure the wlan adapter
 
@@ -13,3 +27,6 @@ h2. Configure the wlan adapter
 h2. Configure the bat0 interface
 
 *TODO*
+
+
+
