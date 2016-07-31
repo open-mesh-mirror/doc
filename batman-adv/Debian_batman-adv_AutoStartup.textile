@@ -9,16 +9,16 @@ First we need to ensure that the batman-adv module is loaded before we attempt t
 Edit /etc/modules and add the batman-adv to a new line in the file:
 
 <pre>
->sudo nano /etc/modules
+sudo nano /etc/modules
 </pre> 
 <pre>
-># /etc/modules: kernel modules to load at boot time.
->#
-># This file contains the names of kernel modules that should be loaded
-># at boot time, one per line. Lines begining with '#' are ignored.
->
->batman-adv
->
+# /etc/modules: kernel modules to load at boot time.
+#
+# This file contains the names of kernel modules that should be loaded
+# at boot time, one per line. Lines begining with '#' are ignored.
+
+batman-adv
+
 </pre>
 
 h3. Configure the wlan adapter
@@ -34,21 +34,19 @@ Next we want to configure the wlan adapter (wlan0 in this example), to do this w
 As we won't be using any ip address on this interface it doesn't actually matter whether you use inet or inet6, so where I have used inet6 in this section, you can substitute inet if you wish.
 
 <pre>
->sudo nano /etc/network/interfaces
+sudo nano /etc/network/interfaces
 </pre> 
 
 If there is a section in this file for wlan0 already you may want to comment it out (place '# ' at the beginning of each line), or just replace with the lines below
 
 <pre>
->
-> auto wlan0
-> iface wlan0 inet6 manual
-> 	mtu 1532
-> 	wireless-channel 1
-> 	wireless-essid my-mesh-network
-> 	wireless-mode ad-hoc
-> 	wireless-ap 02:12:34:56:78:9A
->
+auto wlan0
+iface wlan0 inet6 manual
+	mtu 1532
+	wireless-channel 1
+	wireless-essid my-mesh-network
+	wireless-mode ad-hoc
+	wireless-ap 02:12:34:56:78:9A
 </pre>
 
 
