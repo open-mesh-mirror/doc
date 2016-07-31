@@ -3,8 +3,10 @@ h1. Debian batman-adv AutoStartup
 This Page describes how to configure a Debian (or Derived Distribution like Ubuntu, Mint, etc) so that batman-adv starts automatically on boot up.
 
 h2. Load the module
+
 First we need to ensure that the batman-adv module is loaded before we attempt to use it.
-Edit /etc/modules and add the batman-adv to a new line in the file
+Edit /etc/modules and add the batman-adv to a new line in the file:
+
 <pre>
 >sudo nano /etc/modules
 </pre> 
