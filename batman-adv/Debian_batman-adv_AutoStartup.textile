@@ -1,8 +1,9 @@
 h1. Debian batman-adv AutoStartup
 
-This Page describes how to configure a Debian (or Derived Distribution like Ubuntu, Mint, etc) so that batman-adv starts automatically on boot up.
+This Page describes how to configure a Debian (or Derived Distribution like Ubuntu, Mint, etc) so that batman-adv starts automatically on boot up. First we'll start the the same "Simple mesh network" example from the [[quick-start-guide|B.A.T.M.A.N. Advanced quick start guide]].
 
-h2. Load the module
+h2. Simple mesh network
+h3. Load the module
 
 First we need to ensure that the batman-adv module is loaded before we attempt to use it.
 Edit /etc/modules and add the batman-adv to a new line in the file:
@@ -20,11 +21,38 @@ Edit /etc/modules and add the batman-adv to a new line in the file:
 >
 </pre>
 
-h2. Configure the wlan adapter
+h3. Configure the wlan adapter
 
-*TODO*
+Next we want to configure the wlan adapter (wlan0 in this example), to do this we need to configure the following settings:
 
-h2. Configure the bat0 interface
+* mtu 1532
+* mode ad-hoc
+* essid my-mesh-network
+* ap 02:12:34:56:78:9A
+* channel 1
+
+As we won't be using any ip address on this interface it doesn't actually matter whether you use inet or inet6, so where I have used inet6 in this section, you can substitute inet if you wish.
+
+<pre>
+>sudo nano /etc/network/interfaces
+</pre> 
+
+If there is a section in this file for wlan0 already you may want to comment it out (place '# ' at the beginning of each line), or just replace with the lines below
+
+<pre>
+>
+> auto wlan0
+> iface wlan0 inet6 manual
+> 	mtu 1532
+> 	wireless-channel 1
+> 	wireless-essid my-mesh-network
+> 	wireless-mode ad-hoc
+> 	wireless-ap 02:12:34:56:78:9A
+>
+</pre>
+
+
+h3. Configure the bat0 interface
 
 *TODO*
 
