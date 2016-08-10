@@ -24,7 +24,6 @@ Following steps must always be done:
 * wait until David accepted the pull request
 * update base patches
 
-
 h2. Variables
 
 There are different basepoints/references used when preparing the 
@@ -44,8 +43,8 @@ There are different basepoints/references used when preparing the
 GIT_OM_SERVER="git+ssh://git@open-mesh.org"
 LM_NEXT=ecsv/lm_next
 LM_MAINT=ecsv/lm_maint
-BASE_NETNEXT=v4.7-rc1
-BASE_NET=v4.7-rc1
+BASE_NETNEXT=1fe323aa1b2390a0c57fb0b06a782f128d49094c
+BASE_NET=1fe323aa1b2390a0c57fb0b06a782f128d49094c
 </pre>
 
 h2. get the linux-integration + batman-adv repository
