@@ -442,7 +442,7 @@ After BR-INCL-TRANS the bridge multicast snooping and its database should
 be reliable and sufficient to be used for and with batman-adv.
 
 An RFC patch for the bridge code for such an exported interface was
-posted on the bridge mailing list "here":https://www.spinics.net/lists/linux-ethernet-bridging/msg04558.html.
+posted on the bridge mailing list "here":https://lkml.kernel.org/r/1359933598-14438-1-git-send-email-linus.luessing@web.de
 
 
 h3. 3. BAT-MCAST-TRACKER - Multicast Tracker Protocol for batman-adv
