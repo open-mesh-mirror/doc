@@ -101,8 +101,7 @@ h3. from next
 
 <pre>
 cd batman-adv
-git branch -D rebase
-git checkout -b rebase --no-track origin/next
+git checkout -B rebase --no-track origin/next
 GIT_SEQUENCE_EDITOR="sh -c 'git rev-list --reverse --no-merges '\\''${LM_NEXT}..origin/next'\\'' --not origin/maint|awk '\\''{ print \"pick \"\$1}'\\'' > \$1' \$@" \
  git rebase -i origin/maint --onto "${LM_NEXT}" --no-ff
 </pre>
@@ -164,8 +163,7 @@ The rest of the rebase process works similar to the next process
 
 <pre>
 cd batman-adv
-git branch -D rebase
-git checkout -b rebase --no-track origin/maint
+git checkout -B rebase --no-track origin/maint
 git rebase -i "${LM_MAINT}"
 </pre>
 
