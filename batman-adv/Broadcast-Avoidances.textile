@@ -1,0 +1,16 @@
+h1. Broadcast-Avoidances
+
+h2. Scenarios
+
+
+h2. Goal
+
+h2. Simple Broadcast Avoidances
+
+h3. No Neighbor
+
+h3. Single Neighbor: Is Originator
+
+h3. Single Neighbor: Is Previous Sender
+
+h2. Broadcast Avoidance: Neighborhood Hash
