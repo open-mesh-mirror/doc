@@ -2,8 +2,15 @@ h1. Broadcast-Avoidances
 
 h2. Scenarios
 
+!wired-aps.png!
+
+!mobile-clusters.png!
+
+!ptp-adsl.png!
 
 h2. Goal
+
+* Reducing OGM and broadcast packet overhead
 
 h2. Simple Broadcast Avoidances
 
