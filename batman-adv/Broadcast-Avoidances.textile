@@ -61,15 +61,21 @@ h3. No Neighbor
 
 For instance, if a mesh node has both a 2.4 and 5GHz interface, but all its neighbor nodes only have a 2.4GHz wifi interface available, then no broadcast on 5GHz is necessary, thus saving wifi airtime for any other 5GHz wireless access points in the vicinity.
 
+!bcast-avoid-no-neighbor.png!
+
 h3. Single Neighbor: Is Originator
 
 * If an interface has just one neighbor, but it matches the OGM2 or broadcast packets originator address, then no broadcast is necessary.
+
+!bcast-avoid-single-orig.png!
 
 We can avoid echoing a packet back to the node it originally came from.
 
 h3. Single Neighbor: Is Previous Sender
 
 * If an interface has just one neighbor, but it matches the originator that forwarded this OGM2 or broadcast packet to us, then no broadcast is necessary.
+
+!bcast-avoid-single-fwd.orig!
 
 We can avoid echoing a packet back to the node it was forwarded from.
 
