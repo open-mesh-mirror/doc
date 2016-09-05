@@ -65,7 +65,7 @@ h3. I) No Neighbor
 
 For instance, if a mesh node has both a 2.4 and 5GHz interface, but all its neighbor nodes only have a 2.4GHz wifi interface available, then no broadcast on 5GHz is necessary, thus saving wifi airtime for any other 5GHz wireless access points in the vicinity.
 
-h3. Single Neighbor: Is Originator
+h3. II) Single Neighbor: Is Originator
 
 !bcast-avoid-single-orig.png!
 
