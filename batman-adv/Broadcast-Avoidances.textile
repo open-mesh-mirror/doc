@@ -69,7 +69,7 @@ h3. Single Neighbor: Is Originator
 
 _Three nodes with a single neighbor per interface each_
 
-* If an interface has just one neighbor, but it matches the OGM2 or broadcast packets originator address, then no broadcast is necessary.
+* If an interface has just one neighbor and it matches the OGM2 or broadcast packets originator address, then no broadcast is necessary.
 
 We can avoid echoing a packet back to the node it originally came from.
 
