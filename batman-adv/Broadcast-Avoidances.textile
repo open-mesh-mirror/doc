@@ -16,6 +16,14 @@ h3. A) Large, But Transitive Link Domains
 
 !wired-aps.png!
 
+_Many mesh nodes wired to one, big switch_
+
+Within buildings it is often easy to deploy at least some cables, or several spots have cabling and patch panels already available. For larger indoor setups it is often advantageous to use at least some cable connections to increase throughput, reliability and available wifi airtime, while keeping wireless mesh routing for difficult spots, mobile nodes or flexibility purposes.
+
+A mesh network of 8 nodes all connected to each other via one 8 port switch would create 16 times the OGM overhead compared to just two nodes. For 24 nodes, this factor increases from 16 to 144, thanks to rebroadcasting.
+
+However, in this scenario, actually no rebroadcast would be necessary: On a switch a broadcast always reliably arrives on all attached devices. All devices connected "see" each other on their network interface directly, usually with the same full-duplex link speed even.
+
 h3. B) Gathering of Mobile Nodes
 
 !mobile-clusters.png!
