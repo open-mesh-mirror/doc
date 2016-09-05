@@ -39,6 +39,14 @@ h3. C) Point-to-point and Point-to-Multi-Point Links
 
 !ptp-adsl.png!
 
+_A peer-to-peer tunnel over an asymmetric DSL link_
+
+Some wireless community mesh networks try to interconnect their wireless mesh clouds over common DSL connections. For that they provide tunnel servers relaying the traffic.
+
+Unfortunately, ADSL usually provides limited upstream bandwidth. And for larger mesh communities, the protocol overhead can be quite significant.
+
+Rebroadcasting the large amount of protocol messages coming from the tunnel server on the tunnel client side can lead to a congested ADSL upload.
+
 h2. Goal
 
 * Reducing OGM and broadcast packet overhead
