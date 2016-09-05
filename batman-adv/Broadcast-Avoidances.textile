@@ -1,5 +1,7 @@
 h1. Broadcast Avoidances
 
+_Status:_ Patches available, not upstream yet
+
 While the concept of rebroadcasting OGMs and broadcast packets is a simple, resilient way to spread information, there are certain scenarios where this approach can be suboptimal, leading to potential congestion.
 
 !rebroadcasts.png!
@@ -49,14 +51,28 @@ Rebroadcasting the large amount of protocol messages coming from the tunnel serv
 
 h2. Goal
 
-* Reducing OGM and broadcast packet overhead
+* Reducing OGM2 and broadcast packet overhead
 
 h2. Simple Broadcast Avoidances
 
 h3. No Neighbor
 
+* If an interface has no neighbor, then no broadcast is necessary.
+
+For instance, if a mesh node has both a 2.4 and 5GHz interface, but all its neighbor nodes only have a 2.4GHz wifi interface available, then no broadcast on 5GHz is necessary, thus saving wifi airtime for any other 5GHz wireless access points in the vicinity.
+
 h3. Single Neighbor: Is Originator
+
+* If an interface has just one neighbor, but it matches the OGM2 or broadcast packets originator address, then no broadcast is necessary.
+
+We can avoid echoing a packet back to the node it originally came from.
 
 h3. Single Neighbor: Is Previous Sender
 
+* If an interface has just one neighbor, but it matches the OGM2 or broadcast packets ethernet sender address, then no broadcast is necessary.
+
+We can avoid echoing a packet back to the node it was forwarded from.
+
 h2. Broadcast Avoidance: Neighborhood Hash
+
+h2. BATMAN IV vs. BATMAN V
