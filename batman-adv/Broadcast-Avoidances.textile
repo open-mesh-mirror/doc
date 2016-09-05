@@ -57,7 +57,7 @@ h2. Simple Broadcast Avoidances
 
 When a node sees just one or no neighbor on a specific interface, then the following, simple rules can be applied to avoid broadcasts on this interface:
 
-h3. No Neighbor
+h3. I) No Neighbor
 
 !bcast-avoid-no-neighbor.png!
 
