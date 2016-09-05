@@ -87,4 +87,43 @@ We can avoid echoing a packet back to the node it was forwarded from.
 
 h2. Broadcast Avoidance: Neighborhood Hash
 
+h3. Concept
+
+* Each node summarizes all neighbors it sees on an interface via one hash.
+* The hash, together with the minimum throughput value of this neighborhood is then distributed via an ELP TVLV on the according interface.
+* Other nodes compare the received neighborhood hash with their own. If it matches and throughput evaluations indicate no potential for better paths, then rebroadcasts of OGM2 or broadcast packets from the according neighbor on this interface are avoided.
+
+h3. Neighborhood Hash TVLV Format
+
+ * Packet type: 0x03 (BATADV_ELP)
+ * TVLV type: 0x01 (BATADV_TVLV_NHH)
+ * Length: 68 bytes
+ * Fixed TVLV fields:
+ ** minimum throughput: the worst of all TX throughputs to any neighbor a node sees on the according interface (4 bytes)
+ ** neighorhood hash: a sha512 hash summarizing all neighbors a node sees on the according interface; hash created from neighbor addresses sorted alphabetically, concatenated, binary (64 bytes)
+
+ * definition:
+<pre>
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |   TVLV 0x03   |    Version    |             Length            | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                       minimum throughput                      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                       neighborhood hash...                    |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                       ....................                    |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                       ...neighborhood hash                    |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+h3. Throughput Evaluation
+
+ * Best forwarding throughput:
+ ** The best TX throughput to any neighbor of an interface with the BATMAN V forwarding penalty applied
+
+ * If the own best forwarding throughput is smaller than the minimum throughput received from a specific neighbor, then rebroadcasts of OGM2 and broadcast packets from this neighbor on the according interface are avoided.
+
 h2. BATMAN IV vs. BATMAN V
