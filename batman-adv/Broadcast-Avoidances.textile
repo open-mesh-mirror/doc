@@ -1,4 +1,12 @@
-h1. Broadcast-Avoidances
+h1. Broadcast Avoidances
+
+While the concept of rebroadcasting OGMs and broadcast packets is a simple, resilient way to spread information, there are certain scenarios where this approach can be suboptimal, leading to potential congestion.
+
+!rebroadcasts.png!
+
+The main disadvantage of this approach is, that the number of such messages / overhead increases significantly with every extra, neighboring node on an interface. (O(m*n), n = amount of direct neighbors on an interface, m = amount of "originators" [approx.: m = #nodestotal for OGMs, m = #clients for broadcast packets])
+
+There are certain cases where rebroadcasts are unncessary. This page describes mechanisms to detect some common ones to avoid rebroadcasts and by that reducing the OGM and broadcast packet overhead. (O(m*n) => O(m) )
 
 h2. Scenarios
 
