@@ -75,7 +75,7 @@ _Three nodes with a single neighbor per interface each_
 
 We can avoid echoing a packet back to the node it originally came from.
 
-h3. Single Neighbor: Is Previous Sender
+h3. III) Single Neighbor: Is Previous Sender
 
 !bcast-avoid-single-fwd.png!
 
