@@ -69,7 +69,7 @@ We can avoid echoing a packet back to the node it originally came from.
 
 h3. Single Neighbor: Is Previous Sender
 
-* If an interface has just one neighbor, but it matches the OGM2 or broadcast packets ethernet sender address, then no broadcast is necessary.
+* If an interface has just one neighbor, but it matches the originator that forwarded this OGM2 or broadcast packet to us, then no broadcast is necessary.
 
 We can avoid echoing a packet back to the node it was forwarded from.
 
