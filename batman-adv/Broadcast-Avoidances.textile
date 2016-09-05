@@ -124,6 +124,8 @@ h3. Throughput Evaluation
  * Best forwarding throughput:
  ** The best TX throughput to any neighbor of an interface with the BATMAN V forwarding penalty applied
 
- * If the own best forwarding throughput is smaller than the minimum throughput received from a specific neighbor, then rebroadcasts of OGM2 and broadcast packets from this neighbor on the according interface are avoided. (ToDo: Should work for broadcast packets, OGM2 packets would need TX and RX reversed?)
+ * If the own best forwarding throughput is smaller than the minimum throughput received from a specific neighbor, then rebroadcasts of OGM2 and broadcast packets from this neighbor on the according interface are avoided.
+
+(ToDo: Should work for broadcast packets, OGM2 packets would need TX and RX reversed?)
 
 h2. BATMAN IV vs. BATMAN V
