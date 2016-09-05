@@ -12,15 +12,15 @@ h2. Scenarios
 
 Here are a few scenarios that the protocol additions described later are supposed to improve:
 
-h3. Large, But Transitive Link Domains
+h3. A) Large, But Transitive Link Domains
 
 !wired-aps.png!
 
-h3. Gathering of Mobile Nodes
+h3. B) Gathering of Mobile Nodes
 
 !mobile-clusters.png!
 
-h3. Point-to-point and Point-to-Multi-Point Links
+h3. C) Point-to-point and Point-to-Multi-Point Links
 
 !ptp-adsl.png!
 
