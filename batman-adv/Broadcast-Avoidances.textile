@@ -73,7 +73,7 @@ We can avoid echoing a packet back to the node it originally came from.
 
 h3. Single Neighbor: Is Previous Sender
 
-!bcast-avoid-single-fwd.orig!
+!bcast-avoid-single-fwd.png!
 
 * If an interface has just one neighbor, but it matches the originator that forwarded this OGM2 or broadcast packet to us, then no broadcast is necessary.
 
