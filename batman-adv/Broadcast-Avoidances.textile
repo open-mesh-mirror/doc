@@ -10,9 +10,17 @@ There are certain cases where rebroadcasts are unncessary. This page describes m
 
 h2. Scenarios
 
+Here are a few scenarios that the protocol additions described later are supposed to improve:
+
+h3. Large, But Transitive Link Domains
+
 !wired-aps.png!
 
+h3. Gathering of Mobile Nodes
+
 !mobile-clusters.png!
+
+h3. Point-to-point and Point-to-Multi-Point Links
 
 !ptp-adsl.png!
 
