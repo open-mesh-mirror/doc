@@ -29,6 +29,11 @@ However, in this scenario, actually no rebroadcast would be necessary: On a swit
 h3. B) Gathering of Mobile Nodes
 
 !mobile-clusters.png!
+_Two mobile nodes clustering around a broadcast transmitter_
+
+In scenarios involving personal mobile nodes and human interaction, it can happen that a number of nodes gather temporarily. As described in scenario A), depending on the number of nodes gathering, this can significantly increase protocol overhead and by that reduce precious wifi airtime.
+
+Nodes close to each other involving similar wireless hardware usually do not provide any better routing options. Therefore it might be unnecessary or even undesirable to have nodes in close proximity to the original sender to rebroadcast OGMs and broadcast packets. This is especially true when taking the half-duplex nature of wireless interfaces running on the same frequency into account, too.
 
 h3. C) Point-to-point and Point-to-Multi-Point Links
 
