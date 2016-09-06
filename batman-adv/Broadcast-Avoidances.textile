@@ -90,7 +90,7 @@ h2. Broadcast Avoidance: Neighborhood Hash
 h3. Concept
 
 * Each node summarizes all neighbors it sees on an interface via one hash.
-* The hash, together with the minimum throughput value of this neighborhood is then distributed via an ELP TVLV on the according interface.
+* The hash, together with the minimum TX throughput value of this neighborhood is then distributed via an ELP TVLV on the according interface.
 * Other nodes compare the received neighborhood hash with their own. If it matches and throughput evaluations indicate no potential for better paths, then rebroadcasts of OGM2 or broadcast packets from the according neighbor on this interface are avoided.
 
 h3. Neighborhood Hash TVLV Format
