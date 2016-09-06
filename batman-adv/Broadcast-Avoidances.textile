@@ -147,7 +147,7 @@ h2. Appendix
 
 h3. Hash Collision Probability Assessment
 
-The larger a neighborhood grows the more likely it becomes that two distinct neighborhoods result in the same hash - rapidly. This is thanks to the Birthday Paradox. A proper assessment of the this to happen is therefore needed.
+The larger a neighborhood grows the more likely it becomes that two distinct neighborhoods result in the same hash - rapidly. This is thanks to the "Birthday Paradox":https://en.wikipedia.org/wiki/Birthday_problem. A proper assessment of the this to happen is therefore needed.
 
 While usually for wireless mesh networks the number of direct neighbors is rather small, usually less than a dozen, there already exist batman-adv mesh networks with a few hundred neighboring nodes on a VPN interface.
 
