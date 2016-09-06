@@ -57,7 +57,7 @@ h2. Simple Broadcast Avoidances
 
 When a node sees just one or no neighbor on a specific interface, then the following, simple rules can be applied to avoid broadcasts on this interface:
 
-h3. I) No Neighbor
+h3. I.I) No Neighbor
 
 !bcast-avoid-no-neighbor.png!
 
@@ -65,7 +65,7 @@ h3. I) No Neighbor
 
 For instance, if a mesh node has both a 2.4 and 5GHz interface, but all its neighbor nodes only have a 2.4GHz wifi interface available, then no broadcast on 5GHz is necessary, thus saving wifi airtime for any other 5GHz wireless access points in the vicinity.
 
-h3. II) Single Neighbor: Is Originator
+h3. I.II) Single Neighbor: Is Originator
 
 !bcast-avoid-single-orig.png!
 
@@ -75,7 +75,7 @@ _Three nodes with a single neighbor per interface each_
 
 We can avoid echoing a packet back to the node it originally came from.
 
-h3. III) Single Neighbor: Is Previous Sender
+h3. I.III) Single Neighbor: Is Previous Sender
 
 !bcast-avoid-single-fwd.png!
 
@@ -121,14 +121,14 @@ h3. Neighborhood Hash TVLV Format
 
 h3. Throughput Evaluation
 
-h4. Broadcast Packets
+h4. II.I) Broadcast Packets
 
  * Own best forwarding throughput:
  ** The best TX throughput to any neighbor of an interface with the BATMAN V forwarding penalty applied
 
  * If the own best forwarding throughput is smaller than the minimum throughput received from a specific neighbor, then rebroadcasts of broadcast packets from this neighbor on the according interface are avoided.
 
-h4. OGM2 Packets
+h4. II.II) OGM2 Packets
 
 While for broadcast packets it is desirable to have them travel over the best TX paths, OGMs propagate inversely. That is they travel along the best RX path while establishing the best TX paths to the originator in the process.
 
@@ -142,3 +142,17 @@ Therefore a triangle equation inverse to the ones for broadcast packets needs to
  * If the own forwarding throughput to a specific neighbor is smaller than the worst TX throughput of other neighbors, then rebroadcasts of OGM2 packets from this neighbor on the according interface are avoided.
 
 h2. BATMAN IV vs. BATMAN V
+
+h2. Appendix
+
+h3. Hash Collision Probability Assessment
+
+The larger a neighborhood grows the more likely it becomes that two distinct neighborhoods result in the same hash - rapidly. This is thanks to the Birthday Paradox. A proper assessment of the this to happen is therefore needed.
+
+While usually for wireless mesh networks the number of direct neighbors is rather small, usually less than a dozen, there already exist batman-adv mesh networks with a few hundred neighboring nodes on a VPN interface.
+
+Because the hashing function is applied to a sorted concatenation of the neighbor mac addresses, we can calculate with expected number of unique neighborhood constellations on a specific interface in a given time frame. This Wikipedia article gives us a nice overview of the collision probability with a perfect hash of given output size and a given amount of unique inputs: https://en.wikipedia.org/wiki/Birthday_attack
+
+To achieve a collision probability of 10e-18 with a 512 bit hash, we may have 1.6e68 different inputs. 1.6e68 different inputs would be reached if over 500 years a unique neighborhood were formed 1e58 times per second.
+
+h3. Neighborhood Hash - Throughput Evaluation Assessment
