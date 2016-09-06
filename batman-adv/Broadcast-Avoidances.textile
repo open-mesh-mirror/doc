@@ -121,11 +121,24 @@ h3. Neighborhood Hash TVLV Format
 
 h3. Throughput Evaluation
 
- * Best forwarding throughput:
+h4. Broadcast Packets
+
+ * Own best forwarding throughput:
  ** The best TX throughput to any neighbor of an interface with the BATMAN V forwarding penalty applied
 
- * If the own best forwarding throughput is smaller than the minimum throughput received from a specific neighbor, then rebroadcasts of OGM2 and broadcast packets from this neighbor on the according interface are avoided.
+ * If the own best forwarding throughput is smaller than the minimum throughput received from a specific neighbor, then rebroadcasts of broadcast packets from this neighbor on the according interface are avoided.
 
-(ToDo: Should work for broadcast packets, OGM2 packets would need TX and RX reversed?)
+h4. OGM2 Packets
+
+While for broadcast packets it is desirable to have them travel over the best TX paths, OGMs propagate inversely. That is they travel along the best RX path while establishing the best TX paths to the originator in the process.
+
+Therefore a triangle equation inverse to the ones for broadcast packets needs to be used.
+
+ * Other neighbors worst throughput:
+ ** The worst of all minimum TX throughput values received from all neighbors on an interface.
+ * Own forwarding throughput:
+ ** The TX throughput to a specific neighbor with the forwarding penalty applied
+
+ * If the own forwarding throughput to a specific neighbor is smaller than the worst TX throughput of other neighbors, then rebroadcasts of OGM2 packets from this neighbor on the according interface are avoided.
 
 h2. BATMAN IV vs. BATMAN V
