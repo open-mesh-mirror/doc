@@ -87,6 +87,8 @@ We can avoid echoing a packet back to the node it was forwarded from.
 
 h2. Broadcast Avoidance: Neighborhood Hash
 
+The following approach is supposed to mainly improve scenario A).
+
 h3. Concept
 
 * Each node summarizes all neighbors it sees on an interface via one hash.
@@ -100,6 +102,7 @@ h3. Neighborhood Hash TVLV Format
  * Length: 68 bytes
  * Fixed TVLV fields:
  ** minimum throughput: the worst of all TX throughputs to any neighbor a node sees on the according interface (4 bytes)
+ ** maximum throughput: the best of all TX throughputs to any neighbor a node sees on the according interface (4 bytes)
  ** neighorhood hash: a sha512 hash summarizing all neighbors a node sees on the according interface; hash created from neighbor addresses sorted alphabetically, concatenated, binary (64 bytes)
 
  * definition:
@@ -110,6 +113,8 @@ h3. Neighborhood Hash TVLV Format
  |   TVLV 0x03   |    Version    |             Length            | 
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                       minimum throughput                      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                       maximum throughput                      |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |                       neighborhood hash...                    |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -123,23 +128,29 @@ h3. Throughput Evaluation
 
 h4. II.I) Broadcast Packets
 
- * Own best forwarding throughput:
- ** The best TX throughput to any neighbor of an interface with the BATMAN V forwarding penalty applied
+_Ingress Check:_
 
- * If the own best forwarding throughput is smaller than the minimum throughput received from a specific neighbor, then rebroadcasts of broadcast packets from this neighbor on the according interface are avoided.
+<pre>if fwd-penalty(neigh->max_throughput) < neigh->min_throughput:
+-> no rebroadcast</pre>
+
+_Egress Check:_
+
+<pre>if fwd-penalty(iface->max_throughput) < neigh->min_throughput:
+-> no rebroadcast</pre>
 
 h4. II.II) OGM2 Packets
 
 While for broadcast packets it is desirable to have them travel over the best TX paths, OGMs propagate inversely. That is they travel along the best RX path while establishing the best TX paths to the originator in the process.
 
-Therefore a triangle equation inverse to the ones for broadcast packets needs to be used.
+_Ingress Check:_
 
- * Other neighbors worst throughput:
- ** The worst of all minimum TX throughput values received from all neighbors on an interface.
- * Own forwarding throughput:
- ** The TX throughput to a specific neighbor with the forwarding penalty applied
+<pre>if fwd-penalty(neigh->throughput) < iface->min_throughput_other:
+-> no rebroadcast</pre>
 
- * If the own forwarding throughput to a specific neighbor is smaller than the worst TX throughput of other neighbors, then rebroadcasts of OGM2 packets from this neighbor on the according interface are avoided.
+_Egress Check:_
+
+<pre>if fwd-penalty(iface->max_throughput_other) < iface->min_throughput_other:
+-> no rebroadcast</pre>
 
 h2. BATMAN IV vs. BATMAN V
 
