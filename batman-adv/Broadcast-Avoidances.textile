@@ -87,7 +87,7 @@ We can avoid echoing a packet back to the node it was forwarded from.
 
 h2. Broadcast Avoidance: Neighborhood Hash
 
-The following approach is supposed to mainly improve scenario A).
+The following approach is supposed to mainly improve scenario A) (while improving scenario B) in some specific cases).
 
 h3. Concept
 
