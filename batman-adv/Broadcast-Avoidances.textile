@@ -198,4 +198,16 @@ Because the hashing function is applied to a sorted concatenation of the neighbo
 
 To achieve a collision probability of 10e-18 with a 512 bit hash, we may have 1.6e68 different inputs. 1.6e68 different inputs would be reached if over 500 years a unique neighborhood were formed 1e58 times per second.
 
-h2. Neighborhood Hash - Throughput Evaluation Assessment
+h2. Neighborhood Hash - Throughput Rules Evaluation
+
+Let's start with a simple, three node example:
+
+!rebroadcast-eval1.png!
+
+_Should B rebroadcast?_
+
+!rebroadcast-eval2.png!
+
+_Is AB ⊕ BC a shortcut or detour?_
+
+h3. 
