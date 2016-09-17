@@ -230,7 +230,7 @@ h3. Simplification
 
 Simple, ey? So we just try all these checks! - Not so fast...
 
-Currently, we have two problems: For one thing, the computational overhead could be significant for neighborhoods of a certain size. For another, B does not even have the throughput from A to B or A to C (or C to A or C to B - we will see later why we might need those) available. B only knows its own TX throughput towards other neighbors and not the other way around.
+Currently, we have two problems: For one thing, the computational overhead could be significant for neighborhoods of a certain size. For another, B does not even know the throughput from A to B or A to C (or C to A or C to B - we will see later why we might need those). B only knows its own TX throughput towards other neighbors and not the other way around.
 
 Instead of every neighbor node frequently broadcasting a full list of TX values and every neighbor performing all these checks for any neighbor with any neighbor combination, the implemented neighbor hash approach applies a huge simplification needing considerably less computations and information exchange:
 
