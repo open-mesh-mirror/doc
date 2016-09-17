@@ -10,6 +10,10 @@ The main disadvantage of this approach is, that the number of such messages / ov
 
 There are certain cases where rebroadcasts are unncessary. This page describes mechanisms to detect some common ones to avoid rebroadcasts and by that reducing the OGM and broadcast packet overhead. (O(m*n) => O(m) )
 
+h2. Goal
+
+* Reducing OGM2 and broadcast packet overhead
+
 h2. Scenarios
 
 Here are a few scenarios that the protocol additions described later are supposed to improve:
@@ -48,10 +52,6 @@ Some wireless community mesh networks try to interconnect their wireless mesh cl
 Unfortunately, ADSL usually provides limited upstream bandwidth. And for larger mesh communities, the protocol overhead can be quite significant.
 
 Rebroadcasting the large amount of protocol messages coming from the tunnel server on the tunnel client side can lead to a congested ADSL upload.
-
-h2. Goal
-
-* Reducing OGM2 and broadcast packet overhead
 
 h2. Simple Broadcast Avoidances
 
