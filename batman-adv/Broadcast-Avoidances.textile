@@ -255,11 +255,11 @@ One has:
 => BC ≤ Bmax < Amin ≤ ACn
 => BC < ACn</pre>
 
-h3. Proof: Ingress TX (bcast)
+h4. Proof: Ingress TX (bcast)
 
 We want to proof:
 
- * Amax ≤ Amin => AB ≤ ACn for any ACn.
+ * Amax ≤ Amin => AB ≤ ACn for any Cn.
 
 One has:
 
@@ -272,6 +272,34 @@ One has:
 => AB ≤ Amax ≤ Amin ≤ ACn
 => AB ≤ ACn</pre>
 
+h4. Proof: Ingress RX (OGM2)
+
+We want to proof:
+
+ * AB ≤ MIN(Amin, Cn-min) => AB ≤ CnA for any Cn.
+
+One has:
+
+ * Cn-min ≤ CnA
+
+<pre>AB ≤ MIN(amin, Cn-min)
+=> AB ≤ Cn-min
+=> AB ≤ (Cn-min ≤ CnA)
+=> AB ≤ CnA<pre>
+
 h4. Proof: Egress RX (OGM2)
 
-h4. Proof: Ingress RX (OGM2)
+We want to proof:
+
+ * MAX(Amax, Cn-max) ≤ MIN(Amin, Cn-min) => AB ≤ CnA for any Cn.
+
+One has:
+
+ * AB ≤ Amax
+ * Cn-min ≤ CnA
+
+<pre>MAX(Amax, Cn-max) ≤ MIN(Amin, Cn-min)
+=> Amax ≤ Cn-min
+=> (AB ≤ Amax) ≤ Cn-min
+=> (AB ≤ Amax) ≤ (Cn-min ≤ CnA)
+=> AB ≤ CnA
