@@ -285,7 +285,7 @@ One has:
 <pre>AB ≤ MIN(amin, Cn-min)
 => AB ≤ Cn-min
 => AB ≤ (Cn-min ≤ CnA)
-=> AB ≤ CnA<pre>
+=> AB ≤ CnA</pre>
 
 h4. Proof: Egress RX (OGM2)
 
