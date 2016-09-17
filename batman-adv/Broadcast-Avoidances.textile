@@ -276,7 +276,7 @@ h4. Proof: Ingress RX (OGM2)
 
 We want to proof:
 
- * AB ≤ MIN(Amin, Cn-min) => AB ≤ CnA for any Cn.
+ * AB ≤ MIN<code></code>(Amin, Cn-min) => AB ≤ CnA for any Cn.
 
 One has:
 
