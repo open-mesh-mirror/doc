@@ -138,6 +138,15 @@ _Egress Check:_
 <pre>if fwd-penalty(iface->max_throughput) < neigh->min_throughput:
 -> no rebroadcast</pre>
 
+---
+
+If either (or both):
+
+ * The best TX throughput of the neighbor we received the broadcast packet from with our forwarding penalty applied is smaller than the worst TX throughput of this neighbor (_ingress check_).
+ * Our best TX throughput with our forwarding penalty applied is smaller than the worst TX throughput of the neighbor we received the broadcast packet from (_egress check_).
+
+Then a rebroadcast can be avoided.
+
 h4. II.II) OGM2 Packets
 
 While for broadcast packets it is desirable to have them travel over the best TX paths, OGMs propagate inversely. That is they travel along the best RX path while establishing the best TX paths to the originator in the process.
@@ -151,6 +160,15 @@ _Egress Check:_
 
 <pre>if fwd-penalty(iface->max_throughput_other) < iface->min_throughput_other:
 -> no rebroadcast</pre>
+
+---
+
+If either (or both):
+
+ * The TX throughput to the neighbor we received the OGM2 packet from with our forwarding penalty applied is smaller than the worst TX throughput of all our neighbors (_ingress check_).
+ * The best TX throughput of all our neighbors with our forwarding penalty applied is smaller than the worst TX throughput of all our neighbors (_egress check_).
+
+Then a rebroadcast can be avoided.
 
 h2. BATMAN IV vs. BATMAN V
 
