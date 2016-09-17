@@ -180,7 +180,7 @@ h2. Future Improvements
 
 h3. Broadcast Avoidance: Neighborhood Table
 
-For smaller neighborhoods an approach with a higher, computational overhead might be feasible: The neighborhood hash rules are very broad, not able to detect many common wireless topologies where rebroadcasts could be avoided.
+For smaller neighborhoods an approach with a higher, computational overhead might be feasible: The neighborhood hash rules are very broad, incapable of detecting many common wireless topologies where rebroadcasts could be avoided.
 
 A more detailed knowledge and view of the local neighborhood allows applying stricter rebroadcast avoidance rules.
 
