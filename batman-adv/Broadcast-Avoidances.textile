@@ -242,14 +242,18 @@ h4. Proof: Egress TX (bcast)
 
 We want to proof:
 
- * <pre>Bmax < Amin => BC < ACn</pre>
+ * Bmax < Amin => BC < ACn
 
 One has:
 
- * <pre>BC ≤ Bmax</pre>
- * <pre>Amin ≤ ACn</pre>
+ * BC ≤ Bmax
+ * Amin ≤ ACn
 
-<pre>Bmax < Amin => (BC ≤ Bmax) < Amin => (BC ≤ Bmax) < (Amin ≤ ACn) => BC ≤ Bmax < Amin ≤ ACn => BC < ACn</pre>
+<pre>Bmax < Amin
+=> (BC ≤ Bmax) < Amin
+=> (BC ≤ Bmax) < (Amin ≤ ACn)
+=> BC ≤ Bmax < Amin ≤ ACn
+=> BC < ACn</pre>
 
 h3. Proof: Ingress TX (bcast)
 
