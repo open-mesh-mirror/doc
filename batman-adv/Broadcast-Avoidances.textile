@@ -156,6 +156,18 @@ h2. BATMAN IV vs. BATMAN V
 
 h2. Appendix
 
+h3. Future Improvements
+
+h4. Broadcast Avoidance: Neighborhood Table
+
+For smaller neighborhoods an approach with a higher, computational overhead might be feasible: The neighborhood hash rules are very broad, not able to detect many common wireless topologies where rebroadcasts could be avoided.
+
+A more detailed knowledge and view of the local neighborhood allows applying stricter rebroadcast avoidance rules.
+
+A more detailed view could be achieved by every neighbor advertising its full TX throughput list to other neighbors on the according interface.
+
+Receiving neighbors would then have a full RX and TX table between neighbors in the direct, one-hop vicinity.
+
 h3. Hash Collision Probability Assessment
 
 The larger a neighborhood grows the more likely it becomes that two distinct neighborhoods result in the same hash - rapidly. This is thanks to the "Birthday Paradox":https://en.wikipedia.org/wiki/Birthday_problem. A proper assessment of the this to happen is therefore needed.
