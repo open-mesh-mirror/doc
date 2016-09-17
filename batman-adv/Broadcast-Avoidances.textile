@@ -200,6 +200,8 @@ To achieve a collision probability of 10e-18 with a 512 bit hash, we may have 1.
 
 h2. Neighborhood Hash - Throughput Rules Evaluation
 
+h3. Basic Concept
+
 Let's start with a simple, three node example:
 
 !rebroadcast-eval1.png!
@@ -218,6 +220,44 @@ With a simple throughput metric the path from A to C via B is a detour exactly w
 
 That means B can perform an _ingress check_ (AB < AC?) and an _egress check_ (BC < AC?) individually.
 
-To catch _all_, local rebroadcast avoidance possibilities, B would simply perform such ingress and egress checks for any neighbor Cn (any neighbor other than A):
+To make sure, that a rebroadcast is unnecessary, B would need to perform such an ingress and egress check for any neighbor Cn (any neighbor other than A):
 
 !rebroadcast-eval3.png!
+
+If B notices that for all these neighbors Cn it is a bottleneck and no improvement then B can safely avoid a rebroadcast.
+
+h3. Simplification
+
+Simple, ey? So we just try all these checks! - Not so fast...
+
+Currently, we have two problems: For one thing, the computational overhead could be significant for neighborhoods of a certain size. For another, B does not even have the throughput from A to B or A to C (or C to A or C to B - we will see later why we might need those) available. B only knows its own TX throughput towards other neighbors and not the other way around.
+
+Instead of every neighbor node frequently broadcasting a full list of TX values and every neighbor performing all these checks for any neighbor with any neighbor combination, the implemented neighbor hash approach applies a huge simplification needing considerably less computations and information exchange:
+
+Instead of checking all (AB < ACn?) and (BC < ACn?) combinations, it tries to perform "one check that rules them all" (with the downside of maybe not catching all potential rebroadcast avoidance cases).
+
+h3. Proofs
+
+h4. Proof: Egress TX (bcast)
+
+We want to proof: Bmax < Amin => BC < ACn
+
+One has:
+ * BC ≤ Bmax 
+ * Amin ≤ ACn
+
+Bmax < Amin => (BC ≤ Bmax) < Amin => (BC ≤ Bmax) < (Amin ≤ ACn) => BC ≤ Bmax < Amin ≤ ACn => BC < ACn
+
+h3. Proof: Ingress TX (bcast)
+
+We want to proof: Amax ≤ Amin => AB ≤ ACn for any ACn.
+
+One has:
+ * AB ≤ Amax
+ * Amin ≤ ACn
+
+Amax ≤ Amin => (AB ≤ Amax) ≤ Amin => (AB ≤ Amax) ≤ (Amin ≤ ACn) => AB ≤ Amax ≤ Amin ≤ ACn => AB ≤ ACn
+
+h4. Proof: Egress RX (OGM2)
+
+h4. Proof: Ingress RX (OGM2)
