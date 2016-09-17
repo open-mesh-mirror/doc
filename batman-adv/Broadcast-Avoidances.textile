@@ -234,7 +234,7 @@ Currently, we have two problems: For one thing, the computational overhead could
 
 Instead of every neighbor node frequently broadcasting a full list of TX values and every neighbor performing all these checks for any neighbor with any neighbor combination, the implemented neighbor hash approach applies a huge simplification needing considerably less computations and information exchange:
 
-Instead of checking all (AB < ACn?) and (BC < ACn?) combinations, it tries to perform "one check that rules them all" (with the downside of maybe not catching all potential rebroadcast avoidance cases).
+Instead of checking all (AB < ACn?) and (BCn < ACn?) combinations, it tries to perform "one check that rules them all" (with the downside of maybe not catching all potential rebroadcast avoidance cases).
 
 h3. Proofs
 
