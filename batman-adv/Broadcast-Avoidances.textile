@@ -14,7 +14,7 @@ h2. Scenarios
 
 Here are a few scenarios that the protocol additions described later are supposed to improve:
 
-h3. A) Large, But Transitive Link Domains
+h3. A) Large, Transitive Link Domains
 
 !wired-aps.png!
 
