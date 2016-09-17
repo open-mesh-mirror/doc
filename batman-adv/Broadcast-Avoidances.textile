@@ -257,13 +257,20 @@ One has:
 
 h3. Proof: Ingress TX (bcast)
 
-We want to proof: Amax ≤ Amin => AB ≤ ACn for any ACn.
+We want to proof:
+
+ * Amax ≤ Amin => AB ≤ ACn for any ACn.
 
 One has:
+
  * AB ≤ Amax
  * Amin ≤ ACn
 
-Amax ≤ Amin => (AB ≤ Amax) ≤ Amin => (AB ≤ Amax) ≤ (Amin ≤ ACn) => AB ≤ Amax ≤ Amin ≤ ACn => AB ≤ ACn
+<pre>Amax ≤ Amin
+=> (AB ≤ Amax) ≤ Amin
+=> (AB ≤ Amax) ≤ (Amin ≤ ACn)
+=> AB ≤ Amax ≤ Amin ≤ ACn
+=> AB ≤ ACn</pre>
 
 h4. Proof: Egress RX (OGM2)
 
