@@ -282,7 +282,7 @@ One has:
 
  * Cn-min ≤ CnA
 
-<pre>AB ≤ MIN(amin, Cn-min)
+<pre>AB ≤ MIN(Amin, Cn-min)
 => AB ≤ Cn-min
 => AB ≤ (Cn-min ≤ CnA)
 => AB ≤ CnA</pre>
