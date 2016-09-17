@@ -291,7 +291,7 @@ h4. Proof: Egress RX (OGM2)
 
 We want to proof:
 
- * MAX(Amax, Cn-max) ≤ MIN(Amin, Cn-min) => AB ≤ CnA for any Cn.
+ * MAX<code></code>(Amax, Cn-max) ≤ MIN<code></code>(Amin, Cn-min) => AB ≤ CnA for any Cn.
 
 One has:
 
