@@ -266,18 +266,25 @@ h4. Proof: Ingress TX (bcast)
 
 We want to proof:
 
- * Amax ≤ Amin => AB ≤ ACn for any Cn.
+ * p(Amax) < Amin => p(AB) < ACn for any Cn.
 
 One has:
 
+ * p(x) ≤ x
+ * a ≤ b => p(a) ≤ p(b)
  * AB ≤ Amax
  * Amin ≤ ACn
 
-<pre>Amax ≤ Amin
-=> (AB ≤ Amax) ≤ Amin
-=> (AB ≤ Amax) ≤ (Amin ≤ ACn)
-=> AB ≤ Amax ≤ Amin ≤ ACn
-=> AB ≤ ACn</pre>
+<pre>
+AB ≤ Amax
+=> p(AB) ≤ p(Amax)
+
+p(Amax) < Amin
+=> (p(AB) ≤ p(Amax)) < Amin
+=> (p(AB) ≤ p(Amax)) < (Amin ≤ ACn)
+=> p(AB) ≤ p(Amax) < Amin ≤ ACn
+=> p(AB) < ACn
+</pre>
 
 h4. Proof: Ingress RX (OGM2)
 
