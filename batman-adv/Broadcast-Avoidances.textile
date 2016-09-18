@@ -294,7 +294,7 @@ We want to proof:
 
 One has:
 
- * MIN(a, b) ≤ b
+ * MIN<code></code>(a, b) ≤ b
  * Cn-min ≤ CnA
 
 <pre>
