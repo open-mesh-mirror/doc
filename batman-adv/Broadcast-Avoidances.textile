@@ -238,30 +238,6 @@ Instead of checking all (AB < ACn?) and (BCn < ACn?) combinations, it tries to p
 
 h3. Proofs
 
-h4. Proof: Egress TX (bcast)
-
-We want to proof:
-
- * p(Bmax) < Amin => p(BCn) < ACn
-
-One has:
-
- * p(x) < x
- * a ≤ b => p(a) ≤ p(b)
- * BCn ≤ Bmax
- * Amin ≤ ACn
-
-<pre>
-BCn ≤ Bmax
-=> p(BCn) ≤ p(Bmax)
-
-p(Bmax) < Amin
-=> (p(BCn) ≤ p(Bmax)) < Amin
-=> (p(BCn) ≤ p(Bmax)) < (Amin ≤ ACn)
-=> p(BCn) ≤ p(Bmax) < Amin ≤ ACn
-=> p(BCn) < ACn
-</pre>
-
 h4. Proof: Ingress TX (bcast)
 
 We want to proof:
@@ -270,7 +246,6 @@ We want to proof:
 
 One has:
 
- * p(x) ≤ x
  * a ≤ b => p(a) ≤ p(b)
  * AB ≤ Amax
  * Amin ≤ ACn
@@ -284,6 +259,29 @@ p(Amax) < Amin
 => (p(AB) ≤ p(Amax)) < (Amin ≤ ACn)
 => p(AB) ≤ p(Amax) < Amin ≤ ACn
 => p(AB) < ACn
+</pre>
+
+h4. Proof: Egress TX (bcast)
+
+We want to proof:
+
+ * p(Bmax) < Amin => p(BCn) < ACn
+
+One has:
+
+ * a ≤ b => p(a) ≤ p(b)
+ * BCn ≤ Bmax
+ * Amin ≤ ACn
+
+<pre>
+BCn ≤ Bmax
+=> p(BCn) ≤ p(Bmax)
+
+p(Bmax) < Amin
+=> (p(BCn) ≤ p(Bmax)) < Amin
+=> (p(BCn) ≤ p(Bmax)) < (Amin ≤ ACn)
+=> p(BCn) ≤ p(Bmax) < Amin ≤ ACn
+=> p(BCn) < ACn
 </pre>
 
 h4. Proof: Ingress RX (OGM2)
