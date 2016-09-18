@@ -242,18 +242,25 @@ h4. Proof: Egress TX (bcast)
 
 We want to proof:
 
- * Bmax < Amin => BCn < ACn
+ * p(Bmax) < Amin => p(BCn) < ACn
 
 One has:
 
+ * p(x) < x
+ * a ≤ b => p(a) ≤ p(b)
  * BCn ≤ Bmax
  * Amin ≤ ACn
 
-<pre>Bmax < Amin
-=> (BCn ≤ Bmax) < Amin
-=> (BCn ≤ Bmax) < (Amin ≤ ACn)
-=> BCn ≤ Bmax < Amin ≤ ACn
-=> BCn < ACn</pre>
+<pre>
+BCn ≤ Bmax
+=> p(BCn) ≤ p(Bmax)
+
+p(Bmax) < Amin
+=> (p(BCn) ≤ p(Bmax)) < Amin
+=> (p(BCn) ≤ p(Bmax)) < (Amin ≤ ACn)
+=> p(BCn) ≤ p(Bmax) < Amin ≤ ACn
+=> p(BCn) < ACn
+</pre>
 
 h4. Proof: Ingress TX (bcast)
 
