@@ -1,10 +1,10 @@
 h1. Broadcast Avoidances - Neighborhood Hash Assessment
 
-First follow evaluations of the two scenarios described before to check if or when the neighborhood hashing approach successfully reduces broadcast overhead in these targeted cases.
+First follow evaluations of the two scenarios described before to check if or when the neighborhood hashing approach successfully reduces broadcast overhead in these targeted cases (section 1).
 
-Afterwards, an evaluation follows to show that we do not avoid rebroadcasts too often. That is that we do not hinder BATMAN from finding or using best paths.
+Afterwards, an evaluation follows to show that we do not avoid rebroadcasts too often. That is that we do not hinder BATMAN from finding or using best paths (section 2 + 3).
 
-h2. Example Scenario Evaluation
+h2. 1) Example Scenario Evaluation
 
 h3. Scenario A)
 
@@ -73,7 +73,9 @@ The evaluation will look as follows:
 
 So no, A1/A2 will not detect a rebroadcast avoidance possibility as the statement "150 < 100" is false.
 
-h2. Concept
+h2. Optimality Assessment
+
+h3. Introduction / Concept
 
 Let's start with a simple, three node example:
 
@@ -99,7 +101,7 @@ To make sure, that a rebroadcast is unnecessary, B would need to perform such an
 
 If B notices that for all these neighbors Cn it is a bottleneck and no improvement then B can safely avoid a rebroadcast.
 
-h2. Simplification
+h3. Simplification
 
 Instead of performing all the checks described above, the modified rules are used in the implementation with the following goals:
 
@@ -113,13 +115,13 @@ Instead of every neighbor node frequently broadcasting a full list of TX values 
 
 Instead of checking all (AB < ACn?) and (BCn < ACn?) combinations, it tries to perform "one check that rules them all" (with the downside of maybe not catching all potential rebroadcast avoidance cases).
 
-h2. Proofs
+h3. Proofs
 
 We need to ensure that avoiding a rebroadcast does not break our optimality promises. That is that we do not break that a route eventually converges to its optimum path.
 
 While the assessment above showed when optimality is not broken, the following mathematic assessment shows that our slightly modified rules still hold optimality.
 
-h3. Proof: Ingress TX (bcast)
+h4. Proof: Ingress TX (bcast)
 
 We want to proof:
 
@@ -142,7 +144,7 @@ p(Amax) < Amin
 => p(AB) < ACn
 </pre>
 
-h3. Proof: Egress TX (bcast)
+h4. Proof: Egress TX (bcast)
 
 We want to proof:
 
@@ -165,7 +167,7 @@ p(Bmax) < Amin
 => p(BCn) < ACn
 </pre>
 
-h3. Proof: Ingress RX (OGM2)
+h4. Proof: Ingress RX (OGM2)
 
 We want to proof:
 
@@ -184,7 +186,7 @@ p(AB) < MIN(Amin, Cn-min)
 => p(AB) < CnA
 </pre>
 
-h3. Proof: Egress RX (OGM2)
+h4. Proof: Egress RX (OGM2)
 
 We want to proof:
 
@@ -212,7 +214,7 @@ p(MAX(Amax, Cn-max)) < MIN(Amin, Cn-min)
 => p(AB) < CnA
 </pre>
 
-h2. Hash Collision Probability
+h3. Hash Collision Probability
 
 sha512 provides 256 bits of security against collision attacks. With 4.8e29 inputs, that is with 4.8e29 different neighborhoods, we would have a collision probability of 1e-18.
 
