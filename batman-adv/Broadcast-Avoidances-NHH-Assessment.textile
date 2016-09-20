@@ -40,6 +40,10 @@ Instead of checking all (AB < ACn?) and (BCn < ACn?) combinations, it tries to p
 
 h3. Proofs
 
+We need to ensure that avoiding a rebroadcast does not break our optimality promises. That is that we do not break that a route eventually converges to its optimum path.
+
+While the assessment above showed when optimality is not broken, the following mathematic assessment shows that our slightly modified rules still hold optimality.
+
 h4. Proof: Ingress TX (bcast)
 
 We want to proof:
