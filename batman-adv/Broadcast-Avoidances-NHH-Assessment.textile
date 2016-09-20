@@ -2,6 +2,33 @@ h1. Broadcast Avoidances - Neighborhood Hash Assessment
 
 h2. Throughput Rules Evaluation
 
+h3. Example Scenario Evaluation
+
+h4. Scenario A)
+
+Assuming all nodes have a 1GBit/s connection to the switch. Then a node has for any neighbor:
+
+<pre>
+neigh->throughput
+= neigh->min_throughput
+= neigh->max_throughput
+= iface->min_throughput_other
+= iface->max_throughput_other
+= 1000MBit/s
+</pre>
+
+That means the ingress TX, egress TX as well as ingress RX and egress RX check evaluate to:
+
+<pre>
+fwd-penalty(1000) < 1000
+<pre>
+
+Which is true as long as a hop penalty is configured (default).
+
+This means, that a rebroadcast avoidance successfully takes place for scenario A).
+
+h4. Scenario B)
+
 h3. Concept
 
 Let's start with a simple, three node example:
