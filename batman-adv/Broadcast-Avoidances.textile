@@ -105,7 +105,7 @@ h3. Neighborhood Hash TVLV Format
  ** maximum throughput: the best of all TX throughputs to any neighbor a node sees on the according interface (4 bytes)
  ** neighorhood hash: a sha512 hash summarizing all neighbors a node sees on the according interface; hash created from neighbor addresses sorted alphabetically, concatenated, binary (64 bytes)
 
- * definition:
+ * Definition:
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
