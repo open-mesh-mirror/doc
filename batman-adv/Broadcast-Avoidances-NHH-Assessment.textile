@@ -21,7 +21,7 @@ That means the ingress TX, egress TX as well as ingress RX and egress RX check e
 
 <pre>
 fwd-penalty(1000) < 1000
-<pre>
+</pre>
 
 Which is true as long as a hop penalty is configured (default).
 
