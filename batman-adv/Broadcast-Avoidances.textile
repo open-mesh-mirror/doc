@@ -180,6 +180,9 @@ h1. Appendix
 
 h2. Limitations
 
+ * Many avoidance possibilities undetected in wireless scenarios (see "Future improvements" below or assessment page)
+ * In wired cases with a mix of 100MBit/s and 1000MBit/s interfaces: Only avoids broadcast packet rebroadcasts, not OGM2 rebroadcasts
+
 h2. Future Improvements
 
 h3. Broadcast Avoidance: Neighborhood Table
