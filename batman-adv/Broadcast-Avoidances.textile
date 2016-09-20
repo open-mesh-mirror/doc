@@ -170,6 +170,10 @@ If either (or both):
 
 Then a rebroadcast can be avoided.
 
+h4. Further readings:
+
+ * [[Broadcast-Avoidances-NHH-Assessment|Broadcast Avoidances - Neighborhood Hash Assessment]]
+
 h2. BATMAN IV vs. BATMAN V
 
 h1. Appendix
