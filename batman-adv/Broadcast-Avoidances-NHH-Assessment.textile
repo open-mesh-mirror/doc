@@ -140,3 +140,13 @@ p(MAX(Amax, Cn-max)) < MIN(Amin, Cn-min)
 => p(AB) ≤ p(MAX(Amax, Cn-max) < MIN(Amin, Cn-min) ≤ Cn-min ≤ CnA
 => p(AB) < CnA
 </pre>
+
+h2. Hash Collision Probability
+
+sha512 provides 256 bits of security against collision attacks. With 4.8e29 inputs, that is with 4.8e29 different neighborhoods, we would have a collision probability of 1e-18.
+
+This number of inputs would be reached if over 500 years a new neighborhood were formed 3e10 times per nanosecond.
+
+See also:
+
+ * https://en.wikipedia.org/wiki/Birthday_attack
