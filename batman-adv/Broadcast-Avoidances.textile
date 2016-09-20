@@ -191,13 +191,3 @@ A more detailed knowledge and view of the local neighborhood allows applying str
 A more detailed view could be achieved by every neighbor advertising its full TX throughput list to other neighbors on the according interface.
 
 Receiving neighbors would then have a full RX and TX table between neighbors in the direct, one-hop vicinity.
-
-h2. Hash Collision Probability Assessment
-
-The larger a neighborhood grows the more likely it becomes that two distinct neighborhoods result in the same hash - rapidly. This is thanks to the "Birthday Paradox":https://en.wikipedia.org/wiki/Birthday_problem. A proper assessment of the this to happen is therefore needed.
-
-While usually for wireless mesh networks the number of direct neighbors is rather small, usually less than a dozen, there already exist batman-adv mesh networks with a few hundred neighboring nodes on a VPN interface.
-
-Because the hashing function is applied to a sorted concatenation of the neighbor mac addresses, we can calculate with expected number of unique neighborhood constellations on a specific interface in a given time frame. This Wikipedia article gives us a nice overview of the collision probability with a perfect hash of given output size and a given amount of unique inputs: https://en.wikipedia.org/wiki/Birthday_attack
-
-To achieve a collision probability of 10e-18 with a 512 bit hash, we may have 1.6e68 different inputs. 1.6e68 different inputs would be reached if over 500 years a unique neighborhood were formed 1e58 times per second.
