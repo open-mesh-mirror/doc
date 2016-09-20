@@ -2,7 +2,7 @@ h1. Broadcast Avoidances - Neighborhood Hash Assessment
 
 h2. Throughput Rules Evaluation
 
-h3. Introduction / Concept
+h3. Concept
 
 Let's start with a simple, three node example:
 
