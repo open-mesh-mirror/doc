@@ -29,6 +29,40 @@ This means, that a rebroadcast avoidance successfully takes place for scenario A
 
 h4. Scenario B)
 
+Assuming all nodes have a 100MBit/s connection to each other, except the cluster of S, A1 and A2.
+
+When S broadcasts, will A1/A2 refrain from rebroadcasting?
+
+*Neighborhood hash*
+
+First of all, even though not all neighbors see the same neighborhood - in fact, all nodes S and R1 to R5 see different neighbors, some neighbors still have the same neighborhood hash: S, A1, A2. This allows for instance A1/A2 to check whether to rebroadcast packets from S or not.
+
+*Case: S, A1, A2 have a 100MBit/s connection*
+
+Yes, see evaluation for scenario A).
+
+*Case: S, A1, A2 have a 150MBit/s connection*
+
+The evaluation will look as follows:
+
+||TX|RX|
+|ingress|penalty(150) < 100|penalty(150) < 100|
+|egress|penalty(150) < 100|penalty(150) < 100|
+
+Which is true for all cases with the half-duplex penalty: 75 < 100.
+
+So yes, a rebroadcast avoidance would successfully take place here.
+
+*Case: S, A1, A2 have a 300 MBit/s connection*
+
+The evaluation will look as follows:
+
+||TX|RX|
+|ingress|penalty(300) < 100|penalty(300) < 100|
+|egress|penalty(300) < 100|penalty(300) < 100|
+
+So no, A1/A2 will not detect a rebroadcast avoidance possibility as the statement "150 < 100" is false.
+
 h3. Concept
 
 Let's start with a simple, three node example:
