@@ -1,10 +1,16 @@
 h1. Broadcast Avoidances - Neighborhood Hash Assessment
 
-h2. Throughput Rules Evaluation
+First follow evaluations of the two scenarios described before to check if or when the neighborhood hashing approach successfully reduces broadcast overhead.
 
-h3. Example Scenario Evaluation
+Afterwards, an evaluation follows to show that we do not avoid rebroadcasts too often. That is that we do not hinder BATMAN from finding or using best paths.
 
-h4. Scenario A)
+h2. Example Scenario Evaluation
+
+h3. Scenario A)
+
+!wired-aps.png!
+
+_Many mesh nodes wired to one, big switch_
 
 Assuming all nodes have a 1GBit/s connection to the switch. Then a node has for any neighbor:
 
@@ -27,21 +33,25 @@ Which is true as long as a hop penalty is configured (default).
 
 This means, that a rebroadcast avoidance successfully takes place for scenario A).
 
-h4. Scenario B)
+h3. Scenario B)
+
+!mobile-clusters.png!
+
+_Two mobile nodes clustering around a broadcast transmitter_
 
 Assuming all nodes have a 100MBit/s connection to each other, except the cluster of S, A1 and A2.
 
 When S broadcasts, will A1/A2 refrain from rebroadcasting?
 
-*Neighborhood hash*
+h4. Neighborhood hash
 
 First of all, even though not all neighbors see the same neighborhood - in fact, all nodes S and R1 to R5 see different neighbors, some neighbors still have the same neighborhood hash: S, A1, A2. This allows for instance A1/A2 to check whether to rebroadcast packets from S or not.
 
-*Case: S, A1, A2 have a 100MBit/s connection*
+h4. Case: S, A1, A2 have a 100MBit/s connection
 
 Yes, see evaluation for scenario A).
 
-*Case: S, A1, A2 have a 150MBit/s connection*
+h4. Case: S, A1, A2 have a 150MBit/s connection
 
 The evaluation will look as follows:
 
@@ -53,7 +63,7 @@ Which is true for all cases with the half-duplex penalty: 75 < 100.
 
 So yes, a rebroadcast avoidance would successfully take place here.
 
-*Case: S, A1, A2 have a 300 MBit/s connection*
+h4. Case: S, A1, A2 have a 300 MBit/s connection
 
 The evaluation will look as follows:
 
@@ -63,7 +73,7 @@ The evaluation will look as follows:
 
 So no, A1/A2 will not detect a rebroadcast avoidance possibility as the statement "150 < 100" is false.
 
-h3. Concept
+h2. Concept
 
 Let's start with a simple, three node example:
 
@@ -89,7 +99,7 @@ To make sure, that a rebroadcast is unnecessary, B would need to perform such an
 
 If B notices that for all these neighbors Cn it is a bottleneck and no improvement then B can safely avoid a rebroadcast.
 
-h3. Simplification
+h2. Simplification
 
 Instead of performing all the checks described above, the modified rules are used in the implementation with the following goals:
 
@@ -103,13 +113,13 @@ Instead of every neighbor node frequently broadcasting a full list of TX values 
 
 Instead of checking all (AB < ACn?) and (BCn < ACn?) combinations, it tries to perform "one check that rules them all" (with the downside of maybe not catching all potential rebroadcast avoidance cases).
 
-h3. Proofs
+h2. Proofs
 
 We need to ensure that avoiding a rebroadcast does not break our optimality promises. That is that we do not break that a route eventually converges to its optimum path.
 
 While the assessment above showed when optimality is not broken, the following mathematic assessment shows that our slightly modified rules still hold optimality.
 
-h4. Proof: Ingress TX (bcast)
+h3. Proof: Ingress TX (bcast)
 
 We want to proof:
 
@@ -132,7 +142,7 @@ p(Amax) < Amin
 => p(AB) < ACn
 </pre>
 
-h4. Proof: Egress TX (bcast)
+h3. Proof: Egress TX (bcast)
 
 We want to proof:
 
@@ -155,7 +165,7 @@ p(Bmax) < Amin
 => p(BCn) < ACn
 </pre>
 
-h4. Proof: Ingress RX (OGM2)
+h3. Proof: Ingress RX (OGM2)
 
 We want to proof:
 
@@ -174,7 +184,7 @@ p(AB) < MIN(Amin, Cn-min)
 => p(AB) < CnA
 </pre>
 
-h4. Proof: Egress RX (OGM2)
+h3. Proof: Egress RX (OGM2)
 
 We want to proof:
 
