@@ -1,6 +1,6 @@
 h1. Broadcast Avoidances - Neighborhood Hash Assessment
 
-First follow evaluations of the two scenarios described before to check if or when the neighborhood hashing approach successfully reduces broadcast overhead.
+First follow evaluations of the two scenarios described before to check if or when the neighborhood hashing approach successfully reduces broadcast overhead in these targeted cases.
 
 Afterwards, an evaluation follows to show that we do not avoid rebroadcasts too often. That is that we do not hinder BATMAN from finding or using best paths.
 
