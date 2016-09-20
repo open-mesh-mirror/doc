@@ -83,7 +83,7 @@ _A node avoiding to echo back to its forwarder_
 
 * If an interface has just one neighbor and it matches the originator that forwarded this OGM2 or broadcast packet to us, then no broadcast is necessary.
 
-We can avoid echoing a packet back to the node it was forwarded from.
+We can avoid echoing a packet back to the originator node (not just neighor) it was forwarded from.
 
 h2. Broadcast Avoidance: Neighborhood Hash
 
