@@ -40,11 +40,11 @@ There are different basepoints/references used when preparing the
 ** some recent commit in net.git which should be used as base commit for the patches which will be applied (chose wisely)
 
 <pre>
-GIT_OM_SERVER="git+ssh://git@open-mesh.org"
+GIT_OM_SERVER="git+ssh://git@open-mesh.org" 
 LM_NEXT=ecsv/lm_next
 LM_MAINT=ecsv/lm_maint
-BASE_NETNEXT=1fe323aa1b2390a0c57fb0b06a782f128d49094c
-BASE_NET=1fe323aa1b2390a0c57fb0b06a782f128d49094c
+BASE_NETNEXT=29fbff8698fc0ac1a1d74584b258e0bf18b469f9
+BASE_NET=29fbff8698fc0ac1a1d74584b258e0bf18b469f9
 </pre>
 
 h2. get the linux-integration + batman-adv repository
