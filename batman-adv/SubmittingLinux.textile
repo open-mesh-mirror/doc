@@ -79,6 +79,8 @@ git -C linux-merge merge --ff-only "${BASE_NET}"
 git -C linux-merge checkout base/net-next
 git -C linux-merge merge --ff-only "origin/base/net-next"
 git -C linux-merge merge --ff-only "${BASE_NETNEXT}"
+
+git -C linux-merge push origin base/net base/net-next
 </pre>
 
 Problems during this have to either be fixed by using a correct base commit, fixing the local branches or by rebasing the remaining patches on the batadv/* branches on top of the base commits (think twice before rebasing).
