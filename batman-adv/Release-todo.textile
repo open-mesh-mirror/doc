@@ -11,42 +11,44 @@ h2. Release Scheduling
 * maint branch is released on demand (for example after security issues)
 * a feature release +must+ be done before 4.x-rc6. The time till 4.x-rc7 is needed to merge new features into next and submit them to the linux maintainers for 4.y
 
+A different approach can be found under [[Release Scheduling Proposal]]
+
 h2. Documentation
 
-* [x] build changelog
-* [x] update README
-* [x] write release announcement
-* [x] update wiki documentation
+* [ ] build changelog
+* [ ] update README
+* [ ] write release announcement
+* [ ] update wiki documentation
 
 h2. Code
 
-* [x] make sure all code contains the release version strings
-* [x] update copyright years (if needed)
-* [x] check coverity scan status
-* [x] remove dead code (if any)
-* [x] check against kernel versions
-* [x] check that maint branch is merged in next
-* [x] check for "open patches on the ml":https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/
-* [x] git tag release
+* [ ] make sure all code contains the release version strings
+* [ ] update copyright years (if needed)
+* [ ] check coverity scan status
+* [ ] remove dead code (if any)
+* [ ] check against kernel versions
+* [ ] check that maint branch is merged in next
+* [ ] check for "open patches on the ml":https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/
+* [ ] git tag release
 
 h2. Release
 
-* [x] build package tar.gz and generate checksums
-* [x] move packages/checksums to stable/sources / create symlinks from releases
-* [x] update download links in the redmine downloads page
+* [ ] build package tar.gz and generate checksums
+* [ ] move packages/checksums to stable/sources / create symlinks from releases
+* [ ] update download links in the redmine downloads page
 * [ ] send release mail
-* [x] update IRC channel topic
+* [ ] update IRC channel topic
 
 h2. Distributions
 
 * [ ] update alfred openwrt package
 * [ ] update batman-adv/batctl openwrt package
 * [ ] update gentoo package
-* [x] update debian batctl package
+* [ ] update debian batctl package
 
 h2. Aftershow
 
-* [x] Merge next into master branch (to get changes on README, CHANGELOG, ... - git merge origin/next)
-* [x] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
-* [x] Merge patches from master into next (to get all the fancy new features - git merge --ff-only master)
-* [x] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
+* [ ] Merge next into master branch (to get changes on README, CHANGELOG, ... - git merge origin/next)
+* [ ] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
+* [ ] Merge patches from master into next (to get all the fancy new features - git merge --ff-only master)
+* [ ] Rebase patches in next on top of last linux -rc1 and send it to kernel maintainers for future kernels ([[SubmittingLinux]])
