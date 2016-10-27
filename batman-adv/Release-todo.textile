@@ -15,10 +15,10 @@ A different approach can be found under [[Release Scheduling Proposal]]
 
 h2. Documentation
 
-* [ ] build changelog
-* [ ] update README
+* [x] build changelog
+* [x ] update README
 * [ ] write release announcement
-* [ ] update wiki documentation
+* [x] update wiki documentation
 
 h2. Code
 
