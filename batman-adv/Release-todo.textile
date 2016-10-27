@@ -22,14 +22,14 @@ h2. Documentation
 
 h2. Code
 
-* [ ] make sure all code contains the release version strings
-* [ ] update copyright years (if needed)
-* [ ] check coverity scan status
-* [ ] remove dead code (if any)
-* [ ] check against kernel versions
-* [ ] check that maint branch is merged in next
-* [ ] check for "open patches on the ml":https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/
-* [ ] git tag release
+* [x] make sure all code contains the release version strings
+* [x] update copyright years (if needed)
+* [x ] check coverity scan status
+* [x] remove dead code (if any)
+* [x] check against kernel versions
+* [x] check that maint branch is merged in next
+* [x] check for "open patches on the ml":https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/
+* [x] git tag release
 
 h2. Release
 
