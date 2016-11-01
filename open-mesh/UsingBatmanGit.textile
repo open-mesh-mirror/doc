@@ -24,25 +24,7 @@ The main git repository is divided into several branches to make working easier.
 
 h3. master branch
 
-The master branch will have all upcoming changes. Bugfixes are merged from next to master.
-
-h3. next branch
-
-The next gathers bug fixes for the latest release and well tested features taken from the master branch. Merges are usually used to get  changes from master to next and to get bugfixes from maint to next.
-
-Create branch associated with the remote-tracking branch after cloning the repository
-
-
-<pre>
-git checkout -b next --track origin/next
-</pre>
-
-Cherry-picking a commit from master branch
-
-<pre>
-git checkout next
-git cherry-pick $SHA1
-</pre>
+The master branch will have all upcoming changes. Bugfixes are merged from maint to master.
 
 h3. maint branch
 
@@ -54,7 +36,7 @@ Create branch associated with the remote-tracking branch after cloning the repos
 git checkout -b maint --track origin/maint
 </pre>
 
-Cherry-picking a commit from next branch
+Cherry-picking a commit from master branch
 
 <pre>
 git checkout maint
@@ -63,58 +45,4 @@ git cherry-pick $SHA1
 
 h3. Linux integration
 
-The linux-merge repository is a clone of Linus Torvalds developer branch. With the help of some git voodoo the next branch is merged with this branch in the folder: net/batman-adv/. If you wish to merge the latest next branch changes into the linux branch you need to pull the newest changes in next from the batman-adv-git repository (we assume that you created the next branch in your local linux-merge repsitory as explained above):
-
-<pre>
-git checkout standalone/next
-git pull https://git.open-mesh.org/batman-adv.git next
-</pre>
-
-and merge the next branch into this one:
-
-<pre>
-git checkout merge/master
-git merge -s subtree standalone/next
-</pre>
-
-If you wish to pull Linus latest changes and merge it you need to add the remote branch first (you can omit that step if you already have it).
-
-<pre>
-git remote add torvalds git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-</pre>
-
-Fetch its content and merge it:
-
-<pre>
-git checkout merge/merge
-git fetch torvalds
-git merge torvalds/master
-</pre>
-
-To upload your changes you need to run:
-<pre>
-git push
-</pre>
-
-
-h3. difference between next and linux-integration
-
-If you need to see the difference between the next branch and the batman-adv driver in net/batman-adv/ you can run this command:
-
-<pre>
-git diff standalone/next: merge/master:net/batman-adv/
-</pre>
-
-h3. adding a branch
-
-In case you want to add your own branch for testing purposes or simply wish to understand the magic.
-
-<pre>
-git remote add $remote_name $git_url
-git fetch $remote_name
-
-git checkout -b $new_branch_name $remote_name/master
-git merge -s ours --no-commit next
-git read-tree --prefix=net/batman-adv/ -u next
-git commit -m "Add batman-adv to my new branch"
-</pre>
+The linux-merge repository is a clone of David Miller's net-next tree. With the help of some git voodoo the master branch is merged with this branch in the folder: net/batman-adv/. If you wish to merge the latest master branch changes into the linux branch you need to [[batman-adv:SubmittingLinux|pull the newest changes in master from the batman-adv.git]] repository.
