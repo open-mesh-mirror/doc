@@ -24,13 +24,20 @@ Following steps must always be done:
 * wait until David accepted the pull request
 * update base patches
 
+h2. Rules for patch handling
+
+* new patches enter batman-adv.git master branch
+* new patches are forwarded to David from master branch
+* master branch is closed whenever net-next is closed
+* new patches for master should be avoided when Linux -rc7/final is near (which will cause the closing of net-next)
+
 h2. Variables
 
 There are different basepoints/references used when preparing the 
 
 * GIT_OM_SERVER
 ** server from which the open-mesh.org repositories are retrieved
-* LM_NEXT
+* LM_MASTER
 ** name of branch in batman-adv.git which points to the latest patch already ported to linux-merge.git:batadv/net-next
 * LM_MAINT
 ** name of branch in batman-adv.git which points to the latest patch already ported to linux-merge.git:batadv/net
@@ -41,7 +48,7 @@ There are different basepoints/references used when preparing the
 
 <pre>
 GIT_OM_SERVER="git+ssh://git@open-mesh.org" 
-LM_NEXT=ecsv/lm_next
+LM_MASTER=ecsv/lm_master
 LM_MAINT=ecsv/lm_maint
 BASE_NETNEXT=a283ad5066cd63f595224c7476001cfc367fdf2e
 BASE_NET=29fbff8698fc0ac1a1d74584b258e0bf18b469f9
@@ -61,7 +68,7 @@ git -C linux-merge branch base/net-next --track origin/base/net-next
 git -C linux-merge branch batadv/net --track origin/batadv/net
 git -C linux-merge branch batadv/net-next --track origin/batadv/net-next
 git clone "${GIT_OM_SERVER}/batman-adv.git" batman-adv
-git -C batman-adv branch "${LM_NEXT}" --track "origin/${LM_NEXT}"
+git -C batman-adv branch "${LM_MASTER}" --track "origin/${LM_MASTER}"
 git -C batman-adv branch "${LM_MAINT}" --track "origin/${LM_MAINT}"
 </pre>
 
@@ -93,19 +100,19 @@ git -C batman-adv remote update --prune
 git -C batman-adv checkout "${LM_MAINT}"
 git -C batman-adv merge --ff-only "origin/${LM_MAINT}"
 
-git -C batman-adv checkout "${LM_NEXT}"
-git -C batman-adv merge --ff-only "origin/${LM_NEXT}"
+git -C batman-adv checkout "${LM_MASTER}"
+git -C batman-adv merge --ff-only "origin/${LM_MASTER}"
 </pre>
 
 h2. get the newest patches
 
-h3. from next
+h3. from master
 
 <pre>
 cd batman-adv
-git checkout -B rebase --no-track origin/next
-GIT_SEQUENCE_EDITOR="sh -c 'git rev-list --reverse --no-merges '\\''${LM_NEXT}..origin/next'\\'' --not origin/maint|awk '\\''{ print \"pick \"\$1}'\\'' > \$1' \$@" \
- git rebase -i origin/maint --onto "${LM_NEXT}" --no-ff
+git checkout -B rebase --no-track origin/master
+GIT_SEQUENCE_EDITOR="sh -c 'git rev-list --reverse --no-merges '\\''${LM_MASTER}..origin/master'\\'' --not origin/maint|awk '\\''{ print \"pick \"\$1}'\\'' > \$1' \$@" \
+ git rebase -i origin/maint --onto "${LM_MASTER}" --no-ff
 </pre>
 
 This patches have to be cleaned up. First these these changes have to be squashed so that "Fixes: " patches are squashed together with the patches which introduced the problem (when they exist). Also compat code has to be removed. Both things can be identified with git log:
@@ -113,19 +120,19 @@ This patches have to be cleaned up. First these these changes have to be squashe
 Patches with "Fixes: " lines:
 
 <pre>
-git log --grep='^Fixes: ' "${LM_NEXT}"..rebase
+git log --grep='^Fixes: ' "${LM_MASTER}"..rebase
 </pre>
 
 The extra stuff which should not be submitted can be identified via:
 
 <pre>
-git log --stat --oneline "${LM_NEXT}"..rebase -- compat-sources compat-include README.external CHANGELOG Makefile .gitignore .gitattributes compat.h gen-compat-autoconf.sh README
+git log --stat --oneline "${LM_MASTER}"..rebase -- compat-sources compat-include README.external CHANGELOG Makefile .gitignore .gitattributes compat.h gen-compat-autoconf.sh README
 </pre>
 
 This can all be cleaned up by using git-rebase and then marking the relevant commits for editing. It may also be a good idea to move patches like "Start-new-development-cycle" to the front
 
 <pre>
-git rebase -i "${LM_NEXT}"
+git rebase -i "${LM_MASTER}"
 
 # edit the commit message to point to the correct upstream commit -- just search in linux-merge for the commit name
 git commit --amend
@@ -143,23 +150,23 @@ git rebase --continue
 It is a good idea to check again if some file was missed. It is also a good idea to manually check the commit messages for other commit references:
 
 <pre>
-git log --stat "${LM_NEXT}"..rebase
+git log --stat "${LM_MASTER}"..rebase
 </pre>
 
 If everything looks good then these patches should be formatted (make sure that you don't have some old patches in the directory). The branch of already prepared patches has to be updated
 
 <pre>
-git format-patch -s "${LM_NEXT}"..rebase
-git checkout "${LM_NEXT}"
-git merge --ff-only origin/next
-git push origin "${LM_NEXT}"
+git format-patch -s "${LM_MASTER}"..rebase
+git checkout "${LM_MASTER}"
+git merge --ff-only origin/master
+git push origin "${LM_MASTER}"
 </pre>
 
-Save the generated patches to a save place. Lets call this place $EXPORTED_PATCHES_NEXT
+Save the generated patches to a save place. Lets call this place $EXPORTED_PATCHES_MASTER
 
 h3. from maint
 
-Make sure that ${LM_NEXT} was updated after a release correctly and ${LM_NEXT}..origin/maint is containing patches which were send to net-next
+Make sure that ${LM_MASTER} was updated after a release correctly and ${LM_MASTER}..origin/maint is containing patches which were send to net-next
 
 The rest of the rebase process works similar to the next process
 
@@ -220,7 +227,7 @@ Save the generated patches to a save place. Lets call this place $EXPORTED_PATCH
 
 h2. Apply patches on linux-merge
 
-h3. from next
+h3. from master
 
 The patches were already exported. So they only have to be applied in the correct branch
 
@@ -228,8 +235,8 @@ The patches were already exported. So they only have to be applied in the correc
 cd linux-merge
 git checkout batadv/net-next
 git merge --ff-only origin/batadv/net-next
-./scripts/checkpatch --strict "${EXPORTED_PATCHES_NEXT}"/*.patch
-git am -s "${EXPORTED_PATCHES_NEXT}"/*.patch
+./scripts/checkpatch --strict "${EXPORTED_PATCHES_MASTER}"/*.patch
+git am -s "${EXPORTED_PATCHES_MASTER}"/*.patch
 git push origin batadv/net-next
 </pre>
 
