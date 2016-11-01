@@ -14,7 +14,7 @@ git clone https://git.open-mesh.org/batman-adv.git batman-adv
 There is also a repository for kernel integration. You are about to download 300MB of sources - that may take a while!
 
 <pre>
-git clone https://git.open-mesh.org/linux-merge.git
+git clone https://git.open-mesh.org/linux-merge.git -b batadv/net-next
 </pre>
 
 h2. Branches
