@@ -370,9 +370,10 @@ git push origin batadv-next-for-davem-20160701
 The patches then have to be prepared and the cover letter has to be created for the pull request. For net-next it would look like:
 
 <pre>
-git format-patch --cover-letter base/net-next..batadv-net-for-davem-20160701
+TAG=batadv-next-for-davem-20160701
+git format-patch --cover-letter base/net-next..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
-git request-pull base/net-next git://git.open-mesh.org/linux-merge.git batadv-net-for-davem-20160701 >> 0000-cover-letter.patch
+git request-pull base/net-next git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
 git send-email --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
@@ -380,9 +381,10 @@ git send-email --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m
 or for net:
 
 <pre>
-git format-patch --cover-letter base/net..batadv-net-for-davem-20160701
+TAG=batadv-net-for-davem-20160701
+git format-patch --cover-letter base/net..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
-git request-pull base/net-next git://git.open-mesh.org/linux-merge.git batadv-net-for-davem-20160701 >> 0000-cover-letter.patch
+git request-pull base/net git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
 git send-email --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
