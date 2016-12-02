@@ -362,9 +362,10 @@ A good commit in has to be chosen. We should not send more than 20 patches for n
 Lets assume a good commit is 4e3e823b5a503235630921287f130e1d8d22d200
 
 <pre>
-git tag -s batadv-next-for-davem-20160701 4e3e823b5a503235630921287f130e1d8d22d200
+TAG=batadv-next-for-davem-20160701
+git tag -s ${TAG} 4e3e823b5a503235630921287f130e1d8d22d200
 # write a good commit message
-git push origin batadv-next-for-davem-20160701
+git push origin ${TAG}
 </pre>
 
 The patches then have to be prepared and the cover letter has to be created for the pull request. For net-next it would look like:
