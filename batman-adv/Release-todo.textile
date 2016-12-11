@@ -30,24 +30,24 @@ h2. Code
 * [x] check against kernel versions
 * [x] check that maint branch is merged in master
 * [x] check for "open patches on the ml":https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/
-* [x] git tag release
+* [ ] git tag release
 
 h2. Release
 
-* [x] build package tar.gz and generate checksums
-* [x] move packages/checksums to stable/sources / create symlinks from releases
-* [x] update download links in the redmine downloads page
+* [ ] build package tar.gz and generate checksums
+* [ ] move packages/checksums to stable/sources / create symlinks from releases
+* [ ] update download links in the redmine downloads page
 * [ ] send release mail
-* [x] update IRC channel topic
+* [ ] update IRC channel topic
 
 h2. Distributions
 
-* [x] update alfred openwrt package
-* [x] update batman-adv/batctl openwrt package
+* [ ] update alfred openwrt package
+* [ ] update batman-adv/batctl openwrt package
 * [ ] update gentoo package
-* [x] update debian batctl package
+* [ ] update debian batctl package
 
 h2. Aftershow
 
-* [x] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
+* [ ] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
 * [ ] Mark issues from "Resolved to Closed":https://www.open-mesh.org/projects/batman-adv/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=%3D&v%5Bstatus_id%5D%5B%5D=3
