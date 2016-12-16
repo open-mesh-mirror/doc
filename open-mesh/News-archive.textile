@@ -5,6 +5,7 @@ This page contains the links to previous news posts for archiving purposes.
 
 h3. 2016
 
+* *15.Dec 2016* [[2016-12-15-batman-adv-2016-5-release|Batman-adv 2016.5 released]]
 * *27.Oct 2016* [[2016-10-27-batman-adv-2016-4-release|Batman-adv 2016.4 released]]
 * *01.Sep 2016* [[2016-09-01-batman-adv-2016-3-release|Batman-adv 2016.3 released]]
 * *21.Apr 2016* [[2016-04-21-batman-adv-2016-1-release|Batman-adv 2016.1 released]]
