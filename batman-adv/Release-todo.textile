@@ -36,7 +36,7 @@ h2. Release
 
 * [ ] build package tar.gz and generate checksums
 * [ ] move packages/checksums to stable/sources / create symlinks from releases
-* [ ] update download links in the redmine downloads page
+* [ ] update download links in the [[open-mesh:Download|redmine downloads page]]
 * [ ] Link release news on [[open-mesh:|News]] and [[open-mesh:News-archive]]
 * [ ] send release mail
 * [ ] update IRC channel topic
