@@ -13,8 +13,8 @@ h2. News
 * *15.Dec 2016* [[2016-12-15-batman-adv-2016-5-release|Batman-adv 2016.5 released]]
 * *27.Oct 2016* [[2016-10-27-batman-adv-2016-4-release|Batman-adv 2016.4 released]]
 * *01.Sep 2016* [[2016-09-01-batman-adv-2016-3-release|Batman-adv 2016.3 released]]
+* *09.Jun 2016* [[2016-06-09-batman-adv-2016-2-release|Batman-adv 2016.2 released]]
 * *21.Apr 2016* [[2016-04-21-batman-adv-2016-1-release|Batman-adv 2016.1 released]]
-* *02.Feb 2016* [[2016-02-01_the_batman_project_endorses_the_battle_of_the_mesh_v9|The B.A.T.M.A.N. project endorses the Battle of the Mesh v9]]
 
 * [[news-archive|news archive]]
 
