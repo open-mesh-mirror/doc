@@ -56,7 +56,7 @@ chmod 755 /tmp/logserver.sh
 
 The script above is far from perfect, it takes some minutes after the rc.local file is finally started. Suggestions welcome.
 
-h3. prepare a directory for your operations
+h3. prepare a work directory for your operations
 
 $mkdir qemu_work
 $cd qemu_work
