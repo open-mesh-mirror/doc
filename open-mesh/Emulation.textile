@@ -106,7 +106,7 @@ You can find the patch against vde2-2.3.1 (current latest stable version) to add
 
 h3. wirefilter
 
-
+you can get some help in http://manpages.ubuntu.com/manpages/trusty/man1/wirefilter.1.html
 wirefilter is a tool where you can simulate various link defects and limits: 
 
 * packet loss
