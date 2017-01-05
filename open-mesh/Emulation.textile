@@ -2,12 +2,12 @@ h1. Emulation Setup
 
 To give an answer to the often asked question "How to test/evaluate/debug mesh network protocols?", this document explains a virtual machine setup which can be used to test batman-adv in a controlled environment. The idea is to use "QEMU":http://www.qemu.org/ or "KVM":http://www.linux-kvm.org (instead of pure simulation systems like "NS-2":http://www.isi.edu/nsnam/ns/) to run an unmodified Linux system with the unmodified source code as it is used in real world setups. Besides B.A.T.M.A.N., you could evaluate any routing protocol.
 
-
 h2. Architecture
 
 The test stack consists of the following components:
 
 * "OpenWrt":https://openwrt.org/, kamikaze trunk version for x86 with minimal modifications (see below)
+    you can also use chaos_calmer master version for x86, I think this version is better than kamikaze.
 * one (unmodified) "QEMU":http://www.qemu.org/ instance per host (KVM or any other virtual machine)
 * one (modified, see below) "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking per instance. You need multiple instances to allow interconnection with wirefilter.
 * one (unmodified) "wirefilter":http://wiki.virtualsquare.org/wiki/index.php/VDE#wirefilter per link between hosts.
@@ -32,6 +32,15 @@ ip link set up dev eth1
 ip link set down dev br-lan
 ip link del dev br-lan
 
+
+# setup batman, this step should be done before set up log server, otherwise it'll can't find log file
+ip link set up dev eth0
+echo "" > /proc/net/batman-adv/interfaces
+echo eth0 > /proc/net/batman-adv/interfaces
+echo 15 > /proc/net/batman-adv/log_level
+ip addr add 192.168.0.${NUM}/24 dev bat0
+ip link set up dev bat0
+
 # set up log server
 
 cat << EOF > /tmp/logserver.sh
@@ -43,13 +52,6 @@ EOF
 chmod 755 /tmp/logserver.sh
 /tmp/logserver.sh&
 
-# setup batman
-ip link set up dev eth0
-echo "" > /proc/net/batman-adv/interfaces
-echo eth0 > /proc/net/batman-adv/interfaces
-echo 15 > /proc/net/batman-adv/log_level
-ip addr add 192.168.0.${NUM}/24 dev bat0
-ip link set up dev bat0
 </pre>
 
 The script above is far from perfect, it takes some minutes after the rc.local file is finally started. Suggestions welcome.
@@ -106,7 +108,6 @@ wirefilter --ether 0x4305:02 -l 50
 
 You can specify up to 10 packet types (separated by colon). The patch against vde2-2.3.1 (current latest stable version) can be found here:
 * attachment:vde2-2.3.1-wirefilter-ethertype.patch
-
 
 h2. Scripts
 
