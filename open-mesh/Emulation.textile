@@ -81,7 +81,7 @@ $ sudo make install
 
 h3. download and cp colourful.rc
 
-$cp colourful.rc qemu/
+$cp colourful.rc qemu_work
 
 h3. vde_switch
 
