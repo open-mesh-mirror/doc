@@ -205,7 +205,11 @@ wirefilter --daemon -v num4.ctl:num6.ctl -l 60
 wirefilter --daemon -v num6.ctl:num8.ctl -l 60
 </pre>
 
+h3. about IMAGE variable
+
 create this script in the "qemu_work" directory that you have created before.
+when you use openwrt chaos_calmer version, you should use openwrt-x86-generic-combined-ext4.img.
+
 The script is using the switch configuration file "colourful.rc". It creates the ports (create more if your topology demands this) and sets the host port (port no. 1) colour to 1. Put the following text in this file:
 
 <pre>
