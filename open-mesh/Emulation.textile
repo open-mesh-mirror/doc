@@ -205,6 +205,7 @@ wirefilter --daemon -v num4.ctl:num6.ctl -l 60
 wirefilter --daemon -v num6.ctl:num8.ctl -l 60
 </pre>
 
+create this script in the "qemu_work" directory that you have created before.
 The script is using the switch configuration file "colourful.rc". It creates the ports (create more if your topology demands this) and sets the host port (port no. 1) colour to 1. Put the following text in this file:
 
 <pre>
