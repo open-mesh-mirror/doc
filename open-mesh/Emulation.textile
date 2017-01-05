@@ -56,9 +56,36 @@ chmod 755 /tmp/logserver.sh
 
 The script above is far from perfect, it takes some minutes after the rc.local file is finally started. Suggestions welcome.
 
+h3. prepare a directory for your operations
+
+$mkdir qemu
+$cd qemu
+
+h3. vde setup
+
+download vde2.3.1 at http://vde-virtual-distributed-ethernet.soft112.com/download.html
+download vde colour patch at https://www.open-mesh.org/attachments/download/18/vde2-2.3.1_colour.patch
+
+h3. patch the "vde2-2.3.1_colour.patch" for vde.
+
+$ cd vde-2.3.1
+$ cp vde2-2.3.1_colour.patch .
+$ patch -p1 < vde2-2.3.1_colour.patch
+
+h3. compile and install vde
+
+$ cd vde-2.3.1
+$ ./configure
+$ make
+$ sudo make install
+
+h3. download and cp colourful.rc
+
+$cp colourful.rc qemu/
 
 h3. vde_switch
 
+you can get some help for vde_switch parameters detail information in http://www.linuxhowtos.org/manpages/1/vde_switch.htm
 The main advantage of "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking over "uml_switch":http://user-mode-linux.sourceforge.net/old/networking.html is that any clients can be attached to this virtual switch: QEMU, KVM, UML, tap interfaces, virtual interconnections, and not just UML instances.
 
 If the vde_switches were just connected with wirefilter "patch cables" without modification, we would end up creating a broadcast domain and switch loops which we don't want: The goal is to allow the packets to travel only from one host to it's neighbor, not farther.
@@ -76,7 +103,6 @@ In this concept, the host port can have colour 1 while the interconnection ports
 You can find the patch against vde2-2.3.1 (current latest stable version) to add this colour patch here:
 
 * attachment:vde2-2.3.1_colour.patch
-
 
 h3. wirefilter
 
