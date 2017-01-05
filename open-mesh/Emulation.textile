@@ -58,8 +58,8 @@ The script above is far from perfect, it takes some minutes after the rc.local f
 
 h3. prepare a directory for your operations
 
-$mkdir qemu
-$cd qemu
+$mkdir qemu_work
+$cd qemu_work
 
 h3. vde setup
 
