@@ -179,7 +179,7 @@ done
 for i in $(seq 1 9);
 do
     cp ${IMAGE} num${i}.image
-    screen ${SUDO} ${QEMU} \
+    screen -dmS num${i} ${QEMU} \
         -no-acpi -m 32M \
         -net vde,sock=num${i}.ctl,port=1 -net nic,macaddr=fe:fe:00:00:$(printf %02x $i):01 \
         -net nic -net tap,ifname=tapwrt${i},script=no,downscript=no \
