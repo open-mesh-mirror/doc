@@ -214,6 +214,15 @@ when you use openwrt chaos_calmer version, you should use openwrt-x86-generic-co
 
 The script is using the switch configuration file "colourful.rc". It creates the ports (create more if your topology demands this) and sets the host port (port no. 1) colour to 1. Put the following text in this file:
 
+h3. About screen command
+
+<pre>
+#show all screen instances
+$screen -ls
+
+#you can login a specific openwrt system with following command
+$screen -r num1          #(num1~num9)
+</pre>
 <pre>
 port/setcolourful 1
 port/create 1
