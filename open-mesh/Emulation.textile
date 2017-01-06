@@ -135,6 +135,8 @@ wirefilter --ether 0x4305:02 -l 50
 You can specify up to 10 packet types (separated by colon). The patch against vde2-2.3.1 (current latest stable version) can be found here:
 * attachment:vde2-2.3.1-wirefilter-ethertype.patch
 
+copy openwrt-x86-generic-combined-ext4.img to your qemu_work directory.
+
 h2. Scripts
 
 
@@ -149,9 +151,9 @@ The script does:
 
 <pre>
 #!/bin/sh
-QEMU=$(which qemu)
-VDESWITCH=~/src/vde2-2.2.3/src/vde_switch/vde_switch
-IMAGE=~/src/openwrt2/kamikaze/bin/openwrt-x86-jffs2-128k.image
+QEMU=qemu-system-x86
+VDESWITCH=vde_switch
+IMAGE=openwrt-x86-generic-combined-ext4.img
 
 if [ "$TERM" != "screen" ];
 then
