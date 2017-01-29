@@ -61,8 +61,8 @@ $cd qemu_work
 
 h3. vde setup
 
-download vde2.3.1: http://vde-virtual-distributed-ethernet.soft112.com/download.html
-download vde colour patch:  attachment:vde2-2.3.1_colour.patch
+Download vde2.3.1: https://sourceforge.net/projects/vde/files/vde2/
+Download vde colour patch:  attachment:vde2-2.3.1_colour.patch
 
 h3. patch the "vde2-2.3.1_colour.patch" for vde.
 
