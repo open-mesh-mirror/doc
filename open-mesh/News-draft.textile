@@ -1,8 +1,8 @@
-h1. 2017-02-15-batman-adv-2017-0-releaseh1. Batman-adv 2017.0 released
+h1. Batman-adv 2017.0 released
 
 *draft*
 
-Feb 15th, 2017. Today the B.A.T.M.A.N. team publishes the December 2017 update to batman-adv, batctl and alfred! This release improves the support of systems without debugfs and starts to replace the use of the sysfs files for interface manipulation with rtnetlink. batman-adv can automatically detect some setups which don't require (re)broadcasts on specific interfaces. The support of the multicast optimization under B.A.T.M.A.N. V was improved and the throughput detection now works for VLANs on top of WiFi interfaces. Also several bugfixes, code cleanups and code documentation updates are included in this version.
+Feb 15th, 2017. Today the B.A.T.M.A.N. team publishes the February 2017 update to batman-adv, batctl and alfred! This release improves *TODO the support of systems without debugfs and starts to replace the use of the sysfs files for interface manipulation with rtnetlink. batman-adv can automatically detect some setups which don't require (re)broadcasts on specific interfaces. The support of the multicast optimization under B.A.T.M.A.N. V was improved and the throughput detection now works for VLANs on top of WiFi interfaces.* Also several bugfixes, code cleanups and code documentation updates are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
