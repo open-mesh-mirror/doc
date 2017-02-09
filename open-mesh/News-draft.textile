@@ -14,7 +14,12 @@ h2. Thanks
 
 Thanks to all people sending in patches:
 
- * 
+* Gao Feng <gfree.wind@gmail.com>
+* Jonathan Haws <jhaws@sdl.usu.edu>
+* Linus Lüssing <linus.luessing@c0d3.blue>
+* Simon Wunderlich <sw@simonwunderlich.de>
+* Sven Eckelmann <sven@narfation.org>
+* Tobias Klauser <tklauser@distanz.ch>
 
 h2. batman-adv
 
