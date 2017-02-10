@@ -28,43 +28,17 @@ $ git describe origin/master
 v2016.5-17-g61bbb9a9
 $ git shortlog --email --no-merges v2016.5..v2016.5-17-g61bbb9a9
 
-Gao Feng <gfree.wind@gmail.com> (2):
-      batman-adv: Treat NET_XMIT_CN as transmit successfully
-      batman-adv: Remove one condition check in batadv_route_unicast_packet
-
-Linus Lüssing <linus.luessing@c0d3.blue> (5):
-      batman-adv: compat: workaround for issues with make-kpkg for 4.5 kernels
-      batman-adv: compat: fix warning in hard-interface.c for < 4.0
-      batman-adv: compat: fix compile error for cfg80211_get_station on v3.15
-      batman-adv: compat: add missing includes for compat skbuff.c
-      batman-adv: restructure cfg80211 compat code
-
-Simon Wunderlich <simon.wunderlich@open-mesh.com> (1):
-      batman-adv: don't add loop detect macs to TT
-
-Simon Wunderlich <sw@simonwunderlich.de> (1):
-      batman-adv: Start new development cycle
-
-Sven Eckelmann <sven@narfation.org> (6):
-      batman-adv: update copyright years for 2017
-      batman-adv: Decrease hardif refcnt on fragmentation send error
-      batman-adv: Remove unused variable in batadv_tt_local_set_flags
-      batman-adv: Simplify handling of NET_XMIT_CN
-      batman-adv: Fix double call of dev_queue_xmit
-      batman-adv: Fix includes for IS_ERR/ERR_PTR
-
-Tobias Klauser <tklauser@distanz.ch> (1):
-      batman-adv: Remove usage of net_device last_rx member
-
-
 
 4.11 support
 ============
 
+      batman-adv: Remove usage of net_device last_rx member
 
 Feature
 =======
 
+      batman-adv: don't add loop detect macs to TT
+      batman-adv: Treat NET_XMIT_CN as transmit successfully
 
 
 
@@ -75,13 +49,26 @@ Fix
 misc
 ----
 
+      batman-adv: Decrease hardif refcnt on fragmentation send error
+      batman-adv: compat: add missing includes for compat skbuff.c
+
 Cleanup
 =======
 
 refactor/coding style
 --------
 
+      batman-adv: Remove one condition check in batadv_route_unicast_packet
+      batman-adv: Remove unused variable in batadv_tt_local_set_flags
+      batman-adv: Fix includes for IS_ERR/ERR_PTR
 
+compat
+------
+
+      batman-adv: compat: workaround for issues with make-kpkg for 4.5 kernels
+      batman-adv: compat: fix warning in hard-interface.c for < 4.0
+      batman-adv: compat: fix compile error for cfg80211_get_station on v3.15
+      batman-adv: restructure cfg80211 compat code
 
 documentation
 -------------
@@ -106,11 +93,8 @@ $ git describe origin/master
 v2016.5-15-g515cf78
 $ git shortlog --email --no-merges v2016.5..v2016.5-15-g515cf78
 
-Simon Wunderlich <sw@simonwunderlich.de> (1):
-      batctl: Start new development cycle
 
 Sven Eckelmann <sven@narfation.org> (14):
-      batctl: update copyright years for 2017
       batctl: tcpdump: Reset socket state on initialization error
       batctl: tcpdump: Free resources on SIG(TERM|INT)
       batctl: ping: Use sig_atomic_t variable to stop ping
@@ -144,13 +128,6 @@ $ git shortlog --email --no-merges v2016.5..v2016.5-5-g26ef92b
 Jonathan Haws <jhaws@sdl.usu.edu> (2):
       alfred: IPv4 multicast distribution support.
       alfred: fix style for sync-period casts
-
-Simon Wunderlich <sw@simonwunderlich.de> (1):
-      alfred: Start new development cycle
-
-Sven Eckelmann <sven@narfation.org> (2):
-      alfred: update copyright years for 2017
-      alfred: Avoid buffer overflow while querying ARP cache
 
 
 
