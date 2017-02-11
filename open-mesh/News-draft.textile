@@ -77,11 +77,17 @@ documentation
 batman-adv 2017.0
 
  * support latest kernels (3.2 - 4.11)
+ * remove bridge loop avoidance addresses from translation table
+ * allow to build B.A.T.M.A.N. V without cfg80211 integration on Linux < 3.16
+ * avoid propagation of congestion notifications as transmission errors
  * coding style cleanups and refactoring
  * bugs squashed:
+   - fix interface reference counter on fragmentation errors
+   - fix build of multicast compatibility code on some architectures
 
  -- Wed, 15 Feb 2017 18:11:55 +0100
 
+TODO: remove NET_XMIT_CN part "avoid propagation of congestion notifications" ?
 
 </pre>
 
