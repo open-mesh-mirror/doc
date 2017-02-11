@@ -85,7 +85,6 @@ batman-adv 2017.0
 
 </pre>
 
-
 h2. batctl
 
 <pre>
@@ -109,10 +108,12 @@ Sven Eckelmann <sven@narfation.org> (14):
       batctl: Allow to read sysfs settings as normal user
       batctl: Allow to read list of interfaces as normal user
 
-
 batctl 2017.0
 
+ * remove root check for  read-only sysfs and rtnl functioality
  * coding style cleanups
+ * bugs squashed:
+   - fix check for root priviliges when started under modified effective uid
 
  -- Wed, 15 Feb 2017 18:11:55 +0100
 </pre>
