@@ -2,7 +2,7 @@ h1. Batman-adv 2017.0 released
 
 *draft*
 
-Feb 15th, 2017. Today the B.A.T.M.A.N. team publishes the February 2017 update to batman-adv, batctl and alfred! This release improves *TODO the support of systems without debugfs and starts to replace the use of the sysfs files for interface manipulation with rtnetlink. batman-adv can automatically detect some setups which don't require (re)broadcasts on specific interfaces. The support of the multicast optimization under B.A.T.M.A.N. V was improved and the throughput detection now works for VLANs on top of WiFi interfaces.* Also several bugfixes, code cleanups and code documentation updates are included in this version.
+Feb 15th, 2017. Today the B.A.T.M.A.N. team publishes the February 2017 update to batman-adv, batctl and alfred! This release reduces the number of cases in which batctl depends on running with full root user privileges. Bridge loop avoidance addresses are removed from the translation table to lower its memory usage. The batman-adv compatibility code was optimized to better work with old kernel versions and to build B.A.T.M.A.N. V (without wifi throughput detection) on pre-3.16 kernels. alfred gained an experimental mode to support data synchronization over IPv4 instead of IPv6. Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -116,7 +116,7 @@ Sven Eckelmann <sven@narfation.org> (14):
 
 batctl 2017.0
 
- * remove root check for  read-only sysfs and rtnl functioality
+ * remove root check for read-only sysfs and rtnl functionality
  * coding style cleanups
  * bugs squashed:
    - fix check for root priviliges when started under modified effective uid
