@@ -51,4 +51,6 @@ h2. Distributions
 h2. Aftershow
 
 * [x] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
+* [x] close "current version":https://www.open-mesh.org/projects/batman-adv/settings/versions
+* [x] add "new upcoming version":https://www.open-mesh.org/projects/batman-adv/versions/new
 * [x] Mark issues from "Resolved to Closed":https://www.open-mesh.org/projects/batman-adv/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=%3D&v%5Bstatus_id%5D%5B%5D=3
