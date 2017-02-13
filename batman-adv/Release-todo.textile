@@ -16,28 +16,28 @@ h2. Release Scheduling
 
 h2. Documentation
 
-* [x] build changelog
-* [x] update README
-* [x] write release announcement
-* [x] update wiki documentation
+* [ ] build changelog
+* [ ] update README
+* [ ] [[open-mesh:News-draft|write release announcement]]
+* [ ] update wiki documentation
 
 h2. Code
 
-* [x] make sure all code contains the release version strings
-* [x] update copyright years (if needed)
-* [x] check coverity scan status
-* [x] remove dead code (if any)
-* [x] check against kernel versions
-* [x] check that maint branch is merged in master
-* [x] check for "open patches on the ml":https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/
-* [x] git tag release
+* [ ] make sure all code contains the release version strings
+* [ ] update copyright years (if needed)
+* [ ] check coverity scan status
+* [ ] remove dead code (if any)
+* [ ] check against kernel versions
+* [ ] check that maint branch is merged in master
+* [ ] check for "open patches on the ml":https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/
+* [ ] git tag release
 
 h2. Release
 
-* [x] build package tar.gz and generate checksums
-* [x move packages/checksums to stable/sources / create symlinks from releases
-* [x] update download links in the [[open-mesh:Download|redmine downloads page]]
-* [x] Link release news on [[open-mesh:|News]] and [[open-mesh:News-archive]]
+* [ ] build package tar.gz and generate checksums
+* [ ] move packages/checksums to stable/sources / create symlinks from releases
+* [ ] update download links in the [[open-mesh:Download|redmine downloads page]]
+* [ ] "Add news":/projects/open-mesh/news/new based on [[open-mesh:News-draft]]
 * [ ] send release mail
 * [ ] update IRC channel topic
 
@@ -50,7 +50,7 @@ h2. Distributions
 
 h2. Aftershow
 
-* [x] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
-* [x] close "current version":https://www.open-mesh.org/projects/batman-adv/settings/versions
-* [x] add "new upcoming version":https://www.open-mesh.org/projects/batman-adv/versions/new
-* [x] Mark issues from "Resolved to Closed":https://www.open-mesh.org/projects/batman-adv/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=%3D&v%5Bstatus_id%5D%5B%5D=3
+* [ ] Merge current git tag into maint (must be --ff-only or pre-tagging steps were done wrong - git merge --ff-only v20xx.x.x)
+* [ ] close "current version":https://www.open-mesh.org/projects/batman-adv/settings/versions
+* [ ] add "new upcoming version":https://www.open-mesh.org/projects/batman-adv/versions/new
+* [ ] Mark issues from "Resolved to Closed":https://www.open-mesh.org/projects/batman-adv/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=%3D&v%5Bstatus_id%5D%5B%5D=3
