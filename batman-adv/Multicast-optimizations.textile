@@ -42,7 +42,7 @@ Additionally, in bridged scenarios multicast packets are still flooded in the fo
 * If the IPv4 multicast destination is between 224.0.0.1 and 224.0.0.255.
 * If the IPv6 multicast destination is ff02::1.
 
-h2. How to activate the multicast optimizations?
+h2. How to deactivate the multicast optimizations?
 
 By default multicast optimizations are activated. You can force the old behaviour, classic flooding of all multicast frames, on a certain node via the following command, executed as root (here: bat0):
 
