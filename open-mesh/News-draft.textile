@@ -15,6 +15,7 @@ h2. Thanks
 Thanks to all people sending in patches:
 
 * Gao Feng <gfree.wind@gmail.com>
+* Jean Delvare<jdelvare@suse.de>
 * Jonathan Haws <jhaws@sdl.usu.edu>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
@@ -25,8 +26,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2016.5-17-g61bbb9a9
-$ git shortlog --email --no-merges v2016.5..v2016.5-17-g61bbb9a9
+v2016.5-21-g83a0016
+$ git shortlog --email --no-merges v2016.5..v2016.5-21-g83a0016
 
 
 4.11 support
@@ -51,6 +52,8 @@ misc
 
       batman-adv: Decrease hardif refcnt on fragmentation send error
       batman-adv: compat: add missing includes for compat skbuff.c
+      batman-adv: Fix double free during fragment merge error
+      batman-adv: Fix transmission of final, 16th fragment
 
 Cleanup
 =======
@@ -83,6 +86,8 @@ batman-adv 2017.0
  * coding style cleanups and refactoring
  * bugs squashed:
    - fix interface reference counter on fragmentation errors
+   - avoid double free on fragment merge error
+   - fix support for up to 16 fragments
    - fix build of multicast compatibility code on some architectures
 
  -- Wed, 15 Feb 2017 18:11:55 +0100
