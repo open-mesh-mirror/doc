@@ -1,8 +1,6 @@
-h1. Batman-adv 2017.0 released
+h1. DRAFT: Batman-adv 2017.0 released
 
-*draft*
-
-Feb 15th, 2017. Today the B.A.T.M.A.N. team publishes the February 2017 update to batman-adv, batctl and alfred! This release reduces the number of cases in which batctl depends on running with full root user privileges. Bridge loop avoidance addresses are removed from the translation table to lower its memory usage. The batman-adv compatibility code was optimized to better work with old kernel versions and to build B.A.T.M.A.N. V (without wifi throughput detection) on pre-3.16 kernels. alfred gained an experimental mode to support data synchronization over IPv4 instead of IPv6. Also several bugfixes and code cleanups are included in this version.
+Feb 28th, 2017. Today the B.A.T.M.A.N. team publishes the February 2017 update to batman-adv, batctl and alfred! This release reduces the number of cases in which batctl depends on running with full root user privileges. Bridge loop avoidance addresses are removed from the translation table to lower its memory usage. The batman-adv compatibility code was optimized to better work with old kernel versions and to build B.A.T.M.A.N. V (without wifi throughput detection) on pre-3.16 kernels. alfred gained an experimental mode to support data synchronization over IPv4 instead of IPv6. Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -24,133 +22,27 @@ Thanks to all people sending in patches:
 
 h2. batman-adv
 
-<pre>
-$ git describe origin/master
-v2016.5-21-g83a0016
-$ git shortlog --email --no-merges v2016.5..v2016.5-21-g83a0016
-
-
-4.11 support
-============
-
-      batman-adv: Remove usage of net_device last_rx member
-
-Feature
-=======
-
-      batman-adv: don't add loop detect macs to TT
-      batman-adv: Treat NET_XMIT_CN as transmit successfully
-
-
-
-
-Fix
-===
-
-misc
-----
-
-      batman-adv: Decrease hardif refcnt on fragmentation send error
-      batman-adv: compat: add missing includes for compat skbuff.c
-      batman-adv: Fix double free during fragment merge error
-      batman-adv: Fix transmission of final, 16th fragment
-
-Cleanup
-=======
-
-refactor/coding style
---------
-
-      batman-adv: Remove one condition check in batadv_route_unicast_packet
-      batman-adv: Remove unused variable in batadv_tt_local_set_flags
-      batman-adv: Fix includes for IS_ERR/ERR_PTR
-
-compat
-------
-
-      batman-adv: compat: workaround for issues with make-kpkg for 4.5 kernels
-      batman-adv: compat: fix warning in hard-interface.c for < 4.0
-      batman-adv: compat: fix compile error for cfg80211_get_station on v3.15
-      batman-adv: restructure cfg80211 compat code
-
-documentation
--------------
-
-
-batman-adv 2017.0
-
- * support latest kernels (3.2 - 4.11)
- * remove bridge loop avoidance addresses from translation table
- * allow to build B.A.T.M.A.N. V without cfg80211 integration on Linux < 3.16
- * avoid propagation of congestion notifications as transmission errors
- * coding style cleanups and refactoring
- * bugs squashed:
-   - fix interface reference counter on fragmentation errors
-   - avoid double free on fragment merge error
-   - fix support for up to 16 fragments
-   - fix build of multicast compatibility code on some architectures
-
- -- Wed, 15 Feb 2017 18:11:55 +0100
-
-TODO: remove NET_XMIT_CN part "avoid propagation of congestion notifications" ?
-
-</pre>
+* support latest kernels (3.2 - 4.11)
+* remove bridge loop avoidance addresses from translation table
+* allow to build B.A.T.M.A.N. V without cfg80211 integration on Linux < 3.16
+* coding style cleanups and refactoring
+* bugs squashed:
+* fix interface reference counter on fragmentation errors
+** avoid double free on fragment merge error
+** fix support for up to 16 fragments
+** fix build of multicast compatibility code on some architectures
 
 h2. batctl
 
-<pre>
-$ git describe origin/master
-v2016.5-15-g515cf78
-$ git shortlog --email --no-merges v2016.5..v2016.5-15-g515cf78
-
-
-Sven Eckelmann <sven@narfation.org> (14):
-      batctl: tcpdump: Reset socket state on initialization error
-      batctl: tcpdump: Free resources on SIG(TERM|INT)
-      batctl: ping: Use sig_atomic_t variable to stop ping
-      batctl: Simplify standard error messages with perror
-      batctl: Move root privileges check in separate function
-      batctl: Use geteuid for checks of root privileges
-      batctl: Return type of error on netlink_get_info error
-      batctl: Make root privileges check function specific
-      batctl: Allow to retrieve interface stats as non-root
-      batctl: Allow to read loglevel as normal user
-      batctl: Allow to read gw_mode as normal user
-      batctl: Allow to read sysfs settings as normal user
-      batctl: Allow to read list of interfaces as normal user
-
-batctl 2017.0
-
- * remove root check for read-only sysfs and rtnl functionality
- * coding style cleanups
- * bugs squashed:
-   - fix check for root priviliges when started under modified effective uid
-
- -- Wed, 15 Feb 2017 18:11:55 +0100
-</pre>
+* remove root check for read-only sysfs and rtnl functionality
+* coding style cleanups
+* bugs squashed:
+** fix check for root privileges when started under modified effective uid
 
 h2. alfred
 
-<pre>
-$ git describe origin/master
-v2016.5-5-g26ef92b
-$ git shortlog --email --no-merges v2016.5..v2016.5-5-g26ef92b
-
-Jonathan Haws <jhaws@sdl.usu.edu> (2):
-      alfred: IPv4 multicast distribution support.
-      alfred: fix style for sync-period casts
-
-
-
-
-alfred 2017.0:
-
- * support IPv4 multicast distribution 
- * coding style cleanups
-
- -- Wed, 15 Feb 2017 18:11:55 +0100
-</pre>
-
+* support IPv4 multicast distribution 
+* coding style cleanups
 
 Happy routing,
 
