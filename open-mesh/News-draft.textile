@@ -1,10 +1,10 @@
 h1. DRAFT: Batman-adv 2017.0 released
 
-Feb 28th, 2017. Today the B.A.T.M.A.N. team publishes the February 2017 update to batman-adv, batctl and alfred! This release reduces the number of cases in which batctl depends on running with full root user privileges. Bridge loop avoidance addresses are removed from the translation table to lower its memory usage. The batman-adv compatibility code was optimized to better work with old kernel versions and to build B.A.T.M.A.N. V (without wifi throughput detection) on pre-3.16 kernels. alfred gained an experimental mode to support data synchronization over IPv4 instead of IPv6. Also several bugfixes and code cleanups are included in this version.
+Mar10th, 2017. Today the B.A.T.M.A.N. team publishes a bugfix release for the 2017.0 version of batman-adv! An API breaking change was integrated quite late in the 4.11 merge window. This change broke the compilation of BATMAN_V against this version and required a change in the compatibility code of batman-adv.  Additionally, a minor fix for the initialization of the gateway selection class was integrated which solves a problem when BATMAN_V is compiled in but BATMAN_IV is enabled. Also the change to generate equally sized fragments was backported from master to avoid a fragment padding problem identified by Martin Weinelt and Matthias Schiffer.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2017.0/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2017.0.1/
 
 as well as prepackaged binaries in your distribution.
 
@@ -12,37 +12,16 @@ h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Gao Feng <gfree.wind@gmail.com>
-* Jean Delvare<jdelvare@suse.de>
-* Jonathan Haws <jhaws@sdl.usu.edu>
-* Linus Lüssing <linus.luessing@c0d3.blue>
-* Simon Wunderlich <sw@simonwunderlich.de>
+* Johannes Berg <johannes.berg@intel.com>
 * Sven Eckelmann <sven@narfation.org>
-* Tobias Klauser <tklauser@distanz.ch>
 
 h2. batman-adv
 
 * support latest kernels (3.2 - 4.11)
-* remove bridge loop avoidance addresses from translation table
-* allow to build B.A.T.M.A.N. V without cfg80211 integration on Linux < 3.16
-* coding style cleanups and refactoring
 * bugs squashed:
-* fix interface reference counter on fragmentation errors
-** avoid double free on fragment merge error
-** fix support for up to 16 fragments
-** fix build of multicast compatibility code on some architectures
-
-h2. batctl
-
-* remove root check for read-only sysfs and rtnl functionality
-* coding style cleanups
-* bugs squashed:
-** fix check for root privileges when started under modified effective uid
-
-h2. alfred
-
-* support IPv4 multicast distribution 
-* coding style cleanups
+** avoid API incompatibilities with new EWMA implementation
+** generate equally size fragments to reduce chance of padding or MTU problems
+** fix initialization of gateway sel class when BATMAN_V is compiled in
 
 Happy routing,
 
