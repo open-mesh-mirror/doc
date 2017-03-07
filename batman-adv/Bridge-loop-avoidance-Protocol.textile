@@ -173,6 +173,41 @@ The requesting backbone gateway will add all claims it receives through the CLAI
 
 While a request is in flight, the requesting backbone gateway will close down its soft-interface for broadcast to avoid loops in this period.
 
+
+h3. LOOP DETECT frame
+
+<pre>
+ 0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Ethernet DST: FF:FF:FF:FF:FF:FF                            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Ethernet DST (cont)        |  Ethernet Source: orig addr   |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Ethernet SRC (originator addr, cont)                       |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Ethernet type: 08 06       |  HW type: 00 01               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Protocol type: 08 00       |  HW size: 06  | Prot size: 04 |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Opcode: 02 = Reply         |  Sender HW addr: orig addr    |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Sender HW addr: originator addr (cont)                     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Sender IP: 0.0.0.0                                         |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Target HW addr: FF:43:05:05:XX:XX                          |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Target HW addr (cont)      | Target IP: 0.0.0.0            |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Target IP: 0.0.0.0 (cont)  | 
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</pre>
+
+A LOOP DETECT frame is sent every 60 seconds to detect loop scenarios which can't be avoided by BLA-II (see [[Bridge-loop-avoidance-II#Limitations]]).
+
+The Ethernet source MAC address has the first two octets set to BA:BE,  and the following octets are randomized and changed with every sent packet. The packet will be sent to LAN first, and in contrast to other packet types, other nodes will be forwarded into the mesh. If a LOOP DETECT packet is received from the mesh (which is only processed if the sending originator is not in the same BLA group), and the randomized Ethernet Source MAC matches the own one, an event is thrown. This can be handled by userspace to react to the loop scenario, e.g. by disabling interfaces.
+
 h3. group forming
 
 Within the "Target HW address", the last 2 bytes XX:XX are used for as a local group identifier.
