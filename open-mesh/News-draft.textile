@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2017.0.1 released
 
-Mar10th, 2017. Today the B.A.T.M.A.N. team publishes a bugfix release for the 2017.0 version of batman-adv! An API breaking change was integrated quite late in the 4.11 merge window. This change broke the compilation of BATMAN_V against this version and required a change in the compatibility code of batman-adv.  Additionally, a minor fix for the initialization of the gateway selection class was integrated which solves a problem when BATMAN_V is compiled in but BATMAN_IV is enabled. Also the change to generate equally sized fragments was backported from master to avoid a fragment padding problem identified by Martin Weinelt and Matthias Schiffer.
+Mar 10th, 2017. Today the B.A.T.M.A.N. team publishes a bugfix release for the 2017.0 version of batman-adv! An API breaking change was integrated quite late in the Linux 4.11 merge window. This change broke the compilation of BATMAN_V against this version and required a change in the compatibility code of batman-adv.  Additionally, a minor fix for the initialization of the gateway selection class was integrated which solves a problem when BATMAN_V is compiled in but BATMAN_IV is enabled. Also the change to generate equally sized fragments was backported from master to avoid a fragment padding problem identified by Martin Weinelt and Matthias Schiffer.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
