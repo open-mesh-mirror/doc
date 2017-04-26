@@ -54,7 +54,7 @@ h2. Protocol Documentation
 * [[Bridge-loop-avoidance-II]] - bridge loop avoidance to allow multiple gateways between LAN and mesh, redesigned
 * [[DistributedArpTable-technical|Distributed ARP Table]] - technical details regarding the inner working of the DAT mechanism
 * [[Fragmentation-technical|Fragmentation]] - technical details explaining the layer2 fragmentation
-* [[Basic-multicast-optimizations-tech|Multicast optimizations]] - technical details concerning the multicast optimizations
+* [[Multicast-optimizations-tech|Multicast optimizations]] - technical details concerning the multicast optimizations
 * [[NetworkCoding-technical|Network Coding]] - technical details regarding the network coding implementation
 * "Batman-adv multicast optimization (video)":https://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon [March 2011] 
 * "Bisect the batman-adv routing protocol (video)":https://downloads.open-mesh.org/batman/misc/wbmv4-bisect.avi - the bisect tool explained & demonstrated by Marek [March 2011] 
