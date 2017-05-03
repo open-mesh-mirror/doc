@@ -1,27 +1,100 @@
-h1. DRAFT: Batman-adv 2017.0.1 released
+h1. DRAFT: Batman-adv 2017.1 released
 
-Mar 10th, 2017. Today the B.A.T.M.A.N. team publishes a bugfix release for the 2017.0 version of batman-adv! An API breaking change was integrated quite late in the Linux 4.11 merge window. This change broke the compilation of BATMAN_V against this version and required a change in the compatibility code of batman-adv.  Additionally, a minor fix for the initialization of the gateway selection class was integrated which solves a problem when BATMAN_V is compiled in but BATMAN_IV is enabled. Also the change to generate equally sized fragments was backported from master to avoid a fragment padding problem identified by Martin Weinelt and Matthias Schiffer.
+May 15th, 2017. Today the B.A.T.M.A.N. team publishes the May 2017 update to batman-adv, batctl and alfred! This release XXXXXX. Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2017.0.1/
-
-as well as prepackaged binaries in your distribution.
+https://downloads.open-mesh.org/batman/releases/batman-adv-2017.1/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Johannes Berg <johannes.berg@intel.com>
+* Andreas Pape <APape@phoenixcontact.com>
+* Linus Lüssing <linus.luessing@c0d3.blue>
+* Matthias Schiffer <mschiffer@universe-factory.net>
 * Sven Eckelmann <sven@narfation.org>
+* Simon Wunderlich <sw@simonwunderlich.de>
+* Tobias Klauser <tklauser@distanz.ch>
 
 h2. batman-adv
 
-* support latest kernels (3.2 - 4.11)
-* bugs squashed:
-** avoid API incompatibilities with new EWMA implementation
-** generate equally size fragments to reduce chance of padding or MTU problems
-** fix initialization of gateway sel class when BATMAN_V is compiled in
+<pre>
+$ git describe origin/master
+v2017.0.1-23-gc2b207dd
+$ git shortlog --email --no-merges v2017.0.1..v2017.0.1-23-gc2b207dd
+
+
+Andreas Pape <APape@phoenixcontact.com> (5):
+      batman-adv: prevent multiple ARP replies sent by gateways if dat enabled
+      batman-adv: prevent duplication of ARP replies when DAT is used
+      batman-adv: drop unicast packets from other backbone gw
+      batman-adv: changed debug messages for easier bla debugging
+      batman-adv: handle race condition for claims between gateways
+
+Linus Lüssing <linus.luessing@c0d3.blue> (2):
+      batman-adv: privatize forw_packet skb assignment
+      batman-adv: restructure rebroadcast counter into forw_packet API
+
+Matthias Schiffer <mschiffer@universe-factory.net> (1):
+      batman-adv: decrease maximum fragment size
+
+Sven Eckelmann <sven@narfation.org> (11):
+      batman-adv: Remove preprocessor checks in multicast.c
+      batman-adv: Fix unbalanced braces around else statement
+      batman-adv: Fix possible side-effects in _batadv_dbg
+      batman-adv: Convert BATADV_PRINT_VID macro to function
+      batman-adv: Keep fragments equally sized
+      batman-adv: Re-add preprocessor check in batadv_mcast_mla_br_addr_cpy
+      batman-adv: Use __func__ to add function names to messages
+      batman-adv: Use ethtool helper to get link status
+      batman-adv: Remove ethtool msglevel functions
+      batman-adv: Remove ethtool .get_settings stub
+      batman-adv: Group ethtool related code together
+
+Tobias Klauser <tklauser@distanz.ch> (2):
+      batman-adv: Omit unnecessary memset of netdev private data
+      batman-adv: Use net_device_stats from struct net_device
+
+
+batman-adv 2017.1
+
+ * support latest kernels (3.2 - 4.12)
+ * coding style cleanups and refactoring
+ * bugs squashed:
+
+ -- Wed, 15 Feb 2017 18:11:55 +0100
+
+</pre>
+
+h2. batctl
+
+<pre>
+$ git describe origin/master
+v2017.0-1-g4cb312c
+$ git shortlog --email --no-merges v2017.0..v2017.0-1-g4cb312c
+
+
+
+batctl 2017.1
+
+ -- Wed, 15 Feb 2017 18:11:55 +0100
+</pre>
+
+h2. alfred
+
+<pre>
+$ git describe origin/master
+v2017.0-1-g4dc883c
+$ git shortlog --email --no-merges v2017.0..v2017.0-1-g4dc883c
+
+
+alfred 2017.1:
+
+
+ -- Wed, 15 Feb 2017 18:11:55 +0100
+</pre>
+
 
 Happy routing,
 
