@@ -12,7 +12,6 @@ Thanks to all people sending in patches:
 
 * Andreas Pape <APape@phoenixcontact.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
-* Matthias Schiffer <mschiffer@universe-factory.net>
 * Sven Eckelmann <sven@narfation.org>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Tobias Klauser <tklauser@distanz.ch>
