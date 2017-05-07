@@ -12,6 +12,7 @@ Thanks to all people sending in patches:
 
 * Andreas Pape <APape@phoenixcontact.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
+* Matthias Schiffer <mschiffer@universe-factory.net>
 * Sven Eckelmann <sven@narfation.org>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Tobias Klauser <tklauser@distanz.ch>
@@ -31,6 +32,10 @@ bla optimizations
       batman-adv: drop unicast packets from other backbone gw
       batman-adv: handle race condition for claims between gateways
 
+fragmentation optimization/fixes
+================================
+
+      batman-adv: decrease maximum fragment size
 
 
 coding style cleanup/refactoring
@@ -55,6 +60,7 @@ batman-adv 2017.1
 
  * support latest kernels (3.2 - 4.12)
  * bridge loop avoidance optimizations
+ * reduction of maximum fragment size
  * coding style cleanups and refactoring
 
  -- Wed, 15 Feb 2017 18:11:55 +0100
