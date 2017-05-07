@@ -32,11 +32,6 @@ bla optimizations
       batman-adv: drop unicast packets from other backbone gw
       batman-adv: handle race condition for claims between gateways
 
-fragmentation optimization/fixes
-================================
-
-      batman-adv: decrease maximum fragment size
-      batman-adv: Keep fragments equally sized
 
 
 coding style cleanup/refactoring
@@ -61,7 +56,6 @@ batman-adv 2017.1
 
  * support latest kernels (3.2 - 4.12)
  * bridge loop avoidance optimizations
- * improved fragmentation of large packets
  * coding style cleanups and refactoring
 
  -- Wed, 15 Feb 2017 18:11:55 +0100
