@@ -24,44 +24,45 @@ $ git describe origin/master
 v2017.0.1-23-gc2b207dd
 $ git shortlog --email --no-merges v2017.0.1..v2017.0.1-23-gc2b207dd
 
+bla optimizations
+=================
 
-Andreas Pape <APape@phoenixcontact.com> (5):
       batman-adv: prevent multiple ARP replies sent by gateways if dat enabled
       batman-adv: prevent duplication of ARP replies when DAT is used
       batman-adv: drop unicast packets from other backbone gw
-      batman-adv: changed debug messages for easier bla debugging
       batman-adv: handle race condition for claims between gateways
 
-Linus Lüssing <linus.luessing@c0d3.blue> (2):
-      batman-adv: privatize forw_packet skb assignment
-      batman-adv: restructure rebroadcast counter into forw_packet API
+fragmentation optimization/fixes
+================================
 
-Matthias Schiffer <mschiffer@universe-factory.net> (1):
       batman-adv: decrease maximum fragment size
+      batman-adv: Keep fragments equally sized
 
-Sven Eckelmann <sven@narfation.org> (11):
+
+coding style cleanup/refactoring
+================================
+
+      batman-adv: Omit unnecessary memset of netdev private data
+      batman-adv: Use net_device_stats from struct net_device
       batman-adv: Remove preprocessor checks in multicast.c
       batman-adv: Fix unbalanced braces around else statement
       batman-adv: Fix possible side-effects in _batadv_dbg
       batman-adv: Convert BATADV_PRINT_VID macro to function
-      batman-adv: Keep fragments equally sized
-      batman-adv: Re-add preprocessor check in batadv_mcast_mla_br_addr_cpy
       batman-adv: Use __func__ to add function names to messages
-      batman-adv: Use ethtool helper to get link status
       batman-adv: Remove ethtool msglevel functions
       batman-adv: Remove ethtool .get_settings stub
       batman-adv: Group ethtool related code together
-
-Tobias Klauser <tklauser@distanz.ch> (2):
-      batman-adv: Omit unnecessary memset of netdev private data
-      batman-adv: Use net_device_stats from struct net_device
-
+      batman-adv: changed debug messages for easier bla debugging
+      batman-adv: privatize forw_packet skb assignment
+      batman-adv: restructure rebroadcast counter into forw_packet API
+      batman-adv: Use ethtool helper to get link status
 
 batman-adv 2017.1
 
  * support latest kernels (3.2 - 4.12)
+ * bridge loop avoidance optimizations
+ * improved fragmentation of large packets
  * coding style cleanups and refactoring
- * bugs squashed:
 
  -- Wed, 15 Feb 2017 18:11:55 +0100
 
