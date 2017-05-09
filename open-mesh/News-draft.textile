@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2017.1 released
 
-May 15th, 2017. Today the B.A.T.M.A.N. team publishes the May 2017 update to batman-adv, batctl and alfred! This release XXXXXX. Also several bugfixes and code cleanups are included in this version.
+May 15th, 2017. Today the B.A.T.M.A.N. team publishes the May 2017 update to batman-adv, batctl and alfred! This release introduces some optimizations for bridge loop avoidance which especially avoid duplicated packets on an ethernet backbone when DAT is enabled. The maximum fragment size was reduced to the minimum allowed MTU for IPv6 to reduce the risk that an intermediate link cannot transport a fragment and has to drop it. Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
