@@ -62,6 +62,8 @@ batman-adv 2017.1
  * bridge loop avoidance optimizations
  * reduction of maximum fragment size
  * coding style cleanups and refactoring
+ * bugs squashed:
+   - fix rx packet/bytes stats on local DAT ARP reply
 
  -- Wed, 15 Feb 2017 18:11:55 +0100
 
