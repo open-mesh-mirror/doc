@@ -45,13 +45,11 @@ Markus Elfring <elfring@users.sourceforge.net> (2):
       batman-adv: Combine two seq_puts() calls into one call in batadv_nc_nodes_seq_print_text()
 
 Simon Wunderlich <sw@simonwunderlich.de> (3):
-      batman-adv: Start new development cycle
       batman-adv: do not add loop detection mac addresses to global tt
       batman-adv: simplify return handling in some TT functions
 
 Sven Eckelmann <sven@narfation.org> (5):
       batman-adv: Print correct function names in dbg messages
-      batman-adv: tp_meter: Add missing header for __init
       batman-adv: Use default throughput value on cfg80211 error
       batman-adv: Accept only filled wifi station info
       batman-adv: Remove variable deprecated by skb_put_data
@@ -82,9 +80,6 @@ Philipp Psurek <philipp.psurek@gmail.com> (2):
       batctl: change PATH_BUFF_LEN to maximal possible value
       batctl: suppress implicit-fallthrough compiler warning
 
-Simon Wunderlich <sw@simonwunderlich.de> (1):
-      batctl: Start new development cycle
-
 Sven Eckelmann <sven@narfation.org> (1):
       batctl: Fix error message when tcpdump packet send failed
 
@@ -101,21 +96,12 @@ $ git describe origin/master
 v2017.1-9-g50a8923
 $ git shortlog --email --no-merges v2017.1..v2017.1-9-g50a8923
 
-Simon Wunderlich <sw@simonwunderlich.de> (1):
-      alfred: Start new development cycle
-
 Sven Eckelmann <sven.eckelmann@openmesh.com> (5):
       alfred: Move alfred specific netlink code in separate file
       alfred: Only query tq of remote master in slave mode
       alfred: Check the TQ of master servers before pushing data
       alfred: Cache the TQ values for each originator
       alfred: Cache the global translation table entries
-
-Sven Eckelmann <sven@narfation.org> (3):
-      alfred: Check if tg hash was really initialized
-      alfred: Always initialize orig cache hash pointer
-      alfred: Always initialize translation cache hash pointer
-
 
 alfred 2017.2:
 
