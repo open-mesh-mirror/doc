@@ -26,39 +26,31 @@ $ git describe origin/master
 v2017.1-17-g6e94ef82
 $ git shortlog --email --no-merges v2017.1..v2017.1-17-g6e94ef82
 
-Antonio Quartulli <a@unstable.cc> (1):
-      batman-adv: tp_meter: mark init function with __init
+features?
+========
 
-David S. Miller <davem@davemloft.net> (1):
-      batman-adv: Fix inconsistent teardown and release of private netdev state.
-
-Joe Perches <joe@perches.com> (1):
-      batman-adv: Remove unnecessary length qualifier in %14pM
-
-Johannes Berg <johannes.berg@intel.com> (3):
-      batman-adv: convert many more places to skb_put_zero()
-      batman-adv: introduce and use skb_put_data()
-      batman-adv: make skb_put & friends return void pointers
-
-Markus Elfring <elfring@users.sourceforge.net> (2):
-      batman-adv: Replace a seq_puts() call by seq_putc() in two functions
-      batman-adv: Combine two seq_puts() calls into one call in batadv_nc_nodes_seq_print_text()
-
-Simon Wunderlich <sw@simonwunderlich.de> (3):
       batman-adv: do not add loop detection mac addresses to global tt
-      batman-adv: simplify return handling in some TT functions
 
-Sven Eckelmann <sven@narfation.org> (5):
-      batman-adv: Print correct function names in dbg messages
+
+bugfixes
+========
+
       batman-adv: Use default throughput value on cfg80211 error
       batman-adv: Accept only filled wifi station info
-      batman-adv: Remove variable deprecated by skb_put_data
-
-
 
 coding style cleanup/refactoring
 ================================
 
+      batman-adv: tp_meter: mark init function with __init
+      batman-adv: Fix inconsistent teardown and release of private netdev state.
+      batman-adv: Remove unnecessary length qualifier in %14pM
+      batman-adv: convert many more places to skb_put_zero()
+      batman-adv: introduce and use skb_put_data()
+      batman-adv: make skb_put & friends return void pointers
+      batman-adv: Replace a seq_puts() call by seq_putc() in two functions
+      batman-adv: Combine two seq_puts() calls into one call in batadv_nc_nodes_seq_print_text()
+      batman-adv: simplify return handling in some TT functions
+      batman-adv: Print correct function names in dbg messages
 
 batman-adv 2017.2
 
@@ -75,13 +67,16 @@ $ git describe origin/master
 v2017.1-4-g5fb3a49
 $ git shortlog --email --no-merges v2017.1..v2017.1-4-g5fb3a49
 
+bugfixes
+========
 
-Philipp Psurek <philipp.psurek@gmail.com> (2):
+      batctl: Fix error message when tcpdump packet send failed
+
+cleanup
+=======
+
       batctl: change PATH_BUFF_LEN to maximal possible value
       batctl: suppress implicit-fallthrough compiler warning
-
-Sven Eckelmann <sven@narfation.org> (1):
-      batctl: Fix error message when tcpdump packet send failed
 
 
 batctl 2017.2
@@ -96,12 +91,18 @@ $ git describe origin/master
 v2017.1-9-g50a8923
 $ git shortlog --email --no-merges v2017.1..v2017.1-9-g50a8923
 
-Sven Eckelmann <sven.eckelmann@openmesh.com> (5):
-      alfred: Move alfred specific netlink code in separate file
+features
+========
+
       alfred: Only query tq of remote master in slave mode
       alfred: Check the TQ of master servers before pushing data
       alfred: Cache the TQ values for each originator
       alfred: Cache the global translation table entries
+
+cleanup
+=======
+
+      alfred: Move alfred specific netlink code in separate file
 
 alfred 2017.2:
 
