@@ -1,30 +1,128 @@
-h1. DRAFT: Batman-adv 2017.1 released
+h1. DRAFT: Batman-adv 2017.2 released
 
-May 23th, 2017. Today the B.A.T.M.A.N. team publishes the May 2017 update to batman-adv, batctl and alfred! This release introduces some improvements for various corner cases of bridge loop avoidance. They especially avoid duplicated packets on an ethernet backbone when DAT is enabled. The maximum fragment size was reduced to the minimum allowed MTU for IPv6 to reduce the risk that an intermediate link cannot transport a fragment and has to drop it. Also minor bugfixes and code cleanups are included in this version.
+July 26th, 2017. Today the B.A.T.M.A.N. team publishes the July 2017 update to batman-adv, batctl and alfred! This release *TODO*
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2017.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2017.2/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Andreas Pape <APape@phoenixcontact.com>
-* Linus Lüssing <linus.luessing@c0d3.blue>
-* Matthias Schiffer <mschiffer@universe-factory.net>
-* Sven Eckelmann <sven@narfation.org>
+* Antonio Quartulli <a@unstable.cc>
+* David S. Miller <davem@davemloft.net>
+* Joe Perches <joe@perches.com>
+* Johannes Berg <johannes.berg@intel.com>
+* Markus Elfring <elfring@users.sourceforge.net>
+* Philipp Psurek <philipp.psurek@gmail.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
-* Tobias Klauser <tklauser@distanz.ch>
+* Sven Eckelmann <sven@narfation.org>
 
 h2. batman-adv
 
-* support latest kernels (3.2 - 4.12)
-* bridge loop avoidance improvements for various corner cases
-* reduction of maximum fragment size
-* coding style cleanups and refactoring
-* bugs squashed:
-** fix rx packet/bytes stats on local DAT ARP reply
+<pre>
+$ git describe origin/master
+v2017.1-17-g6e94ef82
+$ git shortlog --email --no-merges v2017.1..v2017.1-17-g6e94ef82
+
+Antonio Quartulli <a@unstable.cc> (1):
+      batman-adv: tp_meter: mark init function with __init
+
+David S. Miller <davem@davemloft.net> (1):
+      batman-adv: Fix inconsistent teardown and release of private netdev state.
+
+Joe Perches <joe@perches.com> (1):
+      batman-adv: Remove unnecessary length qualifier in %14pM
+
+Johannes Berg <johannes.berg@intel.com> (3):
+      batman-adv: convert many more places to skb_put_zero()
+      batman-adv: introduce and use skb_put_data()
+      batman-adv: make skb_put & friends return void pointers
+
+Markus Elfring <elfring@users.sourceforge.net> (2):
+      batman-adv: Replace a seq_puts() call by seq_putc() in two functions
+      batman-adv: Combine two seq_puts() calls into one call in batadv_nc_nodes_seq_print_text()
+
+Simon Wunderlich <sw@simonwunderlich.de> (3):
+      batman-adv: Start new development cycle
+      batman-adv: do not add loop detection mac addresses to global tt
+      batman-adv: simplify return handling in some TT functions
+
+Sven Eckelmann <sven@narfation.org> (5):
+      batman-adv: Print correct function names in dbg messages
+      batman-adv: tp_meter: Add missing header for __init
+      batman-adv: Use default throughput value on cfg80211 error
+      batman-adv: Accept only filled wifi station info
+      batman-adv: Remove variable deprecated by skb_put_data
+
+
+
+coding style cleanup/refactoring
+================================
+
+
+batman-adv 2017.2
+
+ * support latest kernels (3.2 - 4.13)
+
+ -- Wed, 26 Jul 2017 18:11:55 +0100
+
+</pre>
+
+h2. batctl
+
+<pre>
+$ git describe origin/master
+v2017.1-4-g5fb3a49
+$ git shortlog --email --no-merges v2017.1..v2017.1-4-g5fb3a49
+
+
+Philipp Psurek <philipp.psurek@gmail.com> (2):
+      batctl: change PATH_BUFF_LEN to maximal possible value
+      batctl: suppress implicit-fallthrough compiler warning
+
+Simon Wunderlich <sw@simonwunderlich.de> (1):
+      batctl: Start new development cycle
+
+Sven Eckelmann <sven@narfation.org> (1):
+      batctl: Fix error message when tcpdump packet send failed
+
+
+batctl 2017.2
+
+ -- Wed, 26 Jul 2017 18:11:55 +0100
+</pre>
+
+h2. alfred
+
+<pre>
+$ git describe origin/master
+v2017.1-9-g50a8923
+$ git shortlog --email --no-merges v2017.1..v2017.1-9-g50a8923
+
+Simon Wunderlich <sw@simonwunderlich.de> (1):
+      alfred: Start new development cycle
+
+Sven Eckelmann <sven.eckelmann@openmesh.com> (5):
+      alfred: Move alfred specific netlink code in separate file
+      alfred: Only query tq of remote master in slave mode
+      alfred: Check the TQ of master servers before pushing data
+      alfred: Cache the TQ values for each originator
+      alfred: Cache the global translation table entries
+
+Sven Eckelmann <sven@narfation.org> (3):
+      alfred: Check if tg hash was really initialized
+      alfred: Always initialize orig cache hash pointer
+      alfred: Always initialize translation cache hash pointer
+
+
+alfred 2017.2:
+
+
+ -- Wed, 26 Jul 2017 18:11:55 +0100
+</pre>
+
 
 Happy routing,
 
