@@ -1,15 +1,15 @@
-alfred
-======
+===============
+Getting Started
+===============
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-   Wiki
-   Alfred
-   gettingstarted
-   developerinformation
+   Building_information
+   Batadv-vis
+   Alfred-gpsd
 
 .. only::  subproject
 
