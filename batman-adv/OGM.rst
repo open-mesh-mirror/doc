@@ -1,3 +1,4 @@
+========================
 Originator Message (OGM)
 ========================
 
@@ -5,7 +6,7 @@ This page is work-in-progress and will state the BATMAN V algorithm
 later.
 
 1. Introduction
----------------
+===============
 
 The B.A.T.M.A.N. protocol originally only used a single message type
 (called OGM) to determine the link qualities to the direct neighbors and
@@ -32,7 +33,7 @@ This bears the following advantages from the OGM point of view:
 -  Easier to optimize the OGMs convergence speed.
 
 2. Definitions
---------------
+==============
 
 -  Node - A mesh router which utilizes the B.A.T.M.A.N. protocol as
    specified in this document on at least one network interface.
@@ -73,10 +74,10 @@ is linearly mapped to one byte, 0x00 representing a zero TQ, 0xFF a TQ
 of one.
 
 3. Conceptual Data Structures
------------------------------
+=============================
 
 3.1. Originator List
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 An originator list holds all addressable and to a certain degree
 reachable originators within the mesh network. The Originator Address
@@ -91,7 +92,7 @@ actual routing decisions upon incoming data packets.
    next hop to forward data packets to for the according originator.
 
 3.2 Router List
-~~~~~~~~~~~~~~~
+---------------
 
 A router list holds all potential routers, routers that might be
 switched to at any time without creating a routing loop. An entry
@@ -120,10 +121,10 @@ switching to another potential router.
       related field descriptions)
 
 4. Protocol Procedure
----------------------
+=====================
 
 4.1 Broadcasting own Originator Message (OGM)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------
 
 Each node periodically (OGM interval) generates a single OGM which is
 broadcasted on all hard interfaces. A jitter may be applied to avoid
@@ -170,13 +171,13 @@ As well as a possible TT change entry. See [[Client-announcement]] for
 details.
 
 4.2. Receiving Originator Messages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------
 
 Upon receiving an OGM a node must perform the following checks before
 the packet is further processed:
 
 4.2.1. Preliminary Checks
-^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  If the OGM contains a version which is different to the own internal
    version the message must be silently dropped (thus, it must not be
@@ -189,7 +190,7 @@ the packet is further processed:
    silently dropped as this OGM originated from this node.
 
 4.2.2. Potential Router Checks
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following steps check whether the Neighbor we received the OGM from
 is a potential Router, meaning that we could switch to this Neighbor
@@ -247,7 +248,7 @@ A final check then needs to be applied:
       path TQ values within the OGM flood of one sequence number.
 
 5. Router Ranking
-~~~~~~~~~~~~~~~~~
+=================
 
 For each OGM having passed the previous checks the according neighbor is
 a potential, loop-free router. The Router Ranking checks whether just an
@@ -270,7 +271,7 @@ step 5.4.
 For the Router Ranking the following actions must be performed:
 
 5.1. Creating or Updating Originator and Router Entries
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------------------
 
 In this step we are updating the according entries in the Router list.
 Step 4.2.2 ensured that the OGM which was not dropped yet is actually
@@ -313,7 +314,7 @@ updating and creating process:
    -  Unset the Rebroadcasted flag in this matching router entry.
 
 5.2. Purging Outdated Router Entries
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------
 
 It might happen that for instance from a certain Neighbor we would
 receive an OGM of perfect quality first and will chose that Router.
@@ -368,7 +369,7 @@ more desirable to chose as the new Selected Router than the Router we
 received this OGM from.
 
 5.3. Switching to (or Keeping) best Router
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------------
 
 This step ensures a good Router selection to the best knowledge of a
 node. As the Router list only keeps potential, loop-free nodes (due to
@@ -392,7 +393,7 @@ Specifically, we must undertake the following actions:
    -  Set the Selected Router's Rebroadcasted flag.
 
 5.4. Purging non-potential Routers
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 When rebroadcasting a new OGM certain other Routers do not guarantee
 loop-freeness anymore. We can still chose the Routers from our list that
@@ -423,7 +424,7 @@ router list clean-up in this section mandatory to ensure loop-freeness,
 but the rebroadcasting of an OGM does.
 
 6. Re-broadcasting other nodes' OGMs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------
 
 When an OGM is to be re-broadcasted some of the message fields must be
 changed others must be left unchanged. All fields not mentioned in the
@@ -436,10 +437,10 @@ following section remain untouched:
    (after hop penalty) the packet must be dropped.
 
 7. Penalties
-------------
+============
 
 7.1 Hop Penalty
-~~~~~~~~~~~~~~~
+---------------
 
 In certain network setups the link quality between neighbors is very
 similar whereas the number of hops is not. In these scenarios it is
@@ -455,19 +456,17 @@ The result always needs to be rounded down to ensure that an outgoing
 OGM's TQ is always smaller than the incoming OGM's TQ.
 
 8. Proposed Values for Constants
---------------------------------
+================================
 
 OGM\_SEQ\_RANGE: 5
 
 TQ\_MAX: 0xFF
 
 Appendix
---------
-
---------------
+========
 
 Questions
-=========
+---------
 
 -  Where to add the description of the data packet forwarding + bonding
    mode description? Which object should the bonding interface stuff be
@@ -475,10 +474,8 @@ Questions
 -  Should the further optimization 'Resend OGMs with flags etc. of
    newest OGM' already be part of the standard?
 
---------------
-
 Notes
-=====
+-----
 
 -  Section 'Receiving other nodes' OGMs' ensures the loop-freeness - any
    OGM having past that part and is accepted and loop-safe and can
@@ -519,8 +516,6 @@ Notes
    EIGRP feasible more often. Maybe some potential to optimize things in
    the 'Router Ranking here later?)
 
---------------
-
 Changes between OGMs in BATMAN IV and BATMAN V
 ==============================================
 
@@ -533,14 +528,14 @@ Renaming
 Removal of Global TQ Window and gl. TQ Averaging
 ------------------------------------------------
 
-| Only remember last Path TQ and its sequence number as well as the
-  highest
-| sequence number of an originator node received. The window size is
-  substituted by a
-| SEQ\_DIFF\_MAX (default: 5). A neighbor node is being purged from the
-  router list
-| if orig\_node\ [STRIKEOUT:last\_seqno] router->last\_seqno >
-  SEQ\_DIFF\_MAX.
+Only remember last Path TQ and its sequence number as well as the
+highest
+sequence number of an originator node received. The window size is
+substituted by a
+SEQ\_DIFF\_MAX (default: 5). A neighbor node is being purged from the
+router list
+if orig\_node\ [STRIKEOUT:last\_seqno] router->last\_seqno >
+SEQ\_DIFF\_MAX.
 
 Removed previous sender field
 -----------------------------
@@ -551,17 +546,17 @@ Bonding Mode using NDP's link qualities
 Removal of secondary interface originators
 ------------------------------------------
 
-| Instead when receiving an OGM, always the best link quality measured
-  by NDP
-| will be substracted from the OGM. This shall make multiple interfaces
-| transparent from the OGM algorithm.
+Instead when receiving an OGM, always the best link quality measured
+by NDP
+will be substracted from the OGM. This shall make multiple interfaces
+transparent from the OGM algorithm.
 
 Removal of PRIMARIES\_FIRST\_HOP + DIRECTLINK flag
 --------------------------------------------------
 
-| PRIMARIES\_FIRST\_HOP flag is no more needed as there will be just one
-  primary originator a.k.
-| originator.
+PRIMARIES\_FIRST\_HOP flag is no more needed as there will be just one
+primary originator a.k.
+originator.
 
 Removal of bidirectional link check
 -----------------------------------
@@ -577,37 +572,37 @@ convergence speed performance.
 Optimized Route Switching in case of outdated currently selected router
 -----------------------------------------------------------------------
 
-| Before in BATMAN IV if a node was receiving an OGM with a sequence
-  number that caused the
-| currently selected router to be moved outside of the global TQ window
-  (e.g. receiving an
-| OGM with an originator's sequence number + 5) the route were switched
-  to the router this
-| OGM just came from. However although the sequence number is very new
-  and ensures loop-freeness,
-| the global TQ via this hop might be very low and therefore this router
-  being a bad choice.
-| As the now newly selected, possibly bad router has the highest
-  sequence number, it is
-| more "difficult" than necessary for another, better neighbor to become
-  the new router.
+Before in BATMAN IV if a node was receiving an OGM with a sequence
+number that caused the
+currently selected router to be moved outside of the global TQ window
+(e.g. receiving an
+OGM with an originator's sequence number + 5) the route were switched
+to the router this
+OGM just came from. However although the sequence number is very new
+and ensures loop-freeness,
+the global TQ via this hop might be very low and therefore this router
+being a bad choice.
+As the now newly selected, possibly bad router has the highest
+sequence number, it is
+more "difficult" than necessary for another, better neighbor to become
+the new router.
 
-| In BATMAN V, when the sequence number of the currently selected router
-  becomes too low,
-| a node may switch to a different router, a neighbor other then the one
-  we just received the OGM from:
-| It will switch to the router with the highest path TQ which is still
-  in the OGM\_SEQ\_DIFF\_LIMIT
-| and rebroadcast its buffered OGM instead of the just received OGM. The
-  just received OGM will
-| still be buffered (router-addr + seqno + path-TQ) though.
+In BATMAN V, when the sequence number of the currently selected router
+becomes too low,
+a node may switch to a different router, a neighbor other then the one
+we just received the OGM from:
+It will switch to the router with the highest path TQ which is still
+in the OGM\_SEQ\_DIFF\_LIMIT
+and rebroadcast its buffered OGM instead of the just received OGM. The
+just received OGM will
+still be buffered (router-addr + seqno + path-TQ) though.
 
 Strict hop-penalty
 ------------------
 
-| In BATMAN V the hop penalty always decreases the OGM's path TQ (at
-  least by 1/255: minimum selectable
-| hop penalty: 1, path TQ always rounded downwards)
+In BATMAN V the hop penalty always decreases the OGM's path TQ (at
+least by 1/255: minimum selectable
+hop penalty: 1, path TQ always rounded downwards)
 
 Routing loops could potentially occure if a link has 0% packet loss and:
 
@@ -616,19 +611,19 @@ Routing loops could potentially occure if a link has 0% packet loss and:
    not change the path TQ
    due to rounding issues?)
 
-| Question: Or is the TTL check in the Router Ranking actually enough?
-  Anyways, I guess having always
-| monotonically decreasing path TQ values of an OGM upon rebroadcasts is
-  probably also easier to prove
-| to be loop-free. And shouldn't harm anything - therefore I'd have a
-  better feeling with that change.
+Question: Or is the TTL check in the Router Ranking actually enough?
+Anyways, I guess having always
+monotonically decreasing path TQ values of an OGM upon rebroadcasts is
+probably also easier to prove
+to be loop-free. And shouldn't harm anything - therefore I'd have a
+better feeling with that change.
 
 Increase NDP window size to 128 packets
 ---------------------------------------
 
-| With removing the Path TQ averaging, things will get too unstable
-  otherwise. Should be
-| later substituted with an EWMA [1].
+With removing the Path TQ averaging, things will get too unstable
+otherwise. Should be
+later substituted with an EWMA [1].
 
 --------------
 
@@ -665,14 +660,14 @@ To be able to reduce the overhead by just putting some intelligent
 OGM forwarding optimizations in asymmetric neighborhoods
 --------------------------------------------------------
 
-| An asymmetric link can either mean that (a) TQ >> RQ or (b) TQ << RQ.
-| For OGMs only (b) causes trouble and reduces the propagation time of
-  an OGM
-| and would therefore be the case to optimize.
+An asymmetric link can either mean that (a) TQ >> RQ or (b) TQ << RQ.
+For OGMs only (b) causes trouble and reduces the propagation time of
+an OGM
+and would therefore be the case to optimize.
 
-| A node with a neighborhood with asymmetric links as in case (b) can be
-  further
-| devided in the following three cases:
+A node with a neighborhood with asymmetric links as in case (b) can be
+further
+devided in the following three cases:
 
 -  Church-Tower-Scenario: A node in the valley has symmetric links to
    most of its close neighbors.
@@ -690,12 +685,12 @@ The scenarios could be detected via NDP.
 Extra OGM Unicasting
 ~~~~~~~~~~~~~~~~~~~~
 
-| In the Church-Tower-Scenario extra OGMs could be forwarded via unicast
-  to the few nodes.
-| (Extra OGM broadcasts would be unfair for the other neighbors)
+In the Church-Tower-Scenario extra OGMs could be forwarded via unicast
+to the few nodes.
+(Extra OGM broadcasts would be unfair for the other neighbors)
 
 Extra OGM Broadcasting
 ~~~~~~~~~~~~~~~~~~~~~~
 
-| For the "Valley"-Scenario an OGM could be broadcasted more than once.
-| (Extra OGM Unicasting might result in too many packets)
+For the "Valley"-Scenario an OGM could be broadcasted more than once.
+(Extra OGM Unicasting might result in too many packets)

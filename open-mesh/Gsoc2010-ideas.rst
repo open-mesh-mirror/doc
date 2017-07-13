@@ -1,3 +1,7 @@
+==============
+Gsoc2010 ideas
+==============
+
 Requirements for students
 =========================
 

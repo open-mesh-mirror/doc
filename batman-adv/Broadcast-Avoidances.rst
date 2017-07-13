@@ -1,3 +1,4 @@
+====================
 Broadcast Avoidances
 ====================
 
@@ -23,18 +24,18 @@ and by that reducing the OGM and broadcast packet overhead. (O (m\*n) =>
 O (m) )
 
 Goal
-----
+====
 
 -  Reducing OGM2 and broadcast packet overhead
 
 Scenarios
----------
+=========
 
 Here are a few scenarios that the protocol additions described later are
 supposed to improve:
 
 A) Large, Transitive Link Domains
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------
 
 |image1|
 
@@ -63,7 +64,7 @@ All devices connected "see" each other on their network interface
 directly, usually with the same full-duplex link speed even.
 
 B) Gathering of Mobile Nodes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 | |image2|
 | *Two mobile nodes clustering around a broadcast transmitter*
@@ -82,7 +83,7 @@ especially true when taking the half-duplex nature of wireless
 interfaces running on the same frequency into account, too.
 
 C) Point-to-point and Point-to-Multi-Point Links
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 |image3|
 
@@ -100,14 +101,14 @@ tunnel server on the tunnel client side can lead to a congested ADSL
 upload.
 
 Simple Broadcast Avoidances
----------------------------
+===========================
 
 When a node sees just one or no neighbor on a specific interface, then
 the following, simple rules can be applied to avoid broadcasts on this
 interface:
 
 I.I) No Neighbor
-~~~~~~~~~~~~~~~~
+----------------
 
 |image4|
 
@@ -116,7 +117,7 @@ I.I) No Neighbor
 We can avoid sending a packet into the void.
 
 I.II) Single Neighbor: Is Originator
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------
 
 |image5|
 
@@ -128,7 +129,7 @@ I.II) Single Neighbor: Is Originator
 We can avoid echoing a packet back to the node it originally came from.
 
 I.III) Single Neighbor: Is Previous Sender
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------
 
 |image6|
 
@@ -142,13 +143,13 @@ We can avoid echoing a packet back to the originator node (not just
 neighor) it was forwarded from.
 
 Broadcast Avoidance: Neighborhood Hash
---------------------------------------
+======================================
 
 The following approach is supposed to mainly improve scenario A) (while
 improving scenario B) in some specific cases).
 
 Concept
-~~~~~~~
+-------
 
 -  Each node summarizes all neighbors it sees on an interface via one
    hash.
@@ -161,7 +162,7 @@ Concept
    according neighbor on this interface are avoided.
 
 Neighborhood Hash TVLV Format
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------
 
 * Packet type: 0x03 (BATADV\_ELP)
 * TVLV type: 0x01 (BATADV\_TVLV\_NHH)
@@ -197,10 +198,10 @@ Neighborhood Hash TVLV Format
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 Throughput Evaluation
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 II.I) Broadcast Packets
-^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~
 
 *Ingress Check:*
 
@@ -216,21 +217,20 @@ II.I) Broadcast Packets
     if fwd-penalty(iface->max_throughput) < neigh->min_throughput:
     -> no rebroadcast
 
---------------
 
 If either (or both):
 
-| \* The best TX throughput of the neighbor we received the broadcast
+* The best TX throughput of the neighbor we received the broadcast
   packet from with our forwarding penalty applied is smaller than the
   worst TX throughput of this neighbor (*ingress check*).
-| \* Our best TX throughput with our forwarding penalty applied is
+* Our best TX throughput with our forwarding penalty applied is
   smaller than the worst TX throughput of the neighbor we received the
   broadcast packet from (*egress check*).
 
 Then a rebroadcast can be avoided.
 
 II.II) OGM2 Packets
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~
 
 While for broadcast packets it is desirable to have them travel over the
 best TX paths, OGMs propagate inversely. That is they travel along the
@@ -251,24 +251,22 @@ the process.
     if fwd-penalty(iface->max_throughput_other) < iface->min_throughput_other:
     -> no rebroadcast
 
---------------
-
 If either (or both):
 
-| \* The TX throughput to the neighbor we received the OGM2 packet from
+* The TX throughput to the neighbor we received the OGM2 packet from
   with our forwarding penalty applied is smaller than the worst TX
   throughput of all our neighbors (*ingress check*).
-| \* The best TX throughput of all our neighbors with our forwarding
+* The best TX throughput of all our neighbors with our forwarding
   penalty applied is smaller than the worst TX throughput of all our
   neighbors (*egress check*).
 
 Then a rebroadcast can be avoided.
 
 Further readings:
-^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~
 
-\* [[Broadcast-Avoidances-NHH-Assessment\|Broadcast Avoidances -
-Neighborhood Hash Assessment]]
+* [[Broadcast-Avoidances-NHH-Assessment\|Broadcast Avoidances -
+  Neighborhood Hash Assessment]]
 
 Appendix
 ========
