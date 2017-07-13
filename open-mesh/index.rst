@@ -16,7 +16,6 @@ Contents:
    Experience
    FAQ
    FFTrace
-   Filing
    Gsoc2010-ideas
    Gsoc2011-ideas
    Gsoc2011-roadmap
@@ -32,7 +31,6 @@ Contents:
    News-draft
    ResearchProposals
    Routing_scenarios
-   TemplateDeprecated
    The-olsr-story
    UsingBatmanGit
    Wbmv4-batmandev-agenda

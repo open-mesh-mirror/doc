@@ -10,7 +10,6 @@ Contents:
    Bandwidth_meter_technical
    Bandwidth_meter_tests
    Batman-adv-openwrt-config
-   Batman-adv-openwrt-config-sophisticated
    BATMAN_V
    BATMAN_V_Tests
    Batman_v_throughput_experimental
@@ -33,7 +32,6 @@ Contents:
    ELP
    Extended-isolation
    Faq
-   Filing
    Fragmentation-technical
    Gateways
    Kmalloc-kmem-cache-tests
@@ -46,21 +44,15 @@ Contents:
    Multicast-optimizations-report-suppresion
    Multicast-optimizations
    Multicast-optimizations-tech
-   Multi-link-optimizations-technical
-   Multi-link-optimize-old
    Multi-link-optimize
    NetworkCoding
    NetworkCoding-technical
    Network-wide-multi-link-optimization
    OGM
    OGMv2
-   Openwrt-package-builder
-   Outdated
    Packet-types
    Quick-start-guide
-   Release-todo
    RIP
-   SubmittingLinux
    Throughput_meter
    Troubleshooting
    TT-Flags
