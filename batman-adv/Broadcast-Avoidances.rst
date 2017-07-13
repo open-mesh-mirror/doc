@@ -163,19 +163,20 @@ Concept
 Neighborhood Hash TVLV Format
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| \* Packet type: 0x03 (BATADV\_ELP)
-| \* TVLV type: 0x01 (BATADV\_TVLV\_NHH)
-| \* Length: 68 bytes
-| \* Fixed TVLV fields:
-| **** minimum throughput: the worst of all TX throughputs to any
-  neighbor a node sees on the according interface (4 bytes)
-| **** maximum throughput: the best of all TX throughputs to any
-  neighbor a node sees on the according interface (4 bytes)
-| **** neighorhood hash: a sha512 hash summarizing all neighbors a node
-  sees on the according interface; hash created from neighbor addresses
-  sorted alphabetically, concatenated, binary (64 bytes)
+* Packet type: 0x03 (BATADV\_ELP)
+* TVLV type: 0x01 (BATADV\_TVLV\_NHH)
+* Length: 68 bytes
+* Fixed TVLV fields:
 
-\* Definition:
+  - minimum throughput: the worst of all TX throughputs to any
+    neighbor a node sees on the according interface (4 bytes)
+  - maximum throughput: the best of all TX throughputs to any
+    neighbor a node sees on the according interface (4 bytes)
+  - neighorhood hash: a sha512 hash summarizing all neighbors a node
+    sees on the according interface; hash created from neighbor addresses
+    sorted alphabetically, concatenated, binary (64 bytes)
+
+* Definition:
 
 ::
 

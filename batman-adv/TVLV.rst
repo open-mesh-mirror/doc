@@ -137,19 +137,21 @@ TVLV definitions
 Gateway announcement
 ~~~~~~~~~~~~~~~~~~~~
 
-| \* tvlv type: 0x01
-| \* function: Each batman-adv gateway server announces it's available
+* tvlv type: 0x01
+* function: Each batman-adv gateway server announces it's available
   internet connection speed, so that batman-adv gateway clients can
   select their preferable server.
-| \* purpose: Every node keeps a list of batman-adv gateways in the mesh
+* purpose: Every node keeps a list of batman-adv gateways in the mesh
   to later the preferred gateway.
-| \* length: 8 byte gateway bandwidth information
-| \* Fixed TVLV fields:
-| **** gateway bandwidth down: announced gateway download bandwidth in
-  MBit/s/10 (4Bytes)
-| **** gateway bandwidth up: announced gateway upload bandwidth in
-  MBit/s/10 (4Bytes)
-| \* definition:
+* length: 8 byte gateway bandwidth information
+* Fixed TVLV fields:
+
+  - gateway bandwidth down: announced gateway download bandwidth in
+    MBit/s/10 (4Bytes)
+  - gateway bandwidth up: announced gateway upload bandwidth in
+    MBit/s/10 (4Bytes)
+
+* definition:
 
 ::
 
@@ -204,36 +206,42 @@ Network coding (also known as catwoman)
 Translation table messages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| \* tvlv type: 0x04
-| \* function: Local non-mesh clients advertisement mechanism. This
+* tvlv type: 0x04
+* function: Local non-mesh clients advertisement mechanism. This
   particular component needs some parameters that are propagated by the
   OGM.
-| \* purpose: Exchange of translation table state information.
-| \* length: variable. It is equal to the size of the fixed TVLV field +
+* purpose: Exchange of translation table state information.
+* length: variable. It is equal to the size of the fixed TVLV field +
   the size of the TT VLAN headers + the size of the TT client change
   entries.
-| \* Fixed TVLV fields:
-| **** flags: translation table flags (1Byte)
-| **** ttvn: translation table version number (1Byte)
-| **** num\_vlan: number of TT VLAN data structures inside the tvlv
-  container (2Bytes)
-| \* Each TT VLAN data structure contains:
-| **** crc: crc32 checksum of the local translation (sub-)table
-  containing entries belonging to this VLAN only (4Bytes)
-| **** vid: the identifier of this VLAN (2Bytes)
-| **** reserved: not used. Defined for alignment purposes (2Bytes)
-| \* Each TT client change (one per announced client) contains:
-| **** flags: flags associated with this client
-| **** reserved: not used. Defined for alignment purposes (3Bytes)
-| **** addr: mac address of the announced client
-| **** vid: identifier of the VLAN where this client is connected to
-| \* layout:
+* Fixed TVLV fields:
+
+  - flags: translation table flags (1Byte)
+  - ttvn: translation table version number (1Byte)
+  - num\_vlan: number of TT VLAN data structures inside the tvlv
+    container (2Bytes)
+
+* Each TT VLAN data structure contains:
+
+  - crc: crc32 checksum of the local translation (sub-)table
+    containing entries belonging to this VLAN only (4Bytes)
+  - vid: the identifier of this VLAN (2Bytes)
+  - reserved: not used. Defined for alignment purposes (2Bytes)
+
+* Each TT client change (one per announced client) contains:
+
+  - flags: flags associated with this client
+  - reserved: not used. Defined for alignment purposes (3Bytes)
+  - addr: mac address of the announced client
+  - vid: identifier of the VLAN where this client is connected to
+
+* layout:
 
 ::
 
     ....
 
-\* definition:
+* definition:
 
 ::
 
@@ -282,18 +290,19 @@ Translation table messages
 Roaming Advertisement message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| \* tvlv type: 0x05
-| \* function: Reduce a non-mesh client's packet loss when it roams from
+* tvlv type: 0x05
+* function: Reduce a non-mesh client's packet loss when it roams from
   one AP to the next.
-| \* purpose: Inform the old AP about the new location of the non-mesh
+* purpose: Inform the old AP about the new location of the non-mesh
   client.
-| \* length: 8 bytes non-mesh client information
-| \* Fixed TVLV fields:
-| **** client mac address: mac address of the roaming non-mesh client (6
-  bytes)
-| **** vid: vlan tag id of the roaming non-mesh client (2 bytes)
+* length: 8 bytes non-mesh client information
+* Fixed TVLV fields:
 
-\* definition:
+  - client mac address: mac address of the roaming non-mesh client (6
+    bytes)
+  - vid: vlan tag id of the roaming non-mesh client (2 bytes)
+
+* definition:
 
 ::
 
@@ -310,22 +319,23 @@ Roaming Advertisement message
 Multicast capability
 ~~~~~~~~~~~~~~~~~~~~
 
-| \* tvlv type: 0x06
-| \* function: Reduces the airtime consumed by multicast packets, e.g.
+* tvlv type: 0x06
+* function: Reduces the airtime consumed by multicast packets, e.g.
   by using multicast awareness to decide whether a frame can be sent via
   unicast or dropped.
-| \* purpose: Lets other nodes know whether an originator is capable of
+* purpose: Lets other nodes know whether an originator is capable of
   announcing its multicast listeners via the translation table. The
   flags further inform other nodes about whether an originator needs to
   receive all multicast traffic of a certain type.
-| \* length: 4 bytes (1 byte flag information)
-| \* Fixed TVLV fields:
-| **** flags: multicast flags announced by the orig node (1 byte), see
-  [[Multicast-optimizations-flags\|the multicast flags page]] for
-  details
-| **** reserved: not used. Defined for alignment purposes (3 bytes)
+* length: 4 bytes (1 byte flag information)
+* Fixed TVLV fields:
 
-\* definition:
+  - flags: multicast flags announced by the orig node (1 byte), see
+    [[Multicast-optimizations-flags\|the multicast flags page]] for
+    details
+  - reserved: not used. Defined for alignment purposes (3 bytes)
+
+* definition:
 
 ::
 

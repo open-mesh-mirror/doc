@@ -16,22 +16,24 @@ page.
 B.A.T.M.A.N. General questions
 ------------------------------
 
-Does B.A.T.M.A.N. have simulator (NS2, Omnet\ **, etc) support?
+Does B.A.T.M.A.N. have simulator (NS2, Omnet, etc) support?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** Does B.A.T.M.A.N. have his own simulator?
-| **A:** At this point no, but B.A.T.M.A.N. implementation (we know of)
-  supports simulators like the ones mentioned above. However, some
-  people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If
-  you are looking for step-by-step instructions to install such a system
-  you can [[open-mesh:Emulation\|read our emulation document]].
+**Q:** Does B.A.T.M.A.N. have his own simulator?
+
+**A:** At this point no, but B.A.T.M.A.N. implementation (we know of)
+supports simulators like the ones mentioned above. However, some
+people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If
+you are looking for step-by-step instructions to install such a system
+you can [[open-mesh:Emulation\|read our emulation document]].
 
 How to make my mesh network secure ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** Can I make my mesh network secure?
-| **A:** This depends on the security you want or need. Security is a
-  big field. Probably you mean encryption and authentication.
+**Q:** Can I make my mesh network secure?
+
+**A:** This depends on the security you want or need. Security is a
+big field. Probably you mean encryption and authentication.
 
 When you only want to make the whole WLAN stuff unreadable for the
 outside, you could just use WPA\_NONE or IBSS RSN. But this doesn't
@@ -56,12 +58,13 @@ for everything, against any attack and for every purpose" blob.
 Why does batman need so much time to detect a "dead" node?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** Why can I see a node in the originator table a long time after
-  it died? *Or:* Does batman really need 200 seconds (PURGE\_TIMEOUT) to
-  switch the route?
-| **A:** Batman switches the route as soon as it learns about a better
-  path towards a destination which can take a fraction of a second up to
-  several seconds very much depending on the settings and situation.
+**Q:** Why can I see a node in the originator table a long time after
+it died? *Or:* Does batman really need 200 seconds (PURGE\_TIMEOUT) to
+switch the route?
+
+**A:** Batman switches the route as soon as it learns about a better
+path towards a destination which can take a fraction of a second up to
+several seconds very much depending on the settings and situation.
 
 When no more new originator messages are sent by a node (because it
 died), no more routing updates regarding this node are exchanged. Batman
@@ -80,48 +83,52 @@ B.A.T.M.A.N. Advanced Questions
 What can B.A.T.M.A.N. Advanced do? And can't do?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** What offers batman-adv? And what are the 'limitations'?
-| **A:** The batman-adv kernel module can only be used to route the
-  packages within a mesh network, it only simulates OSI layer 2 (data
-  link layer). It does that as fast as possible and in a smart way. Just
-  like a switch.
+**Q:** What offers batman-adv? And what are the 'limitations'?
 
-| Batman has no security implemented. Also assigning IP addresses to the
-  node(s) is not Batman's task.
-| You may want to use underlying security mechanisms, like: IBSS RSN.
+**A:** The batman-adv kernel module can only be used to route the
+packages within a mesh network, it only simulates OSI layer 2 (data
+link layer). It does that as fast as possible and in a smart way. Just
+like a switch.
+
+Batman has no security implemented. Also assigning IP addresses to the
+node(s) is not Batman's task.
+You may want to use underlying security mechanisms, like: IBSS RSN.
 
 Read more about [[Wiki\|BATMAN]].
 
 Can batman-adv run on interfaces in AP / Station / etc mode ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** Can BATMAN advanced run on interfaces in AP / Station mode?
-| **A:** Yes, because batman-adv doesn't know anything about stuff below
-  the ethernet interface. So you could also use it over layer 2 ethernet
-  tunnels, wifi ap, wifi sta, wifi adhoc, ethernet or even write a
-  virtual interface which prints everything on paper and scans the paper
-  on the remote machine (but you should be fast or increase the ogm
-  interval).
+**Q:** Can BATMAN advanced run on interfaces in AP / Station mode?
+
+**A:** Yes, because batman-adv doesn't know anything about stuff below
+the ethernet interface. So you could also use it over layer 2 ethernet
+tunnels, wifi ap, wifi sta, wifi adhoc, ethernet or even write a
+virtual interface which prints everything on paper and scans the paper
+on the remote machine (but you should be fast or increase the ogm
+interval).
 
 How can I connect non-mesh clients to my batman-adv network ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** How can I connect non-mesh clients to batman-adv network?
-| **A:** The [[batman-adv:Quick-start-guide\|batman-adv
-  quick-start-guide]] explains how to bridge your standard AP / Ethernet
-  interfaces with bat0 which can be problematic if you only possess one
-  WiFi card. In these cases it might be desirable to run adhoc mode and
-  AP mode at the same time. Fortunately, some WiFi chips / drivers
-  support a so-called "multi VAP" (virtual AP) or "multi SSID" mode to
-  have multiple WiFi networks on the same WiFi interface.
+**Q:** How can I connect non-mesh clients to batman-adv network?
+
+**A:** The [[batman-adv:Quick-start-guide\|batman-adv
+quick-start-guide]] explains how to bridge your standard AP / Ethernet
+interfaces with bat0 which can be problematic if you only possess one
+WiFi card. In these cases it might be desirable to run adhoc mode and
+AP mode at the same time. Fortunately, some WiFi chips / drivers
+support a so-called "multi VAP" (virtual AP) or "multi SSID" mode to
+have multiple WiFi networks on the same WiFi interface.
 
 How big networks does batman-adv support?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** How big networks (maximum nodes) does batman-adv support?
-| **A:** That is a good question. It is not possible to give an exact
-  answer, but there are several parameters limiting the number of nodes
-  in your network:
+**Q:** How big networks (maximum nodes) does batman-adv support?
+
+**A:** That is a good question. It is not possible to give an exact
+answer, but there are several parameters limiting the number of nodes
+in your network:
 
 #. **Capacity of the wireless network**
    Usually, the performance of the wireless network renders unusable if
@@ -137,11 +144,12 @@ How big networks does batman-adv support?
 How do I announce IP subnets using batman-adv?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** Can I setup differnt IP subnets using batman-adv?
-| **A:** Batman-adv is a OSI layer 2 routing protocol and it does not
-  handle IP subnets at all. If you want to do IP subnetting, the
-  suggestion is to split the mesh network in different sub-meshes (e.g.
-  different ESSID/BSSID), and run a batman-adv instance in each of them.
+**Q:** Can I setup differnt IP subnets using batman-adv?
+
+**A:** Batman-adv is a OSI layer 2 routing protocol and it does not
+handle IP subnets at all. If you want to do IP subnetting, the
+suggestion is to split the mesh network in different sub-meshes (e.g.
+different ESSID/BSSID), and run a batman-adv instance in each of them.
 
 |image0|
 
@@ -180,41 +188,47 @@ us if you want to do that.
 Log file doesn't exists in debugfs?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** The /sys/kernel/debug/batman\_adv/bat0/log file doesn't exists?
-| **A:** You need to compile the batman-adv with logging support.
+**Q:** The /sys/kernel/debug/batman\_adv/bat0/log file doesn't exists?
 
-| \* Linux tree
-| **** go to **code>Networking support ---> Networking options --->
-  B.A.T.M.A.N. Advanced Meshing Protocol** and select
-  **code>B.A.T.M.A.N. debugging**
-| \* external module
-| **** compile with make parameter **code>CONFIG\_BATMAN\_ADV\_DEBUG=y**
+**A:** You need to compile the batman-adv with logging support.
+
+* Linux tree
+
+  - go to ``Networking support ---> Networking options ---> B.A.T.M.A.N. Advanced Meshing Protocol``
+    and select ``B.A.T.M.A.N. debugging``
+
+* external module
+
+  - compile with make parameter ``CONFIG_BATMAN_ADV_DEBUG=y``
 
 How to setup B.A.T.M.A.N. so it automatically assign IP addresses?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** How to assign IP addresses automatically?
-| **A:** Batman-adv is not responsible for assigning IP addresses.
-  However, you can use for example a DHCP server.
+**Q:** How to assign IP addresses automatically?
+
+**A:** Batman-adv is not responsible for assigning IP addresses.
+However, you can use for example a DHCP server.
 
 What about assigning IP addresses in a decentralized way?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** How to assign IP addresses automatically in a decentralized
-  way?
-| **A:** IPv6 will help you to do this easier by using `Unique local
-  address <https://en.wikipedia.org/wiki/Unique_local_address>`__ (ULA).
+**Q:** How to assign IP addresses automatically in a decentralized
+way?
+
+**A:** IPv6 will help you to do this easier by using `Unique local
+address <https://en.wikipedia.org/wiki/Unique_local_address>`__ (ULA).
 
 What if I want to have a decentralized DNS solution?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** I like to setup a decentralized mesh network and would like to
-  have a DNS solution. I don't want to use the internet (WWW), but I do
-  want to have a human readable 'domains' names, just like DNS. What are
-  the options?
-| **A:** Take a look at
-  `KadNode <https://github.com/mwarning/KadNode>`__. *Note:* This
-  software is still in beta.
+**Q:** I like to setup a decentralized mesh network and would like to
+have a DNS solution. I don't want to use the internet (WWW), but I do
+want to have a human readable 'domains' names, just like DNS. What are
+the options?
+
+**A:** Take a look at
+`KadNode <https://github.com/mwarning/KadNode>`__. *Note:* This
+software is still in beta.
 
 B.A.T.M.A.N. Advanced - Bridge Loop Avoidance questions
 -------------------------------------------------------
@@ -222,20 +236,22 @@ B.A.T.M.A.N. Advanced - Bridge Loop Avoidance questions
 What is Bridge Loop Avoidance?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** What can you do with BLA?
-| **A:** Bridge Loop Avoidance is used to detect and avoid loops due to
-  multiple batX interfaces. [[Bridge-loop-avoidance\|Read more...]]
+**Q:** What can you do with BLA?
+
+**A:** Bridge Loop Avoidance is used to detect and avoid loops due to
+multiple batX interfaces. [[Bridge-loop-avoidance\|Read more...]]
 
 Why do we need BLA II if we can just use mesh on Ethernet?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| Under Discussion -> Features you say "no BATMAN packets on the
-  backbone".
-| **Q:** Why would you want to use the mesh (which never has enough
-  bandwidth anyway) if you have a fast, reliable backbone link between
-  some of the nodes (eg. LAN)?
-| *Or:* Wouldn't it make more sense to get as much done through the
-  backbone as possible?
+Under Discussion -> Features you say "no BATMAN packets on the
+backbone".
+
+**Q:** Why would you want to use the mesh (which never has enough
+bandwidth anyway) if you have a fast, reliable backbone link between
+some of the nodes (eg. LAN)?
+*Or:* Wouldn't it make more sense to get as much done through the
+backbone as possible?
 
 **A:** You can explicitly use batman-adv on the mesh if you want to -
 batman-adv allows adding Ethernet interfaces as well. This is a good
@@ -261,15 +277,16 @@ supposed to be shared is the users payload traffic.
 What about DHCP server for separate meshes?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **Q:** I would like to setup a DHCP server in separate meshes? *Or:*
-  How can I make two separate meshes use a single DHCP server (using
-  gw\_mode feature) in current blaII design?
-| **A:** Each node at the edge to the wired network may announce itself
-  as a gateway, provided that a DHCP server is available in the LAN (or
-  any network behind it, e.g. a mesh). From a concept view, a gateway
-  (or maybe even multiple gateways) in mesh2 will not automatically
-  announced in mesh1 - this must be configured manually, or let batman
-  use Ethernet if this is explicitly required.
+**Q:** I would like to setup a DHCP server in separate meshes? *Or:*
+How can I make two separate meshes use a single DHCP server (using
+gw\_mode feature) in current blaII design?
+
+**A:** Each node at the edge to the wired network may announce itself
+as a gateway, provided that a DHCP server is available in the LAN (or
+any network behind it, e.g. a mesh). From a concept view, a gateway
+(or maybe even multiple gateways) in mesh2 will not automatically
+announced in mesh1 - this must be configured manually, or let batman
+use Ethernet if this is explicitly required.
 
 .. |image0| image:: quagga_integration.png
 

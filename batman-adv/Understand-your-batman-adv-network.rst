@@ -35,29 +35,12 @@ neighbor table
 
 ::
 
-
-       
-           
-
-Sample output:
-
-::
-
     cat /sys/kernel/debug/batman_adv/bat0/neighbors
     [B.A.T.M.A.N. adv d5e8ba8, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0 BATMAN_IV)]
                IF        Neighbor      last-seen
              eth0   fe:fe:00:00:02:01    0.280s
 
 *B.A.T.M.A.N. V*:
-
-::
-
-
-       
-           
-              
-
-Sample output:
 
 ::
 
@@ -82,34 +65,12 @@ line contains information regarding a specific originator:
 
 ::
 
-
-        
-           
-              
-                 
-                   
-
-Sample output:
-
-::
-
     cat /sys/kernel/debug/batman_adv/bat0/originators
     [B.A.T.M.A.N. adv d5e8ba8, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0 BATMAN_IV)]
       Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
     fe:fe:00:00:02:01    0.390s   (254) fe:fe:00:00:02:01 [      eth0]: fe:fe:00:00:02:01 (254)
 
 *B.A.T.M.A.N. V*:
-
-::
-
-
-        
-           
-              
-                 
-                   
-
-Sample output:
 
 ::
 
@@ -146,16 +107,6 @@ be found in the transtable\_local file:
 
 ::
 
-
-        
-           
-              
-                 
-
-Sample output:
-
-::
-
     cat /sys/kernel/debug/batman_adv/bat0/transtable_local
     Locally retrieved addresses (from bat0) announced via TT (TTVN: 2):
            Client         VID Flags   Last seen (CRC       )
@@ -183,18 +134,6 @@ Sample output:
 
 The global translation table (mac addresses announced by other hosts)
 can be found in the transtable\_global file:
-
-::
-
-
-       
-           
-             
-                
-                   
-                      
-
-Sample output:
 
 ::
 
@@ -233,17 +172,6 @@ this feature). Each line contains information about a specific gateway:
 
 ::
 
-
-        
-           
-              
-                 
-                   
-
-For example:
-
-::
-
           Gateway      (#/255)           Nexthop [outgoingIF]: advertised uplink bandwidth ... [B.A.T.M.A.N. adv 2014.0.0, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0)]
        fe:fe:00:00:01:01 (233) fe:fe:00:00:01:01 [      eth0]:  2.0/0.5 MBit
     => fe:fe:00:00:02:01 (255) fe:fe:00:00:02:01 [      eth0]: 10.0/2.0 MBit
@@ -256,18 +184,10 @@ avoidance]] code and contains all claimed clients as announced on the
 bridge. Each line contains a claimed non-mesh client propagated through
 the mesh:
 
-::
-
-
-        
-           
-              
-                 
-
 Note:
 
-| \* Clients claimed by the node itself are marked with an '[x]'.
-| \* If no VLAN was found a VID of '-1' is printed.
+* Clients claimed by the node itself are marked with an '[x]'.
+* If no VLAN was found a VID of '-1' is printed.
 
 ::
 
@@ -285,20 +205,12 @@ avoidance]] code and contains all backbone gateways. Each line contains
 a backbone gateway which is reachable via LAN and mesh (that means, it
 is in the same bla group):
 
-::
-
-
-        
-           
-              
-                 
-
 Note:
 
-| \* the own originator address is not printed, only other backbone
+* the own originator address is not printed, only other backbone
   gateways
-| \* If no VLAN was found a VID of '-1' is printed.
-| \* the last seen time should be between 0 and 10 seconds if there is
+* If no VLAN was found a VID of '-1' is printed.
+* the last seen time should be between 0 and 10 seconds if there is
   no packet lost
 
 ::
@@ -322,13 +234,6 @@ Distributed ARP Table - local cache table
 | A subset of the entries belonging to this cache are also the entries
   which the node is in charge to handle in the
   [[DistributedARPTable-technical\|DHT]]
-
-::
-
-
-       
-          
-             
 
 For example:
 
@@ -354,12 +259,6 @@ can overhear packets from the one-hop neighbor. The table is used by the
 NC code to search for potential coding opportunities, where a relay
 determines if two receivers are likely to be able to decode a network
 coded transmission.
-
-::
-
-
-       
-       
 
 This example shows the entry for the one-hop originator with address
 fe:fe:00:00:02:01. Since a originator can always overhear packets to and

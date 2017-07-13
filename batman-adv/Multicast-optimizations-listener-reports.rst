@@ -67,19 +67,19 @@ batman-adv nodes.
 
 *Advantages:*
 
-| \* Simplicity:
-| **** No multicast query snooping needed, only multicast report
-  snooping
-| **** No state for querier
+* Simplicity:
+
+  - No multicast query snooping needed, only multicast report snooping
+  - No state for querier
 
 *Disadvantages:*
 
-| \* Multicast report overhead for every node (both throughput and
+* Multicast report overhead for every node (both throughput and
   memory)
-| \* Might cause issues for switches if more than 4k hosts on the
+* Might cause issues for switches if more than 4k hosts on the
   network: Usually the MAC table of hardware switches only allows up to
   4k clients (there are batman-adv networks with 1.5k hosts already).
-| \* Central querier(s)
+* Central querier(s)
 
 (Yet another simple approach to tackle these disadvantages could be
 through segmenting the IGMP/MLD domain. The OpenWRT-based firmware

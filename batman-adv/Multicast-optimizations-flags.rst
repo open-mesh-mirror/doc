@@ -122,12 +122,12 @@ cases listed above is present for its bridged segment of the link. If
 so, it will set one or more of the following multicast flags in its
 multicast TVLV:
 
-| \* Case !#1:
-| **** BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES
-| \* Case !#2 (no IGMP querier) or Case !#3 (a shadowing IGMP querier)
-| **** BATADV\_MCAST\_WANT\_ALL\_IPV4
-| \* Case !#2 (no MLD querier) or Case !#3 (a shadowing MLD querier)
-| **** BATADV\_MCAST\_WANT\_ALL\_IPV6
+Case !#1:
+  BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES
+Case !#2 (no IGMP querier) or Case !#3 (a shadowing IGMP querier)
+  BATADV\_MCAST\_WANT\_ALL\_IPV4
+Case !#2 (no MLD querier) or Case !#3 (a shadowing MLD querier)
+  BATADV\_MCAST\_WANT\_ALL\_IPV6
 
 BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES (Bit 0):
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

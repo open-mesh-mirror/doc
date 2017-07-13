@@ -151,8 +151,6 @@ through the mesh according to the destination's mac address.
 
 For the MTU-part have a look at the note above.
 
-**
-
 Distribution specific examples
 ------------------------------
 

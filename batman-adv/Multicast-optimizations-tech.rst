@@ -189,26 +189,28 @@ Limitations
 Next Steps / Roadmap
 --------------------
 
-| \* optimization for groups with two or more members:
-| **** many-to-some: implement batman-adv multicast packet type
-  supporting a list of destination addresses (to reduce ICMPv6 overhead
-  like Neighbor Solicitation Messages, Router Solicitation Messages, MLD
-  Reports, ...)
-| **** some-to-many / streaming: implement path tracking and use these
-  patches (see [[Multicast-ideas-updated]])
-| \* implement `Multicast Router
+* optimization for groups with two or more members:
+
+  - many-to-some: implement batman-adv multicast packet type
+    supporting a list of destination addresses (to reduce ICMPv6 overhead
+    like Neighbor Solicitation Messages, Router Solicitation Messages, MLD
+    Reports, ...)
+  - some-to-many / streaming: implement path tracking and use these
+    patches (see [[Multicast-ideas-updated]])
+
+* implement `Multicast Router
   Discovery <https://tools.ietf.org/search/rfc4286>`__ to support scopes
   greater than link-local, too
-| \* implement some faster listener roaming mechanism for bridged in
+* implement some faster listener roaming mechanism for bridged in
   hosts (for instance announce (multicast-address, source address) pairs
   and use general TT roaming mechanism)
-| \* perform multicast listener adition/reduction via TT immediately
+* perform multicast listener adition/reduction via TT immediately
   instead of every OGM interval to reduce join/leave latency in setups
   with a slow OGM interval
-| \* implement source-specific multicast in Linux bridge and batman-adv
-| \* multicast TT announcements and forwarding have to be performed per
+* implement source-specific multicast in Linux bridge and batman-adv
+* multicast TT announcements and forwarding have to be performed per
   VLAN
-| \* ...
+* ...
 
 Further Readings
 ----------------
