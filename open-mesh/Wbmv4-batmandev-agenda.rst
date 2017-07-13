@@ -1,4 +1,5 @@
-= Wireless Battle Mesh v4 - Developer Meeting Agenda =
+Wireless Battle Mesh v4 - Developer Meeting Agenda
+==================================================
 
 |  Party!!! 
 | Celebrate batman-adv 2.6.38 Linux kernel integration
