@@ -1,8 +1,9 @@
+===================
 alfred architecture
 ===================
 
 Introduction
-------------
+============
 
 alfred is a user space daemon for distributing arbitrary local
 information over the mesh/network in a decentralized fashion. This data
@@ -21,23 +22,19 @@ link-local multicast addresses are used which do not require any manual
 configuration. A user can request data from alfred, and will receive the
 information available from all alfred servers in the network.
 
-More user related information can be found in the [[alfred:Alfred]]
-overview page.
-
 Alfred specific terms
----------------------
+=====================
 
-+----------+--------------------------------------------------------------------------------------------------------------------------------------------+
-| node     | a node is a device able to run alfred                                                                                                      |
-+----------+--------------------------------------------------------------------------------------------------------------------------------------------+
-| server   | an alfred instance running on a node, able to communicate with alfred processes on other nodes and with clients running on the same node   |
-+----------+--------------------------------------------------------------------------------------------------------------------------------------------+
-| client   | a program which supports the alfred protocol and communicates with the alfred server on the same node                                      |
-+----------+--------------------------------------------------------------------------------------------------------------------------------------------+
-| master   | an alfred server process which stores incoming data, synchronizes it with other master servers and accepts requests/data from slaves       |
-+----------+--------------------------------------------------------------------------------------------------------------------------------------------+
-| slave    | an alfred server process which only manages its own data, pushes/requests the data to/from **its** master server                           |
-+----------+--------------------------------------------------------------------------------------------------------------------------------------------+
+node
+  a node is a device able to run alfred
+server
+  an alfred instance running on a node, able to communicate with alfred processes on other nodes and with clients running on the same node
+client
+  a program which supports the alfred protocol and communicates with the alfred server on the same node
+master
+  an alfred server process which stores incoming data, synchronizes it with other master servers and accepts requests/data from slaves
+slave
+  an alfred server process which only manages its own data, pushes/requests the data to/from **its** master server
 
 Network
 -------
@@ -64,7 +61,7 @@ best master server to request data when required and to push the data
 from local clients to the alfred network through master servers.
 
 Network layer
-~~~~~~~~~~~~~
+-------------
 
 All communication between servers in an alfred network is done through
 IPv6 link-local UDP messages. This only allows communication in the
@@ -84,7 +81,7 @@ All the messages are sent through the IANA unregistered UDP/IPv6 port
 0x4242 (in decimal: 16962).
 
 Detection of neighbors
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 The master server will announce itself using IPv6 link-local multicast
 messages. This makes it possible to reach all nodes with a single
@@ -115,7 +112,7 @@ Detected neighbor servers are automatically dropped after a timeout of
 60s since the last announcement was received.
 
 Client data exchange
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 The client communication to the alfred server is done through unix
 sockets on the same node. The path is defined as /var/run/alfred.sock
@@ -161,7 +158,7 @@ The best practice for a client is to implement the handling of error
 messages even when it is only used together with master servers.
 
 Synchronization
-~~~~~~~~~~~~~~~
+---------------
 
 Data synchronizations are done master2master and slave2master. The slave
 will only send data from its clients to a single server. Master servers
@@ -187,10 +184,10 @@ Data is automatically pruned from the server storage 600s after the last
 time it was received/refreshed.
 
 Packet formats
---------------
+==============
 
 General format
-~~~~~~~~~~~~~~
+--------------
 
 The data stored in the packet headers is always stored in network byte
 order (big endian). The packet format is TLV based (type, value, length)
@@ -208,7 +205,7 @@ The version field is also only defined for the outer TLV and has to be 0
 for the specified first packet format.
 
 Master announcement
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 |image6|
 
@@ -218,7 +215,7 @@ more information. The receiver has to calculate the mac address of the
 sender by decoding the link-local IPv6 sender address.
 
 Request data
-~~~~~~~~~~~~
+------------
 
 |image7|
 
@@ -233,7 +230,7 @@ The transaction id must be unique during the time the request is made
 and answered.
 
 Finish transaction
-~~~~~~~~~~~~~~~~~~
+------------------
 
 |image8|
 
@@ -245,7 +242,7 @@ packets has to be equal to the number of alfred\_push\_data packets with
 the same transaction id to accept the transaction as successful.
 
 Inform about an error
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 Slave servers send error messages via unix sockets to clients. This
 tells the client that the request of data from the master server failed.
@@ -257,7 +254,7 @@ alfred\_request packet.
 The only currently used error code is 1.
 
 Push data
-~~~~~~~~~
+---------
 
 Push data packets are sent/received by clients to send data via unix
 sockets to/from servers. Clients send it to store data on a server.

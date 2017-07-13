@@ -1,3 +1,4 @@
+=========================================
 Alfred output format enhancement proposal
 =========================================
 
@@ -13,7 +14,7 @@ Here's a proposal which aims for the following three key benefits:
 -  Binary data can be inserted, queried and piped on the shell.
 
 Valid UTF8 text only by default
--------------------------------
+===============================
 
 *Valid UTF8 text, ASCII, example 1:*
 
@@ -78,7 +79,7 @@ Simply fail with an error return code and message, example:
     Invalid UTF8 input! Consider using --binary
 
 Binary mode switch
-------------------
+==================
 
 *Store:*
 
@@ -100,7 +101,7 @@ So '$ alfred -r 64' displays the data in base64 (or some other suitable,
 json string compatible format).
 
 Namespaces
-----------
+==========
 
 *Store:*
 
