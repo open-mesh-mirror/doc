@@ -5,8 +5,6 @@ A.L.F.R.E.D - Almighty Lightweight Fact Remote Exchange Daemon
   with useless data - like vis, weather data, network notes, etc"
 | > - Marek Lindner, 2012
 
-{{TOC}}
-
 Introduction
 ------------
 

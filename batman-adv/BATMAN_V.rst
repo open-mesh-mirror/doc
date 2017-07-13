@@ -6,8 +6,6 @@ between B.A.T.M.A.N. IV and B.A.T.M.A.N. V. Links to the technical
 documentation for further reading are provided at the end of this
 document.
 
-{{toc}}
-
 Separating neighbor discovery from mesh routing
 -----------------------------------------------
 

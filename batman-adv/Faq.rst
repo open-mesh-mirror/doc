@@ -1,8 +1,6 @@
 FAQ
 ===
 
-{{TOC}}
-
 Below you can see a list of frequently asked questions and answers. If
 your question is not listed below, please contact us. You can contact us
 via IRC: `#batman

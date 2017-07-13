@@ -1,8 +1,6 @@
 FAQ
 ===
 
-{{TOC}}
-
 See below a list of batmand (B.A.T.M.A.N. deamon) related questions and
 answers.
 

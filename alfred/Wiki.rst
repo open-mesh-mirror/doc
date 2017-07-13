@@ -6,8 +6,6 @@ useless data - like vis, weather data, network notes, etc"
 
 - Marek Lindner, 2012
 
-{{TOC}}
-
 alfred is a user space daemon for distributing arbitrary local
 information over the mesh/network in a decentralized fashion. This data
 can be anything which appears to be useful - originally designed to

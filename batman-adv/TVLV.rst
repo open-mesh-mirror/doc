@@ -6,8 +6,6 @@ contains a list of TVLV definitions for reference. Be sure to have read
 the [[open-mesh:2012-10-01-GSoC-2012-Spyros-Gasteros-Final-Report\|TVLV
 introduction]] if you don't understand the scope of this document.
 
-{{TOC}}
-
 TVLV format
 -----------
 

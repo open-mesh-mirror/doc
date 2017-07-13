@@ -1,8 +1,6 @@
 B.A.T.M.A.N. Advanced quick start guide
 =======================================
 
-{{>toc}}
-
 This page shall show a couple of easy examples of how to use and setup a
 mesh network with B.A.T.M.A.N.-Advanced (further referenced as
 batman-adv). It is assumed, the tool 'batctl' was installed which allows

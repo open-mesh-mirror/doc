@@ -1,8 +1,6 @@
 B.A.T.M.A.N. Advanced Documentation Overview
 ============================================
 
-{{TOC}}
-
 How to get a mesh network up and running, how to configure the many
 features of B.A.T.M.A.N. Advanced, and how to shoot down your troubles.
 

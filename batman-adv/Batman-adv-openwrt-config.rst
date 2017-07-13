@@ -1,8 +1,6 @@
 B.A.T.M.A.N. OpenWrt configuration
 ==================================
 
-{{>toc}}
-
 This page showcases some basic batman-adv configurations on OpenWrt
 including wireless & network setups. However, the goal is to provide not
 more than a starting point. For a full reference of the OpenWrt uci

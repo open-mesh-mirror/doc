@@ -1,8 +1,6 @@
 alfred architecture
 ===================
 
-{{>toc}}
-
 Introduction
 ------------
 
