@@ -32,7 +32,6 @@ Contents:
    News-draft
    ResearchProposals
    Routing_scenarios
-   Sidebar
    TemplateDeprecated
    The-olsr-story
    UsingBatmanGit

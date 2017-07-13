@@ -14,7 +14,6 @@ Contents:
    Faq
    InternetTuning
    RoutingVodoo
-   Sidebar
    VisOutput
    VisualizeMesh
    Why-starting-batman

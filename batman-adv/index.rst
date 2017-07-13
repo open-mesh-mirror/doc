@@ -60,7 +60,6 @@ Contents:
    Quick-start-guide
    Release-todo
    RIP
-   Sidebar
    SubmittingLinux
    Throughput_meter
    Troubleshooting

@@ -12,7 +12,6 @@ Contents:
    Alfred
    Batadv-vis
    Building_information
-   Sidebar
    Wiki
 
 .. only::  subproject
