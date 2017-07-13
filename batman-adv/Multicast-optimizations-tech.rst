@@ -114,20 +114,32 @@ other nodes, there are various limitations and exceptions. If multicast
 optimization is not supported for whatever reason, the packets will be
 sent as broadcast as a fallback solution.
 
-+----------------------------+----------------------------------------------+---------------------------------------------+
-| *address range*            | \\2=. *address family*                       |
-+----------------------------+----------------------------------------------+---------------------------------------------+
-|                            | **IPv4**                                     | **IPv6**                                    |
-+----------------------------+----------------------------------------------+---------------------------------------------+
-| **all nodes link-scope**   | =. supported without bridges¹.               | =. supported without bridges¹.              |
-|                            | Example: 224.0.0.1 (all nodes)               | Example: ff02::1 (all nodes)                |
-+----------------------------+----------------------------------------------+---------------------------------------------+
-| **link-local**             | =. supported without bridges¹.               | =. supported².                              |
-| (excl. all nodes addr.)    | Example: 224.0.0.251 (mDNS)                  | Example: ff12::39 (locally administrated)   |
-+----------------------------+----------------------------------------------+---------------------------------------------+
-| **routable**               | =. support planned³.                         | =. support planned³.                        |
-|                            | Example: 239.1.2.3 (locally administrated)   | Example: ff0e::101 (NTP)                    |
-+----------------------------+----------------------------------------------+---------------------------------------------+
+.. list-table::
+   :stub-columns: 1
+   :header-rows: 2
+
+   * - address range
+     - address family
+     - address family
+   * - 
+     - IPv4
+     - IPv6
+   * - all nodes link-scope
+     - supported without bridges¹
+       Example: 224.0.0.1 (all nodes)
+     - supported without bridges¹
+       Example: ff02::1 (all nodes)
+   * - link-local
+       (excl. all nodes addr.)
+     - supported without bridges¹
+       Example: 224.0.0.251 (mDNS)
+     - supported²
+       Example: ff12::39 (locally administrated)
+   * - routable
+     - support planned³
+       Example: 239.1.2.3 (locally administrated)
+     - support planned³
+       Example: ff0e::101 (NTP)
 
 ¹: These addresses cannot be considered for optimization towards nodes
 which have a bridge interface on top of their batman interface as they
