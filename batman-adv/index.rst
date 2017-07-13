@@ -58,15 +58,8 @@ Contents:
    TT-Flags
    TVLV
    Tweaking
-   T_X's_Junkyard_–_BATMAN_V_Extensions
-   T_X's_Junkyard_–_dTT
-   T_X's_Junkyard_–_MGO
-   T_X's_Junkyard_–_Multicast_snooping_domain_segmentation
-   T_X's_Junkyard_–_Multicast_Snooping_Revised
-   T_X's_Junkyard
    Uevent
    Understand-your-batman-adv-network
-   Unicasting-unsolicited-neighbor-advertisements
    Using-batctl
    Wiki
 
