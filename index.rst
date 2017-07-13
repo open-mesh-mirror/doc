@@ -15,11 +15,3 @@ Contents:
    alfred/index
    batmand/index
    open-mesh/index
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
