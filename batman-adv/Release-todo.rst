@@ -1,0 +1,81 @@
+Release Checklist
+=================
+
+This page contains a checklist of things that need to be done for a
+release.
+
+Release Scheduling
+------------------
+
+|image0|
+
+-  master branch is closed whenever net-next is closed
+-  master branch is released as feature release 20\_ \_.a after net-next
+   is closed (whenever Linus released a final Linux version)
+
+   -  actually only the patches which were really submitted should be
+      released (when possible)
+
+-  maint branch is released on demand
+
+   -  for example after security issues
+   -  when net.git/Linux was released with important fixes and users
+      cannot switch to new feature release (which is done at the same
+      time)
+
+Documentation
+-------------
+
+-  [ ] build changelog
+-  [ ] update README
+-  [ ] [[open-mesh:News-draft\|write release announcement]]
+-  [ ] update wiki documentation
+
+Code
+----
+
+-  [ ] make sure all code contains the release version strings
+-  [ ] update copyright years (if needed)
+-  [ ] check coverity scan status
+-  [ ] remove dead code (if any)
+-  [ ] check against kernel versions
+-  [ ] check that maint branch is merged in master
+-  [ ] check for `open patches on the
+   ml <https://patchwork.open-mesh.org/project/b.a.t.m.a.n./list/>`__
+-  [ ] git tag release
+
+Release
+-------
+
+-  [ ] build package tar.gz and generate checksums
+-  [ ] move packages/checksums to stable/sources / create symlinks from
+   releases
+-  [ ] update download links in the [[open-mesh:Download\|redmine
+   downloads page]]
+-  [ ] `Add news </projects/open-mesh/news/new>`__ based on
+   [[open-mesh:News-draft]]
+-  [ ] send release mail
+-  [ ] update IRC channel topic
+
+Distributions
+-------------
+
+-  [ ] update alfred openwrt package
+-  [ ] update batman-adv/batctl openwrt package
+-  [ ] update gentoo package
+-  [ ] update debian batctl package
+
+Aftershow
+---------
+
+-  [ ] Merge current git tag into maint (must be -[STRIKEOUT:ff-only or
+   pre-tagging steps were done wrong] git merge --ff-only v20xx.x.x)
+-  [ ] close `current
+   version <https://www.open-mesh.org/projects/batman-adv/settings/versions>`__
+-  [ ] add `new upcoming
+   version <https://www.open-mesh.org/projects/batman-adv/versions/new>`__
+-  [ ] Mark issues from `Resolved to
+   Closed <https://www.open-mesh.org/projects/batman-adv/issues?utf8=%E2%9C%93&set_filter=1&f%5B%5D=status_id&op%5Bstatus_id%5D=%3D&v%5Bstatus_id%5D%5B%5D=3>`__
+
+.. |image0| image:: /attachments/download/706/release_scheduling.svg
+

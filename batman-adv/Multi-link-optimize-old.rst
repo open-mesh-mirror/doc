@@ -1,0 +1,77 @@
+This page is OUTDATED!
+======================
+
+This page was superseded with an update for the feature,
+[[Multi-link-optimize\|documentered here]]
+
+Multi-link Optimizations
+========================
+
+batman-adv is able to work on different interfaces - multiple WiFi
+interfaces, but also Ethernet interfaces. If two or more nodes are
+interconnected through batman-adv on multiple interfaces, they may
+leverage some features to increase throughput, which are explained here.
+
+For more technical information, please see our
+[[multi-link-optimizations-technical\|technical multi-link
+documentation]]
+
+Interface alternating
+---------------------
+
+With Interface alternating, batman-adv forwards frames on a different
+interface than on which the frame was received. The purpose of this
+alternation is to reduce interference (we can either send or receive on
+a WiFi interface at one time) and to balance the network load better on
+the available interfaces, and eventually increases throughput. The
+mechanism is illustrated below for a chain of nodes with two interfaces.
+
+|image0|
+
+Interface alternating is only performed if the two candidate links to
+the next hop have a similar quality. This feature is enabled by default
+and does not have to be enabled manually.
+
+Interface bonding
+-----------------
+
+When multiple links (with similar transmit quality) are available to the
+same neighbor, batman-adv may distribute the frames to be sent over
+these available links. The individual frames are sent over the links in
+a round robin fashion as illustrated below. Using this technique, the
+throughput may be increased by the number of links involved in the
+bonding. In practical tests over two WiFi links, we have seen more than
+50% of throughput gain.
+
+|image1|
+
+However, if the links have different speeds (batman-adv won't detect
+that), the throughput may even decrease due to the slower link slowing
+down the whole bonding. Therefore, this feature must be explicitly
+enabled. One may enable it for certain nodes in a known environment, the
+same setting does not have to be applied mesh wide.
+
+To enable bonding, use batctl:
+
+::
+
+    batctl bonding enable
+
+Throughput gain
+---------------
+
+At the [[open-mesh:2010-06-13-wbm2010-bracciano\|WirelessBattleMesh v3]]
+we performed throughput tests to measure the gain of the various modes:
+
+|image2|
+
+This graph shows a 3 node setup each with 2 802.11abg wifi interfaces
+connected to the mesh network (1x 2.4GHz and 1x 5.8GHz). As you can see
+the alternating mode is able to maintain the performance. The old
+default behavior sometimes manages to maintain a similar level of
+performance but is rather unstable.
+
+.. |image0| image:: alternation_chain.dia.jpg
+.. |image1| image:: bonding_roundrobin.dia.jpg
+.. |image2| image:: bonding_2hops.png
+

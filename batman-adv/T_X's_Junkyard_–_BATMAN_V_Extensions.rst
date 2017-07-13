@@ -1,0 +1,129 @@
+T X's Junkyard – BATMAN V Extensions
+====================================
+
+The new BATMAN V implementation is a simple and clean implementation of
+the general BATMAN routing concept. Although being simpler it still
+offers less overhead and generally faster convergence times.
+
+This page contains a list of potential improvements to reduce
+convergence times even further (and by that allowing higher intervals
+which in turn reduces overhead). They are backwards compatible to the
+current, simple BATMAN V protocol.
+
+Suggested milestones named "Mach 1" to "Mach 3".
+
+BATMAN V, Mach 1
+----------------
+
+ak. "BATMAN V simple"
+
+BATMAN V, Mach 2
+----------------
+
+Sequence Number Polling
+~~~~~~~~~~~~~~~~~~~~~~~
+
+A reactive mechanism can allow to drastically lower the periodic OGM
+intervals. Just like BABEL already does, we can poll for newer sequence
+numbers upon detecting broken links to be able to change to alternative
+routes faster.
+
+For BATMAN this was first sketched on the MGO page and is currently work
+in progress under the name RIP.
+
+Potential Router List / Store & Delayed Forward Mechanism ("OGM on hold")
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In a mesh network with low packet loss (at least for OGMs), BATMAN V
+will ideally converge to its optimum within one sequence number.
+However, for the worst case the current, simple BATMAN V algorithm may
+need an amount of sequence numbers relative to the diameter of the mesh
+to converge.
+
+Whether the ideal or worst case applies depends on the latency: The best
+case happens if an OGM of a given sequence number first travels over the
+path that got worse but so far was the best, selected one. And the same
+OGM/seqno travels over the path that would become the newly best path
+afterwards. In the worst case however the reverse happens and each node
+along the alternative path will need another sequence number to switch.
+
+The idea of a ''Potential Router List'' will allow to always converge
+within one sequence number in a low-loss-OGM case:
+
+Nodes which receive an OGM with a new sequence number from a neighbor
+other than their currently selected one, will be ''kept on-hold''
+instead of being dropped - such a neighbor is kept as a ''potential
+router''. Once the ''bad news'' arrives via the currently selected
+neighbor and got processed, the hold OGM can processed further and the
+potential router selected. Finally the previously hold OGM can be safely
+forwarded and propagated further along the alternative path.
+
+TODO: Draw and explain an example. Easy one would be "The circle, I"
+from the BATMAN V test examples, but with a link becoming worse on the
+selected path instead of one node failing completely. Upper path has a
+latency greater than the alternative, bottom one.
+
+Forwarding OGMs via unicast
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To achieve the low-loss-OGM case to utilize the "Potential Router List"
+described above as best as possible, OGMs should be forwarded to
+neighbors via unicast.
+
+BATMAN V, Mach 3
+----------------
+
+Weaker Feasibility Conditions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TODO: Do weaker feasibility conditions actually enhance anything right
+now? Or would it only help if we wanted to react to link changes without
+needing a new seqno/RIP(-alikes)?
+
+A feasibility condition ensures that accepting an OGM / route update
+does not create a loop. While the current feasibility condition in
+BATMAN V to accept a route only if it has either a newer sequence number
+or, alternatively, the same sequence number and a better metric is a
+safe choice. However feasibility conditions with a quicker convergence
+time exist.
+
+The weaker (= better) the feasibility condition is, the more likely we
+can switch to an alternative route without having to wait for the next
+sequence number.
+
+A weaker feasibility condition allows us to not only
+
+One such slightly better condition is described in the BABEL RFC and
+talks.
+
+Furthermore the TTL could be added to the feasibility condition too.
+
+(Maybe the address of the last n nodes the OGM went through plus the
+throughput the OGM had before these two nodes - if we are not part of
+these n nodes we can check feasibility with the throughput of the OGM
+before these n nodes)
+
+BATMAN V, Mach 1.5?
+-------------------
+
+After "Mach 1" we have a clean and simple BATMAN V algorithm within the
+kernel for easy, out-of-the-box use. It would be relatively easy to port
+that to userspace now. Before growing the kernel size yet again, maybe
+we should reconsider implementing a userspace daemon for the BATMAN V
+algorithm and its extensions now?
+
+For instance next to the routing algorithm options "BATMAN IV" and
+"BATMAN V" configurable via sysfs another option named "external"? A
+userspace daemon would then be allowed to set arbitrary layer 2 routes
+within the kernel module through netlink.
+
+This should make it easier to test and validate BATMAN V (for instance
+in simulations or with gdb, valgrind etc.) and easier to extend. And
+should be easier for others (researchers etc.) to experiment with.
+
+Currently we have many data structures shared and accessible through
+several submodules / features in batman-adv. This, right now, makes it
+very hard to debug the current kernel panics. Having a separate
+userspace daemon for the unicast routing algorithm and a clean API to
+the kernel module would allow us to eliminate the userspace code from
+causing any kernel panics (separation of concerns).

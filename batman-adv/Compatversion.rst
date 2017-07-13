@@ -1,0 +1,48 @@
+batman-adv COMPAT\_VERSION
+==========================
+
+COMPAT\_VERSION in packet.h is used to identify an incoming packet and
+check if it can processed by the current version. The packet structure
+should be identified by this version. The stuff which appears in a
+packet jumps a little bit with each version because we change stuff in
+trunk/master and in next and import those changes to the packet
+structure out-of-order.
+
+Following changes were identified and documented. The changes are to the
+last COMPAT\_VERSION and not to the last change in a branch. So "added
+xyz on master, removed xyz on next and re-added xyz on master" does only
+mean that xyz was always there in master, but the version in next
+dropped that change and thus generated a new COMPAT\_VERSION.
+
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Version   | Branch                                      | Changes                                                                                                                                                                  |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 1         | (development only)                          | Initial definitions of batman\_packet, icmp\_packet, unicast\_packet, bcast\_packet, ethernet type 0x0842                                                                |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 5         | (development only)                          | information in batman\_packet was reordered, tq, old\_orig and hnas were added                                                                                           |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 6         | v0.1                                        | vis\_packet type added, version fields added to each packet, ethernet type changed to 0x4305                                                                             |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 7         | (development only)                          | unused gw flags removed, reordered icmp and batman packet                                                                                                                |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 8         | trunk, v0.2, v0.2.1, v2010.0.0              | source field introduced in vis packets                                                                                                                                   |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 9         | (development only)                          | Gateway flags added to batman\_packet, primaries\_first\_hop flag added for bonding, special icmp messages for route record added                                        |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 10        | (development only)                          | 32 bit sequence numbers added/changed, ttl were added to broadcasts                                                                                                      |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 11        | v2010.1.0                                   | gateway flags were removed                                                                                                                                               |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 12        | v2011.0.0, v2011.1.0, v2012.2.0             | unicast fragmentation added, gateway flags were readded                                                                                                                  |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 13        | v2010.2.0                                   | gateway flags were removed                                                                                                                                               |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 14        | v2011.3.0 until (and including) v2013.4.0   | 3-byte common header, tt queries and related fields added, roam adv packet added                                                                                         |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 15        | v2014.0.0 and later                         | TVLV (backward compatibility), packet alignment (\_\_packed), vlan aware tt, crc32 checksums for tt, fragmentation v2, packet type prefix and BATADV\_TT\_CLIENT\_TEMP   |
++-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+(\* means future version with already defined feature set)
+
+There is a special COMPAT\_VERSION 200 which is only used by saxnet.
+This version is v6 with bcast seqno protection added.
