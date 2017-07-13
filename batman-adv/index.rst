@@ -8,10 +8,8 @@ Contents:
 
    Ap-isolation
    Bandwidth_meter_technical
-   Bandwidth_meter_tests
    Batman-adv-openwrt-config
    BATMAN_V
-   BATMAN_V_Tests
    Batman_v_throughput_experimental
    Bcast-hidden-node
    Bridge-loop-avoidance-II
@@ -34,7 +32,6 @@ Contents:
    Faq
    Fragmentation-technical
    Gateways
-   Kmalloc-kmem-cache-tests
    LinuxNextTracking
    Multicast-ideas
    Multicast-ideas-updated
