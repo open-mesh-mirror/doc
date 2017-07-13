@@ -1,4 +1,5 @@
-batmand
+=======
+History
 =======
 
 Contents:
@@ -6,10 +7,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   Doc-overview
-   gettingstarted
-   history
-   developerinformation
+   BerlinExperience
+   Why-starting-batman
 
 .. only::  subproject
 
