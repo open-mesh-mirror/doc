@@ -161,9 +161,9 @@ Further Readings
 -  [[multicast-optimizations-report-suppresion\|Multicast Optimizations
    – IGMP/MLD Report Suppresion]]
 
-.. |image0| image:: basic-multicast-bridge-scenario.png
-.. |image1| image:: basic-multicast-snoopables-announce.png
-.. |image2| image:: basic-multicast-snoopables-unknown.png
-.. |image3| image:: basic-multicast-snoopables-no-querier.png
-.. |image4| image:: basic-multicast-snoopables-shadowing-querier.png
+.. |image0| image:: basic-multicast-bridge-scenario.svg
+.. |image1| image:: basic-multicast-snoopables-announce.svg
+.. |image2| image:: basic-multicast-snoopables-unknown.svg
+.. |image3| image:: basic-multicast-snoopables-no-querier.svg
+.. |image4| image:: basic-multicast-snoopables-shadowing-querier.svg
 

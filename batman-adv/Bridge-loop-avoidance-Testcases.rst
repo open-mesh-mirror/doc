@@ -84,10 +84,10 @@ Two meshes connected by one LAN
   possible with the backbone gateway grouping optimization)
 | Every node should be able to reach every other node.
 
-.. |image0| image:: Test_roaming_LAN_mesh.dia.png
-.. |image1| image:: Test_roaming_mesh_LAN.dia.png
+.. |image0| image:: Test_roaming_LAN_mesh.svg
+.. |image1| image:: Test_roaming_mesh_LAN.svg
 .. |image2| image:: Test_gateway_selection.dia.png
-.. |image3| image:: Test_limited_horizon.dia.png
-.. |image4| image:: Test_2xLAN.dia.png
-.. |image5| image:: Test_2xmesh.dia.png
+.. |image3| image:: Test_limited_horizon.svg
+.. |image4| image:: Test_2xLAN.svg
+.. |image5| image:: Test_2xmesh.svg
 

@@ -77,13 +77,13 @@ Mobile Node
 
 |image8|
 
-.. |image0| image:: asym_link.png
-.. |image1| image:: asym_path.png
-.. |image2| image:: triangle.png
-.. |image3| image:: circle.png
-.. |image4| image:: circle-v2.png
-.. |image5| image:: bottle.png
-.. |image6| image:: new_neigh.png
-.. |image7| image:: new_dist_neigh.png
-.. |image8| image:: mob_node.png
+.. |image0| image:: asym_link.svg
+.. |image1| image:: asym_path.svg
+.. |image2| image:: triangle.svg
+.. |image3| image:: circle.svg
+.. |image4| image:: circle-v2.svg
+.. |image5| image:: bottle.svg
+.. |image6| image:: new_neigh.svg
+.. |image7| image:: new_dist_neigh.svg
+.. |image8| image:: mob_node.svg
 

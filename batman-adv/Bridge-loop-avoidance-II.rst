@@ -246,15 +246,15 @@ other.
 
 |image10|
 
-.. |image0| image:: situation.dia.png
-.. |image1| image:: mesh_LAN.dia.png
-.. |image2| image:: mesh_LAN_unicast.dia.png
-.. |image3| image:: LAN_mesh.dia.png
-.. |image4| image:: LAN_mesh_unicast.dia.png
-.. |image5| image:: mesh_LAN_mesh.dia.png
-.. |image6| image:: LAN_mesh_LAN.dia.png
-.. |image7| image:: Test_roaming_LAN_mesh.dia.png
-.. |image8| image:: Test_roaming_mesh_LAN.dia.png
-.. |image9| image:: gateway_selection.dia.png
-.. |image10| image:: 2mesh2lan.png
+.. |image0| image:: situation.svg
+.. |image1| image:: mesh_LAN.svg
+.. |image2| image:: mesh_LAN_unicast.svg
+.. |image3| image:: LAN_mesh.svg
+.. |image4| image:: LAN_mesh_unicast.svg
+.. |image5| image:: mesh_LAN_mesh.svg
+.. |image6| image:: LAN_mesh_LAN.svg
+.. |image7| image:: Test_roaming_LAN_mesh.svg
+.. |image8| image:: Test_roaming_mesh_LAN.svg
+.. |image9| image:: gateway_selection.svg
+.. |image10| image:: 2mesh2lan.svg
 

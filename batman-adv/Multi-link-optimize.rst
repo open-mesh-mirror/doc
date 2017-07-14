@@ -103,9 +103,9 @@ the alternating mode is able to maintain the performance. The old
 default behavior sometimes manages to maintain a similar level of
 performance but is rather unstable.
 
-.. |image0| image:: alternation_chain.dia.jpg
-.. |image1| image:: alternating-limited-view.png
-.. |image2| image:: net-wide-multiif.png
-.. |image3| image:: bonding_roundrobin.dia.jpg
+.. |image0| image:: alternation_chain.svg
+.. |image1| image:: alternating-limited-view.svg
+.. |image2| image:: net-wide-multiif.svg
+.. |image3| image:: bonding_roundrobin.svg
 .. |image4| image:: bonding_2hops.png
 

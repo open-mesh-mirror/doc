@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="40cm" height="13cm" viewBox="19 139 783 243" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Hintergrund">
+    <rect style="fill: #90eee6; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #90eee6" x="260" y="240" width="220" height="60" rx="0" ry="0"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" x1="470" y1="300" x2="270" y2="300"/>
+    <text font-size="16.9785" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:italic;font-weight:normal" x="260" y="320">
+      <tspan x="260" y="320">Point-to-(multi)point tunnel</tspan>
+    </text>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="210" cy="170" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="190" cy="350" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="50" cy="310" rx="30" ry="30"/>
+    <g>
+      <path style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" d="M 597.267 239.859 C 575.999,239.338 534.753,250.287 540.553,273.751 C 546.353,297.214 574.066,302.427 585.666,295.649 C 597.267,288.871 567.621,328.498 624.335,338.926 C 681.049,349.354 710.05,332.669 701.672,320.677 C 693.294,308.684 751.297,348.832 778.365,325.891 C 805.433,302.949 750.652,281.05 762.253,284.179 C 773.853,287.307 809.299,283.136 797.699,244.031 C 786.098,204.925 681.693,235.167 693.294,229.431 C 704.894,223.696 675.893,195.019 639.803,200.754 C 603.712,206.49 601.152,216.897 597.285,239.839 L 597.267,239.859z"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="679.386" y="278.907">
+        <tspan x="679.386" y="278.907"></tspan>
+      </text>
+    </g>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="539.357" y1="270.556" x2="502.006" y2="270.257"/>
+    <text font-size="16.9785" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:italic;font-weight:normal" x="600" y="280">
+      <tspan x="600" y="280">Big Mesh Cloud</tspan>
+    </text>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="225.945" y1="196.575" x2="253.564" y2="242.607"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="247.373" y1="292.627" x2="211.924" y2="328.076"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="160.187" y1="341.482" x2="79.8132" y2="318.518"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 4; stroke: #000000" cx="270" cy="270" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 4; stroke: #000000" cx="470" cy="270" rx="30" ry="30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" x1="470" y1="240" x2="270" y2="240"/>
+    <text font-size="16.9785" style="fill: #ff0000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="465" y="275">
+      <tspan x="465" y="275">S</tspan>
+    </text>
+    <text font-size="16.9785" style="fill: #ff0000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="263" y="276">
+      <tspan x="263" y="276">C</tspan>
+    </text>
+  </g>
+</svg>

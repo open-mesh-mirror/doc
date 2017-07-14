@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="13cm" height="4cm" viewBox="141 87 253 66" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Hintergrund">
+    <ellipse style="fill: #90eee6; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #bfbfbf" cx="282.7" cy="118.392" rx="110" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="172.7" cy="118.392" rx="30" ry="30"/>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 4; stroke-dasharray: 4; stroke: #0000ff" x1="223.702" y1="118.306" x2="332.784" y2="117.461"/>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 4; stroke: #0000ff" points="327.295,122.504 337.256,117.426 327.218,112.504 "/>
+    </g>
+    <text font-size="16.9785" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:italic;font-weight:normal" x="222.7" y="148.392">
+      <tspan x="222.7" y="148.392">No Neighbor</tspan>
+    </text>
+    <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="202.7" y="108.392" width="20" height="20" rx="0" ry="0"/>
+    <text font-size="28.2222" style="fill: #ff0000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="240" y="129">
+      <tspan x="240" y="129">X</tspan>
+    </text>
+  </g>
+</svg>

@@ -273,5 +273,5 @@ Generally, claim frames are only accepted if they are on the same group
 scenarios, e.g. when multiple different meshes are connected to one
 shared backbone (see two meshes test setup below).
 
-.. |image0| image:: claimtypes.dia.png
+.. |image0| image:: claimtypes.svg
 

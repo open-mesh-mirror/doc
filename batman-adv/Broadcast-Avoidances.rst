@@ -299,11 +299,11 @@ full TX throughput list to other neighbors on the according interface.
 Receiving neighbors would then have a full RX and TX table between
 neighbors in the direct, one-hop vicinity.
 
-.. |image0| image:: rebroadcasts.png
-.. |image1| image:: wired-aps.png
-.. |image2| image:: mobile-clusters.png
-.. |image3| image:: ptp-adsl.png
-.. |image4| image:: bcast-avoid-no-neighbor.png
-.. |image5| image:: bcast-avoid-single-orig.png
-.. |image6| image:: bcast-avoid-single-fwd.png
+.. |image0| image:: rebroadcasts.svg
+.. |image1| image:: wired-aps.svg
+.. |image2| image:: mobile-clusters.svg
+.. |image3| image:: ptp-adsl.svg
+.. |image4| image:: bcast-avoid-no-neighbor.svg
+.. |image5| image:: bcast-avoid-single-orig.svg
+.. |image6| image:: bcast-avoid-single-fwd.svg
 

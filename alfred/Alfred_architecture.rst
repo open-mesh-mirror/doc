@@ -290,15 +290,15 @@ correctly interpret the data.
 One push data packet can be up to 65535 bytes in size. This limits the
 number of bytes per data block to 65517 bytes.
 
-.. |image0| image:: general_structure.png
-.. |image1| image:: announce_master.png
-.. |image2| image:: master_selection.png
-.. |image3| image:: node_architecture_master.png
-.. |image4| image:: node_architecture_slave.png
-.. |image5| image:: synchronization.png
-.. |image6| image:: packet_announce_master_v0.png
-.. |image7| image:: packet_request_v0.png
-.. |image8| image:: packet_status_v0_end.png
-.. |image9| image:: packet_status_v0_error.png
-.. |image10| image:: packet_push_data_v0.png
+.. |image0| image:: general_structure.svg
+.. |image1| image:: announce_master.svg
+.. |image2| image:: master_selection.svg
+.. |image3| image:: node_architecture_master.svg
+.. |image4| image:: node_architecture_slave.svg
+.. |image5| image:: synchronization.svg
+.. |image6| image:: packet_announce_master_v0.svg
+.. |image7| image:: packet_request_v0.svg
+.. |image8| image:: packet_status_v0_end.svg
+.. |image9| image:: packet_status_v0_error.svg
+.. |image10| image:: packet_push_data_v0.svg
 

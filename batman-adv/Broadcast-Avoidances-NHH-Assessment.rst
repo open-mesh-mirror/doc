@@ -290,9 +290,9 @@ See also:
 
 \* https://en.wikipedia.org/wiki/Birthday\_attack
 
-.. |image0| image:: wired-aps.png
-.. |image1| image:: mobile-clusters.png
-.. |image2| image:: rebroadcast-eval1.png
-.. |image3| image:: rebroadcast-eval2.png
-.. |image4| image:: rebroadcast-eval3.png
+.. |image0| image:: wired-aps.svg
+.. |image1| image:: mobile-clusters.svg
+.. |image2| image:: rebroadcast-eval1.svg
+.. |image3| image:: rebroadcast-eval2.svg
+.. |image4| image:: rebroadcast-eval3.svg
 

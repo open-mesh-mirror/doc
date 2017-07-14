@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="34cm" height="20cm" viewBox="11 43 675 399" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Background">
+    <g>
+      <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="358.933" cy="227.966" rx="37.0673" ry="37.0336"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="358.933" y="231.866">
+        <tspan x="358.933" y="231.866">A</tspan>
+      </text>
+    </g>
+    <g>
+      <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="591.367" cy="227.234" rx="37.0673" ry="37.0336"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="591.367" y="231.134">
+        <tspan x="591.367" y="231.134">B</tspan>
+      </text>
+    </g>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #000000" x1="396.982" y1="227.846" x2="553.319" y2="227.354"/>
+    <g>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="272" y="300" width="55" height="52" rx="0" ry="0"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="299.5" y="329.9">
+        <tspan x="299.5" y="329.9"></tspan>
+      </text>
+    </g>
+    <g>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="630" y="299" width="53" height="50" rx="0" ry="0"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="656.5" y="327.9">
+        <tspan x="656.5" y="327.9"></tspan>
+      </text>
+    </g>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 4; stroke-dasharray: 4; stroke: #000000" x1="315.871" y1="298.996" x2="339.21" y2="260.499"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 4; stroke-dasharray: 4; stroke: #000000" x1="612.548" y1="258.702" x2="639" y2="298.001"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="292" y="439">
+      <tspan x="292" y="439">Client connected to the mesh nodes through a WIRELESS link</tspan>
+    </text>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" x1="568" y1="421" x2="636.378" y2="366.831"/>
+      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="639.483,370.75 644.216,360.621 633.273,362.911 "/>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" x1="394" y1="420" x2="328.886" y2="372.484"/>
+      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="331.833,368.445 320.808,366.589 325.938,376.523 "/>
+    </g>
+    <g>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="12.6" y="81.5" width="53" height="50" rx="0" ry="0"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="39.1" y="110.4">
+        <tspan x="39.1" y="110.4"></tspan>
+      </text>
+    </g>
+    <g>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="617.3" y="92.3" width="53" height="50" rx="0" ry="0"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="643.8" y="121.2">
+        <tspan x="643.8" y="121.2"></tspan>
+      </text>
+    </g>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 4; stroke: #000000" x1="631.402" y1="143.294" x2="607.743" y2="192.9"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="343.3" y="55.2">
+      <tspan x="343.3" y="55.2">Client connected to the mesh</tspan>
+      <tspan x="343.3" y="71.2">nodes through a WIRED link</tspan>
+    </text>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" x1="529" y1="68.1" x2="599.413" y2="107.707"/>
+      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="596.961,112.065 608.128,112.61 601.864,103.349 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" d="M 337 323.1 C 377,222.1 518,243.1 571,276.1"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="571" y1="276.1" x2="575.244" y2="278.743"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="577.887" y1="274.498" x2="564.113" y2="277.702"/>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="573.643" y1="271.856" x2="568.357" y2="280.344"/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #00ff00" d="M 293.172 278.253 C 265,111.1 557,196.1 598.972,145.562"/>
+      <polygon style="fill: #00ff00; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #00ff00" fill-rule="evenodd" points="288.241,279.084 294.834,288.114 298.102,277.422 "/>
+      <polygon style="fill: #00ff00; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #00ff00" fill-rule="evenodd" points="602.819,148.757 605.361,137.869 595.126,142.368 "/>
+    </g>
+  </g>
+</svg>

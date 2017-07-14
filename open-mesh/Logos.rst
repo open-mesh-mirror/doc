@@ -10,5 +10,5 @@ howto]].
 
 |image0|
 
-.. |image0| image:: batlogo_transparent.png
+.. |image0| image:: batlogo_transparent.svg
 

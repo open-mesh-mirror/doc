@@ -81,5 +81,5 @@ For more details about the Extended Isolation and how to tell batman-adv
 which fwmark it has to look for, please read the
 [[Extended-Isolation\|related page]].
 
-.. |image0| image:: ap-isola-75.png
+.. |image0| image:: ap-isola-75.svg
 

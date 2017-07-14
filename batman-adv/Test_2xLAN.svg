@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="25cm" height="12cm" viewBox="-42 -62 484 226" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 3; stroke: #000000" cx="-10" cy="110" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 3; stroke: #000000" cx="130" cy="-30" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 3; stroke: #000000" cx="270" cy="-30" rx="30" ry="30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 6; stroke: #000000" x1="21.4795" y1="110" x2="98.5205" y2="110"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 3; stroke: #000000" cx="270" cy="110" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 3; stroke: #000000" cx="130" cy="110" rx="30" ry="30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 6; stroke: #000000" x1="340" y1="110" x2="340" y2="-30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 3; stroke-dasharray: 2; stroke: #000000" x1="161.479" y1="-30" x2="238.521" y2="-30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 3; stroke-dasharray: 2; stroke: #000000" x1="161.479" y1="110" x2="238.521" y2="110"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 6; stroke: #000000" x1="21.4795" y1="-30" x2="98.5205" y2="-30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 3; stroke: #000000" cx="-10" cy="-30" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 3; stroke: #000000" cx="410" cy="110" rx="30" ry="30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 6; stroke: #000000" x1="301.479" y1="110" x2="378.521" y2="110"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 3; stroke: #000000" cx="410" cy="-30" rx="30" ry="30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 6; stroke: #000000" x1="301.479" y1="-30" x2="378.521" y2="-30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 3; stroke-dasharray: 2; stroke: #000000" x1="130" y1="1.47949" x2="130" y2="78.5205"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 3; stroke-dasharray: 2; stroke: #000000" x1="270" y1="1.47949" x2="270" y2="78.5205"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 6; stroke: #000000" x1="60" y1="110" x2="60" y2="-30"/>
+    <text font-size="16.9333" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="40" y="160">
+      <tspan x="40" y="160">LAN 1</tspan>
+    </text>
+    <text font-size="16.9333" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="160">
+      <tspan x="320" y="160">LAN 2</tspan>
+    </text>
+    <text font-size="16.9333" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="180" y="160">
+      <tspan x="180" y="160">mesh</tspan>
+    </text>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 3; stroke-dasharray: 2; stroke: #000000" x1="247.783" y1="-7.7832" x2="152.217" y2="87.7832"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 3; stroke-dasharray: 2; stroke: #000000" x1="152.217" y1="-7.7832" x2="247.783" y2="87.7832"/>
+  </g>
+</svg>

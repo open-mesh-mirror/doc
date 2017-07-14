@@ -63,6 +63,6 @@ Further Readings
 -  [[multicast-optimizations-flags\|Multicast Optimizations – Flags
    Explained]]
 
-.. |image0| image:: multicast-listener-fetching-no-bridge.png
-.. |image1| image:: multicast-listener-fetching-with-bridge.png
+.. |image0| image:: multicast-listener-fetching-no-bridge.svg
+.. |image1| image:: multicast-listener-fetching-with-bridge.svg
 

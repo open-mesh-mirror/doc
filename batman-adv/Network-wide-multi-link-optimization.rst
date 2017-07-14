@@ -194,7 +194,7 @@ Ideas for the future
    because when using two different paths TCP reordering may decrease
    the performance)
 
-.. |image0| image:: alternating-limited-view.png
-.. |image1| image:: alternation_chain.dia.jpg
-.. |image2| image:: net-wide-multiif.png
+.. |image0| image:: alternating-limited-view.svg
+.. |image1| image:: alternation_chain.svg
+.. |image2| image:: net-wide-multiif.svg
 

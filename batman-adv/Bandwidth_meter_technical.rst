@@ -76,5 +76,5 @@ the same throughput with both the bw meter and iperf.
 In the [[Bandwitdh\_meter\_tests\|test page]] it is possible to see the
 obtained values more in detail.
 
-.. |image0| image:: Bw1.png
+.. |image0| image:: Bw1.svg
 

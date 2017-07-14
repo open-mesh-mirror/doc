@@ -155,5 +155,5 @@ TT\_CLIENT\_NOPURGE, TT\_CLIENT\_NEW, TT\_CLIENT\_PENDING
 
 No changes here.
 
-.. |image0| image:: roaming.png
+.. |image0| image:: roaming.svg
 

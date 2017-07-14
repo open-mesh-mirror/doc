@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="18cm" height="13cm" viewBox="166 178 355 253" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <rect style="fill: #90ee90; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="240" y="180" width="80" height="60" rx="0" ry="0"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="280" y="206.45">
+      <tspan x="280" y="206.45">node 1</tspan>
+      <tspan x="280" y="222.45">(master)</tspan>
+    </text>
+    <rect style="fill: #ffc780; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="340" y="300" width="80" height="60" rx="20" ry="20"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="380" y="326.45">
+      <tspan x="380" y="326.45">node 4</tspan>
+      <tspan x="380" y="342.45">(slave)</tspan>
+    </text>
+    <rect style="fill: #90ee90; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="440" y="180" width="80" height="60" rx="0" ry="0"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="480" y="206.45">
+      <tspan x="480" y="206.45">node 2</tspan>
+      <tspan x="480" y="222.45">(master)</tspan>
+    </text>
+    <rect style="fill: #90ee90; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="180" y="370" width="80" height="60" rx="0" ry="0"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="220" y="396.45">
+      <tspan x="220" y="396.45">node 3</tspan>
+      <tspan x="220" y="412.45">(master)</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #7f7f7f" d="M 354.17,298.992 A 37.9855,37.9855 0 0 0 330.286,229.401"/>
+      <polygon style="fill: #7f7f7f; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #7f7f7f" fill-rule="evenodd" points="323.094,230.605 330.936,222.637 330.19,228.177 334.174,232.098 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #7f7f7f" d="M 414.506,299.025 A 45.6173,45.6173 0 0 0 455.828,250.438"/>
+      <polygon style="fill: #7f7f7f; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #7f7f7f" fill-rule="evenodd" points="454.783,243.158 462.349,251.389 456.853,250.366 452.737,254.149 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" d="M 339.004,347.858 A 43.0435,43.0435 0 0 0 254.472,359.505"/>
+      <polygon style="fill: #ff0000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" fill-rule="evenodd" points="255.07,366.817 247.95,358.197 253.384,359.509 257.694,355.949 "/>
+    </g>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:end;font-family:sans-serif;font-style:normal;font-weight:normal" x="280" y="301">
+      <tspan x="280" y="301">TQ=250</tspan>
+      <tspan x="280" y="317">(selected master)</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="291.9">
+      <tspan x="460" y="291.9">TQ=126</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:end;font-family:sans-serif;font-style:normal;font-weight:normal" x="360" y="271.9">
+      <tspan x="360" y="271.9">TQ=70</tspan>
+    </text>
+  </g>
+</svg>

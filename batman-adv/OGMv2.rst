@@ -217,5 +217,5 @@ The OGMv2 is then rebroadcasted on the specific outgoing interface.
 | BATADV\_OGM\_MAX\_AGE: 64
 | BATADV\_EXPECTED\_SEQNO\_RANGE: 65536
 
-.. |image0| image:: batman_ogm.png
+.. |image0| image:: batman_ogm.svg
 

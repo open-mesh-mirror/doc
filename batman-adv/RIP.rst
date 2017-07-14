@@ -125,5 +125,5 @@ by a death note - but only after making sure that the connection to the
 destination still works (e.g. by using a ping). This would require some
 more state to be saved.
 
-.. |image0| image:: circle-v2.png
+.. |image0| image:: circle-v2.svg
 

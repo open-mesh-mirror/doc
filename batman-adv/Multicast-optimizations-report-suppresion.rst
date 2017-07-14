@@ -137,16 +137,16 @@ Although we are not supporting bridges yet, the recognition of this flag
 on the sender side was implemented already to avoid a future
 compatibility break.
 
-.. |image0| image:: basic-multicast-snoopables-shadowing-querier.png
-.. |image1| image:: basic-multicast-switch.png
-.. |image2| image:: basic-multicast-switch-uncertain.png
-.. |image3| image:: basic-multicast-snooping-switch.png
-.. |image4| image:: basic-multicast-querier-scenario.png
-.. |image5| image:: basic-multicast-querier-scenario-query.png
-.. |image6| image:: basic-multicast-querier-scenario-report.png
-.. |image7| image:: basic-multicast-querier-no-listener.png
-.. |image8| image:: basic-multicast-querier-want.png
-.. |image9| image:: basic-multicast-querier-want-#1.png
-.. |image10| image:: basic-multicast-querier-want-#2.png
-.. |image11| image:: basic-multicast-querier-want-#3.png
+.. |image0| image:: basic-multicast-snoopables-shadowing-querier.svg
+.. |image1| image:: basic-multicast-switch.svg
+.. |image2| image:: basic-multicast-switch-uncertain.svg
+.. |image3| image:: basic-multicast-snooping-switch.svg
+.. |image4| image:: basic-multicast-querier-scenario.svg
+.. |image5| image:: basic-multicast-querier-scenario-query.svg
+.. |image6| image:: basic-multicast-querier-scenario-report.svg
+.. |image7| image:: basic-multicast-querier-no-listener.svg
+.. |image8| image:: basic-multicast-querier-want.svg
+.. |image9| image:: basic-multicast-querier-want-#1.svg
+.. |image10| image:: basic-multicast-querier-want-#2.svg
+.. |image11| image:: basic-multicast-querier-want-#3.svg
 

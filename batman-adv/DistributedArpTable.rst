@@ -90,6 +90,6 @@ An explanation of the output can be found here (link needed).
 If you want to read a bit more about DAT technical details, please
 consider visiting the [[DistributedArpTable-technical\|technical page]].
 
-.. |image0| image:: dat-net.png
-.. |image1| image:: dat-net2.png
+.. |image0| image:: dat-net.svg
+.. |image1| image:: dat-net2.svg
 

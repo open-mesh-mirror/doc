@@ -218,6 +218,6 @@ Further Readings
 -  [[multicast-optimizations-flags\|Multicast Optimizations – Flags
    Explained]]
 
-.. |image0| image:: basic-multicast-listener-announce.png
-.. |image1| image:: basic-multicast-sender-receiver.png
+.. |image0| image:: basic-multicast-listener-announce.svg
+.. |image1| image:: basic-multicast-sender-receiver.svg
 

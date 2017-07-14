@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="54cm" height="28cm" viewBox="18 -22 1063 543" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Hintergrund">
+    <g>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="807.4" cy="387.4" rx="127.4" ry="127.4"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="808.2" cy="388.2" rx="108.2" ry="108.2"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="810" cy="390" rx="90" ry="90"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="810" cy="390" rx="70" ry="70"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="810" cy="390" rx="50" ry="50"/>
+    </g>
+    <text font-size="16.9785" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="60" y="500">
+      <tspan x="60" y="500">Initial Broadcast</tspan>
+    </text>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="500" y1="40" x2="500" y2="520"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="650" cy="250" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="770" cy="110" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="890" cy="170" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="870" cy="290" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="810" cy="390" rx="30" ry="30"/>
+    <text font-size="16.9785" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="520" y="500">
+      <tspan x="520" y="500">Rebroadcasts</tspan>
+    </text>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="910" cy="390" rx="30" ry="30"/>
+    <g>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="767.4" cy="107.4" rx="127.4" ry="127.4"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="768.2" cy="108.2" rx="108.2" ry="108.2"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="770" cy="110" rx="90" ry="90"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="770" cy="110" rx="70" ry="70"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="770" cy="110" rx="50" ry="50"/>
+    </g>
+    <g>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="887.4" cy="167.4" rx="127.4" ry="127.4"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="888.2" cy="168.2" rx="108.2" ry="108.2"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="890" cy="170" rx="90" ry="90"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="890" cy="170" rx="70" ry="70"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="890" cy="170" rx="50" ry="50"/>
+    </g>
+    <g>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="867.4" cy="287.4" rx="127.4" ry="127.4"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="868.2" cy="288.2" rx="108.2" ry="108.2"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="870" cy="290" rx="90" ry="90"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="870" cy="290" rx="70" ry="70"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="870" cy="290" rx="50" ry="50"/>
+    </g>
+    <g>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="907.4" cy="387.4" rx="127.4" ry="127.4"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="908.2" cy="388.2" rx="108.2" ry="108.2"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="910" cy="390" rx="90" ry="90"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="910" cy="390" rx="70" ry="70"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ff0000" cx="910" cy="390" rx="50" ry="50"/>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="320" y1="491" x2="370.264" y2="491"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="377.764,491 367.764,496 370.264,491 367.764,486 "/>
+    </g>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="1050" cy="270" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="150" cy="250" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="270" cy="110" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="390" cy="170" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="370" cy="290" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="310" cy="390" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="410" cy="390" rx="30" ry="30"/>
+    <g>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #00ff00" cx="147.4" cy="247.4" rx="127.4" ry="127.4"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #00ff00" cx="148.2" cy="248.2" rx="108.2" ry="108.2"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #00ff00" cx="150" cy="250" rx="90" ry="90"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #00ff00" cx="150" cy="250" rx="70" ry="70"/>
+      <ellipse style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #00ff00" cx="150" cy="250" rx="50" ry="50"/>
+    </g>
+  </g>
+</svg>

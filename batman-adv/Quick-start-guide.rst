@@ -167,5 +167,5 @@ OpenWrt with uci
 Basic configuration: [[Batman-adv-openwrt-config\|batman-adv OpenWrt
 config]]
 
-.. |image0| image:: batman_structure.png
+.. |image0| image:: batman_structure.svg
 

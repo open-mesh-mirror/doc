@@ -154,11 +154,11 @@ multicast tvlv version one and two:
 
 *A mesh without bridges: New nodes announcing both v1 and v2*
 
-.. |image0| image:: basic-multicast-listener-mldv1report.png
-.. |image1| image:: basic-multicast-listener-mldv1report-canceled.png
-.. |image2| image:: basic-multicast-listener-mldv1report-canceled-data.png
-.. |image3| image:: basic-multicast-listener-mldv1report-mcast-versions.png
-.. |image4| image:: basic-multicast-listener-mldv1report-mcast-versions-search.png
-.. |image5| image:: basic-multicast-listener-mldv1report-mcast-versions-flood.png
-.. |image6| image:: basic-multicast-listener-mldv1report-mcast-versions-nobridge.png
+.. |image0| image:: basic-multicast-listener-mldv1report.svg
+.. |image1| image:: basic-multicast-listener-mldv1report-canceled.svg
+.. |image2| image:: basic-multicast-listener-mldv1report-canceled-data.svg
+.. |image3| image:: basic-multicast-listener-mldv1report-mcast-versions.svg
+.. |image4| image:: basic-multicast-listener-mldv1report-mcast-versions-search.svg
+.. |image5| image:: basic-multicast-listener-mldv1report-mcast-versions-flood.svg
+.. |image6| image:: basic-multicast-listener-mldv1report-mcast-versions-nobridge.svg
 

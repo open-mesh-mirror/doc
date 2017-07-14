@@ -100,7 +100,7 @@ Further Readings
 -  [[multicast-optimizations-flags\|Multicast Optimizations – Flags
    Explained]]
 
-.. |image0| image:: basic-multicast-no-receiver.png
-.. |image1| image:: basic-multicast-single-receiver.png
-.. |image2| image:: basic-multicast-multiple-receivers.png
+.. |image0| image:: basic-multicast-no-receiver.svg
+.. |image1| image:: basic-multicast-single-receiver.svg
+.. |image2| image:: basic-multicast-multiple-receivers.svg
 

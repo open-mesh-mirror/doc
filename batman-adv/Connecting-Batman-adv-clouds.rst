@@ -227,5 +227,5 @@ At this point another plugin/script should push into batman-adv the
 information gathered by the L3 routing daemon (subnet - TQ) and so
 create the different Border GW TVLVs.
 
-.. |image0| image:: batman-l2-l3.png
+.. |image0| image:: batman-l2-l3.svg
 
