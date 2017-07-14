@@ -39,6 +39,6 @@ purposes.
 
 Further reading:
 
-\* The latest packet type assignments can be reviewed in the source
-code:
-https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/packet.h#l21
+* The latest packet type assignments can be reviewed in the source
+  code:
+  https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/packet.h#l21

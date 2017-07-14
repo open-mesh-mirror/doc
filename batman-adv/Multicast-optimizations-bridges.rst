@@ -3,7 +3,7 @@ Multicast Optimizations - Bridges
 
 Prior Readings:
 
-\* :doc:`Multicast Optimizations <Multicast-optimizations>`
+* :doc:`Multicast Optimizations <Multicast-optimizations>`
 
 For the multicast optimizations to work, potential receivers need to be
 known by batman-adv nodes sending multicast packets. To avoid any loss

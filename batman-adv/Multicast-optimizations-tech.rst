@@ -3,7 +3,7 @@ Multicast Optimizations – Technical Description
 
 Prior Readings:
 
-\* :doc:`Multicast Optimizations <Multicast-optimizations>`
+* :doc:`Multicast Optimizations <Multicast-optimizations>`
 
 Multicast Listener Announcements
 --------------------------------

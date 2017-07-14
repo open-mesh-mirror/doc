@@ -184,7 +184,7 @@ Proof: Ingress TX (bcast)
 
 We want to proof:
 
-\* p(Amax) < Amin => p(AB) < ACn for any Cn.
+* p(Amax) < Amin => p(AB) < ACn for any Cn.
 
 One has:
 
@@ -208,7 +208,7 @@ Proof: Egress TX (bcast)
 
 We want to proof:
 
-\* p(Bmax) < Amin => p(BCn) < ACn
+* p(Bmax) < Amin => p(BCn) < ACn
 
 One has:
 
@@ -232,7 +232,7 @@ Proof: Ingress RX (OGM2)
 
 We want to proof:
 
-\* p(AB) < MIN(Amin, Cn-min) => p(AB) < CnA for any Cn.
+* p(AB) < MIN(Amin, Cn-min) => p(AB) < CnA for any Cn.
 
 One has:
 
@@ -252,7 +252,7 @@ Proof: Egress RX (OGM2)
 
 We want to proof:
 
-\* p(MAX(Amax, Cn-max)) < MIN(Amin, Cn-min) => p(AB) < CnA for any Cn.
+* p(MAX(Amax, Cn-max)) < MIN(Amin, Cn-min) => p(AB) < CnA for any Cn.
 
 One has:
 
@@ -288,7 +288,7 @@ neighborhood were formed 3e10 times per nanosecond.
 
 See also:
 
-\* https://en.wikipedia.org/wiki/Birthday\_attack
+* https://en.wikipedia.org/wiki/Birthday\_attack
 
 .. |image0| image:: wired-aps.svg
 .. |image1| image:: mobile-clusters.svg

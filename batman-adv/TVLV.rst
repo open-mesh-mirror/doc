@@ -117,16 +117,16 @@ available:
 
 Handler register flags:
 
-\* BATADV\_TVLV\_HANDLER\_OGM\_CIFNOTFND: If the TVLV type has not been
-found, call this handler anyway when the OGM parsing has been completed.
-In this case the length argument will be 0 and the value will be NULL
-and a flag to indicate this condition will be passed.
+* BATADV\_TVLV\_HANDLER\_OGM\_CIFNOTFND: If the TVLV type has not been
+  found, call this handler anyway when the OGM parsing has been completed.
+  In this case the length argument will be 0 and the value will be NULL
+  and a flag to indicate this condition will be passed.
 
 Flags passed to the handler by the TVLV API:
 
-\* BATADV\_TVLV\_HANDLER\_OGM\_CIFNOTFND: Signals the handler whether
-the TVLV container has been found or whether the call was invoked due to
-the BATADV\_TVLV\_HANDLER\_OGM\_CIFNOTFND flag.
+* BATADV\_TVLV\_HANDLER\_OGM\_CIFNOTFND: Signals the handler whether
+  the TVLV container has been found or whether the call was invoked due to
+  the BATADV\_TVLV\_HANDLER\_OGM\_CIFNOTFND flag.
 
 TVLV definitions
 ----------------

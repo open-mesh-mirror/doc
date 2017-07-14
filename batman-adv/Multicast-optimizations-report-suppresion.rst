@@ -28,14 +28,14 @@ IGMPv2):
 
 |image1|
 
-\* IGMPv2: `RFC2236 <https://tools.ietf.org/html/rfc2236>`__, section 3:
+* IGMPv2: `RFC2236 <https://tools.ietf.org/html/rfc2236>`__, section 3:
 
-> [...] If the host receives another host's Report (version 1 or 2)
-while it has a timer running, it stops its timer for the specified group
-and does not send a Report, in order to suppress duplicate Reports.
-[...]
+    [...] If the host receives another host's Report (version 1 or 2)
+    while it has a timer running, it stops its timer for the specified group
+    and does not send a Report, in order to suppress duplicate Reports.
+    [...]
 
-\* MLDv1: `RFC2710 <https://tools.ietf.org/html/rfc2710>`__, section 4:
+* MLDv1: `RFC2710 <https://tools.ietf.org/html/rfc2710>`__, section 4:
 
 > If a node receives another node's Report from an interface for a
 multicast address while it has a timer running for that same address on
@@ -58,10 +58,10 @@ snooping switches:
 
 |image3|
 
-\* `RFC4541 <https://tools.ietf.org/html/rfc4541>`__, section 2.1.1.1)
+* `RFC4541 <https://tools.ietf.org/html/rfc4541>`__, section 2.1.1.1)
 
-> A snooping switch should forward IGMP Membership Reports only to those
-ports where multicast routers are attached. [...]
+    A snooping switch should forward IGMP Membership Reports only to those
+    ports where multicast routers are attached. [...]
 
 Which in turn can potentially lead to a batman-adv node not receiving
 any MLD/IGMP report for a certain multicast address from a bridge port

@@ -170,8 +170,8 @@ If the initial checks above have passed, the internal stats are updated:
 After that, we check the OGMv2 whether a router update should be done
 and the OGMv2 should be rebroadcasted
 
-\* If the OGMv2 was received through a neighbor that is not (yet) a
-router, drop the OGMv2
+* If the OGMv2 was received through a neighbor that is not (yet) a
+  router, drop the OGMv2
 
 The passing OGMv2 will be considered for a router update:
 

@@ -39,11 +39,10 @@ Without the correct binary the coredump is useless!*
 I can't find the coredump ...
 -----------------------------
 
-\* May be batman did not crash but just exited ? A coredump can be
-created only on a segmentation fault. Your system logs should contain a
-log entry similar to "Error - SIGSEGV received, trying to clean up ..."
-otherwise batman did not crash.
-
+* May be batman did not crash but just exited ? A coredump can be
+  created only on a segmentation fault. Your system logs should contain a
+  log entry similar to "Error - SIGSEGV received, trying to clean up ..."
+  otherwise batman did not crash.
 * Did you check the ulimit section ?
 * The coredumping behaviour can be modified by changing some /proc
   parameters like /proc/sys/kernel/core\_uses\_pid and

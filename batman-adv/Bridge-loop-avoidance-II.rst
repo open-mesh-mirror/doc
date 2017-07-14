@@ -238,11 +238,11 @@ Features:
 Limitations:
 ~~~~~~~~~~~~
 
-\* loops in higher-level structures may not be avoided. For example, if
-there are two meshes and two backbones are interconnected as in the
-illustration below, a loop is formed which can't be detected, since the
-claim frames of one mesh won't travel along the mesh network of the
-other.
+* loops in higher-level structures may not be avoided. For example, if
+  there are two meshes and two backbones are interconnected as in the
+  illustration below, a loop is formed which can't be detected, since the
+  claim frames of one mesh won't travel along the mesh network of the
+  other.
 
 |image10|
 

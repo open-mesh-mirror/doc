@@ -78,24 +78,18 @@ compiled in.
 
 Simple steps to see it in action:
 
-\* add your wifi interface
-
-::
+* add your wifi interface::
 
     batctl if add wlan0
 
-\* create a bridge for bat0 and your lan
-
-::
+* create a bridge for bat0 and your lan::
 
     ip link add name br-lan type bridge
     ip link set dev eth0 master br-lan
     ip link set dev bat0 master br-lan
     ip link set up dev br-lan
 
-\* activate bridge loop avoidance
-
-::
+* activate bridge loop avoidance::
 
     batctl bl 1
 

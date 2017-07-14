@@ -65,19 +65,18 @@ reports will be or might be sent:
 
 |image2|
 
-\* No MLD messages for the all-nodes IPv6 multicast (**ff02::1**)
-address. `RFC4541 <https://tools.ietf.org/html/rfc4541>`__, section 3:
+* No MLD messages for the all-nodes IPv6 multicast (**ff02::1**)
+  address. `RFC4541 <https://tools.ietf.org/html/rfc4541>`__, section 3:
 
-> [...] The only exception is the address FF02::1 which is the all hosts
-link-scope address for which MLD messages are never sent. [...]
+    [...] The only exception is the address FF02::1 which is the all hosts
+    link-scope address for which MLD messages are never sent. [...]
+* No requirement for IGMP messages for IPv4 link-local multicast
+  addresses (**224.0.0.x**).
+  `RFC4541 <https://tools.ietf.org/html/rfc4541>`__, section 2.1.2.2):
 
-\* No requirement for IGMP messages for IPv4 link-local multicast
-addresses (**224.0.0.x**).
-`RFC4541 <https://tools.ietf.org/html/rfc4541>`__, section 2.1.2.2):
-
-> [...] This recommendation is based on the fact that many host systems
-do not send Join IP multicast addresses in the [224.0.0.x] range before
-sending or listening to IP multicast packets. [...]
+    [...] This recommendation is based on the fact that many host systems
+    do not send Join IP multicast addresses in the [224.0.0.x] range before
+    sending or listening to IP multicast packets. [...]
 
 So multicast listeners for these addresses are only reliably known to
 the kernel of a multicast listener itself.
@@ -109,7 +108,7 @@ but not the bridge / batman-adv node.
 A more detailed explanation for when and why this happens exactly can be
 found here:
 
-\* :doc:`Multicast Optimizations – IGMP/MLD Report Suppression <Multicast-optimizations-report-suppresion>`
+* :doc:`Multicast Optimizations – IGMP/MLD Report Suppression <Multicast-optimizations-report-suppresion>`
 
 Multicast flags
 ---------------

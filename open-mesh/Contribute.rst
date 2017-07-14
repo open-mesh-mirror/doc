@@ -84,33 +84,26 @@ Submitting patches
 If you intend to send us patches, please consider the following
 guidelines:
 
-\* Prefer small & digestible over long "all in one" patches.
-
-\* No MIME, no links, no compression, no attachments. Just plain text
-(patches are to be sent inline).
-
-\* Patches sent to the mailing list should include "PATCH" in the
-subject to make it easier to distinguish between patches and
-discussions.
-
-\* The mail's subject will become the first line in the commit message.
-The body contains the longer patch description and the patch (unified
-format) itself. Please also specify the target branch (e.g. batctl,
-batman-adv, etc) at the beginning of the subject line.
-
-\* Add a "Signed-off-by: Your Name <you@example.com>" line to the patch
-message to make the ownership of the patch clear.
-
-\* Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel
-coding style closely (use checkpatch.pl to verify your patch) as well as
-the linux "how to submit patches" guidelines (search for the term
-SubmitPatches to find thorough documentation).
-
-\* Check it using static analysis tools like
-`sparse <https://sparse.wiki.kernel.org/>`__ (cgcc) and
-`cppcheck <http://cppcheck.sourceforge.net/>`__
-
-\* Patches against the batman-adv master branch must be formatted using
+* Prefer small & digestible over long "all in one" patches.
+* No MIME, no links, no compression, no attachments. Just plain text
+  (patches are to be sent inline).
+* Patches sent to the mailing list should include "PATCH" in the
+  subject to make it easier to distinguish between patches and
+  discussions.
+* The mail's subject will become the first line in the commit message.
+  The body contains the longer patch description and the patch (unified
+  format) itself. Please also specify the target branch (e.g. batctl,
+  batman-adv, etc) at the beginning of the subject line.
+* Add a "Signed-off-by: Your Name <you@example.com>" line to the patch
+  message to make the ownership of the patch clear.
+* Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel
+  coding style closely (use checkpatch.pl to verify your patch) as well as
+  the linux "how to submit patches" guidelines (search for the term
+  SubmitPatches to find thorough documentation).
+* Check it using static analysis tools like
+  `sparse <https://sparse.wiki.kernel.org/>`__ (cgcc) and
+  `cppcheck <http://cppcheck.sourceforge.net/>`__
+* Patches against the batman-adv master branch must be formatted using
 
 ::
 
