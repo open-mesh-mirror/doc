@@ -708,3 +708,9 @@ non-free papers
 -  A. Ajayi, U. Roedig, C. Edwards, and N. Race. **A survey of rural
    Wireless Mesh Network (WMN) deployments.** In Wireless and Mobile,
    2014 IEEE Asia Pacific Conference on, page 119–125. IEEE, 2014.
+
+Resources
+=========
+
+* :download:`batman-pending-20150201.bib`
+* :download:`batman-pending-20150201.free.bib`

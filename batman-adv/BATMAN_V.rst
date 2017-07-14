@@ -124,3 +124,8 @@ Technical documentation:
 * neighbor discovery: :doc:`Echo Location Protocol (ELP) <ELP>`
 * path metric computation: :doc:`Originator Message version 2 (OGMv2) <OGMv2>`
 * routing tests: :doc:`B.A.T.M.A.N. IV vs B.A.T.M.A.N. V <BATMAN\_V\_Tests>`
+
+Resources
+---------
+
+* :download:`status_update_and_comparison.pdf`

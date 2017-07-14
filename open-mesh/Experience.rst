@@ -93,3 +93,8 @@ Papers:
 -  `Distribution of location data in Wireless Mesh
    Networks <https://downloads.open-mesh.org/batman/papers/Positionsdaten_in_Wireless_Mesh_Networks.pdf>`__
    (German language)
+
+Resources
+---------
+
+* :download:`slides.pdf`

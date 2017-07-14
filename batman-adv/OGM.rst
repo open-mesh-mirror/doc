@@ -695,3 +695,8 @@ Extra OGM Broadcasting
 
 For the "Valley"-Scenario an OGM could be broadcasted more than once.
 (Extra OGM Unicasting might result in too many packets)
+
+Resources
+=========
+
+* :download:`batman-v5-beweis.tex`

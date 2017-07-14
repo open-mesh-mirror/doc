@@ -310,3 +310,5 @@ Resources:
 -  SMF
    `draft-ietf-manet-smf-10 <https://tools.ietf.org/html/draft-ietf-manet-smf-10>`__
 -  PGM `rfc3208 <https://tools.ietf.org/html/rfc3208>`__
+-  :download:`batman-multi-spec.pdf`
+-  :download:`forming_mesh_mobs.pdf`

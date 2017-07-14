@@ -44,3 +44,8 @@ Enjoy!
 .. |image0| image:: batlogo_boot_screenshort_400px.jpg
 .. |image1| image:: batman_logo_menu.png
 
+Resources
+---------
+
+* :download:`batman_logo.patch`
+* :download:`logo_batman_clut224.ppm`

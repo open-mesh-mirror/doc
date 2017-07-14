@@ -253,3 +253,11 @@ calltraces:
 ::
 
     make EXTRA_CFLAGS="-fno-inline -O1 -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/linux-next V=1
+
+Resources
+---------
+
+* :download:`fstab`
+* :download:`hub.sh`
+* :download:`rc.local`
+* :download:`run.sh`

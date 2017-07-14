@@ -328,3 +328,12 @@ batman:
 .. |image0| image:: vde_switch.png
 .. |image1| image:: mesh.gif
 
+Resources
+---------
+
+* :download:`vde2-2.2.3_colour.patch`
+* :download:`vde2-2.3.1-wirefilter-ethertype.patch`
+* :download:`vde2-2.3.1_colour.patch`
+* :download:`vde2-2.3.2-wirefilter-ethertype.patch`
+* :download:`vde2-2.3.2_colour.patch`
+* :download:`vde2-2.3.2_frame_size.patch`
