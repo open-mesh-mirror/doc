@@ -68,6 +68,7 @@ SELECT attachments.filename,attachments.created_on,users.id,users.firstname,user
 FROM attachments
 LEFT JOIN users ON attachments.author_id = users.id
 LEFT JOIN email_addresses ON users.id = email_addresses.user_id AND email_addresses.is_default
+WHERE attachments.container_type = 'WikiPage'
 ORDER BY attachments.created_on;
 ''')
 rows = cur.fetchall()
