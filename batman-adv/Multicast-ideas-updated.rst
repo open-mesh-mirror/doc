@@ -250,7 +250,7 @@ Multicast Duplicate Window
 Protocol Procedure
 ------------------
 
-|image1|
+|image0|
 
 Multicast Listener Announcements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -753,5 +753,4 @@ Current status / Todo:
    bat0 is in a bridge.
 
 .. |image0| image:: Flowchart.svg
-.. |image1| image:: Flowchart.png
 
