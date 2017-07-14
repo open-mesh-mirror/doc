@@ -40,7 +40,7 @@ for r in rows:
 	if not r[4]:
 		user = 'B.A.T.M.A.N. developer'
 		email = 'postmaster@open-mesh.org'
-	elif r[4] == 2:
+	elif r[4] == 2 or r[4] == 773:
 		user = 'Sven Eckelmann'
 		email = 'sven@narfation.org'
 	else:
@@ -77,7 +77,7 @@ for r in rows:
 	if not r[2]:
 		user = 'B.A.T.M.A.N. developer'
 		email = 'postmaster@open-mesh.org'
-	elif r[2] == 2:
+	elif r[2] == 2 or r[2] == 773:
 		user = 'Sven Eckelmann'
 		email = 'sven@narfation.org'
 	else:
