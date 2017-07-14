@@ -3,11 +3,9 @@ Bridge loop avoidance II
 
 Further pages on this topic:
 
-* [[Bridge-loop-avoidance-Testcases\|Bridge loop avoidance test case
-  descriptions]]
-* [[Bridge-loop-avoidance-Protocol\|Bridge loop avoidance protocol
-  description]]
-* [[Bridge-loop-avoidance\|Bridge loop avoidance user howto]]
+* :doc:`Bridge loop avoidance test case descriptions <Bridge-loop-avoidance-Testcases>`
+* :doc:`Bridge loop avoidance protocol description <Bridge-loop-avoidance-Protocol>`
+* :doc:`Bridge loop avoidance user howto <Bridge-loop-avoidance>`
 
 Situation
 ---------
@@ -234,6 +232,8 @@ Features:
 * nodes can select gateways, and change among them (gateways will
   automatically re-claiming)
 * should not loop ;)
+
+.. _batman-adv-bridge-loop-avoidance-ii-limitations: 
 
 Limitations:
 ~~~~~~~~~~~~

@@ -115,8 +115,7 @@ to configure your desired batman-adv options. It reads the batman-adv
 uci file to retrieve the settings which allows to specify interfaces,
 intervals, log level and more.
 
-Basic configuration: [[Batman-adv-Openwrt-config\|batman-adv Openwrt
-config]]
+Basic configuration: :doc:`batman-adv Openwrt config <Batman-adv-openwrt-config>`
 
 Rebuilding the package
 ----------------------

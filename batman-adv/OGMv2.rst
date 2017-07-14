@@ -21,9 +21,9 @@ Networks <https://downloads.open-mesh.org/batman/papers/batman-adv_network_codin
 -  Router: A neighbor which is a potential, loop-free next hop for
    forwarding data packets towards a specific originator.
 -  link throughput: link throughput from one interface to a neighbor's
-   interface (see [[ELP]] for details).
+   interface (see :doc:`ELP <ELP>` for details).
 -  best link throughput: The best of all link throughput values towards
-   a neighbor (see [[ELP]] for details).
+   a neighbor (see :doc:`ELP <ELP>` for details).
 -  path throughput: The incoming OGM's throughput combined with the best
    link throughput of the according neighbor.
 -  Originator entry: Local data structure in the originator list (see
@@ -72,7 +72,7 @@ collisions. The default interval in batman-adv is 1 second.
 * TVLV length: Length of the TLVL data appended to the OGM
 * Throughput: Throughput metric value in 100 kbit/s. Initialize with
   BATADV\_THROUGHPUT\_MAX\_VALUE
-* TVLV data: Appended TVLV data for the originator. See [[TVLV]] for
+* TVLV data: Appended TVLV data for the originator. See :doc:`TVLV <TVLV>` for
   a detailed description.
 
 ::
@@ -125,7 +125,7 @@ from is a potential Router.
 
 Each step is performed per potential outgoing interface where the OGMv2
 may be rebroadcasted to allow
-[[Multi-link-optimizations-technical\|Multi Link Optimizations]]. This a
+:doc:`Multi Link Optimizations <Multi-link-optimize>`. This a
 **default** interface next to the configured hard interfaces, which is
 used for locally generated traffic.
 

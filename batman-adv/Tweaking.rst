@@ -173,8 +173,7 @@ hop to avoid store & forward. Alternatively, batman-adv can be switched
 into "bonding mode" in which batman-adv is using all interfaces at the
 same time to send & receive data. However, this mode is only recommended
 in special one-hop cases. You can read about our
-[[open-mesh:2010-06-13-wbm2010-bracciano\|alternatebonding test
-results]] to see what suits you best.
+:doc:`alternatebonding test results </open-mesh/2010-06-13-wbm2010-bracciano>` to see what suits you best.
 
 ::
 
@@ -189,8 +188,7 @@ compiled-in)
 
 In bridged LAN setups it is advisable to enable the bridge loop
 avoidance in order to avoid broadcast loops that can bring the entire
-LAN to a standstill. The [[Bridge-loop-avoidance\|bridge loop
-avoidance page]] explains the bridge loop problematic in greater
+LAN to a standstill. The :doc:`bridge loop avoidance page <Bridge-loop-avoidance>` explains the bridge loop problematic in greater
 detail as well as the batman-adv approach to address it.
 It is necessary to activate the bridge loop avoidance at compile time
 before you can use this feature (consult `the README.external
@@ -211,10 +209,9 @@ When enabled the distributed ARP table forms a mesh-wide ARP cache
 that helps non-mesh clients to get ARP responses much more reliably
 and without much delay. A comprehensive documentation has been made
 available in our wiki. One document focuses on the
-[[batman-adv:DistributedARPTable\|general DAT concept]] whereas the
+:doc:`general DAT concept </batman-adv/DistributedArpTable>` whereas the
 second document is about the
-[[DistributedArpTable-technical\|technical details & implementation
-specifics]].
+:doc:`technical details & implementation specifics <DistributedArpTable-technical>`.
 It is necessary to activate the distributed ARP table at compile time
 before you can use this feature (consult `the README.external
 file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
@@ -253,7 +250,7 @@ gateway bandwidth
 
 Available since: batman-adv 2011.0.0
 
-The [[gateways\|internet gateway support]] allows each gateway to also
+The :doc:`internet gateway support <Gateways>` allows each gateway to also
 announce its available internet bandwidth. Clients looking for the most
 suitable gateway to connect to receive this bandwidth announcement and
 can make use of it while choosing their gateway. Per default a bandwidth
@@ -282,7 +279,7 @@ announced internet bandwidth via the gw\_bandwidth sysfs file whereas
 clients can configure the manner in which batman-adv chooses its gateway
 via the gw\_sel\_class sysfs file.
 
-*Note*: Please read the [[gateways\|internet gateway documentation]] to
+*Note*: Please read the :doc:`internet gateway documentation <Gateways>` to
 understand its interaction with DHCP.
 
 ::
@@ -353,7 +350,7 @@ each packet it receives through the soft-interface and decides based on
 this value if the source client has to be considered as isolated or not.
 The isolation mark needs to be configured in batman-adv in the form
 'value/mask'. Configuration and application details can be found on the
-[[batman-adv:Extended-isolation\|extended ap isolation page]].
+:doc:`extended ap isolation page </batman-adv/Extended-isolation>`.
 
 ::
 
@@ -398,7 +395,7 @@ multicast traffic. Based on this information, batman-adv can make a
 decision how to forward the traffic with the least negative impact on
 the network. If disabled multicast traffic is forwarded to the every
 node in the network (broadcast).
-The [[Multicast-optimizations\|multicast optimization documentation]]
+The :doc:`multicast optimization documentation <Multicast-optimizations>`
 provides an excellent starting point to learn about the general ideas
 of these optimizations.
 
@@ -415,10 +412,8 @@ Available since: batman-adv 2013.2.0
 When enabled network coding increases the WiFi throughput by combining
 multiple frames into a single frame, thus reducing the needed air
 time. A comprehensive documentation has been made available in our
-wiki. One document focuses on the [[batman-adv:NetworkCoding\|general
-network coding concept]] whereas the second document is about the
-[[NetworkCoding-technical\|technical details & implementation
-specifics]]. Our download section also contains recorded network
+wiki. One document focuses on the :doc:`general network coding concept </batman-adv/NetworkCoding>` whereas the second document is about the
+:doc:`technical details & implementation specifics <NetworkCoding-technical>`. Our download section also contains recorded network
 coding talks.
 It is necessary to activate network coding at compile time before you
 can use this feature (consult `the README.external
@@ -479,7 +474,7 @@ configuration option:
     echo BATMAN_IV > /sys/module/batman_adv/parameters/routing_algo
 
 How to retrieve the list of available routing algorithms is explained
-[[Understand-your-batman-adv-network\|on this page]].
+:doc:`on this page <Understand-your-batman-adv-network>`.
 
 VLAN handling
 -------------

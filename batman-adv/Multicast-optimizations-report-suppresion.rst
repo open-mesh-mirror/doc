@@ -3,11 +3,9 @@ Multicast Optimizations – IGMP/MLD Report Suppresion
 
 Prior Readings:
 
-* [[multicast-optimizations\|Multicast Optimizations]]
-* [[multicast-optimizations-tech\|Multicast Optimizations – Technical
-  Description]]
-* [[multicast-optimizations-flags\|Multicast Optimizations – Flags
-  Explained]]
+* :doc:`Multicast Optimizations <Multicast-optimizations>`
+* :doc:`Multicast Optimizations – Technical Description <Multicast-optimizations-tech>`
+* :doc:`Multicast Optimizations – Flags Explained <Multicast-optimizations-flags>`
 
 Scenario
 --------

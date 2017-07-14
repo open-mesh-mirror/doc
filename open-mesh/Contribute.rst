@@ -3,8 +3,8 @@ How to Contribute
 
 Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want
 to tell us about your experiences or discuss problems the best thing is
-always to use the [[MailingList\|Mailing List]] You can always contact
-us via [[IRC\|IRC]].
+always to use the :doc:`Mailing List <MailingList>` You can always contact
+us via :doc:`IRC <IRC>`.
 
 If you like this project and you want to take part and/or give something
 back, here is a short list of starting points:
@@ -38,7 +38,7 @@ are:
 -  machine type (PC, Linksys WRT, Fon, NS2, ...)
 -  command line parameters used
 -  iptables/firewall rules
--  [[batmand:Coredump\|get a coredump]] if you experience a segfault
+-  :doc:`get a coredump </batmand/Coredump>` if you experience a segfault
 -  your guess what triggered the problem. ;)
 
 Documentation / Feedback
@@ -75,7 +75,7 @@ You looked in the code ? Fixed bugs ? Added a cool new function ?
 Integrated B.A.T.M.A.N. in a distribution ? Don't hesitate to let us and
 others know! We can avoid duplicated work by publishing it here or
 linking to your page. Patches are always welcome and can be posted on
-the [[MailingList\|mailing list]] to get integrated. We also hand out
+the :doc:`mailing list <MailingList>` to get integrated. We also hand out
 git access to people that want to get involved.
 
 Submitting patches

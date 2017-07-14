@@ -43,7 +43,7 @@ Any type of unicast packet (e.g. ``struct unicast_packet``,
 
 The size is checked in ``send_skb_to_orig()`` and if larger than the MTU
 of the selected outgoing interface (selected by
-[[batman-adv:Multi-link-optimizations-technical\|bonding]]) the packet
+:doc:`bonding </batman-adv/Multi-link-optimize>`) the packet
 is passed to ``frag_send_packet()``. Here, fragments are created and
 sent from the tail of the original packet, so that the first fragment
 contains the end of the original packet:

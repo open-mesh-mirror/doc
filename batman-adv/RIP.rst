@@ -9,7 +9,7 @@ incomplete, ideas and volunteers for implementation welcome!*
 Background
 ----------
 
-The new [[OGMv2\|OGM protocol in BATMAN V]] is designed to send OGMs at
+The new :doc:`OGM protocol in BATMAN V <OGMv2>` is designed to send OGMs at
 much lower regular intervals than BATMAN IV, because we split the local
 link detection part off into ELP. The general idea is to reduce overhead
 of messages flooded through the network. The disadvantage is that

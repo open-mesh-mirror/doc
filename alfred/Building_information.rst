@@ -5,8 +5,7 @@ Building information
 Release tarballs as well as snapshots are available:
 
 * release tarballs:
-  [[open-mesh:Download#Download-Released-Source-Code\|Check the Download
-  page]]
+  :ref:`Check the Download page <open-mesh-Download-Download-Released-Source-Code>`
 * git web directory: https://git.open-mesh.org/alfred.git
 * git download: ``git clone git://git.open-mesh.org/alfred.git``
 * `snapshot <https://git.open-mesh.org/alfred.git/snapshot/refs/heads/master.tar.gz>`__

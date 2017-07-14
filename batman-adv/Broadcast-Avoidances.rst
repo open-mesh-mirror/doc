@@ -266,8 +266,7 @@ Then a rebroadcast can be avoided.
 Further readings:
 ~~~~~~~~~~~~~~~~~
 
-* [[Broadcast-Avoidances-NHH-Assessment\|Broadcast Avoidances -
-  Neighborhood Hash Assessment]]
+* :doc:`Broadcast Avoidances - Neighborhood Hash Assessment <Broadcast-Avoidances-NHH-Assessment>`
 
 Appendix
 ========

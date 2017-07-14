@@ -7,8 +7,7 @@ interconnected through batman-adv on multiple interfaces, they may
 leverage some features to increase throughput, which are explained here.
 
 For more technical information, please see our
-[[Network-wide-multi-link-optimization\|technical network wide
-multi-link documentation]]
+:doc:`technical network wide multi-link documentation <Network-wide-multi-link-optimization>`
 
 Interface alternating
 ---------------------
@@ -92,7 +91,7 @@ bonding implementation. However the new mechanism is similar enough to
 keep this graph for reference until new measurements have been
 performed:
 
-At the [[open-mesh:2010-06-13-wbm2010-bracciano\|WirelessBattleMesh v3]]
+At the :doc:`WirelessBattleMesh v3 </open-mesh/2010-06-13-wbm2010-bracciano>`
 we performed throughput tests to measure the gain of the various modes:
 
 |image4|

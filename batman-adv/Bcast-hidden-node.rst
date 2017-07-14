@@ -16,7 +16,7 @@ common way of solving this problem at least to some degree. However,
 `RTS/CTS <https://en.wikipedia.org/wiki/IEEE_802.11_RTS/CTS>`__ can only
 be applied for unicast packets. Therefore a node C sending a lot of data
 packets to B, even with RTS/CTS those packets will interfere with
-BATMAN's broadcast packets (e.g. [[ndp\|NDP]] packets or OGMs). The
+BATMAN's broadcast packets (e.g. :doc:`NDP <ndp>` packets or OGMs). The
 effect is, that with this stream, only the TQ from A -> B will decrease
 dramatically, the rest will stay relatively equal.
 

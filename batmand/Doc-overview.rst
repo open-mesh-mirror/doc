@@ -8,39 +8,39 @@ troubles.
 Getting started
 ---------------
 
--  [[InternetTuning\|InternetTuning]] - get information how B.A.T.M.A.N.
+-  :doc:`InternetTuning <InternetTuning>` - get information how B.A.T.M.A.N.
    handles internet access and what features it offers
--  [[VisualizeMesh\|Visualizing the network]] - this document explains
+-  :doc:`Visualizing the network <VisualizeMesh>` - this document explains
    how to get fancy graphics of the batman mesh
--  [[AnnouncingNetworks\|Announcing networks]] - learn how to announce
+-  :doc:`Announcing networks <AnnouncingNetworks>` - learn how to announce
    and / or revoke HNA on the fly
 -  `B.A.T.M.A.N. online man
    page <https://downloads.open-mesh.org/batman/manpages/batmand.8.html>`__
    - read the current batman man page online
--  [[Faq\|Frequently Asked Questions]] - list of questions and answers
+-  :doc:`Frequently Asked Questions <Faq>` - list of questions and answers
    of batmand.
 
 Developer Information / Advanced Features
 -----------------------------------------
 
--  [[RoutingVodoo\|Getting behind the routing vodoo]] - learn about the
+-  :doc:`Getting behind the routing vodoo <RoutingVodoo>` - learn about the
    B.A.T.M.A.N. routing table manipulation
--  [[DebugOutput\|Understanding the debug output]] - documentation that
+-  :doc:`Understanding the debug output <DebugOutput>` - documentation that
    helps you to understand the debug output
--  [[VisOutput\|Vis output]] - working with the vis server output
--  [[Coredump\|How to get a coredump]] - documentation about coredump
+-  :doc:`Vis output <VisOutput>` - working with the vis server output
+-  :doc:`How to get a coredump <Coredump>` - documentation about coredump
    configuration & retrieval
--  [[open-mesh:Emulation\|Emulation HowTo]] - how to create an
+-  :doc:`Emulation HowTo </open-mesh/Emulation>` - how to create an
    environment to emulate wireless setups using QEMU and VDE
 
 Protocol Documentation
 ----------------------
 
--  [[open-mesh:BATMANConcept\|B.A.T.M.A.N. Concept]] - get an overview
+-  :doc:`B.A.T.M.A.N. Concept </open-mesh/BATMANConcept>` - get an overview
    about B.A.T.M.A.N.'s main concepts
--  [[open-mesh:routing\_scenarios\|Routing scenarios]] - a collection of
+-  :doc:`Routing scenarios </open-mesh/Routing\_scenarios>` - a collection of
    routing scenarios a routing protocol should be able to handle
--  [[open-mesh:the-olsr-story\|The OLSR story]] - this text explains the
+-  :doc:`The OLSR story </open-mesh/The-olsr-story>` - this text explains the
    roots of B.A.T.M.A.N. (Dec 2006)
 -  `CCCamp 2007 talk
    (video) <https://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v>`__

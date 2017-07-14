@@ -223,7 +223,7 @@ Start of the simple environment
 The two node environment must be started inside a screen session. The
 hub (bridge with eth0 + 2 tap devices) has to be started first to have a
 simple network. A more complex network setup can be on the page
-[[Emulation]]
+:doc:`Emulation <Emulation>`
 
 The ``ETH`` in hub.sh has to be changed to the real interface which
 provides internet-connectivity

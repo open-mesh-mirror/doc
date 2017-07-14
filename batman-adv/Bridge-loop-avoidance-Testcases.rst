@@ -3,7 +3,7 @@ Bridge-loop-avoidance-Testcases
 
 This page describes test cases for the bridge loop avoidance. For more
 technical information and reference, please
-have a look at [[Bridge-loop-avoidance-II]].
+have a look at :doc:`Bridge-loop-avoidance-II <Bridge-loop-avoidance-II>`.
 
 Test Cases
 ----------

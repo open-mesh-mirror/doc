@@ -10,7 +10,7 @@ Categories + Usecases to improve
 -  Increasing Robustness
 -  Improving Mobility / Convergence Speed
 -  Improving Indoor performance
--  Improving [[VoIP]] group multicast performance
+-  Improving VoIP group multicast performance
 -  Improving nomadic scenarios (circular + chain topology)
 
 Specific Tasks
@@ -54,7 +54,7 @@ greatly decrease.
 A suitable solution shall be implemented. This might be based on time
 slots, multiple interfaces or channel switching and might be implemented
 within batman-adv or an extra module. See
-[[batman-adv:bcast-hidden-node\|here]] for a more detailed description
+:doc:`here </batman-adv/Bcast-hidden-node>` for a more detailed description
 of the problem and a solution proposal.
 
 OGM/NDP Congestion Avoidance
@@ -202,7 +202,7 @@ Dead node fast path switching/invalidating
 node/link failures and avoid packet drops in case of link failures.
 
 When a node notices the breakdown of a neighbor (see
-[[routing\_scenarios#Convergencespeed\|routing scenarios]] to get an
+:ref:`routing scenarios <open-mesh-routing\_scenarios-Convergencespeed>` to get an
 idea about the conditions), this node could send any data packet, which
 it would usually send over this neighbor to either its second best hop
 if available (which does not always have to be the case due to OGM

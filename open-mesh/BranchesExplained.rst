@@ -25,6 +25,8 @@ simplify the users life.
 
 Example: batmand 0.2 uses the B.A.T.M.A.N. III routing algorithm.
 
+.. _open-mesh-branchesexplained-batmand:
+
 batmand
 -------
 
@@ -34,7 +36,7 @@ layer 3 (IP layer) of the OSI model by altering the routing table and
 offers everything you would expect from a standard routing daemon.
 Almost all real-world implementations of mesh routing algorithms have
 started on layer 3 - and most of them still work exclusively on layer 3
-today. Check our [[batmand:doc-overview\|batmand doc]] section if you
+today. Check our :doc:`batmand doc </batmand/Doc-overview>` section if you
 want to learn more about is capabilities.
 
 Note: batmand has not been developed further for a couple of years, but
@@ -74,9 +76,9 @@ only. Currently, most of the development happens around batman-adv which
 is part of the official Linux kernel since 2.6.38.
 
 To understand the implications of routing on layer 2, the
-[[batman-adv:Wiki\|batman-adv page]] should be a good starting point
+:doc:`batman-adv page </batman-adv/Wiki>` should be a good starting point
 Further documentation is available in our
-[[batman-adv:doc-overview\|batman-adv doc]] section.
+:doc:`batman-adv doc </batman-adv/Doc-overview>` section.
 
 batctl
 ------

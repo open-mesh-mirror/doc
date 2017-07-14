@@ -3,9 +3,9 @@ Bridge loop avoidance protocol description
 
 Further pages on this topic:
 
-* [[Bridge-loop-avoidance-Testcases]] Test case descriptions
-* [[Bridge-loop-avoidance-II]] Technical description
-* [[Bridge-loop-avoidance]] User howto
+* :doc:`Bridge-loop-avoidance-Testcases <Bridge-loop-avoidance-Testcases>` Test case descriptions
+* :doc:`Bridge-loop-avoidance-II <Bridge-loop-avoidance-II>` Technical description
+* :doc:`Bridge-loop-avoidance <Bridge-loop-avoidance>` User howto
 
 Claim frames
 ------------
@@ -242,7 +242,7 @@ LOOP DETECT frame
 
 A LOOP DETECT frame is sent every 60 seconds to detect loop scenarios
 which can't be avoided by BLA-II (see
-[[Bridge-loop-avoidance-II#Limitations]]).
+:ref:`Bridge-loop-avoidance-II#Limitations <batman-adv-Bridge-loop-avoidance-II-Limitations>`).
 
 The Ethernet source MAC address has the first two octets set to BA:BE,
 and the following octets are randomized and changed with every sent

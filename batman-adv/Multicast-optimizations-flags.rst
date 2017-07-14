@@ -3,9 +3,8 @@ Multicast Optimizations – Flags Explained
 
 Prior Readings:
 
-* [[multicast-optimizations\|Multicast Optimizations]]
-* [[multicast-optimizations-tech\|Multicast Optimizations – Technical
-  Description]]
+* :doc:`Multicast Optimizations <Multicast-optimizations>`
+* :doc:`Multicast Optimizations – Technical Description <Multicast-optimizations-tech>`
 
 Scenario
 --------
@@ -110,8 +109,7 @@ but not the bridge / batman-adv node.
 A more detailed explanation for when and why this happens exactly can be
 found here:
 
-\* [[multicast-optimizations-report-suppresion\|Multicast Optimizations
-– IGMP/MLD Report Suppression]]
+\* :doc:`Multicast Optimizations – IGMP/MLD Report Suppression <Multicast-optimizations-report-suppresion>`
 
 Multicast flags
 ---------------
@@ -129,6 +127,8 @@ Case !#2 (no IGMP querier) or Case !#3 (a shadowing IGMP querier)
 Case !#2 (no MLD querier) or Case !#3 (a shadowing MLD querier)
   BATADV\_MCAST\_WANT\_ALL\_IPV6
 
+.. _batman-adv-multicast-optimizations-flags-batadv_mcast_want_all_unsnoopables:
+
 BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES (Bit 0):
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -138,6 +138,8 @@ link-local addresses for IPv4 (224.0.0.0/24).
 
 (not used by listeners yet, but implemented for senders already to
 ensure backwards compatibility later)
+
+.. _batman-adv-multicast-optimizations-flags-batadv_mcast_want_all_ipv4-batadv_mcast_want_all_ipv6:
 
 BATADV\_MCAST\_WANT\_ALL\_IPV4 (Bit 1):
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -158,8 +160,7 @@ ensure backwards compatibility later)
 Further Readings
 ----------------
 
--  [[multicast-optimizations-report-suppresion\|Multicast Optimizations
-   – IGMP/MLD Report Suppresion]]
+-  :doc:`Multicast Optimizations – IGMP/MLD Report Suppresion <Multicast-optimizations-report-suppresion>`
 
 .. |image0| image:: basic-multicast-bridge-scenario.svg
 .. |image1| image:: basic-multicast-snoopables-announce.svg

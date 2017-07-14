@@ -16,7 +16,7 @@ document assumes debugfs was mounted at /sys/kernel/debug/. Please
 adjust the given examples if your system mounts the filesystem somewhere
 else. The batctl tool will automatically mount debugfs whenever you try
 to access functionality that require it. This document also assumes that
-you created a mesh cloud "bat0". [[tweaking\|This page]] provides
+you created a mesh cloud "bat0". :doc:`This page <Tweaking>` provides
 background information on how to handle mesh clouds.
 
 Tables
@@ -154,8 +154,7 @@ The meaning of flags are similar to those above:
 
 If any of the flags is not enabled, a '.' will substitute its symbol.
 
-Since the introduction of the [[Bridge-loop-avoidance-II\|Bridge Loop
-Avoidance 2]], each client can be reached through multiple originators
+Since the introduction of the :doc:`Bridge Loop Avoidance 2 <Bridge-loop-avoidance-II>`, each client can be reached through multiple originators
 and therefore it is possible to have the same client appearing more than
 one in the list. In this case, there will be one line starting with '\*'
 indicating the default entry to be used to route traffic towards this
@@ -163,11 +162,13 @@ client and some (zero or more) entries starting with '+' indicating
 other possible routes. The line related to "possible routes" do not have
 a CRC value.
 
+.. _batman-adv-understand-your-batman-adv-network-gateway-table:
+
 Gateway table
 ~~~~~~~~~~~~~
 
 The gateway table lists all available batman-adv gateways in this
-network (see the [[gateways\|gateway documentation]] to learn how to use
+network (see the :doc:`gateway documentation <Gateways>` to learn how to use
 this feature). Each line contains information about a specific gateway:
 
 ::
@@ -179,8 +180,7 @@ this feature). Each line contains information about a specific gateway:
 Bridge loop avoidance claim table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This table is part of the [[bridge-loop-avoidance\|bridge loop
-avoidance]] code and contains all claimed clients as announced on the
+This table is part of the :doc:`bridge loop avoidance <Bridge-loop-avoidance>` code and contains all claimed clients as announced on the
 bridge. Each line contains a claimed non-mesh client propagated through
 the mesh:
 
@@ -200,8 +200,7 @@ Note:
 Bridge loop avoidance backbone table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This table is part of the [[bridge-loop-avoidance\|bridge loop
-avoidance]] code and contains all backbone gateways. Each line contains
+This table is part of the :doc:`bridge loop avoidance <Bridge-loop-avoidance>` code and contains all backbone gateways. Each line contains
 a backbone gateway which is reachable via LAN and mesh (that means, it
 is in the same bla group):
 
@@ -224,8 +223,7 @@ Note:
 Distributed ARP Table - local cache table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This table is part of the [[DistributedARPTable\|Distributed ARP
-Table]] code and contains all the locally cached ARP entries (IPv4+MAC
+This table is part of the :doc:`Distributed ARP Table <DistributedArpTable>` code and contains all the locally cached ARP entries (IPv4+MAC
 address).
 If a given IP address appears in this table it means that batman-adv
 will prevent any ARP Request asking for such address to be sent
@@ -233,7 +231,7 @@ through the mesh and will immediately provide an answer to the LAN on
 its own.
 A subset of the entries belonging to this cache are also the entries
 which the node is in charge to handle in the
-[[DistributedARPTable-technical\|DHT]]
+:doc:`DHT <DistributedArpTable-technical>`
 
 For example:
 
@@ -247,7 +245,7 @@ For example:
 Network coding - potential coding neighbor table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This table is part of the [[NetworkCoding\|network coding]] code and
+This table is part of the :doc:`network coding <NetworkCoding>` code and
 contains all detected incoming and outgoing network coding
 possibilities. Each entry starts with the address of a one-hop neighbor
 (the "Node:" line), followed by a line for ingoing nodes and a line
@@ -299,7 +297,7 @@ protocol internals. After you activated debugging at compile time
 (instructions can be found in `the README
 file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
 ) and the appropriate log level has been set (read about the log levels
-[[tweaking\|here]]) you can retrieve the logs by simply reading the
+:doc:`here <Tweaking>`) you can retrieve the logs by simply reading the
 'log' file:
 
 ::
@@ -317,14 +315,14 @@ Visualization
 -------------
 
 Despite its decentralized nature, userspace tools like
-[[alfred:alfred\|alfred]] offer an easy way to access topology
-information that can be visualized. The [[alfred:alfred\|alfred page]]
+:doc:`alfred </alfred/index>` offer an easy way to access topology
+information that can be visualized. The :doc:`alfred page </alfred/index>`
 covers the necessary steps in detail.
 
 Routing algorithm
 -----------------
 
-Batman-adv allows [[Tweaking\|changing the routing algorithm]] at
+Batman-adv allows :doc:`changing the routing algorithm <Tweaking>` at
 runtime. It also exports the list of available routing protocols:
 
 ::

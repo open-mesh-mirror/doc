@@ -28,6 +28,8 @@ from A to B and the short path in the opposite direction.
 
 |image1|
 
+.. _open-mesh-routing_scenarios-convergencespeed:
+
 Convergence speed
 -----------------
 

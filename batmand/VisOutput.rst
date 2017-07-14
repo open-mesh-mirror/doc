@@ -4,8 +4,8 @@ Working with the vis server output
 This artcile is for those that intend to write their own visualization
 tool, combine the vis output with a map or want to understand the vis
 server output for another reason. If you want to setup the vis server
-for the batmand have a look at this [[VisualizeMesh\|article]] or for
-BATMAN-Advanced at [[batman-adv:VisAdv\| this one]].
+for the batmand have a look at this :doc:`article <VisualizeMesh>` or for
+BATMAN-Advanced at :doc:` this one </batman-adv/VisAdv>`.
 
 Here is a sample output from the vis server in the dot draw format.
 Newer vis versions offer alternative formats (e.g. JSON) which follow

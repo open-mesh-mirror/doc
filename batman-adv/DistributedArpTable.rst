@@ -88,7 +88,7 @@ currectly storing, it is possible to use the following command:
 An explanation of the output can be found here (link needed).
 
 If you want to read a bit more about DAT technical details, please
-consider visiting the [[DistributedArpTable-technical\|technical page]].
+consider visiting the :doc:`technical page <DistributedArpTable-technical>`.
 
 .. |image0| image:: dat-net.svg
 .. |image1| image:: dat-net2.svg

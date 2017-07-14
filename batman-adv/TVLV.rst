@@ -3,8 +3,7 @@ TVLV
 
 This document describes in detail the TVLV format, the TVLV API and
 contains a list of TVLV definitions for reference. Be sure to have read
-the [[open-mesh:2012-10-01-GSoC-2012-Spyros-Gasteros-Final-Report\|TVLV
-introduction]] if you don't understand the scope of this document.
+the :doc:`TVLV introduction </open-mesh/2012-10-01-GSoC-2012-Spyros-Gasteros-Final-Report>` if you don't understand the scope of this document.
 
 TVLV format
 -----------
@@ -132,6 +131,8 @@ the BATADV\_TVLV\_HANDLER\_OGM\_CIFNOTFND flag.
 TVLV definitions
 ----------------
 
+.. _batman-adv-tvlv-gateway-announcement:
+
 Gateway announcement
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -200,6 +201,8 @@ Network coding (also known as catwoman)
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |   TVLV 0x03   |    Version    |             Length            | 
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+.. _batman-adv-tvlv-translation-table-messages:
 
 Translation table messages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -285,6 +288,8 @@ Translation table messages
      |     ...mac_addr_changeM       |          vid_changeM          |  
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
+.. _batman-adv-tvlv-roaming-advertisement-message:
+
 Roaming Advertisement message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -329,7 +334,7 @@ Multicast capability
 * Fixed TVLV fields:
 
   - flags: multicast flags announced by the orig node (1 byte), see
-    [[Multicast-optimizations-flags\|the multicast flags page]] for
+    :doc:`the multicast flags page <Multicast-optimizations-flags>` for
     details
   - reserved: not used. Defined for alignment purposes (3 bytes)
 

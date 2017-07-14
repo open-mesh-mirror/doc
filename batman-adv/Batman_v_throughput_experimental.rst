@@ -3,8 +3,8 @@ B.A.T.M.A.N. V (DRAFT)
 
 **Metric:** Estimated throughput (from RC algorithm for wireless
 devices)
-**Neighbour Discovery:** [[ELP\|ELP (Echo Locating Protocol)]]
-**Path Metric Computation:** [[Ogm-v2\|OGMv2]]
+**Neighbour Discovery:** :doc:`ELP (Echo Locating Protocol) <ELP>`
+**Path Metric Computation:** :doc:`OGMv2 <OGMv2>`
 
 General Overviev
 This is a draft of how the algorithm should work and what it needs.
@@ -93,6 +93,6 @@ One Hop Throughput Estimation
    (this may be falsified by Ethernet bridges in the LAN)
 -  **VPN**: 1Mbps, configurable via sysfs
 -  **Unknown**: 1Mbps
--  **generic**: the [[bandwidth\_meter\_protocol\|bandwidth meter]]
+-  **generic**: the :doc:`bandwidth meter <Throughput\_meter>`
    might be used to estimate the real (current) throughtput on
    non-wireless interfaces

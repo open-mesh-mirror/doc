@@ -5,7 +5,7 @@ Speeding up the roaming
 -----------------------
 
 The base idea consists in exploiting the new forwarding mechanism for
-data packets described in the [[Client-announcement]] page in order to
+data packets described in the :doc:`Client-announcement <Client-announcement>` page in order to
 reduce the interruption time a non-mesh client experiences when moving
 from one mesh node to the next. This procedure of a non-mesh client
 switching to a new mesh node is called "roaming". At its core it simply
@@ -41,7 +41,7 @@ old mesh node to inform it about the roaming event.
 
 The roaming advertisement message is a unicast TVLV packet and its
 content is explained in the
-[[TVLV#Roaming-Advertisement-message\|related TVLV section]].
+:ref:`related TVLV section <batman-adv-TVLV-Roaming-Advertisement-message>`.
 
 The information contained in this packet is used to update the old
 node's global table so that, in case of payload packet directed to him
@@ -79,7 +79,7 @@ Routing data packets
 --------------------
 
 The enhanced data routing is built on top of the data routing procedure
-described in the [[Client-announcement]] page. When a mesh node receives
+described in the :doc:`Client-announcement <Client-announcement>` page. When a mesh node receives
 a roaming advertisement concerning one of its former non-mesh clients it
 will mark the client entry with the roaming flag in its own translation
 table. The mesh node sending the roaming advertisement will do the same.
@@ -96,8 +96,7 @@ if necessary.
 Translation table consistency
 -----------------------------
 
-As described in the [[Client-announcement\|client announcement
-document]] each node computes a set of CRC32 checksum values and floods
+As described in the :doc:`client announcement document <Client-announcement>` each node computes a set of CRC32 checksum values and floods
 it through the network using OGMs. The translation table changes
 triggered by the roaming advertisement message leads to a temporary
 inconsistent global translation table because the table changes happen
@@ -136,7 +135,7 @@ Limitations
    unless the protection period is terminated. However, this situation
    is usually caused by the same client being connected to two mesh
    nodes (by means of a switch for example) and in this case the
-   [[Bridge-loop-avoidance]] will enable nodes to understand that the
+   :doc:`Bridge-loop-avoidance <Bridge-loop-avoidance>` will enable nodes to understand that the
    client is somehow "shared". On the other side, mesh nodes receiving
    the announcement of the same client from multiple originator, will
    store a list of node announcing the client and will choose the best

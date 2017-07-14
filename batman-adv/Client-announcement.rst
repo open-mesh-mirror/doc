@@ -61,8 +61,7 @@ changes from the OGM to update its global translation table.
 
 The tt change entry is composed by the following fields (to have a
 better understanding of how this entries are propagated on the wire,
-please have a look at the [[TVLV#Translation-table-messages\|TT TVLV
-container description]]):
+please have a look at the :ref:`TT TVLV container description <batman-adv-TVLV-Translation-table-messages>`):
 
 -  Flags: Indicates whether this client address is to be added or
    removed.
@@ -93,8 +92,7 @@ table request. In particular a node can ask for two different
 information: either the changeset of the current ttvn or the full local
 table.
 
-A TT request packet contains a [[TVLV#Translation-table-messages\|TT
-TVLV container]] with a particular flag set telling its type. As a
+A TT request packet contains a :ref:`TT TVLV container <batman-adv-TVLV-Translation-table-messages>` with a particular flag set telling its type. As a
 request it does not have any change appended.
 
 The reply to any TT request can either be the changeset of the current
@@ -109,7 +107,7 @@ change entry format containing the MAC addresses and corresponding
 flags.
 
 Like the request a TT reply packet contains a
-[[TVLV#Translation-table-messages\|TT TVLV container]] with a flag
+:ref:`TT TVLV container <batman-adv-TVLV-Translation-table-messages>` with a flag
 saying it is a reply and another one indicating if it carries a full
 table or just the last changeset. All the change entries are then
 appended to the message.
@@ -141,7 +139,7 @@ to filter out entries for a given VLAN.
 An example is the Bridge Loop Avoidance mechanism that forces backbone
 nodes to skip global entries advertised by other backbone nodes bridged
 with the VLAN where such nodes are in touch with each other (check the
-[[Bridge-loop-avoidance-II\|Bridge Loop Avoidance page]] for more
+:doc:`Bridge Loop Avoidance page <Bridge-loop-avoidance-II>` for more
 details).
 
 The checksum values which are sent along with the ttvn field in the OGM

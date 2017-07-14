@@ -3,7 +3,7 @@ Multicast Optimizations - Bridges
 
 Prior Readings:
 
-\* [[multicast-optimizations\|Multicast Optimizations]]
+\* :doc:`Multicast Optimizations <Multicast-optimizations>`
 
 For the multicast optimizations to work, potential receivers need to be
 known by batman-adv nodes sending multicast packets. To avoid any loss
@@ -58,10 +58,8 @@ interface for IP address and route configuration, too).
 Further Readings
 ----------------
 
--  [[multicast-optimizations-tech\|Multicast Optimizations – Technical
-   Description]]
--  [[multicast-optimizations-flags\|Multicast Optimizations – Flags
-   Explained]]
+-  :doc:`Multicast Optimizations – Technical Description <Multicast-optimizations-tech>`
+-  :doc:`Multicast Optimizations – Flags Explained <Multicast-optimizations-flags>`
 
 .. |image0| image:: multicast-listener-fetching-no-bridge.svg
 .. |image1| image:: multicast-listener-fetching-with-bridge.svg

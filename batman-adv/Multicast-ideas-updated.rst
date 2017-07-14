@@ -1,7 +1,7 @@
 B.A.T.M.A.N.-Adv Multicast Awareness
 ====================================
 
-WIP --- WIP --- WIP -- updated version of [[Multicast-ideas]]
+WIP --- WIP --- WIP -- updated version of :doc:`Multicast-ideas <Multicast-ideas>`
 
 Introduction
 ------------

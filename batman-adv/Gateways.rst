@@ -14,11 +14,10 @@ Announcements
 To make the internet uplink known in the mesh network, batman-adv
 allows to enable the so-called 'gateway mode'. The user specified
 internet uplink bandwidth is propagated in the mesh network using the
-[[batman-adv:TVLV#Gateway-announcement\|gateway TVLVs]]. All other
+:ref:`gateway TVLVs <batman-adv-TVLV-Gateway-announcement>`. All other
 mesh participants receive these announcements and maintain a list of
 internet gateways in the network (see:
-[[batman-adv:Understand-your-batman-adv-network#Gateway-table\|gateway
-table]]).
+:ref:`gateway table <batman-adv-Understand-your-batman-adv-network-Gateway-table>`).
 To take advantage of this knowledge, each batman-adv node without an
 internet connection needs to enable the 'gateway client mode' by
 choosing one of the available gateway selection strategies (check the

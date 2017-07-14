@@ -11,12 +11,11 @@ later.
 The B.A.T.M.A.N. protocol originally only used a single message type
 (called OGM) to determine the link qualities to the direct neighbors and
 spreading these link quality information through the whole mesh. This
-procedure is summarized on the [[open-mesh:BATMANConcept\|BATMAN concept
-page]] and explained in details in `the RFC
+procedure is summarized on the :doc:`BATMAN concept page </open-mesh/BATMANConcept>` and explained in details in `the RFC
 draft <https://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00>`__
 published in 2008.
 
-With the new concept of a separate [[ELP\|ELP]] the tasks performed by
+With the new concept of a separate :doc:`ELP <ELP>` the tasks performed by
 OGMs becomes way simpler: It only determines and choses the best router
 towards another originator without having any knowledge about possibly
 multiple interfaces, while any link specific work is done by ELP.
@@ -38,10 +37,10 @@ This bears the following advantages from the OGM point of view:
 -  Node - A mesh router which utilizes the B.A.T.M.A.N. protocol as
    specified in this document on at least one network interface.
 -  originator - A node broadcasting its own OGMs (see
-   [[OGM#41-Broadcasting-own-Originator-Message-OGM\|section 4.1]] for
+   :ref:`section 4.1 <batman-adv-OGM-41-Broadcasting-own-Originator-Message-OGM>` for
    details) that is therefore addressable within the mesh network
    routing layer. It is uniquely identifiable by its originator address.
-   [[/\|B.A.T.M.A.N.-Advanced]] uses the MAC address of its primary hard
+   :doc:`B.A.T.M.A.N.-Advanced </index>` uses the MAC address of its primary hard
    interface.
 -  hard interface - Network interface utilized by B.A.T.M.A.N. for its
    own ethernet frames.
@@ -117,11 +116,13 @@ switching to another potential router.
 -  As well as all other properties of the OGM like:
 
    -  Interval, Flags, Gateway Flags, TT Num Changes, TT VN, TT CRC and
-      a possible TT change entry (see [[Client-announcement]] for TT
+      a possible TT change entry (see :doc:`Client-announcement <Client-announcement>` for TT
       related field descriptions)
 
 4. Protocol Procedure
 =====================
+
+.. _batman-adv-ogm-41-broadcasting-own-originator-message-ogm:
 
 4.1 Broadcasting own Originator Message (OGM)
 ---------------------------------------------
@@ -142,12 +143,12 @@ collisions.
 -  Originator Address: Set this field to the primary MAC address of this
    B.A.T.M.A.N. node.
 -  Flags: Indicates certain attributes of this originator. So far 0x01
-   is reserved for VIS\_SERVER (see [[VisAdv]])
+   is reserved for VIS\_SERVER (see :doc:`VisAdv <VisAdv>`)
 -  Gateway Flags:
 -  TQ: Is initially set to TQ\_MAX by the originator.
--  TT Num Changes: see [[Client-announcement]]
--  TT VN: see [[Client-announcement]]
--  TT CRC: see [[Client-announcement]]
+-  TT Num Changes: see :doc:`Client-announcement <Client-announcement>`
+-  TT VN: see :doc:`Client-announcement <Client-announcement>`
+-  TT CRC: see :doc:`Client-announcement <Client-announcement>`
 
 ::
 
@@ -167,7 +168,7 @@ collisions.
      |      TQ       |TT Num Changes |     TT VN     |    TT CRC     |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-As well as a possible TT change entry. See [[Client-announcement]] for
+As well as a possible TT change entry. See :doc:`Client-announcement <Client-announcement>` for
 details.
 
 4.2. Receiving Originator Messages

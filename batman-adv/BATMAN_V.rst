@@ -13,7 +13,7 @@ The B.A.T.M.A.N. protocol originally used a single message type
 (called OGM) to determine the link qualities to the direct neighbors
 and spreading this link quality information through the whole mesh.
 This procedure is summarized on the
-[[open-mesh:BATMANConcept\|B.A.T.M.A.N.]] concept page and explained
+:doc:`B.A.T.M.A.N. </open-mesh/BATMANConcept>` concept page and explained
 in detail in `the RFC
 draft <https://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00>`__
 published in 2008.
@@ -35,12 +35,12 @@ drawbacks:
    tasks in the mesh at the same time.
 
 B.A.T.M.A.N. V adopts the strategy of 'divide & conquer' to handle these
-different uses cases better: For neighbor discovery the [[ELP\|Echo
-Location Protocol (ELP)]] is introduced. This packet type is never
-forwarded or rebroadcasted in the mesh. The [[OGMv2\|Originator Messages
-version 2 (OGMv2)]] protocol remains responsible for flooding the mesh
-with link quality information and determining the overall path transmit
-qualities.
+different uses cases better: For neighbor discovery the
+:doc:`Echo Location Protocol (ELP) <ELP>` is introduced. This packet type is never
+forwarded or rebroadcasted in the mesh. The
+:doc:`Originator Messages version 2 (OGMv2) <OGMv2>` protocol remains responsible
+for flooding the mesh with link quality information and determining the overall
+path transmit qualities.
 
 The task separation (neighbor discovery vs mesh routing) bears the
 following advantages:
@@ -121,6 +121,6 @@ This allows different compatibility strategies:
 Technical documentation:
 ------------------------
 
-* neighbor discovery: [[ELP\|Echo Location Protocol (ELP)]]
-* path metric computation: [[Ogmv2\|Originator Message version 2 (OGMv2)]]
-* routing tests: [[BATMAN\_V\_Tests\|B.A.T.M.A.N. IV vs B.A.T.M.A.N. V]]
+* neighbor discovery: :doc:`Echo Location Protocol (ELP) <ELP>`
+* path metric computation: :doc:`Originator Message version 2 (OGMv2) <OGMv2>`
+* routing tests: :doc:`B.A.T.M.A.N. IV vs B.A.T.M.A.N. V <BATMAN\_V\_Tests>`

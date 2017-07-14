@@ -60,7 +60,7 @@ The AP-Isolation mechanism allows the user to block wireless-to-wireless
 payload traffic, but this beaviour might be not enough in some setups
 where a more sophisticated solution is needed.
 
-The *[[Extended-Isolation\|Extended AP Isolation]]* is an improvement
+The *:doc:`Extended AP Isolation <Extended-isolation>`* is an improvement
 that allows the user to decide which client has to be classified as
 *isolated* by means of firewall rules, thus increasing the flexibility
 of this feature. batman-adv extracts the fwmark that the firewall
@@ -79,7 +79,7 @@ unwanted interfaces.
 
 For more details about the Extended Isolation and how to tell batman-adv
 which fwmark it has to look for, please read the
-[[Extended-Isolation\|related page]].
+:doc:`related page <Extended-isolation>`.
 
 .. |image0| image:: ap-isola-75.svg
 

@@ -3,7 +3,7 @@ Multicast Optimizations – Technical Description
 
 Prior Readings:
 
-\* [[multicast-optimizations\|Multicast Optimizations]]
+\* :doc:`Multicast Optimizations <Multicast-optimizations>`
 
 Multicast Listener Announcements
 --------------------------------
@@ -17,8 +17,7 @@ group.
 batman-adv queries this local database and announces these so called
 multicast listeners, more precisely the according multicast MAC
 addresses, to the rest of the mesh network via the
-[[open-mesh:2012-05-13-translation-table-in-a-nutshell\|translation
-table infrastructure]].
+:doc:`translation table infrastructure </open-mesh/2012-05-13-translation-table-in-a-nutshell>`.
 
 Multicast TVLV
 --------------
@@ -48,7 +47,7 @@ to detect potential bridged-in listeners.
 
 (not used by listeners yet, but implemented for senders already to
 ensure backwards compatibility later, see
-[[multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES]]
+:ref:`Multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES <batman-adv-Multicast-optimizations-flags-BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES>`
 for details)
 
 BATADV\_MCAST\_WANT\_ALL\_IPV4 (Bit 1):
@@ -61,7 +60,7 @@ not able to reliably determine all of its IGMPv2 listeners.
 
 (not used by listeners yet, but implemented for senders already to
 ensure backwards compatibility later, see
-[[multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6]]
+:ref:`multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6 <batman-adv-Multicast-optimizations-flags-BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6>`
 for details)
 
 BATADV\_MCAST\_WANT\_ALL\_IPV6 (Bit 2):
@@ -74,7 +73,7 @@ able to reliably determine all of its MLDv1 listeners.
 
 (not used by listeners yet, but implemented for senders already to
 ensure backwards compatibility later, see
-[[multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6]]
+:ref:`multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6 <batman-adv-Multicast-optimizations-flags-BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6>`
 for details)
 
 Bits 3 to 7:
@@ -144,19 +143,21 @@ sent as broadcast as a fallback solution.
 ¹: These addresses cannot be considered for optimization towards nodes
 which have a bridge interface on top of their batman interface as they
 are not snoopable. See
-[[multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES]]
+:ref:`multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES <batman-adv-Multicast-optimizations-flags-BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES>`
 for details.
 
 ²: In bridged scenarios, an IGMP/MLD querier needs to be present in the
 mesh. Also, a 3.17 kernel or newer is required.
 
 ³: Routable multicast addresses are not supported yet. See
-[[multicast-optimizations-tech#routable-multicast-addresses]] for
+:ref:`multicast-optimizations-tech#routable-multicast-addresses <batman-adv-Multicast-optimizations-tech-routable-multicast-addresses>` for
 details.
 
 For details on IPv4 and IPv6 multicast address ranges check out this
 detailed article on
 `Wikipedia <https://en.wikipedia.org/wiki/Multicast_address>`__.
+
+.. _batman-adv-multicast-optimizations-tech-routable-multicast-addresses:
 
 Routable multicast addresses
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -196,7 +197,7 @@ Next Steps / Roadmap
     like Neighbor Solicitation Messages, Router Solicitation Messages, MLD
     Reports, ...)
   - some-to-many / streaming: implement path tracking and use these
-    patches (see [[Multicast-ideas-updated]])
+    patches (see :doc:`Multicast-ideas-updated <Multicast-ideas-updated>`)
 
 * implement `Multicast Router
   Discovery <https://tools.ietf.org/search/rfc4286>`__ to support scopes
@@ -215,8 +216,7 @@ Next Steps / Roadmap
 Further Readings
 ----------------
 
--  [[multicast-optimizations-flags\|Multicast Optimizations – Flags
-   Explained]]
+-  :doc:`Multicast Optimizations – Flags Explained <Multicast-optimizations-flags>`
 
 .. |image0| image:: basic-multicast-listener-announce.svg
 .. |image1| image:: basic-multicast-sender-receiver.svg

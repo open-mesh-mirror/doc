@@ -2,7 +2,7 @@ Network Wide Multi Link Optimization (technical documentation)
 ==============================================================
 
 The original batman-adv multi link optimization
-([[Multi-link-optimizations-technical]]) works on a local level - which
+(:doc:`Multi-link-optimizations-technical <Multi-link-optimize>`) works on a local level - which
 is fairly easy to implement and works well as long as as all nodes are
 configured the same way and have similar link qualities. But local
 decision may be suboptimal network wide - for example, consider some

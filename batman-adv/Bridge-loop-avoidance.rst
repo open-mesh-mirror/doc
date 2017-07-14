@@ -66,13 +66,13 @@ will not send it back into the mesh - to avoid loops - as they know
 another gateway got the packet from the mesh.
 
 More detailed information about the concept can be found on the wiki
-page [[Bridge-loop-avoidance-II]].
+page :doc:`Bridge-loop-avoidance-II <Bridge-loop-avoidance-II>`.
 
 How to activate the bridge loop avoidance ?
 -------------------------------------------
 
 As the bridge loop avoidance feature sends some own frames (the claim
-frames, see [[Bridge-loop-avoidance-Protocol]]), it must be explicitly
+frames, see :doc:`Bridge-loop-avoidance-Protocol <Bridge-loop-avoidance-Protocol>`), it must be explicitly
 turned on. The feature is also a compile-time option, and might not be
 compiled in.
 

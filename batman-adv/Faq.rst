@@ -8,8 +8,10 @@ channel <https://webchat.freenode.net/?channels=batman>`__ on
 Freenode.org or by sending an e-mail to: b.a.t.m.a.n@lists.open-mesh.org
 (only plan-text).
 
-If you got any problems? See: the [[Troubleshooting\|Troubleshooting]]
+If you got any problems? See: the :doc:`Troubleshooting <Troubleshooting>`
 page.
+
+.. _batman-adv-faq-batman-general-questions:
 
 B.A.T.M.A.N. General questions
 ------------------------------
@@ -23,7 +25,7 @@ Does B.A.T.M.A.N. have simulator (NS2, Omnet, etc) support?
 supports simulators like the ones mentioned above. However, some
 people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If
 you are looking for step-by-step instructions to install such a system
-you can [[open-mesh:Emulation\|read our emulation document]].
+you can :doc:`read our emulation document </open-mesh/Emulation>`.
 
 How to make my mesh network secure ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -75,6 +77,8 @@ up the resume process. All routes using this "lost" node as intermediate
 hop will have changed towards another path in the meantime and are of no
 concern.
 
+.. _batman-adv-faq-batman-advanced-questions:
+
 B.A.T.M.A.N. Advanced Questions
 -------------------------------
 
@@ -92,7 +96,7 @@ Batman has no security implemented. Also assigning IP addresses to the
 node(s) is not Batman's task.
 You may want to use underlying security mechanisms, like: IBSS RSN.
 
-Read more about [[Wiki\|BATMAN]].
+Read more about :doc:`BATMAN <Wiki>`.
 
 Can batman-adv run on interfaces in AP / Station / etc mode ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -111,8 +115,7 @@ How can I connect non-mesh clients to my batman-adv network ?
 
 **Q:** How can I connect non-mesh clients to batman-adv network?
 
-**A:** The [[batman-adv:Quick-start-guide\|batman-adv
-quick-start-guide]] explains how to bridge your standard AP / Ethernet
+**A:** The :doc:`batman-adv quick-start-guide </batman-adv/Quick-start-guide>` explains how to bridge your standard AP / Ethernet
 interfaces with bat0 which can be problematic if you only possess one
 WiFi card. In these cases it might be desirable to run adhoc mode and
 AP mode at the same time. Fortunately, some WiFi chips / drivers
@@ -228,6 +231,8 @@ the options?
 `KadNode <https://github.com/mwarning/KadNode>`__. *Note:* This
 software is still in beta.
 
+.. _batman-adv-faq-batman-advanced-bridge-loop-avoidance-questions:
+
 B.A.T.M.A.N. Advanced - Bridge Loop Avoidance questions
 -------------------------------------------------------
 
@@ -237,7 +242,7 @@ What is Bridge Loop Avoidance?
 **Q:** What can you do with BLA?
 
 **A:** Bridge Loop Avoidance is used to detect and avoid loops due to
-multiple batX interfaces. [[Bridge-loop-avoidance\|Read more...]]
+multiple batX interfaces. :doc:`Read more... <Bridge-loop-avoidance>`
 
 Why do we need BLA II if we can just use mesh on Ethernet?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

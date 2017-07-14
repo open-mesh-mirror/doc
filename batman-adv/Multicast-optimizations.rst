@@ -95,10 +95,8 @@ node.
 Further Readings
 ----------------
 
--  [[multicast-optimizations-tech\|Multicast Optimizations – Technical
-   Description]]
--  [[multicast-optimizations-flags\|Multicast Optimizations – Flags
-   Explained]]
+-  :doc:`Multicast Optimizations – Technical Description <Multicast-optimizations-tech>`
+-  :doc:`Multicast Optimizations – Flags Explained <Multicast-optimizations-flags>`
 
 .. |image0| image:: basic-multicast-no-receiver.svg
 .. |image1| image:: basic-multicast-single-receiver.svg

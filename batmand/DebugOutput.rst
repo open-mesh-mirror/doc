@@ -6,7 +6,7 @@ Level 1:
 
 ::
 
-    Originator (#/255) Nexthop [outgoingIF]: Potential nexthops ... [B.A.T.M.A.N. 0.3-beta rv828, [[MainIF]]/IP: ath0/5.1.14.213, UT: 0d 8h29m]
+    Originator (#/255) Nexthop [outgoingIF]: Potential nexthops ... [B.A.T.M.A.N. 0.3-beta rv828, :doc:`MainIF <MainIF>`/IP: ath0/5.1.14.213, UT: 0d 8h29m]
     5.1.19.16 (137) 5.1.9.175 [ ath0]: 5.1.19.93 (130) 5.1.9.5 (128) 5.1.9.175 (137) 5.1.19.97 (125)
     5.1.19.52 (134) 5.1.19.93 [ ath0]: 5.1.9.5 (134) 5.1.19.54 (111) 5.1.17.106 (125) 5.1.19.93 (134)
     5.1.19.97 (177) 5.1.9.175 [ ath0]: 5.1.19.97 (163) 5.1.19.93 (158) 5.1.9.175 (177) 5.1.19.54 (127)
@@ -43,7 +43,7 @@ Level 2:
 
 ::
 
-    Gateway (#/255) Nexthop [outgoingIF], gw_class ... [B.A.T.M.A.N. 0.3-beta rv828, [[MainIF]]/IP: ath0/5.1.14.213, UT: 0d10h 7m]
+    Gateway (#/255) Nexthop [outgoingIF], gw_class ... [B.A.T.M.A.N. 0.3-beta rv828, :doc:`MainIF <MainIF>`/IP: ath0/5.1.14.213, UT: 0d10h 7m]
     => 5.1.19.93 (255) 5.1.19.93 [ ath0], gw_class 49 - 4MBit/1024KBit, gateway failures: 0
     5.1.9.5 (242) 5.1.19.93 [ ath0], gw_class 49 - 4MBit/1024KBit, gateway failures: 0
 

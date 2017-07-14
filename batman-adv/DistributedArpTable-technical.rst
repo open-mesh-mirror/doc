@@ -2,9 +2,9 @@ DistributedArpTable: technical documentation
 ============================================
 
 The target of this page is to explain the inner details of the
-implementation of [[DistributedARPTable\|DAT (Distributed ARP Table)]].
+implementation of :doc:`DAT (Distributed ARP Table) <DistributedArpTable>`.
 For the general idea and the problem that it is trying to solve, please
-refer to the [[DistributedARPTable\|DAT]] page.
+refer to the :doc:`DAT <DistributedArpTable>` page.
 
 DAT is a `Distributed Hash
 Table <https://en.wikipedia.org/wiki/Distributed_hash_table>`__ aimed to

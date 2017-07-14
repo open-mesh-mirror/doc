@@ -25,7 +25,7 @@ different costs towards the final destination.
 
 Node A and B are the two possible exit points from cloud1 towards
 cloud2, while D and E are the two cloud2 entry points. In the normal
-[[batman-adv:Gateways\|Gateway]] scenario batman-adv would choose the
+:doc:`Gateway </batman-adv/Gateways>` scenario batman-adv would choose the
 gateway which is reachable through the path with the Best TQ. In the
 picture node C would choose A because the TQ towards it is 90% while
 towards B it is 80%. This seems to be the best choice because this way

@@ -41,7 +41,7 @@ Gateway uevents
 Available since: batman-adv 2011.3.0
 
 When a batman-adv node is in gateway client mode (searching for gateway
-servers - check [[Gateways\|the gateway documentation]] for thorough
+servers - check :doc:`the gateway documentation <Gateways>` for thorough
 explanations) it will inform the user space about its gateway mode state
 changes: Sending an "add message" when the first gateway is chosen, a
 "change message" when a better gateway was found and a "delete message"

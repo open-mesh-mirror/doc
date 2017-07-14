@@ -160,14 +160,12 @@ Debian, Ubuntu, Mint etc.
 This may also work with other distributions that use the
 /etc/network/interfaces file.
 
-[[Debian\_batman-adv\_AutoStartup\|Configuring Debian based distro's to
-enable your batman-adv mesh on boot]]
+:doc:`Configuring Debian based distro's to enable your batman-adv mesh on boot <Debian\_batman-adv\_AutoStartup>`
 
 OpenWrt with uci
 ~~~~~~~~~~~~~~~~
 
-Basic configuration: [[Batman-adv-openwrt-config\|batman-adv OpenWrt
-config]]
+Basic configuration: :doc:`batman-adv OpenWrt config <Batman-adv-openwrt-config>`
 
 .. |image0| image:: batman_structure.svg
 

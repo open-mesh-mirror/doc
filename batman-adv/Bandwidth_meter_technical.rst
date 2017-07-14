@@ -74,7 +74,7 @@ iperf (when launched on the nodes themselves), but the experiments did
 not gave us the results we thought about. In particular we saw mostly
 the same throughput with both the bw meter and iperf.
 
-In the [[Bandwitdh\_meter\_tests\|test page]] it is possible to see the
+In the :doc:`test page <Bandwitdh\_meter\_tests>` it is possible to see the
 obtained values more in detail.
 
 .. |image0| image:: Bw1.svg

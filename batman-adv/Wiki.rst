@@ -6,7 +6,7 @@ implementation of the B.A.T.M.A.N. routing protocol in form of a linux
 kernel module operating on layer 2. The rest of this document will
 explain the conceptual details and their implications. If you are
 looking for explanations on how to use the module, please consult our
-[[quick-start-guide\|quick start guide]].
+:doc:`quick start guide <Quick-start-guide>`.
 
 Layer 2 ?
 ---------

@@ -105,7 +105,7 @@ Further Reading
 ~~~~~~~~~~~~~~~
 
 More details about the technical workings and implementation of network
-coding can be found [[NetworkCoding-technical\|here]]. A master thesis
+coding can be found :doc:`here <NetworkCoding-technical>`. A master thesis
 behind the work is also
 `available <https://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf>`__
 as well as a

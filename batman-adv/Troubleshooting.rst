@@ -2,8 +2,7 @@ B.A.T.M.A.N.-Adv Troubleshooting
 ================================
 
 Below you can find some problem/solution stories. If you got other
-(common) questions about batman-adv, please check the [[FAQ\|Frequently
-asked question]] page.
+(common) questions about batman-adv, please check the :doc:`Frequently asked question <Faq>` page.
 
 B.A.T.M.A.N.-Adv does not work as expected. What can I do now?
 --------------------------------------------------------------
@@ -12,7 +11,7 @@ B.A.T.M.A.N.-Adv does not work as expected. What can I do now?
 
 **A:** First, try to minimize the complexity of your setup, i.e. just
 try to build a simple mesh network between two devices (using LAN).
-Usually just following the [[quick-start-guide\|quick-start-guide]] is
+Usually just following the :doc:`quick-start-guide <Quick-start-guide>` is
 a good way to start with.
 Check also the `Batman
 Documentation <https://www.kernel.org/doc/Documentation/networking/batman-adv.txt>`__
@@ -34,7 +33,7 @@ If the kernel log is just showing cryptic numbers it will be difficult
 to help you. You can increase the chances of finding the bug by enabling
 the kernel symbol table which will translate these numbers to function
 names that can help developers to see what is happening. Please check
-the "advanced" section of [[building-with-openwrt\|this article]] to
+the "advanced" section of :doc:`this article <Building-with-openwrt>` to
 learn how to enable this functionality on OpenWRT.
 
 Batman-adv is giving me an error when loading the module?
@@ -86,7 +85,7 @@ the same version on all nodes is the safest way to be sure that the
 versions are compatible. A new release might change the compatibility
 number to avoid problems when incompatible versions run in the same
 mesh. Incompatible nodes will simply ignore each other. Consult our
-[[Compatversion\|compatibility table]] to find out which release(s)
+:doc:`compatibility table <Compatversion>` to find out which release(s)
 carry which compatibility number.
 
 Are those tq-values rather stable or acting crazy?

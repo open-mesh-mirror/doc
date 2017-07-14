@@ -2,16 +2,17 @@ Download B.A.T.M.A.N.
 =====================
 
 We are currently working on different branches. To get the details about
-the differences of these branches, see our [[BranchesExplained\|Branches
-Explained page]].
+the differences of these branches, see our :doc:`Branches Explained page <BranchesExplained>`.
 
 Please use the maint branch for your public infrastructure unless you
 know exactly what you are doing and are prepared for the big unknown.
 
+.. _open-mesh-download-download-released-source-code:
+
 Download Released Source Code
 -----------------------------
 
--  The latest version of [[batman-adv:Wiki\|batman-adv]] is
+-  The latest version of :doc:`batman-adv </batman-adv/Wiki>` is
    `batman-adv-2017.1.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2017.1.tar.gz>`__
    `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2017.1.tar.gz.md5>`__
    `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2017.1.tar.gz.sha1>`__
@@ -30,7 +31,7 @@ Download Released Source Code
    `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2017.1.tar.gz.asc>`__
 
 -  The latest stable version of batmand
-   ([[open-mesh:BranchesExplained#batmand\|unmaintained]]) is
+   (:ref:`unmaintained <open-mesh-BranchesExplained-batmand>`) is
    `batman-0.3.2.tar.gz <https://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz>`__
    `md5 <https://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.md5>`__
    `sha1 <https://downloads.open-mesh.org/batman/releases/batman-0.3.2/batman-0.3.2.tar.gz.sha1>`__
@@ -43,13 +44,13 @@ Download Released Source Code
    `asc <https://downloads.open-mesh.org/batman/releases/batman-0.3.2/vis-0.3.2.tar.gz.asc>`__
 
 If you are wondering whether batman-adv or batmand might suit your setup
-better, have a look at [[batman-adv:Wiki\|this page]]. Please note that
+better, have a look at :doc:`this page </batman-adv/Wiki>`. Please note that
 the development is focusing on batman-adv at the moment.
 
 To download previous release tarballs, simply check out our `download
 section <https://downloads.open-mesh.org/batman/releases/>`__.
 
-If you find any bugs, please [[Contribute\|let us know]]!
+If you find any bugs, please :doc:`let us know <Contribute>`!
 
 Git Repository Access
 ---------------------
@@ -57,7 +58,7 @@ Git Repository Access
 Since we started integrating the batman-adv kernel module into the
 mainline Linux tree, we maintain a git repository which contains the
 batman-adv maintenance branches. More information can be found
-[[UsingBatmanGit\|on our git page]].
+:doc:`on our git page <UsingBatmanGit>`.
 On overview about all the git repositories can be found on our `git
 frontend <https://git.open-mesh.org>`__. We also host individual
 repositories for development related to batman or meshing in general.
@@ -217,7 +218,7 @@ B.A.T.M.A.N. is also included in OpenWRT as a package. Download the
 extra package feed, link the batman folder into your main OpenWRT svn
 directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor
 you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly
-into your builds (see [[batman-adv:building-with-openwrt\|this page]]
+into your builds (see :doc:`this page </batman-adv/Building-with-openwrt>`
 for a detailed explanation).
 
 More information about how to build the OpenWRT toolchain is available

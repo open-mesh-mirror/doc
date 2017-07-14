@@ -1,7 +1,7 @@
 Extended-isolation
 ==================
 
-This feature is an extension of the existing [[AP-isolation]] that aims
+This feature is an extension of the existing :doc:`AP-isolation <Ap-isolation>` that aims
 to improve the old mechanism while keeping a backward compatible
 behaviour.
 
@@ -69,7 +69,7 @@ marked as *isolated*, but how is this information passed to other
 nodes in the network?
 Clients recognised as *isolated* are marked with a special TT flag,
 namely TT\_CLIENT\_ISOLA, which is then spread all over the network
-with the rest of the [[Client-announcement\|TT information]] so that
+with the rest of the :doc:`TT information <Client-announcement>` so that
 other nodes are aware of which global client has to be considered as
 isolated.
 
@@ -129,7 +129,7 @@ In the picture above traffic is allowed only between the wired and the
 non-isolated wireless interface (both the interfaces must be
 "isolated" to block the traffic).
 Wireless to wireless traffic is blocked due to the already existing
-[[AP-isolation]] mechanism, while between the two wired "isolated"
+:doc:`AP-isolation <Ap-isolation>` mechanism, while between the two wired "isolated"
 interfaces there is no communication because of the new Extended
 Isolation feature described in this page.
 

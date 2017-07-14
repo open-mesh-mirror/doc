@@ -2,7 +2,7 @@ Using the batman git repositories
 =================================
 
 If you want to find out why we also have a git repository now, please
-read [[2009-10-23-batman-goes-mainline\|here]].
+read :doc:`here <2009-10-23-batman-goes-mainline>`.
 
 Checkout
 --------
@@ -59,5 +59,4 @@ The linux-merge repository is a clone of David Miller's net-next tree.
 With the help of some git voodoo the master branch is merged with this
 branch in the folder: net/batman-adv/. If you wish to merge the latest
 master branch changes into the linux branch you need to
-[[batman-adv:SubmittingLinux\|pull the newest changes in master from the
-batman-adv.git]] repository.
+:doc:`pull the newest changes in master from the batman-adv.git </batman-adv/SubmittingLinux>` repository.

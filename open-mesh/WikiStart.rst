@@ -18,41 +18,41 @@ News
 
 {{recent\_news}}
 
--  [[news-archive\|news archive]]
+-  :doc:`news archive <News-archive>`
 
 Getting Started
 ---------------
 
--  [[Download\|Download]] - Get our latest releases, get access to our
+-  :doc:`Download <Download>` - Get our latest releases, get access to our
    Git repositories
--  [[Contribute\|How to contribute]] - How to report bugs, send
+-  :doc:`How to contribute <Contribute>` - How to report bugs, send
    comments, patches or suggestions
 
 Documentation
 -------------
 
--  [[BranchesExplained\|Branches explained]] - learn about the
+-  :doc:`Branches explained <BranchesExplained>` - learn about the
    B.A.T.M.A.N. flavours
--  [[batman-adv:doc-overview\|B.A.T.M.A.N. Advanced Documentation]]
--  [[batmand:doc-overview\|B.A.T.M.A.N. Daemon Documentation]]
--  [[alfred:\|A.L.F.R.E.D.]] - Almighty Lightweight Fact Remote Exchange
+-  :doc:`B.A.T.M.A.N. Advanced Documentation </batman-adv/index>`
+-  :doc:`B.A.T.M.A.N. Daemon Documentation </batmand/index>`
+-  :doc:`A.L.F.R.E.D. </alfred/index>` - Almighty Lightweight Fact Remote Exchange
    Daemon, can be used to distribute arbitrary information over a mesh
    network
--  [[FAQ\|FAQ]] - Frequently Asked Questions
--  [[Experience\|Experience]] - Collection of links to B.A.T.M.A.N.
+-  :doc:`FAQ <FAQ>` - Frequently Asked Questions
+-  :doc:`Experience <Experience>` - Collection of links to B.A.T.M.A.N.
    press reviews, papers and projects using B.A.T.M.A.N.
--  [[MailingList\|Mailing List]]/[[IRC\|IRC]] - contact us
+-  :doc:`Mailing List <MailingList>`/:doc:`IRC <IRC>` - contact us
 
 Merchandise
 -----------
 
--  [[Logos\|Logos]] - download logos
+-  :doc:`Logos <Logos>` - download logos
 -  `T-Shirts <https://www.freewear.org/?org=B.A.T.M.A.N%2e>`__ - get
    T-Shirts
 
 Other Projects on open-mesh.org
 -------------------------------
 
--  [[FFTrace\|FFTrace]] - freifunk traceroute tool
--  [[MeshLinux\|MeshLinux]] - Linux distribution geared to build mesh
+-  :doc:`FFTrace <FFTrace>` - freifunk traceroute tool
+-  :doc:`MeshLinux <MeshLinux>` - Linux distribution geared to build mesh
    supernodes

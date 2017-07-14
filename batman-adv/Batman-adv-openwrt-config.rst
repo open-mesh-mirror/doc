@@ -10,7 +10,7 @@ documentation <https://wiki.openwrt.org/doc/uci>`__.
 The configuration for the following common example is provided: One AP
 with a wireless adhoc interface is supposed to run batman-adv
 (essentially, the setup explained in our
-[[Quick-start-guide\|Quick-start-guide]]).
+:doc:`Quick-start-guide <Quick-start-guide>`).
 
 Batman-adv 2013.0.0 and newer
 -----------------------------

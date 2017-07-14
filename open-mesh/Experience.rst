@@ -7,7 +7,7 @@ B.A.T.M.A.N. protocol in real live scenarios. This collection only
 reflects a small percentage of the things out there because not
 everybody contacts us to share his experience. If you have made some
 experience or even setup a B.A.T.M.A.N. mesh network at someplace in
-this universe please feel urged to [[MailingList\|tell us]] or drop us a
+this universe please feel urged to :doc:`tell us <MailingList>` or drop us a
 link!
 
 Projects:

@@ -5,11 +5,9 @@ This page is about a general overview of the Bandwith Meter tool in
 B.A.T.M.A.N.-Advanced.
 This project was started by Edo Monticelli during his 2012 Google
 Summer Of Code and it is possible to read his final report
-[[open-mesh:2012-10-06-GSoC-2012-Edo-Monticellis-Final-Report\|here]].
+:doc:`here </open-mesh/2012-10-06-GSoC-2012-Edo-Monticellis-Final-Report>`.
 Since then, the project evolved a lot and the protocol used by it
 moved from a naïve Go-Back-N to the more sophisticated TCP NewReno.
-More technical details are discussed on the
-[[bandwidth\_meter\_debug\|technical page]].
 
 The main goal of the Bandwidth Meter is to measure the maximum reachable
 throughput in a TCP-like connection between two generic nodes in the

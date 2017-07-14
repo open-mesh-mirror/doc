@@ -13,7 +13,7 @@ the other included packet:
       (p1 XOR p2) XOR p2 = p1
 
 For more information about the concept, read the
-[[NetworkCoding\|NetworkCoding introduction]].
+:doc:`NetworkCoding introduction <NetworkCoding>`.
 
 Implementation Details
 ----------------------
