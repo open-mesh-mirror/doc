@@ -173,7 +173,7 @@ hop to avoid store & forward. Alternatively, batman-adv can be switched
 into "bonding mode" in which batman-adv is using all interfaces at the
 same time to send & receive data. However, this mode is only recommended
 in special one-hop cases. You can read about our
-:doc:`alternatebonding test results </open-mesh/2010-06-13-wbm2010-bracciano>` to see what suits you best.
+`alternatebonding test results <https://www.open-mesh.org/news/14>__` to see what suits you best.
 
 ::
 

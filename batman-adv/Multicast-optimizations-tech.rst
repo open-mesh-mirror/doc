@@ -17,7 +17,7 @@ group.
 batman-adv queries this local database and announces these so called
 multicast listeners, more precisely the according multicast MAC
 addresses, to the rest of the mesh network via the
-:doc:`translation table infrastructure </open-mesh/2012-05-13-translation-table-in-a-nutshell>`.
+`translation table infrastructure <https://www.open-mesh.org/news/38>`__.
 
 Multicast TVLV
 --------------

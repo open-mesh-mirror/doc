@@ -3,7 +3,7 @@ TVLV
 
 This document describes in detail the TVLV format, the TVLV API and
 contains a list of TVLV definitions for reference. Be sure to have read
-the :doc:`TVLV introduction </open-mesh/2012-10-01-GSoC-2012-Spyros-Gasteros-Final-Report>` if you don't understand the scope of this document.
+the `TVLV introduction <https://www.open-mesh.org/news/44>`__ if you don't understand the scope of this document.
 
 TVLV format
 -----------

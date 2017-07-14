@@ -91,7 +91,7 @@ bonding implementation. However the new mechanism is similar enough to
 keep this graph for reference until new measurements have been
 performed:
 
-At the :doc:`WirelessBattleMesh v3 </open-mesh/2010-06-13-wbm2010-bracciano>`
+At the `WirelessBattleMesh v3 <https://www.open-mesh.org/news/14>`__
 we performed throughput tests to measure the gain of the various modes:
 
 |image4|

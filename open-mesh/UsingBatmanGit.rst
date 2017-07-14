@@ -2,7 +2,7 @@ Using the batman git repositories
 =================================
 
 If you want to find out why we also have a git repository now, please
-read :doc:`here <2009-10-23-batman-goes-mainline>`.
+read `here <https://www.open-mesh.org/news/6>`__.
 
 Checkout
 --------

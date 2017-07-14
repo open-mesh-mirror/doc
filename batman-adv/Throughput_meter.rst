@@ -5,7 +5,7 @@ This page is about a general overview of the Bandwith Meter tool in
 B.A.T.M.A.N.-Advanced.
 This project was started by Edo Monticelli during his 2012 Google
 Summer Of Code and it is possible to read his final report
-:doc:`here </open-mesh/2012-10-06-GSoC-2012-Edo-Monticellis-Final-Report>`.
+`here <https://www.open-mesh.org/news/45>`__.
 Since then, the project evolved a lot and the protocol used by it
 moved from a naïve Go-Back-N to the more sophisticated TCP NewReno.
 
