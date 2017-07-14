@@ -1,15 +1,14 @@
-open-mesh
-=========
+===============
+Getting Started
+===============
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-   WikiStart
-   gettingstarted
-   documentation
-   random
+   Download
+   Contribute
 
 .. only::  subproject
 

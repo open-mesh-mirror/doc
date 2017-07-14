@@ -1,15 +1,17 @@
-open-mesh
-=========
+=============
+Documentation
+=============
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-   WikiStart
-   gettingstarted
-   documentation
-   random
+   BranchesExplained
+   FAQ
+   Experience
+   MailingList
+   IRC
 
 .. only::  subproject
 
