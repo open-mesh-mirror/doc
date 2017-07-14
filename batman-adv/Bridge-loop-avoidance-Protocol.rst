@@ -3,9 +3,9 @@ Bridge loop avoidance protocol description
 
 Further pages on this topic:
 
-| \* [[Bridge-loop-avoidance-Testcases]] Test case descriptions
-| \* [[Bridge-loop-avoidance-II]] Technical description
-| \* [[Bridge-loop-avoidance]] User howto
+* [[Bridge-loop-avoidance-Testcases]] Test case descriptions
+* [[Bridge-loop-avoidance-II]] Technical description
+* [[Bridge-loop-avoidance]] User howto
 
 Claim frames
 ------------
@@ -15,13 +15,13 @@ Claim frames
 All claim operations are sent using "special" gratuitous ARP frames. 4
 types are used which are illustrated above:
 
-| \* CLAIM frames are used to tell others that a backbone gateway feels
+* CLAIM frames are used to tell others that a backbone gateway feels
   responsible for a client now
-| \* UNCLAIM frames are sent when a backbone gateway does not feel
+* UNCLAIM frames are sent when a backbone gateway does not feel
   responsible anymore
-| \* ANNOUNCE frames are sent regularly to find other backbone gateways
+* ANNOUNCE frames are sent regularly to find other backbone gateways
   and provides the CRC of its local table
-| \* REQUEST frames are used to ask for a full table update when the
+* REQUEST frames are used to ask for a full table update when the
   information is out of sync (i.e. the announced CRC does not match with
   the local CRC)
 
@@ -34,8 +34,8 @@ be in any sane ARP table. As far as I understand, a gratuitous ARP
 should only be considered if the IP address is already in an ARP table
 [2].
 
-| [1] https://tools.ietf.org/html/rfc826
-| [2] https://tools.ietf.org/html/rfc2002#section-4.6
+[1] https://tools.ietf.org/html/rfc826
+[2] https://tools.ietf.org/html/rfc2002#section-4.6
 
 CLAIM frames
 ~~~~~~~~~~~~
@@ -146,12 +146,12 @@ ANNOUNCE frames
 The periodic ANNOUNCE frames (default: every 10 seconds) by the backbone
 gateways serve the following purposes:
 
-| \* backbone gateways learn about the existence of other backbone
+* backbone gateways learn about the existence of other backbone
   gateways (this is important for new gateways)
-| \* when no ANNOUNCE frames are received anymore, we can assume that
+* when no ANNOUNCE frames are received anymore, we can assume that
   this backbone gateway is no longer serving the backbone and can remove
   its claims
-| \* It contains a checksum (the last 2 bytes YY:YY within the Sender HW
+* It contains a checksum (the last 2 bytes YY:YY within the Sender HW
   address) which other backbone gateways can use to check their table
   consistency. If a table is not consistent, a backbone gateway can ask
   for the full claim table via the REQUEST frame.
@@ -201,10 +201,10 @@ backbone gateway.
 The asked backbone gateway will send all of its local CLAIM frames
 again, and send another ANNOUNCE frame afterwards.
 
-| The requesting backbone gateway will add all claims it receives
-  through the CLAIM frames, and can check the CRC once more as soon as
-  it receives the final ANNOUNCE frame.
-| (If the CRC is still wrong, the process will start again)
+The requesting backbone gateway will add all claims it receives
+through the CLAIM frames, and can check the CRC once more as soon as
+it receives the final ANNOUNCE frame.
+(If the CRC is still wrong, the process will start again)
 
 While a request is in flight, the requesting backbone gateway will close
 down its soft-interface for broadcast to avoid loops in this period.

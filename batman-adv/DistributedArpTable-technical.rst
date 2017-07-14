@@ -16,18 +16,18 @@ is an **IPv4 address**.
 Snooping mechanism
 ------------------
 
-| In order to let DAT work correctly, the batman-adv module has to
-  analyze ARP messages going to and coming from the mesh network,
-  therefore a snooping mechanism has been provided.
-| A node uses ARP **replies** issued by the clients it is serving to
-  populate its local cache and the distributed table. Any ARP
-  **request** going to the mesh network, instead, is blocked in order to
-  ask DAT for the reply. If DAT is not able to provide an answer then
-  the messages is delivered to the clients.
+In order to let DAT work correctly, the batman-adv module has to
+analyze ARP messages going to and coming from the mesh network,
+therefore a snooping mechanism has been provided.
+A node uses ARP **replies** issued by the clients it is serving to
+populate its local cache and the distributed table. Any ARP
+**request** going to the mesh network, instead, is blocked in order to
+ask DAT for the reply. If DAT is not able to provide an answer then
+the messages is delivered to the clients.
 
-| The snooping mechanism is actually made up of 4 events, which trigger
-  different actions.
-| The 4 possibilities are the following:
+The snooping mechanism is actually made up of 4 events, which trigger
+different actions.
+The 4 possibilities are the following:
 
 #. *Outgoing ARP Request*: The packet is intercepted and the source
    entry [MAC,IP] (contained in the packet) is stored for caching

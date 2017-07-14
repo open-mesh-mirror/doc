@@ -4,18 +4,18 @@ Networking Technologies
 Introduction.
 -------------
 
-| Batmand and batman advanced rely on underlining network transport
-  technologies like WIFI for instance.
-| This page explains the interaction between them and batmand or
-  batmand-adv.
+Batmand and batman advanced rely on underlining network transport
+technologies like WIFI for instance.
+This page explains the interaction between them and batmand or
+batmand-adv.
 
 Batmand and IBSS (also known as ad-hoc wifi networks)
 -----------------------------------------------------
 
-| IBSS permit the connection of more than two devices together in a big
-  IBSS network.
-| Let's say you have 3 devices A,B and C connected that way:
-  A<[STRIKEOUT:B<]>C with:
+IBSS permit the connection of more than two devices together in a big
+IBSS network.
+Let's say you have 3 devices A,B and C connected that way:
+A<[STRIKEOUT:B<]>C with:
 
 -  C being out of the range of A
 -  A and B being in range

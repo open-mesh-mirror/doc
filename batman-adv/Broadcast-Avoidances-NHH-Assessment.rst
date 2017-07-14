@@ -147,9 +147,9 @@ Simplification
 Instead of performing all the checks described above, the modified rules
 are used in the implementation with the following goals:
 
-| \* Less information to exchange
-| \* Less computational overhead
-| \* Supposed to work even with large neighborhoods
+* Less information to exchange
+* Less computational overhead
+* Supposed to work even with large neighborhoods
 
 Performing the checks stated above has the following disadvantages: For
 one thing, the computational overhead could be significant for
@@ -188,9 +188,9 @@ We want to proof:
 
 One has:
 
-| \* a ≤ b => p(a) ≤ p(b)
-| \* AB ≤ Amax
-| \* Amin ≤ ACn
+* a ≤ b => p(a) ≤ p(b)
+* AB ≤ Amax
+* Amin ≤ ACn
 
 ::
 
@@ -212,9 +212,9 @@ We want to proof:
 
 One has:
 
-| \* a ≤ b => p(a) ≤ p(b)
-| \* BCn ≤ Bmax
-| \* Amin ≤ ACn
+* a ≤ b => p(a) ≤ p(b)
+* BCn ≤ Bmax
+* Amin ≤ ACn
 
 ::
 
@@ -236,8 +236,8 @@ We want to proof:
 
 One has:
 
-| \* MIN(a, b) ≤ b
-| \* Cn-min ≤ CnA
+* MIN(a, b) ≤ b
+* Cn-min ≤ CnA
 
 ::
 
@@ -256,11 +256,11 @@ We want to proof:
 
 One has:
 
-| \* a ≤ b => p(a) ≤ p(b)
-| \* MIN(a, b) ≤ b
-| \* a ≤ MAX(a, b)
-| \* AB ≤ Amax
-| \* Cn-min ≤ CnA
+* a ≤ b => p(a) ≤ p(b)
+* MIN(a, b) ≤ b
+* a ≤ MAX(a, b)
+* AB ≤ Amax
+* Cn-min ≤ CnA
 
 ::
 

@@ -65,11 +65,7 @@ originator messages it receives quicker and more reliable via one of its
 single hop neighbors, which neighbor it has to choose to send data to
 the distant node.
 
-| The algorithm then selects this neighbor as the currently best next
-  hop to the originator of the message and configures its routing table
-  respectively.
-| 
+The algorithm then selects this neighbor as the currently best next
+hop to the originator of the message and configures its routing table
+respectively.
 
-.. raw:: html
-
-   </pre>

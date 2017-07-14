@@ -225,10 +225,10 @@ hub (bridge with eth0 + 2 tap devices) has to be started first to have a
 simple network. A more complex network setup can be on the page
 [[Emulation]]
 
-| The ``ETH`` in hub.sh has to be changed to the real interface which
-  provides internet-connectivity
-| The ``SHARED_PATH`` in run.sh has to be changed to a valid path which
-  is used to share the precompiled batman-adv.ko and other tools
+The ``ETH`` in hub.sh has to be changed to the real interface which
+provides internet-connectivity
+The ``SHARED_PATH`` in run.sh has to be changed to a valid path which
+is used to share the precompiled batman-adv.ko and other tools
 
 ::
 

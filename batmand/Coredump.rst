@@ -44,26 +44,18 @@ created only on a segmentation fault. Your system logs should contain a
 log entry similar to "Error - SIGSEGV received, trying to clean up ..."
 otherwise batman did not crash.
 
-\* Did you check the ulimit section ?
-
-\* The coredumping behaviour can be modified by changing some /proc
-parameters like /proc/sys/kernel/core\_uses\_pid and
-/proc/sys/kernel/core\_pattern. In most cases the defaults are the right
-choice. Only modify them if you are sure what you are doing!
-
-\* Some distributions (especially for embedded devices) use busybox
-which allows to completely disable coredumping (even if ulimit is set).
-Look for the CONFIG\_FEATURE\_INIT\_COREDUMPS option to learn more about
-it. OpenWRT allows to enable it via 'make menuconfig': Base system ->
-busybox -> Configuration -> Init Utilities -> Support dumping core for
-child processes.
-
-| \* OpenWRT also may disable ELF core dumping in the kernel which you
+* Did you check the ulimit section ?
+* The coredumping behaviour can be modified by changing some /proc
+  parameters like /proc/sys/kernel/core\_uses\_pid and
+  /proc/sys/kernel/core\_pattern. In most cases the defaults are the right
+  choice. Only modify them if you are sure what you are doing!
+* Some distributions (especially for embedded devices) use busybox
+  which allows to completely disable coredumping (even if ulimit is set).
+  Look for the CONFIG\_FEATURE\_INIT\_COREDUMPS option to learn more about
+  it. OpenWRT allows to enable it via 'make menuconfig': Base system ->
+  busybox -> Configuration -> Init Utilities -> Support dumping core for
+  child processes.
+* OpenWRT also may disable ELF core dumping in the kernel which you
   can activate by running "make kernel\_menuconfig" -> General setup ->
   Configure standard kernel features (for small systems) -> Enable ELF
   core dumps
-| 
-
-.. raw:: html
-
-   </pre>

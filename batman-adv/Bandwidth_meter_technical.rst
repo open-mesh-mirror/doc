@@ -13,11 +13,11 @@ details can be found in the following documents:
 -  `RFC 6298 <https://tools.ietf.org/html/rfc6298>`__ (Retransmission
    Timeout computation)
 
-| Implementation of the BW meter took the TCP in-kernel module as
-  example and some snippets of code are mostly indentical (e.g.
-  SRTT/RTTVAR/RTO computation).
-| In the code it is also possible to find several references to RFC
-  sections which explain what the code is doing.
+Implementation of the BW meter took the TCP in-kernel module as
+example and some snippets of code are mostly indentical (e.g.
+SRTT/RTTVAR/RTO computation).
+In the code it is also possible to find several references to RFC
+sections which explain what the code is doing.
 
 A define of note is the *Receiver/Advertised Window size*, which has
 been fixed to **2^29** bytes. Common TCP implementations instead limit
@@ -36,9 +36,9 @@ batman-adv module when receiving a particular message on the ICMP
 socket. Such socket is used for communications between batctl and
 batman-adv which so far were limited to ICMP Echo Requests/Replies.
 
-| To inctroduce the BW meter, a new particular ICMP packet has been
-  introduced: the **ICMP USER packet**.
-| Such packet is used to send **commands** from batctl to batman-adv.
+To inctroduce the BW meter, a new particular ICMP packet has been
+introduced: the **ICMP USER packet**.
+Such packet is used to send **commands** from batctl to batman-adv.
 
 For the BW Meter there are two available commands:
 
@@ -46,19 +46,20 @@ For the BW Meter there are two available commands:
    node
 #. **bw\_stop**: halt the selected BW measurement
 
-| The following picture depict the communication between batctl and
-  batman-adv.
-| |image0|
+The following picture depict the communication between batctl and
+batman-adv.
+
+|image0|
 
 The **bw\_stop** command is used only when the user wants the test to be
 stopped before the predefined time elapses.
 
-| Once the test is finished, batman-adv will send back a particular
-  packet, namely the **ICMP BW RESULT**, containing the *time spent for
-  the test* and the *amount of bytes correctly acked by the receiver*.
-| This information is then used by batctl to properly show the result to
-  the user. The results are sent back in both the cases (test stopped by
-  the user or test naturally ended because time is up).
+Once the test is finished, batman-adv will send back a particular
+packet, namely the **ICMP BW RESULT**, containing the *time spent for
+the test* and the *amount of bytes correctly acked by the receiver*.
+This information is then used by batctl to properly show the result to
+the user. The results are sent back in both the cases (test stopped by
+the user or test naturally ended because time is up).
 
 The major difference between this ICMP operation and the old ones like
 PING or TRACEROUTE is that the packet sent by batctl is not directly

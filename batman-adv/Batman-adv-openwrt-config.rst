@@ -39,16 +39,16 @@ It is assumed you configured the 'wifi-device' depending on your
 requirements and your hardware. The interesting part is the 'wifi-iface'
 stanza with its options:
 
-| \* 'device' points back to your radio (wifi-device) interface
-| \* 'ifname' allows you to specify an arbitrary name for your adhoc
+* 'device' points back to your radio (wifi-device) interface
+* 'ifname' allows you to specify an arbitrary name for your adhoc
   interface (which we are going to re-use later)
-| \* 'network' points to the corresponding stanza in
+* 'network' points to the corresponding stanza in
   '/etc/config/network'
-| \* 'mode' defines the wifi mode (adhoc in our case)
-| \* 'mcast\_rate' helps to avoid low bandwidth routes (routes with a
+* 'mode' defines the wifi mode (adhoc in our case)
+* 'mcast\_rate' helps to avoid low bandwidth routes (routes with a
   lower throughput rate than the mcast rate will not be visible to
   batman-adv)
-| \* 'ssid' and 'bssid' are basic wireless settings you might want to
+* 'ssid' and 'bssid' are basic wireless settings you might want to
   set to your liking
 
 More information can be found in the `OpenWrt wireless
@@ -128,16 +128,16 @@ It is assumed you configured the 'wifi-device' depending on your
 requirements and your hardware. The interesting part is the 'wifi-iface'
 stanza with its options:
 
-| \* 'device' points back to your radio (wifi-device) interface
-| \* 'ifname' allows you to specify an arbitrary name for your adhoc
+* 'device' points back to your radio (wifi-device) interface
+* 'ifname' allows you to specify an arbitrary name for your adhoc
   interface (which we are going to re-use later)
-| \* 'network' points to the corresponding stanza in
+* 'network' points to the corresponding stanza in
   '/etc/config/network'
-| \* 'mode' defines the wifi mode (adhoc in our case)
-| \* 'mcast\_rate' helps to avoid low bandwidth routes (routes with a
+* 'mode' defines the wifi mode (adhoc in our case)
+* 'mcast\_rate' helps to avoid low bandwidth routes (routes with a
   lower throughput rate than the mcast rate will not be visible to
   batman-adv)
-| \* 'ssid' and 'bssid' are basic wireless settings you might want to
+* 'ssid' and 'bssid' are basic wireless settings you might want to
   set to your liking
 
 More information can be found in the `OpenWrt wireless

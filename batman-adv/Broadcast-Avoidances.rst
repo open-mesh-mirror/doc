@@ -66,8 +66,9 @@ directly, usually with the same full-duplex link speed even.
 B) Gathering of Mobile Nodes
 ----------------------------
 
-| |image2|
-| *Two mobile nodes clustering around a broadcast transmitter*
+|image2|
+
+*Two mobile nodes clustering around a broadcast transmitter*
 
 In scenarios involving personal mobile nodes and human interaction, it
 can happen that a number of nodes gather temporarily. As described in
@@ -274,9 +275,9 @@ Appendix
 Limitations
 -----------
 
-| \* Many avoidance possibilities undetected in wireless scenarios (see
+* Many avoidance possibilities undetected in wireless scenarios (see
   "Future improvements" below or assessment page)
-| \* In wired cases with a mix of 100MBit/s and 1000MBit/s interfaces:
+* In wired cases with a mix of 100MBit/s and 1000MBit/s interfaces:
   Only avoids broadcast packet rebroadcasts, not OGM2 rebroadcasts
 
 Future Improvements

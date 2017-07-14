@@ -100,8 +100,8 @@ optimizations are disabled at the moment, so the issue can't occure. For
 the latter, reports to multicast routers, let's consider the following
 two cases:
 
-| a) Multicast listeners joining a link-local address
-| b) Multicast listeners joining a non-link-local address
+a) Multicast listeners joining a link-local address
+b) Multicast listeners joining a non-link-local address
 
 Multicast routers need reports to learn and tell other routers about
 multicast traffic their part of the network is interested in. Link-local

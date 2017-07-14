@@ -70,11 +70,11 @@ be started before you start your netcat client.
 Update many Openwrt based systems
 ---------------------------------
 
-| 1. Download the update script: `update
-  script <https://downloads.open-mesh.org/batman/useful-scripts-and-tools/update_batman.sh>`__
-| 2. Edit the the variables in the configuration section of the script
-  to match your needs.
-| 3. Run the script. ;-)
+#. Download the update script: `update
+   script <https://downloads.open-mesh.org/batman/useful-scripts-and-tools/update_batman.sh>`__
+#. Edit the the variables in the configuration section of the script
+   to match your needs.
+#. Run the script. ;-)
 
 Note: The HOSTS\_TO\_UPDATE variable in the script expects SSH host
 names which must be configured in your ~/.ssh/config file.
@@ -86,15 +86,15 @@ keys you can enable the ssh-agent to manage your passwords.
 What is the batgat kernel module good for?
 ------------------------------------------
 
-| The batman daemon maintains a tunnel connection to every "batman
-  internet client". Every packet that goes to the internet or comes back
-  has to go through this tunnel. As it is a user space tunnel a lot of
-  copying between user space and kernel land is necessary. Depending on
-  the number of clients and the CPU power available this might be a
-  bottleneck.
-| The batgat kernel module tries to overcome this limitation. Once
-  loaded the batman daemon will detect its presence automatically on
-  startup. The daemon will activate the kernel module to let it handle
-  the tunneling, hence avoiding the expensive copy operations. There is
-  no difference between the daemon tunneling and the kernel tunneling
-  other than that.
+The batman daemon maintains a tunnel connection to every "batman
+internet client". Every packet that goes to the internet or comes back
+has to go through this tunnel. As it is a user space tunnel a lot of
+copying between user space and kernel land is necessary. Depending on
+the number of clients and the CPU power available this might be a
+bottleneck.
+The batgat kernel module tries to overcome this limitation. Once
+loaded the batman daemon will detect its presence automatically on
+startup. The daemon will activate the kernel module to let it handle
+the tunneling, hence avoiding the expensive copy operations. There is
+no difference between the daemon tunneling and the kernel tunneling
+other than that.

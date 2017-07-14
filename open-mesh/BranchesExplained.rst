@@ -45,12 +45,12 @@ is performed on batman-adv.
 BMX
 ---
 
-| Initially, the BMX branch was used to implement and test new features
-  and concepts to overcome certain limitations of the routing algorithm.
-  It started on the code base of batmand 0.3 but, over time, developed
-  into a completely different direction, so that a re-integration became
-  impossible.
-| Today, it is an independent project hosted at http://www.bmx6.net.
+Initially, the BMX branch was used to implement and test new features
+and concepts to overcome certain limitations of the routing algorithm.
+It started on the code base of batmand 0.3 but, over time, developed
+into a completely different direction, so that a re-integration became
+impossible.
+Today, it is an independent project hosted at http://www.bmx6.net.
 
 batman-adv
 ----------

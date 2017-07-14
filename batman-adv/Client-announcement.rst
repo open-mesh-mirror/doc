@@ -13,22 +13,22 @@ are represented by their MAC address.
 The local translation table
 ---------------------------
 
-| Every client MAC address that is recognized through the mesh interface
-  will be stored in a node local table called "local translation table"
-  which will contain all the clients the node is currently serving. This
-  table is the information a node has to spread among the network in
-  order to make its clients reachable. This is because when a node wants
-  to contact a particular client, thanks to this information, it knows
-  the originator it has to send the data to.
-| Each node local table has a particular attribute: the translation
-  table version number (ttvn). The value of this attribute represents
-  the version of the table that is incremented by one each time the
-  local table changes (a client has been added/removed). For
-  optimization reasons all changes which happen within the same OGM
-  interval are aggregated into a single ttvn increment.
-| Every OGM broadcast contains the current ttvn and a set of CRC32
-  checksum values of the local table to allow the receiving nodes to
-  quickly decide whether the tables are in sync or not.
+Every client MAC address that is recognized through the mesh interface
+will be stored in a node local table called "local translation table"
+which will contain all the clients the node is currently serving. This
+table is the information a node has to spread among the network in
+order to make its clients reachable. This is because when a node wants
+to contact a particular client, thanks to this information, it knows
+the originator it has to send the data to.
+Each node local table has a particular attribute: the translation
+table version number (ttvn). The value of this attribute represents
+the version of the table that is incremented by one each time the
+local table changes (a client has been added/removed). For
+optimization reasons all changes which happen within the same OGM
+interval are aggregated into a single ttvn increment.
+Every OGM broadcast contains the current ttvn and a set of CRC32
+checksum values of the local table to allow the receiving nodes to
+quickly decide whether the tables are in sync or not.
 
 The need of including more than one CRC32 value is due to the fact that
 the local translation table is aware of which VLAN each client belongs

@@ -17,9 +17,9 @@ in the Debian, Ubuntu, Mint, etc documentation.
 Load the module
 ~~~~~~~~~~~~~~~
 
-| First we need to ensure that the batman-adv module is loaded before we
-  attempt to use it.
-| Edit /etc/modules and add the batman-adv to a new line in the file:
+First we need to ensure that the batman-adv module is loaded before we
+attempt to use it.
+Edit /etc/modules and add the batman-adv to a new line in the file:
 
 ::
 

@@ -58,19 +58,19 @@ What we did:
 -  Disable hysteresis.
 -  Disable MPRs - all nodes forward topology information.
 
-| Now almost everything that was meant to optimize Link State Routing
-  was disabled - a simple proactive link-state routing protocol with
-  support for multiple interfaces was all that was left. We started to
-  deploy OLSR in the Freifunk Mesh in Berlin - rather we should have
-  named it LSR back then. But since the implementation came from
-  olsr.org and everything could be switched on and off by the
-  configuration file we didn't think about starting a new project and
-  renaming it. This became later a source of confusion and
-  disappointment for all people that tried olsr.org and had no idea what
-  was going on in Berlin. If you use the standard configuration file
-  that is shipped with olsr.org, olsrd will still behave according to
-  RFC3626. So if you want to see how miserable RFC3626
-| works - try it with the default configuration file.
+Now almost everything that was meant to optimize Link State Routing
+was disabled - a simple proactive link-state routing protocol with
+support for multiple interfaces was all that was left. We started to
+deploy OLSR in the Freifunk Mesh in Berlin - rather we should have
+named it LSR back then. But since the implementation came from
+olsr.org and everything could be switched on and off by the
+configuration file we didn't think about starting a new project and
+renaming it. This became later a source of confusion and
+disappointment for all people that tried olsr.org and had no idea what
+was going on in Berlin. If you use the standard configuration file
+that is shipped with olsr.org, olsrd will still behave according to
+RFC3626. So if you want to see how miserable RFC3626
+works - try it with the default configuration file.
 
 *Deployment of OLSR (with 'Optimizations' removed) in the Berlin
 Freifunk  mesh cloud - 2004*
@@ -132,42 +132,42 @@ Conclusion:  
 
 -  This was a mayor improvement, but...
 
-| Payload traffic in the mesh causes interference and alters
-  LQ/ETX-Values - interference causes lost LQ-Messages, so LQ/ETX-Values
-  in topology messages detoriate when payload traffic is introduced. If
-  the protocol fails to update the link state information in time the
-  routing tables are not in sync - thus causing routing loops.  Freifunk
-  OLSR-Networks in other cities that had relatively low payload traffic
-  compared to the capacity of their wireless links were quite happy with
-  0.4.8. But networks where links got saturated were still unstable.
-   Now it became even more clear how stupid the idea of
-  Multipoint-Relays was. Traffic causes interference and lost topology
-  update messages. So the link quality values detoriate compared to a
-  mesh that is idle - and the
-| information that tells the nodes in the mesh about the topology
-  changes are likely to get lost on their way. MPRs reduce the
-  redundancy that is desperately needed to keep routing tables in sync.
-  And - even worse - the information about who is whose MPR is another
-  information that has to be synced. Another source of failure.
+Payload traffic in the mesh causes interference and alters
+LQ/ETX-Values - interference causes lost LQ-Messages, so LQ/ETX-Values
+in topology messages detoriate when payload traffic is introduced. If
+the protocol fails to update the link state information in time the
+routing tables are not in sync - thus causing routing loops.  Freifunk
+OLSR-Networks in other cities that had relatively low payload traffic
+compared to the capacity of their wireless links were quite happy with
+0.4.8. But networks where links got saturated were still unstable.
+Now it became even more clear how stupid the idea of
+Multipoint-Relays was. Traffic causes interference and lost topology
+update messages. So the link quality values detoriate compared to a
+mesh that is idle - and the
+information that tells the nodes in the mesh about the topology
+changes are likely to get lost on their way. MPRs reduce the
+redundancy that is desperately needed to keep routing tables in sync.
+And - even worse - the information about who is whose MPR is another
+information that has to be synced. Another source of failure.
 
-| So we had to find a way to make sure that information about topology
-  changes is updated in time to avoid routing loops. A perfect routing
-  table that only works as long as the network is idle is quite
-  useless...  One viable solution in a small mesh would be to send
-  topology control messages (TC-Messages) more often than Hello's - but
-  we already had a mesh with more than 100 nodes, so the traffic caused
-  by redundant TC-Messages would suffocate the network by introducing
-  massive overhead. Than we had the idea of sending TC-Messages with
-  different TTL (Time-To-Live) values. I had the hypothesis that routing
-  loops would occur amongst adjacent nodes - so we would only have to
-  update topology changes quickly and redundant amongst adjacent nodes.
-   We had to design
-| an algorithm that would make sure that adjacent nodes have correct
-  topology information - but the problem is that it seemingly would not
-  work without massive overhead.  The idea we came up with is to send TC
-  messages only to adjacent nodes very often, i.e. nodes that are likely
-  to be involved in routing loops, without flooding the whole mesh with
-  each sent TC message. We called it Link Quality Fish Eye mechanism.
+So we had to find a way to make sure that information about topology
+changes is updated in time to avoid routing loops. A perfect routing
+table that only works as long as the network is idle is quite
+useless...  One viable solution in a small mesh would be to send
+topology control messages (TC-Messages) more often than Hello's - but
+we already had a mesh with more than 100 nodes, so the traffic caused
+by redundant TC-Messages would suffocate the network by introducing
+massive overhead. Than we had the idea of sending TC-Messages with
+different TTL (Time-To-Live) values. I had the hypothesis that routing
+loops would occur amongst adjacent nodes - so we would only have to
+update topology changes quickly and redundant amongst adjacent nodes.
+We had to design
+an algorithm that would make sure that adjacent nodes have correct
+topology information - but the problem is that it seemingly would not
+work without massive overhead.  The idea we came up with is to send TC
+messages only to adjacent nodes very often, i.e. nodes that are likely
+to be involved in routing loops, without flooding the whole mesh with
+each sent TC message. We called it Link Quality Fish Eye mechanism.
 
 OLSR packets carry a Time To Live (TTL) that specifies the maximum
 number of hops that the packets is allowed to travel in the mesh. The
@@ -183,8 +183,9 @@ with higher TTLs, such that immediate neighbours are more up to date
 with respect to our links than the rest of the mesh.  The following
 sequence of TTL values is used by olsrd:
 
-|      
-| 255 3 2 1 2 1 1 3 2 1 2 1 1
+::
+
+    255 3 2 1 2 1 1 3 2 1 2 1 1
 
 Hence, a TC interval of 0.5 seconds leads to the following TC broadcast
 scheme.
@@ -211,9 +212,9 @@ incoming TC-Message would trigger another recalculation of the
 Djikstra-Table - this would be far too often. LinkQualityDjikstraLimit
 allows to set an interval for recalculating the Djikstra-Table.
 
-| *Deployment of olsr-0.4.10*
-|  
-| Results:  
+*Deployment of olsr-0.4.10*
+
+Results:  
 
 -  Now it is really working and usable :)
 -  It's still not absolutely loop-free under heavy payload (sometimes

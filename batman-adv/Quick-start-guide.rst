@@ -54,11 +54,13 @@ module for its destination mac-adress and will be forwarded with the
 help of B.A.T.M.A.N.'s routing voodoo then, so that finally, magically
 it pops out at the right destination's bat0 interface :).
 
-| Diagram depicting the encapsulation structure:
-| |image0|
-| *Image Source*: `Martin Hundebøll, Jeppe Ledet-Pedersen, Network
-  Coding for Wireless Mesh
-  Networks <https://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf>`__
+Diagram depicting the encapsulation structure:
+
+|image0|
+
+*Image Source*: `Martin Hundebøll, Jeppe Ledet-Pedersen, Network
+Coding for Wireless Mesh
+Networks <https://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf>`__
 
 Examples
 --------

@@ -97,10 +97,10 @@ unsnoopable ranges in the Multicast TVLV flag.
 
 If the total number of nodes interested in a group is:
 
-| \* ... 0, then this frame can be safely dropped.
-| \* ... 1, then this frame is encapsulated in and forwarded via a
+* ... 0, then this frame can be safely dropped.
+* ... 1, then this frame is encapsulated in and forwarded via a
   batman-adv unicast packet to the according destination.
-| \* > 1, then this frame is encapsulated in a batman-adv broadcast
+* > 1, then this frame is encapsulated in a batman-adv broadcast
   packet and forwarded via classic flooding to all nodes.
 
 The latter case is the general fallback to broadcast, which is also used
@@ -174,17 +174,17 @@ implemented in batman-adv (which was not done yet).
 Limitations
 -----------
 
-| \* groups with two or more listeners don't get optimized
-| \* the whole mesh must have multicast support enabled
-| \* optimization for traffic of scope greater than link-local (routable
+* groups with two or more listeners don't get optimized
+* the whole mesh must have multicast support enabled
+* optimization for traffic of scope greater than link-local (routable
   addresses) is not supported yet
-| \* optimization for link-local IPv4 (224.0.0.0/24) or all-nodes IPv6
+* optimization for link-local IPv4 (224.0.0.0/24) or all-nodes IPv6
   multicast (ff02::1) is only done if no node announces
   BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES, that is no node configures a
   bridge on batman-adv.
-| \* high multicast join/leave latency in setups with slow OGM intervals
-| \* no awareness for source-specific multicasts
-| \* multcast packets over VLANs are always flooded
+* high multicast join/leave latency in setups with slow OGM intervals
+* no awareness for source-specific multicasts
+* multcast packets over VLANs are always flooded
 
 Next Steps / Roadmap
 --------------------

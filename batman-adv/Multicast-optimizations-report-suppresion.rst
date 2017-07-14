@@ -3,10 +3,10 @@ Multicast Optimizations – IGMP/MLD Report Suppresion
 
 Prior Readings:
 
-| \* [[multicast-optimizations\|Multicast Optimizations]]
-| \* [[multicast-optimizations-tech\|Multicast Optimizations – Technical
+* [[multicast-optimizations\|Multicast Optimizations]]
+* [[multicast-optimizations-tech\|Multicast Optimizations – Technical
   Description]]
-| \* [[multicast-optimizations-flags\|Multicast Optimizations – Flags
+* [[multicast-optimizations-flags\|Multicast Optimizations – Flags
   Explained]]
 
 Scenario
@@ -75,15 +75,15 @@ Report Suppression in a Mesh
 
 |image4|
 
-| \* ***Querier:*** An IGMP or MLD querier (i.e. a multicast router
+* ***Querier:*** An IGMP or MLD querier (i.e. a multicast router
   requesting IGMP/MLD Reports)
-| \* ***Snooping Switch:*** A multicast aware layer 2 switch
-| \* ***Listener:*** An IPv4 or IPv6 multicast listener (using IGMPv1,
+* ***Snooping Switch:*** A multicast aware layer 2 switch
+* ***Listener:*** An IPv4 or IPv6 multicast listener (using IGMPv1,
   IGMPv2 or MLDv1)
-| \* ***Bridge:*** A Linux kernel bridge on top of a bat0 device of a
+* ***Bridge:*** A Linux kernel bridge on top of a bat0 device of a
   batman-adv node
-| \* ***Mesh:*** A mesh network consisting of batman-adv nodes
-| \* ***Sender:*** An IPv4 or IPv6 multicast sender
+* ***Mesh:*** A mesh network consisting of batman-adv nodes
+* ***Sender:*** An IPv4 or IPv6 multicast sender
 
 #. In the beginning the selected querier sends its query message to all
    hosts and therefore through the whole mesh, asking any multicast

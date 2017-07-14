@@ -96,24 +96,24 @@ Improve Throughput Bonding
 **Brief description:** Improve performance gain of the throughput
 bonding mode.
 
-| The current bonding mode implementation simply sends a data packet in
-  a round robin fashion to the interfaces available for bonding.
-  However, the throughput gain seems to be only about 66% instead of
-  doubling the throughput in case of TCP, even if there is no other
-  interference involved. This seems to be the case due to a heavy
-  reordering issue.
-| Furthermore, the interface with the lowest capacity is a bottleneck
-  for the throughput bonding performance: In case of one interface of
-  1MBit/s throughput and five more with 2MBit/s throughput, the actual
-  throughput will be just 6x 1MBit/s. However in mixed wireless and
-  wired networks, it might be desirable to accumulate the throughput of
-  a Gigabit-Ethernet interface and a 802.11g interface.
-| Therefore checks for links' capacities (detect full queues etc.) to
-  gain performance of IF1 + IF2 + ... instead of min(IF1, IF2, ...)
-  shall be implemented. If an interface is busy, it shall be skipped in
-  this round robin cycle. Furthermore simple per hop pre-ordering on
-  batman-adv's layer shall be implemented to increase the TCP
-  performance.
+The current bonding mode implementation simply sends a data packet in
+a round robin fashion to the interfaces available for bonding.
+However, the throughput gain seems to be only about 66% instead of
+doubling the throughput in case of TCP, even if there is no other
+interference involved. This seems to be the case due to a heavy
+reordering issue.
+Furthermore, the interface with the lowest capacity is a bottleneck
+for the throughput bonding performance: In case of one interface of
+1MBit/s throughput and five more with 2MBit/s throughput, the actual
+throughput will be just 6x 1MBit/s. However in mixed wireless and
+wired networks, it might be desirable to accumulate the throughput of
+a Gigabit-Ethernet interface and a 802.11g interface.
+Therefore checks for links' capacities (detect full queues etc.) to
+gain performance of IF1 + IF2 + ... instead of min(IF1, IF2, ...)
+shall be implemented. If an interface is busy, it shall be skipped in
+this round robin cycle. Furthermore simple per hop pre-ordering on
+batman-adv's layer shall be implemented to increase the TCP
+performance.
 
 Unit Test Infrastructure
 ^^^^^^^^^^^^^^^^^^^^^^^^

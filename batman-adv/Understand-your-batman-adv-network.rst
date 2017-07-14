@@ -25,11 +25,11 @@ Tables
 neighbor table
 ~~~~~~~~~~~~~~
 
-| Each batman node maintains a list of all single hop neighbors it
-  detects. Whether or not a single hop neighbor is routed to directly or
-  via another single hop neighbor is decided based on the link quality.
-| The printed table begins with a header line with some more or less
-  useful status data, followed by the single hop neighbor table:
+Each batman node maintains a list of all single hop neighbors it
+detects. Whether or not a single hop neighbor is routed to directly or
+via another single hop neighbor is decided based on the link quality.
+The printed table begins with a header line with some more or less
+useful status data, followed by the single hop neighbor table:
 
 *B.A.T.M.A.N. IV*:
 
@@ -113,9 +113,9 @@ be found in the transtable\_local file:
      * fe:fe:00:00:01:01   -1 [.P...]   0.000   (0x0aeb181b)
      * fe:fe:00:00:02:02   10 [RPNXW]   0.000   (0x6b08a689)
 
-| The current translation table state is represented by the tt version
-  number and the local tt crc that are propagated in the mesh.
-| In particular, RPNXW are flags which bear the following meanings:
+The current translation table state is represented by the tt version
+number and the local tt crc that are propagated in the mesh.
+In particular, RPNXW are flags which bear the following meanings:
 
 -  R/Roaming: this client moved to another node but it is still kept for
    consistency reasons until the next OGM is sent.
@@ -128,9 +128,9 @@ be found in the transtable\_local file:
 -  W/Wireless: this client is connected to the node through a wireless
    device.
 
-| If any of the flags is not enabled, a '.' will substitute its symbol.
-| Note: Every batman node announces at least one mac address - the mac
-  of the batX interface.
+If any of the flags is not enabled, a '.' will substitute its symbol.
+Note: Every batman node announces at least one mac address - the mac
+of the batX interface.
 
 The global translation table (mac addresses announced by other hosts)
 can be found in the transtable\_global file:
@@ -224,16 +224,16 @@ Note:
 Distributed ARP Table - local cache table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| This table is part of the [[DistributedARPTable\|Distributed ARP
-  Table]] code and contains all the locally cached ARP entries (IPv4+MAC
-  address).
-| If a given IP address appears in this table it means that batman-adv
-  will prevent any ARP Request asking for such address to be sent
-  through the mesh and will immediately provide an answer to the LAN on
-  its own.
-| A subset of the entries belonging to this cache are also the entries
-  which the node is in charge to handle in the
-  [[DistributedARPTable-technical\|DHT]]
+This table is part of the [[DistributedARPTable\|Distributed ARP
+Table]] code and contains all the locally cached ARP entries (IPv4+MAC
+address).
+If a given IP address appears in this table it means that batman-adv
+will prevent any ARP Request asking for such address to be sent
+through the mesh and will immediately provide an answer to the LAN on
+its own.
+A subset of the entries belonging to this cache are also the entries
+which the node is in charge to handle in the
+[[DistributedARPTable-technical\|DHT]]
 
 For example:
 

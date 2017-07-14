@@ -3,8 +3,8 @@ Multicast Optimizations – Flags Explained
 
 Prior Readings:
 
-| \* [[multicast-optimizations\|Multicast Optimizations]]
-| \* [[multicast-optimizations-tech\|Multicast Optimizations – Technical
+* [[multicast-optimizations\|Multicast Optimizations]]
+* [[multicast-optimizations-tech\|Multicast Optimizations – Technical
   Description]]
 
 Scenario

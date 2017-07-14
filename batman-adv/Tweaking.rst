@@ -187,15 +187,15 @@ bridge loop avoidance
 Available since: batman-adv 2012.2.0 (if bridge loop avoidance has been
 compiled-in)
 
-| In bridged LAN setups it is advisable to enable the bridge loop
-  avoidance in order to avoid broadcast loops that can bring the entire
-  LAN to a standstill. The [[Bridge-loop-avoidance\|bridge loop
-  avoidance page]] explains the bridge loop problematic in greater
-  detail as well as the batman-adv approach to address it.
-| It is necessary to activate the bridge loop avoidance at compile time
-  before you can use this feature (consult `the README.external
-  file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
-  to learn how to set the compile option).
+In bridged LAN setups it is advisable to enable the bridge loop
+avoidance in order to avoid broadcast loops that can bring the entire
+LAN to a standstill. The [[Bridge-loop-avoidance\|bridge loop
+avoidance page]] explains the bridge loop problematic in greater
+detail as well as the batman-adv approach to address it.
+It is necessary to activate the bridge loop avoidance at compile time
+before you can use this feature (consult `the README.external
+file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
+to learn how to set the compile option).
 
 ::
 
@@ -207,18 +207,18 @@ distributed ARP table
 
 Available since: batman-adv 2013.0.0
 
-| When enabled the distributed ARP table forms a mesh-wide ARP cache
-  that helps non-mesh clients to get ARP responses much more reliably
-  and without much delay. A comprehensive documentation has been made
-  available in our wiki. One document focuses on the
-  [[batman-adv:DistributedARPTable\|general DAT concept]] whereas the
-  second document is about the
-  [[DistributedArpTable-technical\|technical details & implementation
-  specifics]].
-| It is necessary to activate the distributed ARP table at compile time
-  before you can use this feature (consult `the README.external
-  file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
-  to learn how to set the compile option).
+When enabled the distributed ARP table forms a mesh-wide ARP cache
+that helps non-mesh clients to get ARP responses much more reliably
+and without much delay. A comprehensive documentation has been made
+available in our wiki. One document focuses on the
+[[batman-adv:DistributedARPTable\|general DAT concept]] whereas the
+second document is about the
+[[DistributedArpTable-technical\|technical details & implementation
+specifics]].
+It is necessary to activate the distributed ARP table at compile time
+before you can use this feature (consult `the README.external
+file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
+to learn how to set the compile option).
 
 ::
 
@@ -390,17 +390,17 @@ multicast mode
 
 Available since: batman-adv 2014.2.0
 
-| Enables more efficient, group aware multicast forwarding
-  infrastructure in batman-adv. Aiming to reduce unnecessary packet
-  transmissions, this optimization announces multicast listeners via the
-  translation table mechanism, thereby signaling interest in certain
-  multicast traffic. Based on this information, batman-adv can make a
-  decision how to forward the traffic with the least negative impact on
-  the network. If disabled multicast traffic is forwarded to the every
-  node in the network (broadcast).
-| The [[Multicast-optimizations\|multicast optimization documentation]]
-  provides an excellent starting point to learn about the general ideas
-  of these optimizations.
+Enables more efficient, group aware multicast forwarding
+infrastructure in batman-adv. Aiming to reduce unnecessary packet
+transmissions, this optimization announces multicast listeners via the
+translation table mechanism, thereby signaling interest in certain
+multicast traffic. Based on this information, batman-adv can make a
+decision how to forward the traffic with the least negative impact on
+the network. If disabled multicast traffic is forwarded to the every
+node in the network (broadcast).
+The [[Multicast-optimizations\|multicast optimization documentation]]
+provides an excellent starting point to learn about the general ideas
+of these optimizations.
 
 ::
 
@@ -412,18 +412,18 @@ network coding
 
 Available since: batman-adv 2013.2.0
 
-| When enabled network coding increases the WiFi throughput by combining
-  multiple frames into a single frame, thus reducing the needed air
-  time. A comprehensive documentation has been made available in our
-  wiki. One document focuses on the [[batman-adv:NetworkCoding\|general
-  network coding concept]] whereas the second document is about the
-  [[NetworkCoding-technical\|technical details & implementation
-  specifics]]. Our download section also contains recorded network
-  coding talks.
-| It is necessary to activate network coding at compile time before you
-  can use this feature (consult `the README.external
-  file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.externall>`__
-  to learn how to set the compile option).
+When enabled network coding increases the WiFi throughput by combining
+multiple frames into a single frame, thus reducing the needed air
+time. A comprehensive documentation has been made available in our
+wiki. One document focuses on the [[batman-adv:NetworkCoding\|general
+network coding concept]] whereas the second document is about the
+[[NetworkCoding-technical\|technical details & implementation
+specifics]]. Our download section also contains recorded network
+coding talks.
+It is necessary to activate network coding at compile time before you
+can use this feature (consult `the README.external
+file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.externall>`__
+to learn how to set the compile option).
 
 ::
 

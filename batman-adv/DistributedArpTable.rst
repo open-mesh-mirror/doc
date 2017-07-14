@@ -58,13 +58,13 @@ DAT can be enabled/disabled in two different manners:
 #. at compile time
 #. at runtime
 
-| With (1) it is possible to decide whether to include DAT or in the
-  final kernel module (default to ON). In this way, people confident
-  enough that DAT is not needed at all can easily prevent batman-adv to
-  compile and include it, so leading to a smaller binary size.
-| To do so it is possible to customise the corresponding option in the
-  package Makefile or by means of the menuconfig for the in-kernel
-  module.
+With (1) it is possible to decide whether to include DAT or in the
+final kernel module (default to ON). In this way, people confident
+enough that DAT is not needed at all can easily prevent batman-adv to
+compile and include it, so leading to a smaller binary size.
+To do so it is possible to customise the corresponding option in the
+package Makefile or by means of the menuconfig for the in-kernel
+module.
 
 With (2) instead (after having decided to compile DAT in the module at
 point (1)) it is possible to enable/disable DAT at runtime by means of

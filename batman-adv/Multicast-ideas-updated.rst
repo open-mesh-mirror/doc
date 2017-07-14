@@ -375,11 +375,11 @@ If possible then this tracker packet SHOULD be scheduled for
 transmission before the retransmission of the multicast data packet
 which triggered the state switch.
 
-| A reactively generated tracker packet SHOULD further be transmitted
-  TRACKER\_BURST\_AMOUNT times on its according interfaces instead of
-  just
-| once compared to the periodic tracker packet and general tracker
-  packet forwarding.
+A reactively generated tracker packet SHOULD further be transmitted
+TRACKER\_BURST\_AMOUNT times on its according interfaces instead of
+just
+once compared to the periodic tracker packet and general tracker
+packet forwarding.
 
 Tracker Packet Reception
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -612,74 +612,74 @@ dependancies.
 1. BAT-BASIC - Basic Multicast Optimizations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| See
-| https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-basic
+See
+https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-basic
 
 2.1 BAT-MRD - Multicast Router Discovery in batman-adv
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| IPv4 and IPv6 multicast traffic with a scope greater than link-local
-| not only needs to be forwarded to multicast listeners on the local
-  link
-| but also to any multicast router on this link. Therefore batman-adv
-| should parse Multicast Router Advertisements and emit Multicast
-| Router Solicitations as specified in
-  `RFC4286 <https://tools.ietf.org/html/rfc4286>`__.
+IPv4 and IPv6 multicast traffic with a scope greater than link-local
+not only needs to be forwarded to multicast listeners on the local
+link
+but also to any multicast router on this link. Therefore batman-adv
+should parse Multicast Router Advertisements and emit Multicast
+Router Solicitations as specified in
+`RFC4286 <https://tools.ietf.org/html/rfc4286>`__.
 
 After that implemantion such multicast traffic can be optimized, too.
 
 2.2 BR-QUERIER - Multicast Listener Discovery Querier in Linux bridges
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| Currently the MLD querier protocol as specified in
-  `RFC3810 <https://tools.ietf.org/html/rfc3810>`__
-| is only rudimentarily, incompletely implementated in the multicast
-| snooping of the Linux bridge code and is actually deactivated
-| by default. This should be fixed to ensure the forwarding of multicast
-| data to listeners behind the bridge of a node.
+Currently the MLD querier protocol as specified in
+`RFC3810 <https://tools.ietf.org/html/rfc3810>`__
+is only rudimentarily, incompletely implementated in the multicast
+snooping of the Linux bridge code and is actually deactivated
+by default. This should be fixed to ensure the forwarding of multicast
+data to listeners behind the bridge of a node.
 
 2.3 BR-MRD - Multicast Router Discovery in Linux bridge
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| The bridge code lacks support for MRD and needs it for similar reasons
-| as outlined in BAT-MRD. Currently the bridge only offers a manual
-  switch
-| to mark a bridge port as having a multicast router.
+The bridge code lacks support for MRD and needs it for similar reasons
+as outlined in BAT-MRD. Currently the bridge only offers a manual
+switch
+to mark a bridge port as having a multicast router.
 
 2.4 BR-INCL-TRANS - Include Multicast Traffic with Transient Address Flag
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| Currently the bridge code always floods multicast traffic with a
-| destination address that has the transient flag unset. And also the
-| internal snooping database only keeps track of multicast addresses
-| that have the transient flag set.
+Currently the bridge code always floods multicast traffic with a
+destination address that has the transient flag unset. And also the
+internal snooping database only keeps track of multicast addresses
+that have the transient flag set.
 
-| After BR-QUERIER and BR-MRD it should be safe to perform the multicast
-| snooping in the bridge code for any IPv6 multicast traffic of scope
-| greater than or equal to link-local (excluding ip6-all-nodes,
-  ff02::1).
+After BR-QUERIER and BR-MRD it should be safe to perform the multicast
+snooping in the bridge code for any IPv6 multicast traffic of scope
+greater than or equal to link-local (excluding ip6-all-nodes,
+ff02::1).
 
 2.5 BAT-BR-INTEGR - Integration of the Bridge Multicast Snooping Database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| After BR-INCL-TRANS the bridge multicast snooping and its database
-  should
-| be reliable and sufficient to be used for and with batman-adv.
+After BR-INCL-TRANS the bridge multicast snooping and its database
+should
+be reliable and sufficient to be used for and with batman-adv.
 
-| An RFC patch for the bridge code for such an exported interface was
-| posted on the bridge mailing list
-  `here <https://lkml.kernel.org/r/1359933598-14438-1-git-send-email-linus.luessing@web.de>`__
+An RFC patch for the bridge code for such an exported interface was
+posted on the bridge mailing list
+`here <https://lkml.kernel.org/r/1359933598-14438-1-git-send-email-linus.luessing@web.de>`__
 
 3. BAT-MCAST-TRACKER - Multicast Tracker Protocol for batman-adv
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| The multicast tracker protocol offers tree-like forwarding of
-| multicast traffic, therefore allowing optimized forwarding for
-| multicast traffic having multiple listeners, too.
+The multicast tracker protocol offers tree-like forwarding of
+multicast traffic, therefore allowing optimized forwarding for
+multicast traffic having multiple listeners, too.
 
-| This part is probably the largest part in terms of code size, but
-| it has already been `implemented and tested on top of batman-adv
-  2013.0.0 <https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase>`__
+This part is probably the largest part in terms of code size, but
+it has already been `implemented and tested on top of batman-adv
+2013.0.0 <https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase>`__
 
 Changelog
 ---------
@@ -690,29 +690,29 @@ Update (2012-12-xx):
 
 Current status / Todo:
 
-| \* there is a working, "feature complete", but not much tested
+* there is a working, "feature complete", but not much tested
   `patchset based on
   v2013.0.0 <https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase>`__
   which should work for any IP multicast data (no more code changes
   other than bug, comment or commit message fixes intended)
-| \* More issues with the Linux bridge got fixed upstream (recent kernel
+* More issues with the Linux bridge got fixed upstream (recent kernel
   recommended)
-| \* Multicast video streaming still does not work reliably due to
+* Multicast video streaming still does not work reliably due to
   packet loss (anyone knowing a robust video codec? or the old FEC ideas
   could help)
-| \* What about compatibility? Should we break it? Or should we wait for
+* What about compatibility? Should we break it? Or should we wait for
   TLV support? How should multicast-optimizating nodes interact with
   others (should they drop it? should we monitor MLD/IGMP messages
   coming from the mesh to find multicast listeners behind
   non-multicast-optimizing batman nodes?) Or should it be part of BATMAN
   V instead of being a stand-alone (optional?) feature? UPDATE: There is
   a suggestion at the bottom now.
-| \* Does the proactive, redundant attching of MLA information to an OGM
+* Does the proactive, redundant attching of MLA information to an OGM
   hinder the development of BATMAN V (bc. the idea of BATMAN V was to
   allow drastically increasing the proactive, periodic OGM interval to
   increase scalability - what impact would a very high OGM interval have
   on the usability of this multicast optimization feature?
-| \* What about the Bridge Loop Avoidance? If a batman-adv client
+* What about the Bridge Loop Avoidance? If a batman-adv client
   sending multicast data is attached to two or more batman-adv nodes,
   will they all, redundantly send the multicast data to any multicast
   listener resulting in duplicate multicast data packets on the upper

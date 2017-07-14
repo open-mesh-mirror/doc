@@ -9,17 +9,17 @@ document.
 Separating neighbor discovery from mesh routing
 -----------------------------------------------
 
-| The B.A.T.M.A.N. protocol originally used a single message type
-  (called OGM) to determine the link qualities to the direct neighbors
-  and spreading this link quality information through the whole mesh.
-  This procedure is summarized on the
-  [[open-mesh:BATMANConcept\|B.A.T.M.A.N.]] concept page and explained
-  in detail in `the RFC
-  draft <https://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00>`__
-  published in 2008.
-| This approach was chosen for its simplicity during the protocol design
-  phase and the first implementation. However, it also bears some
-  drawbacks:
+The B.A.T.M.A.N. protocol originally used a single message type
+(called OGM) to determine the link qualities to the direct neighbors
+and spreading this link quality information through the whole mesh.
+This procedure is summarized on the
+[[open-mesh:BATMANConcept\|B.A.T.M.A.N.]] concept page and explained
+in detail in `the RFC
+draft <https://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00>`__
+published in 2008.
+This approach was chosen for its simplicity during the protocol design
+phase and the first implementation. However, it also bears some
+drawbacks:
 
 -  Wireless interfaces usually come with packet loss varying over time,
    therefore a higher protocol transmission rate is desirable to allow a
@@ -45,12 +45,12 @@ qualities.
 The task separation (neighbor discovery vs mesh routing) bears the
 following advantages:
 
-| \* Reduced overhead, as OGMs can then be sent with a slower interval.
+* Reduced overhead, as OGMs can then be sent with a slower interval.
   The OGM propagation has a squared amount of overhead in worst case
   scenarios, therefore the the slower intervals are very desirable.
-| \* Neighbor discovery and metric data collection can be performed
+* Neighbor discovery and metric data collection can be performed
   individually, at different intervals or even different techniques.
-| \* Effort for multiple interface handling can be reduced.
+* Effort for multiple interface handling can be reduced.
 
 Throughput based metric
 -----------------------
@@ -121,8 +121,6 @@ This allows different compatibility strategies:
 Technical documentation:
 ------------------------
 
-| \* neighbor discovery: [[ELP\|Echo Location Protocol (ELP)]]
-| \* path metric computation: [[Ogmv2\|Originator Message version 2
-  (OGMv2)]]
-| \* routing tests: [[BATMAN\_V\_Tests\|B.A.T.M.A.N. IV vs B.A.T.M.A.N.
-  V]]
+* neighbor discovery: [[ELP\|Echo Location Protocol (ELP)]]
+* path metric computation: [[Ogmv2\|Originator Message version 2 (OGMv2)]]
+* routing tests: [[BATMAN\_V\_Tests\|B.A.T.M.A.N. IV vs B.A.T.M.A.N. V]]

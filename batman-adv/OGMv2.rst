@@ -1,10 +1,10 @@
 Originator Message version 2 (OGMv2)
 ====================================
 
-| |image0|
-| *Image Source*: `Martin Hundebøll, Jeppe Ledet-Pedersen, Network
-  Coding for Wireless Mesh
-  Networks <https://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf>`__
+|image0|
+*Image Source*: `Martin Hundebøll, Jeppe Ledet-Pedersen, Network
+Coding for Wireless Mesh
+Networks <https://downloads.open-mesh.org/batman/papers/batman-adv_network_coding.pdf>`__
 
 1. Definitions
 --------------
@@ -60,19 +60,19 @@ collisions. The default interval in batman-adv is 1 second.
 
 *The Originator Message 2 (OGMv2) Format:*
 
-| \* Packet type: Initialize this field with the ELP packet type.
-| \* Version: Set your internal compatibility version.
-| \* TTL: Initialize with BATADV\_TTL
-| \* Flags: not used
-| \* Sequence number: On first broadcast set the sequence number to an
+* Packet type: Initialize this field with the ELP packet type.
+* Version: Set your internal compatibility version.
+* TTL: Initialize with BATADV\_TTL
+* Flags: not used
+* Sequence number: On first broadcast set the sequence number to an
   arbitrary value and increment the field by one for each following
   OGMv2.
-| \* Originator Address: Set this field to the primary MAC address of
+* Originator Address: Set this field to the primary MAC address of
   this B.A.T.M.A.N. node.
-| \* TVLV length: Length of the TLVL data appended to the OGM
-| \* Throughput: Throughput metric value in 100 kbit/s. Initialize with
+* TVLV length: Length of the TLVL data appended to the OGM
+* Throughput: Throughput metric value in 100 kbit/s. Initialize with
   BATADV\_THROUGHPUT\_MAX\_VALUE
-| \* TVLV data: Appended TVLV data for the originator. See [[TVLV]] for
+* TVLV data: Appended TVLV data for the originator. See [[TVLV]] for
   a detailed description.
 
 ::
@@ -131,37 +131,37 @@ used for locally generated traffic.
 
 The following checks are performed before updating the metric:
 
-| \* **Protection window check:** If the OGMv2s sequence number is older
+* **Protection window check:** If the OGMv2s sequence number is older
   than BATADV\_OGM\_MAX\_AGE or newer than the
   BATADV\_EXPECTED\_SEQNO\_RANGE, and the protection window is active,
   the packet is silently dropped. If both conditions are met but the
   protection window is not active yet, the OGMv2 is allowed but the
   protection window gets activated.
-| \* **Age check:** If the sequence number is strictly older than the
+* **Age check:** If the sequence number is strictly older than the
   last OGMv2, the packet is silently dropped. The only exception is when
   the protection window has just been activated, then the OGMv2 can
   pass.
 
 If the initial checks above have passed, the internal stats are updated:
 
-| \* the last seen timestamps of the router and the originator are
+* the last seen timestamps of the router and the originator are
   updated
-| \* the last sequence number and ttl values are adopted
-| \* if the link throughput to the neighbor this OGMv2 was forwarded by
+* the last sequence number and ttl values are adopted
+* if the link throughput to the neighbor this OGMv2 was forwarded by
   is **lower** than the path throughput of the OGMv2, then this lower
   link throughput is adopted
-| \* Forward penalties are applied:
+* Forward penalties are applied:
 
-| \* if the considered interface is the **default** interface, no
+* if the considered interface is the **default** interface, no
   penalty is applied
-| \* if the incoming and considered outgoing interface is the same
+* if the incoming and considered outgoing interface is the same
   **half duplex** interface and the reported throughput is larger than 1
   MBit/s, the throughput is reduced by 50%
-| \* Otherwise, a hop penalty is applied and the throughput is reduced
+* Otherwise, a hop penalty is applied and the throughput is reduced
   by the according value (default 5.8% or 15/255). This is especially
   useful for "perfect" networks to create a decreasing metric over
   multiple hops.
-| \* The throughput value with the penalties applied is stored for the
+* The throughput value with the penalties applied is stored for the
   router
 
 3.2.3. Route Update
@@ -175,14 +175,14 @@ router, drop the OGMv2
 
 The passing OGMv2 will be considered for a router update:
 
-| \* If the OGMv2 has been received from the best router, no change is
+* If the OGMv2 has been received from the best router, no change is
   necessary
-| \* If no router has been selected yet, the received router becomes the
+* If no router has been selected yet, the received router becomes the
   selected router immediately
-| \* If the throughput from the received router is higher than the
+* If the throughput from the received router is higher than the
   throughput via the selected router, the received router becomes the
   selected router
-| \* Also, if the sequence number is by at least OGM\_MAX\_ORIG\_DIFF
+* Also, if the sequence number is by at least OGM\_MAX\_ORIG\_DIFF
   higher than the last received sequence number from the selected
   router, the received router becomes the selected router.
 
@@ -201,9 +201,9 @@ When an OGMv2 is to be re-broadcasted some of the message fields must be
 changed others must be left unchanged. All fields not mentioned in the
 following section remain untouched:
 
-| \* The TTL must be decremented by one. If the TTL becomes zero (after
+* The TTL must be decremented by one. If the TTL becomes zero (after
   the decrementation) the packet must be dropped.
-| \* The Path throughput for the considered outgoing interface is
+* The Path throughput for the considered outgoing interface is
   adopted
 
 The OGMv2 is then rebroadcasted on the specific outgoing interface.
@@ -211,11 +211,11 @@ The OGMv2 is then rebroadcasted on the specific outgoing interface.
 5. Values for Constants
 -----------------------
 
-| BATADV\_THROUGHPUT\_MAX\_VALUE: 0xFFFFFFFF
-| BATADV\_TTL: 50
-| OGM\_MAX\_ORIG\_DIFF: 5
-| BATADV\_OGM\_MAX\_AGE: 64
-| BATADV\_EXPECTED\_SEQNO\_RANGE: 65536
+BATADV\_THROUGHPUT\_MAX\_VALUE: 0xFFFFFFFF
+BATADV\_TTL: 50
+OGM\_MAX\_ORIG\_DIFF: 5
+BATADV\_OGM\_MAX\_AGE: 64
+BATADV\_EXPECTED\_SEQNO\_RANGE: 65536
 
 .. |image0| image:: batman_ogm.svg
 

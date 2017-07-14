@@ -1,10 +1,10 @@
 B.A.T.M.A.N. V (DRAFT)
 ======================
 
-| **Metric:** Estimated throughput (from RC algorithm for wireless
-  devices)
-| **Neighbour Discovery:** [[ELP\|ELP (Echo Locating Protocol)]]
-| **Path Metric Computation:** [[Ogm-v2\|OGMv2]]
+**Metric:** Estimated throughput (from RC algorithm for wireless
+devices)
+**Neighbour Discovery:** [[ELP\|ELP (Echo Locating Protocol)]]
+**Path Metric Computation:** [[Ogm-v2\|OGMv2]]
 
 General Overviev
 This is a draft of how the algorithm should work and what it needs.
@@ -29,18 +29,18 @@ Later all this information will be split and reported into the proper pages (e.g
 Stub Algorithm
 ~~~~~~~~~~~~~~
 
-| *Link Metric estimation and exchange*
-| Each node in the network estimates the throughput towards each of its
-  neighbours (one hop throughput)
-| [STRIKEOUT:The throughput information is shared with the related
-  neighbour by means of ELP]
-| No need to count sequence numbers anymore since it was related to
-  packet loss, but time since last ELP packet can be considered in order
-  to quickly switch route.
+*Link Metric estimation and exchange*
+Each node in the network estimates the throughput towards each of its
+neighbours (one hop throughput)
+[STRIKEOUT:The throughput information is shared with the related
+neighbour by means of ELP]
+No need to count sequence numbers anymore since it was related to
+packet loss, but time since last ELP packet can be considered in order
+to quickly switch route.
 
-| *Path Metric computation*
-| Each node, say SRC, creates and sends its own OGMs to let all the
-  other peers in the network build their routing table
+*Path Metric computation*
+Each node, say SRC, creates and sends its own OGMs to let all the
+other peers in the network build their routing table
 
 -  For each interface I belonging to SRC:
 

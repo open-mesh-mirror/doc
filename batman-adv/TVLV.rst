@@ -166,12 +166,12 @@ Gateway announcement
 DAT (Distributed ARP Table)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| \* tvlv type: 0x02
-| \* function: D.A.T. is a DHT based global ARP cache.
-| \* purpose: the DAT component will only query other DAT-enabled nodes
-| \* length: 0 (This is a boolean telling that this node caches ARP
+* tvlv type: 0x02
+* function: D.A.T. is a DHT based global ARP cache.
+* purpose: the DAT component will only query other DAT-enabled nodes
+* length: 0 (This is a boolean telling that this node caches ARP
   requests / replies for the mesh.)
-| \* definition:
+* definition:
 
 ::
 
@@ -184,14 +184,14 @@ DAT (Distributed ARP Table)
 Network coding (also known as catwoman)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| \* tvlv type: 0x03
-| \* function: Save packet transmissions & air time by combining
+* tvlv type: 0x03
+* function: Save packet transmissions & air time by combining
   packets.
-| \* purpose: Network coding only works with other network coding
+* purpose: Network coding only works with other network coding
   enabled nodes.
-| \* length: 0 byte (This is a boolean telling that this node knows how
+* length: 0 byte (This is a boolean telling that this node knows how
   to decode nc-packets.)
-| \* definition:
+* definition:
 
 ::
 

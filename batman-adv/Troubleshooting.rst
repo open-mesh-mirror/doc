@@ -8,14 +8,15 @@ asked question]] page.
 B.A.T.M.A.N.-Adv does not work as expected. What can I do now?
 --------------------------------------------------------------
 
-| **Q:** Batman-adv isn't working at all or doesn't work as expected?
-| **A:** First, try to minimize the complexity of your setup, i.e. just
-  try to build a simple mesh network between two devices (using LAN).
-  Usually just following the [[quick-start-guide\|quick-start-guide]] is
-  a good way to start with.
-| Check also the `Batman
-  Documentation <https://www.kernel.org/doc/Documentation/networking/batman-adv.txt>`__
-  at kernel.org.
+**Q:** Batman-adv isn't working at all or doesn't work as expected?
+
+**A:** First, try to minimize the complexity of your setup, i.e. just
+try to build a simple mesh network between two devices (using LAN).
+Usually just following the [[quick-start-guide\|quick-start-guide]] is
+a good way to start with.
+Check also the `Batman
+Documentation <https://www.kernel.org/doc/Documentation/networking/batman-adv.txt>`__
+at kernel.org.
 
 If you still can't get any setup working at all, go through this
 checklist:

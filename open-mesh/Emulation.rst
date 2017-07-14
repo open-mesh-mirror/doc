@@ -80,47 +80,55 @@ rc.local file is finally started. Suggestions welcome.
 prepare a working directory for your operations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| $mkdir qemu\_work
-| $cd qemu\_work
+::
+
+  $ mkdir qemu\_work
+  $ cd qemu\_work
 
 vde setup
 ~~~~~~~~~
 
-| Download vde2.3.1: https://sourceforge.net/projects/vde/files/vde2/
-| Download vde colour patch: attachment:vde2-2.3.1\_colour.patch
+Download vde2.3.1: https://sourceforge.net/projects/vde/files/vde2/
+Download vde colour patch: attachment:vde2-2.3.1\_colour.patch
 
 patch the "vde2-2.3.1\_colour.patch" for vde.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| $ cd vde-2.3.1
-| $ cp vde2-2.3.1\_colour.patch .
-| $ patch -p1 < vde2-2.3.1\_colour.patch
+::
+
+  $ cd vde-2.3.1
+  $ cp vde2-2.3.1\_colour.patch .
+  $ patch -p1 < vde2-2.3.1\_colour.patch
 
 compile and install vde
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-| $ cd vde-2.3.1
-| $ ./configure
-| $ make
-| $ sudo make install
+::
+
+  $ cd vde-2.3.1
+  $ ./configure
+  $ make
+  $ sudo make install
 
 download and cp colourful.rc
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-$cp colourful.rc qemu\_work
+::
+
+  $ cp colourful.rc qemu\_work
 
 vde\_switch
 ~~~~~~~~~~~
 
-| You can get detailed vde\_switch parameters documentation here:
-  http://www.linuxhowtos.org/manpages/1/vde\_switch.htm
-| The main advantage of
-  `vde\_switch <http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking>`__
-  over
-  `uml\_switch <http://user-mode-linux.sourceforge.net/old/networking.html>`__
-  is that any clients can be attached to this virtual switch: QEMU, KVM,
-  UML, tap interfaces, virtual interconnections, and not just UML
-  instances.
+You can get detailed vde\_switch parameters documentation here:
+http://www.linuxhowtos.org/manpages/1/vde\_switch.htm
+The main advantage of
+`vde\_switch <http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking>`__
+over
+`uml\_switch <http://user-mode-linux.sourceforge.net/old/networking.html>`__
+is that any clients can be attached to this virtual switch: QEMU, KVM,
+UML, tap interfaces, virtual interconnections, and not just UML
+instances.
 
 If the vde\_switches were just connected with wirefilter "patch cables"
 without modification, we would end up creating a broadcast domain and
@@ -153,10 +161,10 @@ version) to add this colour patch here:
 wirefilter
 ~~~~~~~~~~
 
-| Wirefilter manpage:
-  http://manpages.ubuntu.com/manpages/trusty/man1/wirefilter.1.html
-| wirefilter is a tool where you can simulate various link defects and
-  limits:
+Wirefilter manpage:
+http://manpages.ubuntu.com/manpages/trusty/man1/wirefilter.1.html
+wirefilter is a tool where you can simulate various link defects and
+limits:
 
 -  packet loss
 -  burst loss
@@ -274,10 +282,10 @@ The script does:
 
 About IMAGE variable:
 
-| create this script in the "qemu\_work" directory that you have created
-  before.
-| when you use openwrt chaos\_calmer version, you should use
-  openwrt-x86-generic-combined-ext4.img.
+create this script in the "qemu\_work" directory that you have created
+before.
+when you use openwrt chaos\_calmer version, you should use
+openwrt-x86-generic-combined-ext4.img.
 
 The script is using the switch configuration file "colourful.rc". It
 creates the ports (create more if your topology demands this) and sets

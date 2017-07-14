@@ -54,15 +54,15 @@ If you find any bugs, please [[Contribute\|let us know]]!
 Git Repository Access
 ---------------------
 
-| Since we started integrating the batman-adv kernel module into the
-  mainline Linux tree, we maintain a git repository which contains the
-  batman-adv maintenance branches. More information can be found
-  [[UsingBatmanGit\|on our git page]].
-| On overview about all the git repositories can be found on our `git
-  frontend <https://git.open-mesh.org>`__. We also host individual
-  repositories for development related to batman or meshing in general.
-  Feel free to contact us if you are interested in getting a repository
-  too.
+Since we started integrating the batman-adv kernel module into the
+mainline Linux tree, we maintain a git repository which contains the
+batman-adv maintenance branches. More information can be found
+[[UsingBatmanGit\|on our git page]].
+On overview about all the git repositories can be found on our `git
+frontend <https://git.open-mesh.org>`__. We also host individual
+repositories for development related to batman or meshing in general.
+Feel free to contact us if you are interested in getting a repository
+too.
 
 batman-adv in the Linux tree
 ----------------------------

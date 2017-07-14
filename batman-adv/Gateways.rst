@@ -11,22 +11,22 @@ network.
 Announcements
 -------------
 
-| To make the internet uplink known in the mesh network, batman-adv
-  allows to enable the so-called 'gateway mode'. The user specified
-  internet uplink bandwidth is propagated in the mesh network using the
-  [[batman-adv:TVLV#Gateway-announcement\|gateway TVLVs]]. All other
-  mesh participants receive these announcements and maintain a list of
-  internet gateways in the network (see:
-  [[batman-adv:Understand-your-batman-adv-network#Gateway-table\|gateway
-  table]]).
-| To take advantage of this knowledge, each batman-adv node without an
-  internet connection needs to enable the 'gateway client mode' by
-  choosing one of the available gateway selection strategies (check the
-  `batctl
-  manpage <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__
-  for details). If no gateway selection strategy is configured the
-  gateway announcements have no effect on any routing or forwarding
-  decision.
+To make the internet uplink known in the mesh network, batman-adv
+allows to enable the so-called 'gateway mode'. The user specified
+internet uplink bandwidth is propagated in the mesh network using the
+[[batman-adv:TVLV#Gateway-announcement\|gateway TVLVs]]. All other
+mesh participants receive these announcements and maintain a list of
+internet gateways in the network (see:
+[[batman-adv:Understand-your-batman-adv-network#Gateway-table\|gateway
+table]]).
+To take advantage of this knowledge, each batman-adv node without an
+internet connection needs to enable the 'gateway client mode' by
+choosing one of the available gateway selection strategies (check the
+`batctl
+manpage <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__
+for details). If no gateway selection strategy is configured the
+gateway announcements have no effect on any routing or forwarding
+decision.
 
 Routing towards the best internet uplink
 ----------------------------------------
@@ -44,14 +44,16 @@ which is broadcasted in the entire network. Every DHCP server will send
 a reply via unicast back to the client which then has to choose one of
 the responding DHCP servers as its gateway.
 
-| **Standard DHCP behavior**:
-| |image0|
+**Standard DHCP behavior**:
+
+|image0|
 
 Which gateway will be selected by the client depends on the number of
 DHCP servers / packet loss / delay / DHCP client software / etc.
 
-| **DHCP behavior with batman-adv gateway client mode enabled**:
-| |image1|
+**DHCP behavior with batman-adv gateway client mode enabled**:
+
+|image1|
 
 DHCP requests issued by non-mesh clients will not be broadcasted by
 batman-adv but only sent to the chosen batman-adv gateway via unicast.

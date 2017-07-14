@@ -114,27 +114,27 @@ different behaviours.
 *Example1: order of arrival: DEL from A, ADD from C, DEL from B, ADD
 from D*
 
-| \* DEL from A: A is removed from the tt\_global originator list for X,
+* DEL from A: A is removed from the tt\_global originator list for X,
   only B remains.
-| \* ADD from C: C is added to the tt\_global originator list for X, now
+* ADD from C: C is added to the tt\_global originator list for X, now
   containing B and C
-| \* DEL from B: B is removed from the tt\_global originator list for X,
+* DEL from B: B is removed from the tt\_global originator list for X,
   only C remains.
-| \* ADD from D: D is added to the tt\_global originator list for X, now
+* ADD from D: D is added to the tt\_global originator list for X, now
   containing C and D
 
 *Example2: order of arrival: DEL from A, DEL from B, ADD from C, ADD
 from D*
 
-| \* DEL from A: A is removed from the tt\_global originator list for X,
+* DEL from A: A is removed from the tt\_global originator list for X,
   only B remains.
-| \* DEL from B: B is NOT removed from the tt\_global originator list
+* DEL from B: B is NOT removed from the tt\_global originator list
   for X, it remains but TT\_CLIENT\_ROAM flag is set for this tt\_global
   entry, and the timer is started.
-| \* ADD from C: C is added to the tt\_global originator list for X, B
+* ADD from C: C is added to the tt\_global originator list for X, B
   is deleted, the TT\_CLIENT\_ROAM flag is cleared and the timer is
   stopped. The list now contains C.
-| \* ADD from D: D is added to the tt\_global originator list for X, now
+* ADD from D: D is added to the tt\_global originator list for X, now
   containing C and D
 
 TT\_CLIENT\_WIFI

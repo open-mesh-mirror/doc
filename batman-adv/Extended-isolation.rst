@@ -5,11 +5,11 @@ This feature is an extension of the existing [[AP-isolation]] that aims
 to improve the old mechanism while keeping a backward compatible
 behaviour.
 
-| When the extended-isolation is enabled batman-adv drops all the
-  wirelsss-to-wireless traffic and at the same time marks clients as
-  *isolated* based on the user configuration.
-| This way batman-adv provides a mechanism to achieve the following
-  goals:
+When the extended-isolation is enabled batman-adv drops all the
+wirelsss-to-wireless traffic and at the same time marks clients as
+*isolated* based on the user configuration.
+This way batman-adv provides a mechanism to achieve the following
+goals:
 
 #. isolate not only wireless clients but also all those hosts matching a
    particular user criteria
@@ -19,14 +19,14 @@ behaviour.
 How to recognise isolated clients
 ---------------------------------
 
-| In the classic AP-Isolation mechanism clients are marked as *WIFI*
-  when packets originated by them reach the batman-adv interface after
-  having being received on a wireless interface.
-| With the Extended-isolation instead the idea is to classify as
-  *isolated* every client which packets are (fw)marked with a given
-  value. This increases the flexibility of the whole mechanism since the
-  user can setup any creative firewall rule to make the host mark
-  packets only when matching particular conditions.
+In the classic AP-Isolation mechanism clients are marked as *WIFI*
+when packets originated by them reach the batman-adv interface after
+having being received on a wireless interface.
+With the Extended-isolation instead the idea is to classify as
+*isolated* every client which packets are (fw)marked with a given
+value. This increases the flexibility of the whole mechanism since the
+user can setup any creative firewall rule to make the host mark
+packets only when matching particular conditions.
 
 A simple use case might be to mark all the packets coming in through a
 given interface by using *tc*:
@@ -49,29 +49,29 @@ user must tell the kernel module which is the value to match in the
     or
     # batctl isola 0x06/0xFFFFFFFF # VALUE/MASK
 
-| As reported in the example above, the isolation mark needs to be
-  configured in batman-adv in the form *VALUE/MASK* in order to keep the
-  mechanism as flexible as possible.
-| The fwmark value attached to a given packet can be (and usually is)
-  used by several components in the kernel and therefore, to avoid
-  colliding and breaking those other mechanisms, batman-adv should work
-  only on a limited number of bits within this field. The MASK part is a
-  (hexadecimal) bitmask representing which bits batman-adv is allowed to
-  work with, while the VALUE represent the real value that has to be
-  used. Due to the restriction given by MASK, the VALUE is altered in
-  order to avoid touching any bit that is not selected by the former.
+As reported in the example above, the isolation mark needs to be
+configured in batman-adv in the form *VALUE/MASK* in order to keep the
+mechanism as flexible as possible.
+The fwmark value attached to a given packet can be (and usually is)
+used by several components in the kernel and therefore, to avoid
+colliding and breaking those other mechanisms, batman-adv should work
+only on a limited number of bits within this field. The MASK part is a
+(hexadecimal) bitmask representing which bits batman-adv is allowed to
+work with, while the VALUE represent the real value that has to be
+used. Due to the restriction given by MASK, the VALUE is altered in
+order to avoid touching any bit that is not selected by the former.
 
 How to transfer the mark from node to node
 ------------------------------------------
 
-| The previous sections explained how to detect clients that have to be
-  marked as *isolated*, but how is this information passed to other
-  nodes in the network?
-| Clients recognised as *isolated* are marked with a special TT flag,
-  namely TT\_CLIENT\_ISOLA, which is then spread all over the network
-  with the rest of the [[Client-announcement\|TT information]] so that
-  other nodes are aware of which global client has to be considered as
-  isolated.
+The previous sections explained how to detect clients that have to be
+marked as *isolated*, but how is this information passed to other
+nodes in the network?
+Clients recognised as *isolated* are marked with a special TT flag,
+namely TT\_CLIENT\_ISOLA, which is then spread all over the network
+with the rest of the [[Client-announcement\|TT information]] so that
+other nodes are aware of which global client has to be considered as
+isolated.
 
 Dropping logic
 --------------
@@ -114,24 +114,24 @@ With this instructions two task are accomplished:
 #. a filter rule is added in order to redirect all the traffic matching
    the specified mark to the netem queue.
 
-| Note that *tc* is used instead of iptables because the latter would
-  only be able to work on frames carrying IPv4/6 packets, while in this
-  case the target is the entire traffic.
-| However, any kind of rule interacting with the fwmark can be used to
-  implement any wanted behaviour.
+Note that *tc* is used instead of iptables because the latter would
+only be able to work on frames carrying IPv4/6 packets, while in this
+case the target is the entire traffic.
+However, any kind of rule interacting with the fwmark can be used to
+implement any wanted behaviour.
 
 Example
 -------
 
 |image0|
 
-| In the picture above traffic is allowed only between the wired and the
-  non-isolated wireless interface (both the interfaces must be
-  "isolated" to block the traffic).
-| Wireless to wireless traffic is blocked due to the already existing
-  [[AP-isolation]] mechanism, while between the two wired "isolated"
-  interfaces there is no communication because of the new Extended
-  Isolation feature described in this page.
+In the picture above traffic is allowed only between the wired and the
+non-isolated wireless interface (both the interfaces must be
+"isolated" to block the traffic).
+Wireless to wireless traffic is blocked due to the already existing
+[[AP-isolation]] mechanism, while between the two wired "isolated"
+interfaces there is no communication because of the new Extended
+Isolation feature described in this page.
 
 .. |image0| image:: ext-isola.png
 

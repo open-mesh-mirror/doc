@@ -8,19 +8,19 @@ needs and update or replacement by a more up-to-date page)
 
 Current status:
 
-| \* we have a working patchset for 2010.2.0 with some limitations (only
+* we have a working patchset for 2010.2.0 with some limitations (only
   bidirect connections, no mcast snooping and hence no support for
   bridged in clients)
-| \* we have a half-finished implementation which should fix these
+* we have a half-finished implementation which should fix these
   limitations in T\_X's repository
 
 More Info:
 
-| \* `Batman-adv multicast optimization
+* `Batman-adv multicast optimization
   (video) <https://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi>`__
   - how batman-adv optimizes multicast traffic by Linus and Simon [March
   2011], slides are attached at the end of this document
-| \* The specification for the 2010.2.0 version is attached as well
+* The specification for the 2010.2.0 version is attached as well
 
 --------------
 
@@ -310,7 +310,3 @@ Resources:
 -  SMF
    `draft-ietf-manet-smf-10 <https://tools.ietf.org/html/draft-ietf-manet-smf-10>`__
 -  PGM `rfc3208 <https://tools.ietf.org/html/rfc3208>`__
-
-.. raw:: html
-
-   </pre>

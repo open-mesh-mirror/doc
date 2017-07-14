@@ -3,11 +3,11 @@ Bridge loop avoidance II
 
 Further pages on this topic:
 
-| \* [[Bridge-loop-avoidance-Testcases\|Bridge loop avoidance test case
+* [[Bridge-loop-avoidance-Testcases\|Bridge loop avoidance test case
   descriptions]]
-| \* [[Bridge-loop-avoidance-Protocol\|Bridge loop avoidance protocol
+* [[Bridge-loop-avoidance-Protocol\|Bridge loop avoidance protocol
   description]]
-| \* [[Bridge-loop-avoidance\|Bridge loop avoidance user howto]]
+* [[Bridge-loop-avoidance\|Bridge loop avoidance user howto]]
 
 Situation
 ---------
@@ -26,24 +26,24 @@ connected/bridged through a mesh node in the bottom.
 Definitions:
 ------------
 
-| \* backbone gateway: A mesh node which is connected to both - a mesh
+* backbone gateway: A mesh node which is connected to both - a mesh
   network and a backbone (e.g. LAN).
-| \* client: A non-mesh network participant which is sending data via
+* client: A non-mesh network participant which is sending data via
   the mesh. The client is always identified by the source MAC address of
   the payload Ethernet header.
-| \* Originator: An originator is a mesh participant in batman. If we
+* Originator: An originator is a mesh participant in batman. If we
   talk about the originator address in this document, we mean the
   hardware address of the primary interface.
 
 Goals:
 ------
 
-| \* The bridge loop avoidance should be able to scale to hundreds of
+* The bridge loop avoidance should be able to scale to hundreds of
   gateways connected to the same backbone.
-| \* Communication between the mesh nodes and the backbone should be via
+* Communication between the mesh nodes and the backbone should be via
   the best backbone gateway.
-| \* Minimize broadcast traffic in the backbone.
-| \* Roaming should still be possible.
+* Minimize broadcast traffic in the backbone.
+* Roaming should still be possible.
 
 Key Concepts:
 -------------
@@ -58,8 +58,8 @@ clients it feels responsible for in the form of "claim frames" on the
 soft-interface bat0. Each backbone gateway will save a claim list of
 other backbone gateways. By doing this, it can:
 
-| \* see which clients are already tracked (claimed)
-| \* see which other backbone gateways exist in the backbone
+* see which clients are already tracked (claimed)
+* see which other backbone gateways exist in the backbone
 
 Note that backbone gateways may overwrite a claim of another backbone
 gateway by simply claiming the same client. In this case, the newest
@@ -81,9 +81,9 @@ mesh node and back) is discussed.
 Broadcast, mesh->backbone:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| |image1|
-| If the originator of the broadcast is not known (not in the originator
-  table), don't forward it into the backbone.
+|image1|
+If the originator of the broadcast is not known (not in the originator
+table), don't forward it into the backbone.
 
 If the originator of the broadcast is another backbone gateway from the
 same backbone, don't forward.
@@ -114,9 +114,9 @@ Broadcast, backbone->mesh:
 
 If a claim for the mesh-client exists:
 
-| \* all not responsible backbone gateways should discard the frame -
+* all not responsible backbone gateways should discard the frame -
   this might be a loop.
-| \* if the responsible backbone gateway (which claimed this client)
+* if the responsible backbone gateway (which claimed this client)
   also receives the packet, "unclaim" this client by sending an
   according un-claim packet, and forward the packet into the mesh. This
   should only happen in the roaming case, but not in normal situations.
@@ -213,11 +213,11 @@ duplicates of the broadcast with different meta information (different
 originators, different sequence numbers). To avoid duplicates within the
 mesh, every mesh node will use the `mesh duplicate list <>`__
 
-| \* after the (old) seqno window check: match the frame to the "mesh
+* after the (old) seqno window check: match the frame to the "mesh
   duplicate list" of other backbone gateways to see if another backbone
   gateway from the same backbone has sent a broadcast with the same
   payload checksum.
-| \* if true, drop the packet. Otherwise, add the checksum to the
+* if true, drop the packet. Otherwise, add the checksum to the
   entries and re-forward it.
 
 Discussion:
@@ -226,14 +226,14 @@ Discussion:
 Features:
 ~~~~~~~~~
 
-| \* no single "super" gateway => should scale better
-| \* the only additional BATMAN backbone packets are claim packets,
+* no single "super" gateway => should scale better
+* the only additional BATMAN backbone packets are claim packets,
   which are only sent for new claims and regular announcements
-| \* no BATMAN packets on the backbone
-| \* broadcasts are sent from all the gateways into the mesh
-| \* nodes can select gateways, and change among them (gateways will
+* no BATMAN packets on the backbone
+* broadcasts are sent from all the gateways into the mesh
+* nodes can select gateways, and change among them (gateways will
   automatically re-claiming)
-| \* should not loop ;)
+* should not loop ;)
 
 Limitations:
 ~~~~~~~~~~~~

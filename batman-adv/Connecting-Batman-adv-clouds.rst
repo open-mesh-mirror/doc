@@ -4,11 +4,11 @@ How to Interconnect different Batman-adv clouds (DRAFT)
 Overview
 --------
 
-| A scenario which is becoming more and more common in mesh deployments
-  is the existance of two or more batman-adv clouds interconnected via
-  Layer3 routing.
-| This is a normal consequence of the hierarchy introduced into a
-  network in order to make it scale.
+A scenario which is becoming more and more common in mesh deployments
+is the existance of two or more batman-adv clouds interconnected via
+Layer3 routing.
+This is a normal consequence of the hierarchy introduced into a
+network in order to make it scale.
 
 A batman-adv cloud is a set of nodes which are all using batman-adv and
 so they are all sharing the same broadcast domain (meaning they are all
@@ -40,11 +40,11 @@ qualities are the following:
 -  C -> A -> D : TQ = 90% \* 50% = 45%
 -  C -> B -> E : TQ = 80% \* 100% = 80%
 
-| Given these results it is possible to understand that the best local
-  choice (node A) would result in a worse overall path towards cloud2.
-| This conclusion lead to the problem that the local available
-  information in a batman-adv cloud is not enough to make a proper
-  decision at the source (node C).
+Given these results it is possible to understand that the best local
+choice (node A) would result in a worse overall path towards cloud2.
+This conclusion lead to the problem that the local available
+information in a batman-adv cloud is not enough to make a proper
+decision at the source (node C).
 
 The idea
 --------
@@ -65,38 +65,38 @@ To implement this concept batman-adv needs:
 #. a metric injection and combination mechanism
 #. a layer3 metric propagation
 
-| For 1 we use L2 anycast, a particular GW tvlv with subnets
-  announcement, a TT\_CLIENT\_GW flag, a virtual GW table, possibly DHCP
-  and L3 routing daemon interaction.
-| For 2 and 3 we use batman-adv on the external link as well. This give
-  as a metric which can be easily combined into the batman-adv cloud
-  (the metric inside and outside the cloud are the same and can be
-  combined with the classic batman-adv schema).
+For 1 we use L2 anycast, a particular GW tvlv with subnets
+announcement, a TT\_CLIENT\_GW flag, a virtual GW table, possibly DHCP
+and L3 routing daemon interaction.
+For 2 and 3 we use batman-adv on the external link as well. This give
+as a metric which can be easily combined into the batman-adv cloud
+(the metric inside and outside the cloud are the same and can be
+combined with the classic batman-adv schema).
 
 Layer-2 Anycast
 ---------------
 
-| L2 Anycast consists in assignng the same MAC address to two
-  **different** non-mesh clients and in leaving to batman-adv the
-  decision of which one should be contacted.
-| Batman-adv will choose the best path towards the client (which looks
-  like being one only since the two hosts have the same MAC address) on
-  a metric basis.
+L2 Anycast consists in assignng the same MAC address to two
+**different** non-mesh clients and in leaving to batman-adv the
+decision of which one should be contacted.
+Batman-adv will choose the best path towards the client (which looks
+like being one only since the two hosts have the same MAC address) on
+a metric basis.
 
-| This mechanism works thanks to the Bridge Loop Avoidance II component
-  which allows the same client to be reachable via different
-  originators. The L2 Anycast exploits this feature by placing several
-  non-mesh clients in the network having the same MAC address.
-| The result will be again that **batman-adv will try to contact the
-  client behind the best path**.
+This mechanism works thanks to the Bridge Loop Avoidance II component
+which allows the same client to be reachable via different
+originators. The L2 Anycast exploits this feature by placing several
+non-mesh clients in the network having the same MAC address.
+The result will be again that **batman-adv will try to contact the
+client behind the best path**.
 
-| The macvlan kernel module can be used to create several virtual
-  interfaces on top of an already existing one. The new interfaces can
-  have a user defined MAC address and will not apply any tagging, this
-  way it is possible to create as many non-mesh clients as the user
-  wants on the same node.
-| This is an example on how to create a virtual interface on top of
-  another one:
+The macvlan kernel module can be used to create several virtual
+interfaces on top of an already existing one. The new interfaces can
+have a user defined MAC address and will not apply any tagging, this
+way it is possible to create as many non-mesh clients as the user
+wants on the same node.
+This is an example on how to create a virtual interface on top of
+another one:
 
 ::
 
@@ -162,13 +162,13 @@ Border Gateway Selection
 Assumption: Route installation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| For each external subnet reachable by a batman-adv cloud, there must
-  be a unique IP which has to be used as GW by all the clients to route
-  traffic towards such network.
-| This unique IP is used by the Anycast setup, therefore each border GW
-  able to route traffic towards the given subnet must use **the same
-  couple IP:MAC** (L3/L2 Anycast). This means that, whatever the number
-  of border GW, the clients will install only one route per network.
+For each external subnet reachable by a batman-adv cloud, there must
+be a unique IP which has to be used as GW by all the clients to route
+traffic towards such network.
+This unique IP is used by the Anycast setup, therefore each border GW
+able to route traffic towards the given subnet must use **the same
+couple IP:MAC** (L3/L2 Anycast). This means that, whatever the number
+of border GW, the clients will install only one route per network.
 
 Mechanism
 ~~~~~~~~~
@@ -209,11 +209,11 @@ forward its over its external link.
 Layer3 metric combination
 -------------------------
 
-| As explained in the section before, a node willing to choose one of
-  the available border gateways has to combine the TQ towards the GW
-  with the cost from the GW to the network to be contacted.
-| This is not trivial since the semantic of the metric used by the L3
-  protocol might be totally different from the TQ.
+As explained in the section before, a node willing to choose one of
+the available border gateways has to combine the TQ towards the GW
+with the cost from the GW to the network to be contacted.
+This is not trivial since the semantic of the metric used by the L3
+protocol might be totally different from the TQ.
 
 To help in this direction the solution proposed here consists in **using
 batman-adv on each external link** connecting the border GW to any other
