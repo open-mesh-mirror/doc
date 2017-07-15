@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="37cm" height="6cm" viewBox="58 78 723 103" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="36cm" height="6cm" viewBox="60 80 720 102" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs/>
   <g id="Background">
-    <rect style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ffffff" x="60" y="80" width="720" height="20" rx="0" ry="0"/>
+    <rect style="fill: none; stroke-opacity: 1; stroke-width: 2.35099e-37; stroke: #ffffff" x="60" y="80" width="720" height="20" rx="0" ry="0"/>
     <rect style="fill: #809dff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="280" y="140" width="120" height="40" rx="0" ry="0"/>
     <rect style="fill: #809dff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="400" y="140" width="120" height="40" rx="0" ry="0"/>
     <rect style="fill: #809dff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="520" y="140" width="240" height="40" rx="0" ry="0"/>
