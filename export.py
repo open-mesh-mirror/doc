@@ -64,10 +64,13 @@ for r in rows:
 
 cur = conn.cursor()
 cur.execute('''
-SELECT attachments.filename,attachments.created_on,users.id,users.firstname,users.lastname,email_addresses.address,attachments.id
+SELECT attachments.filename,attachments.created_on,users.id,users.firstname,users.lastname,email_addresses.address,attachments.id,projects.identifier
 FROM attachments
 LEFT JOIN users ON attachments.author_id = users.id
 LEFT JOIN email_addresses ON users.id = email_addresses.user_id AND email_addresses.is_default
+LEFT JOIN wiki_pages ON attachments.container_id = wiki_pages.id
+LEFT JOIN wikis ON wiki_pages.wiki_id = wikis.id
+LEFT JOIN projects ON wikis.project_id = projects.id
 WHERE attachments.container_type = 'WikiPage'
 ORDER BY attachments.created_on;
 ''')
@@ -84,13 +87,13 @@ for r in rows:
 		user = r[3] + ' ' + r[4]
 		email = r[5]
 
-	comment = 'doc: ' + os.path.join('attachments', r[0])
+	comment = 'doc: ' + os.path.join(r[7], r[0])
 
 	entries.append({
 		'type': 'attachment',
 		'user': user,
 		'email': email,
-		'filename': os.path.join('attachments', r[0]),
+		'filename': os.path.join(r[7], r[0]),
 		'comment': comment,
 		'updated': r[1],
 		'id': r[6],
