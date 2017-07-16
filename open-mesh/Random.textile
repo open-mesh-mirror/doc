@@ -1,0 +1,9 @@
+h2. Merchandise
+
+* [[Logos|Logos]] - download logos
+* "T-Shirts":https://www.freewear.org/?org=B.A.T.M.A.N%2e - get T-Shirts
+
+h2. Other Projects on open-mesh.org
+
+* [[FFTrace|FFTrace]] - freifunk traceroute tool
+* [[MeshLinux|MeshLinux]] - Linux distribution geared to build mesh supernodes
