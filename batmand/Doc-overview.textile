@@ -2,21 +2,8 @@ h1. B.A.T.M.A.N. daemon Documentation Overview
 
 How to get a mesh network up and running, how to configure the many features of the B.A.T.M.A.N. daemon, and how to shoot down your troubles. 
 
-h2. Getting started
-
-* [[InternetTuning|InternetTuning]] - get information how B.A.T.M.A.N. handles internet access and what features it offers
-* [[VisualizeMesh|Visualizing the network]] - this document explains how to get fancy graphics of the batman mesh
-* [[AnnouncingNetworks|Announcing networks]] - learn how to announce and / or revoke HNA on the fly
-* "B.A.T.M.A.N. online man page":https://downloads.open-mesh.org/batman/manpages/batmand.8.html - read the current batman man page online
-* [[Faq|Frequently Asked Questions]] - list of questions and answers of batmand.
-
-h2. Developer Information / Advanced Features
-
-* [[RoutingVodoo|Getting behind the routing vodoo]] - learn about the B.A.T.M.A.N. routing table manipulation
-* [[DebugOutput|Understanding the debug output]] - documentation that helps you to understand the debug output
-* [[VisOutput|Vis output]] - working with the vis server output
-* [[Coredump|How to get a coredump]] - documentation about coredump configuration & retrieval
-* [[open-mesh:Emulation|Emulation HowTo]] - how to create an environment to emulate wireless setups using QEMU and VDE
+{{include(gettingstarted)}}
+{{include(developerinformation)}}
 
 h2. Protocol Documentation
 
