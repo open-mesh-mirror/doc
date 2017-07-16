@@ -1,4 +1,6 @@
-h1. "free" papers
+h1. New papers
+
+h2. "free" papers
 
 * Garroppo, R.G., Giordano, S., Tavanti, L.: *Experimental evaluation of two open source solutions for wireless mesh routing at layer two*, Wireless Pervasive Computing (ISWPC), 2010 5th IEEE International Symposium on, 232–237, 2010
 ** Compares batman-adv and open80211s in a small testbed.
@@ -11,7 +13,7 @@ h1. "free" papers
 * Chissungo, E., Blake, E., Le, H.: *Performance Comparison of BATMA Nd and BATMAN-adv*
 ** http://www.satnac.org.za/proceedings/2011/papers/Posters/250.pdf
 * Oh, M.: *An Experimental Comparison of Delivery Mechanisms in a Linear Topology*, 한국정보기술학회논문지 9(8), 한국정보기술학회, 101–107, 2011
-** http://ki-it.or.kr/paper/paper_09_08/9%25EA%25B6%258C8%25ED%2598%25B8/An%2520Experimental%2520Comparison%2520of%2520Delivery%2520Mechanisms%2520in%2520a%2520Linear%2520Topology.pdf
+** http://ki-it.or.kr/paper/paper_09_08/9%EA%B6%8C8%ED%98%B8/An%20Experimental%20Comparison%20of%20Delivery%20Mechanisms%20in%20a%20Linear%20Topology.pdf
 * Graarud, E.G.: *Implementing a Secure Ad Hoc Network, Technical report*, The Norwegian University of Science and Technology (NTNU), 2011
 ** http://github.com/espengra/secure-ad-hoc-network-doc/raw/master/share/thesis.pdf
 * Sicard, L., Markovics, M., Manthios, G.: *An Ad-hoc Network of Android Phones Using BATMAN*
@@ -41,7 +43,7 @@ h1. "free" papers
 * Kobo, H.I.: *Situation-aware Routing Based on Link Quality for Static Mesh Networks with Mobile Nodes*
 ** http://www.satnac.org.za/proceedings/2011/papers/Network_Services/209.pdf
 * Coyle, A., Nguyen, H.: *A frequency control algorithm for a mobile adhoc network*, Military Communications and Information Systems Conference (MilCIS), Canberra, Australia, 2010
-** http://www.milcis.com.au/milcis2010pdf/1.4d-2%2520Coyle.pdf
+** http://www.milcis.com.au/milcis2010pdf/1.4d-2%20Coyle.pdf
 * Murray, D., Dixon, M., Koziniec, T.: *An experimental comparison of routing protocols in multi hop ad hoc networks*, Telecommunication Networks and Applications Conference (ATNAC), 2010 Australasian, 159–164, 2010
 ** http://researchrepository.murdoch.edu.au/3982/1/Comparison_of_Routing_Protocols.pdf
 * Verma, A.: *A Study of Performance Comparisons of Simulated Ad hoc Network Routing Protocols*, Int. J. Comp. Tech. Appl 2(3), 565–569, 2011
@@ -65,7 +67,7 @@ h1. "free" papers
 * Friginal, J., Ruiz, J.C., de Andrés, D., Bustos, A.: *Mitigating the impact of ambient noise on Wireless Mesh Networks using adaptive link-quality-based packet replication*, Dependable Systems and Networks (DSN), 2012 42nd Annual IEEE/IFIP International Conference on, 1–8, 2012
 ** http://stf.webs.upv.es/papers/137.pdf
 * Chipeperekwa, T.M., Blake, E., Marsden, G.: *MPMobVis: Mesh Potato Mobile Visualization, Monitoring and Provisioning*
-** http://people.cs.uct.ac.za/~tchipeperekwa/content/Final%2520Report%2520Provisioning.pdf
+** http://people.cs.uct.ac.za/~tchipeperekwa/content/Final%20Report%20Provisioning.pdf
 * Thomas, J., Robble, J.: *Off-Grid Communications with Android*, 2012
 ** http://www.mitre.org/work/tech_papers/2012/12_2943/12_2943.pdf
 * Dely, P., Kassler, A., Bayer, N.: *Openflow for wireless mesh networks*, Computer Communications and Networks (ICCCN), 2011 Proceedings of 20th International Conference on, 1–6, 2011
@@ -73,9 +75,9 @@ h1. "free" papers
 * SANDHU, D.S., SHARMA, S.: *PERFORMANCE EVALUATION OF BATMAN, DSR, OLSR ROUTING PROTOCOLS-A REVIEW*, 2012
 ** http://www.bioinfo.in/uploadfiles/13474410633_1_53_JIOM.pdf
 * Sandhu, D.S., Sharma, S.: *Performance Evaluation of DSDV, DSR, OLSR, TORA Routing Protocols-A Review*
-** http://psrcentre.org/images/submission/REVIEW%2520PAPER%2520-%2520(BIG).doc
+** http://psrcentre.org/images/submission/REVIEW%20PAPER%20-%20(BIG).doc
 * Kobo, H.I.: *Quality of Service-aware Routing for Static Mesh Networks with Mobile Nodes*
-** http://www.satnac.org.za/proceedings/2010/papers/poster/Kobo%2520487.pdf
+** http://www.satnac.org.za/proceedings/2010/papers/poster/Kobo%20487.pdf
 * Wang, J.C.P.: *Routing instability in ad hoc networks*, Faculty of Informatics, University of Wollongong, 2010
 ** http://ro.uow.edu.au/cgi/viewcontent.cgi?filename=0&article=3707&context=theses&type=additional
 * Follett-Smith, D.C.: *Smart Wireless Mesh networking: Introducing cognition in the protocol stack*
@@ -85,7 +87,7 @@ h1. "free" papers
 * Dely, P.: *Towards an Architecture for OpenFlow and Wireless Mesh Networks*, 2011
 ** http://changeofelia.info.ucl.ac.be/pmwiki/uploads/SummerSchool/Program/poster_022.pdf
 * Friginal, J., De Andres, D., Ruiz, J.C., Gil, P.: *Towards benchmarking routing protocols in wireless mesh networks*, Ad Hoc Networks 9(8), Elsevier, 1374–1388, 2011
-** http://www.stf.webs.upv.es/.%255Cpapers%255C109.pdf
+** http://www.stf.webs.upv.es/.%5Cpapers%5C109.pdf
 * Duran Rosich, E.: *Wifi mesh network nodes on guifi. net*, Universitat Politècnica de Catalunya, 2011
 ** http://upcommons.upc.edu/pfc/bitstream/2099.1/7383/1/memoria.pdf
 * Pinto, R.: *WMM-Wireless mesh monitoring*, Ad Hoc Network 6(6), 445–487, 2009
@@ -121,7 +123,7 @@ h1. "free" papers
 * B. S. Edmunds. *Evaluating OLSR and BATMAN over D-STAR.*
 ** http://www.tapr.org/pdf/DCC2013-OLSR-BATMAN-EI7IG-G0HWW.pdf
 * A. Sharma and N. Rajagopalan. *A Comparative Study of BATMAN and OLSR Routing Protocols for MANETs.*
-** http://warse.org/pdfs/2013/icetcsesp%252003.pdf
+** http://warse.org/pdfs/2013/icetcsesp%2003.pdf
 * D. Ahirwar, M. K. Dhariwal, S. K. Tehariya, and A. A. Khan. *A Review Report Better Approach to Mobile Adhoc Network.*
 ** http://ijmemr.org/Publication/V1I4/IJMEMR-V1I4-003.pdf
 * P. Racz, A. Lunn, and J. Paatero. *A Security Extension for Ad-hoc Routing Protocols.*
@@ -146,14 +148,14 @@ h1. "free" papers
 ** http://ijer.in/ijset/publication/v3s12/IJSET_2014_1212.pdf
 
 
-h2. more resources
+h3. more resources
 
 find some more
 
 * http://scholar.google.com/scholar?start=20&q=BATMAN+OLSR&hl=en&as_sdt=2000
 * http://scholar.google.com/scholar?q=batman-adv
 
-h1. non-free papers
+h2. non-free papers
 
 * Ikeda, M., De Marco, G., Barollif, L., Takizawa, M.: *A BAT in the lab: Experimental results of new link state routing protocol*, Advanced Information Networking and Applications, 2008. AINA 2008. 22nd International Conference on, 295–302, 2008
 * Ikeda, M., Kulla, E., Hiyama, M., Barolli, L., Takizawa, M., Miho, R.: *A Comparison Study Between Simulation and Experimental Results for MANETs*, Network-Based Information Systems (NBiS), 2010 13th International Conference on, 371–378, 2010
