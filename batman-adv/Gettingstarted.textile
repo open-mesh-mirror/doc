@@ -1,0 +1,9 @@
+h2. Getting started
+
+* [[Wiki|B.A.T.M.A.N. Advanced overview]] - information about the Layer 2 version of B.A.T.M.A.N.
+* [[building-with-openwrt|Building B.A.T.M.A.N. Advanced with OpenWRT]] - how to download and configure your OpenWRT build environment to compile batman-adv.
+* [[quick-start-guide|B.A.T.M.A.N. Advanced quick start guide]] - or: what the hell is bat0 for?
+* [[using-batctl|Features of batctl]] - A quick introduction to batctl.
+* "batctl online man page":https://downloads.open-mesh.org/batman/manpages/batctl.8.html - read the current batctl man page online
+* "Wireless Kernel Tweaking (video)":https://downloads.open-mesh.org/batman/misc/24c3-2292-en-wireless_kernel_tweaking.webm - introduction to batman-advanced by Marek and Simon [December 2007] (also available at "c3tv":https://media.ccc.de/browse/congress/2007/24c3-2292-en-wireless_kernel_tweaking.html#video)
+* [[faq|Frequently asked questions]] - A list of frequently asked questions and answers.
