@@ -1,0 +1,5 @@
+h2. Getting started
+
+ * [[Building information]] - how to download and build alfred
+ * [[batadv-vis]] - Tool to visualize batman-adv networks
+ * [[alfred-gpsd]] - Share geolocation of mesh nodes
