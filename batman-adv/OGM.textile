@@ -222,14 +222,14 @@ h2. Appendix
 
 ----
 
-h1. Questions
+h2. Questions
 
 * Where to add the description of the data packet forwarding + bonding mode description? Which object should the bonding interface stuff be added to?
 * Should the further optimization 'Resend OGMs with flags etc. of newest OGM' already be part of the standard?
 
 ----
 
-h1. Notes
+h2. Notes
 
 * Section 'Receiving other nodes' OGMs' ensures the loop-freeness - any OGM having past that part and is accepted and loop-safe and can potentially be used as a (new) router
 * 'Router Ranking' purges routers that are outdated in terms of sequence number and selects the routers with the highest path TQ. It further updates the status of the according router the OGm was received from.
@@ -240,44 +240,44 @@ h1. Notes
 
 ----
 
-h1. Changes between OGMs in BATMAN IV and BATMAN V
+h2. Changes between OGMs in BATMAN IV and BATMAN V
 
-h2. Renaming
+h3. Renaming
 
 * Global TQ renamed to Path TQ
 * Local TQ renamed to Link TQ
 
-h2. Removal of Global TQ Window and gl. TQ Averaging
+h3. Removal of Global TQ Window and gl. TQ Averaging
 
 Only remember last Path TQ and its sequence number as well as the highest
 sequence number of an originator node received. The window size is substituted by a
 SEQ_DIFF_MAX (default: 5). A neighbor node is being purged from the router list
 if orig_node->last_seqno - router->last_seqno > SEQ_DIFF_MAX.
 
-h2. Removed previous sender field
+h3. Removed previous sender field
 
-h2. Bonding Mode using NDP's link qualities
+h3. Bonding Mode using NDP's link qualities
 
-h2. Removal of secondary interface originators
+h3. Removal of secondary interface originators
 
 Instead when receiving an OGM, always the best link quality measured by NDP
 will be substracted from the OGM. This shall make multiple interfaces
 transparent from the OGM algorithm.
 
-h2. Removal of PRIMARIES_FIRST_HOP + DIRECTLINK flag
+h3. Removal of PRIMARIES_FIRST_HOP + DIRECTLINK flag
 
 PRIMARIES_FIRST_HOP flag is no more needed as there will be just one primary originator a.k.
 originator.
 
-h2. Removal of bidirectional link check
+h3. Removal of bidirectional link check
 
 Asymetric Penalty should be better and enough.
 
-h2. (Re)Introduce strict OGM forwarding policy
+h3. (Re)Introduce strict OGM forwarding policy
 
 To avoid routing loops. MGO/batping mechanism will compensate for convergence speed performance.
 
-h2. Optimized Route Switching in case of outdated currently selected router
+h3. Optimized Route Switching in case of outdated currently selected router
 
 Before in BATMAN IV if a node was receiving an OGM with a sequence number that caused the
 currently selected router to be moved outside of the global TQ window (e.g. receiving an
@@ -293,7 +293,7 @@ It will switch to the router with the highest path TQ which is still in the OGM_
 and rebroadcast its buffered OGM instead of the just received OGM. The just received OGM will
 still be buffered (router-addr + seqno + path-TQ) though.
 
-h2. Strict hop-penalty
+h3. Strict hop-penalty
 
 In BATMAN V the hop penalty always decreases the OGM's path TQ (at least by 1/255: minimum selectable
 hop penalty: 1, path TQ always rounded downwards)
@@ -307,32 +307,32 @@ Question: Or is the TTL check in the Router Ranking actually enough? Anyways, I 
 monotonically decreasing path TQ values of an OGM upon rebroadcasts is probably also easier to prove
 to be loop-free. And shouldn't harm anything - therefore I'd have a better feeling with that change.
 
-h2. Increase NDP window size to 128 packets
+h3. Increase NDP window size to 128 packets
 
 With removing the Path TQ averaging, things will get too unstable otherwise. Should be                                                                       
 later substituted with an EWMA [1].
 
 ----
 
-h1. Further Ideas for Optimizations
+h2. Further Ideas for Optimizations
 
-h2. Resend OGMs with flags etc. of newest OGM
+h3. Resend OGMs with flags etc. of newest OGM
 
 An accepted router with the highest sequence number has the most up-to-date information about 'Flags', 'Gateway Flags' (and also TT *?), they do not have to be stored once per router, once per originator entry is enough. And any rebroadcasted OGM could update these fields from the most-up-to-date router. Might make things a little more "complex".
 
-h2. Also aggregate different packet types
+h3. Also aggregate different packet types
 
 For instance NDP + OGMs to reduce number of packets sent.
 
-h2. Positive Feedback OGM rebroadcasting
+h3. Positive Feedback OGM rebroadcasting
 
 When for any originator thes compared to the link quality used for the last rebroadcasted OGM, resend the same OGM but with the path TQ multiplied with the new, better link TQ value instead.
 
-h2. No OGMs if no hosts
+h3. No OGMs if no hosts
 
 To be able to reduce the overhead by just putting some intelligent "repeater" nodes somewhere without them sending their own OGMs 
 
-h2. OGM forwarding optimizations in asymmetric neighborhoods
+h3. OGM forwarding optimizations in asymmetric neighborhoods
 
 An asymmetric link can either mean that (a) TQ >> RQ or (b) TQ << RQ.
 For OGMs only (b) causes trouble and reduces the propagation time of an OGM
@@ -349,12 +349,12 @@ for most of its neighbors the link is asymmetric with TQ << RQ.
 
 The scenarios could be detected via NDP.
 
-h3. Extra OGM Unicasting
+h4. Extra OGM Unicasting
 
 In the Church-Tower-Scenario extra OGMs could be forwarded via unicast to the few nodes.
 (Extra OGM broadcasts would be unfair for the other neighbors)
 
-h3. Extra OGM Broadcasting
+h4. Extra OGM Broadcasting
 
 For the "Valley"-Scenario an OGM could be broadcasted more than once.
 (Extra OGM Unicasting might result in too many packets)
