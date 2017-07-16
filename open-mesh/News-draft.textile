@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2017.2 released
 
-July 26th, 2017. Today the B.A.T.M.A.N. team publishes the July 2017 update to batman-adv, batctl and alfred! This release *TODO*
+July 26th, 2017. Today the B.A.T.M.A.N. team publishes the July 2017 update to batman-adv, batctl and alfred! This release introduces various improvements in alfred's master server selection code. It will reduce the CPU load on meshes with many master servers by rating multiple servers at once instead of each server separately. batman-adv is now trying harder to avoid the special bridge loop avoidance mac addresses in its translation table. Also minor bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -55,6 +55,10 @@ coding style cleanup/refactoring
 batman-adv 2017.2
 
  * support latest kernels (3.2 - 4.13)
+ * avoid bridge loop detection mac addresses in translation tables
+ * coding style cleanups and refactoring
+ * bugs squashed:
+   - ignore invalid throughput values from wifi interfaces
 
  -- Wed, 26 Jul 2017 18:11:55 +0100
 
@@ -70,7 +74,7 @@ $ git shortlog --email --no-merges v2017.1..v2017.1-4-g5fb3a49
 bugfixes
 ========
 
-      batctl: Fix error message when tcpdump packet send failed
+      batctl: Fix error message when traceroute packet send failed
 
 cleanup
 =======
@@ -80,6 +84,10 @@ cleanup
 
 
 batctl 2017.2
+
+ * coding style cleanups and refactoring
+ * bugs squashed:
+   - Fix error messages on traceroute send failures
 
  -- Wed, 26 Jul 2017 18:11:55 +0100
 </pre>
@@ -106,6 +114,8 @@ cleanup
 
 alfred 2017.2:
 
+ * reduce cpu load when rating multiple master servers
+ * coding style cleanups and refactoring
 
  -- Wed, 26 Jul 2017 18:11:55 +0100
 </pre>
