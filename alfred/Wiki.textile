@@ -12,15 +12,8 @@ Typically, alfred runs as unix daemon in the background of the system. A user ma
 
 See the "README":https://git.open-mesh.org/alfred.git/blob_plain/refs/heads/master:/README for more information or the "manpage":https://downloads.open-mesh.org/batman/manpages/alfred.8.html for usage.
 
-h2. Getting started
-
- * [[Building information]] - how to download and build alfred
- * [[batadv-vis]] - Tool to visualize batman-adv networks
- * [[alfred-gpsd]] - Share geolocation of mesh nodes
-
-h2. Developer information
-
- * [[Alfred architecture]] - information about topologies, internal architecture and packet format
+{{include(gettingstarted)}}
+{{include(developerinformation)}}
 
 h2. Further resources
 
