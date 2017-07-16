@@ -299,7 +299,7 @@ The log is a circular ring buffer and will continue writing messages as soon as 
 h2. Visualization
 
 
-Despite its decentralized nature, userspace tools like [[alfred:alfred|alfred]] offer an easy way to access topology information that can be visualized. The [[alfred:alfred|alfred page]] covers the necessary steps in detail.
+Despite its decentralized nature, userspace tools like [[alfred:|alfred]] offer an easy way to access topology information that can be visualized. The [[alfred:|alfred page]] covers the necessary steps in detail.
 
 h2. Routing algorithm
 
