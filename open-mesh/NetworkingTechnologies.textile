@@ -1,3 +1,5 @@
+{{include(open-mesh:TemplateDeprecated)}}
+
 h1. Networking Technologies
 
 h2. Introduction.
