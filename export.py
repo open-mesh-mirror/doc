@@ -31,7 +31,7 @@ LEFT JOIN users ON wiki_content_versions.author_id = users.id
 LEFT JOIN wikis ON wiki_pages.wiki_id = wikis.id
 LEFT JOIN projects ON wikis.project_id = projects.id
 LEFT JOIN email_addresses ON users.id = email_addresses.user_id AND email_addresses.is_default
-ORDER BY wiki_content_versions.updated_on;
+ORDER BY wiki_content_versions.updated_on,wiki_content_versions.id;
 ''')
 rows = cur.fetchall()
 
@@ -72,7 +72,7 @@ LEFT JOIN wiki_pages ON attachments.container_id = wiki_pages.id
 LEFT JOIN wikis ON wiki_pages.wiki_id = wikis.id
 LEFT JOIN projects ON wikis.project_id = projects.id
 WHERE attachments.container_type = 'WikiPage'
-ORDER BY attachments.created_on;
+ORDER BY attachments.created_on,attachments.id;
 ''')
 rows = cur.fetchall()
 
