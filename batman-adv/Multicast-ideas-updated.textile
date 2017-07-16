@@ -139,7 +139,7 @@ h3. Multicast Duplicate Window
 
 h2. Protocol Procedure
 
-!Flowchart.png! 
+!Flowchart.svg! 
 
 
 h3. Multicast Listener Announcements
