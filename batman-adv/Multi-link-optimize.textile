@@ -26,7 +26,7 @@ With the network wide multi interface optimization, multi-interface node can act
 
 h2. Interface bonding
 
-When multiple paths on different interfaces with similar quality are available, batman-adv may distribute the frames to be sent over these available paths. The individual frames are sent over the paths in a round robin fashion as illustrated below. Using this technique, the throughput may be increased by the number of interfaces involved in the bonding. In practical tests over two WiFi links, we have seen more than 50%25 of throughput gain.
+When multiple paths on different interfaces with similar quality are available, batman-adv may distribute the frames to be sent over these available paths. The individual frames are sent over the paths in a round robin fashion as illustrated below. Using this technique, the throughput may be increased by the number of interfaces involved in the bonding. In practical tests over two WiFi links, we have seen more than 50% of throughput gain.
 
 !bonding_roundrobin.dia.jpg!
 
@@ -42,7 +42,7 @@ h2. Throughput gain
 
 NOTE: these are old graphs showing throughput gain from the previous bonding implementation. However the new mechanism is similar enough to keep this graph for reference until new measurements have been performed:
 
-At the [[open-mesh:2010-06-13-wbm2010-bracciano|WirelessBattleMesh v3]] we performed throughput tests to measure the gain of the various modes:
+At the news#14 we performed throughput tests to measure the gain of the various modes:
 
 !bonding_2hops.png!
 
