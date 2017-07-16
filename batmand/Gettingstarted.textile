@@ -1,0 +1,7 @@
+h2. Getting started
+
+* [[InternetTuning|InternetTuning]] - get information how B.A.T.M.A.N. handles internet access and what features it offers
+* [[VisualizeMesh|Visualizing the network]] - this document explains how to get fancy graphics of the batman mesh
+* [[AnnouncingNetworks|Announcing networks]] - learn how to announce and / or revoke HNA on the fly
+* "B.A.T.M.A.N. online man page":https://downloads.open-mesh.org/batman/manpages/batmand.8.html - read the current batman man page online
+* [[Faq|Frequently Asked Questions]] - list of questions and answers of batmand.
