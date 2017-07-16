@@ -1,0 +1,3 @@
+h2. Developer information
+
+ * [[Alfred architecture]] - information about topologies, internal architecture and packet format
