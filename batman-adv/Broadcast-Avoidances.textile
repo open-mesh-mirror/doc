@@ -174,16 +174,16 @@ h4. Further readings:
 
  * [[Broadcast-Avoidances-NHH-Assessment|Broadcast Avoidances - Neighborhood Hash Assessment]]
 
-h1. Appendix
+h2. Appendix
 
-h2. Limitations
+h3. Limitations
 
  * Many avoidance possibilities undetected in wireless scenarios (see "Future improvements" below or assessment page)
  * In wired cases with a mix of 100MBit/s and 1000MBit/s interfaces: Only avoids broadcast packet rebroadcasts, not OGM2 rebroadcasts
 
-h2. Future Improvements
+h3. Future Improvements
 
-h3. Broadcast Avoidance: Neighborhood Table
+h4. Broadcast Avoidance: Neighborhood Table
 
 For smaller neighborhoods an approach with a higher, computational overhead might be feasible: The neighborhood hash rules are very broad, incapable of detecting many common wireless topologies where rebroadcasts could be avoided.
 
