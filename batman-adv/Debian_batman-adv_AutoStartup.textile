@@ -74,8 +74,8 @@ For automatic IPv6 we would use the following:
 <pre>
 auto bat0
 iface bat0 inet6 auto
-	pre-up /usr/sbin/batctl if add dev eth0
-	pre-up /usr/sbin/batctl if add dev wlan0
+	pre-up /usr/sbin/batctl if add eth0
+	pre-up /usr/sbin/batctl if add wlan0
 </pre>
 
 For manual IPv4 we would use the following:
