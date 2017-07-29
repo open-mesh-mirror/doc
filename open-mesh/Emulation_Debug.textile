@@ -6,12 +6,12 @@ Download the fstab and rc.local file attached to this wiki page into your direct
 
 <pre>
 qemu-img create debian.img 8G
-sudo mkfs.ext2 -F debian.img
+sudo mkfs.ext4 -O '^has_journal' -F debian.img
 sudo mkdir debian
 sudo mount -o loop debian.img debian
-sudo debootstrap jessie debian
-sudo chroot debian apt-get update
-sudo chroot debian apt-get install build-essential vim openssh-server \
+sudo debootstrap stretch debian
+sudo chroot debian apt update
+sudo chroot debian apt install build-essential vim openssh-server \
  pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev
 sudo mkdir debian/root/.ssh/
 ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
@@ -22,8 +22,8 @@ sudo chmod a+x debian/etc/rc.local
 sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
 
 ## optionally: allow ssh logins without passwords
-# sudo sed -i 's/^PermitRootLogin.*/PermitRootLogin yes/' debian/etc/ssh/sshd_config
-# sudo sed -i 's/^PermitEmptyPasswords.*/PermitEmptyPasswords yes/' debian/etc/ssh/sshd_config
+# sudo sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' debian/etc/ssh/sshd_config
+# sudo sed -i 's/^#PermitEmptyPasswords.*/PermitEmptyPasswords yes/' debian/etc/ssh/sshd_config
 # sudo sed -i 's/^UsePAM.*/UsePAM no/' debian/etc/ssh/sshd_config
 
 ## optionally: enable autologin for user root
