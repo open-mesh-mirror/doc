@@ -266,6 +266,8 @@ First the linux-merge build environment has to be prepared
 <pre>
 make allnoconfig
 cat >> .config << EOF
+CONFIG_64BIT=y
+CONFIG_X86_64=y
 CONFIG_SMP=y
 CONFIG_EMBEDDED=n
 CONFIG_EXPERT=n
@@ -346,8 +348,6 @@ Then the rebuild has to be done between batadv/net-next and base/net-next (or be
 git checkout batadv/net-next
 git rebase -i base/net-next -x 'make C=1'
 </pre>
-
-
 
 h2. check if all patches are in linux-merge
 
