@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2017.3 released
 
-Sep 19th, 2017. Today the B.A.T.M.A.N. team publishes the September 2017 update to batman-adv, batctl and alfred! TODO
+Sep 19th, 2017. Today the B.A.T.M.A.N. team publishes the September 2017 update to batman-adv, batctl and alfred! A long standing problem in batman-adv was fixed that could lead to an excessive number of TT management packets when devices disagree about the enabled flags of a device in the translation table. The memory usage of alfred was reduced slightly when it is used with <code>--update-command</code> and receives a lot of updates. Also minor bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -39,9 +39,9 @@ coding style cleanup/refactoring
 batman-adv 2017.3
 
  * support latest kernels (3.2 - 4.14)
- * TODO: batman-adv: fix TT sync flag inconsistencies
  * coding style cleanups and refactoring
  * bugs squashed:
+   - fix TT sync flag inconsistencies
    - ignore invalid throughput values from wifi interfaces
 
  -- Tue, 19 Sep 2017 18:11:55 +0100
