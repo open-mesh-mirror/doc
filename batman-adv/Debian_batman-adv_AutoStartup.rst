@@ -95,8 +95,8 @@ For automatic IPv6 we would use the following:
 
     auto bat0
     iface bat0 inet6 auto
-        pre-up /usr/sbin/batctl if add dev eth0
-        pre-up /usr/sbin/batctl if add dev wlan0
+        pre-up /usr/sbin/batctl if add eth0
+        pre-up /usr/sbin/batctl if add wlan0
 
 For manual IPv4 we would use the following:
 
@@ -107,8 +107,8 @@ For manual IPv4 we would use the following:
         address 192.168.123.3
         netmask 255.255.255.0
         gateway 192.168.123.1
-        pre-up /usr/sbin/batctl if add dev eth0
-        pre-up /usr/sbin/batctl if add dev wlan0
+        pre-up /usr/sbin/batctl if add eth0
+        pre-up /usr/sbin/batctl if add wlan0
 
 If you have both IPv6 and IPv4 on your mesh then you can combine them,
 it doesn't matter which order you put them in, just put the two pre-up
@@ -118,8 +118,8 @@ lines in the first iface stanza.
 
     auto bat0
     iface bat0 inet6 auto
-        pre-up /usr/sbin/batctl if add dev eth0
-        pre-up /usr/sbin/batctl if add dev wlan0
+        pre-up /usr/sbin/batctl if add eth0
+        pre-up /usr/sbin/batctl if add wlan0
     iface bat0 inet auto
         address 192.168.123.3
         netmask 255.255.255.0
@@ -162,9 +162,9 @@ then configure your batman-adv interfaces
 
     auto bat0
     iface bat0 inet6 auto
-        pre-up /usr/sbin/batctl -m bat0 if add dev wlan0
+        pre-up /usr/sbin/batctl -m bat0 if add wlan0
 
     auto bat1
     iface bat1 inet6 auto
-        pre-up /usr/sbin/batctl -m bat1 if add dev wlan1
+        pre-up /usr/sbin/batctl -m bat1 if add wlan1
 
