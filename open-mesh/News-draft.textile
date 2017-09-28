@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2017.3 released
 
-Sep 19th, 2017. Today the B.A.T.M.A.N. team publishes the September 2017 update to batman-adv, batctl and alfred! A long standing problem in batman-adv was fixed that could lead to an excessive number of TT management packets when devices disagree about the enabled flags of a device in the translation table. The memory usage of alfred was reduced slightly when it is used with <code>--update-command</code> and receives a lot of updates. Also minor bugfixes and code cleanups are included in this version.
+Sep 28th, 2017. Today the B.A.T.M.A.N. team publishes the September 2017 update to batman-adv, batctl and alfred! A long standing problem in batman-adv was fixed that could lead to an excessive number of TT management packets when devices disagree about the enabled flags of a device in the translation table. The memory usage of alfred was reduced slightly when it is used with <code>--update-command</code> and receives a lot of updates. Also minor bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -17,77 +17,20 @@ Thanks to all people sending in patches:
 
 h2. batman-adv
 
-<pre>
-$ git describe origin/master
-v2017.2-6-ge43855ab
-$ git shortlog --email --no-merges v2017.2..v2017.2-6-ge43855ab
-
-bugfixes
-========
-
-      batman-adv: fix TT sync flag inconsistencies
-
-
-coding style cleanup/refactoring
-================================
-
-      batman-adv: Remove too short %pM printk field width
-      batman-adv: Convert batman-adv.txt to reStructuredText
-      batman-adv: fix various spelling mistakes
-
-
-batman-adv 2017.3
-
- * support latest kernels (3.2 - 4.14)
- * coding style cleanups and refactoring
- * bugs squashed:
-   - fix TT sync flag inconsistencies
-   - ignore invalid throughput values from wifi interfaces
-
- -- Tue, 19 Sep 2017 18:11:55 +0100
-
-</pre>
+* support latest kernels (3.2 - 4.14)
+* coding style cleanups and refactoring
+* bugs squashed:
+** fix TT sync flag inconsistencies
+** ignore invalid throughput values from wifi interfaces
 
 h2. batctl
 
-<pre>
-$ git describe origin/master
-v2017.2-2-g5e8a144
-$ git shortlog --email --no-merges v2017.2..v2017.2-2-g5e8a144
-
-bugfixes
-========
-
-      batctl: Fix error message when traceroute packet send failed
-
-batctl 2017.3
-
- * bugs squashed:
-   - Fix error messages on traceroute send failures
-
- -- Tue, 19 Sep 2017 18:11:55 +0100
-</pre>
+* bugs squashed:
+** Fix error messages on traceroute send failures
 
 h2. alfred
 
-<pre>
-$ git describe origin/master
-v2017.2-3-g27330db
-$ git shortlog --email --no-merges v2017.2..v2017.2-3-g27330db
-
-cleanup
-=======
-
-      alfred: Use constant to define data type range
-      alfred: Use bitmap to store dataset change events
-
-alfred 2017.3:
-
- * reduction of memory usage when using --update-command
-
- -- Tue, 19 Sep 2017 18:11:55 +0100
-</pre>
-
+* reduction of memory usage when using --update-command
 
 Happy routing,
 
