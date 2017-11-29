@@ -1,36 +1,114 @@
-h1. DRAFT: Batman-adv 2017.3 released
+h1. DRAFT: Batman-adv 2017.4 released
 
-Sep 28th, 2017. Today the B.A.T.M.A.N. team publishes the September 2017 update to batman-adv, batctl and alfred! A long standing problem in batman-adv was fixed that could lead to an excessive number of TT management packets when devices disagree about the enabled flags of a device in the translation table. The memory usage of alfred was reduced slightly when it is used with <code>--update-command</code> and receives a lot of updates. Also minor bugfixes and code cleanups are included in this version.
+Dec 05th, 2017. Today the B.A.T.M.A.N. team publishes the December 2017 update to batman-adv, batctl and alfred! TODO
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2017.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2017.4/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Colin Ian King <colin.king@canonical.com>
-* Linus Lüssing <linus.luessing@c0d3.blue>
-* Simon Wunderlich <sw@simonwunderlich.de>
+* David Ahern <dsahern@gmail.com>
+* Gao Feng <gfree.wind@vip.163.com>
+* Simon Wunderlich <sw@simonwunderlich.de
 * Sven Eckelmann <sven@narfation.org>
 
 h2. batman-adv
 
-* support latest kernels (3.2 - 4.14)
-* coding style cleanups and refactoring
-* bugs squashed:
-** fix TT sync flag inconsistencies
-** ignore invalid throughput values from wifi interfaces
+<pre>
+$ git describe origin/master
+v2017.3-11-gdcad23d0
+$ git shortlog --email --no-merges v2017.3..v2017.3-11-gdcad23d0
+
+
+bugfixes
+========
+
+      batman-adv: Avoid spurious warnings from bat_v neigh_cmp implementation
+
+coding style cleanup/refactoring
+================================
+
+      batman-adv: Add extack to ndo_add_slave
+      batman-adv: Add extack to upper device linking
+      batman-adv: Remove useless function skb_header_release
+      batman-adv: Remove unnecessary parentheses
+      batman-adv: Fix "line over 80 characters" checkpatch warning
+      batman-adv: Add argument names for function ptr definitions
+      batman-adv: Add missing kerneldoc for extack
+      batman-adv: Remove unused header bug.h in bat_v.c
+      batman-adv: use inline kernel-doc for uapi constants
+
+
+batman-adv 2017.4
+
+ * support latest kernels (3.2 - 4.15)
+ * coding style cleanups and refactoring
+ * bugs squashed:
+   - avoid spurious warnings from bat_v neigh_cmp implementation
+
+ -- Tue, 05 Dec 2017 18:11:55 +0100
+
+</pre>
 
 h2. batctl
 
-* bugs squashed:
-** Fix error messages on traceroute send failures
+<pre>
+$ git describe origin/master
+v2017.3-2-g6116097
+$ git shortlog --email --no-merges v2017.3..v2017.3-2-g6116097
+
+
+bugfixes
+========
+
+coding style cleanup/refactoring
+================================
+
+      batctl: use inline kernel-doc for uapi constants
+
+batctl 2017.4
+
+ * synchronization of batman-adv netlink header
+
+ -- Tue, 05 Dec 2017 18:11:55 +0100
+</pre>
 
 h2. alfred
 
-* reduction of memory usage when using --update-command
+<pre>
+$ git describe origin/master
+v2017.3-6-gd4cd6f3
+$ git shortlog --email --no-merges v2017.3..v2017.3-6-gd4cd6f3
+
+
+bugs
+====
+
+      alfred: Only query debugfs when netlink failed
+
+
+coding style cleanup/refactoring
+================================
+
+      alfred: use inline kernel-doc for uapi constants
+
+      alfred: Only check for minimal length of fixed size packets
+      alfred: Remove announce length validation
+      alfred: Keep length unsigned when processing packets
+
+alfred 2017.4
+
+ * synchronization of batman-adv netlink header
+ * coding style cleanups and refactoring
+ * bugs squashed:
+   - only query debugfs when netlink failed
+
+ -- Tue, 05 Dec 2017 18:11:55 +0100
+</pre>
+
 
 Happy routing,
 
