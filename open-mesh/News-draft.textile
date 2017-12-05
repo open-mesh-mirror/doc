@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2017.4 released
 
-Dec 05th, 2017. Today the B.A.T.M.A.N. team publishes the December 2017 update to batman-adv, batctl and alfred! TODO
+Dec 05th, 2017. Today the B.A.T.M.A.N. team publishes the December 2017 update to batman-adv, batctl and alfred! This release contains mostly bugfixes, code cleanups and documentation updates.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -19,14 +19,24 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2017.3-11-gdcad23d0
-$ git shortlog --email --no-merges v2017.3..v2017.3-11-gdcad23d0
+v2017.3-20-g9a3b195
+$ git shortlog --email --no-merges v2017.3..v2017.3-20-g9a3b195
+
+
+
+new kernel support
+==================
+
+      batman-adv: setup_timer() -> timer_setup()
 
 
 bugfixes
 ========
 
       batman-adv: Avoid spurious warnings from bat_v neigh_cmp implementation
+      batman-adv: Always initialize fragment header priority
+      batman-adv: Fix check of retrieved orig_gw in batadv_v_gw_is_eligible
+      batman-adv: Fix lock for ogm cnt access in batadv_iv_ogm_calc_tq
 
 coding style cleanup/refactoring
 ================================
@@ -37,10 +47,15 @@ coding style cleanup/refactoring
       batman-adv: Remove unnecessary parentheses
       batman-adv: Fix "line over 80 characters" checkpatch warning
       batman-adv: Add argument names for function ptr definitions
-      batman-adv: Add missing kerneldoc for extack
       batman-adv: Remove unused header bug.h in bat_v.c
-      batman-adv: use inline kernel-doc for uapi constants
 
+documentation updates
+=====================
+
+      batman-adv: use inline kernel-doc for uapi constants
+      batman-adv: Add .rst to README symlink
+      batman-adv: Convert CHANGELOG to reStructuredText
+      batman-adv: Convert README to reStructuredText
 
 
 
@@ -50,9 +65,13 @@ coding style cleanup/refactoring
 
 * support latest kernels (3.2 - 4.15)
 * coding style cleanups and refactoring
+* documentation cleanup
 * bugs squashed:
 
   - avoid spurious warnings from bat_v neigh_cmp implementation
+  - fix check of gateway availability in B.A.T.M.A.N. V
+  - fix locking for bidirectional TQ check counters
+  - remove leak of stack bits in fragmentation header priority
 
 
 </pre>
@@ -61,51 +80,38 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2017.3-2-g6116097
-$ git shortlog --email --no-merges v2017.3..v2017.3-2-g6116097
+v2017.3-15-g2ea390c
+$ git shortlog --email --no-merges v2017.3..v2017.3-15-g2ea390c
+
+
+Sven Eckelmann (13):
 
 
 bugfixes
 ========
 
+      batctl: Handle failure during hash_iterator allocation
+      batctl: Handle allocation error for path_buff
+      batctl: Handle allocation error in vlan_get_link_parse
+      batctl: Print dummy value when localtime failed
+      batctl: Handle nlmsg_alloc errors
+      batctl: Handle nl_socket_alloc errors
+      batctl: Handle nl_cb_alloc errors
+      batctl: Free nl_sock on genl_ctrl_resolve error
+      batctl: Free nl_sock when if_nametoindex failed
+
 coding style cleanup/refactoring
 ================================
 
       batctl: use inline kernel-doc for uapi constants
+      batctl: tcpdump: Fix types for for TT v1
+      batctl: Simplify concatenation of pathnames
 
+documentation updates
+=====================
 
-
-
-
-2017.4 (2017-12-05)
-===================
-
-* synchronization of batman-adv netlink header
-
-</pre>
-
-h2. alfred
-
-<pre>
-$ git describe origin/master
-v2017.3-6-gd4cd6f3
-$ git shortlog --email --no-merges v2017.3..v2017.3-6-gd4cd6f3
-
-
-bugs
-====
-
-      alfred: Only query debugfs when netlink failed
-
-
-coding style cleanup/refactoring
-================================
-
-      alfred: use inline kernel-doc for uapi constants
-
-      alfred: Only check for minimal length of fixed size packets
-      alfred: Remove announce length validation
-      alfred: Keep length unsigned when processing packets
+      batctl: Convert CHANGELOG to reStructuredText
+      batctl: Convert README to reStructuredText
 
 
 
@@ -116,9 +122,56 @@ coding style cleanup/refactoring
 
 * synchronization of batman-adv netlink header
 * coding style cleanups and refactoring
+* documentation cleanup
+* bugs squashed:
+
+  - improve error handling for libnl related errors
+  - add checks for various allocation errors
+</pre>
+
+h2. alfred
+
+<pre>
+$ git describe origin/master
+v2017.3-9-g6be59ad
+$ git shortlog --email --no-merges v2017.3..v2017.3-9-g6be59ad
+
+
+bugs
+====
+
+      alfred: Only query debugfs when netlink failed
+      alfred: Handle failure during hash iterator allocation
+
+
+coding style cleanup/refactoring
+================================
+
+      alfred: Only check for minimal length of fixed size packets
+      alfred: Remove announce length validation
+      alfred: Keep length unsigned when processing packets
+
+documentation updates
+=====================
+
+      alfred: use inline kernel-doc for uapi constants
+      alfred: Convert CHANGELOG to reStructuredText
+      alfred: Convert README to reStructuredText
+
+
+
+
+
+2017.4 (2017-12-05)
+===================
+
+* synchronization of batman-adv netlink header
+* coding style cleanups and refactoring
+* documentation cleanup
 * bugs squashed:
 
   - only query debugfs when netlink failed
+  - handle allocation errors in hashtable iterator
 </pre>
 
 
