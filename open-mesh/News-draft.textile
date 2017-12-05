@@ -12,6 +12,7 @@ Thanks to all people sending in patches:
 
 * David Ahern <dsahern@gmail.com>
 * Gao Feng <gfree.wind@vip.163.com>
+* Kees Cook <keescook@chromium.org>
 * Simon Wunderlich <sw@simonwunderlich.de
 * Sven Eckelmann <sven@narfation.org>
 
