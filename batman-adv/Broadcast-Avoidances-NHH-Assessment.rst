@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 Broadcast Avoidances - Neighborhood Hash Assessment
 ===================================================
 

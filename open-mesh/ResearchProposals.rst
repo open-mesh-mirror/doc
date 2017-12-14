@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 Research Proposals on B.A.T.M.A.N.-Advanced
 ===========================================
 

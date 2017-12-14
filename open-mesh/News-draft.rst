@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 DRAFT: Batman-adv 2017.2 released
 =================================
 

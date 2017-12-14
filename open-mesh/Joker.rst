@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 T H E J O K E R - B.A.T.M.A.N.'s arch nemesis
 =============================================
 

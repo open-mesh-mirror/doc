@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 Network Wide Multi Link Optimization (technical documentation)
 ==============================================================
 

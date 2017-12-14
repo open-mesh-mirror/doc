@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 Building B.A.T.M.A.N. Advanced with Openwrt
 ===========================================
 

@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 Wireless Battle Mesh v4 - Developer Meeting Agenda
 ==================================================
 

@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 Google Summer of Code 2011 - Ideas
 ==================================
 

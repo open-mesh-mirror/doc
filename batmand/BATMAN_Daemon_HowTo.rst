@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 ==============================
 B.A.T.M.A.N. - Layer 3 Meshing
 ==============================

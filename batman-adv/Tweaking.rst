@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 Tweaking B.A.T.M.A.N. Advanced
 ==============================
 

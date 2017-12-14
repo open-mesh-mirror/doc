@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: GPL-2.0
+
 --------------
 
 Update (2011-10-18):
