@@ -1,5 +1,6 @@
 h2. Getting started
 
+* [[B.A.T.M.A.N. Daemon HowTo]] - B.A.T.M.A.N. Layer 3 meshing guide
 * [[InternetTuning|InternetTuning]] - get information how B.A.T.M.A.N. handles internet access and what features it offers
 * [[VisualizeMesh|Visualizing the network]] - this document explains how to get fancy graphics of the batman mesh
 * [[AnnouncingNetworks|Announcing networks]] - learn how to announce and / or revoke HNA on the fly
