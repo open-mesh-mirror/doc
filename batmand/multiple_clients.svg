@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="17cm" height="12cm" viewBox="53 43 324 225" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="114.25" y="68.25">
+      <tspan x="114.25" y="68.25">B.A.T.M.A.N.</tspan>
+    </text>
+    <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 1; stroke: #000000" x="54" y="72" width="120.5" height="175.5" rx="0" ry="0"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 1; stroke: #000000" cx="174.248" cy="156" rx="18" ry="50.5"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 1; stroke: #000000" cx="305.848" cy="68.875" rx="70.75" ry="24.5"/>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="305.848" y="74.425">
+      <tspan x="305.848" y="74.425">Client 1</tspan>
+    </text>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 1; stroke: #000000" cx="305.848" cy="155.95" rx="70.75" ry="24.5"/>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="305.848" y="161.5">
+      <tspan x="305.848" y="161.5">Client 2</tspan>
+    </text>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 1; stroke: #000000" cx="305.848" cy="242.9" rx="70.75" ry="24.5"/>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="305.848" y="248.45">
+      <tspan x="305.848" y="248.45">Client 3</tspan>
+    </text>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 1; stroke: #000000" x1="272.627" y1="220.963" x2="199.376" y2="172.593"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 1; stroke: #000000" fill-rule="evenodd" points="193.117,168.46 204.217,169.798 199.376,172.593 198.707,178.143 "/>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 1; stroke: #000000" x1="234.618" y1="155.977" x2="200.344" y2="155.99"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 1; stroke: #000000" fill-rule="evenodd" points="192.844,155.993 202.842,150.989 200.344,155.99 202.846,160.989 "/>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 1; stroke: #000000" x1="272.659" y1="90.8477" x2="199.37" y2="139.368"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 1; stroke: #000000" fill-rule="evenodd" points="193.116,143.508 198.694,133.819 199.37,139.368 204.215,142.157 "/>
+    </g>
+  </g>
+</svg>

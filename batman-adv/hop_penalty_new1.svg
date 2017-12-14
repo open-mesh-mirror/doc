@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="27cm" height="18cm" viewBox="19 -263 532 342" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="340" y="-80">
+      <tspan x="340" y="-80">Originator = A,</tspan>
+      <tspan x="340" y="-64">TQ = 100 %</tspan>
+    </text>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="65.742" cy="25.742" rx="45.742" ry="45.742"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="42.3576" y="51.6864">
+      <tspan x="42.3576" y="51.6864">A</tspan>
+    </text>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="446.563" cy="26.5631" rx="46.5631" ry="46.5631"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="424.084" y="53.323">
+      <tspan x="424.084" y="53.323">B</tspan>
+    </text>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="246.563" cy="-213.437" rx="46.5631" ry="46.5631"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="220" y="-188.3">
+      <tspan x="220" y="-188.3">C</tspan>
+    </text>
+    <ellipse style="fill: #e5e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="250" cy="-50" rx="90" ry="90"/>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="250" y="-44.45">
+      <tspan x="250" y="-44.45">Switch</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 112.481,25.8396 A 405.97,405.97 0 0 1 388.658,22.6958"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="386.933,27.2296 398.056,26.104 390.482,17.8806 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 400,-7.10543e-14 A 250.449,250.449 0 0 1 249.768,-156.359"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="254.352,-157.636 246.834,-165.911 244.725,-154.932 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 93.9415,-11.5503 A 143.593,143.593 0 0 0 219.147,-164.563"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="224.511,-165.341 218.072,-174.482 214.623,-163.847 "/>
+    </g>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="200" y="60">
+      <tspan x="200" y="60">Originator = A,</tspan>
+      <tspan x="200" y="76">TQ = 100 %</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="80" y="-100">
+      <tspan x="80" y="-100">Originator = A,</tspan>
+      <tspan x="80" y="-84">TQ = 100 %</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="-240">
+      <tspan x="320" y="-240">Route to A via A, TQ = 100%</tspan>
+      <tspan x="320" y="-220">Route to A via B, TQ = 100%</tspan>
+    </text>
+  </g>
+</svg>

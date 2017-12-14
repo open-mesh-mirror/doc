@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="16cm" height="7cm" viewBox="1 -32 302 132" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="48.52" cy="48.58" rx="45.742" ry="45.742"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="25.1356" y="74.5244">
+      <tspan x="25.1356" y="74.5244">A</tspan>
+    </text>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="255.859" cy="52.48" rx="46.5631" ry="46.5631"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="233.38" y="79.24">
+      <tspan x="233.38" y="79.24">B</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 84.9336 19.2715 C 125.934,-13.7285 175.254,-15.3736 212.032,15.5857"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="217.77,20.4157 206.899,17.8009 212.032,15.5857 213.339,10.1506 "/>
+    </g>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="91.6412" y="-16.6835">
+      <tspan x="91.6412" y="-16.6835">Transmit Quality (TQ)</tspan>
+    </text>
+  </g>
+</svg>

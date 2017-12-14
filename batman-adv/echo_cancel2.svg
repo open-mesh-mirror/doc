@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="37cm" height="17cm" viewBox="1 -95 722 339" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="51.48" cy="51.48" rx="48.52" ry="48.52"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="25.1356" y="74.5244">
+      <tspan x="25.1356" y="74.5244">A</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 90.048 20.4375 C 131.048,-12.5625 186.418,-20.5929 223.196,10.3664"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="228.934,15.1964 218.063,12.5815 223.196,10.3664 224.503,4.93124 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 230.676 80.4507 C 182.676,120.951 160,120 155.777,117.889"/>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke: none" cx="128.944" cy="104.472" rx="10" ry="10"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke: none" fill-rule="evenodd" points="160.249,108.944 137.889,108.944 151.305,126.833 "/>
+    </g>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="-80">
+      <tspan x="140" y="-80">step1:</tspan>
+      <tspan x="140" y="-60">source = A</tspan>
+      <tspan x="140" y="-40">previous sender = A</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 304.556 14.5561 C 356.036,-33.9639 426.411,-20.5995 463.188,10.3598"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="468.926,15.1898 458.056,12.575 463.188,10.3598 464.496,4.92471 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 474.551 84.5611 C 426.031,136.041 360,120 368.284,128.284"/>
+      <ellipse style="fill: #000000; fill-opacity: 1; stroke: none" cx="347.071" cy="107.071" rx="10" ry="10"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke: none" fill-rule="evenodd" points="375.355,121.213 354.142,114.142 361.213,135.355 "/>
+    </g>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="360" y="-80">
+      <tspan x="360" y="-80">step 2:</tspan>
+      <tspan x="360" y="-60">source = B</tspan>
+      <tspan x="360" y="-40">previous sender = A</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="140">
+      <tspan x="140" y="140">step 2:</tspan>
+      <tspan x="140" y="160">source = B</tspan>
+      <tspan x="140" y="180">previous sender = A</tspan>
+      <tspan x="140" y="200"></tspan>
+      <tspan x="140" y="220">A will not rebroadcast</tspan>
+      <tspan x="140" y="240">this packet</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="380" y="140">
+      <tspan x="380" y="140">step 3:</tspan>
+      <tspan x="380" y="160">source = C</tspan>
+      <tspan x="380" y="180">previous sender = B</tspan>
+      <tspan x="380" y="200"></tspan>
+      <tspan x="380" y="220">B will not rebroadcast</tspan>
+      <tspan x="380" y="240">this packet</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="560" y="-80">
+      <tspan x="560" y="-80">step 3:</tspan>
+      <tspan x="560" y="-60">source = C</tspan>
+      <tspan x="560" y="-40">previous sender = B</tspan>
+    </text>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="508.52" cy="48.52" rx="48.52" ry="48.52"/>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="268.52" cy="48.52" rx="48.52" ry="48.52"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="480" y="80">
+      <tspan x="480" y="80">C</tspan>
+    </text>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="240" y="80">
+      <tspan x="240" y="80">B</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 544.428 14.6766 C 595.908,-33.8434 660,-20 693.116,13.1156"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="698.419,18.4189 687.812,14.8833 693.116,13.1156 694.883,7.81226 "/>
+    </g>
+  </g>
+</svg>

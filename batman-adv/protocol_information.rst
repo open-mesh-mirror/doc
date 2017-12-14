@@ -13,6 +13,7 @@ Contents:
    TT-Flags
    Packet-types
    Compatversion
+   BATMAN_IV
    BATMAN_V
    Bridge-loop-avoidance-II
    DistributedArpTable-technical

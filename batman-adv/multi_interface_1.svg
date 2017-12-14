@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="20cm" height="8cm" viewBox="1 -24 389 143" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="48.52" cy="48.58" rx="45.742" ry="45.742"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="25.1356" y="74.5244">
+      <tspan x="25.1356" y="74.5244">A</tspan>
+    </text>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="342.479" cy="53.24" rx="46.5631" ry="46.5631"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="80">
+      <tspan x="320" y="80">B</tspan>
+    </text>
+    <rect style="fill: #e5e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="280" y="10" width="40" height="20" rx="0" ry="0"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="300" y="24.45">
+      <tspan x="300" y="24.45">wlan0</tspan>
+    </text>
+    <rect style="fill: #00ff00; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="80" y="10" width="40" height="20" rx="2.35099e-37" ry="2.35099e-37"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="100" y="24.45">
+      <tspan x="100" y="24.45">wlan0</tspan>
+    </text>
+    <rect style="fill: #e5e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="280" y="70" width="40" height="20" rx="0" ry="0"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="300" y="84.45">
+      <tspan x="300" y="84.45">wlan2</tspan>
+    </text>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="120" y1="20" x2="269" y2="20"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="269,25 279,20 269,15 "/>
+    </g>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="20" y="120">
+      <tspan x="20" y="120"></tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="120" y="-12">
+      <tspan x="120" y="-12">originator = A/wlan0</tspan>
+      <tspan x="120" y="4">outgoing interface = wlan0</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="120" y="100">
+      <tspan x="120" y="100">originator = A/wlan0</tspan>
+      <tspan x="120" y="116">outgoing interface = wlan1</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 100 30 C 101,82 98,83 269.001,80.1813"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="269.084,85.1806 279,80.0165 268.919,75.182 "/>
+    </g>
+    <rect style="fill: #e5e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="80" y="70" width="40" height="20" rx="0" ry="0"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="100" y="84.45">
+      <tspan x="100" y="84.45">wlan1</tspan>
+    </text>
+    <text font-size="32" style="fill: #ff0000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:700" x="240" y="90">
+      <tspan x="240" y="90">X</tspan>
+    </text>
+  </g>
+</svg>
