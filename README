@@ -2,33 +2,12 @@ Requirements
 ============
 
  * GNU make - https://www.gnu.org/software/make/
- * xmlto - https://fedorahosted.org/xmlto/
- * docbook-xml (>= 4.5) - https://www.oasis-open.org/docbook/xml/
- * docbook-xsl - http://wiki.docbook.org/DocBookXslStylesheets
- * fop - https://xmlgraphics.apache.org/fop/
- * ghostscript - http://www.ghostscript.com/
- * coreutils - https://www.gnu.org/software/coreutils/coreutils.html
- * gnuplot - http://gnuplot.sourceforge.net/
- * dia - https://wiki.gnome.org/action/show/Apps/Dia
- * texlive-latex-base - https://www.tug.org/texlive/
- * texlive-base - https://www.tug.org/texlive/
- * ps2eps - https://www.tm.uka.de/~bless/ps2eps
- * imagemagick - http://www.imagemagick.org/
+ * Sphinx - http://www.sphinx-doc.org/
+ * Sphinx RTD theme - https://github.com/rtfd/sphinx_rtd_theme
 
 
 Supported build targets
 =======================
 
- $ make batman_doc
-build complete documentation with all chapters (default when running `make`)
-
- $ make batman_iv_only_doc
-build only chapter about B.A.T.M.A.N. algorithm
-
-
-Troubleshooting
-===============
- * "libjli.so: cannot open shared object file: No such file or directory"
-   Make sure that /proc is mounted and `/bin/ls -l /proc/self/exe` prints
-   [...] /proc/self/exe -> /bin/ls
-   See https://bugs.debian.org/435293 for more informations
+ $ make html
+build complete documentation with all chapters

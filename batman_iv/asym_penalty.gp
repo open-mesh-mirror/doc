@@ -6,8 +6,8 @@ set xrange [100:0]
 set yrange [0:100]
 set grid
 
-set terminal png
-set output "asym_penalty.png"
+set terminal svg
+set output "asym_penalty.svg"
 
 plot (1 - (1-x/100) ** 3)*100 title "rebroadcasted TQ value"
 

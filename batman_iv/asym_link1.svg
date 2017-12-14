@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="16cm" height="12cm" viewBox="1 -33 302 226" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="48.52" cy="48.58" rx="45.742" ry="45.742"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="25.1356" y="74.5244">
+      <tspan x="25.1356" y="74.5244">A</tspan>
+    </text>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="255.859" cy="52.48" rx="46.5631" ry="46.5631"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="233.38" y="79.24">
+      <tspan x="233.38" y="79.24">B</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 84.9336 19.2715 C 125.934,-13.7285 175.254,-15.3736 212.032,15.5857"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="217.77,20.4157 206.899,17.8009 212.032,15.5857 213.339,10.1506 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 219.515 83.1458 C 171.515,123.646 131.117,118.875 91.5313,85.1853"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="85.8197,80.3244 96.6757,82.9979 91.5313,85.1853 90.1945,90.6133 "/>
+    </g>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="131.641" y="-17.6835">
+      <tspan x="131.641" y="-17.6835">95%</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="139.985" y="135.705">
+      <tspan x="139.985" y="135.705">10%</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="7.122" y="149.6">
+      <tspan x="7.122" y="149.6">TQ to B is 95%,</tspan>
+      <tspan x="7.122" y="169.6">but it's unlikely that ACKs will</tspan>
+      <tspan x="7.122" y="189.6">be received. </tspan>
+    </text>
+  </g>
+</svg>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<section>
-  <title>Reference Links</title>
-  <itemizedlist>
-    <listitem><ulink url="https://www.open-mesh.org/" /></listitem>
-    <listitem><ulink url="http://www.olsr.org/" /></listitem>
-  </itemizedlist>
-</section>

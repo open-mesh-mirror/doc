@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="35cm" height="16cm" viewBox="-9 -59 687 311" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="48.52" cy="48.58" rx="45.742" ry="45.742"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="25.1356" y="74.5244">
+      <tspan x="25.1356" y="74.5244">A</tspan>
+    </text>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="255.859" cy="52.48" rx="46.5631" ry="46.5631"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="233.38" y="79.24">
+      <tspan x="233.38" y="79.24">B</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 84.9336 19.2715 C 125.934,-13.7285 175.254,-15.3736 212.032,15.5857"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="217.77,20.4157 206.899,17.8009 212.032,15.5857 213.339,10.1506 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 0.8; stroke: #0000ff" d="M 219.515 83.1458 C 171.515,123.646 131.117,118.875 90.5095,84.3158"/>
+      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 0.8; stroke: #0000ff" fill-rule="evenodd" points="84.798,79.4549 95.654,82.1284 90.5095,84.3158 89.1728,89.7438 "/>
+    </g>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="110.641" y="-43.6836">
+      <tspan x="110.641" y="-43.6836">incoming packet:  </tspan>
+      <tspan x="110.641" y="-23.6836">TQ =100%</tspan>
+    </text>
+    <text font-size="16" style="fill: #0000ff; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="102.985" y="134.705">
+      <tspan x="102.985" y="134.705">local TQ to A:</tspan>
+      <tspan x="102.985" y="154.705">80%</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="200.76" y="188.44">
+      <tspan x="200.76" y="188.44">apply local TQ</tspan>
+      <tspan x="200.76" y="208.44">and rebroadcast:</tspan>
+      <tspan x="200.76" y="228.44">TQ = 80% * 100% </tspan>
+      <tspan xml:space="preserve" x="200.76" y="248.44">     = 80%</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="-8.878" y="193.6">
+      <tspan x="-8.878" y="193.6">broadcast own</tspan>
+      <tspan x="-8.878" y="213.6">OGM with</tspan>
+      <tspan x="-8.878" y="233.6">TQ = 100%</tspan>
+    </text>
+    <ellipse style="fill: #d8e5e5; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="450.042" cy="50.542" rx="45.742" ry="45.742"/>
+    <text font-size="80" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="422.3" y="74.5">
+      <tspan x="422.3" y="74.5">C</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 289.879 19.2375 C 324.141,-14.2425 370.09,-16.7613 406.868,14.198"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="412.605,19.028 401.735,16.4131 406.868,14.198 408.175,8.76286 "/>
+    </g>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 0.8; stroke: #0000ff" d="M 414.35 80.6568 C 366.35,121.157 339.082,123.307 298.475,88.7478"/>
+      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 0.8; stroke: #0000ff" fill-rule="evenodd" points="292.763,83.8869 303.619,86.5604 298.475,88.7478 297.138,94.1758 "/>
+    </g>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="318.422" y="-43.65">
+      <tspan x="318.422" y="-43.65">forwarded packet:  </tspan>
+      <tspan x="318.422" y="-23.65">TQ =80%</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="412.422" y="186.35">
+      <tspan x="412.422" y="186.35">apply local TQ</tspan>
+      <tspan x="412.422" y="206.35">and rebroadcast:</tspan>
+      <tspan x="412.422" y="226.35">TQ = 90% * 80% </tspan>
+      <tspan xml:space="preserve" x="412.422" y="246.35">     = 72%</tspan>
+    </text>
+    <text font-size="16" style="fill: #0000ff; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="316.422" y="130.35">
+      <tspan x="316.422" y="130.35">local TQ to B:</tspan>
+      <tspan x="316.422" y="150.35">90%</tspan>
+    </text>
+    <text font-size="16" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="522.422" y="-42.65">
+      <tspan x="522.422" y="-42.65">forwarded packet:  </tspan>
+      <tspan x="522.422" y="-22.65">TQ = 72%</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 483.478 17.8689 C 517.74,-15.6111 602.122,-7 632.114,5.30461"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="639.053,8.15129 627.904,8.98157 632.114,5.30461 631.699,-0.27012 "/>
+    </g>
+    <text font-size="64" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="592.122" y="73">
+      <tspan x="592.122" y="73">...</tspan>
+    </text>
+  </g>
+</svg>

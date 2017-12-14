@@ -1,8 +1,1 @@
-*.pdf
-*.ps
-*.fo
-*.html
-*~
-images/*.eps
-images/*.png
-images/stamp
+/_build
