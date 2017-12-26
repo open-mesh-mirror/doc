@@ -1,52 +1,179 @@
-h1. DRAFT: Batman-adv 2017.4 released
+h1. DRAFT: Batman-adv 2018.0 released
 
-Dec 05th, 2017. Today the B.A.T.M.A.N. team publishes the December 2017 update to batman-adv, batctl and alfred! This release contains mostly bugfixes, code cleanups and documentation updates.
+Jan 30th, 2018. Today the B.A.T.M.A.N. team publishes the January 2018 update to batman-adv, batctl and alfred! This release *TODO*
+
+This release doesn't contain the flow dissector support for batman-adv unicast packets. We highly recommend to apply the "flow dissector patchset":https://patchwork.open-mesh.org/cover/17240/ on the target system's kernel.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2017.4/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2018.0/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* David Ahern <dsahern@gmail.com>
-* Gao Feng <gfree.wind@vip.163.com>
-* Kees Cook <keescook@chromium.org>
-* Simon Wunderlich <sw@simonwunderlich.de
+* Denys Vlasenko <dvlasenk@redhat.com>
+* Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 h2. batman-adv
 
-* support latest kernels (3.2 - 4.15)
+<pre>
+$ git describe origin/master
+v2017.4-30-g47777a90
+$ git shortlog --email --no-merges v2017.4..v2017.4-30-g47777a90
+
+new kernel support
+==================
+
+
+
+bugfixes
+========
+
+
+coding style cleanup/refactoring
+================================
+
+      batman-adv: Deinline batadv_orig_hash_find, save 7339 bytes
+      batman-adv: Let packet.h include its headers directly
+      batman-adv: Remove usage of BIT(x) in packet.h
+      batman-adv: Remove kernel fixed width types in packet.h
+      batman-adv: Convert packet.h to uapi header
+      batman-adv: include gfp.h for GFP_* defines
+      batman-adv: include build_bug.h for BUILD_BUG_ON define
+      batman-adv: Include net.h for net_ratelimited_function
+      batman-adv: include kobject.h for kobject_* functions
+      batman-adv: Remove unused sched.h include
+      batman-adv: compat: Map to linux/nl80211.h for Linux < 3.7
+      batman-adv: Add missing kernel-doc to packet.h
+      batman-adv: Use parentheses in function kernel-doc
+      batman-adv: Use inline kernel-doc for enum/struct
+      batman-adv: Fix kernel-doc references to struct members
+      batman-adv: Add kernel-doc to structs in headers
+      batman-adv: Add kernel-doc to enums in headers
+      batman-adv: Add kernel-doc to functions in headers
+      batman-adv: Add kernel-doc to externally visible functions
+
+license stuff
+=============
+
+      batman-adv: Add GPL-2.0 as Linux's LICENSES/preferred/GPL-2.0
+      batman-adv: Add SPDX license identifier above copyright header
+      batman-adv: Add SPDX license identifier to batman-adv.rst
+      batman-adv: Add license header to Kconfig
+      batman-adv: Add license headers to compat files
+      batman-adv: Mark remaining files as GPL-2.0
+      batman-adv: Change batman_adv.h license to MIT
+      batman-adv: Import Linux's LICENSES/preferred/MIT
+
+
+
+
+2018.0 (2018-01-30)
+===================
+
+* support latest kernels (3.2 - 4.16)
 * coding style cleanups and refactoring
-* documentation cleanup
 * bugs squashed:
 
-  * avoid spurious warnings from bat_v neigh_cmp implementation
-  * fix check of gateway availability in B.A.T.M.A.N. V
-  * fix locking for bidirectional TQ check counters
-  * remove leak of stack bits in fragmentation header priority
+  - 
+
+
+</pre>
 
 h2. batctl
 
-* synchronization of batman-adv netlink header
+<pre>
+$ git describe origin/master
+v2017.4-14-ga9ad05d
+$ git shortlog --email --no-merges v2017.4..v2017.4-14-ga9ad05d
+
+bugfixes
+========
+
+
+coding style cleanup/refactoring
+================================
+
+      batctl: Let packet.h include its headers directly
+      batctl: Remove usage of BIT(x) in packet.h
+      batctl: Remove kernel fixed width types in packet.h
+      batctl: Convert packet.h to uapi header
+      batctl: Add missing kernel-doc to packet.h
+      batctl: Remove unused __packed compat macro
+
+license stuff
+=============
+
+      batctl: Add GPL-2.0 as Linux's LICENSES/preferred/GPL-2.0
+      batctl: Add License-Filename to GPL-2.0 files
+      batctl: Import Linux's LICENSES/preferred/MIT
+      batctl: Add SPDX license identifier above copyright header
+      batctl: Mark remaining files as GPL-2.0
+      batctl: Change batman_adv.h license to MIT
+      batctl: Remove License-Filename from packet.h
+
+
+
+
+2018.0 (2018-01-30)
+===================
+
+* synchronization of batman-adv netlink and packet headers
 * coding style cleanups and refactoring
-* documentation cleanup
 * bugs squashed:
 
-  * improve error handling for libnl related errors
-  * add checks for various allocation errors
+  - 
+</pre>
 
 h2. alfred
 
-* synchronization of batman-adv netlink header
+<pre>
+$ git describe origin/master
+v2017.4-7-g04d42f0
+$ git shortlog --email --no-merges v2017.4..v2017.4-7-g04d42f0
+
+
+
+Sven Eckelmann <sven@narfation.org> (6):
+
+
+bugs
+====
+
+
+
+coding style cleanup/refactoring
+================================
+
+license stuff
+=============
+
+      alfred: Rename LICENSE to Linux's LICENSES/preferred/GPL-2.0
+      alfred: Add License-Filename to GPL-2.0 files
+      alfred: Import Linux's LICENSES/preferred/MIT
+      alfred: Add SPDX license identifier above copyright header
+      alfred: Change batman_adv.h license to MIT
+      alfred: Mark remaining files as GPL-2.0
+
+documentation updates
+=====================
+
+
+
+
+
+
+2018.0 (2018-01-30)
+===================
+
+* synchronization of batman-adv netlink and packet headers
 * coding style cleanups and refactoring
-* documentation cleanup
 * bugs squashed:
 
-  * only query debugfs when netlink failed
-  * handle allocation errors in hashtable iterator
+  - 
+</pre>
 
 
 Happy routing,
