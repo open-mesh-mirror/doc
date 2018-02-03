@@ -12,7 +12,9 @@ h2. Thanks
 
 Thanks to all people sending in patches:
 
+* Al Viro <viro@zeniv.linux.org.uk>
 * Denys Vlasenko <dvlasenk@redhat.com>
+* Matthias Schiffer <mschiffer@universe-factory.net>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
@@ -20,16 +22,21 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2017.4-30-g47777a90
-$ git shortlog --email --no-merges v2017.4..v2017.4-30-g47777a90
+v2017.4-36-ge89f6ed0
+$ git shortlog --email --no-merges v2017.4..v2017.4-36-ge89f6ed0
 
 new kernel support
 ==================
 
+      batman-adv: annotate ->poll() instances
+      batman-adv: Fix DECLARE_EWMA compat with newer kernels
 
 
 bugfixes
 ========
+
+      batman-adv: fix packet checksum in receive path
+      batman-adv: invalidate checksum on fragment reassembly
 
 
 coding style cleanup/refactoring
@@ -70,14 +77,14 @@ license stuff
 
 
 
-2018.0 (2018-01-30)
+2018.0 (2018-02-13)
 ===================
 
 * support latest kernels (3.2 - 4.16)
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - 
+  - fix packet checksum handling in receive path
 
 
 </pre>
@@ -86,8 +93,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2017.4-14-ga9ad05d
-$ git shortlog --email --no-merges v2017.4..v2017.4-14-ga9ad05d
+v2017.4-15-g91023b6
+$ git shortlog --email --no-merges v2017.4..v2017.4-15-g91023b6
 
 bugfixes
 ========
@@ -117,7 +124,7 @@ license stuff
 
 
 
-2018.0 (2018-01-30)
+2018.0 (2018-02-13)
 ===================
 
 * synchronization of batman-adv netlink and packet headers
@@ -131,7 +138,7 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2017.4-7-g04d42f0
+v2017.4-8-g0bf4125
 $ git shortlog --email --no-merges v2017.4..v2017.4-7-g04d42f0
 
 
@@ -165,7 +172,7 @@ documentation updates
 
 
 
-2018.0 (2018-01-30)
+2018.0 (2018-02-13)
 ===================
 
 * synchronization of batman-adv netlink and packet headers
