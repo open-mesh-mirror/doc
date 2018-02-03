@@ -33,11 +33,9 @@ for more information or the
 `manpage <https://downloads.open-mesh.org/batman/manpages/alfred.8.html>`__
 for usage.
 
-
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    gettingstarted
    developerinformation

@@ -4,10 +4,9 @@
 Protocol Information
 ====================
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    Network-wide-multi-link-optimization
    Client-announcement

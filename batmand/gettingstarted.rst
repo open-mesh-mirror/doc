@@ -4,10 +4,9 @@
 Getting Started
 ===============
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    BATMAN_Daemon_HowTo
    InternetTuning

@@ -3,10 +3,9 @@
 open-mesh
 =========
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    WikiStart
    gettingstarted

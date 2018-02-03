@@ -4,10 +4,9 @@
 Developer Information
 =====================
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    Alfred_architecture
    Alfred-output-format-proposal

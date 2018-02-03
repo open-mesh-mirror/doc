@@ -4,10 +4,9 @@
 Documentation
 =============
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    BranchesExplained
    FAQ

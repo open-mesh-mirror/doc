@@ -3,10 +3,9 @@
 batmand
 =======
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    Doc-overview
    gettingstarted

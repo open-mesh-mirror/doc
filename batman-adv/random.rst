@@ -4,10 +4,9 @@
 Random
 ======
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    Bcast-hidden-node
    Broadcast-Avoidances

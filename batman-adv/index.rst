@@ -3,10 +3,9 @@
 batman-adv
 ==========
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    Doc-overview
    Wiki

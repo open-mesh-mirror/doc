@@ -4,10 +4,9 @@
 Features
 ========
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    Gateways
    Bridge-loop-avoidance
