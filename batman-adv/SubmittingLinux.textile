@@ -50,8 +50,8 @@ There are different basepoints/references used when preparing the
 GIT_OM_SERVER="git+ssh://git@open-mesh.org" 
 LM_MASTER=ecsv/lm_master
 LM_MAINT=ecsv/lm_maint
-BASE_NETNEXT=v4.14-rc1
-BASE_NET=v4.14-rc1
+BASE_NETNEXT=v4.16-rc1
+BASE_NET=v4.16-rc1
 </pre>
 
 h2. get the linux-integration + batman-adv repository
