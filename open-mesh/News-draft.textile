@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2018.0 released
 
-Jan 30th, 2018. Today the B.A.T.M.A.N. team publishes the January 2018 update to batman-adv, batctl and alfred! This release contains mostly bugfixes, code cleanups and documentation updates.
+Feb 26th, 2018. Today the B.A.T.M.A.N. team publishes the February 2018 update to batman-adv, batctl and alfred! This release contains mostly bugfixes, code cleanups and documentation updates.
 
 The in-tree version also got support for unicast batman-adv packets in the flow dissector. This can be used to spread the receive processing to different CPU cores with the help of "RPS":https://lwn.net/Articles/362339/. Users of the out-of-tree module are advised to manually add the "patchset":https://patchwork.open-mesh.org/cover/17240/ to their target systems kernel.
 
@@ -75,9 +75,18 @@ license stuff
       batman-adv: Import Linux's LICENSES/preferred/MIT
 
 
+bugfixes in patchwork
+=====================
+
+[maint] batman-adv: Fix internal interface indices types
+[maint,1/2] batman-adv: Ignore invalid batadv_iv_gw during netlink send
+[maint,2/2] batman-adv: Ignore invalid batadv_v_gw during netlink send
+[maint,1/2] batman-adv: Fix netlink dumping of BLA claims
+[maint,2/2] batman-adv: Fix netlink dumping of BLA backbones
+[maint] batman-adv: Only use compat.h for kernel builds
 
 
-2018.0 (2018-02-18)
+2018.0 (2018-02-26)
 ===================
 
 * support latest kernels (3.2 - 4.16)
@@ -85,6 +94,8 @@ license stuff
 * bugs squashed:
 
   - fix packet checksum handling in receive path
+  - fix handling of large number of interfaces
+  - fix netlink dumping of gateways and BLA claims+backbones
 </pre>
 
 h2. batctl
@@ -115,7 +126,7 @@ license stuff
       batctl: Change batman_adv.h license to MIT
       batctl: Remove License-Filename from packet.h
 
-2018.0 (2018-02-18)
+2018.0 (2018-02-26)
 ===================
 
 * synchronization of batman-adv netlink and packet headers
@@ -139,7 +150,7 @@ license stuff
       alfred: Change batman_adv.h license to MIT
       alfred: Mark remaining files as GPL-2.0
 
-2018.0 (2018-02-18)
+2018.0 (2018-02-26)
 ===================
 
 * synchronization of batman-adv netlink and packet headers
