@@ -1,19 +1,18 @@
-h1. DRAFT: Batman-adv 2018.0 released
+h1. DRAFT: Batman-adv 2018.1 released
 
-Feb 26th, 2018. Today the B.A.T.M.A.N. team publishes the February 2018 update to batman-adv, batctl and alfred! This release contains mostly bugfixes, code cleanups and documentation updates.
-
-The in-tree version also got support for unicast batman-adv packets in the flow dissector. This can be used to spread the receive processing to different CPU cores with the help of "RPS":https://lwn.net/Articles/362339/. Users of the out-of-tree module are advised to manually add the "patchset":https://patchwork.open-mesh.org/cover/17240/ to their target systems kernel.
+Apr 24th, 2018. Today the B.A.T.M.A.N. team publishes the April 2018 update to batman-adv, batctl and alfred! TODO
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2018.0/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2018.1/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Al Viro <viro@zeniv.linux.org.uk>
-* Denys Vlasenko <dvlasenk@redhat.com>
+* Colin Ian King <colin.king@canonical.com>
+* Linus Lüssing <linus.luessing@c0d3.blue>
+* Linus Torvalds <torvalds@linux-foundation.org>
 * Matthias Schiffer <mschiffer@universe-factory.net>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
@@ -22,139 +21,118 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2017.4-36-ge89f6ed0
-$ git shortlog --email --no-merges v2017.4..v2017.4-36-ge89f6ed0
+v2018.0-20-g41111f36
+$ git shortlog --email --no-merges v2018.0..v2018.0-20-g41111f36
 
 new kernel support
 ==================
 
-      batman-adv: annotate ->poll() instances
-      batman-adv: Fix DECLARE_EWMA compat with newer kernels
-
+      batman-adv: do bulk POLL* -> EPOLL* replacement
+      batman-adv: Only provide (READ|WRITE)_ONCE when undefined
 
 bugfixes
 ========
 
-      batman-adv: fix packet checksum in receive path
-      batman-adv: invalidate checksum on fragment reassembly
+      batman-adv: update data pointers after skb_cow()
+      batman-adv: fix header size check in batadv_dbg_arp()
+      batman-adv: Fix skbuff rcsum on packet reroute
+      batman-adv: fix multicast-via-unicast transmission with AP isolation
+      batman-adv: fix packet loss for broadcasted DHCP packets to a server
+      batman-adv: Fix multicast packet loss with a single WANT_ALL_IPV4/6 flag
+
+multicast
+=========
+
+      batman-adv: Avoid redundant multicast TT entries
+
+unclassified
+============
+
+      batman-adv: always assume 2-byte packet alignment
+
+netlink
+=======
+
+      batman-adv: add DAT cache netlink support
+      batman-adv: add multicast flags netlink support
 
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Deinline batadv_orig_hash_find, save 7339 bytes
-      batman-adv: Let packet.h include its headers directly
-      batman-adv: Remove usage of BIT(x) in packet.h
-      batman-adv: Remove kernel fixed width types in packet.h
-      batman-adv: Convert packet.h to uapi header
-      batman-adv: include gfp.h for GFP_* defines
-      batman-adv: include build_bug.h for BUILD_BUG_ON define
-      batman-adv: Include net.h for net_ratelimited_function
-      batman-adv: include kobject.h for kobject_* functions
-      batman-adv: Remove unused sched.h include
-      batman-adv: compat: Map to linux/nl80211.h for Linux < 3.7
-      batman-adv: Add missing kernel-doc to packet.h
-      batman-adv: Use parentheses in function kernel-doc
-      batman-adv: Use inline kernel-doc for enum/struct
-      batman-adv: Fix kernel-doc references to struct members
-      batman-adv: Add kernel-doc to structs in headers
-      batman-adv: Add kernel-doc to enums in headers
-      batman-adv: Add kernel-doc to functions in headers
-      batman-adv: Add kernel-doc to externally visible functions
-
-license stuff
-=============
-
-      batman-adv: Add GPL-2.0 as Linux's LICENSES/preferred/GPL-2.0
-      batman-adv: Add SPDX license identifier above copyright header
-      batman-adv: Add SPDX license identifier to batman-adv.rst
-      batman-adv: Add license header to Kconfig
-      batman-adv: Add license headers to compat files
-      batman-adv: Mark remaining files as GPL-2.0
-      batman-adv: Change batman_adv.h license to MIT
-      batman-adv: Import Linux's LICENSES/preferred/MIT
+      batman-adv: Fix indentation of batadv_seq_before
+      batman-adv: Avoid relation operator comparison with bool
+      batman-adv: Add missing include for EPOLL* constants
 
 
-bugfixes in patchwork
-=====================
 
-[maint] batman-adv: Fix internal interface indices types
-[maint,1/2] batman-adv: Ignore invalid batadv_iv_gw during netlink send
-[maint,2/2] batman-adv: Ignore invalid batadv_v_gw during netlink send
-[maint,1/2] batman-adv: Fix netlink dumping of BLA claims
-[maint,2/2] batman-adv: Fix netlink dumping of BLA backbones
-[maint] batman-adv: Only use compat.h for kernel builds
-
-
-2018.0 (2018-02-26)
+2018.1 (2018-04-24)
 ===================
 
-* support latest kernels (3.2 - 4.16)
+* support latest kernels (3.2 - 4.17)
 * coding style cleanups and refactoring
+* TODO: add DAT cache netlink support
+* TODO: add multicast flags netlink support
+* TODO: always assume 2-byte packet alignment
+* TODO: Avoid redundant multicast TT entries
 * bugs squashed:
 
-  - fix packet checksum handling in receive path
-  - fix handling of large number of interfaces
-  - fix netlink dumping of gateways and BLA claims+backbones
+  - TODO: update data pointers after skb_cow()
+  - TODO: fix header size check in batadv_dbg_arp()
+  - TODO: Fix skbuff rcsum on packet reroute
+  - TODO: fix multicast-via-unicast transmission with AP isolation
+  - TODO: fix packet loss for broadcasted DHCP packets to a server
+  - TODO: Fix multicast packet loss with a single WANT_ALL_IPV4/6 flag
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/master
-v2017.4-15-g91023b6
-$ git shortlog --email --no-merges v2017.4..v2017.4-15-g91023b6
+v2018.0-10-gd325ed2
+$ git shortlog --email --no-merges v2018.0..v2018.0-10-gd325ed2
 
-coding style cleanup/refactoring
-================================
+netlink
+=======
 
-      batctl: Let packet.h include its headers directly
-      batctl: Remove usage of BIT(x) in packet.h
-      batctl: Remove kernel fixed width types in packet.h
-      batctl: Convert packet.h to uapi header
-      batctl: Add missing kernel-doc to packet.h
-      batctl: Remove unused __packed compat macro
+      batctl: add DAT cache netlink support
+      batctl: add netlink dump function for DAT cache table
+      batctl: add multicast flags netlink support
+      batctl: add netlink dump function for multicast flags table
 
-license stuff
-=============
+bugfixes
+========
 
-      batctl: Add GPL-2.0 as Linux's LICENSES/preferred/GPL-2.0
-      batctl: Add License-Filename to GPL-2.0 files
-      batctl: Import Linux's LICENSES/preferred/MIT
-      batctl: Add SPDX license identifier above copyright header
-      batctl: Mark remaining files as GPL-2.0
-      batctl: Change batman_adv.h license to MIT
-      batctl: Remove License-Filename from packet.h
+      batctl: Enable mcast log level with "all"
+      batctl: Add tp debug log messages switch
 
-2018.0 (2018-02-26)
+
+2018.1 (2018-04-24)
 ===================
 
 * synchronization of batman-adv netlink and packet headers
-* coding style cleanups and refactoring
+* TODO: DAT cache and multicast flags netlink support
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/master
-v2017.4-8-g0bf4125
-$ git shortlog --email --no-merges v2017.4..v2017.4-7-g04d42f0
+v2018.0-3-g47c3456
+$ git shortlog --email --no-merges v2018.0..v2018.0-3-g47c3456
 
-license stuff
-=============
 
-      alfred: Rename LICENSE to Linux's LICENSES/preferred/GPL-2.0
-      alfred: Add License-Filename to GPL-2.0 files
-      alfred: Import Linux's LICENSES/preferred/MIT
-      alfred: Add SPDX license identifier above copyright header
-      alfred: Change batman_adv.h license to MIT
-      alfred: Mark remaining files as GPL-2.0
+netlink
+=======
 
-2018.0 (2018-02-26)
+      alfred: add DAT cache netlink support
+      alfred: add multicast flags netlink support
+
+
+2018.1 (2018-04-24)
 ===================
 
-* synchronization of batman-adv netlink and packet headers
-* coding style cleanups and refactoring
+* synchronization of batman-adv netlink header
 </pre>
 
 
