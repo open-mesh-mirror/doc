@@ -111,8 +111,8 @@ bugfixes
 ===================
 
 * synchronization of batman-adv netlink and packet headers
-* TODO: DAT cache and multicast flags netlink support
-* batctl: Validate translated mac addresses
+* add DAT cache and multicast flags netlink support
+* disable translation support for non-unicast mac addresses
 </pre>
 
 h2. alfred
