@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2018.1 released
 
-Apr 24th, 2018. Today the B.A.T.M.A.N. team publishes the April 2018 update to batman-adv, batctl and alfred! TODO
+Apr 24th, 2018. Today the B.A.T.M.A.N. team publishes the April 2018 update to batman-adv, batctl and alfred! This release adds the netlink support for the distributed arp table cache and the multicast flags. Also several bugfixes, code cleanups and code documentation updates are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -71,10 +71,9 @@ coding style cleanup/refactoring
 
 * support latest kernels (3.2 - 4.17)
 * coding style cleanups and refactoring
-* TODO: add DAT cache netlink support
-* TODO: add multicast flags netlink support
+* add DAT cache and multicast flags netlink support
 * TODO: always assume 2-byte packet alignment
-* TODO: Avoid redundant multicast TT entries
+* avoid redundant multicast TT entries
 * bugs squashed:
 
   - TODO: update data pointers after skb_cow()
@@ -89,8 +88,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2018.0-10-gd325ed2
-$ git shortlog --email --no-merges v2018.0..v2018.0-10-gd325ed2
+v2018.0-11-g9f22e3d
+$ git shortlog --email --no-merges v2018.0..v2018.0-11-g9f22e3d
 
 netlink
 =======
@@ -105,6 +104,7 @@ bugfixes
 
       batctl: Enable mcast log level with "all"
       batctl: Add tp debug log messages switch
+      batctl: Validate translated mac addresses
 
 
 2018.1 (2018-04-24)
@@ -112,6 +112,7 @@ bugfixes
 
 * synchronization of batman-adv netlink and packet headers
 * TODO: DAT cache and multicast flags netlink support
+* batctl: Validate translated mac addresses
 </pre>
 
 h2. alfred
