@@ -1,0 +1,105 @@
+h1. DAT DHCP Snooping
+
+h2. Problem Scenario
+
+
+
+_Many ARP Requests from a batman-adv gateway server_
+
+In larger mesh networks a significant (~30 kbit/s with ~1000 nodes) amount of ARP Requests which are broadcasted by batman-adv can be observed.
+
+h2. Statistics
+
+The following statistics were gathered at Freifunk Ostholstein on one of their gateway servers. Their mesh network consists of 300 nodes. The statistics show some details regarding the ARP Requests this specific gateway (a2:d9:c8:47:67:5d) generated:
+
+<pre><code>
+$ ./summary.sh arp-1498963406-stage13.db a2:d9:c8:47:67:5d
+# Summary
+
+Statistics for ARP Requests from/on a2:d9:c8:47:67:5d
+Duration: 0.581819 days
+
+Total: 282190 (100%)
+- via DAT BCAST: 252837 (89.5981%)
+  - answered: 32568 (12.881%)
+  - unanswered: 220269 (87.119%)
+- via DAT Cache: 28672 (10.1605%)
+- via DAT UCAST: 681 (0.241327%)
+- bcast but missing ucast try (*): 0 (0%)
+
+Total: 282190 (100%)
+- Unanswered: 220271 (78.0577%)
+  - ok: 220269 (99.9991%)
+    - last reply: 212863 (96.6377%)
+      - 0-1 min.: 4250 (1.99659%)
+      - 1-3 min.: 33334 (15.6598%)
+      - 3-5 min.: 27789 (13.0549%)
+      - 5-10 min.: 30820 (14.4788%)
+      - 10-15 min.: 33372 (15.6777%)
+      - 15-20 min.: 29685 (13.9456%)
+      - 20-25 min.: 24080 (11.3124%)
+      - 25-30 min.: 11882 (5.58199%)
+      - 30-45 min.: 13278 (6.23781%)
+      - 45-60 min.: 2135 (1.00299%)
+      - 60-90 min.: 1527 (0.717363%)
+      - 90- min.: 711 (0.334018%)
+    - new: 7406 (3.36225%)
+  - missing ucast try (*): 0 (0%)
+  - missing bcast try (*): 2 (0.000907972%)
+- Answered: 61919 (21.9423%)
+  - via DAT Cache: 28672 (46.3057%)
+  - via DAT UCAST: 679 (1.09659%)
+  - via DAT BCAST: 32568 (52.5977%)
+  - bcast but missing ucast try (*): 0 (0%)
+
+
+via DAT Cache: Neither an ARP Request via unicast nor via broadcast
+               was observed on the underlying interface. Therefore
+               assuming the DAT Cache had answered.
+via DAT UCAST: One or more ARP Requests via unicast but none via
+               broadcast were observed on the underlying interface.
+               Therefore assuming they successfully triggered the
+               ARP Reply.
+via DAT BCAST: Both one or more ARP Requests via unicast and one
+               via broadcast were observed on the underlying interface.
+               Therefore assuming the broadcast had triggered the
+               ARP Reply.
+last reply: How many minutes ago was an ARP Reply last seen on
+            upper/bat device.
+
+(*): For a specific ARP Request observed on bat0, some expected
+     ARP Request(s) on the underlying interface were missed.
+</code></pre>
+
+Focussing on the top statistics first:
+
+<pre><code>
+Total: 282190 (100%)
+- via DAT BCAST: 252837 (89.5981%)
+  - answered: 32568 (12.881%)
+  - unanswered: 220269 (87.119%)
+- via DAT Cache: 28672 (10.1605%)
+- via DAT UCAST: 681 (0.241327%)
+- bcast but missing ucast try (*): 0 (0%)
+</code></pre>
+
+Here there are two interesting points:
+
+A) Nearly 90% of all ARP Requests this gateway send were falling back to a batman-adv broadcast.
+
+B) Of those 90%, 87% were left unanswered.
+
+So it seems that there were some necessary and successful broadcasts. But the larger portion did not help in resolving the address.
+
+The more detailed timing statistics indicate that of those unanswered ARP requests more than 95% are clients which were resolved successfully before.
+
+h2. Explanations
+
+h3. Unanswered ARP Request broadcasts
+
+Freifunk networks are open and highly dynamic regarding their clients devices. A bus stopping near a Freifunk node might easily create a few dozen new connections and participants. And those ones will vanish shortly after.
+
+Such dynamics might explain a large amount of unanswered, but previously successful ARP Requests.
+
+h3. Answered ARP Request broadcasts
+
