@@ -135,10 +135,10 @@ h3. Result
 
 The following picture shows the amount of broadcasted ARP Request traffic before and after applying and configuring these patches at Freifunk Darmstadt (800 batman-adv nodes):
 
-!{width:50%}ffda-BCAST-ARP-REQUEST-@.kbits-1d.2018-04-06.png!
+!{width:50%}ffda-BCAST-ARP-REQUEST-@.kbits-1d.2018-04-06.png!:https://www.open-mesh.org/attachments/844/ffda-BCAST-ARP-REQUEST-@.kbits-1d.2018-04-06.png
 
 At about 23:00 this feature was enabled in their network on all gateway servers. Since then it is running there with no issues reported so far.
 
-A month later it still looks like this:
+A month later it still looks like this (note the scale):
 
-!{width:50%}ffda-BCAST-ARP-REQUEST-@.kbits-1d.2018-05-07.png!:ffda-BCAST-ARP-REQUEST-@.kbits-1d.2018-04-06.png
+!{width:50%}ffda-BCAST-ARP-REQUEST-@.kbits-1d.2018-05-07.png!:https://www.open-mesh.org/attachments/845/ffda-BCAST-ARP-REQUEST-@.kbits-1d.2018-05-07.png
