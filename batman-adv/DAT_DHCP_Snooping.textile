@@ -8,6 +8,8 @@ _Many ARP Requests from a batman-adv gateway server_
 
 In larger mesh networks a significant (~30 kbit/s with ~1000 nodes) amount of ARP Requests can be observed. These are mostly broadcasted from nodes configured as a gateway and DHCP server.
 
+The batman-adv Distributed ARP Table so far is unable to reduce the broadcast overhead for these specific ARP Requests from gateways.
+
 h2. Statistics
 
 The following statistics were gathered at Freifunk Ostholstein on one of their gateway servers. Their mesh network consists of 300 nodes. The statistics show some details regarding the ARP Requests this specific gateway (a2:d9:c8:47:67:5d) generated:
