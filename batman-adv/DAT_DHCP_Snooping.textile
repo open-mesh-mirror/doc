@@ -103,3 +103,31 @@ Such dynamics might explain a large amount of unanswered, but previously success
 
 h3. Answered ARP Request broadcasts
 
+The DAT_ENTRY_TIMEOUT is currently 5 minutes. Since ARP usually does not proactively send unsolicited ARP Replies there needs to be some ARP Request to query a client to refresh the DAT DHT.
+
+So even if a client device has a stable IP and position it will likely result in a broadcasted ARP Request every five minutes.
+
+h2. Solution
+
+h3. DHCP Snooping
+
+The first patch provides an alternative to filling the DAT DHT: It allows learning IP-MAC pairs not only via ARP spoofing but DHCP spoofing, too. The advantage is that for DHCP we already have the gateway feature which always uses unicast transmissions.
+
+h3. Noflood mark
+
+The second patch allows to prevent forwarding a frame which batman-adv would otherwise flood. With a DHCP snooping in place and a lease timeout lower than the 5min. DAT timeout ARP Requests for addresses in the DHCP range can safely be dropped. The noflood mark can be configured like:
+
+<pre><code>
+$ echo 0x4/0x4 > /sys/class/net/bat0/mesh/noflood_mark
+$ brctl addbr br0
+$ brctl addif br0 bat0
+$ ebtables -p ARP --logical-out br0 -o bat0 --arp-op Request --arp-ip-dst 10.84.0.0/29 -j ACCEPT
+$ ebtables -p ARP --logical-out br0 -o bat0 --arp-op Request --arp-ip-dst 10.84.0.0/24 -j mark --mark-set 0x4
+</code></pre>
+
+This would result in the address range of 10.84.0.8-10.84.0.255 being marked for "noflood", while excempting 10.84.0.0-10.84.0.7.
+
+
+h3. Result
+
+The following picture shows the amount of broadcasted ARP Requests traffic before and after applying and configuring these patches at Freifunk Darmstadt (800 batman-adv nodes):
