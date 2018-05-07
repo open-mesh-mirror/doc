@@ -2,7 +2,7 @@ h1. DAT DHCP Snooping
 
 h2. Problem Scenario
 
-!{width:30%}bcast-arp-req-gw.png!
+!{width:40%}bcast-arp-req-gw.png!
 
 _Many ARP Requests from a batman-adv gateway server_
 
