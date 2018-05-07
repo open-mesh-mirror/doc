@@ -111,7 +111,8 @@ So even if a client device has a stable IP and position it will likely result in
 
 h2. Solution
 
-<insert link to patchset/branch here>
+Patches:
+* https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/dat-dhcpsnoop
 
 h3. DHCP Snooping
 
