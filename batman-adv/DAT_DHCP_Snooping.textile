@@ -2,11 +2,11 @@ h1. DAT DHCP Snooping
 
 h2. Problem Scenario
 
-
+!{width:30%}bcast-arp-req-gw.png!
 
 _Many ARP Requests from a batman-adv gateway server_
 
-In larger mesh networks a significant (~30 kbit/s with ~1000 nodes) amount of ARP Requests which are broadcasted by batman-adv can be observed.
+In larger mesh networks a significant (~30 kbit/s with ~1000 nodes) amount of ARP Requests can be observed. These are mostly broadcasted from nodes configured as a gateway and DHCP server.
 
 h2. Statistics
 
@@ -85,7 +85,7 @@ Total: 282190 (100%)
 
 Here there are two interesting points:
 
-A) Nearly 90% of all ARP Requests this gateway send were falling back to a batman-adv broadcast.
+A) Nearly 90% of all ARP Requests this gateway sent were falling back to a batman-adv broadcast.
 
 B) Of those 90%, 87% were left unanswered.
 
