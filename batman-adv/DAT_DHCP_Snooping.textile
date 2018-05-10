@@ -148,4 +148,4 @@ A month later it still looks like this (note the scale):
 
 And the result in relation to other layer 2 broadcasts:
 
-!{width:50%}ffda-BCAST.1d.2018-05-10.png:https://www.open-mesh.org/attachments/846/ffda-BCAST.1d.2018-05-10.png
+!{width:50%}ffda-BCAST.1d.2018-05-10.png!:https://www.open-mesh.org/attachments/850/ffda-BCAST.1d.2018-05-10.png
