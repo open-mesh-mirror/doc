@@ -146,6 +146,6 @@ A month later it still looks like this (note the scale):
 
 !{width:50%}ffda-BCAST-ARP-REQUEST-@.kbits-1d.2018-05-07.png!:https://www.open-mesh.org/attachments/845/ffda-BCAST-ARP-REQUEST-@.kbits-1d.2018-05-07.png
 
-And the result in relation to other layer 2 broadcasts:
+And the result (daily average) in relation to other layer 2 broadcasts:
 
 !{width:50%}ffda-BCAST.1d.2018-05-10.png!:https://www.open-mesh.org/attachments/850/ffda-BCAST.1d.2018-05-10.png
