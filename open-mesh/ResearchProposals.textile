@@ -16,8 +16,9 @@ h2. Extending the protocol
 
 * IPv6 gateway enhancements
 * B.A.T.M.A.N. V future:
-** RIP
-** unicast OGM 
+** Fast dead link detection or Fast link switching
+** unicast OGM
+* mesh end-to-end encryption
 
 
 h2. fancy stuff
@@ -25,25 +26,3 @@ h2. fancy stuff
 * anycast
 * multicast over DHT
 * dynamic OGM interval
-
-
-
-h3. Fast dead link detection or Fast link switching
-
-Would also improve mobility
-
-h3. Security/Authentication
-
-Adding a security and authentication layer to protect batman
-messages from malicious or malfunctioning nodes.
-
-h3. Distributed filtering
-
-Packet filtering in ad-hoc and mesh networks can help to define
-different user profiles, reduce the impact of unwanted traffic and
-make the network more robust to attacks. The problem of implementing a
-network-wide filtering policy to be enforced in all the mesh nodes
-with user-level granularity must still be resolved since the diffusion
-of rule-sets and their enforcement has a great impact in a
-resource-limited networks both for the generated traffic and the
-computation required.
