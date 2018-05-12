@@ -1,58 +1,32 @@
 h1. Research Proposals on B.A.T.M.A.N.-Advanced
 
-h3. Improving link metrics
 
-The sheer measurement of the OGM delivery ratio is 
-a poor metric for link quality evaluation. 
-It is not able to distinguish fast links from slow ones, 
-it is not able to tell congested links apart from 
-unused ones, it is not able to distinguish point-to-point 
-links from broadcast ones. 
-Improving the link evaluation metrics without becoming 
-dependent from the specific link-level technology is however 
-a challenge. Exploring the role of delay, delay jitters, information
-coming from the data plane (for instance in 802.11 data packets are 
-sent at different link speeds depending on the actual destination 
-and not at the base speed used for broadcast) can yield results 
-leading to improved metrics.  
+h2. Documentation & Performance evaluation
 
-h3. Improving multi-radio strategy
+* DHT / DAT
+* B.A.T.M.A.N. V - ELP / OGM, half duplex vs full duplex
+* Multi-radio
+* Multicast flooding
+* batman packet format documentation, flags, chachacha
+* TT
 
-In presence of multiple (wireless and wired) interfaces
-the present strategies for interface selection in Batman are 
-based on simple and non-general heuristics, with the 
-consequence that very often sub-optimal decisions are taken. 
-To improve these strategies the following fundamental points need 
-attention and solutions: 
-a) Capability to differentiate between different MAC/PHY layers 
-(e.g., a reliable 1Gbit/s optical link from WiFi, or also a 
-reliable point-to-point WiFi bridge from a generic multi-point 
-WiFi interface). 
-b) Metrics and algorithms for iteratively improving the topology 
-based on the above information. 
 
-h3. Improving Broadcast communications
 
-Some applications, specially related to network management like 
-????, or to services publish/subscribe models, require efficient 
-and reliable broadcast/multicast (IP layer) communications, which 
-are however always mapped onto layer 2 broadcast packets. 
-Presently batman transmits these packets 3 times, with a large overhead 
-and still no guarantee of delivery. 
-Many solutions can be studied, starting from intelligent re-broadcast
-to multiple-unicast flooding. 
+h2. Extending the protocol
 
-h3. Improving Multicast communications
+* IPv6 gateway enhancements
+* B.A.T.M.A.N. V future:
+** RIP
+** unicast OGM 
 
-(partly started, there 
-  is a concept and a partial implementation)
-Interacts with the point above ... PIM Sparse/Dense mode can be 
-analyzed and extended to wireless networks (PIM per-se cannot 
-work on wireless interfaces). 
 
-h3. Define a Neighbor discovery independent protocol
+h2. fancy stuff
 
-(partly started - ELP.  There is a partial concept and partial implementation)
+* anycast
+* multicast over DHT
+* dynamic OGM interval
+
+
 
 h3. Fast dead link detection or Fast link switching
 
