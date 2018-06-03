@@ -1,19 +1,19 @@
-h1. DRAFT: Batman-adv 2018.1 released
+h1. DRAFT: Batman-adv 2018.2 released
 
-Apr 20th, 2018. Today the B.A.T.M.A.N. team publishes the April 2018 update to batman-adv, batctl and alfred! This release adds the netlink support for the distributed arp table cache and the multicast flags. Also several bugfixes, code cleanups and code documentation updates are included in this version.
+Jul 10th, 2018. Today the B.A.T.M.A.N. team publishes the July 2018 update to batman-adv, batctl and alfred! TODO
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2018.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2018.2/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Colin Ian King <colin.king@canonical.com>
+* Antonio Quartulli <a@unstable.cc>
 * Linus Lüssing <linus.luessing@c0d3.blue>
-* Linus Torvalds <torvalds@linux-foundation.org>
-* Matthias Schiffer <mschiffer@universe-factory.net>
+* Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+* Marek Lindner <mareklindner@neomailbox.ch>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
@@ -21,118 +21,90 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.0-20-g41111f36
-$ git shortlog --email --no-merges v2018.0..v2018.0-20-g41111f36
+v2018.1-13-g8f4e0b54
+$ git shortlog --email --no-merges v2018.1..v2018.1-13-g8f4e0b54
+
+
 
 new kernel support
 ==================
 
-      batman-adv: do bulk POLL* -> EPOLL* replacement
-      batman-adv: Only provide (READ|WRITE)_ONCE when undefined
-
-bugfixes
-========
-
-      batman-adv: update data pointers after skb_cow()
-      batman-adv: fix header size check in batadv_dbg_arp()
-      batman-adv: Fix skbuff rcsum on packet reroute
-      batman-adv: fix multicast-via-unicast transmission with AP isolation
-      batman-adv: fix packet loss for broadcasted DHCP packets to a server
-      batman-adv: Fix multicast packet loss with a single WANT_ALL_IPV4/6 flag
-
-multicast
-=========
-
-      batman-adv: Avoid redundant multicast TT entries
-
-unclassified
-============
-
-      batman-adv: always assume 2-byte packet alignment
-
-netlink
-=======
-
-      batman-adv: add DAT cache netlink support
-      batman-adv: add multicast flags netlink support
-
+      batman-adv: don't implement skb_postpush_rcsum() for linux >=4.4.47
+      batman-adv: fix batadv_interface_tx()'s return type
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Fix indentation of batadv_seq_before
-      batman-adv: Avoid relation operator comparison with bool
-      batman-adv: Add missing include for EPOLL* constants
+      batman-adv: Avoid bool in structures
+      batman-adv: Remove unused dentry without DEBUGFS
+
+multicast
+=========
+
+      batman-adv: Avoid old nodes disabling multicast optimizations completely
+
+unclassified
+============
+
+      batman-adv: disable ethtool link speed detection when auto negotiation off
+      batman-adv: enable B.A.T.M.A.N. V compilation by default
+      batman-adv: Disable CONFIG_BATMAN_ADV_DEBUGFS by default
+
+bugfixes
+========
+
+      batman-adv: Fix TT sync flags for intermediate TT responses
+      batman-adv: Avoid race in TT TVLV allocator helper
+      batman-adv: prevent TT request storms by not sending inconsistent TT TLVLs
 
 
 
-2018.1 (2018-04-20)
+
+2018.2 (2018-07-10)
 ===================
 
-* support latest kernels (3.2 - 4.17)
+* support latest kernels (3.2 - 4.18)
 * coding style cleanups and refactoring
-* add DAT cache and multicast flags netlink support
-* avoid redundant multicast TT entries
+* TODO: batman-adv: Avoid old nodes disabling multicast optimizations completely
+* TODO: batman-adv: disable ethtool link speed detection when auto negotiation off
+* TODO: batman-adv: enable B.A.T.M.A.N. V compilation by default
+* TODO: batman-adv: Disable CONFIG_BATMAN_ADV_DEBUGFS by default
 * bugs squashed:
 
-  - update data pointers after skb_cow()
-  - fix header size check in batadv_dbg_arp()
-  - fix skbuff rcsum on packet reroute
-  - fix multicast-via-unicast transmission with AP isolation
-  - fix packet loss for broadcasted DHCP packets to a server
-  - fix multicast packet loss with a single WANT_ALL_IPV4/6 flag
+  - TODO: batman-adv: Fix TT sync flags for intermediate TT responses
+  - TODO: batman-adv: Avoid race in TT TVLV allocator helper
+  - TODO: batman-adv: prevent TT request storms by not sending inconsistent TT TLVLs
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/master
-v2018.0-11-g9f22e3d
-$ git shortlog --email --no-merges v2018.0..v2018.0-11-g9f22e3d
-
-netlink
-=======
-
-      batctl: add DAT cache netlink support
-      batctl: add netlink dump function for DAT cache table
-      batctl: add multicast flags netlink support
-      batctl: add netlink dump function for multicast flags table
-
-bugfixes
-========
-
-      batctl: Enable mcast log level with "all"
-      batctl: Add tp debug log messages switch
-      batctl: Validate translated mac addresses
+v2018.1-1-gbb6fba9
+$ git shortlog --email --no-merges v2018.1..v2018.1-1-gbb6fba9
 
 
-2018.1 (2018-04-20)
+
+
+2018.2 (2018-07-10)
 ===================
 
-* synchronization of batman-adv netlink and packet headers
-* add DAT cache and multicast flags netlink support
-* disable translation support for non-unicast mac addresses
+* (no changes)
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/master
-v2018.0-3-g47c3456
-$ git shortlog --email --no-merges v2018.0..v2018.0-3-g47c3456
+v2018.1-1-gf1e5969
+$ git shortlog --email --no-merges v2018.1..v2018.1-1-gf1e5969
 
 
-netlink
-=======
 
-      alfred: add DAT cache netlink support
-      alfred: add multicast flags netlink support
-
-
-2018.1 (2018-04-20)
+2018.2 (2018-07-10)
 ===================
 
-* synchronization of batman-adv netlink header
+* (no changes)
 </pre>
 
 
