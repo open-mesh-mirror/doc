@@ -21,16 +21,15 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.1-13-g8f4e0b54
-$ git shortlog --email --no-merges v2018.1..v2018.1-13-g8f4e0b54
-
-
+v2018.1-20-g1b6f5c8d
+$ git shortlog --email --no-merges v2018.1..v2018.1-20-g1b6f5c8d
 
 new kernel support
 ==================
 
       batman-adv: don't implement skb_postpush_rcsum() for linux >=4.4.47
       batman-adv: fix batadv_interface_tx()'s return type
+      batman-adv: Drop support for Linux < 3.16
 
 coding style cleanup/refactoring
 ================================
@@ -60,10 +59,12 @@ bugfixes
 
 
 
+
 2018.2 (2018-07-10)
 ===================
 
-* support latest kernels (3.2 - 4.18)
+* support latest kernels (3.16 - 4.18)
+* dropped support for kernels < 3.16 (note the removed build directory)
 * coding style cleanups and refactoring
 * TODO: batman-adv: Avoid old nodes disabling multicast optimizations completely
 * TODO: batman-adv: disable ethtool link speed detection when auto negotiation off
@@ -74,6 +75,11 @@ bugfixes
   - TODO: batman-adv: Fix TT sync flags for intermediate TT responses
   - TODO: batman-adv: Avoid race in TT TVLV allocator helper
   - TODO: batman-adv: prevent TT request storms by not sending inconsistent TT TLVLs
+  - TODO: batman-adv: Ignore more generated files in git-status
+  - TODO: batman-adv: Fix bat_ogm_iv best gw refcnt after netlink dump
+  - TODO: batman-adv: Fix bat_v best gw refcnt after netlink dump
+  - TODO: batman-adv: Fix debugfs path for renamed hardif
+  - TODO: batman-adv: Fix debugfs path for renamed softif
 </pre>
 
 h2. batctl
