@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2018.2 released
 
-Jul 10th, 2018. Today the B.A.T.M.A.N. team publishes the July 2018 update to batman-adv, batctl and alfred! TODO
+Jul 10th, 2018. Today the B.A.T.M.A.N. team publishes the July 2018 update to batman-adv, batctl and alfred! This release drops the support for Linux versions before v3.16 (oldest non-EOL Linux kernel). This makes it possible again to build the kernel in-source without the extra "build/" directory. debugfs is no longer enabled in the standard build configuration but B.A.T.M.A.N. V will be build by default. The later was also modified to no longer accept the ethtool specific link speeds to virtual interfaces - a requirement in the future for the tpmeter based link speed detection of VPN links. The multicast optimization is now more robust and will no longer disable itself when a node without the multicast optimization feature is detected. Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -55,6 +55,10 @@ bugfixes
       batman-adv: Fix TT sync flags for intermediate TT responses
       batman-adv: Avoid race in TT TVLV allocator helper
       batman-adv: prevent TT request storms by not sending inconsistent TT TLVLs
+      batman-adv: Fix bat_ogm_iv best gw refcnt after netlink dump
+      batman-adv: Fix bat_v best gw refcnt after netlink dump
+      batman-adv: Fix debugfs path for renamed hardif
+      batman-adv: Fix debugfs path for renamed softif
 
 
 
@@ -66,20 +70,17 @@ bugfixes
 * support latest kernels (3.16 - 4.18)
 * dropped support for kernels < 3.16 (note the removed build directory)
 * coding style cleanups and refactoring
-* TODO: batman-adv: Avoid old nodes disabling multicast optimizations completely
-* TODO: batman-adv: disable ethtool link speed detection when auto negotiation off
-* TODO: batman-adv: enable B.A.T.M.A.N. V compilation by default
-* TODO: batman-adv: Disable CONFIG_BATMAN_ADV_DEBUGFS by default
+* avoid old nodes disabling multicast optimizations completely
+* disable ethtool based B.A.T.M.A.N. V speed detection for virtual interfaces
+* enable B.A.T.M.A.N. V compilation by default
+* disable debugfs support by default
 * bugs squashed:
 
-  - TODO: batman-adv: Fix TT sync flags for intermediate TT responses
-  - TODO: batman-adv: Avoid race in TT TVLV allocator helper
-  - TODO: batman-adv: prevent TT request storms by not sending inconsistent TT TLVLs
-  - TODO: batman-adv: Ignore more generated files in git-status
-  - TODO: batman-adv: Fix bat_ogm_iv best gw refcnt after netlink dump
-  - TODO: batman-adv: Fix bat_v best gw refcnt after netlink dump
-  - TODO: batman-adv: Fix debugfs path for renamed hardif
-  - TODO: batman-adv: Fix debugfs path for renamed softif
+  - fix TT sync flags for intermediate TT responses
+  - avoid race in TT TVLV allocator helper
+  - prevent TT request storms by not sending inconsistent TT TLVLs
+  - fix best gw refcnt after netlink dump
+  - fix debugfs paths for interfaces after a namechange
 </pre>
 
 h2. batctl
