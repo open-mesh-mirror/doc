@@ -17,12 +17,19 @@ Thanks to all people sending in patches:
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
+and to all those that supported us with good advice or rigorous testing:
+
+* Andreas Ziegler <dev@andreas-ziegler.de>
+* John Soros <sorosj@gmail.com>
+
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
 v2018.1-20-g1b6f5c8d
-$ git shortlog --email --no-merges v2018.1..v2018.1-20-g1b6f5c8d
+$ range=v2018.1..v2018.1-20-g1b6f5c8d
+$ git shortlog --email --no-merges "${range}"
+$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\)-by'|sed 's/.*:/*/'|sort|uniq
 
 new kernel support
 ==================
@@ -88,7 +95,9 @@ h2. batctl
 <pre>
 $ git describe origin/master
 v2018.1-1-gbb6fba9
-$ git shortlog --email --no-merges v2018.1..v2018.1-1-gbb6fba9
+$ range=v2018.1..v2018.1-1-gbb6fba9
+$ git shortlog --email --no-merges "${range}"
+$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
@@ -104,7 +113,9 @@ h2. alfred
 <pre>
 $ git describe origin/master
 v2018.1-1-gf1e5969
-$ git shortlog --email --no-merges v2018.1..v2018.1-1-gf1e5969
+$ range=v2018.1..v2018.1-1-gf1e5969
+$ git shortlog --email --no-merges "${range}"
+$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
