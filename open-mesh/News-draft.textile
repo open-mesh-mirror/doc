@@ -85,7 +85,7 @@ bugfixes
 
   - fix TT sync flags for intermediate TT responses
   - avoid race in TT TVLV allocator helper
-  - prevent TT request storms by not sending inconsistent TT TLVLs
+  - prevent TT request storms by not sending inconsistent TT TVLVs
   - fix best gw refcnt after netlink dump
   - fix debugfs paths for interfaces after a namechange
 </pre>
