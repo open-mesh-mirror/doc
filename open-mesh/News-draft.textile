@@ -21,13 +21,16 @@ and to all those that supported us with good advice or rigorous testing:
 
 * Andreas Ziegler <dev@andreas-ziegler.de>
 * John Soros <sorosj@gmail.com>
+* Leonardo Mörlein <me@irrelefant.net>
+* Marcel Schmidt <ff.z-casparistrasse@mailbox.org>
+* Thomas Lauer <holminateur@gmail.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.1-20-g1b6f5c8d
-$ range=v2018.1..v2018.1-20-g1b6f5c8d
+v2018.1-24-g21b78d57
+$ range=v2018.1..v2018.1-24-g21b78d57
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -66,7 +69,9 @@ bugfixes
       batman-adv: Fix bat_v best gw refcnt after netlink dump
       batman-adv: Fix debugfs path for renamed hardif
       batman-adv: Fix debugfs path for renamed softif
-
+      batman-adv: Avoid storing non-TT-sync flags on singular entries too
+      batman-adv: Fix multicast TT issues with bogus ROAM flags
+      batman-adv: compat: initialize sinfo in cfg80211_get_station
 
 
 
@@ -87,7 +92,10 @@ bugfixes
   - avoid race in TT TVLV allocator helper
   - prevent TT request storms by not sending inconsistent TT TVLVs
   - fix best gw refcnt after netlink dump
-  - fix debugfs paths for interfaces after a namechange
+  - adjust debugfs paths for interfaces after a namechange
+  - fix single entry TT non-sync flag storage
+  - fix multicast TT issues with bogus ROAM flags
+  - work around insufficient memory initialization in cfg80211's station info
 </pre>
 
 h2. batctl
