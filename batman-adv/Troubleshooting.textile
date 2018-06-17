@@ -24,8 +24,7 @@ Check dmesg logging output (using dmesg command). If it says 'Unknown symbol crc
 
 h3. Are both nodes having the same cell id?
 
-Check with 'iwconfig'. Some wifi drivers are a little buggy and do not always merge two ad-hoc cells, therefore you're usually best advised to choose and configure one manually (i.e. 'iwconfig wlan0 ap 02:XX:XX:XX:XX:XX'). While configuring a cell-id manually, you should set the 7th bit of the first byte - or start it with "02:" in other words. To keep this id (mostly) unique, using one of the routers mac-address for the rest is usually the safest way to go.
-
+Check with '<code>iw dev wlan0 link</code>'. Some wifi drivers are a little buggy and do not always merge two ad-hoc cells, therefore you're usually best advised to choose and configure one manually (i.e. '<code>iw dev wlan0 ibss join $SSID $FREQ HT20 fixed-freq 02:XX:XX:XX:XX:XX</code>'). While configuring a cell-id manually, you should set the 7th bit of the first byte - or start it with "02:" in other words. To keep this id (mostly) unique, using one of the routers mac-address for the rest is usually the safest way to go.
 
 h3. Is 'batctl if' showing the used interfaces as active?
 
