@@ -36,16 +36,15 @@ h3. Simple mesh network
 
 On all nodes, install batman-adv, load the module and enter the following commands (as root):
 
-<pre>
+# create device which provides the lower link layer for batman-adv (here IBSS/adhoc but also other modes are possible)<pre>
 iw dev wlan0 del
 iw phy phy0 interface add wlan0 type ibss
 ip link set up mtu 1532 dev wlan0
 iw dev wlan0 ibss join my-mesh-network 2412 HT20 fixed-freq 02:12:34:56:78:9A
 </pre>
-
+# add the lower link layer device to batman-adv and start bat0 up
 <pre>
 batctl if add wlan0
-ip link set up dev wlan0
 ip link set up dev bat0
 </pre>
 
@@ -56,6 +55,7 @@ To use Avahi automatic IPv4 IP address assigning, execute:
 <pre>sudo avahi-autoipd bat0</pre>
 
 +Note:+ batman-adv inserts an additional header of 32 bytes into each data packet being send over the mesh. Therefore we are increasing the maximum size of a packet over the plain interfaces to 1532, so that packets with the standard MTU of 1500 can pass normaly through bat0. You might also decrease the MTU to 1468 on all hosts but is usually just do-able in more or less static- and small-scaled mesh-networks.
+
 
 h3. Mixing non-B.A.T.M.A.N. systems with batman-adv
 
