@@ -64,19 +64,17 @@ If you have a couple of computers that you don't want to run batman-adv on but y
 
 On each mesh access point, install batman-adv first, load the module and enter the following commands:
 
-<pre>
+# create device which provides the lower link layer for batman-adv (here IBSS/adhoc but also other modes are possible)<pre>
 iw dev wlan0 del
 iw phy phy0 interface add wlan0 type ibss
 ip link set up mtu 1532 dev wlan0
 iw dev wlan0 ibss join my-mesh-network 2412 HT20 fixed-freq 02:12:34:56:78:9A
 </pre>
-
+# add the lower link layer device to batman-adv
 <pre>
 batctl if add wlan0
-ip link set up dev wlan0
 </pre>
-
-<pre>
+# configure bridge to enable exchange of packets between ethernet (eth0) and batman-adv (bat0) <pre>
 ip link add name mesh-bridge type bridge
 ip link set dev eth0 master mesh-bridge
 ip link set dev bat0 master mesh-bridge
