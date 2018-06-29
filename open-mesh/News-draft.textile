@@ -19,6 +19,7 @@ Thanks to all people sending in patches:
 
 and to all those that supported us with good advice or rigorous testing:
 
+* André Kasper <andre.kasper@gmx.de>
 * Andreas Ziegler <dev@andreas-ziegler.de>
 * John Soros <sorosj@gmail.com>
 * Leonardo Mörlein <me@irrelefant.net>
@@ -29,8 +30,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.1-24-g21b78d57
-$ range=v2018.1..v2018.1-24-g21b78d57
+v2018.1-25-g5a7a2126
+$ range=v2018.1..v2018.1-25-g5a7a2126
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
