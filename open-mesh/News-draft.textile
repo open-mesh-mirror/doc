@@ -1,117 +1,89 @@
-h1. DRAFT: Batman-adv 2018.2 released
+h1. DRAFT: Batman-adv 2018.3 released
 
-Jul 17th, 2018. Today the B.A.T.M.A.N. team publishes the July 2018 update to batman-adv, batctl and alfred! This release drops the support for Linux versions before v3.16 (oldest non-EOL Linux kernel). This makes it possible again to build the kernel in-source without the extra "build/" directory. debugfs is no longer enabled in the standard build configuration but B.A.T.M.A.N. V will be build by default. The later was also modified to no longer accept the ethtool specific link speeds to virtual interfaces - a requirement in the future for the tpmeter based link speed detection of VPN links. The multicast optimization is now more robust and will no longer disable itself when a node without the multicast optimization feature is detected. Also several bugfixes and code cleanups are included in this version.
+Aug 27th, 2018. Today the B.A.T.M.A.N. team publishes the August 2018 update to batman-adv, batctl and alfred! TODO
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2018.2/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2018.3/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
 * Antonio Quartulli <a@unstable.cc>
-* Linus Lüssing <linus.luessing@c0d3.blue>
-* Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-* Marek Lindner <mareklindner@neomailbox.ch>
+* Joe Perches <joe@perches.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* André Kasper <andre.kasper@gmx.de>
-* Andreas Ziegler <dev@andreas-ziegler.de>
-* John Soros <sorosj@gmail.com>
-* Leonardo Mörlein <me@irrelefant.net>
-* Marcel Schmidt <ff.z-casparistrasse@mailbox.org>
-* Thomas Lauer <holminateur@gmail.com>
+* Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.1-25-g5a7a2126
-$ range=v2018.1..v2018.1-25-g5a7a2126
+v2018.2-9-g89dcbd5f
+$ range=v2018.2..v2018.2-9-g89dcbd5f
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 new kernel support
 ==================
 
-      batman-adv: don't implement skb_postpush_rcsum() for linux >=4.4.47
-      batman-adv: fix batadv_interface_tx()'s return type
-      batman-adv: Drop support for Linux < 3.16
+      batman-adv: Convert random_ether_addr to eth_random_addr
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Avoid bool in structures
-      batman-adv: Remove unused dentry without DEBUGFS
+      batman-adv: fix checkpatch warning about misspelled "cache"
+      batman-adv: Unify include guards style
+      batman-adv: Join batadv_purge_orig_ref and _batadv_purge_orig
+      batman-adv: Convert batadv_dat_addr_t to proper type
+      batman-adv: Drop "experimental" from BATMAN_V Kconfig
+      batman-adv: Remove "default n" in Kconfig
+
 
 multicast
 =========
 
-      batman-adv: Avoid old nodes disabling multicast optimizations completely
 
 unclassified
 ============
 
-      batman-adv: disable ethtool link speed detection when auto negotiation off
-      batman-adv: enable B.A.T.M.A.N. V compilation by default
-      batman-adv: Disable CONFIG_BATMAN_ADV_DEBUGFS by default
+      batman-adv: enable DAT by default at compile time
+
+
 
 bugfixes
 ========
 
-      batman-adv: Fix TT sync flags for intermediate TT responses
-      batman-adv: Avoid race in TT TVLV allocator helper
-      batman-adv: prevent TT request storms by not sending inconsistent TT TLVLs
-      batman-adv: Fix bat_ogm_iv best gw refcnt after netlink dump
-      batman-adv: Fix bat_v best gw refcnt after netlink dump
-      batman-adv: Fix debugfs path for renamed hardif
-      batman-adv: Fix debugfs path for renamed softif
-      batman-adv: Avoid storing non-TT-sync flags on singular entries too
-      batman-adv: Fix multicast TT issues with bogus ROAM flags
-      batman-adv: compat: initialize sinfo in cfg80211_get_station
 
 
 
 
-2018.2 (2018-07-17)
+
+2018.3 (2018-08-27)
 ===================
 
-* support latest kernels (3.16 - 4.18)
-* dropped support for kernels < 3.16 (note the removed build directory)
+* support latest kernels (3.16 - 4.19)
 * coding style cleanups and refactoring
-* avoid old nodes disabling multicast optimizations completely
-* disable ethtool based B.A.T.M.A.N. V speed detection for virtual interfaces
-* enable B.A.T.M.A.N. V compilation by default
-* disable debugfs support by default
-* bugs squashed:
-
-  - fix TT sync flags for intermediate TT responses
-  - avoid race in TT TVLV allocator helper
-  - prevent TT request storms by not sending inconsistent TT TVLVs
-  - fix best gw refcnt after netlink dump
-  - adjust debugfs paths for interfaces after a namechange
-  - fix single entry TT non-sync flag storage
-  - fix multicast TT issues with bogus ROAM flags
-  - work around insufficient memory initialization in cfg80211's station info
+* enable the DAT by default for the in-tree Linux module
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/master
-v2018.1-1-gbb6fba9
-$ range=v2018.1..v2018.1-1-gbb6fba9
+v2018.2-1-g15893f1
+$ range=v2018.2..v2018.2-1-g15893f1
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
 
-2018.2 (2018-07-17)
+2018.3 (2018-08-27)
 ===================
 
 * (no changes)
@@ -121,14 +93,14 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2018.1-1-gf1e5969
-$ range=v2018.1..v2018.1-1-gf1e5969
+v2018.2-1-gbd9b383
+$ range=v2018.2..v2018.2-1-gbd9b383
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
-2018.2 (2018-07-17)
+2018.3 (2018-08-27)
 ===================
 
 * (no changes)
