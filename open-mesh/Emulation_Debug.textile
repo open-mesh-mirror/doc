@@ -12,7 +12,8 @@ sudo mount -o loop debian.img debian
 sudo debootstrap stretch debian
 sudo chroot debian apt update
 sudo chroot debian apt install build-essential vim openssh-server \
- pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev trace-cmd
+ pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev \
+ trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev
 sudo mkdir debian/root/.ssh/
 ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
 sudo mkdir debian/host
