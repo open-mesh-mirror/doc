@@ -134,7 +134,7 @@ Hostapd for the Dynamic VLANs
 ------------------------
 /etc/config/hostapd.vlan:
 
-'*           wlan0-1.#'
+'*        wlan0-1.#'
 
 
 ************************
@@ -179,10 +179,10 @@ config wifi-iface
 	option encryption 'wpa2'
 	option auth_server '172.1.1.34'
 	option auth_port '1812'
-	option auth_secret '6P6adm1n2010'
+	option auth_secret 'mYs3cret2010'
 	option acct_server '172.1.1.34'
 	option acct_port '1813'
-	option acct_secret '6P6adm1n2010'
+	option acct_secret 'mYs3cret2010'
 	option nasid 'apmeshx'				#Again, x is the number of the AP. You have to set a NAS Client in Your RADIUS with this ID.
 	option dynamic_vlan '2'
 	option vlan_bridge 'br-vlan'
@@ -200,7 +200,7 @@ config wifi-iface 'wmesh'
 	option bssid '02:CA:FE:CA:CA:40'
 	option mcast_rate '18000'
 	option encryption 'psk2/aes'
-	option key '6P6adm1n2010'
+	option key 'mYs3cretMesh!'
 
 
 
