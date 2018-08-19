@@ -227,6 +227,7 @@ config interface 'mesh'
 	option mtu '1544'
 	option proto 'batadv'
 	option mesh 'bat0'
+	option routing_algo 'BATMAN_V'
 
 config interface 'Vlan21'
         option ifname 'eth0.21 bat0.21'
