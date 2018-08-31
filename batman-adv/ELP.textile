@@ -1,3 +1,8 @@
+h1. This page is OUTDATED!
+
+This page is not in sync with the actual implementation. Neither the packet format matches nor the use as unicast probe frames is explained.
+
+
 h1. Echo Location Protocol (ELP)
 
 !https://upload.wikimedia.org/wikipedia/commons/e/e1/Animal_echolocation.svg!:https://en.wikipedia.org/wiki/File:Animal_echolocation.svg
