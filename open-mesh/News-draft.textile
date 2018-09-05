@@ -75,7 +75,8 @@ bugfixes
 * enable the DAT by default for the in-tree Linux module
 * bugs squashed
 
-  - fix segfault when writing to sysfs files under batman_adv/ with CONFIG_BATMAN_ADV_DEBUG enabled
+  - fix segfault when writing to sysfs files under batman_adv/ with
+    CONFIG_BATMAN_ADV_DEBUG enabled
   - avoid information leakage in probe ELP packets
 
 </pre>
