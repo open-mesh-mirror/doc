@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2018.3 released
 
-Aug 27th, 2018. Today the B.A.T.M.A.N. team publishes the August 2018 update to batman-adv, batctl and alfred! TODO
+Sep 11th, 2018. Today the B.A.T.M.A.N. team publishes the September 2018 update to batman-adv, batctl and alfred! This release contains mostly bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -23,8 +23,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.2-9-g89dcbd5f
-$ range=v2018.2..v2018.2-9-g89dcbd5f
+v2018.2-13-gb2eab521
+$ range=v2018.2..v2018.2-13-gb2eab521
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -58,17 +58,26 @@ unclassified
 bugfixes
 ========
 
+      batman-adv: Avoid probe ELP information leak
+      batman-adv: Fix segfault when writing to throughput_override
+      batman-adv: Fix segfault when writing to sysfs elp_interval
 
 
 
 
 
-2018.3 (2018-08-27)
+
+2018.3 (2018-09-11)
 ===================
 
 * support latest kernels (3.16 - 4.19)
 * coding style cleanups and refactoring
 * enable the DAT by default for the in-tree Linux module
+* bugs squashed
+
+  - fix segfault when writing to sysfs files under batman_adv/ with CONFIG_BATMAN_ADV_DEBUG enabled
+  - avoid information leakage in probe ELP packets
+
 </pre>
 
 h2. batctl
@@ -83,7 +92,7 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 
 
 
-2018.3 (2018-08-27)
+2018.3 (2018-09-11)
 ===================
 
 * (no changes)
@@ -100,7 +109,7 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 
 
 
-2018.3 (2018-08-27)
+2018.3 (2018-09-11)
 ===================
 
 * (no changes)
