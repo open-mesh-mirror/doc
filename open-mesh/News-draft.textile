@@ -12,6 +12,7 @@ Thanks to all people sending in patches:
 
 * Antonio Quartulli <a@unstable.cc>
 * Joe Perches <joe@perches.com>
+* Marek Lindner <mareklindner@neomailbox.ch>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
@@ -23,8 +24,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.2-13-gb2eab521
-$ range=v2018.2..v2018.2-13-gb2eab521
+v2018.2-21-g0ac64311
+$ range=v2018.2..v2018.2-21-g0ac64311
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -61,8 +62,13 @@ bugfixes
       batman-adv: Avoid probe ELP information leak
       batman-adv: Fix segfault when writing to throughput_override
       batman-adv: Fix segfault when writing to sysfs elp_interval
-
-
+      batman-adv: fix backbone_gw refcount on queue_work() failure
+      batman-adv: fix hardif_neigh refcount on queue_work() failure
+      batman-adv: Prevent duplicated gateway_node entry
+      batman-adv: Prevent duplicated nc_node entry
+      batman-adv: Prevent duplicated softif_vlan entry
+      batman-adv: Prevent duplicated global TT entry
+      batman-adv: Prevent duplicated tvlv handler
 
 
 
@@ -78,6 +84,8 @@ bugfixes
   - fix segfault when writing to sysfs files under batman_adv/ with
     CONFIG_BATMAN_ADV_DEBUG enabled
   - avoid information leakage in probe ELP packets
+  - adjust reference counters when queue_work fails
+  - prevent duplicated entries in various lists
 
 </pre>
 
