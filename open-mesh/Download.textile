@@ -92,9 +92,6 @@ Use apt-get (or any other dpkg frontend of choice) to install B.A.T.M.A.N. onto 
 * "alfred":https://packages.debian.org/sid/alfred
 * "batmand":https://packages.debian.org/sid/batmand
 * "batctl":https://packages.debian.org/sid/batctl
-* Debian Wheezy and all newer releases come with batman-adv as part of the kernel, no need to re-install the module manually. For squeeze, check:
-** "batman-adv-source":https://packages.debian.org/squeeze/batman-adv-source - batman-advanced kernel 2010.0.0 module source for Debian Squeeze (installable via "module-assistant":https://packages.debian.org/squeeze/module-assistant) 
-** "batman-adv-dkms":https://packages.debian.org/squeeze/batman-adv-dkms - batman-advanced kernel module 2010.0.0 dkms package for Debian Squeeze to build new modules dynamically (half-automatic) 
 * "linux":https://packages.debian.org/source/unstable/linux - batman-advanced kernel module as "part of the official":https://bugs.debian.org/622361 kernel packages
 
 Similar packages are also available through "Ubuntu universe":https://help.ubuntu.com/community/Repositories/Ubuntu .
