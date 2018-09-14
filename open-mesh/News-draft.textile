@@ -1,91 +1,70 @@
-h1. DRAFT: Batman-adv 2018.3 released
+h1. DRAFT: Batman-adv 2018.4 released
 
-Sep 14th, 2018. Today the B.A.T.M.A.N. team publishes the September 2018 update to batman-adv, batctl and alfred! This release contains mostly bugfixes and code cleanups.
+Nov 06th, 2018. Today the B.A.T.M.A.N. team publishes the November 2018 update to batman-adv, batctl and alfred! TODO
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2018.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2018.4/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Antonio Quartulli <a@unstable.cc>
-* Joe Perches <joe@perches.com>
-* Marek Lindner <mareklindner@neomailbox.ch>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>
+* XXXXXX
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.2-21-g0ac64311
-$ range=v2018.2..v2018.2-21-g0ac64311
+v2018.3-6-gc79a99f5
+$ range=v2018.3..v2018.3-6-gc79a99f5
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 new kernel support
 ==================
 
-      batman-adv: Convert random_ether_addr to eth_random_addr
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: fix checkpatch warning about misspelled "cache"
-      batman-adv: Unify include guards style
-      batman-adv: Join batadv_purge_orig_ref and _batadv_purge_orig
-      batman-adv: Convert batadv_dat_addr_t to proper type
-      batman-adv: Drop "experimental" from BATMAN_V Kconfig
-      batman-adv: Remove "default n" in Kconfig
 
-
-multicast
-=========
-
+      batman-adv: Move OGM rebroadcast stats to orig_ifinfo
 
 unclassified
 ============
 
-      batman-adv: enable DAT by default at compile time
+      batman-adv: Enable LockLess TX for softif
+      batman-adv: Disable MCAST during compilation
+      batman-adv: Mark debugfs functionality as deprecated
+      batman-adv: Provide debug messages as trace events
 
 
 
 bugfixes
 ========
 
-      batman-adv: Avoid probe ELP information leak
-      batman-adv: Fix segfault when writing to throughput_override
-      batman-adv: Fix segfault when writing to sysfs elp_interval
-      batman-adv: fix backbone_gw refcount on queue_work() failure
-      batman-adv: fix hardif_neigh refcount on queue_work() failure
-      batman-adv: Prevent duplicated gateway_node entry
-      batman-adv: Prevent duplicated nc_node entry
-      batman-adv: Prevent duplicated softif_vlan entry
-      batman-adv: Prevent duplicated global TT entry
-      batman-adv: Prevent duplicated tvlv handler
 
 
 
 
-2018.3 (2018-09-14)
+2018.4 (2018-11-06)
 ===================
 
-* support latest kernels (3.16 - 4.19)
+* support latest kernels (3.16 - 4.20)
 * coding style cleanups and refactoring
-* enable the DAT by default for the in-tree Linux module
-* bugs squashed
+* disable multicast support by default for the out-of-tree Linux module
+* improve tx performance by removing unnecessary locking
+* deprecation of debugfs files
+* support for debug message tracepoints
+* bugs squashed:
 
-  - fix segfault when writing to sysfs files under batman_adv/ with
-    CONFIG_BATMAN_ADV_DEBUG enabled
-  - avoid information leakage in probe ELP packets
-  - adjust reference counters when queue_work fails
-  - prevent duplicated entries in various lists
+  - 
 
 </pre>
 
@@ -93,15 +72,15 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2018.2-1-g15893f1
-$ range=v2018.2..v2018.2-1-g15893f1
+v2018.3-1-g83faa31
+$ range=v2018.3..v2018.3-1-g83faa31
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
 
-2018.3 (2018-09-14)
+2018.4 (2018-11-06)
 ===================
 
 * (no changes)
@@ -111,14 +90,14 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2018.2-1-gbd9b383
-$ range=v2018.2..v2018.2-1-gbd9b383
+v2018.3-1-g27c6643
+$ range=v2018.3..v2018.3-1-g27c6643
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
-2018.3 (2018-09-14)
+2018.4 (2018-11-06)
 ===================
 
 * (no changes)
