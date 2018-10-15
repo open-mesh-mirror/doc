@@ -3,7 +3,7 @@ h1. Understand your B.A.T.M.A.N. Advanced network
 This document assumes you have created a batman-adv network and are interested in finding out how batman routes the traffic from node to node, getting an access to the whole network topology and/or wish understand why batman is doing what it is doing. Batman provides a set of debug tools and debug tables which aim to facilitate this task. Explaining the routing decisions / various routing optimizations are not in the scope of this document. Links to complementary documents will be provided if available.
 
 
-+Note+: Although this document focusses on the "raw" debugfs interface you always can use batctl for a more convenient access to the data. This document assumes debugfs was mounted at /sys/kernel/debug/. Please adjust the given examples if your system mounts the filesystem somewhere else. The batctl tool will automatically mount debugfs whenever you try to access functionality that require it. This document also assumes that you created a mesh cloud "bat0". [[tweaking|This page]] provides background information on how to handle mesh clouds.
++Note+: Although this document focusses on the "raw" debugfs interface you always can use batctl for a more convenient access to the data. This document assumes batman-adv was build with <code>CONFIG_BATMAN_ADV_DEBUGFS=y</code> and debugfs was mounted at /sys/kernel/debug/. Please adjust the given examples if your system mounts the filesystem somewhere else. The batctl tool will automatically mount debugfs whenever you try to access functionality that require it. This document also assumes that you created a mesh cloud "bat0". [[tweaking|This page]] provides background information on how to handle mesh clouds.
 
 h2. Tables
 
