@@ -38,6 +38,7 @@ sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
 sudo sh -c 'echo '\''PATH="$PATH":/host/batctl/'\'' >> debian/etc/profile'
 sudo rm debian/var/cache/apt/archives/*.deb
 sudo rm debian/var/lib/apt/lists/*
+sudo e4defrag -v debian/
 sudo umount debian
 sudo zerofree -v debian.img
 
