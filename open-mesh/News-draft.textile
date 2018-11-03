@@ -178,7 +178,7 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 * bugs squashed:
 
   - fixed detection of own IPv4 packets
-  - use manual ARP requests to detect 
+  - use manual IPv4 ARP requests to retrieve MAC of neighbors
 </pre>
 
 
