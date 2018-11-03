@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2018.4 released
 
-Nov 06th, 2018. Today the B.A.T.M.A.N. team publishes the November 2018 update to batman-adv, batctl and alfred! TODO
+Nov 06th, 2018. Today the B.A.T.M.A.N. team publishes the November 2018 update to batman-adv, batctl and alfred! This release contains mostly code refactorization in batctl for more netlink work in the future. Alfred's IPv4 implementation was polished to better handle missing MAC addresses in the ARP neighbor table. The batman-adv kernel modules now yields better results for TX throughput tests and allows to receive its debug messages via the Linux kernel's tracepoint infrastructure. The multicast support is now by default (like in the kernel) also disabled  in the out-of-tree module. Accessing the debugfs files will now create warning messages that a different method of retrieving the information should be used. As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -10,19 +10,22 @@ h2. Thanks
 
 Thanks to all people sending in patches:
 
+* Jonathan Haws <jhaws@sdl.usu.edu>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* XXXXXX
+* Andreas Ziegler <dev@andreas-ziegler.de>
+* Gary Zou <guohuizou2000@sina.com>
+* Linus Lüssing <linus.luessing@c0d3.blue>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.3-6-gc79a99f5
-$ range=v2018.3..v2018.3-6-gc79a99f5
+v2018.3-12-ge6257fc2
+$ range=v2018.3..v2018.3-12-ge6257fc2
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -44,6 +47,11 @@ unclassified
       batman-adv: Mark debugfs functionality as deprecated
       batman-adv: Provide debug messages as trace events
 
+      batman-adv: Fix batadv_debugfs_deprecated line over 80 chars
+      batman-adv: Fix colliding redefinition of file_dentry
+      batman-adv: Fix colliding redefinition of skb_postpush_rcsum
+      batman-adv: Use explicit tvlv padding for ELP packets
+
 
 
 bugfixes
@@ -62,9 +70,7 @@ bugfixes
 * improve tx performance by removing unnecessary locking
 * deprecation of debugfs files
 * support for debug message tracepoints
-* bugs squashed:
-
-  - 
+* explicit ELP padding to allow TVLVs in the future
 
 </pre>
 
@@ -72,35 +78,107 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2018.3-1-g83faa31
-$ range=v2018.3..v2018.3-1-g83faa31
+v2018.3-44-g2f5dbd0
+$ range=v2018.3..v2018.3-44-g2f5dbd0
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
+manpage
+=======
 
+      batctl: Fix minor typos in manpage
 
+removal of outdated
+===================
+
+      batctl: Drop legacy vis_* related warning messages
+
+cleanups/coderefactoring
+========================
+
+      batctl: Drop unused define SOCKET_PATH_FMT
+      batctl: Use common code organization for statistics
+      batctl: Move loglevel command to separate file
+      batctl: Move log command to separate file
+      batctl: Move gw_mode command to separate file
+      batctl: Move routing_algo command to separate file
+      batctl: Rename tp_meter to throughputmeter
+      batctl: Introduce datastructure for subcommands
+      batctl: Add per command flags
+      batctl: Use command structure for remaining subcommands
+      batctl: Use getopt to parse main options
+      batctl: Store usage line next to command
+      batctl: Prepare command infrastructure for shared functions
+      batctl: Add type to command to structure usage output
+      batctl: Convert debug table to command infrastructure
+      batctl: Convert sysfs settings to command infrastructure
+      batctl: Move backbonetable debug table to own file
+      batctl: Move claimtable debug table to own file
+      batctl: Move dat_cache debug table to own file
+      batctl: Move gateways debug table to own file
+      batctl: Move mcast_flags debug table to own file
+      batctl: Move nc_nodes debug table to own file
+      batctl: Move neighbors debug table to own file
+      batctl: Move originators debug table to own file
+      batctl: Move transglobal debug table to own file
+      batctl: Move translocal debug table to own file
+      batctl: Move aggregation setting to own file
+      batctl: Move ap_isolation setting to own file
+      batctl: Move bonding setting to own file
+      batctl: Move bridge_loop_avoidance setting to own file
+      batctl: Move distributed_arp_table setting to own file
+      batctl: Move fragmentation setting to own file
+      batctl: Move isolation_mark setting to own file
+      batctl: Move multicast_mode setting to own file
+      batctl: Move network_coding setting to own file
+      batctl: Move orig_interval setting to own file
+      batctl: Use external netlink socket for debug tables
+      batctl: Move routing_algo specific code it command source file
+
+new command
+===========
+
+      batctl: Add command to monitor for netlink events
+
+infrastructure to disable commands
+==================================
+
+      batctl: Simplify enabling for bisect_iv subcommand
+      batctl: Allow to enable/disable subcommands
 
 2018.4 (2018-11-06)
 ===================
 
-* (no changes)
+* coding style cleanups and refactoring
+* correction of manpage spelling errors
+* new subcommand "event" to receive netlink notifications
+* infrastructure to disable commands during build time
+* drop of the legacy vis subcommands 
+
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/master
-v2018.3-1-g27c6643
-$ range=v2018.3..v2018.3-1-g27c6643
+v2018.3-3-g5610d5b
+$ range=v2018.3..v2018.3-3-g5610d5b
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
+
+      alfred: Request MAC resolution for IPv4 address not in ARP cache
+      alfred: Fix detection of own packets for IPv4 mode
 
 
 
 2018.4 (2018-11-06)
 ===================
 
-* (no changes)
+* bugs squashed:
+
+  - fixed detection of own IPv4 packets
+  - use manual ARP requests to detect 
 </pre>
 
 
