@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2018.4 released
 
-Nov 06th, 2018. Today the B.A.T.M.A.N. team publishes the November 2018 update to batman-adv, batctl and alfred! This release contains mostly code refactorization in batctl to ease more netlink development in the future. Alfred's IPv4 implementation was polished to better handle missing MAC addresses in the ARP neighbor table. The batman-adv kernel modules now yields better results for TX throughput tests and allows to receive its debug messages via the Linux kernel's tracepoint infrastructure. The multicast support is now by default (like in the kernel) also disabled  in the out-of-tree module. Accessing the debugfs files will now create warning messages that a different method of retrieving the information should be used. As usual, this release also contains various bugfixes and code cleanups.
+Nov 06th, 2018. Today the B.A.T.M.A.N. team publishes the November 2018 update to batman-adv, batctl and alfred! This release contains mostly code refactorization in batctl to ease more netlink development in the future. Alfred's IPv4 implementation was polished to better handle missing MAC addresses in the ARP neighbor table. The batman-adv kernel modules now yields better results for TX throughput tests and allows to receive its debug messages via the Linux kernel's tracepoint infrastructure. Accessing the debugfs files will now create warning messages that a different method of retrieving the information should be used. As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -66,7 +66,6 @@ bugfixes
 
 * support latest kernels (3.16 - 4.20)
 * coding style cleanups and refactoring
-* disable multicast support by default for the out-of-tree Linux module
 * improve tx performance by removing unnecessary locking
 * deprecation of debugfs files
 * support for debug message tracepoints
