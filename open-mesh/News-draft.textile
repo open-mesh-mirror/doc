@@ -19,6 +19,7 @@ and to all those that supported us with good advice or rigorous testing:
 * Andreas Ziegler <dev@andreas-ziegler.de>
 * Gary Zou <guohuizou2000@sina.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
+* Martin Weinelt <martin@darmstadt.freifunk.net>
 
 h2. batman-adv
 
@@ -70,6 +71,9 @@ bugfixes
 * deprecation of debugfs files
 * support for debug message tracepoints
 * explicit ELP padding to allow TVLVs in the future
+* bugs squashed:
+
+  - fix skb_over_panic for merged fragments with small tailroom
 
 </pre>
 
