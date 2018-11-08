@@ -75,6 +75,9 @@ bugfixes
 
   - fix skb_over_panic for merged fragments with small tailroom
 
+
+TODO: merge before release https://patchwork.open-mesh.org/patch/17616/
+
 </pre>
 
 h2. batctl
