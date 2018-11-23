@@ -1,11 +1,11 @@
 h1. Batman-adv gateways
 
-Often batman-adv is used to cover a bigger area with wireless access to the internet where several nodes have internet access while the other nodes try to find the best route towards one of the gateways. In this case it is desirable that the routing protocol helps with the decision to find the best path since it already knows the topology of the network.
+Often batman-adv is used to cover a bigger area with wireless access to the internet where several nodes have internet access while the other nodes try to find the best route towards one of the gateways. In this case, it is desirable that the routing protocol helps with the decision to find the best path since it already knows the topology of the network.
 
 
 h2. Announcements
 
-To make the internet uplink known in the mesh network, batman-adv allows to enable the so-called 'gateway mode'. The user specified internet uplink bandwidth is propagated in the mesh network using the [[batman-adv:TVLV#Gateway-announcement|gateway TVLVs]]. All other mesh participants receive these announcements and maintain a list of internet gateways in the network (see: [[batman-adv:Understand-your-batman-adv-network#Gateway-table|gateway table]]).
+To make the internet uplink known in the mesh network, batman-adv allows enabling the so-called 'gateway mode'. The user specified internet uplink bandwidth is propagated in the mesh network using the [[batman-adv:TVLV#Gateway-announcement|gateway TVLVs]]. All other mesh participants receive these announcements and maintain a list of internet gateways in the network (see: [[batman-adv:Understand-your-batman-adv-network#Gateway-table|gateway table]]).
 To take advantage of this knowledge, each batman-adv node without an internet connection needs to enable the 'gateway client mode' by choosing one of the available gateway selection strategies (check the "batctl manpage":https://downloads.open-mesh.org/batman/manpages/batctl.8.html for details). If no gateway selection strategy is configured the gateway announcements have no effect on any routing or forwarding decision.
 
 
@@ -25,7 +25,7 @@ Which gateway will be selected by the client depends on the number of DHCP serve
 
 DHCP requests issued by non-mesh clients will not be broadcasted by batman-adv but only sent to the chosen batman-adv gateway via unicast. The DHCP client will then select the gateway batman-adv prefers as only this gateway replied to the request.
 
-To inform clients possessing a valid DHCP release about a gateway change (the link quality to the gateway could have dropped or the client is roaming around) batman-adv will also inspect incoming DHCP renewal packets. If their destination is not the currently selected gateway and below a certain TQ threshold (currently defaulting to a TQ of 50), the DHCP renewal packet is not forwarded, thereby forcing the client to request a new DHCP lease from a better connected gateway.
+To inform clients possessing a valid DHCP release about a gateway change (the link quality to the gateway could have dropped or the client is roaming around) batman-adv will also inspect incoming DHCP renewal packets. If their destination is not the currently selected gateway and below a certain TQ threshold (currently defaulting to a TQ of 50), the DHCP renewal packet is not forwarded, thereby forcing the client to request a new DHCP lease from a better-connected gateway.
 
 
 h2. The configuration
@@ -39,7 +39,7 @@ Activate the gateway announcements on a node that has a DHCP server running:
 batctl gw_mode server
 </pre>
 
-Batman-adv always announces the gateway's internet bandwidth, so that clients can base their decision on the link quality towards the gateway as well as on the available bandwidth. Per default a bandwidth of 10MBit/2MBit is assumed. To configure a download bandwidth of 5Mbit with an upload of 1Mbit run the following command:
+Batman-adv always announces the gateway's internet bandwidth, so that clients can base their decision on the link quality towards the gateway as well as on the available bandwidth. Per default, a bandwidth of 10MBit/2MBit is assumed. To configure a download bandwidth of 5Mbit with an upload of 1Mbit run the following command:
 
 <pre>
 batctl gw_mode server 5mbit/1mbit
@@ -63,6 +63,9 @@ batctl gw_mode client 20
 
 All available gateway selection classes are thoroughly explained in the "batctl manpage":https://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
+With B.A.T.M.A.N. V this behavior changed: the value is measured in kbit, for example, if gw_sel_class is set to 1500 the gateway is selected if the TQ is 1500 kbit faster.
+      
+
 h3. gateway status
 
 To see all available gateways and their announced throughput run:
@@ -81,4 +84,4 @@ batctl gw_mode
 h2. Controversy
 
 
-The subject of manipulating the IP (layer 3) default route with a layer 2 routing protocol has stirred up controversy between those who believe in a clean network layer separation and those who need this functionality. The former claim that a well-designed protocol should not mess with other layers but instead collaborate with tools made for higher layers. The latter group has pointed out that the rule of network layer separation can be bent in real world applications to improve usability. To achieve a compromise the gateway mechanism is disabled per default and only operates on top of DHCP (details below). Feel free to contact us in case you want to propose alternative ideas.
+The subject of manipulating the IP (layer 3) default route with a layer 2 routing protocol has stirred up controversy between those who believe in a clean network layer separation and those who need this functionality. The former claim that a well-designed protocol should not mess with other layers but instead collaborate with tools made for higher layers. The latter group has pointed out that the rule of network layer separation can be bent in real-world applications to improve usability. To achieve a compromise the gateway mechanism is disabled per default and only operates on top of DHCP (details below). Feel free to contact us in case you want to propose alternative ideas.
