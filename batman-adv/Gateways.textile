@@ -63,7 +63,7 @@ batctl gw_mode client 20
 
 All available gateway selection classes are thoroughly explained in the "batctl manpage":https://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
-With B.A.T.M.A.N. V this behavior changed: the value is measured in kbit/s, for example, if gw_sel_class is set to 1500 the gateway is selected if the minimum of GW advertised throughput and the path throughput is 1500 kbit/s faster than the speed of the currently selected gateway.
+With B.A.T.M.A.N. V this behavior changed: the value is measured in kbit/s, for example, if gw_sel_class is set to 1500 the gateway will be selected if the throughput is at least 1500 kbit/s faster than the throughput of the currently selected gateway. Throughput is determined by evaluating which is lower: the advertised throughput by the gateway or the maximum bandwidth across the entire path.
       
 
 h3. gateway status
