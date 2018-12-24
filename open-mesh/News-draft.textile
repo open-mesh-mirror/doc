@@ -1,32 +1,33 @@
-h1. DRAFT: Batman-adv 2018.4 released
+h1. DRAFT: Batman-adv 2019.0 released
 
-Nov 14th, 2018. Today the B.A.T.M.A.N. team publishes the November 2018 update to batman-adv, batctl and alfred! This release contains mostly code refactorization in batctl to ease more netlink development in the future. Alfred's IPv4 implementation was polished to better handle missing MAC addresses in the ARP neighbor table. The batman-adv kernel modules now yields better results for TX throughput tests and allows to receive its debug messages via the Linux kernel's tracepoint infrastructure. Accessing the debugfs files will now create warning messages that a different method of retrieving the information should be used. As usual, this release also contains various bugfixes and code cleanups.
+Jan 14th, 2019. Today the B.A.T.M.A.N. team publishes the January 2019 update to batman-adv, batctl and alfred! This release contains *TODO*
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2018.4/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2019.0/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Jonathan Haws <jhaws@sdl.usu.edu>
+* Linus Lüssing <linus.luessing@c0d3.blue>
+* Ruben Barkow <github@r.z11.de>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
 * Andreas Ziegler <dev@andreas-ziegler.de>
-* Gary Zou <guohuizou2000@sina.com>
-* Linus Lüssing <linus.luessing@c0d3.blue>
-* Martin Weinelt <martin@darmstadt.freifunk.net>
+* Andre Kasper <andre.kasper@gmx.de>
+* Antonio Quartulli <a@unstable.cc>
+* Matthias Schiffer <mschiffer@universe-factory.net>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.3-12-ge6257fc2
-$ range=v2018.3..v2018.3-12-ge6257fc2
+v2018.4-19-g983e4981
+$ range=v2018.4..v2018.4-19-g983e4981
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -37,21 +38,31 @@ new kernel support
 coding style cleanup/refactoring
 ================================
 
+          batman-adv: Drop unused lockdep include
+          batman-adv: Add includes for deprecation warning
+          batman-adv: Improve includes for trace functionality
+          batman-adv: Fix description for BATMAN_ADV_DEBUG
+          batman-adv: Allow to disable depmod
+          batman-adv: Move CRC16 dependency to BATMAN_ADV_BLA
 
-      batman-adv: Move OGM rebroadcast stats to orig_ifinfo
 
 unclassified
 ============
 
-      batman-adv: Enable LockLess TX for softif
-      batman-adv: Disable MCAST during compilation
-      batman-adv: Mark debugfs functionality as deprecated
-      batman-adv: Provide debug messages as trace events
+          batman-adv: Allow to use BATMAN_ADV_DEBUG without BATMAN_ADV_DEBUGFS
 
-      batman-adv: Fix batadv_debugfs_deprecated line over 80 chars
-      batman-adv: Fix colliding redefinition of file_dentry
-      batman-adv: Fix colliding redefinition of skb_postpush_rcsum
-      batman-adv: Use explicit tvlv padding for ELP packets
+netlink
+=======
+
+          batman-adv: Add compat for genl_dump_check_consistent
+          batman-adv: Add inconsistent gateway netlink dump detection
+          batman-adv: Add inconsistent hardif netlink dump detection
+          batman-adv: Store modification counter via hash helpers
+          batman-adv: Add inconsistent backbone netlink dump detection
+          batman-adv: Add inconsistent claim netlink dump detection
+          batman-adv: Add inconsistent dat netlink dump detection
+          batman-adv: Add inconsistent local TT netlink dump detection
+          batman-adv: Add inconsistent multicast netlink dump detection
 
 
 
@@ -62,18 +73,13 @@ bugfixes
 
 
 
-2018.4 (2018-11-14)
+2019.0 (2019-10-14)
 ===================
 
-* support latest kernels (3.16 - 4.20)
+* support latest kernels (3.16 - 4.21)
 * coding style cleanups and refactoring
-* improve tx performance by avoiding unnecessary locking
-* add help messages regarding deprecation of debugfs files
-* support for debug message tracepoints
-* explicit ELP padding to allow TVLVs in the future
-* bugs squashed:
-
-  - fix skb_over_panic for merged fragments with small tailroom
+* allow to enable debug tracing without full batman-adv debugfs support
+* enable inconsistency reporting for most netlink dump commands
 
 </pre>
 
@@ -81,82 +87,45 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2018.3-44-g2f5dbd0
-$ range=v2018.3..v2018.3-44-g2f5dbd0
+v2018.4-8-ge24c95f
+$ range=v2018.4..v2018.4-8-ge24c95f
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 manpage
 =======
 
-      batctl: Fix minor typos in manpage
+          batctl: Add section to explain gateway selection class for BATMAN_V
 
-removal of outdated
-===================
 
-      batctl: Drop legacy vis_* related warning messages
+
 
 cleanups/coderefactoring
 ========================
 
-      batctl: Drop unused define SOCKET_PATH_FMT
-      batctl: Use common code organization for statistics
-      batctl: Move loglevel command to separate file
-      batctl: Move log command to separate file
-      batctl: Move gw_mode command to separate file
-      batctl: Move routing_algo command to separate file
-      batctl: Rename tp_meter to throughputmeter
-      batctl: Introduce datastructure for subcommands
-      batctl: Add per command flags
-      batctl: Use command structure for remaining subcommands
-      batctl: Use getopt to parse main options
-      batctl: Store usage line next to command
-      batctl: Prepare command infrastructure for shared functions
-      batctl: Add type to command to structure usage output
-      batctl: Convert debug table to command infrastructure
-      batctl: Convert sysfs settings to command infrastructure
-      batctl: Move backbonetable debug table to own file
-      batctl: Move claimtable debug table to own file
-      batctl: Move dat_cache debug table to own file
-      batctl: Move gateways debug table to own file
-      batctl: Move mcast_flags debug table to own file
-      batctl: Move nc_nodes debug table to own file
-      batctl: Move neighbors debug table to own file
-      batctl: Move originators debug table to own file
-      batctl: Move transglobal debug table to own file
-      batctl: Move translocal debug table to own file
-      batctl: Move aggregation setting to own file
-      batctl: Move ap_isolation setting to own file
-      batctl: Move bonding setting to own file
-      batctl: Move bridge_loop_avoidance setting to own file
-      batctl: Move distributed_arp_table setting to own file
-      batctl: Move fragmentation setting to own file
-      batctl: Move isolation_mark setting to own file
-      batctl: Move multicast_mode setting to own file
-      batctl: Move network_coding setting to own file
-      batctl: Move orig_interval setting to own file
-      batctl: Use external netlink socket for debug tables
-      batctl: Move routing_algo specific code it command source file
+    
+          batctl: Rename option_watch_interval to option_timeout_interval
 
-new command
-===========
+Bugfix
+======
 
-      batctl: Add command to monitor for netlink events
 
-infrastructure to disable commands
-==================================
+          batctl: Fix parsing of optional debug table command parameters
+          batctl: Remove check of compiled_out files
+          batctl: Drop incorrect check for existing meshif directory
 
-      batctl: Simplify enabling for bisect_iv subcommand
-      batctl: Allow to enable/disable subcommands
 
-2018.4 (2018-11-14)
+
+2019.0 (2019-10-14)
 ===================
 
 * coding style cleanups and refactoring
-* correction of manpage spelling errors
-* new subcommand "event" to receive netlink notifications
-* infrastructure to disable commands during build time
-* drop of the legacy vis subcommands 
+* add gateway selection manpage section for B.A.T.M.A.N. V
+* bugs squashed:
+
+  - re-integrate support for translation table unicast/multicast filter
+  - avoid incorrect warning about disabled mesh interface when debugfs
+    support is not enabled in batman-adv
 
 </pre>
 
@@ -164,24 +133,19 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2018.3-3-g5610d5b
-$ range=v2018.3..v2018.3-3-g5610d5b
+v2018.4-1-g0e15933
+$ range=v2018.4..v2018.4-1-g0e15933
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-      alfred: Request MAC resolution for IPv4 address not in ARP cache
-      alfred: Fix detection of own packets for IPv4 mode
 
 
 
-2018.4 (2018-11-14)
+2019.0 (2019-10-14)
 ===================
 
-* bugs squashed:
-
-  - fixed detection of own IPv4 packets
-  - use manual IPv4 ARP requests to retrieve MAC of neighbors
+* (no changes)
 </pre>
 
 
