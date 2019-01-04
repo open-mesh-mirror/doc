@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2019.0 released
 
-Jan 14th, 2019. Today the B.A.T.M.A.N. team publishes the January 2019 update to batman-adv, batctl and alfred! This release contains *TODO*
+Jan 14th, 2019. Today the B.A.T.M.A.N. team publishes the January 2019 update to batman-adv, batctl and alfred! This release decouples the tracing functionality from the (deprecated) debugfs functionality. Most of the netlink functionality now also reports inconsistency problems during the dumping of larger number of entries. As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -20,13 +20,14 @@ and to all those that supported us with good advice or rigorous testing:
 * Andreas Ziegler <dev@andreas-ziegler.de>
 * Andre Kasper <andre.kasper@gmx.de>
 * Antonio Quartulli <a@unstable.cc>
+* Dmitry Vyukov <dvyukov@google.com>
 * Matthias Schiffer <mschiffer@universe-factory.net>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.4-19-g983e4981
+v2018.4-23-g89ba2134
 $ range=v2018.4..v2018.4-19-g983e4981
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
@@ -69,7 +70,8 @@ netlink
 bugfixes
 ========
 
-
+      batman-adv: Avoid WARN on net_device without parent in netns
+      batman-adv: Force mac header to start of data on xmit
 
 
 
@@ -80,6 +82,10 @@ bugfixes
 * coding style cleanups and refactoring
 * allow to enable debug tracing without full batman-adv debugfs support
 * enable inconsistency reporting for most netlink dump commands
+* bugs squashed:
+
+  - avoid unnecessary kernel warning (panic) during detection of interface loops
+  - work around incorrect ethernet header offset in transmit code path
 
 </pre>
 
@@ -87,8 +93,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2018.4-8-ge24c95f
-$ range=v2018.4..v2018.4-8-ge24c95f
+v2018.4-9-g1f35614
+$ range=v2018.4..v2018.4-9-g1f35614
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -133,8 +139,8 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2018.4-1-g0e15933
-$ range=v2018.4..v2018.4-1-g0e15933
+v2018.4-2-gbf0bf31
+$ range=v2018.4..v2018.4-2-gbf0bf31
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
