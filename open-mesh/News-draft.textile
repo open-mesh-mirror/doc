@@ -78,7 +78,7 @@ bugfixes
 2019.0 (2019-10-14)
 ===================
 
-* support latest kernels (3.16 - 4.21)
+* support latest kernels (3.16 - 5.0)
 * coding style cleanups and refactoring
 * allow to enable debug tracing without full batman-adv debugfs support
 * enable inconsistency reporting for most netlink dump commands
