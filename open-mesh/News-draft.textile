@@ -11,6 +11,7 @@ h2. Thanks
 Thanks to all people sending in patches:
 
 * Linus Lüssing <linus.luessing@c0d3.blue>
+* Linus Torvalds <torvalds@linux-foundation.org>
 * Ruben Barkow <github@r.z11.de>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
