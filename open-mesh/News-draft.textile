@@ -10,6 +10,7 @@ h2. Thanks
 
 Thanks to all people sending in patches:
 
+* Felix Fietkau <nbd@nbd.name>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Linus Torvalds <torvalds@linux-foundation.org>
 * Ruben Barkow <github@r.z11.de>
@@ -73,6 +74,7 @@ bugfixes
 
       batman-adv: Avoid WARN on net_device without parent in netns
       batman-adv: Force mac header to start of data on xmit
+      batman-adv: release station info tidstats
 
 
 
