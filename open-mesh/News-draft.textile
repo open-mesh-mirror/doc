@@ -1,94 +1,94 @@
-h1. DRAFT: Batman-adv 2019.0 released
+h1. DRAFT: Batman-adv 2019.1 released
 
-Jan 14th, 2019. Today the B.A.T.M.A.N. team publishes the January 2019 update to batman-adv, batctl and alfred! This release decouples the tracing functionality from the (deprecated) debugfs functionality. Most of the netlink functionality now also reports inconsistency problems during the dumping of larger number of entries. As usual, this release also contains various bugfixes and code cleanups.
+Mar 12th, 2019. Today the B.A.T.M.A.N. team publishes the March 2019 update to batman-adv, batctl and alfred! TODO
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2019.0/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2019.1/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Felix Fietkau <nbd@nbd.name>
+* Eric Dumazet <edumazet@google.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
-* Linus Torvalds <torvalds@linux-foundation.org>
-* Ruben Barkow <github@r.z11.de>
+* Martin Weinelt <martin@linuxlounge.net>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Andreas Ziegler <dev@andreas-ziegler.de>
-* Andre Kasper <andre.kasper@gmx.de>
-* Antonio Quartulli <a@unstable.cc>
-* Dmitry Vyukov <dvyukov@google.com>
-* Matthias Schiffer <mschiffer@universe-factory.net>
+* Jiri Pirko <jiri@mellanox.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2018.4-23-g89ba2134
-$ range=v2018.4..v2018.4-19-g983e4981
+v2019.0-26-g816f978a
+$ range=v2019.0..v2019.0-26-g816f978a
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
+
+
 
 new kernel support
 ==================
 
+      batman-adv: simplify ip_mc_check_igmp() and ipv6_mc_check_mld() calls
 
 coding style cleanup/refactoring
 ================================
 
-          batman-adv: Drop unused lockdep include
-          batman-adv: Add includes for deprecation warning
-          batman-adv: Improve includes for trace functionality
-          batman-adv: Fix description for BATMAN_ADV_DEBUG
-          batman-adv: Allow to disable depmod
-          batman-adv: Move CRC16 dependency to BATMAN_ADV_BLA
+      batman-adv: Fix typo "reseved" -> "reserved"
 
 
 unclassified
 ============
 
-          batman-adv: Allow to use BATMAN_ADV_DEBUG without BATMAN_ADV_DEBUGFS
+      batman-adv: Snoop DHCPACKs for DAT
 
 netlink
 =======
 
-          batman-adv: Add compat for genl_dump_check_consistent
-          batman-adv: Add inconsistent gateway netlink dump detection
-          batman-adv: Add inconsistent hardif netlink dump detection
-          batman-adv: Store modification counter via hash helpers
-          batman-adv: Add inconsistent backbone netlink dump detection
-          batman-adv: Add inconsistent claim netlink dump detection
-          batman-adv: Add inconsistent dat netlink dump detection
-          batman-adv: Add inconsistent local TT netlink dump detection
-          batman-adv: Add inconsistent multicast netlink dump detection
+      batman-adv: Move common genl doit code pre/post hooks
+      batman-adv: Prepare framework for mesh genl config
+      batman-adv: Prepare framework for hardif genl config
+      batman-adv: Prepare framework for vlan genl config
+      batman-adv: Add aggregated_ogms mesh genl configuration
+      batman-adv: Add ap_isolation mesh/vlan genl configuration
+      batman-adv: Add bonding mesh genl configuration
+      batman-adv: Add bridge_loop_avoidance mesh genl configuration
+      batman-adv: Add distributed_arp_table mesh genl configuration
+      batman-adv: Add fragmentation mesh genl configuration
+      batman-adv: Add gateway mesh genl configuration
+      batman-adv: Add hop_penalty mesh genl configuration
+      batman-adv: Add log_level mesh genl configuration
+      batman-adv: Add multicast forceflood mesh genl configuration
+      batman-adv: Add network_coding mesh genl configuration
+      batman-adv: Add orig_interval mesh genl configuration
+      batman-adv: Add elp_interval hardif genl configuration
+      batman-adv: Add throughput_override hardif genl configuration
+      batman-adv: Trigger genl notification on sysfs config change
 
 
 
 bugfixes
 ========
 
-      batman-adv: Avoid WARN on net_device without parent in netns
-      batman-adv: Force mac header to start of data on xmit
-      batman-adv: release station info tidstats
+      batman-adv: fix uninit-value in batadv_interface_tx()
 
 
 
-2019.0 (2019-10-14)
+2019.1 (2019-03-12)
 ===================
 
-* support latest kernels (3.16 - 5.0)
+* support latest kernels (3.16 - 5.1)
 * coding style cleanups and refactoring
-* allow to enable debug tracing without full batman-adv debugfs support
-* enable inconsistency reporting for most netlink dump commands
+* 
 * bugs squashed:
 
-  - avoid unnecessary kernel warning (panic) during detection of interface loops
-  - work around incorrect ethernet header offset in transmit code path
+  - 
 
 </pre>
 
@@ -96,15 +96,16 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2018.4-9-g1f35614
-$ range=v2018.4..v2018.4-9-g1f35614
+v2019.0-21-ge9aab6f
+$ range=v2019.0..v2019.0-21-ge9aab6f
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
+
 
 manpage
 =======
 
-          batctl: Add section to explain gateway selection class for BATMAN_V
 
 
 
@@ -113,28 +114,46 @@ cleanups/coderefactoring
 ========================
 
     
-          batctl: Rename option_watch_interval to option_timeout_interval
 
 Bugfix
 ======
 
 
-          batctl: Fix parsing of optional debug table command parameters
-          batctl: Remove check of compiled_out files
-          batctl: Drop incorrect check for existing meshif directory
+netlink
+=======
+
+      batctl: Add support for config mcast group in event monitor
+      batctl: Don't allocate new buffer for vlan parent device
+      batctl: Automatically translate vlan to mesh_iface
+      batctl: Add settings_data hooks for netlink integration
+      batctl: Parse the arguments for gw_mode
+      batctl: Add netlink simple query helper
+      batctl: Support generic netlink for gw_mode command
+      batctl: Support generic netlink for loglevel command
+      batctl: Support generic netlink for isolation_mark command
+      batctl: Support generic netlink for orig_interval command
+      batctl: Add helper to read/write boolean configuration values
+      batctl: Support generic netlink for aggregation command
+      batctl: Support generic netlink for ap_isolation command
+      batctl: Support generic netlink for bonding command
+      batctl: Support generic netlink for bridge_loop_avoidance command
+      batctl: Support generic netlink for distributed_arp_table command
+      batctl: Support generic netlink for fragmentation command
+      batctl: Support generic netlink for multicast_mode command
+      batctl: Support generic netlink for network_coding command
+      batctl: Drop settings_data param lists
 
 
 
-2019.0 (2019-10-14)
+
+
+2019.1 (2019-03-12)
 ===================
 
 * coding style cleanups and refactoring
-* add gateway selection manpage section for B.A.T.M.A.N. V
 * bugs squashed:
 
-  - re-integrate support for translation table unicast/multicast filter
-  - avoid incorrect warning about disabled mesh interface when debugfs
-    support is not enabled in batman-adv
+  - 
 
 </pre>
 
@@ -142,16 +161,15 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2018.4-2-gbf0bf31
-$ range=v2018.4..v2018.4-2-gbf0bf31
+v2019.0-1-gb22d5f5
+$ range=v2019.0..v2019.0-1-gb22d5f5
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
 
-
-2019.0 (2019-10-14)
+2019.1 (2019-03-14)
 ===================
 
 * (no changes)
