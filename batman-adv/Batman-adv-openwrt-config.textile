@@ -57,7 +57,7 @@ config mesh 'bat0'
 In this particular section the user has to specify the name of the VLAN interface (that will be automatically created by netifd) and then list all the wanted options. At the moment the only available option for this section is 'ap_isolation':
 <pre>
 config interface 'my_bat_vlan1'
-	option protocol 'batadv_vlan'
+	option proto 'batadv_vlan'
 	option ifname 'bat0.1'
 	option ap_isolation '1'
 </pre>
