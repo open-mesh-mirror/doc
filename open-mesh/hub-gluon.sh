@@ -1,7 +1,7 @@
 #! /bin/sh
 USER="$(whoami)"
 BRIDGE=br0
-ETH=enp10s0
+ETH=enp8s0
 VXLAN=vx_mesh_lan
 # calculated on gluon node via: lua -lgluon.util -e 'print(tonumber(gluon.util.domain_seed_bytes("gluon-mesh-vxlan", 3), 16))'
 VXLAN_ID=12094920
@@ -28,11 +28,12 @@ done
 
 sudo ip link set "${BRIDGE}" up
 
+sudo ip addr add "$(interface_linklocal)"/64 dev "$ETH"
 sudo ip link del "${VXLAN}"
 sudo ip -6 link add "${VXLAN}" type vxlan \
    id "${VXLAN_ID}" \
    dstport 4789 \
-   local fe80::1ee9:9241:425b:7590 \
+   local "$(interface_linklocal)" \
    group ff02::15c \
    dev "${ETH}" \
    udp6zerocsumtx udp6zerocsumrx \
