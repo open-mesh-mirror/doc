@@ -148,7 +148,7 @@ h2. B.A.T.M.A.N. Advanced - VLAN questions
 
 h3. VLAN forwarding doesn't work
 
-*Q*: When I have a bridge which connects an ethernet devices with bat0, VLAN frames from the ethernet interfaces are not forwarded by batman-adv. How is it possible to forward these frames
+*Q*: When I have a bridge which connects an ethernet devices with bat0, VLAN frames from the ethernet interfaces are not forwarded by batman-adv. Instead a warning like "@batman_adv: bat0: adding TT local entry xx:xx:xx:xx:xx:xx to non-existent VLAN 23@" is printed periodically. How is it possible to forward these frames
 *A*: batman-adv since 2014.0.0 is VLAN-aware. It is only able to forward VLAN frames when it knows about the VLAN. This can either be done by creating a VLAN device with the correct VID on top of the batadv (bat0) device:
 
 <pre>
