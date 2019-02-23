@@ -13,16 +13,16 @@ With batman-adv 2013.0.0 the OpenWrt package was converted to integrate with Ope
 The wireless configuration in '/etc/config/wireless':
 <pre>
 config wifi-device 'radio0'
-        option [..]
+	option [..]
 
 config wifi-iface 'wmesh'
-        option device 'radio0'
-        option ifname 'adhoc0'
-        option network 'batnet'
-        option mode 'adhoc'
-        option ssid 'mesh'
-        option 'mcast_rate' '18000'
-        option bssid '02:CA:FE:CA:CA:40'
+	option device 'radio0'
+	option ifname 'adhoc0'
+	option network 'bat0_hardif_wlan'
+	option mode 'adhoc'
+	option ssid 'mesh'
+	option 'mcast_rate' '18000'
+	option bssid '02:CA:FE:CA:CA:40'
 </pre>
 
 It is assumed you configured the 'wifi-device' depending on your requirements and your hardware. The interesting part is the 'wifi-iface' stanza with its options:
@@ -36,20 +36,27 @@ It is assumed you configured the 'wifi-device' depending on your requirements an
 
 More information can be found in the "OpenWrt wireless configuration":https://wiki.openwrt.org/doc/uci/wireless
 
-The network configuration in '/etc/config/network' allows to specify batman-adv as protocol and the batman-adv interface name:
+The network configuration in '/etc/config/network' allows to specify batman-adv as protocol and the batman-adv interface name. It is also possible to add other interfaces (like eth0) to the same mesh interface:
 <pre>
-config interface 'batnet'
-        option mtu '1532'
-        option proto 'batadv'
-        option mesh 'bat0'
+config interface 'bat0_hardif_wlan'
+	option mtu '1532'
+	option proto 'batadv'
+	option mesh 'bat0'
+
+
+config interface 'bat0_hardif_eth0'
+	option mtu '1532'
+	option proto 'batadv'
+	option mesh 'bat0'
+	option ifname 'eth0'
 </pre>
 
 The batman-adv configuration in '/etc/config/batman-adv' only contains the batman-adv specific options:
 <pre>
 config mesh 'bat0'
-        option 'aggregated_ogms'
-        option 'ap_isolation'
-        option [..]
+	option 'aggregated_ogms'
+	option 'ap_isolation'
+	option [..]
 </pre>
 
 *Since batman-adv 2014.2.0* VLAN specific options have to be configured in a separated stanza having protocol 'batadv_vlan'.
@@ -68,11 +75,11 @@ Any VLAN specific option can still be listed in the batman-adv configuration for
 *Since batman-adv 2016.1*  The routing algorithm can be configured via the network configuration in '/etc/config/network' to override the kernel module's default:
 
 <pre>
-config interface 'batnet'
-        option mtu '1532'
-        option proto 'batadv'
-        option mesh 'bat0'
-        option routing_algo 'BATMAN_V'
+config interface 'bat0_hardif_wlan'
+	option mtu '1532'
+	option proto 'batadv'
+	option mesh 'bat0'
+	option routing_algo 'BATMAN_V'
 </pre> 
 
 h2. Batman-adv 2012.4.0 and older
@@ -80,16 +87,16 @@ h2. Batman-adv 2012.4.0 and older
 The wifi interface needs to be configured in '/etc/config/wireless':
 <pre>
 config wifi-device 'radio0'
-        option [..]
+	option [..]
 
 config wifi-iface 'wmesh'
-        option device 'radio0'
-        option ifname 'adhoc0'
-        option network 'batnet'
-        option mode 'adhoc'
-        option ssid 'mesh'
-        option 'mcast_rate' '18000'
-        option bssid '02:CA:FE:CA:CA:40'
+	option device 'radio0'
+	option ifname 'adhoc0'
+	option network 'bat0_hardif_wlan'
+	option mode 'adhoc'
+	option ssid 'mesh'
+	option 'mcast_rate' '18000'
+	option bssid '02:CA:FE:CA:CA:40'
 </pre>
 
 It is assumed you configured the 'wifi-device' depending on your requirements and your hardware. The interesting part is the 'wifi-iface' stanza with its options:
@@ -105,10 +112,10 @@ More information can be found in the "OpenWrt wireless configuration":https://wi
 
 Configure the MTU in '/etc/config/network'
 <pre>
-config interface 'batnet'
-        option ifname 'adhoc0'
-        option mtu '1528'
-        option proto 'none'
+config interface 'bat0_hardif_wlan'
+	option ifname 'adhoc0'
+	option mtu '1528'
+	option proto 'none'
 </pre>
 
 The stanza's name 'mesh' as well as the ifname option have to match your wireless configuration.
@@ -116,10 +123,10 @@ The stanza's name 'mesh' as well as the ifname option have to match your wireles
 Batman-adv is configured through its own configuration in '/etc/config/batman-adv':
 <pre>
 config mesh 'bat0'
-        option interfaces 'adhoc0'
-        option 'aggregated_ogms'
-        option 'ap_isolation' 
-        option [..]
+	option interfaces 'adhoc0'
+	option 'aggregated_ogms'
+	option 'ap_isolation' 
+	option [..]
 </pre>
 
 The 'interfaces' option is the key element here, as it tells batman-adv which interface(s) to run on. All the other options enable / disable / tweak all the batman-adv features you can also access at runtime through batctl.
