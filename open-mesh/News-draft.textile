@@ -10,6 +10,7 @@ h2. Thanks
 
 Thanks to all people sending in patches:
 
+* Anders Roxell <anders.roxell@linaro.org>
 * Eric Dumazet <edumazet@google.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Martin Weinelt <martin@linuxlounge.net>
@@ -24,8 +25,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.0-26-g816f978a
-$ range=v2019.0..v2019.0-26-g816f978a
+v2019.0-31-g6ffe4d5c
+$ range=v2019.0..v2019.0-31-g6ffe4d5c
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -77,6 +78,10 @@ bugfixes
 ========
 
       batman-adv: fix uninit-value in batadv_interface_tx()
+      batman-adv: fix warning in function batadv_v_elp_get_throughput
+      batman-adv: Reduce claim hash refcnt only for removed entry
+      batman-adv: Reduce tt_local hash refcnt only for removed entry
+      batman-adv: Reduce tt_global hash refcnt only for removed entry
 
 
 
@@ -96,8 +101,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2019.0-21-ge9aab6f
-$ range=v2019.0..v2019.0-21-ge9aab6f
+v2019.0-25-g3ab8f42
+$ range=v2019.0..v2019.0-25-g3ab8f42
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -144,6 +149,8 @@ netlink
       batctl: Drop settings_data param lists
 
 
+      batctl: replace multicast_mode with multicast_forceflood command
+      batctl: Add hop_penalty setting command
 
 
 
@@ -161,18 +168,20 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2019.0-1-gb22d5f5
-$ range=v2019.0..v2019.0-1-gb22d5f5
+v2019.0-2-g1c3d800
+$ range=v2019.0..v2019.0-2-g1c3d800
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
+      alfred: Sync batman_adv.h after config support
+
 
 2019.1 (2019-03-14)
 ===================
 
-* (no changes)
+* synchronization of batman-adv netlink header
 </pre>
 
 
