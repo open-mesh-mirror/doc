@@ -89,15 +89,17 @@ It is extremely important to do not run any layer3 mesh routing protocol on top 
 
 However the interaction of Quagga with the mesh network will be "batman-adv-agnostic" since there is no way to exchange information between the two. The creation of a batman-adv plugin for Quagga could help in this direction by letting Quagga extract TQ (the metric used by batman-adv) information to compute link qualities towards other border nodes in the mesh network. This would avoid the IP routing protocol to choose bad mesh nodes as next hop in the IP routing. As extracting/using TQ in other protocols is just an idea/proposal right now, please contact us if you want to do that.
 
-h3. Log file doesn't exists in debugfs?
+h3. Logs not received via trace-cmd?
 
-*Q:* The /sys/kernel/debug/batman_adv/bat0/log file doesn't exists?
+*Q:* The trace-cmd shows now log messages for batman-adv?
 *A:* You need to compile the batman-adv with logging support.
 
  * Linux tree
- ** go to *<code>Networking support  ---> Networking options  ---> B.A.T.M.A.N. Advanced Meshing Protocol</code>* and select *<code>B.A.T.M.A.N. debugging</code>*
+ ** go to *<code>Networking support  ---> Networking options  ---> B.A.T.M.A.N. Advanced Meshing Protocol</code>* and select *<code>B.A.T.M.A.N. debugging</code>* and  *<code>B.A.T.M.A.N. tracing support</code>*
  * external module
- ** compile with make parameter *<code>CONFIG_BATMAN_ADV_DEBUG=y</code>*
+ ** compile with make parameter *<code>CONFIG_BATMAN_ADV_DEBUG=y CONFIG_BATMAN_ADV_TRACING=y</code>*
+
+batctl must also be used to set the relevant loglevel
 
 h3. How to setup B.A.T.M.A.N. so it automatically assign IP addresses?
 
