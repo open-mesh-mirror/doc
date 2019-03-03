@@ -47,6 +47,6 @@ h2. One Hop Throughput Estimation
 
 * *wireless*: maximum throughput from rc_stats (this stats exist only for the minstrel RC algorithm. Therefore a new API in *struct rate_control_ops* will be added to let each implementation return the maximum throughput based on its internal stats). Devices implementing RC in HW do not export any stats. In this case a new API to be implemented in the driver can be evaluated. Ath9k, which is one of the most used driver, uses software RC.
 * *wired*: ethtool for half/full duplex and theoretical bandwidth (this may be falsified by Ethernet bridges in the LAN)
-* *VPN*: 1Mbps, configurable via sysfs
+* *VPN*: 1Mbps, configurable via netlink
 * *Unknown*: 1Mbps
 * *generic*: the [[bandwidth_meter_protocol|bandwidth meter]] might be used to estimate the real (current) throughtput on non-wireless interfaces
