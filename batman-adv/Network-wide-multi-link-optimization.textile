@@ -78,7 +78,7 @@ h2. Debug information
 
 There is an implementation based on the description above currently pending for review. It offers some debugging facilities:
 
-The default originator table can be found at its original place, using ''batctl o'' or the debugfs file /sys/kernel/debug/batman_adv/bat0/originators. The following examples represents the topology shown in the top of the page, debug information obtained on node B, using OpenWRT and virtual machines:
+The default originator table can be found at its original place, using ''batctl o''. The following examples represents the topology shown in the top of the page, debug information obtained on node B, using OpenWRT and virtual machines:
 
 <pre>
 root@OpenWrt:/# batctl o
@@ -90,29 +90,6 @@ fe:f0:00:00:05:01    0.770s   (225) fe:f1:00:00:03:01 [      eth1]: fe:f0:00:00:
 fe:f0:00:00:03:01    0.670s   (255) fe:f0:00:00:03:01 [      eth0]: fe:f1:00:00:03:01 (255) fe:f0:00:00:03:01 (255)
 fe:f0:00:00:04:01    0.520s   (234) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (234) fe:f0:00:00:03:01 (222)
 fe:f0:00:00:01:01    0.920s   (255) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (255) fe:f0:00:00:01:01 (254)
-</pre>
-
-The individual tables per interface can be found in the respective folders which have been added as part of this patchset:
-
-<pre>
-root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth0/originators
-[B.A.T.M.A.N. adv master-b82b9b2, IF/MAC: eth0/fe:f0:00:00:02:01 (bat0 BATMAN_IV)]
-  Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
-fe:f1:00:00:03:01    0.170s   (255) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (255)
-fe:f1:00:00:01:01    0.510s   (253) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (253)
-fe:f0:00:00:05:01    0.660s   (222) fe:f1:00:00:03:01 [      eth1]: fe:f0:00:00:03:01 (198) fe:f1:00:00:03:01 (222)
-fe:f0:00:00:03:01    0.560s   (252) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (252) fe:f0:00:00:03:01 (240)
-fe:f0:00:00:04:01    0.250s   (240) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (240) fe:f0:00:00:03:01 (211)
-fe:f0:00:00:01:01    0.850s   (255) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (255) fe:f0:00:00:01:01 (238)
-root@OpenWrt:/# cat /sys/kernel/debug/batman_adv/eth1/originators
-[B.A.T.M.A.N. adv master-b82b9b2, IF/MAC: eth1/fe:f1:00:00:02:01 (bat0 BATMAN_IV)]
-  Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
-fe:f1:00:00:03:01    0.880s   (240) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (240)
-fe:f1:00:00:01:01    0.250s   (239) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (239)
-fe:f0:00:00:05:01    0.340s   (211) fe:f1:00:00:03:01 [      eth1]: fe:f0:00:00:03:01 (210) fe:f1:00:00:03:01 (211)
-fe:f0:00:00:03:01    0.260s   (253) fe:f0:00:00:03:01 [      eth0]: fe:f1:00:00:03:01 (240) fe:f0:00:00:03:01 (253)
-fe:f0:00:00:04:01    0.010s   (225) fe:f0:00:00:03:01 [      eth0]: fe:f1:00:00:03:01 (224) fe:f0:00:00:03:01 (225)
-fe:f0:00:00:01:01    0.510s   (255) fe:f0:00:00:01:01 [      eth0]: fe:f1:00:00:01:01 (240) fe:f0:00:00:01:01 (255)
 </pre>
 
 Comparing to the original topology, it shows that for destination E (fe:f0:00:00:05:01) when packets come in on 2.4 GHz (eth0, first table), they are preferably forwarded to C (fe:f1:00:00:03:01 ) on 5 GHz (eth1).
