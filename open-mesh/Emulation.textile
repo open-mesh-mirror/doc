@@ -44,7 +44,7 @@ ip link set up dev bat0
 cat << EOF > /tmp/logserver.sh
 #!/bin/sh
 while [ 1 ]; do
-	nc -l -p 2050 < /sys/kernel/debug/batman_adv/bat0/log
+	trace-cmd stream -e batadv:batadv_dbg | nc -l -p 2050
 done
 EOF
 chmod 755 /tmp/logserver.sh
