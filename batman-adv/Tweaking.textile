@@ -1,44 +1,23 @@
 h1. Tweaking B.A.T.M.A.N. Advanced
 
-This document aims to provide a high level overview about the individual settings batman-adv allows you to make, in order to tweak its behaviour. If you are trying to find out what these various sysfs files or batctl options are good for, this is the right document for you. Some of the features require extended explanation & examples which is not the scope of this document. Links to complementary documents will be provided if available.
-
-
-+Note+: Although this document focusses on the "raw" /sys/ configuration interface you always can use batctl for a more convenient access to the settings.
+This document aims to provide a high level overview about the individual settings batman-adv allows you to make, in order to tweak its behaviour. If you are trying to find out what these various batctl options are good for, this is the right document for you. Some of the features require extended explanation & examples which is not the scope of this document. Links to complementary documents will be provided if available.
 
 h2. Interface handling
 
 
 To better understand the background of the new interface configuration concept (as of batman-adv 2010.0.0), it is helpful to see in which direction batman-adv is heading: Until now, batman aggregated all configured interface into a single mesh cloud (manifested in a single bat0 interface). As of 2010.2.0 it is possible to let a single mesh node participate in mutliple mesh clouds at the same time which makes it necessary to assign interfaces to individual mesh clouds and having multiple batX interfaces. 
 
-After loading batman-adv, it will scan your systems interfaces to search for compatible interfaces. Once found, it will create subfolders in the /sys/class/net/<iface> directories of each supported interface, e.g.
+To activate a given supported interface on a mesh cloud simply add it via batctl to an mesh interface. You can freely choose the mesh interface name but for the sake of simplicity we continue to use "bat0". Unsupported interface are for example. loopback, non-ethernet and batman's own interfaces
 
 <pre>
-ls /sys/class/net/eth0/batman_adv/
-elp_interval         mesh_iface
-iface_status         throughput_override
-</pre>
-
-If an interface does not have the "batman_adv" subfolder it probably is not supported. Not supported interfaces are: loopback, non-ethernet and batman's own interfaces.
-
-+Note+: After the module was loaded it will continuously watch for new interfaces to verify the compatibility. There is no need to reload the module if you plug your USB wifi adapter into your machine after batman advanced was initially loaded.
-
-To activate a given interface on a mesh cloud simply write the mesh clouds interface name into its "mesh_iface" file inside the batman_adv subfolder. You can freely choose the interface name but for the sake of simplicity we continue to use "bat0".
-
-<pre>
-echo bat0 > /sys/class/net/eth0/batman_adv/mesh_iface
+batctl -m bat0 if add eth0
 </pre>
 
 Repeat this step for all interfaces you wish to add. All interfaces using the same mesh cloud interface belong into the same mesh cloud. Now batman-adv	starts using/broadcasting on this/these interface(s).
 
-You can check the interface's status by reading the "iface_status" file inside the batman-adv folder:
+To deactivate an interface you have  to  use batctl again:
 <pre>
-cat /sys/class/net/eth0/batman_adv/iface_status
-active
-</pre>
-
-To deactivate an interface you have  to  write  "none"  into  its "mesh_iface" file:
-<pre>
-echo none > /sys/class/net/eth0/batman_adv/mesh_iface
+batctl -m bat0 if del eth0
 </pre>
 
 h3. ELP interval
@@ -67,16 +46,22 @@ cat /sys/class/net/eth0/batman_adv/throughput_override
 h2. Mesh cloud handling
 
 
-After having added interfaces to a mesh cloud, batman-adv automatically creates the appropriate batX mesh interface(s). Each of those interfaces receives a special "mesh" subfolder within their standard /sys/class/net/<iface> folder, e.g.
+After having added interfaces to a mesh cloud, batman-adv automatically creates the appropriate batX mesh interface(s). Each of those mesh interfaces can be configured via batctl, e.g.
 
 <pre>
-ls  /sys/class/net/bat0/mesh/
-aggregated_ogms        gw_bandwidth           multicast_mode
-ap_isolation           gw_mode                network_coding
-bonding                gw_sel_class           orig_interval
-bridge_loop_avoidance  hop_penalty            routing_algo
-distributed_arp_table  isolation_mark
-fragmentation          log_level
+        aggregation|ag             [0|1]                display or modify aggregation setting
+        ap_isolation|ap            [0|1]                display or modify ap_isolation setting
+        bonding|b                  [0|1]                display or modify bonding setting
+        bridge_loop_avoidance|bl   [0|1]                display or modify bridge_loop_avoidance setting
+        distributed_arp_table|dat  [0|1]                display or modify distributed_arp_table setting
+        fragmentation|f            [0|1]                display or modify fragmentation setting
+        gw_mode|gw                 [mode]               display or modify the gateway mode
+        hop_penalty|hp             [penalty]            display or modify hop_penalty setting
+        isolation_mark|mark        [mark]               display or modify isolation_mark setting
+        loglevel|ll                [level]              display or modify the log level
+        multicast_forceflood|mff   [0|1]                display or modify multicast_forceflood setting
+        network_coding|nc          [0|1]                display or modify network_coding setting
+        orig_interval|it           [interval]           display or modify orig_interval setting
 </pre>
 
 h3. aggregate originator messages
@@ -86,7 +71,7 @@ Available since: batman-adv 2010.0.0
 In order to reduce the protocol overhead created to find all the participants in the network, batman has the ability to collect & aggregate these protocol messages (called originator messages or ogm) and sending them in a single packet instead of several small packets. This feature is enabled by default, since it is helpful in most cases. If you intend to run batman-adv in a highly mobile environment (for example cars) you might want to turn it off as it introduces a (normally negligible) network update delay.
 
 <pre>
-cat /sys/class/net/bat0/mesh/aggregated_ogms
+batctl -m bat0 aggregation
 enabled
 </pre>
 
@@ -97,7 +82,7 @@ Available since: batman-adv 2011.4.0
 Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default). This setting only affects packets without any VLAN tag (untagged packets). The ap isolation setting for VLAN tagged packets is modifiable through the per-VLAN settings.  
 
 <pre>
-cat /sys/class/net/bat0/mesh/ap_isolation
+batctl -m bat0 ap_isolation
 disabled
 </pre>
 
@@ -108,7 +93,7 @@ Available since: batman-adv 2010.1.0
 When running the mesh over multiple WiFi interfaces per node batman-adv is capable of optimizing the traffic flow to gain maximum performance. Per default it operates in the "interface alternating" mode (which is suitable for most situations) that switches the WiFi interface with each hop to avoid store & forward. Alternatively, batman-adv can be switched into "bonding mode" in which batman-adv is using all interfaces at the same time to send & receive data. However, this mode is only recommended in special one-hop cases. You can read about our [[open-mesh:2010-06-13-wbm2010-bracciano|alternatebonding test results]] to see what suits you best.
 
 <pre>
-cat /sys/class/net/bat0/mesh/bonding 
+batctl -m bat0 bonding
 disabled
 </pre>
 
@@ -120,7 +105,7 @@ In bridged LAN setups it is advisable to enable the bridge loop avoidance in ord
 It is necessary to activate the bridge loop avoidance at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external to learn how to set the compile option). 
 
 <pre>
-cat /sys/class/net/bat0/mesh/bridge_loop_avoidance 
+batctl -m bat0 bridge_loop_avoidance
 disabled
 </pre>
 
@@ -132,7 +117,7 @@ When enabled the distributed ARP table forms a mesh-wide ARP cache that helps no
 It is necessary to activate the distributed ARP table at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external to learn how to set the compile option). 
 
 <pre>
-cat /sys/class/net/bat0/mesh/distributed_arp_table 
+batctl -m bat0 distributed_arp_table
 enabled
 </pre>
 
@@ -145,47 +130,36 @@ Batman-adv has a built-in layer 2 fragmentation for unicast data flowing through
 +Note+: Although the fragmentation is rather handy it comes with a severe performance penalty (as every fragmentation does), therefore it should be avoided to make use of this feature whenever possible.
 
 <pre>
-cat /sys/class/net/bat0/mesh/fragmentation 
+batctl -m bat0 fragmentation
 enabled
 </pre>
 
-h3. gateway bandwidth
+h3. gateway bandwidth and mode
 
 Available since: batman-adv 2011.0.0
 
 The [[gateways|internet gateway support]] allows each gateway to also announce its available internet bandwidth. Clients looking for the most suitable gateway to connect to receive this bandwidth announcement and can make use of it while choosing their gateway. Per default a bandwidth of 10.0/2.0 MBit is assumed. Details regarding the syntax of the bandwidth setting can be found in the "batctl manpage":https://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
-+Note+: If a batman-adv node has not activated the gateway server mode this setting has no effect.
-
 <pre>
-cat /sys/class/net/bat0/mesh/gw_bandwidth
-10.0/2.0 MBit
+batctl -m bat0 gw_mode
+server (announced bw: 10.0/2.0 MBit)
 </pre>
 
-h3. gateway mode
+A batman-adv node can either run in server mode (sharing its internet connection with the mesh) or in client mode (searching for the most suitable internet connection in the mesh) or having the gateway support disabled entirely (which is the default setting). Gateways can tweak the announced internet bandwidth whereas clients can configure the manner in which batman-adv chooses its gateway.
 
-Available since: batman-adv 2011.0.0
-
-A batman-adv node can either run in server mode (sharing its internet connection with the mesh) or in client mode (searching for the most suitable internet connection in the mesh) or having the gateway support disabled entirely (which is the default setting). Gateways can tweak the announced internet bandwidth via the gw_bandwidth sysfs file whereas clients can configure the manner in which batman-adv chooses its gateway via the gw_sel_class sysfs file.
+If multiple batman-adv gateways are available a batman-adv client node selects its best gateway based on certain criteria such as link quality / announced bandwidth / etc. The selection algorithm can be modified to best serve the requirements. The gateway selection class of '20' is the default value. All available gateway selection classes are thoroughly explained in the "batctl manpage":https://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
 +Note+: Please read the [[gateways|internet gateway documentation]] to understand its interaction with DHCP.
 
 <pre>
-cat /sys/class/net/bat0/mesh/gw_mode 
-off
-</pre>
+# switch to server and announce 10Mbit/s download + 2Mbit/s upload
+batctl -m bat0 gw_mode server 10Mbit/2Mbit
 
-h3. gateway selection class
+# switch to client and and use selection class 20
+batctl -m bat0 gw_mode client 20
 
-Available since: batman-adv 2011.0.0
-
-If multiple batman-adv gateways are available a batman-adv client node selects its best gateway based on certain criteria such as link quality / announced bandwidth / etc. The selection algorithm can be modified to best serve the requirements. The gateway selection class of '20' is the default value. All available gateway selection classes are thoroughly explained in the "batctl manpage":https://downloads.open-mesh.org/batman/manpages/batctl.8.html.
-
-+Note+: If a batman-adv node has not activated the gateway client mode this setting has no effect.
-
-<pre>
-cat /sys/class/net/bat0/mesh/gw_sel_class 
-20
+# disable gateway mode
+batctl -m bat0 gw_mode off
 </pre>
 
 h3. hop penalty
@@ -197,8 +171,8 @@ The hop penalty setting allows to modify batman-adv's preference for multihop ro
 Since 2014.1.0, the hop penalty is applied in a slightly different way: it is applied once for OGMs leaving on a different interfaces it has been received, and applied twice if its leaving on the same interface if that is a WiFi interface. This is done to penalize half-duplex routes, and prefer routes with changing interfaces if there is a path with similar quality available. The default hop penalty of '15' is a reasonable value for most setups and probably does not need to be changed. However, mobile nodes could choose a value of 255 (maximum value) to avoid being chosen as a router by other nodes.
 
 <pre>
-cat /sys/class/net/bat0/mesh/hop_penalty 
-15
+batctl -m bat0 hop_penalty
+30
 </pre>
 
 h3. isolation mark
@@ -208,7 +182,7 @@ Available since: batman-adv 2014.1.0
 The isolation mark is an extension to the 'ap isolation' that allows the user to decide which client has to be classified as isolated by means of firewall rules, thus increasing the flexibility of the AP isolation feature. batman-adv extracts the fwmark that the firewall attached to each packet it receives through the soft-interface and decides based on this value if the source client has to be considered as isolated or not. The isolation mark needs to be configured in batman-adv in the form 'value/mask'. Configuration and application details can be found on the [[batman-adv:Extended-isolation|extended ap isolation page]].
 
 <pre>
-cat /sys/class/net/bat0/mesh/isolation_mark
+batctl -m bat0 isolation_mark
 0x00000000/0x00000000
 </pre>
 
@@ -216,11 +190,19 @@ h3. log level
 
 Available since: batman-adv 2010.1.0
 
-The standard warning and error messages which help to setup & operate batman-adv are sent to the kernel log. However, batman-adv also offers extended logs that can be used to understand and/or debug the routing protocol. Keep in mind that it is necessary to activate debugging at compile time before you can use these facilities (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external to learn how to set the compile option). Per default, the logging is deactivated (log level: 0), Enable log level '1' to log messages related to routing / flooding / broadcasting. Log level '2' only shows messages related to route  added / changed / deleted. Log level '4' focuses on translation table operations. Log level '8' brings messages related to the bridge loop avoidance mechanism. Switch to log level '15' to get all log messages.
+The standard warning and error messages which help to setup & operate batman-adv are sent to the kernel log. However, batman-adv also offers extended logs that can be used to understand and/or debug the routing protocol. Keep in mind that it is necessary to activate debugging at compile time before you can use these facilities (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external to learn how to set the compile option). Per default, the logging is deactivated (log level: 0).
 
 <pre>
-cat /sys/class/net/bat0/mesh/log_level 
-0
+batctl -m bat0 loglevel
+[x] all debug output disabled (none)
+[ ] messages related to routing / flooding / broadcasting (batman)
+[ ] messages related to route added / changed / deleted (routes)
+[ ] messages related to translation table operations (tt)
+[ ] messages related to bridge loop avoidance (bla)
+[ ] messages related to arp snooping and distributed arp table (dat)
+[ ] messages related to network coding (nc)
+[ ] messages related to multicast (mcast)
+[ ] messages related to throughput meter (tp)
 </pre>
 
 h3. multicast mode
@@ -231,7 +213,7 @@ Enables more efficient, group aware multicast forwarding infrastructure in batma
 The [[Multicast-optimizations|multicast optimization documentation]] provides an excellent starting point to learn about the general ideas of these optimizations.
 
 <pre>
-cat /sys/class/net/bat0/mesh/multicast_mode 
+batctl -m bat0 multicast_mode
 enabled
 </pre>
 
@@ -240,10 +222,10 @@ h3. network coding
 Available since: batman-adv 2013.2.0
 
 When enabled network coding increases the WiFi throughput by combining multiple frames into a single frame, thus reducing the needed air time. A comprehensive documentation has been made available in our wiki. One document focuses on the  [[batman-adv:NetworkCoding|general network coding concept]] whereas the second document is about the [[NetworkCoding-technical|technical details & implementation specifics]]. Our download section also contains recorded network coding talks.
-It is necessary to activate network coding at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.externall to learn how to set the compile option). 
+It is necessary to activate network coding at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external to learn how to set the compile option). 
 
 <pre>
-cat /sys/class/net/bat0/mesh/network_coding
+batctl -m bat0 network_coding
 enabled
 </pre>
 
@@ -254,7 +236,7 @@ Available since: batman-adv 2010.0.0
 The value specifies the interval (milliseconds) in which batman-adv floods the network with its protocol information. The default value of one message per second allows batman to recognize a route change (in its near neighborhood) within a timeframe of maximal one minute (most likely much sooner). In a very static environment (batman nodes are not moving, rare ups & downs of nodes) you might want to increase the value to save bandwidth. On the other hand, it might prove helpful to decrease the value in a highly mobile environment (e.g. the aforementioned cars) but keep in mind that this will drastically increase the traffic. Unless you experience problems with your setup, it is suggested you keep the default value.
 
 <pre>
-cat /sys/class/net/bat0/mesh/orig_interval 
+batctl -m bat0 orig_interval
 1000
 </pre>
 
@@ -264,15 +246,15 @@ Available since: batman-adv 2012.1.0
 
 Retrieve the configured routing algorithm of the bat0 interface:
 <pre>
-cat /sys/class/net/bat0/mesh/routing_algo
+batctl ra
 BATMAN_IV
 </pre>
 
 +Note+: The routing algorithm configuration has an effect upon creation of a new batX interface only. The newly created mesh cloud uses the the routing algorithm configured at this point. It is not possible to change the routing algorithm of an already existing batX interface.
 
-To allow changing the routing algorithm even before a batX interface was created this configuration option was implemented as a module parameter. Modifying it's configuration is as easy as every other sysfs configuration option:
+To allow changing the routing algorithm even before a batX interface was created this configuration option was implemented as a module parameter. Modifying it's configuration is as easy as every other configuration option:
 <pre>
-echo BATMAN_IV > /sys/module/batman_adv/parameters/routing_algo
+batctl ra BATMAN_IV
 </pre>
 
 How to retrieve the list of available routing algorithms is explained [[Understand-your-batman-adv-network|on this page]].
@@ -281,16 +263,15 @@ h2. VLAN handling
 
 The batX mesh interface created by batman-adv also supports VLANs which enables the administrator to configure virtual networks with independent settings on top of a single mesh cloud. It might be desirable to run the different VLANs with different batman-adv settings. Therefore, batman-adv offers per-VLAN settings since batman-adv 2014.0.0.
 
-For each VLAN created on top of a batX interface the batman-adv kernel module creates a subfolder inside of the /sys/class/net/bat0/mesh/ directory. For example, after adding VLAN 0 and VLAN 1 on top of bat0 the following folder were created:
+For example, after adding VLAN 0 and VLAN 1 on top of bat0, the commands can be accessed via the vlan interface name:
 <pre>
-ls -d /sys/class/net/bat0/mesh/vlan*
-/sys/class/net/bat0/mesh/vlan0  /sys/class/net/bat0/mesh/vlan1
-</pre>
+# vlan 1
+batctl -m bat0.1 ap_isolation
+disabled
 
-Each VLAN subfolder contains the per-VLAN settings:
-<pre>
-ls /sys/class/net/bat0/mesh/vlan0/
-ap_isolation
+# vlan 0
+batctl -m bat0.0 ap_isolation
+disabled
 </pre>
 
 h3. ap isolation
@@ -300,6 +281,6 @@ Available since: batman-adv 2014.0.0
 Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default).
 
 <pre>
-cat /sys/class/net/bat0/mesh/vlan0/ap_isolation
+batctl -m bat0.1 ap_isolation
 disabled
 </pre>
