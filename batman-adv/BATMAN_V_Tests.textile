@@ -14,7 +14,7 @@ batctl if del eth0
 batctl if del eth1
 ifconfig br-lan down
 brctl delbr br-lan
-echo BATMAN_IV > /sys/module/batman_adv/parameters/routing_algo
+batctl ra BATMAN_IV
 ifconfig eth0 up
 ifconfig eth1 up
 batctl if add eth0
