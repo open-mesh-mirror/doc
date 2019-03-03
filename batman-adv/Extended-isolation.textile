@@ -22,7 +22,7 @@ With these commands, all the the packets coming in through _eth1_ will be marked
 
 The next step it is to configure batman-adv properly, meaning that the user must tell the kernel module which is the value to match in the _skb->mark_ field when detecting isolated clients.
 <pre>
-# batctl isola 0x06/0xFFFFFFFF # VALUE/MASK
+# batctl isolation_mark 0x06/0xFFFFFFFF # VALUE/MASK
 </pre>
 
 As reported in the example above, the isolation mark needs to be configured in batman-adv in the form _VALUE/MASK_ in order to keep the mechanism as flexible as possible.
