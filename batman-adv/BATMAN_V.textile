@@ -28,7 +28,7 @@ Since a packet loss based metric as used by B.A.T.M.A.N. IV isn't adequate to ha
 
 * wireless: Modern WiFi drivers export the estimated throughput per WiFi neighbor. This value is retrieved on a periodic basis and averaged before propagated in the mesh. 
 * wired: Most Ethernet capable devices export their theoretical throughput and duplex capabilities via the ethtool API.
-* unknown/override: B.A.T.M.A.N. V allows to specify a throughput value per interface via sysfs. Consequently. B.A.T.M.A.N. V will assume the specified throughput for any neighbor discovered over that interface.
+* unknown/override: B.A.T.M.A.N. V allows to specify a throughput value per interface via generic netlink. Consequently. B.A.T.M.A.N. V will assume the specified throughput for any neighbor discovered over that interface.
 * throughput meter (upcoming): If the throughput can not be queried via some API and is not manually configured, B.A.T.M.A.N. V will run a periodic throughput test with its built-in throughput test protocol.
 
 Note: The WiFi neighbor throughput estimation relies on the WiFi driver being able to estimate the throughput. Commonly, the WiFi driver needs payload traffic to be sent to each neighbor for the estimation to be accurate. On idle links B.A.T.M.A.N. V will initiate payload traffic from time to time to feed the WiFi driver's estimation logic.
