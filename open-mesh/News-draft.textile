@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2019.1 released
 
-Mar 12th, 2019. Today the B.A.T.M.A.N. team publishes the March 2019 update to batman-adv, batctl and alfred! TODO
+Mar 19th, 2019. Today the B.A.T.M.A.N. team publishes the March 2019 update to batman-adv, batctl and alfred! The distributed hash table now parses DHCP packets to speed up the learning process of new IPv4 addresses. This should reduce the number of required ARP packets when a client just received a new IP address and then wants to start to transfer data via this router. Also batman-adv and batctl were modified to exchange configuration settings via generic netlink instead of sysfs. As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -85,15 +85,25 @@ bugfixes
 
 
 
-2019.1 (2019-03-12)
+
+
+
+missing: https://patchwork.open-mesh.org/patch/17850/
+
+2019.1 (2019-03-19)
 ===================
 
 * support latest kernels (3.16 - 5.1)
 * coding style cleanups and refactoring
-* 
+* implement meshif, hardif and vlan interface via netlink
+* snoop DHCP ACKs to improve DAT cache efficiency
 * bugs squashed:
 
-  - 
+  - avoid potential reference counter underflows and use-after free errors for
+    several objects
+  - fix GCC warning when B.A.T.M.A.N. V is build in but cfg80211 is not
+    available
+  - reject too small VLAN packets before they are processed further
 
 </pre>
 
@@ -154,13 +164,13 @@ netlink
 
 
 
-2019.1 (2019-03-12)
+2019.1 (2019-03-19)
 ===================
 
 * coding style cleanups and refactoring
-* bugs squashed:
-
-  - 
+* introduce support for batadv meshif, hardif and vlan configuration via netlink
+* replace multicast_mode with multicast_forceflood settings subcommand
+* add hop_penalty setting subcommand
 
 </pre>
 
@@ -178,7 +188,7 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
       alfred: Sync batman_adv.h after config support
 
 
-2019.1 (2019-03-14)
+2019.1 (2019-03-19)
 ===================
 
 * synchronization of batman-adv netlink header
