@@ -37,7 +37,7 @@ In this test, the first node A can't reach the last one C due to a limited horiz
  * Test 2: Client 1 and Client 2 should be able to ping each other.
 
 +note1+: Test 2 will only work if BATMAN runs over the backbone, e.g. by calling "batctl if add br0".
-+note2+: Limited horizon may be easily simulated by increasing the hop_penalty, e.g. "echo 230 > /sys/devices/virtual/net/bat0/mesh/hop_penalty" will have a 3 hop range in a network without packet loss.
++note2+: Limited horizon may be easily simulated by increasing the hop_penalty, e.g. "batctl -m bat0 hop_penalty 230" will have a 3 hop range in a network without packet loss.
 
 h3. VLAN support
 
