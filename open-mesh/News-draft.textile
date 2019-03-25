@@ -25,8 +25,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.0-31-g6ffe4d5c
-$ range=v2019.0..v2019.0-31-g6ffe4d5c
+v2019.0-32-gd9790b4c
+$ range=v2019.0..v2019.0-32-gd9790b4c
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -88,9 +88,7 @@ bugfixes
 
 
 
-missing: https://patchwork.open-mesh.org/patch/17850/
-
-2019.1 (2019-03-19)
+2019.1 (2019-03-26)
 ===================
 
 * support latest kernels (3.16 - 5.1)
@@ -164,7 +162,7 @@ netlink
 
 
 
-2019.1 (2019-03-19)
+2019.1 (2019-03-26)
 ===================
 
 * coding style cleanups and refactoring
@@ -188,7 +186,7 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
       alfred: Sync batman_adv.h after config support
 
 
-2019.1 (2019-03-19)
+2019.1 (2019-03-26)
 ===================
 
 * synchronization of batman-adv netlink header
