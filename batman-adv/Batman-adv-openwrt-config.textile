@@ -66,6 +66,7 @@ config interface 'bat0'
 	option bridge_loop_avoidance 1
 	option distributed_arp_table 1
 	option multicast_mode 1
+	option multicast_fanout 16
 	option network_coding 0
 	option hop_penalty 30
 	option isolation_mark '0x00000000/0x00000000'
@@ -119,7 +120,6 @@ config interface 'my_bat_vlan1'
 </pre>
 
 Any VLAN specific option can still be listed in the batadv meshif configuration for 'bat0' and in that case they will affect the behaviour only for the plain mesh interface (i.e. bat0 - the untagged LAN).
-
 
 h2. Batman-adv 2013.0.0 till 2019.0-2
 
