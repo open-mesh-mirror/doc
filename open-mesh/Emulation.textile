@@ -79,6 +79,19 @@ $ sudo make install
 
 h3. download and cp colourful.rc
 
+colourful.rc:
+
+<pre>
+port/setcolourful 1
+port/create 1
+port/create 2
+port/create 3
+port/create 4
+port/create 5
+port/setcolour 1 1
+</pre>
+
+
 $cp colourful.rc qemu_work
 
 h3. vde_switch
@@ -221,16 +234,6 @@ $screen -ls
 #you can login a specific openwrt system with following command
 $screen -r num1          #(num1~num9)
 </pre>
-<pre>
-port/setcolourful 1
-port/create 1
-port/create 2
-port/create 3
-port/create 4
-port/create 5
-port/setcolour 1 1
-</pre>
-
 
 To collect the batman logs from the individual hosts, you might want to use this script after all nodes have completed booting and started batman:
 
