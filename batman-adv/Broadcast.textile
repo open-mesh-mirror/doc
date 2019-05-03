@@ -57,6 +57,6 @@ h3. I.III) Single Neighbor: Is Previous Sender
 
 !bcast-avoid-single-fwd.png!
 
-h2. __noflood__ Tagging
+h2. __noflood__ Firewall Tagging
 
 todo
