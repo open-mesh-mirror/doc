@@ -1,8 +1,7 @@
 h1. Broadcasts in B.A.T.M.A.N. Advanced
 
-
-!broadcast.png!
 __A node broadcasting through the mesh__
+!broadcast.png!
 
 Broadcasting is a method in computer networks to distribute a packet to all available nodes. batman-adv supports broadcast via its __classic flooding__ algorithm.
 
