@@ -32,7 +32,9 @@ todo
 
 h2. Broadcast Avoidances
 
-When a node sees just one or no neighbor on a specific interface, then the following, simple rules can be applied to avoid broadcasts on this interface:
+To reduce the number of (re-)broadcasts batman-adv tries to detect whether in a particular scenario on a specific interface a broadcast can be avoided.
+
+The following three rules are currently checked and applied:
 
 h3. I.I) No Neighbor
 
