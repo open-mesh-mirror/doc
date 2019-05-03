@@ -12,10 +12,13 @@ The basic algorithm used by batman-adv is __classic flooding__. Here every node 
 
 To avoid frames looping around forever (a broadcast storm) an originating batman-adv node tags the frame with a sequence number which increases with every new broadcast frame this node transmits. The sequence number allows other nodes to detect whether it received a frame before. Such duplicates will then simply be ignored.
 
-
 h2. Interface Type: WiFi vs. Others
 
 In 802.11 based wireless networks broadcast transmissions have one specific downside compared to unicast: While for unicast transmissions a missing frame is detected and retransmitted ("ARQ":https://en.wikipedia.org/wiki/Automatic_repeat_request).
+
+To compensate for that batman-adv (re-)broadcasts a frame on a wireless interface not just once but three times when classic flooding is used.
+
+Furthermore, for the second and third broadcast a delay of 5ms is applied for each to increase the probability that one of the broadcasts arrives.
 
 h2. Gateway Feature: DHCP Optimizations
 
