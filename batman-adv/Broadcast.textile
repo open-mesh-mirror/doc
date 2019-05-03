@@ -1,0 +1,33 @@
+h1. Broadcast
+
+
+!broadcast.png!
+__A node broadcasting through the mesh__
+
+Broadcasting is a method in computer networks to distribute a packet to all available nodes. batman-adv supports broadcast via its __classic flooding__ algorithm.
+
+h2. __Classic Flooding__
+
+The basic algorithm used by batman-adv is __classic flooding__. Here every node simply repeats a broadcast frame it received on all its available interfaces. That way every node receives the broadcast frame eventually.
+
+To avoid frames looping around forever (a broadcast storm) an originating batman-adv node tags the frame with a sequence number which increases with every new broadcast frame this node transmits. The sequence number allows other nodes to detect whether it received a frame before. Such duplicates will then simply be ignored.
+
+
+h2. Interface Type: WiFi vs. Others
+
+In 802.11 based wireless networks broadcast transmissions have one specific downside compared to unicast: While for unicast transmissions a missing frame is detected and retransmitted ("ARQ":https://en.wikipedia.org/wiki/Automatic_repeat_request).
+
+h2. Gateway Feature: DHCP Optimizations
+
+todo
+
+h2. IP Multicast Optimizations
+
+todo
+
+
+h2. Broadcast Avoidances
+
+h2. __noflood__ Tagging
+
+todo
