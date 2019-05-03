@@ -30,8 +30,31 @@ h2. IP Multicast Optimizations
 
 todo
 
-
 h2. Broadcast Avoidances
+
+When a node sees just one or no neighbor on a specific interface, then the following, simple rules can be applied to avoid broadcasts on this interface:
+
+h3. I.I) No Neighbor
+
+!bcast-avoid-no-neighbor.png!
+
+* If an interface has no neighbor, then no broadcast is necessary.
+
+We can avoid sending a packet into the void.
+
+h3. I.II) Single Neighbor: Is Originator
+
+!bcast-avoid-single-orig.png!
+
+_Three nodes with a single neighbor per interface each_
+
+* If an interface has just one neighbor and it matches the OGM2 or broadcast packets originator address, then no broadcast is necessary.
+
+We can avoid echoing a packet back to the node it originally came from.
+
+h3. I.III) Single Neighbor: Is Previous Sender
+
+!bcast-avoid-single-fwd.png!
 
 h2. __noflood__ Tagging
 
