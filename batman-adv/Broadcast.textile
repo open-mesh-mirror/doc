@@ -1,4 +1,4 @@
-h1. Broadcast
+h1. Broadcasts in B.A.T.M.A.N. Advanced
 
 
 !broadcast.png!
