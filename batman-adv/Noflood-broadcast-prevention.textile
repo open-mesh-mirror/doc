@@ -56,5 +56,5 @@ Here is a list of packet types which utilize multicast and which are essential t
 
 * __ARP:__ IPv4 address resolution
 * __DHCP:__ IPv4/IPv6 address assignment
-* __ICMPv6:__ esp. IPv6 address resolution (but many more)
+* __ICMPv6:__ esp. IPv6 address resolution + assignment (but many more)
 * __IGMP:__ multicast listener announcements
