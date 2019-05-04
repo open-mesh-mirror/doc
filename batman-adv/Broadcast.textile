@@ -13,6 +13,9 @@ To avoid frames looping around forever (a broadcast storm) an originating batman
 
 h2. Interface Type: WiFi vs. Others
 
+__A broadcast frame transmitted three times__
+!bcast-3x.png!
+
 In 802.11 based wireless networks broadcast transmissions have one specific downside compared to unicast: While for unicast transmissions a missing frame is detected and retransmitted ("ARQ":https://en.wikipedia.org/wiki/Automatic_repeat_request) a broadcast transmission is performed only once, with no acknowledgements.
 
 To compensate for that batman-adv (re-)broadcasts a frame on a wireless interface not just once but three times when classic flooding is used.
