@@ -70,7 +70,7 @@ h3. Gateway Feature: DHCP via Unicast
 
 h3. Distributed ARP Table: DHT and Caching
 
-todo
+* See: [[DistributedArpTable|Distributed ARP Table]]
 
 h3. IP Multicast Optimizations
 
