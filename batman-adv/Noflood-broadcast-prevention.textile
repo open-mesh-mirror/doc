@@ -1,0 +1,11 @@
+h1. "Noflood"-mark: Broadcast Flood Prevention
+
+!{width:25%}noflood-sign.png!
+
+B.A.T.M.A.N. Advanced tries to forward a multicast frame via one of its non-flooding features first. If none of them is applicable then batman-adv falls back to __classic flooding__.
+
+However, with some applications dropping a packet might be more desirable than flooding. For instance if flooding a frame would lead to a high burden for disinterested nodes in the mesh, up to congestion in the worst case.
+
+h2. Example Application
+
+!noflood-assembly.png!
