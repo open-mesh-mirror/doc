@@ -75,7 +75,3 @@ h3. Distributed ARP Table: DHT and Caching
 h3. IP Multicast Optimizations
 
 * See: [[Multicast-optimizations|Multicast Optimizations]]
-
-h3. __noflood__ Firewall Tagging
-
-WIP
