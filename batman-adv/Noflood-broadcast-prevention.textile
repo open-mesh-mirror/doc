@@ -47,3 +47,5 @@ The batctl command configures the value and mask batman-adv should watch out for
 The first ebtables command makes sure that link-local IPv6 multicast is never matched for flood prevention. If this rule matches then the firewall will hand over the frame without a mark.
 
 The second ebtables rule marks any IPv6 multicast frame which is not a link-local one. For instance multicast packets with a global destination scope.
+
+batman-adv will then drop such multicast packets with a global destination scope if for example it is unable to distribute it via individual unicast transmissions and would fall back to broadcast flooding.
