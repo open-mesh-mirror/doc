@@ -10,6 +10,8 @@ The noflood mark feature allows a user to tag frames via netfilter by custom cri
 
 h2. Example Application
 
+__Video vs. Text__
+
 !noflood-assembly.png!
 
 In this example we have three kinds of multicast packets:
@@ -25,7 +27,6 @@ We cannot simply block those video frames with netfilter because netfilter does 
 In the second step batman-adv will determine how it would like to forward the frame. Depending on the number of recipients in this example batman-adv will either choose individual unicast transmissions or broadcast flooding.
 
 Finally, before broadcast flooding a frame it will check whether the frame has a "noflood" mark set. If so then it will drop the packet instead of flooding.
-
 
 h2. Ebtables Example
 
