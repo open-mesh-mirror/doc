@@ -21,14 +21,6 @@ Furthermore, for the second and third broadcast a delay of 5ms is applied for ea
 
 Last but not least 802.11 broadcasts are usually performed at the lowest Wifi bitrate. If a high broadcast throughput is needed, it is therefore usually recommended to increase the Wifi rate for multicast transmissions in the wifi driver.
 
-h2. Gateway Feature: DHCP Optimizations
-
-todo
-
-h2. IP Multicast Optimizations
-
-todo
-
 h2. Broadcast Avoidances
 
 To reduce the number of (re-)broadcasts batman-adv tries to detect whether in a particular scenario on a specific interface a broadcast can be avoided.
@@ -57,6 +49,30 @@ h3. I.III) Single Neighbor: Is Previous Sender
 
 !bcast-avoid-single-fwd.png!
 
-h2. __noflood__ Firewall Tagging
+_A node avoiding to echo back to its forwarder_
+
+* If an interface has just one neighbor and it matches the originator that forwarded this OGM2 or broadcast packet to us, then no broadcast is necessary.
+
+We can avoid echoing a packet back to the originator node (not just neighor) it was forwarded from.
+
+h2. Non-flooding Optimizations
+
+Broadcast flooding comes with a cost: It bothers every node in the mesh and especially in larger mesh networks this can add up quickly. Therefore if the number of nodes interested in a specific frame is actually just a small subset of all nodes then it is usually desirable to use a more specialized approach.
+
+Currently, batman-adv applies such specialized treatment for DHCP, ARP and general IP multicast:
+
+h3. Gateway Feature: DHCP via Unicast
+
+todo
+
+h3. Distributed ARP Table: DHT and Caching
+
+todo
+
+h3. IP Multicast Optimizations
+
+todo
+
+h3. __noflood__ Firewall Tagging
 
 todo
