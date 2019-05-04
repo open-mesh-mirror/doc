@@ -49,3 +49,12 @@ The first ebtables command makes sure that link-local IPv6 multicast is never ma
 The second ebtables rule marks any IPv6 multicast frame which is not a link-local one. For instance multicast packets with a global destination scope.
 
 batman-adv will then drop such multicast packets with a global destination scope if for example it is unable to distribute it via individual unicast transmissions and would fall back to broadcast flooding.
+
+h2. Crucial Multicast
+
+Here is a list of packet types which utilize multicast and which are essential to establish IP communication. Unless you know exactly what you are doing you usually should __not__ set a noflood-mark on such packets.
+
+* __ARP:__ IPv4 address resolution
+* __DHCP:__ IPv4/IPv6 address assignment
+* __ICMPv6:__ esp. IPv6 address resolution (but many more)
+* __IGMP:__ multicast listener announcements
