@@ -6,6 +6,43 @@ B.A.T.M.A.N. Advanced tries to forward a multicast frame via one of its non-floo
 
 However, with some applications dropping a packet might be more desirable than flooding. For instance if flooding a frame would lead to a high burden for disinterested nodes in the mesh, up to congestion in the worst case.
 
+The noflood mark feature allows a user to tag frames via netfilter by custom criteria. batman-adv will then avoid flooding such frames.
+
 h2. Example Application
 
 !noflood-assembly.png!
+
+In this example we have three kinds of multicast packets:
+
+# __Bulky video__ frames to __many__ recipients
+# __Bulky video__ frames to __some__ recipients
+# __Slim text__ messages to __many__ recipients
+
+For the small text messages we do not mind if they are flooded. However for the bulky, high throughput video frames, we do: If they have only a few recipients so that batman-adv can forward the frame via a few unicast transmissions we are ok. But if the only way batman-adv could forward them is via broadcast flooding then we would rather like to drop the packet to avoid placing too much stress on the overall mesh.
+
+We cannot simply block those video frames with netfilter because netfilter does not know which algorithm batman-adv would choose. Therefore netfilter only gives a hint by adding a specific mark to every video frame, our cases 1) and 2). While leaving the text messages, case 3), unmarked.
+
+In the second step batman-adv will determine how it would like to forward the frame. Depending on the number of recipients in this example batman-adv will either choose individual unicast transmissions or broadcast flooding.
+
+Finally, before broadcast flooding a frame it will check whether the frame has a "noflood" mark set. If so then it will drop the packet instead of flooding.
+
+
+h2. Ebtables Example
+
+__Preventing flooding of routeable IPv6 multicast:__
+
+<pre>
+$ batctl noflood_mark 0x4/0x4    # VALUE/MASK
+$ ebtables -A FORWARD --logical-in br0 -o bat0 \
+  -p IPv6 --ip6-dst ff02::/64 \
+  -j ACCEPT
+$ ebtables -A FORWARD --logical-in br0 -o bat0 \
+  -p IPv6 --ip6-dst ! ff02::/64 \
+  -j mark --set-mark 0x4 --mark-target ACCEPT
+</pre>
+
+The batctl command configures the value and mask batman-adv should watch out for for the noflood feature. Here it is the third bit selected by the mask and only if it is set then batman-adv will match and will avoid flooding it.
+
+The first ebtables command makes sure that link-local IPv6 multicast is never matched for flood prevention. If this rule matches then the firewall will hand over the frame without a mark.
+
+The second ebtables rule marks any IPv6 multicast frame which is not a link-local one. For instance multicast packets with a global destination scope.
