@@ -1,107 +1,95 @@
-h1. DRAFT: Batman-adv 2019.1 released
+h1. DRAFT: Batman-adv 2019.2 released
 
-Mar 19th, 2019. Today the B.A.T.M.A.N. team publishes the March 2019 update to batman-adv, batctl and alfred! The distributed hash table now parses DHCP packets to speed up the learning process of new IPv4 addresses. This should reduce the number of required ARP packets when a client just received a new IP address and then wants to start to transfer data via this router. Also batman-adv and batctl were modified to exchange configuration settings via generic netlink instead of sysfs. As usual, this release also contains various bugfixes and code cleanups.
+May 28th, 2019. Today the B.A.T.M.A.N. team publishes the May 2019 update to batman-adv, batctl and alfred! TODO As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2019.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2019.2/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Anders Roxell <anders.roxell@linaro.org>
-* Eric Dumazet <edumazet@google.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
-* Martin Weinelt <martin@linuxlounge.net>
-* Simon Wunderlich <sw@simonwunderlich.de>
+* Johannes Berg <johannes.berg@intel.com>
 * Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Jiri Pirko <jiri@mellanox.com>
+* Antonio Quartulli <a@unstable.cc>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.0-32-gd9790b4c
-$ range=v2019.0..v2019.0-32-gd9790b4c
+v2019.1-17-gda62e1b0
+$ range=v2019.1..v2019.1-17-gda62e1b0
 $ git shortlog --email --no-merges "${range}"
-$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
-
+$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 new kernel support
 ==================
 
-      batman-adv: simplify ip_mc_check_igmp() and ipv6_mc_check_mld() calls
+      batman-adv: genetlink: make policy common to family
+      batman-adv: genetlink: optionally validate strictly/dumps
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Fix typo "reseved" -> "reserved"
-
+      batman-adv: Adjust name for batadv_dat_send_data
 
 unclassified
 ============
 
-      batman-adv: Snoop DHCPACKs for DAT
+      MAINTAINERS: Add B(ugtracker) field for batman-adv
+      MAINTAINERS: Add C(hat) field for batman-adv
+      MAINTAINERS: Add T(ree) field for batman-adv
+      batman-adv: Drop license boilerplate
 
-netlink
-=======
+multicast
+=========
 
-      batman-adv: Move common genl doit code pre/post hooks
-      batman-adv: Prepare framework for mesh genl config
-      batman-adv: Prepare framework for hardif genl config
-      batman-adv: Prepare framework for vlan genl config
-      batman-adv: Add aggregated_ogms mesh genl configuration
-      batman-adv: Add ap_isolation mesh/vlan genl configuration
-      batman-adv: Add bonding mesh genl configuration
-      batman-adv: Add bridge_loop_avoidance mesh genl configuration
-      batman-adv: Add distributed_arp_table mesh genl configuration
-      batman-adv: Add fragmentation mesh genl configuration
-      batman-adv: Add gateway mesh genl configuration
-      batman-adv: Add hop_penalty mesh genl configuration
-      batman-adv: Add log_level mesh genl configuration
-      batman-adv: Add multicast forceflood mesh genl configuration
-      batman-adv: Add network_coding mesh genl configuration
-      batman-adv: Add orig_interval mesh genl configuration
-      batman-adv: Add elp_interval hardif genl configuration
-      batman-adv: Add throughput_override hardif genl configuration
-      batman-adv: Trigger genl notification on sysfs config change
+      batman-adv: Add multicast-to-unicast support for multiple targets
+
+DAT
+===
+
+      batman-adv: allow updating DAT entry timeouts on incoming ARP Replies
+
+
+sysfs
+=====
+
+      batman-adv: Drop documentation about debugfs files
+      batman-adv: Drop documentation about sysfs files
+      batman-adv: Make sysfs support optional
+      batman-adv: ABI: Mark sysfs files as deprecated
+      batman-adv: Warn about sysfs file access
 
 
 
 bugfixes
 ========
 
-      batman-adv: fix uninit-value in batadv_interface_tx()
-      batman-adv: fix warning in function batadv_v_elp_get_throughput
-      batman-adv: Reduce claim hash refcnt only for removed entry
-      batman-adv: Reduce tt_local hash refcnt only for removed entry
-      batman-adv: Reduce tt_global hash refcnt only for removed entry
+      batman-adv: mcast: fix multicast tt/tvlv worker locking
 
 
 
 
 
 
-2019.1 (2019-03-26)
+2019.2 (2019-05-28)
 ===================
 
-* support latest kernels (3.16 - 5.1)
+* support latest kernels (3.16 - 5.2)
 * coding style cleanups and refactoring
-* implement meshif, hardif and vlan interface via netlink
-* snoop DHCP ACKs to improve DAT cache efficiency
+* implement multicast-to-unicast support for multiple targets
+* deprecate sysfs support and make it optional
+* refresh DAT entry timeouts on incoming ARP Replies
 * bugs squashed:
 
-  - avoid potential reference counter underflows and use-after free errors for
-    several objects
-  - fix GCC warning when B.A.T.M.A.N. V is build in but cfg80211 is not
-    available
-  - reject too small VLAN packets before they are processed further
+  - fix multicast tt/tvlv worker locking
 
 </pre>
 
@@ -109,66 +97,59 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2019.0-25-g3ab8f42
-$ range=v2019.0..v2019.0-25-g3ab8f42
+v2019.1-9-g68d5ace
+$ range=v2019.1..v2019.1-9-g68d5ace
 $ git shortlog --email --no-merges "${range}"
-$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
+$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
+
+
+multicast
+=========
+
+      batctl: add switch for setting multicast_fanout
+
+
+sysfs
+=====
+
+      batctl: Support checking of meshif without sysfs
+      batctl: Reimplement VLAN translation using helper
+      batctl: Add netlink fallback for sysfs' iface_status
 
 
 manpage
 =======
 
+unclassified
+============
 
-
-
-
-cleanups/coderefactoring
-========================
+      batctl: Drop license boilerplate
+      batctl: Drop log subcommand
+      batctl: Drop support for translating destinations via debugfs
 
     
 
 Bugfix
 ======
 
+      batctl: Fix check for batadv genl name resolve
+
 
 netlink
 =======
 
-      batctl: Add support for config mcast group in event monitor
-      batctl: Don't allocate new buffer for vlan parent device
-      batctl: Automatically translate vlan to mesh_iface
-      batctl: Add settings_data hooks for netlink integration
-      batctl: Parse the arguments for gw_mode
-      batctl: Add netlink simple query helper
-      batctl: Support generic netlink for gw_mode command
-      batctl: Support generic netlink for loglevel command
-      batctl: Support generic netlink for isolation_mark command
-      batctl: Support generic netlink for orig_interval command
-      batctl: Add helper to read/write boolean configuration values
-      batctl: Support generic netlink for aggregation command
-      batctl: Support generic netlink for ap_isolation command
-      batctl: Support generic netlink for bonding command
-      batctl: Support generic netlink for bridge_loop_avoidance command
-      batctl: Support generic netlink for distributed_arp_table command
-      batctl: Support generic netlink for fragmentation command
-      batctl: Support generic netlink for multicast_mode command
-      batctl: Support generic netlink for network_coding command
-      batctl: Drop settings_data param lists
-
-
-      batctl: replace multicast_mode with multicast_forceflood command
-      batctl: Add hop_penalty setting command
 
 
 
-2019.1 (2019-03-26)
+2019.2 (2019-05-28)
 ===================
 
 * coding style cleanups and refactoring
-* introduce support for batadv meshif, hardif and vlan configuration via netlink
-* replace multicast_mode with multicast_forceflood settings subcommand
-* add hop_penalty setting subcommand
+* add multicast_fanout setting subcommand
+* implement netlink based support for remaining sysfs-only features
+* drop support for deprecated log command support
+* remove non-netlink support for translating MAC addresses to originators
 
 </pre>
 
@@ -176,17 +157,21 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2019.0-2-g1c3d800
-$ range=v2019.0..v2019.0-2-g1c3d800
+v2019.1-4-g1ce394b
+$ range=v2019.1..v2019.1-4-g1ce394b
 $ git shortlog --email --no-merges "${range}"
-$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
+$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
+unclassified
+============
 
-      alfred: Sync batman_adv.h after config support
+      alfred: Switch packet.h license to MIT
+      alfred: Drop license boilerplate
+      alfred: Sync batadv_netlink_policy
 
 
-2019.1 (2019-03-26)
+2019.2 (2019-05-28)
 ===================
 
 * synchronization of batman-adv netlink header
