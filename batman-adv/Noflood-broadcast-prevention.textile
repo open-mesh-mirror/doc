@@ -1,3 +1,7 @@
+Prior Readings:
+
+* [[Broadcast|Broadcasts in B.A.T.M.A.N. Advanced]]
+
 h1. "Noflood"-mark: Broadcast Flood Prevention
 
 !{width:25%}noflood-sign.png!
