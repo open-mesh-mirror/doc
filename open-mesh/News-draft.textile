@@ -10,6 +10,7 @@ h2. Thanks
 
 Thanks to all people sending in patches:
 
+* Kirill Smelkov <kirr@nexedi.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Johannes Berg <johannes.berg@intel.com>
 * Sven Eckelmann <sven@narfation.org>
@@ -22,8 +23,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.1-17-gda62e1b0
-$ range=v2019.1..v2019.1-17-gda62e1b0
+v2019.1-19-g337ae19a
+$ range=v2019.1..v2019.1-19-g337ae19a
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
