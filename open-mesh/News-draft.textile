@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2019.2 released
 
-May 21th, 2019. Today the B.A.T.M.A.N. team publishes the May 2019 update to batman-adv, batctl and alfred! To improve the overhead in networks with multicast listeners, adjustments for the multicast optimization were implemented which enable multicast-to-unicast conversion. batman-adv can now update the DAT entry timeouts on incoming ARP replies to reduce the broadcast overhead even further. The sysfs integration in batman-adv is now optional and can be disabled during the compilation. A system without the sysfs support also requires additional changes in batctl which are shipped now as part of this release. Also the deprecated debugfs log support in batctl was dropped together with the support of MAC-to-originator translation via debugfs. As usual, this release also contains various bugfixes and code cleanups.
+May 22th, 2019. Today the B.A.T.M.A.N. team publishes the May 2019 update to batman-adv, batctl and alfred! To improve the overhead in networks with multicast listeners, adjustments for the multicast optimization were implemented which enable multicast-to-unicast conversion. batman-adv can now update the DAT entry timeouts on incoming ARP replies to reduce the broadcast overhead even further. The sysfs integration in batman-adv is now optional and can be disabled during the compilation. A system without the sysfs support also requires additional changes in batctl which are shipped now as part of this release. Also the deprecated debugfs log support in batctl was dropped together with the support of MAC-to-originator translation via debugfs. As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -80,7 +80,9 @@ bugfixes
 
 
 
-2019.2 (2019-05-21)
+TODO: https://patchwork.open-mesh.org/patch/17922/
+
+2019.2 (2019-05-22)
 ===================
 
 * support latest kernels (3.16 - 5.2)
@@ -143,7 +145,7 @@ netlink
 
 
 
-2019.2 (2019-05-21)
+2019.2 (2019-05-22)
 ===================
 
 * coding style cleanups and refactoring
@@ -172,7 +174,7 @@ unclassified
       alfred: Sync batadv_netlink_policy
 
 
-2019.2 (2019-05-21)
+2019.2 (2019-05-22)
 ===================
 
 * synchronization of batman-adv netlink header
