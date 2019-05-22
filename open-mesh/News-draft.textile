@@ -11,6 +11,7 @@ h2. Thanks
 Thanks to all people sending in patches:
 
 * Kirill Smelkov <kirr@nexedi.com>
+* Jeremy Sowden <jeremy@azazel.net>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Johannes Berg <johannes.berg@intel.com>
 * Sven Eckelmann <sven@narfation.org>
@@ -80,7 +81,6 @@ bugfixes
 
 
 
-TODO: https://patchwork.open-mesh.org/patch/17922/
 
 2019.2 (2019-05-22)
 ===================
@@ -93,6 +93,7 @@ TODO: https://patchwork.open-mesh.org/patch/17922/
 * bugs squashed:
 
   - fix multicast tt/tvlv worker locking
+  - drop roam tvlv handler when unregistering mesh interface
 
 </pre>
 
