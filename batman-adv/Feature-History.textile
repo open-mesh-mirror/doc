@@ -20,7 +20,7 @@ h1. Feature History
 ** Before timeout refreshing: v2019.2
 * *Fragmentation*
 ** Initial support: v2010.2.0
-** Fragmentatoin v2: v2014.0.0
+** Fragmentation v2: v2014.0.0
 * *Gateway Feature*
 ** Initial support: v2011.0.0
 * *Interface Alternating*
