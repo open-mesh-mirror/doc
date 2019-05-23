@@ -35,7 +35,7 @@ h1. Feature History
 * *Network Coding*
 ** v2013.2.0
 * *BATMAN V*
-** OGMv2 / ELP: v2016.1
+** OGMv2 / ELP / Throughput metric: v2016.1
 * *TT*
 ** Initial support: 2011.3.0
 ** Speedy Join: v2012.4.0
