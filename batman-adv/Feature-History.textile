@@ -30,8 +30,6 @@ h1. Feature History
 ** Multicast TT + TVLV support: v2014.2.0
 ** Bridge support: v2016.3
 ** Multicast-to-multi-unicast: v2019.2
-* *Netlink*
-** v2016.3 (+ v2016.4, v2016.5, ...)
 * *Network Coding*
 ** v2013.2.0
 * *BATMAN IV*
@@ -49,3 +47,4 @@ h1. Feature History
 * *Misc:*
 ** Hop-penalty 15 -> 30: v2014.4.0 (and in v2012.2.0? how much?)
 ** Multiple mesh interfaces: v2010.2.0
+** Netlink: v2016.3 (+ v2016.4, v2016.5, ...)
