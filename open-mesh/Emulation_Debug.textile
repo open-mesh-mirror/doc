@@ -12,14 +12,22 @@ sudo mount -o loop debian.img debian
 sudo debootstrap stretch debian
 sudo chroot debian apt update
 sudo chroot debian apt install build-essential vim openssh-server less \
- pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev \
+ pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump \
  trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev
+
 sudo mkdir debian/root/.ssh/
 ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
+
 sudo mkdir debian/host
-sudo cp fstab debian/etc/fstab
+sudo mkdir debian/host
+sudo sh -c 'cat > debian/etc/fstab  << EOF
+host            /host   9p      trans=virtio,version=9p2000.L 0 0
+none            /sys/kernel/debug       debugfs default     0       0
+EOF'
+
 sudo cp rc.local debian/etc/rc.local
 sudo chmod a+x debian/etc/rc.local
+
 sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
 
 ## optionally: allow ssh logins without passwords
@@ -53,13 +61,15 @@ h2. Kernel compile
 Any recent kernel can be used for the setup. The build result @arch/x86/boot/bzImage@ has to be copied to the same directory as the debian.img
 
 <pre>
+# make sure that libelf-dev is installed or module build will fail with something like "No rule to make target 'net/batman-adv/bat_algo.o'"
+
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
 cd linux-next
 
-# small configuration
-
 make allnoconfig
 cat >> .config << EOF
+
+# small configuration
 CONFIG_SMP=y
 CONFIG_EMBEDDED=n
 CONFIG_EXPERT=n
@@ -165,12 +175,11 @@ CONFIG_NET_IPGRE_DEMUX=y
 CONFIG_NET_IP_TUNNEL=y
 CONFIG_NET_IPGRE=y
 CONFIG_NET_IPGRE_BROADCAST=y
-EOF
+
+# makes boot a lot slower but required for shutdown
+CONFIG_ACPI=y
 
 #debug stuff
-# make sure that libelf-dev is installed or module build will fail with something like "No rule to make target 'net/batman-adv/bat_algo.o'"
-
-cat >> .config << EOF
 CONFIG_CC_STACKPROTECTOR_STRONG=y
 CONFIG_LOCKUP_DETECTOR=y
 CONFIG_DETECT_HUNG_TASK=y
@@ -228,10 +237,8 @@ CONFIG_UPROBE_EVENTS=y
 CONFIG_DYNAMIC_FTRACE=y
 CONFIG_FUNCTION_PROFILER=y
 CONFIG_HIST_TRIGGERS=y
-EOF
 
 # for GCC 5+
-cat >> .config << EOF
 CONFIG_KASAN=y
 CONFIG_KASAN_INLINE=y
 CONFIG_UBSAN_SANITIZE_ALL=y
@@ -268,4 +275,14 @@ The kernel module can also be compiled for better readability for the calltraces
 
 <pre>
 make EXTRA_CFLAGS="-fno-inline -O1 -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/linux-next V=1
+</pre>
+
+h2. View traffic via wireshark from virtual machine
+
+On host system
+
+<pre>
+mkfifo remote-dump
+ssh root@192.168.2.51 'tcpdump -i enp3s0 -s 0 -U -n -w - "port not 22"' > remote-dump
+wireshark -k -i remote-dump
 </pre>
