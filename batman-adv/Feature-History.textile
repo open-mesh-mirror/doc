@@ -34,6 +34,8 @@ h1. Feature History
 ** v2016.3 (+ v2016.4, v2016.5, ...)
 * *Network Coding*
 ** v2013.2.0
+* *BATMAN IV*
+** v0.1
 * *BATMAN V*
 ** OGMv2 / ELP / Throughput metric: v2016.1
 * *TT*
