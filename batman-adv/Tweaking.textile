@@ -266,11 +266,11 @@ The batX mesh interface created by batman-adv also supports VLANs which enables 
 For example, after adding VLAN 0 and VLAN 1 on top of bat0, the commands can be accessed via the vlan interface name:
 <pre>
 # vlan 1
-batctl -m bat0.1 ap_isolation
+batctl -m bat0 vid 1 ap_isolation
 disabled
 
 # vlan 0
-batctl -m bat0.0 ap_isolation
+batctl -m bat0 vid 0 ap_isolation
 disabled
 </pre>
 
@@ -281,6 +281,6 @@ Available since: batman-adv 2014.0.0
 Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default).
 
 <pre>
-batctl -m bat0.1 ap_isolation
+batctl -m bat0 vid 1 ap_isolation
 disabled
 </pre>
