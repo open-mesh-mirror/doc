@@ -263,7 +263,7 @@ h2. VLAN handling
 
 The batX mesh interface created by batman-adv also supports VLANs which enables the administrator to configure virtual networks with independent settings on top of a single mesh cloud. It might be desirable to run the different VLANs with different batman-adv settings. Therefore, batman-adv offers per-VLAN settings since batman-adv 2014.0.0.
 
-For example, after adding VLAN 0 and VLAN 1 on top of bat0, the commands can be accessed via the vlan interface name:
+For example, after adding VLAN 0 and VLAN 1 on top of bat0, the commands can be accessed via the vlan id:
 <pre>
 # vlan 1
 batctl -m bat0 vid 1 ap_isolation
@@ -271,6 +271,18 @@ disabled
 
 # vlan 0
 batctl -m bat0 vid 0 ap_isolation
+disabled
+</pre>
+
+or vlan name
+
+<pre>
+# vlan 1
+batctl vlan bat0.1 ap_isolation
+disabled
+
+# vlan 0
+batctl vlan bat0.0 ap_isolation
 disabled
 </pre>
 
