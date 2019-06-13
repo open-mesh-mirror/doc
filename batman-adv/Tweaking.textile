@@ -1,5 +1,7 @@
 h1. Tweaking B.A.T.M.A.N. Advanced
 
+{{>toc}}
+
 This document aims to provide a high level overview about the individual settings batman-adv allows you to make, in order to tweak its behaviour. If you are trying to find out what these various batctl options are good for, this is the right document for you. Some of the features require extended explanation & examples which is not the scope of this document. Links to complementary documents will be provided if available.
 
 h2. Interface handling
