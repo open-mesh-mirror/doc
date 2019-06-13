@@ -296,3 +296,40 @@ Standard WiFi AccessPoints support a feature known as 'AP isolation' which preve
 batctl -m bat0 vid 1 ap_isolation
 disabled
 </pre>
+
+
+h2. Hard/slave interface handling
+
+The B.A.T.M.A.N. V routing algorithm also uses settings for the enslaved interfaces. For example, after adding eth0 and wlan as interface to bat0, the commands can be accessed via the hardif name:
+
+<pre>
+# eth0
+batctl -m bat0 hardif eth0 elp_interval
+disabled
+
+# eth1
+batctl -m bat0 hardif eth1 elp_interval
+disabled
+</pre>
+
+h3. elp_interval
+
+Available since: batman-adv 2019.3
+
+Defines the interval in milliseconds in which batman-adv emits probing packets for neighbor sensing (ELP) in B.A.T.M.A.N. V.
+
+<pre>
+batctl -m bat0 hardif eth0 elp_interval
+disabled
+</pre>
+
+h3. throughput_override
+
+Available since: batman-adv 2019.3
+
+Defines the throughput value to be used by B.A.T.M.A.N. V when estimating the link throughput using this interface. If the value is set to 0 then batman-adv will try to estimate the throughput by itself.
+
+<pre>
+batctl -m bat0 hardif eth0 throughput_override
+0
+</pre>
