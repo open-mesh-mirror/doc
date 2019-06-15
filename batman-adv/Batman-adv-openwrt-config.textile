@@ -92,6 +92,8 @@ config interface 'bat0_hardif_eth0'
 	option master 'bat0'
 	option mtu '1536'
 	option ifname 'eth0'
+	option 'elp_interval' 500
+	option 'throughput_override' 0
 </pre>
 
 The "bat0" batadv meshif can then be used like any other network device. It
