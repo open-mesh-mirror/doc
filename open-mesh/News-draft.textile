@@ -1,99 +1,74 @@
-h1. DRAFT: Batman-adv 2019.2 released
+h1. DRAFT: Batman-adv 2019.3 released
 
-May 22th, 2019. Today the B.A.T.M.A.N. team publishes the May 2019 update to batman-adv, batctl and alfred! To improve the overhead in networks with multicast listeners, adjustments for the multicast optimization were implemented which enable multicast-to-unicast conversion. batman-adv can now update the DAT entry timeouts on incoming ARP replies to reduce the broadcast overhead even further. The sysfs integration in batman-adv is now optional and can be disabled during the compilation. A system without the sysfs support also requires additional changes in batctl which are shipped now as part of this release. Also the deprecated debugfs log support in batctl was dropped together with the support of MAC-to-originator translation via debugfs. As usual, this release also contains various bugfixes and code cleanups.
+Jul 23th, 2019. Today the B.A.T.M.A.N. team publishes the Jul 2019 update to batman-adv, batctl and alfred! TODO As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2019.2/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2019.3/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Kirill Smelkov <kirr@nexedi.com>
-* Jeremy Sowden <jeremy@azazel.net>
+* Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 * Linus Lüssing <linus.luessing@c0d3.blue>
-* Johannes Berg <johannes.berg@intel.com>
+* Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Antonio Quartulli <a@unstable.cc>
+* Marek Lindner <mareklindner@neomailbox.ch>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.1-19-g337ae19a
-$ range=v2019.1..v2019.1-19-g337ae19a
+v2019.2-12-g3a8df00c
+$ range=v2019.2..v2019.2-12-g3a8df00c
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
 
 
 new kernel support
 ==================
 
-      batman-adv: genetlink: make policy common to family
-      batman-adv: genetlink: optionally validate strictly/dumps
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Adjust name for batadv_dat_send_data
-
-unclassified
-============
-
-      MAINTAINERS: Add B(ugtracker) field for batman-adv
-      MAINTAINERS: Add C(hat) field for batman-adv
-      MAINTAINERS: Add T(ree) field for batman-adv
-      batman-adv: Drop license boilerplate
+      batman-adv: no need to check return value of debugfs_create functions
+      batman-adv: Fix includes for *_MAX constants
+      batman-adv: Add missing include for atomic functions
+      batman-adv: Use includes instead of fwdecls
 
 multicast
 =========
 
-      batman-adv: Add multicast-to-unicast support for multiple targets
-
-DAT
-===
-
-      batman-adv: allow updating DAT entry timeouts on incoming ARP Replies
-
-
-sysfs
-=====
-
-      batman-adv: Drop documentation about debugfs files
-      batman-adv: Drop documentation about sysfs files
-      batman-adv: Make sysfs support optional
-      batman-adv: ABI: Mark sysfs files as deprecated
-      batman-adv: Warn about sysfs file access
-
-
+      batman-adv: mcast: shorten multicast tt/tvlv worker spinlock section
+      batman-adv: mcast: collect softif listeners from IP lists instead
+      batman-adv: mcast: avoid redundant multicast TT entries with bridges
+      batman-adv: mcast: detect, distribute and maintain multicast router presence
+      batman-adv: mcast: apply optimizations for routable packets, too
 
 bugfixes
 ========
 
-      batman-adv: mcast: fix multicast tt/tvlv worker locking
+
+      batman-adv: Fix duplicated OGMs on NETDEV_UP
 
 
 
 
-
-
-
-2019.2 (2019-05-22)
+2019.3 (2019-07-23)
 ===================
 
-* support latest kernels (3.16 - 5.2)
+* support latest kernels (3.16 - 5.3)
 * coding style cleanups and refactoring
-* implement multicast-to-unicast support for multiple targets
-* deprecate sysfs support and make it optional
-* refresh DAT entry timeouts on incoming ARP Replies
+* add routable multicast optimizations
 * bugs squashed:
 
-  - fix multicast tt/tvlv worker locking
-  - drop roam tvlv handler when unregistering mesh interface
+  - fix duplicated OGMs on NETDEV_UP
 
 </pre>
 
@@ -101,59 +76,25 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2019.1-9-g68d5ace
-$ range=v2019.1..v2019.1-9-g68d5ace
+v2019.2-5-gb382c0a
+$ range=v2019.2..v2019.2-5-gb382c0a
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
-multicast
-=========
-
-      batctl: add switch for setting multicast_fanout
-
-
-sysfs
-=====
-
-      batctl: Support checking of meshif without sysfs
-      batctl: Reimplement VLAN translation using helper
-      batctl: Add netlink fallback for sysfs' iface_status
-
-
-manpage
-=======
-
-unclassified
-============
-
-      batctl: Drop license boilerplate
-      batctl: Drop log subcommand
-      batctl: Drop support for translating destinations via debugfs
-
-    
-
-Bugfix
+tcpump
 ======
 
-      batctl: Fix check for batadv genl name resolve
+      batctl: tcpdump: Add support for MCAST TVLV
+      batctl: tcpdump: Add support for unicast fragmentation
+      batctl: tcpdump: Add support for coded packets
 
 
-netlink
-=======
-
-
-
-
-2019.2 (2019-05-22)
+2019.3 (2019-07-23)
 ===================
 
-* coding style cleanups and refactoring
-* add multicast_fanout setting subcommand
-* implement netlink based support for remaining sysfs-only features
-* drop support for deprecated log command support
-* remove non-netlink support for translating MAC addresses to originators
+* add tcpdump support for MCAST TVLV, unicast fragments and coded packets
 
 </pre>
 
@@ -161,24 +102,17 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2019.1-4-g1ce394b
-$ range=v2019.1..v2019.1-4-g1ce394b
+v2019.2-1-gd8508e9
+$ range=v2019.2..v2019.2-1-gd8508e9
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-unclassified
-============
 
-      alfred: Switch packet.h license to MIT
-      alfred: Drop license boilerplate
-      alfred: Sync batadv_netlink_policy
-
-
-2019.2 (2019-05-22)
+2019.3 (2019-07-23)
 ===================
 
-* synchronization of batman-adv netlink header
+* (no changes)
 </pre>
 
 
