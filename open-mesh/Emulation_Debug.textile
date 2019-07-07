@@ -330,6 +330,9 @@ cat > test-init.sh << "EOF"
 set -e
 export PATH="/host/batctl/:$PATH"
 
+# ip link add dummy0 type dummy
+ip link set up dummy0
+
 rmmod batman-adv || true
 insmod /host/batman-adv/net/batman-adv/batman-adv.ko
 batctl routing_algo BATMAN_IV
