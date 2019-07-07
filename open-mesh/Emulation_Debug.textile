@@ -184,6 +184,7 @@ CONFIG_NET_IPGRE_DEMUX=y
 CONFIG_NET_IP_TUNNEL=y
 CONFIG_NET_IPGRE=y
 CONFIG_NET_IPGRE_BROADCAST=y
+# CONFIG_LEGACY_PTYS is not set
 
 # makes boot a lot slower but required for shutdown
 CONFIG_ACPI=y
