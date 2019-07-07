@@ -2,16 +2,14 @@ h1. Emulation Debug
 
 h2. Create an Image
 
-Download the fstab and rc.local file attached to this wiki page into your directory before getting started.
-
 <pre>
 qemu-img create debian.img 8G
 sudo mkfs.ext4 -O '^has_journal' -F debian.img
 sudo mkdir debian
 sudo mount -o loop debian.img debian
-sudo debootstrap stretch debian
+sudo debootstrap buster debian
 sudo chroot debian apt update
-sudo chroot debian apt install build-essential vim openssh-server less \
+sudo chroot debian apt install --no-install-recommends build-essential vim openssh-server less \
  pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump \
  trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev
 
@@ -19,13 +17,24 @@ sudo mkdir debian/root/.ssh/
 ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
 
 sudo mkdir debian/host
-sudo mkdir debian/host
 sudo sh -c 'cat > debian/etc/fstab  << EOF
 host            /host   9p      trans=virtio,version=9p2000.L 0 0
 none            /sys/kernel/debug       debugfs default     0       0
 EOF'
 
-sudo cp rc.local debian/etc/rc.local
+sudo sh -c 'cat > debian/etc/rc.local << "EOF"
+#!/bin/sh -e
+
+MAC_PART="$(ip link show enp0s3 | awk "/ether/ {print \$2}"| sed -e "s/.*://" -e "s/[\\n\\ ].*//"|awk "{print (\"0x\"\$1)*1 }")"
+IP_PART="$(echo $MAC_PART|awk "{ print \$1+50 }")"
+NODE_NR="$(echo $MAC_PART|awk "{ printf(\"%02d\", \$1) }")"
+ip addr add 192.168.2.${IP_PART}/24 dev enp0s3
+ip link set up dev enp0s3
+hostname "node"$NODE_NR
+ip link set up dev lo
+[ ! -x /host/test-init.sh ] || /host/test-init.sh
+exit 0
+EOF'
 sudo chmod a+x debian/etc/rc.local
 
 sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
@@ -43,7 +52,7 @@ sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
 #ExecStart=-/sbin/agetty --autologin root -s %I 115200,38400,9600 vt102
 #EOF'
 
-sudo sh -c 'echo '\''PATH="$PATH":/host/batctl/'\'' >> debian/etc/profile'
+sudo sh -c 'echo '\''PATH="/host/batctl/:$PATH"'\'' >> debian/etc/profile'
 sudo rm debian/var/cache/apt/archives/*.deb
 sudo rm debian/var/lib/apt/lists/*
 sudo e4defrag -v debian/
@@ -72,7 +81,7 @@ cat >> .config << EOF
 # small configuration
 CONFIG_SMP=y
 CONFIG_EMBEDDED=n
-CONFIG_EXPERT=y
+CONFIG_EXPERT=n
 CONFIG_MODULES=y
 CONFIG_MODULE_UNLOAD=y
 CONFIG_MODVERSIONS=y
@@ -166,8 +175,6 @@ CONFIG_CONFIG_X86_ACPI_CPUFREQ=y
 CONFIG_CPU_FREQ_GOV_ONDEMAND=y
 CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND=y
 CONFIG_CFG80211=y
-CONFIG_CFG80211_CERTIFICATION_ONUS=y
-# CONFIG_CFG80211_REQUIRE_SIGNED_REGDB is not set
 CONFIG_PARAVIRT_SPINLOCKS=y
 CONFIG_DUMMY=y
 CONFIG_PACKET=y
@@ -248,8 +255,16 @@ CONFIG_UBSAN_SANITIZE_ALL=y
 CONFIG_UBSAN=y
 CONFIG_UBSAN_NULL=y
 EOF
-
 make olddefconfig
+
+cat >> .config << EOF
+# allow to use unsigned regdb with hwsim
+CONFIG_EXPERT=y
+CONFIG_CFG80211_CERTIFICATION_ONUS=y
+# CONFIG_CFG80211_REQUIRE_SIGNED_REGDB is not set
+EOF
+make olddefconfig
+
 make all -j$(nproc || echo 1)
 </pre>
 
@@ -258,7 +273,78 @@ h2. Start of the simple environment
 The two node environment must be started inside a screen session. The hub (bridge with eth0 + 2 tap devices) has to be started first to have a simple network. A more complex network setup can be on the page [[Emulation]]
 
 The @ETH@ in hub.sh has to be changed to the real interface which provides internet-connectivity
+
+<pre>
+cat > hub.sh << "EOF"
+#! /bin/sh
+USER="$(whoami)"
+BRIDGE=br0
+ETH=enp8s0
+
+sudo ip link add "${BRIDGE}" type bridge
+for i in `seq 1 5`; do
+        sudo ip tuntap add dev tap$i mode tap user "$USER"
+        sudo ip link set tap$i up
+        sudo ip link set tap$i master "${BRIDGE}"
+done
+
+sudo ip link set "${BRIDGE}" up
+
+sudo ip addr flush dev "${ETH}"
+sudo ip link set "${ETH}" master "${BRIDGE}"
+sudo dhclient "${BRIDGE}"
+EOF
+
+chmod +x hub.sh
+</pre>
+
 The @SHARED_PATH@ in run.sh has to be changed to a valid path which is used to share the precompiled batman-adv.ko and other tools
+
+<pre>
+cat > run.sh << "EOF"
+#! /bin/sh
+
+SHARED_PATH=/home/sven/tmp/qemu-batman/
+
+for i in `seq 1 5`; do
+        qemu-img create -b debian.img -f qcow2 root.cow$i
+        normalized_id=`echo "$i"|awk '{ printf "%02d\n",$1 }'`
+        screen qemu-system-x86_64 -enable-kvm -kernel linux-next/arch/x86/boot/bzImage -append "root=/dev/vda rw console=ttyS0" \
+                -smp 2 -m 512 -drive file=root.cow$i,if=virtio \
+                -netdev type=tap,id=net0,ifname=tap$i,script=no -device virtio-net-pci,mac=02:ba:de:af:fe:`echo $i|awk '{ printf "%02X", $1 }'`,netdev=net0 \
+                -virtfs local,path="${SHARED_PATH}",security_model=none,mount_tag=host \
+                -device virtio-rng-pci -nographic
+        sleep 1
+done
+EOF
+
+chmod +x run.sh 
+</pre>
+
+The test-init.sh script can be used to automatically initialize the testsetup during boot:
+
+<pre>
+cat > test-init.sh << "EOF"
+#! /bin/sh
+
+set -e
+export PATH="/host/batctl/:$PATH"
+
+rmmod batman-adv || true
+insmod /host/batman-adv/net/batman-adv/batman-adv.ko
+batctl routing_algo BATMAN_IV
+/host/batctl/batctl if add dummy0
+/host/batctl/batctl it 5000
+/host/batctl/batctl if add enp0s3
+ip link set up dev enp0s3
+ip link set up dev bat0
+EOF
+
+chmod +x test-init.sh
+</pre>
+
+
+Everything can then be started up inside a screen session
 
 <pre>
 screen
