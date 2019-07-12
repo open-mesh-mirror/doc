@@ -10,6 +10,7 @@ h2. Thanks
 
 Thanks to all people sending in patches:
 
+* David Miller <davem@davemloft.net>
 * Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
@@ -23,8 +24,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.2-12-g3a8df00c
-$ range=v2019.2..v2019.2-12-g3a8df00c
+v2019.2-16-g184f68cf
+$ range=v2019.2..v2019.2-16-g184f68cf
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -50,11 +51,12 @@ multicast
       batman-adv: mcast: avoid redundant multicast TT entries with bridges
       batman-adv: mcast: detect, distribute and maintain multicast router presence
       batman-adv: mcast: apply optimizations for routable packets, too
+      batman-adv: Fix deletion of RTR(4|6) mcast list entries
 
 bugfixes
 ========
 
-
+      batman-adv: Fix netlink dumping of all mcast_flags buckets
       batman-adv: Fix duplicated OGMs on NETDEV_UP
 
 
@@ -69,6 +71,7 @@ bugfixes
 * bugs squashed:
 
   - fix duplicated OGMs on NETDEV_UP
+  - fix dumping of multicast flags
 
 </pre>
 
@@ -76,8 +79,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2019.2-5-gb382c0a
-$ range=v2019.2..v2019.2-5-gb382c0a
+v2019.2-15-gf5b4e96
+$ range=v2019.2..v2019.2-15-gf5b4e96
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -91,10 +94,29 @@ tcpump
       batctl: tcpdump: Add support for coded packets
 
 
+      batctl: Prefer netlink hardif status retrieval over sysfs
+      batctl: tcpdump: Add support for MCASTv2 RTR(4|6) flags
+      batctl: mcast_flags: Add support for MCASTv2 RTR(4|6) flags
+
+new command structure
+=====================
+
+      batctl: Make vlan setting explicit
+      batctl: Integrate hardif setting framework
+      batctl: Add elp_interval setting command
+      batctl: Add throughput_override setting command
+      batctl: Replace '-m meshif' option with selector prefix
+      batctl: Allow to omit explicit prefix name
+
 2019.3 (2019-07-23)
 ===================
 
 * add tcpdump support for MCAST TVLV, unicast fragments and coded packets
+* implement support for multicast RTR flags
+* prefer netlink hardif status retrieval over sysfs to avoid deprecation 
+  warnings
+* use type specific prefixes to select mesh interface or vlan instead of '-m'
+* add support for hardif specific settings
 
 </pre>
 
@@ -102,17 +124,20 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2019.2-1-gd8508e9
-$ range=v2019.2..v2019.2-1-gd8508e9
+v2019.2-3-g0fc6e66
+$ range=v2019.2..v2019.2-3-g0fc6e66
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
+      alfred: vis: Use rtnl to query list of hardifs of meshif
+      alfred: vis: Retrieve hardif status via generic netlink
 
 
 2019.3 (2019-07-23)
 ===================
 
-* (no changes)
+* prefer netlink hardif status retrieval over sysfs to avoid deprecation
+  warnings
 </pre>
 
 
