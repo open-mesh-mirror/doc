@@ -1,6 +1,19 @@
 h1. DRAFT: Batman-adv 2019.3 released
 
-Jul 23th, 2019. Today the B.A.T.M.A.N. team publishes the Jul 2019 update to batman-adv, batctl and alfred! TODO As usual, this release also contains various bugfixes and code cleanups.
+Jul 30th, 2019. Today the B.A.T.M.A.N. team publishes the Jul 2019 update to batman-adv, batctl and alfred! The multicast optimization got support for group-aware optimizations for multicast addresses of scope greater than link-local. batctl was adjusted to handle such information and packets in various subcommands. Also support for hardif (aka. slave interface) specific settings was implemented. This required a change in how meshif and vlans are specified for subcommands. Instead of using "-m" for both meshif and vlans (and now hardifs), they were splitted into special subcommand prefixes:
+
+* meshif <netdev>
+* vlan <vdev>
+* meshif <netdev> vid <vid>
+* hardif <netdev>
+
+To start a ping on bat2, following command should be used:
+
+<pre>
+$ batctl meshif bat2 ping 02:ba:de:af:fe:01
+</pre>
+
+As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -62,7 +75,7 @@ bugfixes
 
 
 
-2019.3 (2019-07-23)
+2019.3 (2019-07-30)
 ===================
 
 * support latest kernels (3.16 - 5.3)
@@ -80,7 +93,7 @@ h2. batctl
 <pre>
 $ git describe origin/master
 v2019.2-15-gf5b4e96
-$ range=v2019.2..v2019.2-15-gf5b4e96
+$ range=v2019.2..v2019.2-16-g1d7dba8
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -108,13 +121,13 @@ new command structure
       batctl: Replace '-m meshif' option with selector prefix
       batctl: Allow to omit explicit prefix name
 
-2019.3 (2019-07-23)
+2019.3 (2019-07-30)
 ===================
 
 * add tcpdump support for MCAST TVLV, unicast fragments and coded packets
 * implement support for multicast RTR flags
-* prefer netlink hardif status retrieval over sysfs to avoid deprecation 
-  warnings
+* avoid some kernel deprecation warning by using more generic netlink over
+  sysfs
 * use type specific prefixes to select mesh interface or vlan instead of '-m'
 * add support for hardif specific settings
 
@@ -133,11 +146,11 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
       alfred: vis: Retrieve hardif status via generic netlink
 
 
-2019.3 (2019-07-23)
+2019.3 (2019-07-30)
 ===================
 
-* prefer netlink hardif status retrieval over sysfs to avoid deprecation
-  warnings
+* avoid some kernel deprecation warning by using more generic netlink over
+  sysfs
 </pre>
 
 
