@@ -18,11 +18,11 @@ h3. Discards IPv4/IPv6 packets with no multicast listener
 
 batman-adv detects whether there are any potential IPv4/IPv6 multicast listeners interested in traffic to the given multicast destination address. If not then the packet is never forwarded into the mesh network.
 
-h3. Forwards IPv4/IPv6 packets with a single multicast listener via unicast
+h3. Forwards IPv4/IPv6 packets with a some multicast listeners via unicasts
 
-!{width: 66%;}basic-multicast-single-receiver.png!
+!{width: 66%;}basic-multicast-multiple-receivers.png!
 
-If a single multicast listener was detected then the packet is forwarded directly to the corresponding batman-adv node.
+If there is an amount of multicast listeners smaller or equal to the (configurable) multicast-fanout parameter (default: 16) then the packet is forwarded via individual multicast transmissions.
 
 h3. Limitations
 
