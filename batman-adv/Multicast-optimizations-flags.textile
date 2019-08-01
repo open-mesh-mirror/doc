@@ -90,8 +90,6 @@ h3. BATADV_MCAST_WANT_ALL_IPV6 (Bit 2):
 
 Signalizes that this node wants all IPv6 multicast traffic.
 
-(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later)
-
 h2. Further Readings
 
 * [[multicast-optimizations-report-suppresion|Multicast Optimizations – IGMP/MLD Report Suppresion]]
