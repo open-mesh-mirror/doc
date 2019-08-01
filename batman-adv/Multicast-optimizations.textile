@@ -24,10 +24,9 @@ h3. Forwards IPv4/IPv6 packets with a single multicast listener via unicast
 
 If a single multicast listener was detected then the packet is forwarded directly to the corresponding batman-adv node.
 
-
 h3. Limitations
 
-!{width: 66%;}basic-multicast-multiple-receivers.png!
+!{width: 66%;}basic-multicast-many-receivers.png!
 
 In the following cases multicast packets are still distributed via classic flooding:
 
