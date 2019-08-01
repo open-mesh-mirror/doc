@@ -30,15 +30,14 @@ h3. Limitations
 
 In the following cases multicast packets are still distributed via classic flooding:
 
-* If there is more than one listener for a specific multicast group.
-* If the multicast packets have a scope greater than link-local.
+* If there are more than #multicast-fanout (default: 16) listeners for a specific multicast group.
 
 (These things are work in progress and will be supported at a later time.)
 
-Additionally, in bridged scenarios multicast packets are still flooded in the following cases:
+Additionally, in _bridged_ scenarios multicast packets are still flooded in the following cases:
 
 * If there is no IGMP/MLD querier.
-* If the IPv4 multicast destination is between 224.0.0.1 and 224.0.0.255.
+* If the packet has an IPv4 multicast destination.
 * If the IPv6 multicast destination is ff02::1.
 
 h2. How to deactivate the multicast optimizations?
