@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2019.3 released
 
-Jul 30th, 2019. Today the B.A.T.M.A.N. team publishes the Jul 2019 update to batman-adv, batctl and alfred! The multicast optimization got support for group-aware optimizations for multicast addresses of scope greater than link-local. batctl was adjusted to handle such information and packets in various subcommands. Also support for hardif (aka. slave interface) specific settings was implemented. This required a change in how meshif and vlans are specified for subcommands. Instead of using "-m" for both meshif and vlans (and now hardifs), they were splitted into special subcommand prefixes:
+Aug 1th, 2019. Today the B.A.T.M.A.N. team publishes the August 2019 update to batman-adv, batctl and alfred! The multicast optimization got support for group-aware optimizations for multicast addresses of scope greater than link-local. batctl was adjusted to handle such information and packets in various subcommands. Also support for hardif (aka. slave interface) specific settings was implemented. This required a change in how meshif and vlans are specified for subcommands. Instead of using "-m" for both meshif and vlans (and now hardifs), they were splitted into special subcommand prefixes:
 
 * <code>meshif <netdev></code>
 * <code>vlan <vdev></code>
