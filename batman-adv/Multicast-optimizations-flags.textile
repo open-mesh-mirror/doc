@@ -86,8 +86,6 @@ h3. BATADV_MCAST_WANT_ALL_IPV4 (Bit 1):
 
 Signalizes that this node wants all IPv4 multicast traffic.
 
-(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later)
-
 h3. BATADV_MCAST_WANT_ALL_IPV6 (Bit 2):
 
 Signalizes that this node wants all IPv6 multicast traffic.
