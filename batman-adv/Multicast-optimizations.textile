@@ -32,8 +32,6 @@ In the following cases multicast packets are still distributed via classic flood
 
 * If there are more than #multicast-fanout (default: 16) listeners for a specific multicast group.
 
-(These things are work in progress and will be supported at a later time.)
-
 Additionally, in _bridged_ scenarios multicast packets are still flooded in the following cases:
 
 * If there is no IGMP/MLD querier.
