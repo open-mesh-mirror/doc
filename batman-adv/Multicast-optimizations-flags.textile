@@ -7,7 +7,7 @@ Prior Readings:
 
 h2. Scenario
 
-!{width: 85%25;}basic-multicast-bridge-scenario.png!
+!{width: 85%;}basic-multicast-bridge-scenario.png!
 
 _A topology involving bridges – devices (for instance mobile ones) being bridged into the mesh network_
 
@@ -27,7 +27,7 @@ h2. Hidden Multicast Listeners
 
 Usually IP multicast listeners reveal themselves with so called IGMP or MLD reports on a link:
 
-!{width: 90%25;}basic-multicast-snoopables-announce.png!
+!{width: 90%;}basic-multicast-snoopables-announce.png!
 
 We would then know which hosts (local TT clients in batman-adv speech) and their responsible batman-adv node want which multicast traffic. However there are three cases where a bridge/batman-adv will not see any such reports on a link.
 
@@ -35,7 +35,7 @@ h3. Case !#1: Unsnoopable Multicast Addresses
 
 There are exemptions for MLD/IGMP for two address ranges where no reports will be or might be sent:
 
-!{width: 85%25;}basic-multicast-snoopables-unknown.png!
+!{width: 85%;}basic-multicast-snoopables-unknown.png!
 
  * No MLD messages for the all-nodes IPv6 multicast (*ff02::1*) address. "RFC4541":https://tools.ietf.org/html/rfc4541, section 3:
 
@@ -49,7 +49,7 @@ So multicast listeners for these addresses are only reliably known to the kernel
 
 h3. Case !#2: No Multicast Querier
 
-!{width: 90%25;}basic-multicast-snoopables-no-querier.png!
+!{width: 90%;}basic-multicast-snoopables-no-querier.png!
 
 _No Querier present leading to multicast listeners keeping quiet_
 
@@ -57,7 +57,7 @@ IGMP/MLD reports are not sent periodically as is - they are only sent in respons
 
 h3. Case !#3: Shadowing Multicast Querier
 
-!{width: 90%25;}basic-multicast-snoopables-shadowing-querier.png!
+!{width: 90%;}basic-multicast-snoopables-shadowing-querier.png!
 
 _A Querier behind a bridge potentially shadowing a multicast listener_
 
@@ -81,8 +81,6 @@ To overcome the issues of possible multicast packet loss, a batman-adv node with
 h3. BATADV_MCAST_WANT_ALL_UNSNOOPABLES (Bit 0):
 
 Signalizes that this node wants all unsnoopable multicast traffic, that is traffic destined to the all-nodes address for IPv6 (ff02::1) and to link-local addresses for IPv4 (224.0.0.0/24).
-
-(not used by listeners yet, but implemented for senders already to ensure backwards compatibility later)
 
 h3. BATADV_MCAST_WANT_ALL_IPV4 (Bit 1):
 
