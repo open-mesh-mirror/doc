@@ -22,7 +22,7 @@ h3. Forwards IPv4/IPv6 packets with a some multicast listeners via unicasts
 
 !{width: 66%;}basic-multicast-multiple-receivers.png!
 
-If there is an amount of multicast listeners smaller or equal to the (configurable) multicast-fanout parameter (default: 16) then the packet is forwarded via individual multicast transmissions.
+If there is an amount of multicast listeners smaller or equal to the (configurable) multicast-fanout parameter (default: 16) then the packet is forwarded via individual unicast transmissions.
 
 h3. Limitations
 
