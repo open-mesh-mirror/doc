@@ -19,7 +19,6 @@ ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
 sudo mkdir debian/host
 sudo sh -c 'cat > debian/etc/fstab  << EOF
 host            /host   9p      trans=virtio,version=9p2000.L 0 0
-none            /sys/kernel/debug       debugfs default     0       0
 EOF'
 
 sudo sh -c 'cat > debian/etc/rc.local << "EOF"
