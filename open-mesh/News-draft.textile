@@ -1,47 +1,28 @@
-h1. DRAFT: Batman-adv 2019.3 released
+h1. DRAFT: Batman-adv 2019.4 released
 
-Aug 1th, 2019. Today the B.A.T.M.A.N. team publishes the August 2019 update to batman-adv, batctl and alfred! The multicast optimization got support for group-aware optimizations for multicast addresses of scope greater than link-local. batctl was adjusted to handle such information and packets in various subcommands. Also support for hardif (aka. slave interface) specific settings was implemented. This required a change in how meshif and vlans are specified for subcommands. Instead of using "-m" for both meshif and vlans (and now hardifs), they were splitted into special subcommand prefixes:
-
-* <code>meshif <netdev></code>
-* <code>vlan <vdev></code>
-* <code>meshif <netdev> vid <vid></code>
-* <code>hardif <netdev></code>
-
-To start a ping on bat2, following command should be used:
-
-<pre>
-$ batctl meshif bat2 ping 02:ba:de:af:fe:01
-</pre>
-
-As usual, this release also contains various bugfixes and code cleanups.
+Sep 23th, 2019. Today the B.A.T.M.A.N. team publishes the September 2019 update to batman-adv, batctl and alfred! The B.A.T.M.A.N. V implementation can now aggregate OGM2 messages into single messages before sending them out. As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2019.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2019.4/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* David Miller <davem@davemloft.net>
-* Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+* Eric Dumazet <edumazet@google.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
-
-and to all those that supported us with good advice or rigorous testing:
-
-* Marek Lindner <mareklindner@neomailbox.ch>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.2-16-g184f68cf
-$ range=v2019.2..v2019.2-16-g184f68cf
+v2019.3-6-g9b5ed2dd
+$ range=v2019.3..v2019.3-6-g9b5ed2dd
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
 
 
 new kernel support
@@ -51,40 +32,31 @@ new kernel support
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: no need to check return value of debugfs_create functions
-      batman-adv: Fix includes for *_MAX constants
-      batman-adv: Add missing include for atomic functions
-      batman-adv: Use includes instead of fwdecls
+      batman-adv: Replace usage of strlcpy with strscpy
 
-multicast
+BATMAN V
 =========
 
-      batman-adv: mcast: shorten multicast tt/tvlv worker spinlock section
-      batman-adv: mcast: collect softif listeners from IP lists instead
-      batman-adv: mcast: avoid redundant multicast TT entries with bridges
-      batman-adv: mcast: detect, distribute and maintain multicast router presence
-      batman-adv: mcast: apply optimizations for routable packets, too
-      batman-adv: Fix deletion of RTR(4|6) mcast list entries
+      batman-adv: BATMAN_V: introduce per hard-iface OGMv2 queues
+      batman-adv: BATMAN_V: aggregate OGMv2 packets
 
 bugfixes
 ========
 
-      batman-adv: Fix netlink dumping of all mcast_flags buckets
-      batman-adv: Fix duplicated OGMs on NETDEV_UP
+      batman-adv: fix uninit-value in batadv_netlink_get_ifindex()
 
 
 
 
-2019.3 (2019-07-30)
+2019.4 (2019-09-23)
 ===================
 
-* support latest kernels (3.16 - 5.3)
+* support latest kernels (3.16 - 5.4)
 * coding style cleanups and refactoring
-* add routable multicast optimizations
+* implement aggregation of OGM2 packets
 * bugs squashed:
 
-  - fix duplicated OGMs on NETDEV_UP
-  - fix dumping of multicast flags
+  - fix length validation in netlink messages
 
 </pre>
 
@@ -92,44 +64,29 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2019.2-15-gf5b4e96
-$ range=v2019.2..v2019.2-16-g1d7dba8
+v2019.3-2-gdd82cf5
+$ range=v2019.3..v2019.3-2-gdd82cf5
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
 
 
 tcpump
 ======
 
-      batctl: tcpdump: Add support for MCAST TVLV
-      batctl: tcpdump: Add support for unicast fragmentation
-      batctl: tcpdump: Add support for coded packets
-
-
-      batctl: Prefer netlink hardif status retrieval over sysfs
-      batctl: tcpdump: Add support for MCASTv2 RTR(4|6) flags
-      batctl: mcast_flags: Add support for MCASTv2 RTR(4|6) flags
 
 new command structure
 =====================
 
-      batctl: Make vlan setting explicit
-      batctl: Integrate hardif setting framework
-      batctl: Add elp_interval setting command
-      batctl: Add throughput_override setting command
-      batctl: Replace '-m meshif' option with selector prefix
-      batctl: Allow to omit explicit prefix name
 
-2019.3 (2019-07-30)
+bugfix
+======
+
+      batctl: Fix deprecation warning for option '-m'
+
+2019.4 (2019-09-23)
 ===================
 
-* add tcpdump support for MCAST TVLV, unicast fragments and coded packets
-* implement support for multicast RTR flags
-* avoid some kernel deprecation warning by using more generic netlink over
-  sysfs
-* use type specific prefixes to select mesh interface or vlan instead of '-m'
-* add support for hardif specific settings
+* fix deprecation warning for option '-m'
 
 </pre>
 
@@ -137,20 +94,20 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2019.2-3-g0fc6e66
-$ range=v2019.2..v2019.2-3-g0fc6e66
+v2019.3-3-g0e0fcc5
+$ range=v2019.3..v2019.3-3-g0e0fcc5
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
-      alfred: vis: Use rtnl to query list of hardifs of meshif
-      alfred: vis: Retrieve hardif status via generic netlink
+Sven Eckelmann <sven@narfation.org> (2):
+      alfred: vis: Add missing include for ifinfomsg
+      alfred: vis: Fix ifindex check when registering interface
 
 
-2019.3 (2019-07-30)
+2019.4 (2019-09-23)
 ===================
 
-* avoid some kernel deprecation warning by using more generic netlink over
-  sysfs
+* fix build with musl
 </pre>
 
 
