@@ -57,6 +57,7 @@ bugfixes
 * bugs squashed:
 
   - fix length validation in netlink messages
+  - fix out of buffer read when parsing aggregated packets
 
 </pre>
 
