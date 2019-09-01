@@ -19,8 +19,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.3-6-g9b5ed2dd
-$ range=v2019.3..v2019.3-6-g9b5ed2dd
+v2019.3-10-gbcadeaa3
+$ range=v2019.3..v2019.3-10-gbcadeaa3
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
