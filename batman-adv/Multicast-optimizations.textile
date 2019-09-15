@@ -42,7 +42,7 @@ h2. How to deactivate the multicast optimizations?
 
 By default multicast optimizations are activated. You can force the old behaviour, classic flooding of all multicast frames, on a certain node via the following command, executed as root (here: bat0):
 
-<pre>batctl -m bat0 multicast_forceflood 1</pre>
+<pre>batctl meshif bat0 multicast_forceflood 1</pre>
 
 Note: This only affects multicast traffic originating from this specific node.
 
@@ -50,7 +50,7 @@ h2. How to tune the multicast fanout limit?
 
 By default the multicast fanout limit is 16. You can change this limit via:
 
-<pre>batctl -m bat0 multicast_fanout <num></pre>
+<pre>batctl meshif bat0 multicast_fanout <num></pre>
 
 Note: This only affects multicast traffic originating from this specific node.
 
