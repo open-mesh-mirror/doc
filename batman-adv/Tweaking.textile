@@ -306,7 +306,7 @@ The B.A.T.M.A.N. V routing algorithm also uses settings for the enslaved interfa
 
 <pre>
 # eth0
-batctl meshif bat0 hardif eth0 elp_interval
+batctl hardif eth0 elp_interval
 disabled
 
 # eth1
@@ -321,7 +321,7 @@ Available since: batman-adv 2019.3
 Defines the interval in milliseconds in which batman-adv emits probing packets for neighbor sensing (ELP) in B.A.T.M.A.N. V.
 
 <pre>
-batctl meshif bat0 hardif eth0 elp_interval
+batctl hardif eth0 elp_interval
 disabled
 </pre>
 
@@ -332,6 +332,6 @@ Available since: batman-adv 2019.3
 Defines the throughput value to be used by B.A.T.M.A.N. V when estimating the link throughput using this interface. If the value is set to 0 then batman-adv will try to estimate the throughput by itself.
 
 <pre>
-batctl meshif bat0 hardif eth0 throughput_override
+batctl hardif eth0 throughput_override
 0
 </pre>
