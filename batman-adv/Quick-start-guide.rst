@@ -24,14 +24,14 @@ added by using 'batctl if add ifname', e.g.
 
 ::
 
-    batctl if add eth0
+  batctl if add eth0
 
 Make sure, this interface is up and running ('ip link set up dev eth0')
 and use the command
 
 ::
 
-    batctl if
+  batctl if
 
 to verify its status. Check the system log for hints in case it does not
 behave as you expect.
@@ -73,16 +73,17 @@ Simple mesh network
 On all nodes, install batman-adv, load the module and enter the
 following commands (as root):
 
-::
+#. create device which provides the lower link layer for batman-adv (here
+   IBSS/adhoc but also other modes are possible)::
 
-    ip link set up dev eth0
-    ip link set mtu 1532 dev wlan0
-    iwconfig wlan0 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
+    iw dev wlan0 del
+    iw phy phy0 interface add wlan0 type ibss
+    ip link set up mtu 1532 dev wlan0
+    iw dev wlan0 ibss join my-mesh-network 2412 HT20 fixed-freq 02:12:34:56:78:9A
 
-::
+#. add the lower link layer device to batman-adv and start bat0 up::
 
     batctl if add wlan0
-    ip link set up dev wlan0
     ip link set up dev bat0
 
 You can now use the automatically assigned IPv6 link-local adresses on
@@ -93,11 +94,9 @@ laptops in range has to have a DHCP server running on the bat0
 interface. As batman-adv is operating on layer 2, even dhcp-messages can
 be send over the mesh network.
 
-To use Avahi automatic IPv4 IP address assigning, execute:
+To use Avahi automatic IPv4 IP address assigning, execute::
 
-::
-
-    sudo avahi-autoipd bat0
+  sudo avahi-autoipd bat0
 
 *Note:* batman-adv inserts an additional header of 32 bytes into each
 data packet being send over the mesh. Therefore we are increasing the
@@ -124,17 +123,20 @@ network.
 On each mesh access point, install batman-adv first, load the module and
 enter the following commands:
 
-::
+#. create device which provides the lower link layer for batman-adv (here
+   IBSS/adhoc but also other modes are possible)::
 
-    ip link set mtu 1532 dev wlan0
-    iwconfig wlan0 mode ad-hoc essid my-mesh-network ap 02:12:34:56:78:9A channel 1
+    iw dev wlan0 del
+    iw phy phy0 interface add wlan0 type ibss
+    ip link set up mtu 1532 dev wlan0
+    iw dev wlan0 ibss join my-mesh-network 2412 HT20 fixed-freq 02:12:34:56:78:9A
 
-::
+#. add the lower link layer device to batman-adv::
 
     batctl if add wlan0
-    ip link set up dev wlan0
 
-::
+#. configure bridge to enable exchange of packets between ethernet (eth0)
+   and batman-adv (bat0)::
 
     ip link add name mesh-bridge type bridge
     ip link set dev eth0 master mesh-bridge

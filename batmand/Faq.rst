@@ -10,7 +10,7 @@ If your question is not listed below, please contact us. You can contact
 us via IRC: `#batman
 channel <https://webchat.freenode.net/?channels=batman>`__ on
 Freenode.org or by sending an e-mail to: b.a.t.m.a.n@lists.open-mesh.org
-(only plan-text).
+(only plain-text).
 
 Understanding the version and compatibility number
 --------------------------------------------------
