@@ -19,7 +19,7 @@ The printed table begins with a header line with some more or less useful status
 
 Sample output:
 <pre>
-root@node01:~# batctl -m bat0 n
+root@node01:~# batctl meshif bat0 n
 [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/1a:5d:cd:7d:30:b4 BATMAN_IV)]
 IF             Neighbor              last-seen
        enp0s3     02:ba:de:af:fe:05    0.356s
@@ -38,7 +38,7 @@ IF             Neighbor              last-seen
 
 Sample output:
 <pre>
-root@node01:~# batctl -m bat0 n
+root@node01:~# batctl meshif bat0 n
 [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/6a:e3:de:40:22:88 BATMAN_V)]
 IF             Neighbor              last-seen
 02:ba:de:af:fe:05    0.472s (        5.0) [    enp0s3]
@@ -64,7 +64,7 @@ Each batman node maintains a list of all other nodes in the network and remember
 
 Sample output:
 <pre>
-root@node01:~# batctl -m bat0 o
+root@node01:~# batctl meshif bat0 o
 [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV)]
    Originator        last-seen (#/255) Nexthop           [outgoingIF]
    02:ba:de:af:fe:03    0.896s   (141) 02:ba:de:af:fe:05 [    enp0s3]
@@ -120,7 +120,7 @@ root@node01:~# batctl o
 
 With batman 2014.1.0 the concept of a routing table per interface was introduced. As a result each interface will expose its routing table:
 <pre>
-batctl -m ${meshif} o -i ${interface}
+batctl meshif ${meshif} o -i ${interface}
 </pre>
 
 The routing table format is identical to the default table.
@@ -141,7 +141,7 @@ The local translation table (mac addresses announced by this host) can be found 
 
 Sample output:
 <pre>
-root@node01:~# batctl -m bat0 tl
+root@node01:~# batctl meshif bat0 tl
 [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV), TTVN: 2]
 Client             VID Flags    Last seen (CRC       )
 06:23:9d:ef:ec:90    0 [.P....]   0.000   (0xaca3c0fd)
@@ -179,7 +179,7 @@ The global translation table (mac addresses announced by other hosts) can be fou
 Sample output:
 
 <pre>
-root@node01:~# batctl -m bat0 tg
+root@node01:~# batctl meshif bat0 tg
 [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV)]
    Client             VID Flags Last ttvn     Via        ttvn  (CRC       )
  * 33:33:ff:77:a7:41   -1 [....] (  2) 02:ba:de:af:fe:03 (  2) (0x2d4b7679)
@@ -229,7 +229,7 @@ The gateway table lists all available batman-adv gateways in this network (see t
 For example:
 
 <pre>
-root@node01:~# batctl -m bat0 gwl
+root@node01:~# batctl meshif bat0 gwl
 [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV)]
   Router            ( TQ) Next Hop          [outgoingIf]  Bandwidth
   02:ba:de:af:fe:03 (255) 02:ba:de:af:fe:03 [    enp0s3]: 2.0/0.5 MBit
@@ -281,7 +281,7 @@ Note:
 
 
 <pre>
-root@node01:~# batctl -m bat0 bbt
+root@node01:~# batctl meshif bat0 bbt
 [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV), group id: 0x9053]
 Originator           VID   last seen (CRC   )
 fe:f0:00:00:02:01 on    -1    4.000s (0bab)
@@ -304,7 +304,7 @@ A subset of the entries belonging to this cache are also the entries which the n
 For example:
 
 <pre>
-root@node01:~# batctl -m bat0 dc 
+root@node01:~# batctl meshif bat0 dc 
 [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV)]
 Distributed ARP Table (bat0):
           IPv4             MAC        VID   last-seen
@@ -374,7 +374,7 @@ h2. Routing algorithm
 
 Batman-adv allows [[Tweaking|changing the routing algorithm]] at runtime. It also exports the list of available routing protocols:
 <pre>
-root@node01:~# batctl -m bat0 ra
+root@node01:~# batctl meshif bat0 ra
 Active routing protocol configuration:
  * bat0: BATMAN_IV
 
