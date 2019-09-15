@@ -12,14 +12,14 @@ To better understand the background of the new interface configuration concept (
 To activate a given supported interface on a mesh cloud simply add it via batctl to an mesh interface. You can freely choose the mesh interface name but for the sake of simplicity we continue to use "bat0". Unsupported interface are for example. loopback, non-ethernet and batman's own interfaces
 
 <pre>
-batctl -m bat0 if add eth0
+batctl meshif bat0 if add eth0
 </pre>
 
 Repeat this step for all interfaces you wish to add. All interfaces using the same mesh cloud interface belong into the same mesh cloud. Now batman-adv	starts using/broadcasting on this/these interface(s).
 
 To deactivate an interface you have  to  use batctl again:
 <pre>
-batctl -m bat0 if del eth0
+batctl meshif bat0 if del eth0
 </pre>
 
 h3. ELP interval
@@ -29,7 +29,7 @@ Available since: batman-adv 2016.1
 Defines the interval in milliseconds in which B.A.T.M.A.N. V emits probing packets for neighbor sensing (ELP). The more packets are sent the faster ELP / B.A.T.M.A.N. V detects a new neighbor or link failure at the cost of overhead. B.A.T.M.A.N. IV ignores the setting entirely.
 
 <pre>
-cat /sys/class/net/eth0/batman_adv/elp_interval 
+batctl hardif eth0 elp_interval
 500
 </pre>
 
@@ -40,7 +40,7 @@ Available since: batman-adv 2016.1
 Defines the throughput value to be used by B.A.T.M.A.N. V when estimating the link throughput for all neighbors connected to this interface. If the value is set to 0 then batman-adv will try to estimate the throughput by itself by either querying the WiFi driver or the Ethernet interface. B.A.T.M.A.N. IV ignores the setting entirely.
 
 <pre>
-cat /sys/class/net/eth0/batman_adv/throughput_override 
+batctl hardif eth0 throughput_override
 0.0 MBit
 </pre>
 
@@ -73,7 +73,7 @@ Available since: batman-adv 2010.0.0
 In order to reduce the protocol overhead created to find all the participants in the network, batman has the ability to collect & aggregate these protocol messages (called originator messages or ogm) and sending them in a single packet instead of several small packets. This feature is enabled by default, since it is helpful in most cases. If you intend to run batman-adv in a highly mobile environment (for example cars) you might want to turn it off as it introduces a (normally negligible) network update delay.
 
 <pre>
-batctl -m bat0 aggregation
+batctl meshif bat0 aggregation
 enabled
 </pre>
 
@@ -84,7 +84,7 @@ Available since: batman-adv 2011.4.0
 Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default). This setting only affects packets without any VLAN tag (untagged packets). The ap isolation setting for VLAN tagged packets is modifiable through the per-VLAN settings.  
 
 <pre>
-batctl -m bat0 ap_isolation
+batctl meshif bat0 ap_isolation
 disabled
 </pre>
 
@@ -95,7 +95,7 @@ Available since: batman-adv 2010.1.0
 When running the mesh over multiple WiFi interfaces per node batman-adv is capable of optimizing the traffic flow to gain maximum performance. Per default it operates in the "interface alternating" mode (which is suitable for most situations) that switches the WiFi interface with each hop to avoid store & forward. Alternatively, batman-adv can be switched into "bonding mode" in which batman-adv is using all interfaces at the same time to send & receive data. However, this mode is only recommended in special one-hop cases. You can read about our [[open-mesh:2010-06-13-wbm2010-bracciano|alternatebonding test results]] to see what suits you best.
 
 <pre>
-batctl -m bat0 bonding
+batctl meshif bat0 bonding
 disabled
 </pre>
 
@@ -107,7 +107,7 @@ In bridged LAN setups it is advisable to enable the bridge loop avoidance in ord
 It is necessary to activate the bridge loop avoidance at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external to learn how to set the compile option). 
 
 <pre>
-batctl -m bat0 bridge_loop_avoidance
+batctl meshif bat0 bridge_loop_avoidance
 disabled
 </pre>
 
@@ -119,7 +119,7 @@ When enabled the distributed ARP table forms a mesh-wide ARP cache that helps no
 It is necessary to activate the distributed ARP table at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external to learn how to set the compile option). 
 
 <pre>
-batctl -m bat0 distributed_arp_table
+batctl meshif bat0 distributed_arp_table
 enabled
 </pre>
 
@@ -132,7 +132,7 @@ Batman-adv has a built-in layer 2 fragmentation for unicast data flowing through
 +Note+: Although the fragmentation is rather handy it comes with a severe performance penalty (as every fragmentation does), therefore it should be avoided to make use of this feature whenever possible.
 
 <pre>
-batctl -m bat0 fragmentation
+batctl meshif bat0 fragmentation
 enabled
 </pre>
 
@@ -143,7 +143,7 @@ Available since: batman-adv 2011.0.0
 The [[gateways|internet gateway support]] allows each gateway to also announce its available internet bandwidth. Clients looking for the most suitable gateway to connect to receive this bandwidth announcement and can make use of it while choosing their gateway. Per default a bandwidth of 10.0/2.0 MBit is assumed. Details regarding the syntax of the bandwidth setting can be found in the "batctl manpage":https://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
 <pre>
-batctl -m bat0 gw_mode
+batctl meshif bat0 gw_mode
 server (announced bw: 10.0/2.0 MBit)
 </pre>
 
@@ -155,13 +155,13 @@ If multiple batman-adv gateways are available a batman-adv client node selects i
 
 <pre>
 # switch to server and announce 10Mbit/s download + 2Mbit/s upload
-batctl -m bat0 gw_mode server 10Mbit/2Mbit
+batctl meshif bat0 gw_mode server 10Mbit/2Mbit
 
 # switch to client and and use selection class 20
-batctl -m bat0 gw_mode client 20
+batctl meshif bat0 gw_mode client 20
 
 # disable gateway mode
-batctl -m bat0 gw_mode off
+batctl meshif bat0 gw_mode off
 </pre>
 
 h3. hop penalty
@@ -173,7 +173,7 @@ The hop penalty setting allows to modify batman-adv's preference for multihop ro
 Since 2014.1.0, the hop penalty is applied in a slightly different way: it is applied once for OGMs leaving on a different interfaces it has been received, and applied twice if its leaving on the same interface if that is a WiFi interface. This is done to penalize half-duplex routes, and prefer routes with changing interfaces if there is a path with similar quality available. The default hop penalty of '15' is a reasonable value for most setups and probably does not need to be changed. However, mobile nodes could choose a value of 255 (maximum value) to avoid being chosen as a router by other nodes.
 
 <pre>
-batctl -m bat0 hop_penalty
+batctl meshif bat0 hop_penalty
 30
 </pre>
 
@@ -184,7 +184,7 @@ Available since: batman-adv 2014.1.0
 The isolation mark is an extension to the 'ap isolation' that allows the user to decide which client has to be classified as isolated by means of firewall rules, thus increasing the flexibility of the AP isolation feature. batman-adv extracts the fwmark that the firewall attached to each packet it receives through the soft-interface and decides based on this value if the source client has to be considered as isolated or not. The isolation mark needs to be configured in batman-adv in the form 'value/mask'. Configuration and application details can be found on the [[batman-adv:Extended-isolation|extended ap isolation page]].
 
 <pre>
-batctl -m bat0 isolation_mark
+batctl meshif bat0 isolation_mark
 0x00000000/0x00000000
 </pre>
 
@@ -195,7 +195,7 @@ Available since: batman-adv 2010.1.0
 The standard warning and error messages which help to setup & operate batman-adv are sent to the kernel log. However, batman-adv also offers extended logs that can be used to understand and/or debug the routing protocol. Keep in mind that it is necessary to activate debugging at compile time before you can use these facilities (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external to learn how to set the compile option). Per default, the logging is deactivated (log level: 0).
 
 <pre>
-batctl -m bat0 loglevel
+batctl meshif bat0 loglevel
 [x] all debug output disabled (none)
 [ ] messages related to routing / flooding / broadcasting (batman)
 [ ] messages related to route added / changed / deleted (routes)
@@ -215,7 +215,7 @@ Enables more efficient, group aware multicast forwarding infrastructure in batma
 The [[Multicast-optimizations|multicast optimization documentation]] provides an excellent starting point to learn about the general ideas of these optimizations.
 
 <pre>
-batctl -m bat0 multicast_mode
+batctl meshif bat0 multicast_mode
 enabled
 </pre>
 
@@ -227,7 +227,7 @@ When enabled network coding increases the WiFi throughput by combining multiple 
 It is necessary to activate network coding at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external to learn how to set the compile option). 
 
 <pre>
-batctl -m bat0 network_coding
+batctl meshif bat0 network_coding
 enabled
 </pre>
 
@@ -238,7 +238,7 @@ Available since: batman-adv 2010.0.0
 The value specifies the interval (milliseconds) in which batman-adv floods the network with its protocol information. The default value of one message per second allows batman to recognize a route change (in its near neighborhood) within a timeframe of maximal one minute (most likely much sooner). In a very static environment (batman nodes are not moving, rare ups & downs of nodes) you might want to increase the value to save bandwidth. On the other hand, it might prove helpful to decrease the value in a highly mobile environment (e.g. the aforementioned cars) but keep in mind that this will drastically increase the traffic. Unless you experience problems with your setup, it is suggested you keep the default value.
 
 <pre>
-batctl -m bat0 orig_interval
+batctl meshif bat0 orig_interval
 1000
 </pre>
 
@@ -268,11 +268,11 @@ The batX mesh interface created by batman-adv also supports VLANs which enables 
 For example, after adding VLAN 0 and VLAN 1 on top of bat0, the commands can be accessed via the vlan id:
 <pre>
 # vlan 1
-batctl -m bat0 vid 1 ap_isolation
+batctl meshif bat0 vid 1 ap_isolation
 disabled
 
 # vlan 0
-batctl -m bat0 vid 0 ap_isolation
+batctl meshif bat0 vid 0 ap_isolation
 disabled
 </pre>
 
@@ -295,7 +295,7 @@ Available since: batman-adv 2014.0.0
 Standard WiFi AccessPoints support a feature known as 'AP isolation' which prevents one connected wireless client to talk to another wireless client. In most situations this is considered a security feature. If the WiFi AP interface is bridged into a batman-adv mesh network it might be desirable to extend this wireless client isolation throughout the mesh network, therefore batman-adv has the ability to do just that (disabled by default).
 
 <pre>
-batctl -m bat0 vid 1 ap_isolation
+batctl meshif bat0 vid 1 ap_isolation
 disabled
 </pre>
 
@@ -306,11 +306,11 @@ The B.A.T.M.A.N. V routing algorithm also uses settings for the enslaved interfa
 
 <pre>
 # eth0
-batctl -m bat0 hardif eth0 elp_interval
+batctl meshif bat0 hardif eth0 elp_interval
 disabled
 
 # eth1
-batctl -m bat0 hardif eth1 elp_interval
+batctl meshif bat0 hardif eth1 elp_interval
 disabled
 </pre>
 
@@ -321,7 +321,7 @@ Available since: batman-adv 2019.3
 Defines the interval in milliseconds in which batman-adv emits probing packets for neighbor sensing (ELP) in B.A.T.M.A.N. V.
 
 <pre>
-batctl -m bat0 hardif eth0 elp_interval
+batctl meshif bat0 hardif eth0 elp_interval
 disabled
 </pre>
 
@@ -332,6 +332,6 @@ Available since: batman-adv 2019.3
 Defines the throughput value to be used by B.A.T.M.A.N. V when estimating the link throughput using this interface. If the value is set to 0 then batman-adv will try to estimate the throughput by itself.
 
 <pre>
-batctl -m bat0 hardif eth0 throughput_override
+batctl meshif bat0 hardif eth0 throughput_override
 0
 </pre>
