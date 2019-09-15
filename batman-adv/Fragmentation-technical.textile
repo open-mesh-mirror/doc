@@ -63,8 +63,8 @@ First of all, fragmentation shouldn't be needed (except for tt-tables, see below
 
 It can be enabled and disabled via batctl:
 <pre>
-% batctl -m bat0 fragmentation 1 # enable (default)
-% batctl -m bat0 fragmentation 0 # disable
+% batctl meshif bat0 fragmentation 1 # enable (default)
+% batctl meshif bat0 fragmentation 0 # disable
 </pre>
 
 
