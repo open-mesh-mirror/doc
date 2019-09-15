@@ -93,7 +93,7 @@ One Hop Throughput Estimation
    of the most used driver, uses software RC.
 -  **wired**: ethtool for half/full duplex and theoretical bandwidth
    (this may be falsified by Ethernet bridges in the LAN)
--  **VPN**: 1Mbps, configurable via sysfs
+-  **VPN**: 1Mbps, configurable via netlink
 -  **Unknown**: 1Mbps
 -  **generic**: the :doc:`bandwidth meter <Throughput\_meter>`
    might be used to estimate the real (current) throughtput on

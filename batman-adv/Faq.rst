@@ -188,21 +188,24 @@ choose bad mesh nodes as next hop in the IP routing. As extracting/using
 TQ in other protocols is just an idea/proposal right now, please contact
 us if you want to do that.
 
-Log file doesn't exists in debugfs?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Log file doesn't exists in trace-cmd?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Q:** The /sys/kernel/debug/batman\_adv/bat0/log file doesn't exists?
+**Q:** The trace-cmd shows now log messages for batman-adv?
 
 **A:** You need to compile the batman-adv with logging support.
 
 * Linux tree
 
   - go to ``Networking support ---> Networking options ---> B.A.T.M.A.N. Advanced Meshing Protocol``
-    and select ``B.A.T.M.A.N. debugging``
+    and select ``B.A.T.M.A.N. debugging`` and
+    ``B.A.T.M.A.N. tracing support``
 
 * external module
 
-  - compile with make parameter ``CONFIG_BATMAN_ADV_DEBUG=y``
+  - compile with make parameter ``CONFIG_BATMAN_ADV_DEBUG=y CONFIG_BATMAN_ADV_TRACING=y``
+
+batctl must also be used to set the relevant loglevel
 
 How to setup B.A.T.M.A.N. so it automatically assign IP addresses?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -292,6 +295,29 @@ any network behind it, e.g. a mesh). From a concept view, a gateway
 (or maybe even multiple gateways) in mesh2 will not automatically
 announced in mesh1 - this must be configured manually, or let batman
 use Ethernet if this is explicitly required.
+
+B.A.T.M.A.N. Advanced - VLAN questions
+--------------------------------------
+
+VLAN forwarding doesn't work
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Q**: When I have a bridge which connects an ethernet devices with bat0, VLAN
+frames from the ethernet interfaces are not forwarded by batman-adv. Instead a
+warning like ``batman_adv: bat0: adding TT local entry xx:xx:xx:xx:xx:xx to
+non-existent VLAN 23`` is printed periodically. How is it possible to forward
+these frames
+
+**A**: batman-adv since 2014.0.0 is VLAN-aware. It is only able to forward VLAN
+frames when it knows about the VLAN. This can either be done by creating a VLAN
+device with the correct VID on top of the batadv (bat0) device::
+
+  ip link add link bat0 name bat0.23 type vlan id 23
+
+Or in case of a VLAN-aware bridge, it is better to add the correctly add the
+VLANs as required to the specific ports::
+
+  bridge vlan add vid 23 dev bat0
 
 .. |image0| image:: quagga_integration.png
 

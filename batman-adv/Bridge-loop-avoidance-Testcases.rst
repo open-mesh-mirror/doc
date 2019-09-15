@@ -56,8 +56,7 @@ versa).
 *note1*: Test 2 will only work if BATMAN runs over the backbone, e.g.
 by calling "batctl if add br0".
 *note2*: Limited horizon may be easily simulated by increasing the
-hop\_penalty, e.g. "echo 230 >
-/sys/devices/virtual/net/bat0/mesh/hop\_penalty" will have a 3 hop
+hop\_penalty, e.g. ``batctl meshif bat0 hop_penalty 230`` will have a 3 hop
 range in a network without packet loss.
 
 VLAN support

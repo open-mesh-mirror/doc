@@ -47,9 +47,7 @@ user must tell the kernel module which is the value to match in the
 
 ::
 
-    # echo 6/0xffffffff >/sys/devices/virtual/net/bat0/mesh/isolation_mark
-    or
-    # batctl isola 0x06/0xFFFFFFFF # VALUE/MASK
+    # batctl isolation_mark 0x06/0xFFFFFFFF # VALUE/MASK
 
 As reported in the example above, the isolation mark needs to be
 configured in batman-adv in the form *VALUE/MASK* in order to keep the
@@ -106,12 +104,12 @@ with a given fwmark:
 ::
 
     # tc qdisc add dev eth1 root handle 1: prio
-    # tc qdisc add dev eth1 parent 1:3 handle 30: netem loss 100%25
+    # tc qdisc add dev eth1 parent 1:3 handle 30: netem loss 100%
     # tc filter add dev eth1 parent 1:0 protocol all prio 1 handle 6 fw classid 1:3
 
 With this instructions two task are accomplished:
 
-#. a netem queue is created telling to drop 100%25 of the packets
+#. a netem queue is created telling to drop 100% of the packets
    entering it
 #. a filter rule is added in order to redirect all the traffic matching
    the specified mark to the netem queue.

@@ -60,12 +60,11 @@ To enable network coding, enable it a compile time (consult `the
 README.external
 file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
 to learn how to set the compile option). It can be disabled at runtime
-with batctl or in sysfs:
+with batctl:
 
 ::
 
     # batctl nc 0
-    # echo 0 > /sys/class/net/bat0/mesh/network_coding
 
 Remember to set promiscuous mode and adjust the MTU to the bigger
 batman-header for coded packets:

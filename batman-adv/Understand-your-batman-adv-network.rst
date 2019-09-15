@@ -12,15 +12,6 @@ Explaining the routing decisions / various routing optimizations are not
 in the scope of this document. Links to complementary documents will be
 provided if available.
 
-*Note*: Although this document focusses on the "raw" debugfs interface
-you always can use batctl for a more convenient access to the data. This
-document assumes debugfs was mounted at /sys/kernel/debug/. Please
-adjust the given examples if your system mounts the filesystem somewhere
-else. The batctl tool will automatically mount debugfs whenever you try
-to access functionality that require it. This document also assumes that
-you created a mesh cloud "bat0". :doc:`This page <Tweaking>` provides
-background information on how to handle mesh clouds.
-
 Tables
 ------
 
@@ -37,19 +28,42 @@ useful status data, followed by the single hop neighbor table:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/neighbors
-    [B.A.T.M.A.N. adv d5e8ba8, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0 BATMAN_IV)]
-               IF        Neighbor      last-seen
-             eth0   fe:fe:00:00:02:01    0.280s
+   <interface>
+      <single hop neighbor>
+         <last-seen> 
+
+Sample output:
+
+::
+
+  root@node01:~# batctl meshif bat0 n
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/1a:5d:cd:7d:30:b4 BATMAN_IV)]
+  IF             Neighbor              last-seen
+         enp0s3     02:ba:de:af:fe:05    0.356s
+         enp0s3     02:ba:de:af:fe:04    0.056s
+         enp0s3     02:ba:de:af:fe:03    0.328s
+         enp0s3     02:ba:de:af:fe:02    0.288s
 
 *B.A.T.M.A.N. V*:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/neighbors
-    [B.A.T.M.A.N. adv 2016.1, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat1 BATMAN_V)]
-      Neighbor        last-seen ( throughput) [        IF]
-    fe:fe:00:00:02:01    0.190s (       10.0) [      eth0]
+  <neighbor>
+     <last-seen>
+        <throughput> 
+           <interface> 
+
+Sample output:
+
+::
+
+  root@node01:~# batctl meshif bat0 n
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/6a:e3:de:40:22:88 BATMAN_V)]
+  IF             Neighbor              last-seen
+  02:ba:de:af:fe:05    0.472s (        5.0) [    enp0s3]
+  02:ba:de:af:fe:03    0.376s (       11.5) [    enp0s3]
+  02:ba:de:af:fe:04    0.452s (        7.1) [    enp0s3]
+  02:ba:de:af:fe:02    0.208s (        1.9) [    enp0s3]
 
 originator table
 ~~~~~~~~~~~~~~~~
@@ -67,27 +81,78 @@ line contains information regarding a specific originator:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/originators
-    [B.A.T.M.A.N. adv d5e8ba8, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0 BATMAN_IV)]
-      Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
-    fe:fe:00:00:02:01    0.390s   (254) fe:fe:00:00:02:01 [      eth0]: fe:fe:00:00:02:01 (254)
+  <next hop selected mark>
+     <originator>
+        <last-seen> 
+           <TQ (transmit quality) value towards the originator> 
+              <next best hop> 
+                 <outgoing iface> 
+
+Sample output:
+
+::
+
+  root@node01:~# batctl meshif bat0 o
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV)]
+     Originator        last-seen (#/255) Nexthop           [outgoingIF]
+     02:ba:de:af:fe:03    0.896s   (141) 02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:03    0.896s   (136) 02:ba:de:af:fe:02 [    enp0s3]
+     02:ba:de:af:fe:03    0.896s   (139) 02:ba:de:af:fe:04 [    enp0s3]
+   * 02:ba:de:af:fe:03    0.896s   (154) 02:ba:de:af:fe:03 [    enp0s3]
+     02:ba:de:af:fe:04    0.904s   (141) 02:ba:de:af:fe:03 [    enp0s3]
+     02:ba:de:af:fe:04    0.904s   (141) 02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:04    0.904s   (136) 02:ba:de:af:fe:02 [    enp0s3]
+   * 02:ba:de:af:fe:04    0.904s   (154) 02:ba:de:af:fe:04 [    enp0s3]
+     02:ba:de:af:fe:02    0.072s   (144) 02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:02    0.072s   (144) 02:ba:de:af:fe:04 [    enp0s3]
+     02:ba:de:af:fe:02    0.072s   (144) 02:ba:de:af:fe:03 [    enp0s3]
+   * 02:ba:de:af:fe:02    0.072s   (157) 02:ba:de:af:fe:02 [    enp0s3]
+     02:ba:de:af:fe:05    0.736s   (141) 02:ba:de:af:fe:03 [    enp0s3]
+     02:ba:de:af:fe:05    0.736s   (144) 02:ba:de:af:fe:02 [    enp0s3]
+     02:ba:de:af:fe:05    0.736s   (141) 02:ba:de:af:fe:04 [    enp0s3]
+   * 02:ba:de:af:fe:05    0.736s   (151) 02:ba:de:af:fe:05 [    enp0s3]
 
 *B.A.T.M.A.N. V*:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/originators
-    [B.A.T.M.A.N. adv 2016.1, MainIF/MAC: eth1/fe:fe:00:00:01:01 (bat0 BATMAN_V)]
-      Originator      last-seen ( throughput)           Nexthop [outgoingIF]:   Potential nexthops ...
-    fe:fe:00:00:02:01    0.130s (       10.0) fe:fe:00:00:02:01 [      eth1]: fe:fe:00:00:02:01 (       10.0)
+  <next hop selected mark>
+     <originator>
+        <last-seen> 
+           <throughput towards the originator> 
+              <next best hop> 
+                 <outgoing iface> 
 
-With batman 2014.1.0 the concept of a routing table per interface was
-introduced. As a result each interface will expose its routing table via
-debugfs:
+Sample output:
 
 ::
 
-    /sys/kernel/debug/batman_adv/${interface}/originators
+  root@node01:~# batctl o
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/6a:e3:de:40:22:88 BATMAN_V)]
+     Originator        last-seen ( throughput)  Nexthop           [outgoingIF]
+     02:ba:de:af:fe:03    0.364s (        9.9)  02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:03    0.364s (        4.6)  02:ba:de:af:fe:04 [    enp0s3]
+     02:ba:de:af:fe:03    0.364s (        4.9)  02:ba:de:af:fe:02 [    enp0s3]
+   * 02:ba:de:af:fe:03    0.364s (        9.9)  02:ba:de:af:fe:03 [    enp0s3]
+     02:ba:de:af:fe:04    0.376s (        9.9)  02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:04    0.376s (        6.0)  02:ba:de:af:fe:03 [    enp0s3]
+     02:ba:de:af:fe:04    0.376s (        4.9)  02:ba:de:af:fe:02 [    enp0s3]
+   * 02:ba:de:af:fe:04    0.376s (        9.9)  02:ba:de:af:fe:04 [    enp0s3]
+     02:ba:de:af:fe:02    0.424s (        9.9)  02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:02    0.424s (        6.0)  02:ba:de:af:fe:03 [    enp0s3]
+     02:ba:de:af:fe:02    0.424s (        4.6)  02:ba:de:af:fe:04 [    enp0s3]
+   * 02:ba:de:af:fe:02    0.424s (        9.9)  02:ba:de:af:fe:02 [    enp0s3]
+     02:ba:de:af:fe:05    0.524s (        4.6)  02:ba:de:af:fe:04 [    enp0s3]
+     02:ba:de:af:fe:05    0.524s (        4.9)  02:ba:de:af:fe:02 [    enp0s3]
+     02:ba:de:af:fe:05    0.524s (        6.0)  02:ba:de:af:fe:03 [    enp0s3]
+   * 02:ba:de:af:fe:05    0.524s (        9.9)  02:ba:de:af:fe:05 [    enp0s3]
+
+With batman 2014.1.0 the concept of a routing table per interface was
+introduced. As a result each interface will expose its routing table:
+
+::
+
+  batctl -m ${meshif} o -i ${interface}
 
 The routing table format is identical to the default table.
 
@@ -109,11 +174,24 @@ be found in the transtable\_local file:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/transtable_local
-    Locally retrieved addresses (from bat0) announced via TT (TTVN: 2):
-           Client         VID Flags   Last seen (CRC       )
-     * fe:fe:00:00:01:01   -1 [.P...]   0.000   (0x0aeb181b)
-     * fe:fe:00:00:02:02   10 [RPNXW]   0.000   (0x6b08a689)
+  <non-mesh client mac address>
+     <VLAN tag> 
+        <flags> 
+           <last seen> 
+              <CRC> 
+
+Sample output:
+
+::
+
+  root@node01:~# batctl meshif bat0 tl
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV), TTVN: 2]
+  Client             VID Flags    Last seen (CRC       )
+  06:23:9d:ef:ec:90    0 [.P....]   0.000   (0xaca3c0fd)
+  01:00:5e:00:00:01   -1 [.P....]   0.000   (0x66f50ead)
+  06:23:9d:ef:ec:90   -1 [.P....]   0.000   (0x66f50ead)
+  33:33:ff:ef:ec:90   -1 [.P....]   0.000   (0x66f50ead)
+  33:33:00:00:00:01   -1 [.P....]   0.000   (0x66f50ead)
 
 The current translation table state is represented by the tt version
 number and the local tt crc that are propagated in the mesh.
@@ -139,11 +217,42 @@ can be found in the transtable\_global file:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/transtable_global
-    Globally announced TT entries received via the mesh bat0
-           Client         VID  (TTVN)       Originator      (Curr TTVN) (CRC       ) Flags
-     * fe:fe:00:00:01:01   -1   (  1) via fe:fe:00:00:02:02       ( 50) (0xddc9c4e4) [RXW]
-     + fe:fe:00:00:01:01   -1   ( 12) via fe:fe:00:00:03:03       ( 50) (0xddc9c4e4) [RXW]
+  <originator selected mark>
+     <non-mesh client mac address>
+        <VLAN tag>
+           <flags>
+              <originator's current TTVN>
+                 <originator announcing non-mesh client mac address>
+                    <TTVN adding the entry> 
+                       <CRC>
+
+Sample output:
+
+::
+
+  root@node01:~# batctl meshif bat0 tg
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV)]
+     Client             VID Flags Last ttvn     Via        ttvn  (CRC       )
+   * 33:33:ff:77:a7:41   -1 [....] (  2) 02:ba:de:af:fe:03 (  2) (0x2d4b7679)
+   * 1a:23:47:77:a7:41   -1 [....] (  2) 02:ba:de:af:fe:03 (  2) (0x2d4b7679)
+   * 33:33:ff:d0:ea:ae   -1 [....] (  2) 02:ba:de:af:fe:05 (  2) (0x1f80235d)
+   * 1a:23:47:77:a7:41    0 [....] (  2) 02:ba:de:af:fe:03 (  2) (0x539543a8)
+   * 33:33:ff:87:d8:35   -1 [....] (  2) 02:ba:de:af:fe:04 (  2) (0xb5fd9b02)
+   * 33:33:ff:2b:d9:36   -1 [....] (  2) 02:ba:de:af:fe:02 (  2) (0x7dd92dc7)
+     01:00:5e:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:05 (  2) (0x1f80235d)
+   * 01:00:5e:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:02 (  2) (0x7dd92dc7)
+     01:00:5e:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:04 (  2) (0xb5fd9b02)
+     01:00:5e:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:03 (  2) (0x2d4b7679)
+   * 6e:df:e1:2b:d9:36   -1 [....] (  2) 02:ba:de:af:fe:02 (  2) (0x7dd92dc7)
+   * 66:a5:a3:d0:ea:ae   -1 [....] (  2) 02:ba:de:af:fe:05 (  2) (0x1f80235d)
+   * 6e:df:e1:2b:d9:36    0 [....] (  2) 02:ba:de:af:fe:02 (  2) (0xfc9f0971)
+   * 66:a5:a3:d0:ea:ae    0 [....] (  2) 02:ba:de:af:fe:05 (  2) (0xfdc5969b)
+   * 46:85:b2:87:d8:35    0 [....] (  2) 02:ba:de:af:fe:04 (  2) (0xf8a5c2bf)
+   * 46:85:b2:87:d8:35   -1 [....] (  2) 02:ba:de:af:fe:04 (  2) (0xb5fd9b02)
+     33:33:00:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:05 (  2) (0x1f80235d)
+   * 33:33:00:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:02 (  2) (0x7dd92dc7)
+     33:33:00:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:04 (  2) (0xb5fd9b02)
+     33:33:00:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:03 (  2) (0x2d4b7679)
 
 The meaning of flags are similar to those above:
 
@@ -160,9 +269,8 @@ Since the introduction of the :doc:`Bridge Loop Avoidance 2 <Bridge-loop-avoidan
 and therefore it is possible to have the same client appearing more than
 one in the list. In this case, there will be one line starting with '\*'
 indicating the default entry to be used to route traffic towards this
-client and some (zero or more) entries starting with '+' indicating
-other possible routes. The line related to "possible routes" do not have
-a CRC value.
+client and some (zero or more) entries starting with ' ' indicating
+other possible routes.
 
 .. _batman-adv-understand-your-batman-adv-network-gateway-table:
 
@@ -175,9 +283,22 @@ this feature). Each line contains information about a specific gateway:
 
 ::
 
-          Gateway      (#/255)           Nexthop [outgoingIF]: advertised uplink bandwidth ... [B.A.T.M.A.N. adv 2014.0.0, MainIF/MAC: eth0/fe:fe:00:00:01:01 (bat0)]
-       fe:fe:00:00:01:01 (233) fe:fe:00:00:01:01 [      eth0]:  2.0/0.5 MBit
-    => fe:fe:00:00:02:01 (255) fe:fe:00:00:02:01 [      eth0]: 10.0/2.0 MBit
+  <selection symbol>
+     <gateway> 
+        <TQ (transmit quality) value towards the gateway> 
+           <next best hop> 
+              <outgoing iface> 
+                 <announced throughput>
+
+For example:
+
+::
+
+  root@node01:~# batctl meshif bat0 gwl
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV)]
+    Router            ( TQ) Next Hop          [outgoingIf]  Bandwidth
+    02:ba:de:af:fe:03 (255) 02:ba:de:af:fe:03 [    enp0s3]: 2.0/0.5 MBit
+  * 02:ba:de:af:fe:02 (255) 02:ba:de:af:fe:02 [    enp0s3]: 10.0/2.0 MBit
 
 Bridge loop avoidance claim table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -186,6 +307,14 @@ This table is part of the :doc:`bridge loop avoidance <Bridge-loop-avoidance>` c
 bridge. Each line contains a claimed non-mesh client propagated through
 the mesh:
 
+::
+
+  <non-mesh client mac address>
+     <vlan id> 
+        <originator claiming this client> 
+           <is client claimed by me> 
+              <CRC checksum of the entire claim table> 
+
 Note:
 
 * Clients claimed by the node itself are marked with an '[x]'.
@@ -193,11 +322,12 @@ Note:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/bla_claim_table
-    Claims announced for the mesh bat0 (orig fe:f0:00:00:02:01, group id 9b95)
-        Client               VID      Originator        [o] (CRC )
-      * fe:f1:00:00:04:01 on    -1 by fe:f0:00:00:02:01 [x] (0bab)
-      * fe:f1:00:00:03:01 on    -1 by fe:f0:00:00:01:01 [ ] (3ba9)
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: primary0/02:ba:de:af:fe:01 (bat0/68:72:51:34:a4:82 BATMAN_IV), group id: 0xe4e5]
+  Client               VID      Originator        [o] (CRC   )
+  02:ba:7a:df:05:01 on    -1 by 02:ba:de:af:fe:01 [*] (0xb1d3)
+  48:5d:60:05:f5:b8 on    -1 by 02:ba:de:af:fe:01 [*] (0xb1d3)
+  24:18:1d:15:1f:26 on    -1 by 02:ba:de:af:fe:01 [*] (0xb1d3)
+  68:72:51:64:08:2c on    -1 by 02:ba:de:af:fe:01 [*] (0xb1d3)
 
 Bridge loop avoidance backbone table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -205,6 +335,13 @@ Bridge loop avoidance backbone table
 This table is part of the :doc:`bridge loop avoidance <Bridge-loop-avoidance>` code and contains all backbone gateways. Each line contains
 a backbone gateway which is reachable via LAN and mesh (that means, it
 is in the same bla group):
+
+::
+
+  <backbone gateway originator mac address>
+     <vlan id> 
+        <last seen time> 
+           <CRC checksum of the entire claim table> 
 
 Note:
 
@@ -216,11 +353,11 @@ Note:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/bla_backbone_table 
-    Backbones announced for the mesh bat0 (orig fe:f0:00:00:01:01, group id 9b95)
-       Originator           VID   last seen (CRC )
-     * fe:f0:00:00:02:01 on    -1    4.000s (0bab)
-     * fe:f0:00:00:03:01 on    -1    3.000s (3ba9)
+  root@node01:~# batctl meshif bat0 bbt
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV), group id: 0x9053]
+  Originator           VID   last seen (CRC   )
+  fe:f0:00:00:02:01 on    -1    4.000s (0bab)
+  fe:f0:00:00:03:01 on    -1    3.000s (3ba9)
 
 Distributed ARP Table - local cache table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -235,14 +372,38 @@ A subset of the entries belonging to this cache are also the entries
 which the node is in charge to handle in the
 :doc:`DHT <DistributedArpTable-technical>`
 
+::
+
+  <host IPv4 address>
+     <host mac address>
+        <vlan id>
+           <last seen ARP activity>
+
 For example:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/dat_cache 
-    Distributed ARP Table (bat0):
-              IPv4             MAC        VID   last-seen
-     *   172.100.0.1 06:e0:9d:f6:05:c2   -1      0:03
+  root@node01:~# batctl meshif bat0 dc 
+  [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV)]
+  Distributed ARP Table (bat0):
+            IPv4             MAC        VID   last-seen
+   *   10.204.36.221 f0:25:b7:36:e6:18   -1      4:43
+   *    10.204.40.88 ac:cf:85:7e:1f:0e   -1      2:03
+   *    10.204.32.60 24:df:6a:49:73:9c   -1      3:30
+   *     10.204.32.7 02:ba:7a:df:06:01   -1      0:00
+   *   10.204.38.243 d8:61:62:49:51:34   -1      0:09
+   *   10.204.36.171 e8:50:8b:9b:08:f7   -1      3:46
+   *    10.204.39.90 d8:61:62:31:43:54   -1      0:00
+   *   10.204.36.161 a0:6f:aa:16:7c:96   -1      3:03
+   *    10.204.33.80 5c:ad:cf:a8:e3:e5   -1      0:18
+   *     10.204.32.4 02:ba:7a:df:03:01   -1      2:16
+   *     10.204.32.2 02:ba:7a:df:01:01   -1      0:00
+   *   10.204.36.251 50:3e:aa:8e:3e:05   -1      0:00
+   *     10.204.32.5 02:ba:7a:df:04:01   -1      0:01
+   *   10.204.36.115 ec:10:7b:a4:c1:a3   -1      3:14
+   *     10.204.32.6 02:ba:7a:df:05:01   -1      0:00
+   *    10.204.36.48 8c:45:00:13:e2:ca   -1      3:49
+   *   10.204.38.162 ac:cf:85:7e:1f:0e   -1      4:30
 
 Network coding - potential coding neighbor table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -260,6 +421,12 @@ NC code to search for potential coding opportunities, where a relay
 determines if two receivers are likely to be able to decode a network
 coded transmission.
 
+::
+
+  <Node: originator mac address>
+     <Ingoing: mac address of nodes that this originator can overhear>
+     <Outgoing: mac address of nodes that can overhear this originator>
+
 This example shows the entry for the one-hop originator with address
 fe:fe:00:00:02:01. Since a originator can always overhear packets to and
 from itself, its own address is listed as the first. In this case, the
@@ -268,10 +435,10 @@ also overhear packets sent from the originator.
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/nc_nodes 
-    Node:      fe:fe:00:00:02:01
-     Ingoing:  fe:fe:00:00:02:01 fe:fe:00:00:03:01 
-     Outgoing: fe:fe:00:00:02:01 fe:fe:00:00:03:01 
+  cat /sys/kernel/debug/batman_adv/bat0/nc_nodes 
+  Node:      fe:fe:00:00:02:01
+   Ingoing:  fe:fe:00:00:02:01 fe:fe:00:00:03:01 
+   Outgoing: fe:fe:00:00:02:01 fe:fe:00:00:03:01 
 
 ICMP
 ----
@@ -283,43 +450,34 @@ transparently, so that higher protocols do not notice the number of hops
 or the route. This is one of the main reasons why you can roam around
 without breaking your connection. To provide the same type of diagnosis
 tools, batman-adv has an own simplified version of ICMP integrated in
-the protocol. Via debugfs it is possible to inject IMCP packets which
-behave very similar to their layer3 counterpart. The icmp socket file
-/sys/kernel/debug/batman\_adv/bat0/icmp\_socket can't be used with
-cat/echo directly, since it expects binary data. The batctl tool offers
-a ping / traceroute like interface that make use of this icmp socket
-interface. Please read the batctl manpage or the README file to learn
+the protocol. Via "batctl ping" and "batctl traceroute" it is possible
+to inject IMCP packets which behave very similar to their layer3
+counterpart. Please read the batctl manpage or the README file to learn
 how to use it or to see examples.
 
 Logging
 -------
 
 Batman-adv offers extended logging to understand & debug the routing
-protocol internals. After you activated debugging at compile time
-(instructions can be found in `the README
+protocol internals. After you activated debugging +tracing at compile
+time (instructions can be found in `the README
 file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
 ) and the appropriate log level has been set (read about the log levels
-:doc:`here <Tweaking>`) you can retrieve the logs by simply reading the
-'log' file:
+:doc:`here <Tweaking>`)) you can retrieve the logs by simply reading the 'log'
+file:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/bat0/log
-    [       418] Sending own packet (originator fe:fe:00:00:02:01, seqno 643, TQ 255, TTL 50, IDF off) on interface eth0 [fe:fe:00:00:02:01]
-    [       418] Received BATMAN packet via NB: fe:fe:00:00:01:01, IF: eth0 [fe:fe:00:00:02:01] (from OG: fe:fe:00:00:02:01, via prev OG: fe:fe:00:00:02:01, seqno 643, tq 245, TTL 49, V 12, IDF 1)
-    [       418] Drop packet: originator packet from myself (via neighbor)
-    [..]
-
-The log is a circular ring buffer and will continue writing messages as
-soon as they become available.
+  $ batctl ll all
+  $ trace-cmd stream -e batadv:batadv_dbg
 
 Visualization
 -------------
 
 Despite its decentralized nature, userspace tools like
-:doc:`alfred </alfred/index>` offer an easy way to access topology
-information that can be visualized. The :doc:`alfred page </alfred/index>`
-covers the necessary steps in detail.
+:doc:`alfred </alfred/index>` offer an easy way to access topology information that
+can be visualized. The :doc:`alfred page </alfred/index>` covers the necessary
+steps in detail.
 
 Routing algorithm
 -----------------
@@ -329,9 +487,16 @@ runtime. It also exports the list of available routing protocols:
 
 ::
 
-    cat /sys/kernel/debug/batman_adv/routing_algos
-    Available routing algorithms:
-    BATMAN_IV
+  root@node01:~# batctl meshif bat0 ra
+  Active routing protocol configuration:
+   * bat0: BATMAN_IV
+  
+  Selected routing algorithm (used when next batX interface is created):
+   => BATMAN_IV
+  
+  Available routing algorithms:
+   * BATMAN_IV
+   * BATMAN_V
 
 B.A.T.M.A.N. IV is the default routing algorithm and a safe choice
 unless you wish to experiment with routing algorithms.

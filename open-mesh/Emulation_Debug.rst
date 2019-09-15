@@ -6,33 +6,48 @@ Emulation Debug
 Create an Image
 ---------------
 
-Download the fstab and rc.local file attached to this wiki page into
-your directory before getting started.
-
 ::
 
   qemu-img create debian.img 8G
   sudo mkfs.ext4 -O '^has_journal' -F debian.img
   sudo mkdir debian
   sudo mount -o loop debian.img debian
-  sudo debootstrap stretch debian
+  sudo debootstrap buster debian
   sudo chroot debian apt update
-  sudo chroot debian apt install build-essential vim openssh-server less \
-   pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev \
+  sudo chroot debian apt install --no-install-recommends build-essential vim openssh-server less \
+   pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump \
    trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev
+
   sudo mkdir debian/root/.ssh/
   ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
+
   sudo mkdir debian/host
-  sudo cp fstab debian/etc/fstab
-  sudo cp rc.local debian/etc/rc.local
+  sudo sh -c 'cat > debian/etc/fstab  << EOF
+  host            /host   9p      trans=virtio,version=9p2000.L 0 0
+  EOF'
+
+  sudo sh -c 'cat > debian/etc/rc.local << "EOF"
+  #!/bin/sh -e
+
+  MAC_PART="$(ip link show enp0s3 | awk "/ether/ {print \$2}"| sed -e "s/.*://" -e "s/[\\n\\ ].*//"|awk "{print (\"0x\"\$1)*1 }")"
+  IP_PART="$(echo $MAC_PART|awk "{ print \$1+50 }")"
+  NODE_NR="$(echo $MAC_PART|awk "{ printf(\"%02d\", \$1) }")"
+  ip addr add 192.168.2.${IP_PART}/24 dev enp0s3
+  ip link set up dev enp0s3
+  hostname "node"$NODE_NR
+  ip link set up dev lo
+  [ ! -x /host/test-init.sh ] || /host/test-init.sh
+  exit 0
+  EOF'
   sudo chmod a+x debian/etc/rc.local
+
   sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
-  
+
   ## optionally: allow ssh logins without passwords
   # sudo sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' debian/etc/ssh/sshd_config
   # sudo sed -i 's/^#PermitEmptyPasswords.*/PermitEmptyPasswords yes/' debian/etc/ssh/sshd_config
   # sudo sed -i 's/^UsePAM.*/UsePAM no/' debian/etc/ssh/sshd_config
-  
+
   ## optionally: enable autologin for user root
   #sudo mkdir debian/etc/systemd/system/serial-getty@ttyS0.service.d/
   #sudo sh -c 'cat > debian/etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf  << EOF
@@ -40,14 +55,15 @@ your directory before getting started.
   #ExecStart=
   #ExecStart=-/sbin/agetty --autologin root -s %I 115200,38400,9600 vt102
   #EOF'
-  
-  sudo sh -c 'echo '\''PATH="$PATH":/host/batctl/'\'' >> debian/etc/profile'
+
+  sudo sh -c 'echo '\''PATH="/host/batctl/:$PATH"'\'' >> debian/etc/profile'
   sudo rm debian/var/cache/apt/archives/*.deb
   sudo rm debian/var/lib/apt/lists/*
+  sudo e4defrag -v debian/
   sudo umount debian
   sudo zerofree -v debian.img
-  
-  
+
+
   ## optionally: convert image to qcow2
   #sudo qemu-img convert -c -f raw -O qcow2 debian.img debian.qcow2
   #sudo mv debian.qcow2 debian.img
@@ -61,16 +77,18 @@ debian.img
 
 ::
 
+  # make sure that libelf-dev is installed or module build will fail with something like "No rule to make target 'net/batman-adv/bat_algo.o'"
+
   git clone git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
   cd linux-next
-  
-  # small configuration
-  
+
   make allnoconfig
   cat >> .config << EOF
+
+  # small configuration
   CONFIG_SMP=y
   CONFIG_EMBEDDED=n
-  CONFIG_EXPERT=n
+  # CONFIG_EXPERT is not set
   CONFIG_MODULES=y
   CONFIG_MODULE_UNLOAD=y
   CONFIG_MODVERSIONS=y
@@ -173,12 +191,12 @@ debian.img
   CONFIG_NET_IP_TUNNEL=y
   CONFIG_NET_IPGRE=y
   CONFIG_NET_IPGRE_BROADCAST=y
-  EOF
-  
+  # CONFIG_LEGACY_PTYS is not set
+
+  # makes boot a lot slower but required for shutdown
+  CONFIG_ACPI=y
+
   #debug stuff
-  # make sure that libelf-dev is installed or module build will fail with something like "No rule to make target 'net/batman-adv/bat_algo.o'"
-  
-  cat >> .config << EOF
   CONFIG_CC_STACKPROTECTOR_STRONG=y
   CONFIG_LOCKUP_DETECTOR=y
   CONFIG_DETECT_HUNG_TASK=y
@@ -210,6 +228,7 @@ debian.img
   CONFIG_DEBUG_OBJECTS_RCU_HEAD=y
   CONFIG_DEBUG_OBJECTS_PERCPU_COUNTER=y
   CONFIG_DEBUG_KMEMLEAK=y
+  CONFIG_DEBUG_KMEMLEAK_EARLY_LOG_SIZE=8000
   CONFIG_DEBUG_STACK_USAGE=y
   CONFIG_DEBUG_STACKOVERFLOW=y
   CONFIG_DEBUG_INFO=y
@@ -236,18 +255,24 @@ debian.img
   CONFIG_DYNAMIC_FTRACE=y
   CONFIG_FUNCTION_PROFILER=y
   CONFIG_HIST_TRIGGERS=y
-  EOF
-  
+
   # for GCC 5+
-  cat >> .config << EOF
   CONFIG_KASAN=y
   CONFIG_KASAN_INLINE=y
   CONFIG_UBSAN_SANITIZE_ALL=y
   CONFIG_UBSAN=y
   CONFIG_UBSAN_NULL=y
   EOF
-  
   make olddefconfig
+
+  cat >> .config << EOF
+  # allow to use unsigned regdb with hwsim
+  CONFIG_EXPERT=y
+  CONFIG_CFG80211_CERTIFICATION_ONUS=y
+  # CONFIG_CFG80211_REQUIRE_SIGNED_REGDB is not set
+  EOF
+  make olddefconfig
+
   make all -j$(nproc || echo 1)
 
 Start of the simple environment
@@ -260,14 +285,88 @@ simple network. A more complex network setup can be on the page
 
 The ``ETH`` in hub.sh has to be changed to the real interface which
 provides internet-connectivity
-The ``SHARED_PATH`` in run.sh has to be changed to a valid path which
-is used to share the precompiled batman-adv.ko and other tools
 
 ::
 
-    screen
-    ./hub.sh
-    ./run.sh
+  cat > hub.sh << "EOF"
+  #! /bin/sh
+  USER="$(whoami)"
+  BRIDGE=br0
+  ETH=enp8s0
+
+  sudo ip link add "${BRIDGE}" type bridge
+  for i in `seq 1 5`; do
+          sudo ip tuntap add dev tap$i mode tap user "$USER"
+          sudo ip link set tap$i up
+          sudo ip link set tap$i master "${BRIDGE}"
+  done
+
+  sudo ip link set "${BRIDGE}" up
+
+  sudo ip addr flush dev "${ETH}"
+  sudo ip link set "${ETH}" master "${BRIDGE}"
+  sudo dhclient "${BRIDGE}"
+  EOF
+
+  chmod +x hub.sh
+
+The ``SHARED_PATH`` in run.sh has to be changed to a valid path which is
+used to share the precompiled batman-adv.ko and other tools
+
+::
+
+  cat > run.sh << "EOF"
+  #! /bin/sh
+
+  SHARED_PATH=/home/sven/tmp/qemu-batman/
+
+  for i in `seq 1 5`; do
+          qemu-img create -b debian.img -f qcow2 root.cow$i
+          normalized_id=`echo "$i"|awk '{ printf "%02d\n",$1 }'`
+          screen qemu-system-x86_64 -enable-kvm -kernel linux-next/arch/x86/boot/bzImage -append "root=/dev/vda rw console=ttyS0" \
+                  -smp 2 -m 512 -drive file=root.cow$i,if=virtio \
+                  -netdev type=tap,id=net0,ifname=tap$i,script=no -device virtio-net-pci,mac=02:ba:de:af:fe:`echo $i|awk '{ printf "%02X", $1 }'`,netdev=net0 \
+                  -virtfs local,path="${SHARED_PATH}",security_model=none,mount_tag=host \
+                  -device virtio-rng-pci -nographic
+          sleep 1
+  done
+  EOF
+
+  chmod +x run.sh 
+
+The test-init.sh script can be used to automatically initialize the
+testsetup during boot:
+
+::
+
+  cat > test-init.sh << "EOF"
+  #! /bin/sh
+
+  set -e
+  export PATH="/host/batctl/:$PATH"
+
+  # ip link add dummy0 type dummy
+  ip link set up dummy0
+
+  rmmod batman-adv || true
+  insmod /host/batman-adv/net/batman-adv/batman-adv.ko
+  batctl routing_algo BATMAN_IV
+  /host/batctl/batctl if add dummy0
+  /host/batctl/batctl it 5000
+  /host/batctl/batctl if add enp0s3
+  ip link set up dev enp0s3
+  ip link set up dev bat0
+  EOF
+
+  chmod +x test-init.sh
+
+Everything can then be started up inside a screen session
+
+::
+
+  screen
+  ./hub.sh
+  ./run.sh
 
 Building the batman-adv module
 ------------------------------
@@ -278,19 +377,22 @@ provided to the make process
 
 ::
 
-    make KERNELPATH=/home/batman/linux-next
+  make KERNELPATH=/home/batman/linux-next
 
 The kernel module can also be compiled for better readability for the
 calltraces:
 
 ::
 
-    make EXTRA_CFLAGS="-fno-inline -O1 -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/linux-next V=1
+  make EXTRA_CFLAGS="-fno-inline -O1 -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/linux-next V=1
 
-Resources
----------
+View traffic via wireshark from virtual machine
+-----------------------------------------------
 
-* :download:`fstab`
-* :download:`hub.sh`
-* :download:`rc.local`
-* :download:`run.sh`
+On host system
+
+::
+
+  mkfifo remote-dump
+  ssh root@192.168.2.51 'tcpdump -i enp3s0 -s 0 -U -n -w - "port not 22"' > remote-dump
+  wireshark -k -i remote-dump

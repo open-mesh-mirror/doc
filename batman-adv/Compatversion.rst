@@ -10,14 +10,10 @@ packet jumps a little bit with each version because we change stuff in
 trunk/master and in next and import those changes to the packet
 structure out-of-order.
 
-Following changes were identified and documented. The changes are to the
-last COMPAT\_VERSION and not to the last change in a branch. So "added
-xyz on master, removed xyz on next and re-added xyz on master" does only
-mean that xyz was always there in master, but the version in next
-dropped that change and thus generated a new COMPAT\_VERSION.
+Following changes were identified and documented.
 
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Version   | Branch                                      | Changes                                                                                                                                                                  |
+| Version   | Releases                                    | Changes                                                                                                                                                                  |
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 1         | (development only)                          | Initial definitions of batman\_packet, icmp\_packet, unicast\_packet, bcast\_packet, ethernet type 0x0842                                                                |
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -27,7 +23,7 @@ dropped that change and thus generated a new COMPAT\_VERSION.
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 7         | (development only)                          | unused gw flags removed, reordered icmp and batman packet                                                                                                                |
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 8         | trunk, v0.2, v0.2.1, v2010.0.0              | source field introduced in vis packets                                                                                                                                   |
+| 8         | v0.2, v0.2.1, v2010.0.0                     | source field introduced in vis packets                                                                                                                                   |
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 9         | (development only)                          | Gateway flags added to batman\_packet, primaries\_first\_hop flag added for bonding, special icmp messages for route record added                                        |
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+

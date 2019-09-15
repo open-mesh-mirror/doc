@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="28cm" height="23cm" viewBox="318 138 543 442" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #0000ff" d="M 320,400 A 238.418,238.418 0 1 0 680,140"/>
+    <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #0000ff" d="M 400,320 A 81.3546,81.3546 0 1 0 520,220"/>
+    <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #0000ff" d="M 380,340 A 119.565,119.565 0 1 0 560,200"/>
+    <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #0000ff" d="M 360,360 A 159.099,159.099 0 1 0 600,180"/>
+    <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #0000ff" d="M 340,380 A 198.734,198.734 0 1 0 640,160"/>
+    <ellipse style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="450" cy="270" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="350" cy="370" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="630" cy="370" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="690" cy="250" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="830" cy="350" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="450" cy="510" rx="30" ry="30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="371.899" y1="348.101" x2="428.101" y2="291.899"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="480.894" y1="267.426" x2="659.106" y2="252.574"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="804.767" y1="331.976" x2="715.233" y2="268.024"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="602.908" y1="354.949" x2="477.092" y2="285.051"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="799.336" y1="353.066" x2="660.664" y2="366.934"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="431.976" y1="484.767" x2="368.024" y2="395.233"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="670" cy="510" rx="30" ry="30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="481.005" y1="510" x2="638.995" y2="510"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="691.924" y1="488.076" x2="808.076" y2="371.924"/>
+  </g>
+</svg>

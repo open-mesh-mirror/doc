@@ -12,8 +12,8 @@ version <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__
 Using batctl for configuration
 ------------------------------
 
-All configuration of batman-adv is done in the virtual filesystem
-*sysfs* and batctl is merely a convenient interface to this.
+All configuration of batman-adv is done with the generic netlink family
+"batadv" and batctl provides a commandline interface for it.
 
 A quick overview of the config options available with batctl:
 

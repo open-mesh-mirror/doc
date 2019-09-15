@@ -6,7 +6,7 @@ Batman-adv gateways
 Often batman-adv is used to cover a bigger area with wireless access to
 the internet where several nodes have internet access while the other
 nodes try to find the best route towards one of the gateways. In this
-case it is desirable that the routing protocol helps with the decision
+case, it is desirable that the routing protocol helps with the decision
 to find the best path since it already knows the topology of the
 network.
 
@@ -14,7 +14,7 @@ Announcements
 -------------
 
 To make the internet uplink known in the mesh network, batman-adv
-allows to enable the so-called 'gateway mode'. The user specified
+allows enabling the so-called 'gateway mode'. The user specified
 internet uplink bandwidth is propagated in the mesh network using the
 :ref:`gateway TVLVs <batman-adv-TVLV-Gateway-announcement>`. All other
 mesh participants receive these announcements and maintain a list of
@@ -67,7 +67,7 @@ roaming around) batman-adv will also inspect incoming DHCP renewal
 packets. If their destination is not the currently selected gateway and
 below a certain TQ threshold (currently defaulting to a TQ of 50), the
 DHCP renewal packet is not forwarded, thereby forcing the client to
-request a new DHCP lease from a better connected gateway.
+request a new DHCP lease from a better-connected gateway.
 
 The configuration
 -----------------
@@ -84,7 +84,7 @@ running:
 
 Batman-adv always announces the gateway's internet bandwidth, so that
 clients can base their decision on the link quality towards the gateway
-as well as on the available bandwidth. Per default a bandwidth of
+as well as on the available bandwidth. Per default, a bandwidth of
 10MBit/2MBit is assumed. To configure a download bandwidth of 5Mbit with
 an upload of 1Mbit run the following command:
 
@@ -120,6 +120,13 @@ All available gateway selection classes are thoroughly explained in the
 `batctl
 manpage <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__.
 
+With B.A.T.M.A.N. V this behavior changed: the value is measured in kbit/s,
+for example, if gw_sel_class is set to 1500 the gateway will be selected if
+the throughput is at least 1500 kbit/s faster than the throughput of the
+currently selected gateway. Throughput is determined by evaluating which
+is lower: the advertised throughput by the gateway or the maximum bandwidth
+across the entire path.
+
 gateway status
 ~~~~~~~~~~~~~~
 
@@ -144,7 +151,7 @@ in a clean network layer separation and those who need this
 functionality. The former claim that a well-designed protocol should not
 mess with other layers but instead collaborate with tools made for
 higher layers. The latter group has pointed out that the rule of network
-layer separation can be bent in real world applications to improve
+layer separation can be bent in real-world applications to improve
 usability. To achieve a compromise the gateway mechanism is disabled per
 default and only operates on top of DHCP (details below). Feel free to
 contact us in case you want to propose alternative ideas.

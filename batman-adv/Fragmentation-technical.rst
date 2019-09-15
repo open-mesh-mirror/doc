@@ -106,19 +106,12 @@ see below). It is a fix for drivers/hardware that is unable to handle
 MTU's greater than 1528 bytes, it is slow (due to increase is packets),
 and is susceptible to packet loss.
 
-It can be enabled and disabled in the sysfs file:
+It can be enabled and disabled via batctl:
 
 ::
 
-    %25 echo 1 > /sys/class/net/bat0/mesh/fragmentation # enable (default)
-    %25 echo 0 > /sys/class/net/bat0/mesh/fragmentation # disable
-
-or by using ``batctl``:
-
-::
-
-    %25 batctl f 1 # enable
-    %25 batctl f 0 # disable
+    % batctl meshif bat0 fragmentation 1 # enable (default)
+    % batctl meshif bat0 fragmentation 0 # disable
 
 Limitations
 -----------

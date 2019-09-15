@@ -70,7 +70,7 @@ local OpenWrt build directory):
     cat << EOF > /tmp/logserver.sh
     #!/bin/sh
     while [ 1 ]; do
-        nc -l -p 2050 < /sys/kernel/debug/batman_adv/bat0/log
+        trace-cmd stream -e batadv:batadv_dbg | nc -l -p 2050
     done
     EOF
     chmod 755 /tmp/logserver.sh
@@ -114,6 +114,17 @@ compile and install vde
 
 download and cp colourful.rc
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+colourful.rc::
+
+    port/setcolourful 1
+    port/create 1
+    port/create 2
+    port/create 3
+    port/create 4
+    port/create 5
+    port/setcolour 1 1
 
 ::
 
@@ -304,16 +315,6 @@ About screen command
 
     #you can login a specific openwrt system with following command
     $screen -r num1          #(num1~num9)
-
-::
-
-    port/setcolourful 1
-    port/create 1
-    port/create 2
-    port/create 3
-    port/create 4
-    port/create 5
-    port/setcolour 1 1
 
 To collect the batman logs from the individual hosts, you might want to
 use this script after all nodes have completed booting and started

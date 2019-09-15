@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="17cm" height="13cm" viewBox="579 488 322 243" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="610" cy="610" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="870" cy="610" rx="30" ry="30"/>
+    <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #0000ff" d="M 600,660 A 58.8889,58.8889 0 1 0 600,560"/>
+    <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #0000ff" d="M 600,680 A 87.5,87.5 0 1 0 600,540"/>
+    <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #0000ff" d="M 600,700 A 120.25,120.25 0 1 0 600,520"/>
+    <text font-size="27.0933" style="fill: #0000ff; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="700" y="620">
+      <tspan x="700" y="620">3x</tspan>
+    </text>
+  </g>
+</svg>

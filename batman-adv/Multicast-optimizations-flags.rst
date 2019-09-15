@@ -137,9 +137,6 @@ Signalizes that this node wants all unsnoopable multicast traffic, that
 is traffic destined to the all-nodes address for IPv6 (ff02::1) and to
 link-local addresses for IPv4 (224.0.0.0/24).
 
-(not used by listeners yet, but implemented for senders already to
-ensure backwards compatibility later)
-
 .. _batman-adv-multicast-optimizations-flags-batadv_mcast_want_all_ipv4-batadv_mcast_want_all_ipv6:
 
 BATADV\_MCAST\_WANT\_ALL\_IPV4 (Bit 1):
@@ -147,16 +144,10 @@ BATADV\_MCAST\_WANT\_ALL\_IPV4 (Bit 1):
 
 Signalizes that this node wants all IPv4 multicast traffic.
 
-(not used by listeners yet, but implemented for senders already to
-ensure backwards compatibility later)
-
 BATADV\_MCAST\_WANT\_ALL\_IPV6 (Bit 2):
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Signalizes that this node wants all IPv6 multicast traffic.
-
-(not used by listeners yet, but implemented for senders already to
-ensure backwards compatibility later)
 
 Further Readings
 ----------------

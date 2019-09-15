@@ -3,7 +3,12 @@
 Echo Location Protocol (ELP)
 ============================
 
-|image0|:https://en.wikipedia.org/wiki/File:Animal\_echolocation.svg
+**This page is OUTDATED!**
+
+**This page is not in sync with the actual implementation. Neither the packet
+format matches nor the use as unicast probe frames is explained.**
+
+|image0|
 
 *Image Source*: `Petteri Aimonen, Wikimedia
 Commons <https://en.wikipedia.org/wiki/File:Animal_echolocation.svg>`__

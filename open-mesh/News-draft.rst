@@ -1,30 +1,28 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-DRAFT: Batman-adv 2018.3 released
+DRAFT: Batman-adv 2019.4 released
 =================================
 
-Aug 27th, 2018. Today the B.A.T.M.A.N. team publishes the August 2018 update to
-batman-adv, batctl and alfred! TODO
+Sep 23th, 2019. Today the B.A.T.M.A.N. team publishes the September 2019 update
+to batman-adv, batctl and alfred! The B.A.T.M.A.N. V implementation can now
+aggregate OGM2 messages into single messages before sending them out. As usual,
+this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against,
 it does not make sense to provide binaries on our website. As usual, you will
 find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2018.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2019.4/
 
 Thanks
 ------
 
 Thanks to all people sending in patches:
 
-* Antonio Quartulli <a@unstable.cc>
-* Joe Perches <joe@perches.com>
+* Eric Dumazet <edumazet@google.com>
+* Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
-
-and to all those that supported us with good advice or rigorous testing:
-
-* Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>
 
 batman-adv
 ----------
@@ -32,52 +30,43 @@ batman-adv
 ::
 
   $ git describe origin/master
-  v2018.2-9-g89dcbd5f
-  $ range=v2018.2..v2018.2-9-g89dcbd5f
+  v2019.3-10-gbcadeaa3
+  $ $ range=v2019.3..v2019.3-10-gbcadeaa3
   $ git shortlog --email --no-merges "${range}"
-  $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
-  
-  new kernel support
-  ==================
-  
-        batman-adv: Convert random_ether_addr to eth_random_addr
+  $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
   
   coding style cleanup/refactoring
   ================================
   
-        batman-adv: fix checkpatch warning about misspelled "cache"
-        batman-adv: Unify include guards style
-        batman-adv: Join batadv_purge_orig_ref and _batadv_purge_orig
-        batman-adv: Convert batadv_dat_addr_t to proper type
-        batman-adv: Drop "experimental" from BATMAN_V Kconfig
-        batman-adv: Remove "default n" in Kconfig
+        batman-adv: Replace usage of strlcpy with strscpy
   
   
-  multicast
+  BATMAN V
   =========
   
-  
-  unclassified
-  ============
-  
-        batman-adv: enable DAT by default at compile time
+        batman-adv: BATMAN_V: introduce per hard-iface OGMv2 queues
+        batman-adv: BATMAN_V: aggregate OGMv2 packets
   
   
   
   bugfixes
   ========
   
+        batman-adv: fix uninit-value in batadv_netlink_get_ifindex()
   
   
   
   
-  
-  2018.3 (2018-08-27)
+  2019.4 (2019-09-23)
   ===================
   
-  * support latest kernels (3.16 - 4.19)
+  * support latest kernels (3.16 - 5.4)
   * coding style cleanups and refactoring
-  * enable the DAT by default for the in-tree Linux module
+  * implement aggregation of OGM2 packets
+  * bugs squashed:
+  
+    - fix length validation in netlink messages
+    - fix out of buffer read when parsing aggregated packets
 
 
 batctl
@@ -86,18 +75,28 @@ batctl
 ::
 
   $ git describe origin/master
-  v2018.2-1-g15893f1
-  $ range=v2018.2..v2018.2-1-g15893f1
+  v2019.3-2-gdd82cf5
+  $ range=v2019.3..v2019.3-2-gdd82cf5
   $ git shortlog --email --no-merges "${range}"
-  $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
+  $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
   
   
+  tcpump
+  ======
+  
+  new command structure
+  =====================
+  
+  bugfix
+  ======
+  
+        batctl: Fix deprecation warning for option '-m'
   
   
-  2018.3 (2018-08-27)
+  2019.4 (2019-09-23)
   ===================
   
-  * (no changes)
+  * fix deprecation warning for option '-m'
 
 alfred
 ------
@@ -105,17 +104,19 @@ alfred
 ::
 
   $ git describe origin/master
-  v2018.2-1-gbd9b383
-  $ range=v2018.2..v2018.2-1-gbd9b383
+  v2019.3-3-g0e0fcc5
+  $ range=v2019.3..v2019.3-3-g0e0fcc5
   $ git shortlog --email --no-merges "${range}"
-  $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\)-by'|sed 's/.*:/*/'|sort|uniq
+  $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
   
+  Sven Eckelmann <sven@narfation.org> (2):
+        alfred: vis: Add missing include for ifinfomsg
+        alfred: vis: Fix ifindex check when registering interface
   
-  
-  2018.3 (2018-08-27)
+  2019.4 (2019-09-23)
   ===================
   
-  * (no changes)
+  * fix build with musl
 
 
 Happy routing,

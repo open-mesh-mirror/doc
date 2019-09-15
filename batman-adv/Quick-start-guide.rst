@@ -6,9 +6,7 @@ B.A.T.M.A.N. Advanced quick start guide
 This page shall show a couple of easy examples of how to use and setup a
 mesh network with B.A.T.M.A.N.-Advanced (further referenced as
 batman-adv). It is assumed, the tool 'batctl' was installed which allows
-a more intuitive configuration, though everything can be configured by
-accessing '/sys/class/net/$iface/batman-adv/...' directly without the
-need of installing batctl.
+a more intuitive configuration.
 
 Configuring interfaces
 ----------------------

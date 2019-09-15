@@ -31,26 +31,38 @@ Getting started
 Features
 --------
 
--  :doc:`Gateway support <Gateways>` - How batman-adv can be used to choose
-   the nearest internet gateway node.
+Miscellaneous Features
+~~~~~~~~~~~~~~~~~~~~~~
+
 -  `Translation table in a nutshell <https://www.open-mesh.org/news/38>`__ - The inner workings of the non-mesh client integration
    revealed.
 -  :doc:`Bridge loop avoidance <Bridge-loop-avoidance>` - Document
    explaining the bridge loop avoidance implemented in batman-adv.
--  :doc:`Multi-Link Optimizations <Multi-link-optimize>` - how to optimize
-   traffic by using multiple links
 -  :doc:`AP Isolation <Ap-isolation>` - How to prevent wifi-client to
    wifi-client communication.
--  :doc:`Distributed ARP Table <DistributedArpTable>` - How batman-adv can
-   speed up your mesh experience by caching ARP replies.
 -  `Layer 2 fragmentation <https://www.open-mesh.org/news/43>`__ - basic concept behind the layer2 fragmentation (GSoC final
    report)
--  :doc:`Multicast Optimizations <Multicast-optimizations>` - multicast
-   optimizations overview
--  :doc:`Network Coding <NetworkCoding>` - Combine two packets into a single
-   transmission to save air time.
 -  :doc:`Alfred </alfred/index>` - Use alfred to send local information or
    visualize your mesh network
+
+Link-Forwarding Optimizations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  :doc:`Multi-Link Optimizations <Multi-link-optimize>` - how to optimize
+   traffic by using multiple links
+-  :doc:`Network Coding <NetworkCoding>` - Combine two packets into a single
+   transmission to save air time.
+
+Broadcast & Multicast
+~~~~~~~~~~~~~~~~~~~~~
+
+-  :doc:`Broadcasts in B.A.T.M.A.N. Advanced <Broadcast>` - An overview of broadcast/multicast support
+-  :doc:`Gateway support <Gateways>` - How batman-adv can be used to choose
+   the nearest internet gateway node.
+-  :doc:`Distributed ARP Table <DistributedArpTable>` - How batman-adv can
+   speed up your mesh experience by caching ARP replies.
+-  :doc:`Multicast Optimizations <Multicast-optimizations>` - multicast
+   optimizations overview
 
 Troubleshooting
 ---------------

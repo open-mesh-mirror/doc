@@ -70,7 +70,7 @@ automatically:
 -  wired: Most Ethernet capable devices export their theoretical
    throughput and duplex capabilities via the ethtool API.
 -  unknown/override: B.A.T.M.A.N. V allows to specify a throughput value
-   per interface via sysfs. Consequently. B.A.T.M.A.N. V will assume the
+   per interface via generic netlink. Consequently. B.A.T.M.A.N. V will assume the
    specified throughput for any neighbor discovered over that interface.
 -  throughput meter (upcoming): If the throughput can not be queried via
    some API and is not manually configured, B.A.T.M.A.N. V will run a

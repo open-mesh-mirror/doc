@@ -164,9 +164,9 @@ then configure your batman-adv interfaces
 
     auto bat0
     iface bat0 inet6 auto
-        pre-up /usr/sbin/batctl -m bat0 if add wlan0
+        pre-up /usr/sbin/batctl meshif bat0 if add wlan0
 
     auto bat1
     iface bat1 inet6 auto
-        pre-up /usr/sbin/batctl -m bat1 if add wlan1
+        pre-up /usr/sbin/batctl meshif bat1 if add wlan1
 

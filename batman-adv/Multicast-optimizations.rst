@@ -50,13 +50,14 @@ listeners interested in traffic to the given multicast destination
 address. If not then the packet is never forwarded into the mesh
 network.
 
-Forwards IPv4/IPv6 packets with a single multicast listener via unicast
+Forwards IPv4/IPv6 packets with a some multicast listeners via unicasts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 |image1|
 
-If a single multicast listener was detected then the packet is forwarded
-directly to the corresponding batman-adv node.
+If there is an amount of multicast listeners smaller or equal to the
+(configurable) multicast-fanout parameter (default: 16) then the packet
+is forwarded via individual unicast transmissions.
 
 Limitations
 ~~~~~~~~~~~
@@ -66,18 +67,14 @@ Limitations
 In the following cases multicast packets are still distributed via
 classic flooding:
 
--  If there is more than one listener for a specific multicast group.
--  If the multicast packets have a scope greater than link-local.
+* If there are more than #multicast-fanout (default: 16) listeners for a
+  specific multicast group.
 
-(These things are work in progress and will be supported at a later
-time.)
-
-Additionally, in bridged scenarios multicast packets are still flooded
-in the following cases:
+Additionally, in *bridged* scenarios multicast packets are still flooded in the
+following cases:
 
 -  If there is no IGMP/MLD querier.
--  If the IPv4 multicast destination is between 224.0.0.1 and
-   224.0.0.255.
+-  If the packet has an IPv4 multicast destination.
 -  If the IPv6 multicast destination is ff02::1.
 
 How to deactivate the multicast optimizations?
@@ -89,7 +86,16 @@ via the following command, executed as root (here: bat0):
 
 ::
 
-    echo 0 > /sys/class/net/bat0/mesh/multicast_mode
+    batctl meshif bat0 multicast_forceflood 1
+
+Note: This only affects multicast traffic originating from this specific node.
+
+How to tune the multicast fanout limit?
+---------------------------------------
+
+By default the multicast fanout limit is 16. You can change this limit via::
+
+    batctl meshif bat0 multicast_fanout <num>
 
 Note: This only affects multicast traffic originating from this specific
 node.
@@ -101,6 +107,6 @@ Further Readings
 -  :doc:`Multicast Optimizations – Flags Explained <Multicast-optimizations-flags>`
 
 .. |image0| image:: basic-multicast-no-receiver.svg
-.. |image1| image:: basic-multicast-single-receiver.svg
-.. |image2| image:: basic-multicast-multiple-receivers.svg
+.. |image1| image:: basic-multicast-multiple-receivers.svg
+.. |image2| image:: basic-multicast-many-receivers.svg
 

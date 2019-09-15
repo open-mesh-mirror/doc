@@ -47,11 +47,6 @@ link-local addresses for IPv4 (224.0.0.0/24). This is usually the case
 when a node uses a bridge device on top of bat0 and is therefore unable
 to detect potential bridged-in listeners.
 
-(not used by listeners yet, but implemented for senders already to
-ensure backwards compatibility later, see
-:ref:`Multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES <batman-adv-Multicast-optimizations-flags-BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES>`
-for details)
-
 BATADV\_MCAST\_WANT\_ALL\_IPV4 (Bit 1):
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -60,10 +55,6 @@ usually the case when a node uses a bridge device on top of bat0, has an
 IGMP querier (no matter if IGMPv2 or IGMPv3) behind it and is therefore
 not able to reliably determine all of its IGMPv2 listeners.
 
-(not used by listeners yet, but implemented for senders already to
-ensure backwards compatibility later, see
-:ref:`multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6 <batman-adv-Multicast-optimizations-flags-BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6>`
-for details)
 
 BATADV\_MCAST\_WANT\_ALL\_IPV6 (Bit 2):
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -73,12 +64,20 @@ usually the case when a node uses a bridge device on top of bat0, has an
 MLD querier (no matter if MLDv1 or MLDv2) behind it and is therefore not
 able to reliably determine all of its MLDv1 listeners.
 
-(not used by listeners yet, but implemented for senders already to
-ensure backwards compatibility later, see
-:ref:`multicast-optimizations-flags#BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6 <batman-adv-Multicast-optimizations-flags-BATADV\_MCAST\_WANT\_ALL\_IPV4-BATADV\_MCAST\_WANT\_ALL\_IPV6>`
-for details)
 
-Bits 3 to 7:
+BATADV_MCAST_WANT_NO_RTR4 (Bit 3):
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Signalizes that we have no IPv4 multicast router and therefore only need
+routable IPv4 multicast packets we signed up for explicitly.
+
+BATADV_MCAST_WANT_NO_RTR6 (Bit 4):
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Signalizes that we have no IPv6 multicast router and therefore only need
+routable IPv6 multicast packets we signed up for explicitly.
+
+Bits 5 to 7:
 ^^^^^^^^^^^^
 
 reserved for future extensions
@@ -137,9 +136,9 @@ sent as broadcast as a fallback solution.
      - supported²
        Example: ff12::39 (locally administrated)
    * - routable
-     - support planned³
+     - supported without bridges³
        Example: 239.1.2.3 (locally administrated)
-     - support planned³
+     - supported²
        Example: ff0e::101 (NTP)
 
 ¹: These addresses cannot be considered for optimization towards nodes
@@ -151,7 +150,8 @@ for details.
 ²: In bridged scenarios, an IGMP/MLD querier needs to be present in the
 mesh. Also, a 3.17 kernel or newer is required.
 
-³: Routable multicast addresses are not supported yet. See
+³: Routable IPv4 multicast addresses in bridged scenarios are not supported
+yet. See 
 :ref:`multicast-optimizations-tech#routable-multicast-addresses <batman-adv-Multicast-optimizations-tech-routable-multicast-addresses>` for
 details.
 
@@ -174,18 +174,24 @@ ranges. To support these address ranges later, too, `Multicast Router
 Discovery <https://tools.ietf.org/search/rfc4286>`__ needs to be
 implemented in batman-adv (which was not done yet).
 
++batman-adv currently detects IPv6 multicast routers by searching for
+ff02::2 all-routers multicast listeners (which overestimates by including
+unicast routers, too). For proper IPv4+IPv6 multicast router detection
+"Multicast Router Discovery":https://tools.ietf.org/search/rfc4286 needs
+to be implemented in batman-adv (implemented in the bridge, tapping into
+this is still ToDo).
+
 Limitations
 -----------
 
-* groups with two or more listeners don't get optimized
-* the whole mesh must have multicast support enabled
-* optimization for traffic of scope greater than link-local (routable
-  addresses) is not supported yet
+* groups with more listeners (+routers) than #multicast-fanout (default: 16)
+  don't get optimized
+* optimization for routable IPv4 multicast in bridged scenarios is not
+  supported yet
 * optimization for link-local IPv4 (224.0.0.0/24) or all-nodes IPv6
   multicast (ff02::1) is only done if no node announces
   BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES, that is no node configures a
   bridge on batman-adv.
-* high multicast join/leave latency in setups with slow OGM intervals
 * no awareness for source-specific multicasts
 * multcast packets over VLANs are always flooded
 
@@ -201,15 +207,12 @@ Next Steps / Roadmap
   - some-to-many / streaming: implement path tracking and use these
     patches (see :doc:`Multicast-ideas-updated <Multicast-ideas-updated>`)
 
-* implement `Multicast Router
-  Discovery <https://tools.ietf.org/search/rfc4286>`__ to support scopes
-  greater than link-local, too
+* integrate bridge's `Multicast Router
+  Discovery <https://tools.ietf.org/search/rfc4286>`__ to to properly support scopes
+  greater than link-local
 * implement some faster listener roaming mechanism for bridged in
   hosts (for instance announce (multicast-address, source address) pairs
   and use general TT roaming mechanism)
-* perform multicast listener adition/reduction via TT immediately
-  instead of every OGM interval to reduce join/leave latency in setups
-  with a slow OGM interval
 * implement source-specific multicast in Linux bridge and batman-adv
 * multicast TT announcements and forwarding have to be performed per
   VLAN

@@ -15,22 +15,22 @@ Download Released Source Code
 -----------------------------
 
 -  The latest version of :doc:`batman-adv </batman-adv/Wiki>` is
-   `batman-adv-2018.2.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2018.2.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2018.2.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2018.2.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2018.2.tar.gz.asc>`__
+   `batman-adv-2019.3.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.3.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.3.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.3.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.3.tar.gz.asc>`__
 -  The latest version of batctl (management and control tool for
    batman-adv) is
-   `batctl-2018.2.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2018.2.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2018.2.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2018.2.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2018.2.tar.gz.asc>`__
+   `batctl-2019.3.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.3.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.3.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.3.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.3.tar.gz.asc>`__
 -  The latest version of alfred (Almighty Lightweight Fact Remote
    Exchange Daemon) is
-   `alfred-2018.2.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2018.2.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2018.2.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2018.2.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2018.2.tar.gz.asc>`__
+   `alfred-2019.3.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.3.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.3.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.3.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.3.tar.gz.asc>`__
 
 -  The latest stable version of batmand
    (:ref:`unmaintained <open-mesh-BranchesExplained-batmand>`) is
@@ -162,7 +162,19 @@ contain, so that you can easily pick the compatible batctl packages:
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 -  linux 4.17 => batman-adv 2018.1 (get batctl 2018.1 from
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
--  linux 4.17 => batman-adv 2018.2 (get batctl 2018.2 from
+-  linux 4.18 => batman-adv 2018.2 (get batctl 2018.2 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 4.19 => batman-adv 2018.3 (get batctl 2018.3 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 4.20 => batman-adv 2018.4 (get batctl 2018.4 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 5.0 => batman-adv 2019.0 (get batctl 2019.0 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 5.1 => batman-adv 2019.1 (get batctl 2019.1 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 5.2 => batman-adv 2019.2 (get batctl 2019.2 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 5.3 => batman-adv 2019.3 (get batctl 2019.3 from
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 
 Arch Linux
@@ -186,21 +198,9 @@ Debian
 Use apt-get (or any other dpkg frontend of choice) to install
 B.A.T.M.A.N. onto your debian machine. Following packages are available:
 
--  `alfred <https://packages.debian.org/sid/alfred>`__ - batctl 2015.2
--  `batmand <https://packages.debian.org/sid/batmand>`__ - batman 0.3.2
--  `batctl <https://packages.debian.org/sid/batctl>`__ - batctl 2015.2
--  Debian Wheezy and all newer releases come with batman-adv as part of
-   the kernel, no need to re-install the module manually. For squeeze,
-   check:
-
-   -  `batman-adv-source <https://packages.debian.org/squeeze/batman-adv-source>`__
-      - batman-advanced kernel 2010.0.0 module source for Debian Squeeze
-      (installable via
-      `module-assistant <https://packages.debian.org/squeeze/module-assistant)>`__
-   -  `batman-adv-dkms <https://packages.debian.org/squeeze/batman-adv-dkms>`__
-      - batman-advanced kernel module 2010.0.0 dkms package for Debian
-      Squeeze to build new modules dynamically (half-automatic)
-
+-  `alfred <https://packages.debian.org/sid/alfred>`__
+-  `batmand <https://packages.debian.org/sid/batmand>`__
+-  `batctl <https://packages.debian.org/sid/batctl>`__
 -  `linux <https://packages.debian.org/source/unstable/linux>`__ -
    batman-advanced kernel module as `part of the
    official <https://bugs.debian.org/622361>`__ kernel packages
