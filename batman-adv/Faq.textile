@@ -58,7 +58,7 @@ h3. Can batman-adv run on interfaces in AP / Station / etc mode ?
 h3. How can I connect non-mesh clients to my batman-adv network ?
 
 *Q:* How can I connect non-mesh clients to batman-adv network?
-*A: * The [[batman-adv:Quick-start-guide|batman-adv quick-start-guide]] explains how to bridge your standard AP / Ethernet interfaces with bat0 which can be problematic if you only possess one WiFi card. In these cases it might be desirable to run adhoc mode and AP mode at the same time. Fortunately, some WiFi chips / drivers support a so-called "multi VAP" (virtual AP) or "multi SSID" mode to have multiple WiFi networks on the same WiFi interface.
+*A:* The [[batman-adv:Quick-start-guide|batman-adv quick-start-guide]] explains how to bridge your standard AP / Ethernet interfaces with bat0 which can be problematic if you only possess one WiFi card. In these cases it might be desirable to run adhoc mode and AP mode at the same time. Fortunately, some WiFi chips / drivers support a so-called "multi VAP" (virtual AP) or "multi SSID" mode to have multiple WiFi networks on the same WiFi interface.
 
 h3. How big networks does batman-adv support?
 
@@ -94,10 +94,10 @@ h3. Logs not received via trace-cmd?
 *Q:* The trace-cmd shows now log messages for batman-adv?
 *A:* You need to compile the batman-adv with logging support.
 
- * Linux tree
- ** go to *<code>Networking support  ---> Networking options  ---> B.A.T.M.A.N. Advanced Meshing Protocol</code>* and select *<code>B.A.T.M.A.N. debugging</code>* and  *<code>B.A.T.M.A.N. tracing support</code>*
- * external module
- ** compile with make parameter *<code>CONFIG_BATMAN_ADV_DEBUG=y CONFIG_BATMAN_ADV_TRACING=y</code>*
+* Linux tree
+** go to *<code>Networking support  ---> Networking options  ---> B.A.T.M.A.N. Advanced Meshing Protocol</code>* and select *<code>B.A.T.M.A.N. debugging</code>* and  *<code>B.A.T.M.A.N. tracing support</code>*
+* external module
+** compile with make parameter *<code>CONFIG_BATMAN_ADV_DEBUG=y CONFIG_BATMAN_ADV_TRACING=y</code>*
 
 batctl must also be used to set the relevant loglevel
 
