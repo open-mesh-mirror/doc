@@ -2,8 +2,8 @@ h1. Multicast Optimizations – Flags Explained
 
 Prior Readings:
 
- * [[multicast-optimizations|Multicast Optimizations]]
- * [[multicast-optimizations-tech|Multicast Optimizations – Technical Description]]
+* [[multicast-optimizations|Multicast Optimizations]]
+* [[multicast-optimizations-tech|Multicast Optimizations – Technical Description]]
 
 h2. Scenario
 
@@ -37,11 +37,11 @@ There are exemptions for MLD/IGMP for two address ranges where no reports will b
 
 !{width: 85%;}basic-multicast-snoopables-unknown.png!
 
- * No MLD messages for the all-nodes IPv6 multicast (*ff02::1*) address. "RFC4541":https://tools.ietf.org/html/rfc4541, section 3:
+* No MLD messages for the all-nodes IPv6 multicast (*ff02::1*) address. "RFC4541":https://tools.ietf.org/html/rfc4541, section 3:
 
 > [...] The only exception is the address FF02::1 which is the all hosts link-scope address for which MLD messages are never sent. [...]
 
- * No requirement for IGMP messages for IPv4 link-local multicast addresses (*224.0.0.x*). "RFC4541":https://tools.ietf.org/html/rfc4541, section 2.1.2.2):
+* No requirement for IGMP messages for IPv4 link-local multicast addresses (*224.0.0.x*). "RFC4541":https://tools.ietf.org/html/rfc4541, section 2.1.2.2):
 
 > [...] This recommendation is based on the fact that many host systems do not send Join IP multicast addresses in the [224.0.0.x] range before sending or listening to IP multicast packets. [...]
 
@@ -65,18 +65,18 @@ When an IGMP or MLD Querier is not run on a batman-adv node directly but instead
 
 A more detailed explanation for when and why this happens exactly can be found here:
 
- * [[multicast-optimizations-report-suppresion|Multicast Optimizations – IGMP/MLD Report Suppression]]
+* [[multicast-optimizations-report-suppresion|Multicast Optimizations – IGMP/MLD Report Suppression]]
 
 h2. Multicast flags
 
 To overcome the issues of possible multicast packet loss, a batman-adv node with a bridge will first of all detect whether one of the three cases listed above is present for its bridged segment of the link. If so, it will set one or more of the following multicast flags in its multicast TVLV:
 
- * Case !#1:
- ** BATADV_MCAST_WANT_ALL_UNSNOOPABLES
- * Case !#2 (no IGMP querier) or Case !#3 (a shadowing IGMP querier)
- ** BATADV_MCAST_WANT_ALL_IPV4
- * Case !#2 (no MLD querier) or Case !#3 (a shadowing MLD querier)
- ** BATADV_MCAST_WANT_ALL_IPV6
+* Case !#1:
+** BATADV_MCAST_WANT_ALL_UNSNOOPABLES
+* Case !#2 (no IGMP querier) or Case !#3 (a shadowing IGMP querier)
+** BATADV_MCAST_WANT_ALL_IPV4
+* Case !#2 (no MLD querier) or Case !#3 (a shadowing MLD querier)
+** BATADV_MCAST_WANT_ALL_IPV6
 
 h3. BATADV_MCAST_WANT_ALL_UNSNOOPABLES (Bit 0):
 
