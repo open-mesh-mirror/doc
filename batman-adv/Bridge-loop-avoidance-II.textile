@@ -2,9 +2,9 @@ h1. Bridge loop avoidance II
 
 Further pages on this topic:
 
- * [[Bridge-loop-avoidance-Testcases|Bridge loop avoidance test case descriptions]]
- * [[Bridge-loop-avoidance-Protocol|Bridge loop avoidance protocol description]]
- * [[Bridge-loop-avoidance|Bridge loop avoidance user howto]]
+* [[Bridge-loop-avoidance-Testcases|Bridge loop avoidance test case descriptions]]
+* [[Bridge-loop-avoidance-Protocol|Bridge loop avoidance protocol description]]
+* [[Bridge-loop-avoidance|Bridge loop avoidance user howto]]
 
 h2. Situation
 
@@ -15,16 +15,16 @@ This is the example we will use to discuss the concept: multiple mesh nodes (cal
 
 h2. Definitions:
 
- * backbone gateway: A mesh node which is connected to both - a mesh network and a backbone (e.g. LAN).
- * client: A non-mesh network participant which is sending data via the mesh. The client is always identified by the source MAC address of the payload Ethernet header.
- * Originator: An originator is a mesh participant in batman. If we talk about the originator address in this document, we mean the hardware address of the primary interface.
+* backbone gateway: A mesh node which is connected to both - a mesh network and a backbone (e.g. LAN).
+* client: A non-mesh network participant which is sending data via the mesh. The client is always identified by the source MAC address of the payload Ethernet header.
+* Originator: An originator is a mesh participant in batman. If we talk about the originator address in this document, we mean the hardware address of the primary interface.
 
 h2. Goals:
 
- * The bridge loop avoidance should be able to scale to hundreds of gateways connected to the same backbone.
- * Communication between the mesh nodes and the backbone should be via the best backbone gateway.
- * Minimize broadcast traffic in the backbone.
- * Roaming should still be possible.
+* The bridge loop avoidance should be able to scale to hundreds of gateways connected to the same backbone.
+* Communication between the mesh nodes and the backbone should be via the best backbone gateway.
+* Minimize broadcast traffic in the backbone.
+* Roaming should still be possible.
 
 h2. Key Concepts:
 
@@ -32,8 +32,8 @@ h3. Claiming clients:
 
 Only one backbone gateway (out of possibly many gateways) should forward traffic from a non-mesh client (coming via the mesh) to the backbone. Every backbone gateway announces the mac addresses of the non-mesh clients it feels responsible for in the form of "claim frames" on the soft-interface bat0. Each backbone gateway will save a claim list of other backbone gateways. By doing this, it can:
 
- * see which clients are already tracked (claimed)
- * see which other backbone gateways exist in the backbone
+* see which clients are already tracked (claimed)
+* see which other backbone gateways exist in the backbone
 
 Note that backbone gateways may overwrite a claim of another backbone gateway by simply claiming the same client. In this case, the newest claim wins, and local databases are updated accordingly.
 
@@ -68,8 +68,8 @@ h3. Broadcast, backbone->mesh:
 
 If a claim for the mesh-client exists:
 
- * all not responsible backbone gateways should discard the frame - this might be a loop. 
- * if the responsible backbone gateway (which claimed this client) also receives the packet, "unclaim" this client by sending an according un-claim packet, and forward the packet into the mesh. This should only happen in the roaming case, but not in normal situations.
+* all not responsible backbone gateways should discard the frame - this might be a loop. 
+* if the responsible backbone gateway (which claimed this client) also receives the packet, "unclaim" this client by sending an according un-claim packet, and forward the packet into the mesh. This should only happen in the roaming case, but not in normal situations.
 
 If the client is not claimed, all backbone gateways will send the broadcast into the mesh. The mesh nodes will avoid duplicates by using the duplicate lists (see section below)
 
@@ -125,8 +125,8 @@ To do this, we use a "mesh duplicate list": This list is kept for every backbone
 
 If the client is not claimed by any backbone gateway, every backbone gateway shall forward the packet into the mesh. This will lead to duplicates of the broadcast with different meta information (different originators, different sequence numbers). To avoid duplicates within the mesh, every mesh node will use the "mesh duplicate list":
 
- * after the (old) seqno window check: match the frame to the "mesh duplicate list" of other backbone gateways to see if another backbone gateway from the same backbone has sent a broadcast with the same payload checksum.
- * if true, drop the packet. Otherwise, add the checksum to the entries and re-forward it.
+* after the (old) seqno window check: match the frame to the "mesh duplicate list" of other backbone gateways to see if another backbone gateway from the same backbone has sent a broadcast with the same payload checksum.
+* if true, drop the packet. Otherwise, add the checksum to the entries and re-forward it.
 
 
 
@@ -134,15 +134,15 @@ h2. Discussion:
 
 h3. Features:
 
- * no single "super" gateway => should scale better
- * the only additional BATMAN backbone packets are claim packets, which are only sent for new claims and regular announcements
- * no BATMAN packets on the backbone
- * broadcasts are sent from all the gateways into the mesh
- * nodes can select gateways, and change among them (gateways will automatically re-claiming)
- * should not loop ;)
+* no single "super" gateway => should scale better
+* the only additional BATMAN backbone packets are claim packets, which are only sent for new claims and regular announcements
+* no BATMAN packets on the backbone
+* broadcasts are sent from all the gateways into the mesh
+* nodes can select gateways, and change among them (gateways will automatically re-claiming)
+* should not loop ;)
 
 h3. Limitations:
 
- * loops in higher-level structures may not be avoided. For example, if there are two meshes and two backbones are interconnected as in the illustration below, a loop is formed which can't be detected, since the claim frames of one mesh won't travel along the mesh network of the other.
+* loops in higher-level structures may not be avoided. For example, if there are two meshes and two backbones are interconnected as in the illustration below, a loop is formed which can't be detected, since the claim frames of one mesh won't travel along the mesh network of the other.
 
 !2mesh2lan.png!
