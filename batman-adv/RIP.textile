@@ -34,21 +34,21 @@ h2. Discussion
 
 From the algorithm sketch, we can see:
 
- * we can promptly react to link outages - as soon as ELP (or some other underlying mechanisms) detects it.
- * the death notes are broadcasted only through the affected part of the mesh. Outside nodes use Unicast to reach the Originator - this saves bandwidth
- * we can keep long originator interval and still react to changes fast - at least negative ones.
+* we can promptly react to link outages - as soon as ELP (or some other underlying mechanisms) detects it.
+* the death notes are broadcasted only through the affected part of the mesh. Outside nodes use Unicast to reach the Originator - this saves bandwidth
+* we can keep long originator interval and still react to changes fast - at least negative ones.
 
- * Remark from me/Linus: Deleting the routes (meaning forgetting about the last seqno+metric?) via the death notes can cause routing loops, if a late OGM arrives at N3 via yet another alternative path, I think. Alternative, safer suggestion: Mark entry as "undead", meaning to decrease the OGM_MAX_ORIG_DIFF for this specific entry to 1 until it gets updated.
- * The name is awesome, fitting and easy to remember. However, there actually exists a prominent distance vector routing protocol with the same name. Should we change it, for the same reason we changed NDP to ELP? (if yes, a suggestion: BATSIG - BATMAN Sequence number Increment Generator; in reference to the bat signal which Gordon might use after looking at a dead, mutilated body)
+* Remark from me/Linus: Deleting the routes (meaning forgetting about the last seqno+metric?) via the death notes can cause routing loops, if a late OGM arrives at N3 via yet another alternative path, I think. Alternative, safer suggestion: Mark entry as "undead", meaning to decrease the OGM_MAX_ORIG_DIFF for this specific entry to 1 until it gets updated.
+* The name is awesome, fitting and easy to remember. However, there actually exists a prominent distance vector routing protocol with the same name. Should we change it, for the same reason we changed NDP to ELP? (if yes, a suggestion: BATSIG - BATMAN Sequence number Increment Generator; in reference to the bat signal which Gordon might use after looking at a dead, mutilated body)
 
 h3. Death Note packet format
 
 Death Notes and OGM Update Requests may share a packet type and be distinguished by a flag. They basicly contain:
 
- * the affected Originator Address (either used as subject of the death note or final destination)
- * TTL
- * (maybe?) last valid OGM
+* the affected Originator Address (either used as subject of the death note or final destination)
+* TTL
+* (maybe?) last valid OGM
 
 h3. Optimization Ideas
 
- * we may also send the last valid OGM from a node which is not affected by a death note - but only after making sure that the connection to the destination still works (e.g. by using a ping). This would require some more state to be saved.
+* we may also send the last valid OGM from a node which is not affected by a death note - but only after making sure that the connection to the destination still works (e.g. by using a ping). This would require some more state to be saved.
