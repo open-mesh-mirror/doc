@@ -2,9 +2,9 @@ h1. Bridge loop avoidance protocol description
 
 Further pages on this topic:
 
- * [[Bridge-loop-avoidance-Testcases]] Test case descriptions
- * [[Bridge-loop-avoidance-II]] Technical description
- * [[Bridge-loop-avoidance]] User howto
+* [[Bridge-loop-avoidance-Testcases]] Test case descriptions
+* [[Bridge-loop-avoidance-II]] Technical description
+* [[Bridge-loop-avoidance]] User howto
 
 h2. Claim frames
 
@@ -12,10 +12,10 @@ h2. Claim frames
 
 All claim operations are sent using "special" gratuitous ARP frames. 4 types are used which are illustrated above:
 
- * CLAIM frames are used to tell others that a backbone gateway feels responsible for a client now
- * UNCLAIM frames are sent when a backbone gateway does not feel responsible anymore
- * ANNOUNCE frames are sent regularly to find other backbone gateways and provides the CRC of its local table
- * REQUEST frames are used to ask for a full table update when the information is out of sync (i.e. the announced CRC does not match with the local CRC)
+* CLAIM frames are used to tell others that a backbone gateway feels responsible for a client now
+* UNCLAIM frames are sent when a backbone gateway does not feel responsible anymore
+* ANNOUNCE frames are sent regularly to find other backbone gateways and provides the CRC of its local table
+* REQUEST frames are used to ask for a full table update when the information is out of sync (i.e. the announced CRC does not match with the local CRC)
 
 The claim type is announced within the 4th byte of the Target HW address.
 
@@ -125,9 +125,9 @@ h3. ANNOUNCE frames
 
 The periodic ANNOUNCE frames (default: every 10 seconds) by the backbone gateways serve the following purposes:
 
- * backbone gateways learn about the existence of other backbone gateways (this is important for new gateways)
- * when no ANNOUNCE frames are received anymore, we can assume that this backbone gateway is no longer serving the backbone and can remove its claims
- * It contains a checksum (the last 2 bytes YY:YY within the Sender HW address) which other backbone gateways can use to check their table consistency. If a table is not consistent, a backbone gateway can ask for the full claim table via the REQUEST frame.
+* backbone gateways learn about the existence of other backbone gateways (this is important for new gateways)
+* when no ANNOUNCE frames are received anymore, we can assume that this backbone gateway is no longer serving the backbone and can remove its claims
+* It contains a checksum (the last 2 bytes YY:YY within the Sender HW address) which other backbone gateways can use to check their table consistency. If a table is not consistent, a backbone gateway can ask for the full claim table via the REQUEST frame.
 
 Note: the SRC HW address is a "locally administered address" group address which should not be used by any NIC or protocol, but is not registered with the IEEE
 
