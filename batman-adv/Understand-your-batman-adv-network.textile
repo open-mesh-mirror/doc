@@ -250,8 +250,8 @@ This table is part of the [[bridge-loop-avoidance|bridge loop avoidance]] code a
 
 Note: 
 
- * Clients claimed by the node itself are marked with an '[x]'.
- * If no VLAN was found a VID of '-1' is printed. 
+* Clients claimed by the node itself are marked with an '[x]'.
+* If no VLAN was found a VID of '-1' is printed. 
 
 <pre>
 [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: primary0/02:ba:de:af:fe:01 (bat0/68:72:51:34:a4:82 BATMAN_IV), group id: 0xe4e5]
@@ -275,9 +275,9 @@ This table is part of the [[bridge-loop-avoidance|bridge loop avoidance]] code a
 
 Note: 
 
- * the own originator address is not printed, only other backbone gateways
- * If no VLAN was found a VID of '-1' is printed. 
- * the last seen time should be between 0 and 10 seconds if there is no packet lost
+* the own originator address is not printed, only other backbone gateways
+* If no VLAN was found a VID of '-1' is printed. 
+* the last seen time should be between 0 and 10 seconds if there is no packet lost
 
 
 <pre>
