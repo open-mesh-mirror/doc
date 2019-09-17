@@ -97,15 +97,14 @@ h3. Concept
 
 h3. Neighborhood Hash TVLV Format
 
- * Packet type: 0x03 (BATADV_ELP)
- * TVLV type: 0x01 (BATADV_TVLV_NHH)
- * Length: 68 bytes
- * Fixed TVLV fields:
- ** minimum throughput: the worst of all TX throughputs to any neighbor a node sees on the according interface (4 bytes)
- ** maximum throughput: the best of all TX throughputs to any neighbor a node sees on the according interface (4 bytes)
- ** neighorhood hash: a sha512 hash summarizing all neighbors a node sees on the according interface; hash created from neighbor addresses sorted alphabetically, concatenated, binary (64 bytes)
-
- * Definition:
+* Packet type: 0x03 (BATADV_ELP)
+* TVLV type: 0x01 (BATADV_TVLV_NHH)
+* Length: 68 bytes
+* Fixed TVLV fields:
+** minimum throughput: the worst of all TX throughputs to any neighbor a node sees on the according interface (4 bytes)
+** maximum throughput: the best of all TX throughputs to any neighbor a node sees on the according interface (4 bytes)
+** neighorhood hash: a sha512 hash summarizing all neighbors a node sees on the according interface; hash created from neighbor addresses sorted alphabetically, concatenated, binary (64 bytes)
+* Definition:
 <pre>
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
@@ -142,8 +141,8 @@ _Egress Check:_
 
 If either (or both):
 
- * The best TX throughput of the neighbor we received the broadcast packet from with our forwarding penalty applied is smaller than the worst TX throughput of this neighbor (_ingress check_).
- * Our best TX throughput with our forwarding penalty applied is smaller than the worst TX throughput of the neighbor we received the broadcast packet from (_egress check_).
+* The best TX throughput of the neighbor we received the broadcast packet from with our forwarding penalty applied is smaller than the worst TX throughput of this neighbor (_ingress check_).
+* Our best TX throughput with our forwarding penalty applied is smaller than the worst TX throughput of the neighbor we received the broadcast packet from (_egress check_).
 
 Then a rebroadcast can be avoided.
 
@@ -165,21 +164,21 @@ _Egress Check:_
 
 If either (or both):
 
- * The TX throughput to the neighbor we received the OGM2 packet from with our forwarding penalty applied is smaller than the worst TX throughput of all our neighbors (_ingress check_).
- * The best TX throughput of all our neighbors with our forwarding penalty applied is smaller than the worst TX throughput of all our neighbors (_egress check_).
+* The TX throughput to the neighbor we received the OGM2 packet from with our forwarding penalty applied is smaller than the worst TX throughput of all our neighbors (_ingress check_).
+* The best TX throughput of all our neighbors with our forwarding penalty applied is smaller than the worst TX throughput of all our neighbors (_egress check_).
 
 Then a rebroadcast can be avoided.
 
 h4. Further readings:
 
- * [[Broadcast-Avoidances-NHH-Assessment|Broadcast Avoidances - Neighborhood Hash Assessment]]
+* [[Broadcast-Avoidances-NHH-Assessment|Broadcast Avoidances - Neighborhood Hash Assessment]]
 
 h2. Appendix
 
 h3. Limitations
 
- * Many avoidance possibilities undetected in wireless scenarios (see "Future improvements" below or assessment page)
- * In wired cases with a mix of 100MBit/s and 1000MBit/s interfaces: Only avoids broadcast packet rebroadcasts, not OGM2 rebroadcasts
+* Many avoidance possibilities undetected in wireless scenarios (see "Future improvements" below or assessment page)
+* In wired cases with a mix of 100MBit/s and 1000MBit/s interfaces: Only avoids broadcast packet rebroadcasts, not OGM2 rebroadcasts
 
 h3. Future Improvements
 
