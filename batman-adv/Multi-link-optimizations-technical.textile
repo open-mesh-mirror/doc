@@ -6,13 +6,13 @@ h1. Multi-link Optimizations (technical documentation)
 
 Mesh nodes with multiple physical links to other mesh nodes can use this capability to gain various benefits, for example:
 
- * bonding: use multiple links for the same data stream to boost bandwidth
- * interface alternating: send on other interfaces (and therefore other channels, if configured correctly) to minimize multi-hop bandwidth degradation
+* bonding: use multiple links for the same data stream to boost bandwidth
+* interface alternating: send on other interfaces (and therefore other channels, if configured correctly) to minimize multi-hop bandwidth degradation
 
 These features operate under the following premises:
 
- * multiple links exist between two neighbors
- * the routing decision is independent of the link a packet is received on
+* multiple links exist between two neighbors
+* the routing decision is independent of the link a packet is received on
 
 Notably, these multi-interface features are independent of B.A.T.M.A.N. and could work with any routing algorithm/metric. The routing software only needs to detect that multiple peers belong to the same neighbor mesh node. This is also not related to Multi-Path Routing, which would require multiple independent links.
 
@@ -40,8 +40,8 @@ h2. Candidate selection
 
 To be usable for the target features, the links must have a similar quality and should operate on a different frequency. Therefore, in batman-adv only links are further considered if:
 
- * the link quality is not much worse than the best link within a certain TQ threshold (now: 50) 
- * the link destination is different from the other already selected candidates - e.g. if A1-B1 was selected, A2-B1 would be forbidden as they would operate on the same frequency and therefore would interfere with each other
+* the link quality is not much worse than the best link within a certain TQ threshold (now: 50) 
+* the link destination is different from the other already selected candidates - e.g. if A1-B1 was selected, A2-B1 would be forbidden as they would operate on the same frequency and therefore would interfere with each other
 
 In the illustration below, A1-B1 and A2-B2 meet this criteria and are therefore selected as candidates.
 
