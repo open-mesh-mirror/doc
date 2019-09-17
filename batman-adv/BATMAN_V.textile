@@ -18,9 +18,9 @@ B.A.T.M.A.N. V adopts the strategy of 'divide & conquer' to handle these differe
 
 The task separation (neighbor discovery vs mesh routing) bears the following advantages:
 
- * Reduced overhead, as OGMs can then be sent with a slower interval. The OGM propagation has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desirable.
- * Neighbor discovery and metric data collection can be performed individually, at different intervals or even different techniques.
- * Effort for multiple interface handling can be reduced.
+* Reduced overhead, as OGMs can then be sent with a slower interval. The OGM propagation has a squared amount of overhead in worst case scenarios, therefore the the slower intervals are very desirable.
+* Neighbor discovery and metric data collection can be performed individually, at different intervals or even different techniques.
+* Effort for multiple interface handling can be reduced.
 
 h2. Throughput based metric
 
@@ -47,6 +47,6 @@ This allows different compatibility strategies:
 
 h2. Technical documentation:
 
- * neighbor discovery: [[ELP|Echo Location Protocol (ELP)]]
- * path metric computation: [[Ogmv2|Originator Message version 2 (OGMv2)]]
- * routing tests: [[BATMAN_V_Tests|B.A.T.M.A.N. IV vs B.A.T.M.A.N. V]]
+* neighbor discovery: [[ELP|Echo Location Protocol (ELP)]]
+* path metric computation: [[Ogmv2|Originator Message version 2 (OGMv2)]]
+* routing tests: [[BATMAN_V_Tests|B.A.T.M.A.N. IV vs B.A.T.M.A.N. V]]
