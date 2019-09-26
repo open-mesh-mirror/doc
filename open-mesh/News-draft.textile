@@ -11,6 +11,7 @@ h2. Thanks
 Thanks to all people sending in patches:
 
 * Eric Dumazet <edumazet@google.com>
+* Krzysztof Kozlowski <krzk@kernel.org>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
