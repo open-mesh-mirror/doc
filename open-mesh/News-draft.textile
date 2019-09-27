@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2019.4 released
 
-Sep 23th, 2019. Today the B.A.T.M.A.N. team publishes the September 2019 update to batman-adv, batctl and alfred! The B.A.T.M.A.N. V implementation can now aggregate OGM2 messages into single messages before sending them out. As usual, this release also contains various bugfixes and code cleanups.
+Oct 8th, 2019. Today the B.A.T.M.A.N. team publishes the October 2019 update to batman-adv, batctl and alfred! The B.A.T.M.A.N. V implementation can now aggregate OGM2 messages into single messages before sending them out. As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -49,7 +49,7 @@ bugfixes
 
 
 
-2019.4 (2019-09-23)
+2019.4 (2019-10-08)
 ===================
 
 * support latest kernels (3.16 - 5.4)
@@ -85,7 +85,7 @@ bugfix
 
       batctl: Fix deprecation warning for option '-m'
 
-2019.4 (2019-09-23)
+2019.4 (2019-10-08)
 ===================
 
 * fix deprecation warning for option '-m'
@@ -106,7 +106,7 @@ Sven Eckelmann <sven@narfation.org> (2):
       alfred: vis: Fix ifindex check when registering interface
 
 
-2019.4 (2019-09-23)
+2019.4 (2019-10-08)
 ===================
 
 * fix build with musl
