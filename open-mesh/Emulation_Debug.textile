@@ -367,7 +367,7 @@ make KERNELPATH=/home/batman/linux-next
 The kernel module can also be compiled for better readability for the calltraces:
 
 <pre>
-make EXTRA_CFLAGS="-fno-inline -O1 -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/linux-next V=1
+make EXTRA_CFLAGS="-fno-inline -O1 -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/qemu-batman/linux-next V=1
 </pre>
 
 h2. View traffic via wireshark from virtual machine
