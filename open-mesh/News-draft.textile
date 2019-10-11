@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2019.4 released
 
-Oct 8th, 2019. Today the B.A.T.M.A.N. team publishes the October 2019 update to batman-adv, batctl and alfred! The B.A.T.M.A.N. V implementation can now aggregate OGM2 messages into single messages before sending them out. As usual, this release also contains various bugfixes and code cleanups.
+Oct 15th, 2019. Today the B.A.T.M.A.N. team publishes the October 2019 update to batman-adv, batctl and alfred! The B.A.T.M.A.N. V implementation can now aggregate OGM2 messages into single messages before sending them out. As usual, this release also contains various bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -22,7 +22,7 @@ h2. batman-adv
 <pre>
 $ git describe origin/master
 v2019.3-10-gbcadeaa3
-$ range=v2019.3..v2019.3-10-gbcadeaa3
+$ range=v2019.3..v2019.3-15-g888f60e5
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -35,6 +35,8 @@ coding style cleanup/refactoring
 ================================
 
       batman-adv: Replace usage of strlcpy with strscpy
+      batman-adv: Fix Kconfig indentation
+      batman-adv: netfilter: drop bridge nf reset from nf_reset
 
 BATMAN V
 =========
@@ -46,11 +48,13 @@ bugfixes
 ========
 
       batman-adv: fix uninit-value in batadv_netlink_get_ifindex()
+      batman-adv: Avoid free/alloc race when handling OGM2 buffer
+      batman-adv: Avoid free/alloc race when handling OGM2 buffer
 
 
 
 
-2019.4 (2019-10-08)
+2019.4 (2019-10-15)
 ===================
 
 * support latest kernels (3.16 - 5.4)
@@ -60,6 +64,7 @@ bugfixes
 
   - fix length validation in netlink messages
   - fix out of buffer read when parsing aggregated packets
+  - avoid race condition in OGM(2) packet modification and submission
 
 </pre>
 
@@ -86,7 +91,7 @@ bugfix
 
       batctl: Fix deprecation warning for option '-m'
 
-2019.4 (2019-10-08)
+2019.4 (2019-10-15)
 ===================
 
 * fix deprecation warning for option '-m'
@@ -107,7 +112,7 @@ Sven Eckelmann <sven@narfation.org> (2):
       alfred: vis: Fix ifindex check when registering interface
 
 
-2019.4 (2019-10-08)
+2019.4 (2019-10-15)
 ===================
 
 * fix build with musl
