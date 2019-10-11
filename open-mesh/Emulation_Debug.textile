@@ -301,6 +301,7 @@ chmod +x hub.sh
 The @SHARED_PATH@ in run.sh has to be changed to a valid path which is used to share the precompiled batman-adv.ko and other tools
 
 <pre>
+cat > run.sh << "EOF"
 #! /bin/sh
 
 SHARED_PATH=/home/sven/tmp/qemu-batman/
