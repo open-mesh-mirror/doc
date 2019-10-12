@@ -190,7 +190,7 @@ continue
 You should make sure that it doesn't load any <code>*.ko</code> files from <code>ipkg-*</code> directories. These files are stripped and doesn't contain the necessary symbol information. When necessary, just delete these folders or specify the folders with the unstripped kernel modules:
 
 <pre>
-lx-symbols lx-symbols ../batman-adv-2019.2/.pkgdir/ ../backports-4.19.66-1/.pkgdir/ ../button-hotplug/.pkgdir/
+lx-symbols ../batman-adv-2019.2/.pkgdir/ ../backports-4.19.66-1/.pkgdir/ ../button-hotplug/.pkgdir/
 </pre>
 
 The rest of the usage now works similar to debugging using gdbserver. Just set some additional breakpoints and let the kernel run again. kgdb will then inform gdb whenever a breakpoints was hit. Just keep in mind that it is not possible to interrupt the kernel from gdb (without a Oops or an already existing breakpoint) - use sysrq from linux for that.
