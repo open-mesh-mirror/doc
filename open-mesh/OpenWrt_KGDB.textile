@@ -187,6 +187,28 @@ lx-symbols ..
 continue
 </pre>
 
+You should make sure that it doesn't load any <code>*.ko</code> files from <code>ipkg-*</code> directories. These files are stripped and doesn't contain the necessary symbol information. When necessary, just delete these folders or specify the folders with the unstripped kernel modules:
+
+<pre>
+lx-symbols lx-symbols ../batman-adv-2019.2/.pkgdir/ ../backports-4.19.66-1/.pkgdir/ ../button-hotplug/.pkgdir/
+</pre>
+
 The rest of the usage now works similar to debugging using gdbserver. Just set some additional breakpoints and let the kernel run again. kgdb will then inform gdb whenever a breakpoints was hit. Just keep in mind that it is not possible to interrupt the kernel from gdb (without a Oops or an already existing breakpoint) - use sysrq from linux for that.
 
-Some other ideas are documented in [[Emulation_Debug#Using-GDB]]. This document also contains important hints about [[Emulation_Debug#Building-the-batman-adv-module|increasing the chance of getting debugable modules]] which didn't had all information optimized away.
+Some other ideas are documented in [[Emulation_Debug#Using-GDB]]. This document also contains important hints about [[Emulation_Debug#Building-the-batman-adv-module|increasing the chance of getting debugable modules]] which didn't had all information optimized away. THe relevant flags could be set directly in the routing feed like this:
+
+<pre>
+diff --git a/batman-adv/Makefile b/batman-adv/Makefile
+index a7c6a79..c18f978 100644
+--- a/batman-adv/Makefile
++++ b/batman-adv/Makefile
+@@ -89,7 +89,7 @@ define Build/Compile
+ 		CROSS_COMPILE="$(TARGET_CROSS)" \
+ 		SUBDIRS="$(PKG_BUILD_DIR)/net/batman-adv" \
+ 		$(PKG_EXTRA_KCONFIG) \
+-		EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS)" \
++		EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS) -fno-inline -Og -fno-optimize-sibling-calls" \
+ 		NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
+ 		modules
+ endef
+</pre>
