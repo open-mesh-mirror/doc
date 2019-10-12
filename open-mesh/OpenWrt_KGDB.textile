@@ -1,8 +1,8 @@
 h1. OpenWrt KGDB
 
-The [[Emulation Debug]] documentation explains how to start multiple virtual Linux kernels, connect them and connect various helpers to test/debug a whole linux system. But some problems might only be reproducible on actual hardware. It is therefore sometimes to debug a whole system.
+The [[Emulation Debug]] documentation explains how to start multiple virtual Linux kernels+userspace, connect them and connect various helpers to test/debug a whole linux system. But some problems might only be reproducible on actual hardware. It is therefore sometimes necessary to debug a whole system.
 
-In best case, the system can be "debugged using JTAG":https://openwrt.org/docs/techref/hardware/port.jtag. But this is often not possible and a in-kernel debugger stub like "KGDB":https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html has to be used. The only requirement it has on the actual board is a simple serial console.
+In best case, the system can be "debugged using JTAG":https://openwrt.org/docs/techref/hardware/port.jtag. But this is often not possible and an in-kernel gdb remote stub like "KGDB":https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html has to be used. The only requirement it has on the actual board is a simple serial console.
 
 h2. Preparing OpenWrt
 
@@ -147,7 +147,7 @@ The kernel address space layout randomization complicates the resolving of addre
 
 h3. Configure KGDB serial
 
-The kgdb needs a serial device to work. This has to set in the module parameter. We assume now that the serial console on our device is ttyS0 with baudrate 115200:
+The kgdb needs a serial device to work. This has to be set in the module parameter. We assume now that the serial console on our device is ttyS0 with baudrate 115200:
 
 <pre>
 echo ttyS0,115200 > /sys/module/kgdboc/parameters/kgdboc
@@ -155,7 +155,7 @@ echo ttyS0,115200 > /sys/module/kgdboc/parameters/kgdboc
 
 h3. Switch to kgdb
 
-The gdb frontend cannot directly talk to the kernel over serial and create breakpoints. The sysrq mechanism has to be used to switch to kgdb before gdb can be used. Under OpenWrt, this is the easily using
+The gdb frontend cannot directly talk to the kernel over serial and create breakpoints. The sysrq mechanism has to be used to switch to kgdb before gdb can be used. Under OpenWrt, this is the easily done using
 
 <pre>
 echo g > /proc/sysrq-trigger
@@ -163,13 +163,13 @@ echo g > /proc/sysrq-trigger
 
 h3. Connecting gdb
 
-In my x86-64 build environment I would use following folder:
+I would use following folder in my x86-64 build environment:
 
 * LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-4.14.148/
 * GDB=${OPENWRT_DIR}/staging_dir/toolchain-x86_64_gcc-7.4.0_musl/bin/x86_64-openwrt-linux-gdb
 * BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2019.2/
 
-When kgdb is activated, we can configure gdb to connect via a serial adapter to the device. But we should first load the vmlinux with our target specific gdb. We must change to the LINUX_DIR first and can then start our GDB before we will connect to the remote device.
+When kgdb is activated using sysrq, we can configure gdb to connect via a serial adapter to the device. But we should first load the vmlinux with our target specific gdb. We must change to the LINUX_DIR first and can then start our GDB before we will connect to the remote device.
 
 <pre>
 cd "${LINUX_DIR}"
@@ -187,6 +187,6 @@ lx-symbols ../batman-adv-2019.2/ ../backports-4.19.66-1/
 continue
 </pre>
 
-The rest of the usage now works similar to debugging using gdbserve. Just set some additional breakpoints and let the kernel run again. The kgdb will then inform gdb whenever a breakpoints was hit. Just keep in mind that it is not possible to interrupt the kernel from gdb (without a Oops or an already existing breakpoint) - use sysrq from linux for that.
+The rest of the usage now works similar to debugging using gdbserver. Just set some additional breakpoints and let the kernel run again. kgdb will then inform gdb whenever a breakpoints was hit. Just keep in mind that it is not possible to interrupt the kernel from gdb (without a Oops or an already existing breakpoint) - use sysrq from linux for that.
 
-Some other ideas are documented in [[Emulation_Debug#Using-GDB]]. This document also contains important hints about [[Emulation_Debug#Building-the-batman-adv-module|increasing the chance of getting debuggeable modules]] which are not optimized everything away.
+Some other ideas are documented in [[Emulation_Debug#Using-GDB]]. This document also contains important hints about [[Emulation_Debug#Building-the-batman-adv-module|increasing the chance of getting debugable modules]] which didn't had all information optimized away.
