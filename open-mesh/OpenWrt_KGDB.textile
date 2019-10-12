@@ -1,0 +1,192 @@
+h1. OpenWrt KGDB
+
+The [[Emulation Debug]] documentation explains how to start multiple virtual Linux kernels, connect them and connect various helpers to test/debug a whole linux system. But some problems might only be reproducible on actual hardware. It is therefore sometimes to debug a whole system.
+
+In best case, the system can be "debugged using JTAG":https://openwrt.org/docs/techref/hardware/port.jtag. But this is often not possible and a in-kernel debugger stub like "KGDB":https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html has to be used. The only requirement it has on the actual board is a simple serial console.
+
+h2. Preparing OpenWrt
+
+h3. Disabling watchdog
+
+Most CPUs have some kind of watchdog integrated. They can often be disabled and are often inactive when the watchdog driver is not loaded. For example, ath79/ar71xx can be build without the internal watchdog support by changing in <code>target/linux/{ar71xx,ath79}/config-*</code>:
+
+<pre>
+-CONFIG_ATH79_WDT=y
++# CONFIG_ATH79_WDT is not set
+</pre>
+
+Unfortunately, there are also external watchdog chips which cannot be disabled. They have to be manually triggered regularly during the debugging process to prevent a sudden reboot. The details depend on the actual hardware but it often ends up in writing to a specific (GPIO control/set/clear) register.
+
+h3. Enabling KGDB in kernel
+
+The actual kernel gdbstub cannot be enabled via OpenWrt's .config. Instead the actual configuration has to be set in the target configuration:
+
+<pre>
+# CONFIG_STRICT_KERNEL_RWX is not set
+CONFIG_FRAME_POINTER=y
+CONFIG_KGDB=y
+CONFIG_KGDB_SERIAL_CONSOLE=y
+CONFIG_DEBUG_INFO=y
+CONFIG_DEBUG_INFO_DWARF4=y
+# CONFIG_DEBUG_INFO_REDUCED is not set
+CONFIG_GDB_SCRIPTS=y
+</pre>
+
+For x86-64, the change (mostly created using <code>make kernel_menuconfig</code>) would be:
+
+<pre>
+diff --git a/target/linux/x86/config-4.14 b/target/linux/x86/config-4.14
+index 014e7b275b..c6c6f871a9 100644
+--- a/target/linux/x86/config-4.14
++++ b/target/linux/x86/config-4.14
+@@ -70,6 +70,7 @@ CONFIG_CLONE_BACKWARDS=y
+ CONFIG_COMMON_CLK=y
+ CONFIG_COMPAT_32=y
+ # CONFIG_COMPAT_VDSO is not set
++CONFIG_CONSOLE_POLL=y
+ CONFIG_CONSOLE_TRANSLATIONS=y
+ # CONFIG_CPU5_WDT is not set
+ CONFIG_CPU_FREQ=y
+@@ -108,6 +109,9 @@ CONFIG_DCACHE_WORD_ACCESS=y
+ # CONFIG_DCDBAS is not set
+ # CONFIG_DEBUG_BOOT_PARAMS is not set
+ # CONFIG_DEBUG_ENTRY is not set
++CONFIG_DEBUG_INFO=y
++CONFIG_DEBUG_INFO_DWARF4=y
++# CONFIG_DEBUG_INFO_REDUCED is not set
+ CONFIG_DEBUG_MEMORY_INIT=y
+ # CONFIG_DEBUG_NMI_SELFTEST is not set
+ # CONFIG_DEBUG_TLBFLUSH is not set
+@@ -144,6 +148,7 @@ CONFIG_FUSION=y
+ # CONFIG_FUSION_LOGGING is not set
+ CONFIG_FUSION_MAX_SGE=128
+ CONFIG_FUSION_SPI=y
++CONFIG_GDB_SCRIPTS=y
+ CONFIG_GENERIC_ALLOCATOR=y
+ CONFIG_GENERIC_BUG=y
+ CONFIG_GENERIC_CLOCKEVENTS=y
+@@ -288,6 +293,11 @@ CONFIG_KALLSYMS=y
+ CONFIG_KEXEC=y
+ CONFIG_KEXEC_CORE=y
+ CONFIG_KEYBOARD_ATKBD=y
++CONFIG_KGDB=y
++# CONFIG_KGDB_KDB is not set
++# CONFIG_KGDB_LOW_LEVEL_TRAP is not set
++CONFIG_KGDB_SERIAL_CONSOLE=y
++# CONFIG_KGDB_TESTS is not set
+ # CONFIG_LEDS_CLEVO_MAIL is not set
+ CONFIG_LIBNVDIMM=y
+ # CONFIG_M486 is not set
+@@ -296,6 +306,7 @@ CONFIG_M586MMX=y
+ # CONFIG_M586TSC is not set
+ # CONFIG_M686 is not set
+ # CONFIG_MACHZ_WDT is not set
++CONFIG_MAGIC_SYSRQ=y
+ # CONFIG_MATOM is not set
+ # CONFIG_MCORE2 is not set
+ # CONFIG_MCRUSOE is not set
+@@ -404,6 +415,7 @@ CONFIG_SCx200HR_TIMER=y
+ # CONFIG_SCx200_WDT is not set
+ # CONFIG_SERIAL_8250_FSL is not set
+ CONFIG_SERIAL_8250_PCI=y
++# CONFIG_SERIAL_KGDB_NMI is not set
+ CONFIG_SERIO=y
+ CONFIG_SERIO_I8042=y
+ CONFIG_SERIO_LIBPS2=y
+diff --git a/target/linux/x86/image/Makefile b/target/linux/x86/image/Makefile
+index 84a3d88a7f..c8a017f970 100644
+--- a/target/linux/x86/image/Makefile
++++ b/target/linux/x86/image/Makefile
+@@ -14,7 +14,7 @@ GRUB2_MODULES_ISO = biosdisk boot chain configfile iso9660 linux ls part_msdos r
+ GRUB_TERMINALS =
+ GRUB_SERIAL_CONFIG =
+ GRUB_TERMINAL_CONFIG =
+-GRUB_CONSOLE_CMDLINE =
++GRUB_CONSOLE_CMDLINE = nokaslr
+ 
+ USE_ATKBD = generic 64
+</pre>
+
+h3. Enabling python support for gdb
+
+OpenWrt will build a gdb when <code>CONFIG_GDB=y</code> is set in .config. But this version is missing python support. But it can be enabled with following patch:
+
+<pre>
+diff --git a/toolchain/gdb/Makefile b/toolchain/gdb/Makefile
+index 3b884f9e79..9b0149faca 100644
+--- a/toolchain/gdb/Makefile
++++ b/toolchain/gdb/Makefile
+@@ -45,7 +45,7 @@ HOST_CONFIGURE_ARGS = \
+ 	--without-included-gettext \
+ 	--enable-threads \
+ 	--with-expat \
+-	--without-python \
++	--with-python \
+ 	--disable-binutils \
+ 	--disable-ld \
+ 	--disable-gas \
+@@ -56,9 +56,11 @@ define Host/Install
+ 	$(INSTALL_BIN) $(HOST_BUILD_DIR)/gdb/gdb $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb
+ 	ln -fs $(TARGET_CROSS)gdb $(TOOLCHAIN_DIR)/bin/$(GNU_TARGET_NAME)-gdb
+ 	strip $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb
++	$(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory install
+ endef
+ 
+ define Host/Clean
++	$(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory uninstall
+ 	rm -rf \
+ 		$(HOST_BUILD_DIR) \
+ 		$(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb \
+</pre>
+
+h2. Start debugging session
+
+h3. Disable kASLR
+
+The kernel address space layout randomization complicates the resolving of addresses of symbols. It is highly recommended to start the kernel with the parameter "nokaslr". For example by adding it to <code>CONFIG_CMDLINE</code> or by adjusting the <code>bootargs</code>. It should be checked in <code>/proc/cmdline</code> whether it was really booted with this parameter.
+
+h3. Configure KGDB serial
+
+The kgdb needs a serial device to work. This has to set in the module parameter. We assume now that the serial console on our device is ttyS0 with baudrate 115200:
+
+<pre>
+echo ttyS0,115200 > /sys/module/kgdboc/parameters/kgdboc
+</pre>
+
+h3. Switch to kgdb
+
+The gdb frontend cannot directly talk to the kernel over serial and create breakpoints. The sysrq mechanism has to be used to switch to kgdb before gdb can be used. Under OpenWrt, this is the easily using
+
+<pre>
+echo g > /proc/sysrq-trigger
+</pre>
+
+h3. Connecting gdb
+
+In my x86-64 build environment I would use following folder:
+
+* LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-4.14.148/
+* GDB=${OPENWRT_DIR}/staging_dir/toolchain-x86_64_gcc-7.4.0_musl/bin/x86_64-openwrt-linux-gdb
+* BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2019.2/
+
+When kgdb is activated, we can configure gdb to connect via a serial adapter to the device. But we should first load the vmlinux with our target specific gdb. We must change to the LINUX_DIR first and can then start our GDB before we will connect to the remote device.
+
+<pre>
+cd "${LINUX_DIR}"
+"${GDB}" -iex "set auto-load safe-path scripts/gdb/"  ./vmlinux
+</pre>
+
+In this example, we are using an USB TTL converter. It has to be configured in gdb
+
+<pre>
+set serial baud 115200
+target remote /dev/ttyUSB0
+
+lx-symbols ../batman-adv-2019.2/ ../backports-4.19.66-1/
+
+continue
+</pre>
+
+The rest of the usage now works similar to debugging using gdbserve. Just set some additional breakpoints and let the kernel run again. The kgdb will then inform gdb whenever a breakpoints was hit. Just keep in mind that it is not possible to interrupt the kernel from gdb (without a Oops or an already existing breakpoint) - use sysrq from linux for that.
+
+Some other ideas are documented in [[Emulation_Debug#Using-GDB]]. This document also contains important hints about [[Emulation_Debug#Building-the-batman-adv-module|increasing the chance of getting debuggeable modules]] which are not optimized everything away.
