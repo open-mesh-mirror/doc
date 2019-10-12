@@ -382,9 +382,9 @@ wireshark -k -i remote-dump
 
 h2. Using GDB
 
-The instances are listening on 127.0.0.1 TCP port <code>23000 + instance_no</code>. We will use in the following example instance 1. The gdb debugger can be started from the linux source directory and all <code>lx-*</code> helpers will be automatically be loaded.
+The instances are listening on 127.0.0.1 TCP port <code>23000 + instance_no</code>. We will use in the following example instance 1. The gdb debugger can be started from the linux source directory and all <code>lx-*</code> helpers will automatically be loaded.
 
-The debugging with gdb can be started from the linux-next directory:
+The debugging session with gdb can be started from the linux-next directory:
 
 <pre>
 $ gdb -iex "set auto-load safe-path scripts/gdb/" -ex 'target remote 127.0.0.1:23001' -ex c  ./vmlinux
