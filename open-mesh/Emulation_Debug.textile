@@ -380,7 +380,7 @@ ssh root@192.168.2.51 'tcpdump -i enp3s0 -s 0 -U -n -w - "port not 22"' > remote
 wireshark -k -i remote-dump
 </pre>
 
-h2. Using KGDB
+h2. Using GDB
 
 The instances are listening on 127.0.0.1 TCP port <code>23000 + instance_no</code>. We will use in the following example instance 1. The gdb debugger can be started from the linux source directory and all <code>lx-*</code> helpers will be automatically be loaded.
 
