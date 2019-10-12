@@ -182,7 +182,7 @@ In this example, we are using an USB TTL converter. It has to be configured in g
 set serial baud 115200
 target remote /dev/ttyUSB0
 
-lx-symbols ../batman-adv-2019.2/ ../backports-4.19.66-1/
+lx-symbols ..
 
 continue
 </pre>
