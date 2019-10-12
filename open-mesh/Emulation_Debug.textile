@@ -24,11 +24,11 @@ EOF'
 sudo sh -c 'cat > debian/etc/rc.local << "EOF"
 #!/bin/sh -e
 
-MAC_PART="$(ip link show enp0s3 | awk "/ether/ {print \$2}"| sed -e "s/.*://" -e "s/[\\n\\ ].*//"|awk "{print (\"0x\"\$1)*1 }")"
+MAC_PART="$(ip link show enp0s1 | awk "/ether/ {print \$2}"| sed -e "s/.*://" -e "s/[\\n\\ ].*//"|awk "{print (\"0x\"\$1)*1 }")"
 IP_PART="$(echo $MAC_PART|awk "{ print \$1+50 }")"
 NODE_NR="$(echo $MAC_PART|awk "{ printf(\"%02d\", \$1) }")"
-ip addr add 192.168.2.${IP_PART}/24 dev enp0s3
-ip link set up dev enp0s3
+ip addr add 192.168.251.${IP_PART}/24 dev enp0s1
+ip link set up dev enp0s1
 hostname "node"$NODE_NR
 ip link set up dev lo
 [ ! -x /host/test-init.sh ] || /host/test-init.sh
@@ -278,8 +278,7 @@ The @ETH@ in hub.sh has to be changed to the real interface which provides inter
 cat > hub.sh << "EOF"
 #! /bin/sh
 USER="$(whoami)"
-BRIDGE=br0
-ETH=enp8s0
+BRIDGE=br-qemu
 
 sudo ip link add "${BRIDGE}" type bridge
 for i in `seq 1 5`; do
@@ -289,10 +288,7 @@ for i in `seq 1 5`; do
 done
 
 sudo ip link set "${BRIDGE}" up
-
-sudo ip addr flush dev "${ETH}"
-sudo ip link set "${ETH}" master "${BRIDGE}"
-sudo dhclient "${BRIDGE}"
+sudo ip addr replace 192.168.251.1/24 dev br-qemu
 EOF
 
 chmod +x hub.sh
@@ -306,15 +302,22 @@ cat > run.sh << "EOF"
 
 SHARED_PATH=/home/sven/tmp/qemu-batman/
 
-for i in `seq 1 5`; do
+for i in $(seq 1 5); do
         qemu-img create -b debian.img -f qcow2 root.cow$i
-        normalized_id=`echo "$i"|awk '{ printf "%02d\n",$1 }'`
-        screen qemu-system-x86_64 -enable-kvm -kernel linux-next/arch/x86/boot/bzImage -append "root=/dev/vda rw console=ttyS0 nokaslr" \
-                -smp 2 -m 512 -drive file=root.cow$i,if=virtio \
-                -netdev type=tap,id=net0,ifname=tap$i,script=no -device virtio-net-pci,mac=02:ba:de:af:fe:`echo $i|awk '{ printf "%02X", $1 }'`,netdev=net0 \
+        normalized_id="$(echo "$i"|awk '{ printf "%02d\n",$1 }')"
+        twodigit_id="$(echo $i|awk '{ printf "%02X", $1 }')"
+        screen qemu-system-x86_64 -enable-kvm -name "debian${i}" \
+                -kernel linux-next/arch/x86/boot/bzImage -append "root=/dev/vda rw console=ttyS0 nokaslr" \
+                -display none -no-user-config -nodefaults \
+                -m 512 -device virtio-balloon \
+                -cpu host -smp 2 -machine q35,accel=kvm,usb=off,dump-guest-core=off \
+                -drive file=root.cow$i,if=virtio \
+                -nic tap,ifname=tap$i,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
+                -nic user,model=virtio-net-pci,mac=06:ba:de:af:fe:"${twodigit_id}" \
                 -virtfs local,path="${SHARED_PATH}",security_model=none,mount_tag=host \
-		-gdb tcp:127.0.0.1:$((23000+$i)) \
-                -device virtio-rng-pci -nographic
+                -gdb tcp:127.0.0.1:$((23000+$i)) \
+                -device virtio-rng-pci \
+                -serial mon:stdio
         sleep 1
 done
 EOF
@@ -339,8 +342,8 @@ insmod /host/batman-adv/net/batman-adv/batman-adv.ko
 batctl routing_algo BATMAN_IV
 /host/batctl/batctl if add dummy0
 /host/batctl/batctl it 5000
-/host/batctl/batctl if add enp0s3
-ip link set up dev enp0s3
+/host/batctl/batctl if add enp0s1
+ip link set up dev enp0s1
 ip link set up dev bat0
 EOF
 
@@ -376,7 +379,7 @@ On host system
 
 <pre>
 mkfifo remote-dump
-ssh root@192.168.2.51 'tcpdump -i enp3s0 -s 0 -U -n -w - "port not 22"' > remote-dump
+ssh root@192.168.251.51 'tcpdump -i enp3s0 -s 0 -U -n -w - "port not 22"' > remote-dump
 wireshark -k -i remote-dump
 </pre>
 
