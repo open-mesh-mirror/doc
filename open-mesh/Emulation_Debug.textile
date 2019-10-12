@@ -270,7 +270,7 @@ make all -j$(nproc || echo 1)
 
 h2. Start of the simple environment
 
-The two node environment must be started inside a screen session. The hub (bridge with eth0 + 2 tap devices) has to be started first to have a simple network. A more complex network setup can be on the page [[Emulation]]
+The two node environment must be started inside a screen session. The hub (bridge with 5 tap devices) has to be started first to have a simple network. A more complex network setup can be on the page [[Emulation]]
 
 The @ETH@ in hub.sh has to be changed to the real interface which provides internet-connectivity
 
@@ -300,6 +300,11 @@ The @SHARED_PATH@ in run.sh has to be changed to a valid path which is used to s
 cat > run.sh << "EOF"
 #! /bin/sh
 
+if [ "${LINKS_XTERM}" != "screen" ]; then
+        echo "must be started inside a screen session" >&2
+        exit 1
+fi
+
 SHARED_PATH=/home/sven/tmp/qemu-batman/
 
 for i in $(seq 1 5); do
@@ -311,7 +316,7 @@ for i in $(seq 1 5); do
                 -display none -no-user-config -nodefaults \
                 -m 512 -device virtio-balloon \
                 -cpu host -smp 2 -machine q35,accel=kvm,usb=off,dump-guest-core=off \
-                -drive file=root.cow$i,if=virtio \
+                -drive file=root.cow$i,if=virtio,cache=unsafe \
                 -nic tap,ifname=tap$i,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
                 -nic user,model=virtio-net-pci,mac=06:ba:de:af:fe:"${twodigit_id}" \
                 -virtfs local,path="${SHARED_PATH}",security_model=none,mount_tag=host \
