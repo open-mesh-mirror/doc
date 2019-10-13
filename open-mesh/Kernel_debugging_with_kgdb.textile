@@ -2,7 +2,7 @@ h1. OpenWrt KGDB
 
 The [[Emulation Debug]] documentation explains how to start multiple virtual Linux kernels+userspace, connect them and connect various helpers to test/debug a whole linux system. But some problems might only be reproducible on actual hardware. It is therefore sometimes necessary to debug a whole system.
 
-In best case, the system can be "debugged using JTAG":https://openwrt.org/docs/techref/hardware/port.jtag. But this is often not possible and an in-kernel gdb remote stub like "KGDB":https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html has to be used. The only requirement it has on the actual board is a simple serial console.
+In best case, the system can be "debugged using JTAG":https://openwrt.org/docs/techref/hardware/port.jtag. But this is often not possible and an in-kernel gdb remote stub like "KGDB":https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html has to be used. The only requirement it has on the actual board is a simple serial console with <code>poll_{get,put}_char()</code> support.
 
 h2. Preparing OpenWrt
 
@@ -165,9 +165,9 @@ h3. Connecting gdb
 
 I would use following folder in my x86-64 build environment:
 
-* LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-4.14.148/
-* GDB=${OPENWRT_DIR}/staging_dir/toolchain-x86_64_gcc-7.4.0_musl/bin/x86_64-openwrt-linux-gdb
-* BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2019.2/
+* <code>LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-4.14.148/</code>
+* <code>GDB=${OPENWRT_DIR}/staging_dir/toolchain-x86_64_gcc-7.4.0_musl/bin/x86_64-openwrt-linux-gdb</code>
+* <code>BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2019.2/</code>
 
 When kgdb is activated using sysrq, we can configure gdb to connect via a serial adapter to the device. But we should first load the vmlinux with our target specific gdb. We must change to the LINUX_DIR first and can then start our GDB before we will connect to the remote device.
 
