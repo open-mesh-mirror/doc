@@ -300,7 +300,7 @@ The @SHARED_PATH@ in run.sh has to be changed to a valid path which is used to s
 cat > run.sh << "EOF"
 #! /bin/sh
 
-if [ "${LINKS_XTERM}" != "screen" ]; then
+if [ -z "${STY}" ]; then
         echo "must be started inside a screen session" >&2
         exit 1
 fi
