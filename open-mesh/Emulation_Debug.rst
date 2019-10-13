@@ -29,11 +29,11 @@ Create an Image
   sudo sh -c 'cat > debian/etc/rc.local << "EOF"
   #!/bin/sh -e
 
-  MAC_PART="$(ip link show enp0s3 | awk "/ether/ {print \$2}"| sed -e "s/.*://" -e "s/[\\n\\ ].*//"|awk "{print (\"0x\"\$1)*1 }")"
+  MAC_PART="$(ip link show enp0s1 | awk "/ether/ {print \$2}"| sed -e "s/.*://" -e "s/[\\n\\ ].*//"|awk "{print (\"0x\"\$1)*1 }")"
   IP_PART="$(echo $MAC_PART|awk "{ print \$1+50 }")"
   NODE_NR="$(echo $MAC_PART|awk "{ printf(\"%02d\", \$1) }")"
-  ip addr add 192.168.2.${IP_PART}/24 dev enp0s3
-  ip link set up dev enp0s3
+  ip addr add 192.168.251.${IP_PART}/24 dev enp0s1
+  ip link set up dev enp0s1
   hostname "node"$NODE_NR
   ip link set up dev lo
   [ ! -x /host/test-init.sh ] || /host/test-init.sh
@@ -279,9 +279,8 @@ Start of the simple environment
 -------------------------------
 
 The two node environment must be started inside a screen session. The
-hub (bridge with eth0 + 2 tap devices) has to be started first to have a
-simple network. A more complex network setup can be on the page
-:doc:`Emulation <Emulation>`
+hub (bridge with 5 tap devices) has to be started first to have a simple
+network. A more complex network setup can be on the page [[Emulation]]
 
 The ``ETH`` in hub.sh has to be changed to the real interface which
 provides internet-connectivity
@@ -291,8 +290,7 @@ provides internet-connectivity
   cat > hub.sh << "EOF"
   #! /bin/sh
   USER="$(whoami)"
-  BRIDGE=br0
-  ETH=enp8s0
+  BRIDGE=br-qemu
 
   sudo ip link add "${BRIDGE}" type bridge
   for i in `seq 1 5`; do
@@ -302,10 +300,7 @@ provides internet-connectivity
   done
 
   sudo ip link set "${BRIDGE}" up
-
-  sudo ip addr flush dev "${ETH}"
-  sudo ip link set "${ETH}" master "${BRIDGE}"
-  sudo dhclient "${BRIDGE}"
+  sudo ip addr replace 192.168.251.1/24 dev br-qemu
   EOF
 
   chmod +x hub.sh
@@ -318,16 +313,29 @@ used to share the precompiled batman-adv.ko and other tools
   cat > run.sh << "EOF"
   #! /bin/sh
 
+  if [ "${LINKS_XTERM}" != "screen" ]; then
+          echo "must be started inside a screen session" >&2
+          exit 1
+  fi
+
   SHARED_PATH=/home/sven/tmp/qemu-batman/
 
-  for i in `seq 1 5`; do
+  for i in $(seq 1 5); do
           qemu-img create -b debian.img -f qcow2 root.cow$i
-          normalized_id=`echo "$i"|awk '{ printf "%02d\n",$1 }'`
-          screen qemu-system-x86_64 -enable-kvm -kernel linux-next/arch/x86/boot/bzImage -append "root=/dev/vda rw console=ttyS0" \
-                  -smp 2 -m 512 -drive file=root.cow$i,if=virtio \
-                  -netdev type=tap,id=net0,ifname=tap$i,script=no -device virtio-net-pci,mac=02:ba:de:af:fe:`echo $i|awk '{ printf "%02X", $1 }'`,netdev=net0 \
+          normalized_id="$(echo "$i"|awk '{ printf "%02d\n",$1 }')"
+          twodigit_id="$(echo $i|awk '{ printf "%02X", $1 }')"
+          screen qemu-system-x86_64 -enable-kvm -name "debian${i}" \
+                  -kernel linux-next/arch/x86/boot/bzImage -append "root=/dev/vda rw console=ttyS0 nokaslr" \
+                  -display none -no-user-config -nodefaults \
+                  -m 512 -device virtio-balloon \
+                  -cpu host -smp 2 -machine q35,accel=kvm,usb=off,dump-guest-core=off \
+                  -drive file=root.cow$i,if=virtio,cache=unsafe \
+                  -nic tap,ifname=tap$i,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
+                  -nic user,model=virtio-net-pci,mac=06:ba:de:af:fe:"${twodigit_id}" \
                   -virtfs local,path="${SHARED_PATH}",security_model=none,mount_tag=host \
-                  -device virtio-rng-pci -nographic
+                  -gdb tcp:127.0.0.1:$((23000+$i)) \
+                  -device virtio-rng-pci \
+                  -serial mon:stdio
           sleep 1
   done
   EOF
@@ -353,8 +361,8 @@ testsetup during boot:
   batctl routing_algo BATMAN_IV
   /host/batctl/batctl if add dummy0
   /host/batctl/batctl it 5000
-  /host/batctl/batctl if add enp0s3
-  ip link set up dev enp0s3
+  /host/batctl/batctl if add enp0s1
+  ip link set up dev enp0s1
   ip link set up dev bat0
   EOF
 
@@ -367,6 +375,8 @@ Everything can then be started up inside a screen session
   screen
   ./hub.sh
   ./run.sh
+
+.. _open-mesh-open-mesh-emulation-debug-building-the-batman-adv-module:
 
 Building the batman-adv module
 ------------------------------
@@ -384,7 +394,7 @@ calltraces:
 
 ::
 
-  make EXTRA_CFLAGS="-fno-inline -O1 -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/linux-next V=1
+  make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/qemu-batman/linux-next V=1
 
 View traffic via wireshark from virtual machine
 -----------------------------------------------
@@ -393,6 +403,61 @@ On host system
 
 ::
 
-  mkfifo remote-dump
-  ssh root@192.168.2.51 'tcpdump -i enp3s0 -s 0 -U -n -w - "port not 22"' > remote-dump
-  wireshark -k -i remote-dump
+   mkfifo remote-dump
+   ssh root@192.168.251.51 'tcpdump -i enp3s0 -s 0 -U -n -w - "port not 22"' > remote-dump
+   wireshark -k -i remote-dump
+
+.. _open-mesh-open-mesh-emulation-debug-using-gdb:
+
+Using GDB
+---------
+
+The instances are listening on 127.0.0.1 TCP port 23000 + instance_no.
+We will use in the following example instance 1. The gdb debugger can be
+started from the linux source directory and all lx-\* helpers will
+automatically be loaded.
+
+The debugging session with gdb can be started from the linux-next
+directory:
+
+::
+
+  $ gdb -iex "set auto-load safe-path scripts/gdb/" -ex 'target remote 127.0.0.1:23001' -ex c  ./vmlinux
+
+The module can now be loaded in the qemu instance. After that, we have
+to reload the symbol information via lx-symbol and can set any kind of
+breakpoints on the batman-adv module:
+
+::
+
+  ^C
+  Thread 1 received signal SIGINT, Interrupt.
+  default_idle () at arch/x86/kernel/process.c:581
+  581             trace_cpu_idle_rcuidle(PWR_EVENT_EXIT, smp_processor_id());
+  (gdb) lx-symbols /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv/
+  loading vmlinux
+  scanning for modules in /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv/
+  scanning for modules in /home/sven/tmp/qemu-batman/linux-next
+  loading @0xffffffffa0000000: /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv//batman-adv.ko
+  (gdb) b batadv_iv_send_outstanding_bat_ogm_packet
+  Breakpoint 1 at 0xffffffffa0005d60: file /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv/bat_iv_ogm.c, line 1692.
+  (gdb) c
+
+It is also possible to evaluate data structures in the gdb commandline
+using small python code blocks. To get for example the name of all
+devices which batman-adv knows about and the name of the batman-adv
+interface they belong to:
+
+::
+
+  python
+  import linux.lists
+  from linux.utils import CachedType
+
+  struct_batadv_hard_iface = CachedType('struct batadv_hard_iface').get_type().pointer()
+
+  for node in linux.lists.list_for_each_entry(gdb.parse_and_eval("batadv_hardif_list"), struct_batadv_hard_iface, 'list'):
+      hardif = node['net_dev']['name'].string()
+      softif = node['soft_iface']['name'].string() if node['soft_iface'] else "none"
+      gdb.write("hardif {} belongs to {}\n".format(hardif, softif))
+  end

@@ -3,14 +3,15 @@
 DRAFT: Batman-adv 2019.4 released
 =================================
 
-Sep 23th, 2019. Today the B.A.T.M.A.N. team publishes the September 2019 update
-to batman-adv, batctl and alfred! The B.A.T.M.A.N. V implementation can now
-aggregate OGM2 messages into single messages before sending them out. As usual,
-this release also contains various bugfixes and code cleanups.
+Oct 15th, 2019. Today the B.A.T.M.A.N. team publishes the October 2019
+update to batman-adv, batctl and alfred! The B.A.T.M.A.N. V
+implementation can now aggregate OGM2 messages into single messages
+before sending them out. As usual, this release also contains various
+bugfixes and code cleanups.
 
-As the kernel module always depends on the Linux kernel it is compiled against,
-it does not make sense to provide binaries on our website. As usual, you will
-find the signed tarballs in our download section:
+As the kernel module always depends on the Linux kernel it is compiled
+against, it does not make sense to provide binaries on our website. As
+usual, you will find the signed tarballs in our download section:
 
 https://downloads.open-mesh.org/batman/releases/batman-adv-2019.4/
 
@@ -20,6 +21,8 @@ Thanks
 Thanks to all people sending in patches:
 
 * Eric Dumazet <edumazet@google.com>
+* Florian Westphal <fw@strlen.de>
+* Krzysztof Kozlowski <krzk@kernel.org>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
@@ -31,43 +34,49 @@ batman-adv
 
   $ git describe origin/master
   v2019.3-10-gbcadeaa3
-  $ $ range=v2019.3..v2019.3-10-gbcadeaa3
+  $ range=v2019.3..v2019.3-15-g888f60e5
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-  
+
+
+  new kernel support
+  ==================
+
+
   coding style cleanup/refactoring
   ================================
-  
+
         batman-adv: Replace usage of strlcpy with strscpy
-  
-  
+        batman-adv: Fix Kconfig indentation
+        batman-adv: netfilter: drop bridge nf reset from nf_reset
+
   BATMAN V
   =========
-  
+
         batman-adv: BATMAN_V: introduce per hard-iface OGMv2 queues
         batman-adv: BATMAN_V: aggregate OGMv2 packets
-  
-  
-  
+
   bugfixes
   ========
-  
+
         batman-adv: fix uninit-value in batadv_netlink_get_ifindex()
-  
-  
-  
-  
-  2019.4 (2019-09-23)
+        batman-adv: Avoid free/alloc race when handling OGM2 buffer
+        batman-adv: Avoid free/alloc race when handling OGM2 buffer
+
+
+
+
+  2019.4 (2019-10-15)
   ===================
-  
+
   * support latest kernels (3.16 - 5.4)
   * coding style cleanups and refactoring
   * implement aggregation of OGM2 packets
   * bugs squashed:
-  
+
     - fix length validation in netlink messages
     - fix out of buffer read when parsing aggregated packets
-
+    - avoid race condition in OGM(2) packet modification and submission
 
 batctl
 ------
@@ -79,23 +88,24 @@ batctl
   $ range=v2019.3..v2019.3-2-gdd82cf5
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-  
-  
+
+
   tcpump
   ======
-  
+
+
   new command structure
   =====================
-  
+
+
   bugfix
   ======
-  
+
         batctl: Fix deprecation warning for option '-m'
-  
-  
-  2019.4 (2019-09-23)
+
+  2019.4 (2019-10-15)
   ===================
-  
+
   * fix deprecation warning for option '-m'
 
 alfred
@@ -108,16 +118,16 @@ alfred
   $ range=v2019.3..v2019.3-3-g0e0fcc5
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-  
+
   Sven Eckelmann <sven@narfation.org> (2):
         alfred: vis: Add missing include for ifinfomsg
         alfred: vis: Fix ifindex check when registering interface
-  
-  2019.4 (2019-09-23)
-  ===================
-  
-  * fix build with musl
 
+
+  2019.4 (2019-10-15)
+  ===================
+
+  * fix build with musl
 
 Happy routing,
 
