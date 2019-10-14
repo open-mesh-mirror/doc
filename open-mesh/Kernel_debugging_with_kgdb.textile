@@ -322,14 +322,14 @@ There are various boards on ar71xx which use external watchdogs chips via GPIO. 
 But luckily, we can just write manually to the ar71xx registers (every n seconds). We have two possible ways:
 
 * write to the clear/set registers
-** set bit n in register GPIO_SET (0x1804000C) to set output value to 1
-** set bit n in register GPIO_CLEAR (0x18040010) to set output value to 0
+** set bit n in register GPIO_SET (0x1804000C) to set output value to 1 for GPIO n
+** set bit n in register GPIO_CLEAR (0x18040010) to set output value to 0 for GPIO n
 * overwrite complete GPIO_OUT (0x18040008) register (which might modify more GPIO bits then required)
 
 We will only demonstrate this here for GPIO 12 with GPIO_SET/GPIO_CLEAR.
 
 <pre>
-# check where 0x18040000 is mapped to
+# check where iomem 018040000-180400ff is mapped to
 (gdb) print ath79_gpio_base
 $1 = (void *) 0xb8040000
 
