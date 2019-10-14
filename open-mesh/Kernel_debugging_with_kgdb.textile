@@ -330,12 +330,12 @@ We will only demonstrate this here for GPIO 12 with GPIO_SET/GPIO_CLEAR.
 
 <pre>
 # check where 0x18040000 is mapped to
-(gdb) display ath79_gpio_base
-8: ath79_gpio_base = (void *) 0xb8040000
+(gdb) print ath79_gpio_base
+$1 = (void *) 0xb8040000
 
 # set GPIO 12 to low
-set {uint32_t}0xb8040010 = 0x00001000
+(gdb) set {uint32_t}0xb8040010 = 0x00001000
 
 # set GPIO 12 to high
-set {uint32_t}0xb804000C = 0x00001000
+(gdb) set {uint32_t}0xb804000C = 0x00001000
 </pre>
