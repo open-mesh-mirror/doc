@@ -1,0 +1,148 @@
+h1. Bridge interconnect
+
+{{toc}}
+
+The simple interconnect from [[open-mesh:OpenWrt in QEMU#interconnect-initialization]] is a simple bridge which allows full communication between all devices.  This is not optimal to create not fully meshed setups. But it is possible to use the bridge and netfilter functionality of the host's kernel to improve the bridge interconnect.
+
+The tool of choice today is nft(ables). The following examples will introduce some common concepts based on nft. For older systems, ebtables and/or tc can also be used.
+
+It is important to understand the different filter hooks we have to use:
+
+* input
+** from a bridge slave interface (here <code>tap*</code>) to the host bridge port
+* output
+** from the host bridge port to a bridge slave interface (here <code>tap*</code>)
+* forward
+** traffic between bridge slave interfaces (here <code>tap*</code>)
+
+!bridge-netfilter.png!
+
+
+h2. Preventing communication between nodes
+
+By default, all ports of a bridge can talk to each other. It is possible to prevent this forwarding behavior between the tap interfaces. The communication of the host with the virtual instances is not affected because it would be handled as output/input traffic.
+
+<pre><code class="shell">
+cat > interconnect-filter-traffic.nft << "EOF"
+#!/usr/sbin/nft -f
+
+flush ruleset bridge
+
+table bridge filter {
+        chain FORWARD {
+                type filter hook forward priority -200; policy accept;
+                meta obrname "br-qemu" drop
+        }
+}
+EOF
+
+chmod +x interconnect-filter-traffic.nft
+
+sudo ./interconnect-filter-traffic.nft
+</code></pre>
+
+h2. Allow communication between specific nodes
+
+The previous example was not that useful for a mesh because nothing really meshes anymore. It could be more interesting to allow communication between specific nodes.
+
+!bridge-netfilter-chain.png!
+
+A simple chain is build here by allowing forwarding from one slave interface to another slave interface:
+
+<pre><code class="shell">
+cat > interconnect-filter-traffic.nft << "EOF"
+#!/usr/sbin/nft -f
+
+flush ruleset bridge
+
+table bridge filter {
+        chain FORWARD {
+                type filter hook forward priority -200; policy accept;
+
+                iifname "tap1" oifname "tap2" accept
+                iifname "tap2" oifname "tap1" accept
+
+                iifname "tap2" oifname "tap3" accept
+                iifname "tap3" oifname "tap2" accept
+
+                meta obrname "br-qemu" drop
+        }
+}
+EOF
+
+chmod +x interconnect-filter-traffic.nft
+
+sudo ./interconnect-filter-traffic.nft
+</code></pre>
+
+h2. Allow communication between specific nodes with loss
+
+The chain setup is already a nice test for mesh setups. But other characteristics of a link might be interesting for a mesh protocol. A probability of packet loss is one of such a link characteristics. 
+
+!bridge-netfilter-chain-loss.png!
+
+A simple (uniformly distributed, bidirectional) packet loss can be implemented using
+
+<pre><code class="shell">
+cat > interconnect-filter-traffic.nft << "EOF"
+#!/usr/sbin/nft -f
+
+flush ruleset bridge
+
+table bridge filter {
+        chain FORWARD {
+                type filter hook forward priority -200; policy accept;
+
+                iifname "tap1" oifname "tap2" numgen random mod 100 < 90 accept
+                iifname "tap2" oifname "tap1" numgen random mod 100 < 90 accept
+
+                iifname "tap2" oifname "tap3" numgen random mod 100 < 90 accept
+                iifname "tap3" oifname "tap2" numgen random mod 100 < 90 accept
+
+                iifname "tap1" oifname "tap3" numgen random mod 100 < 60 accept
+                iifname "tap3" oifname "tap1" numgen random mod 100 < 60 accept
+
+                meta obrname "br-qemu" drop
+        }
+}
+EOF
+
+chmod +x interconnect-filter-traffic.nft
+
+sudo ./interconnect-filter-traffic.nft
+</code></pre>
+
+h2. Allow communication between specific nodes with loss and throughput limit
+
+It is also possible to limit the maximum throughput per second for a link.
+
+!bridge-netfilter-loss-throughput.png!
+
+<pre><code class="shell">
+cat > interconnect-filter-traffic.nft << "EOF"
+#!/usr/sbin/nft -f
+
+flush ruleset bridge
+
+table bridge filter {
+        chain FORWARD {
+                type filter hook forward priority -200; policy accept;
+
+                iifname "tap1" oifname "tap2" numgen random mod 100 < 90 limit rate 10 mbytes/second accept
+                iifname "tap2" oifname "tap1" numgen random mod 100 < 90 limit rate 10 mbytes/second accept
+
+                iifname "tap2" oifname "tap3" numgen random mod 100 < 90 limit rate 5 mbytes/second accept
+                iifname "tap3" oifname "tap2" numgen random mod 100 < 90 limit rate 5 mbytes/second accept
+
+                iifname "tap1" oifname "tap3" numgen random mod 100 < 60 limit rate 1 mbytes/second accept
+                iifname "tap3" oifname "tap1" numgen random mod 100 < 60 limit rate 1 mbytes/second accept
+
+                meta obrname "br-qemu" drop
+        }
+}
+EOF
+
+chmod +x interconnect-filter-traffic.nft
+
+sudo ./interconnect-filter-traffic.nft
+</code></pre>
