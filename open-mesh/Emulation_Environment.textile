@@ -10,7 +10,7 @@ The test stack consists of the following components:
 
 * Host running the virtual instances
 * virtual instances (cloned) from a single image
-* interconnect to allow commmunication between the virtual instances
+* virtual network to allow commmunication between the virtual instances
 * various debugging tools
 * optional external devices and services
 
@@ -23,16 +23,16 @@ The main components of the testing setup are the virtual instances. Various imag
 * [[OpenWrt in QEMU]]
 * [[Kernel hacking Debian image]]
 
-h2. Advanced interconnects
+h2. Advanced virtual networks
 
-The default interconnect is only creating a single broadcasting domain using a bridge. This cannot be used to simulate interesting topologies. I more advanced techniques can be used to extend or replace the bridge to still achieve a reasonable setup
+The default virtual network is only creating a single broadcasting domain using a bridge. This cannot be used to simulate interesting topologies. I more advanced techniques can be used to extend or replace the bridge to still achieve a reasonable setup
 
-* [[bridge interconnect]]
-* [[vde_switch interconnect]]
+* [[Advanced Bridge virtual network]]
+* [[vde_switch virtual network]]
 * [[mixing VM with gluon hardware]]
 
 h2. Debugging helpers
 
-* [[Analyzing interconnect packets]]
+* [[Analyzing virtual network packets]]
 * [[Kernel debugging with qemu's GDB server]]
 * [[Kernel debugging with kgdb]]
