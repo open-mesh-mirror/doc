@@ -1,6 +1,22 @@
-h1. Emulation Debug
+h1. Kernel hacking Debian image
+
+The [[OpenWrt in QEMU|OpenWrt image]] is an easy way to start multiple virtual instances. But these instances usually don't provide the required infrastructure to test kernel modules extensively. And it also require special toolchains to prepare the used tools/modules which should tested.
+
+It is often easier to use the same operating system in the virtual environment and on the host. Only the kernel is modified here to provide the necessary helpers for in-kernel development.
+
+An interested reader might even extend this further to only provide a modified kernel and use the currently running rootfs also in the virtual environment. Such an approach is used in "hostap's test vm":https://w1.fi/cgit/hostap/tree/tests/hwsim/vm but it is out of scope for this document.
 
 h2. Create an Image
+
+The debian root filesystem is used here to a minimal system to boot and run the test programs. It is a simple ext4 filesystem with only userspace components from Debian. The configuration is changed to:
+
+* automatically mount the shared folder
+* automatically set up a static IPv4 address and hostname on bootup
+* start a test-init.sh script from the shared folder on bootup
+* disable root password
+* prefer batctl binary from shared folder's batctl subdirectory instead of virtual environment binary
+
+The installation is also cleaned up at the end to reduce the required storage space
 
 <pre><code class="shell">
 qemu-img create debian.img 8G
@@ -280,8 +296,6 @@ h2. Start of the simple environment
 
 The two node environment must be started inside a screen session. The hub (bridge with 5 tap devices) has to be started first to have a simple network. A more complex network setup can be on the page [[vde switch interconnect]] and [[bridge interconnect]]
 
-The @ETH@ in hub.sh has to be changed to the real interface which provides internet-connectivity
-
 <pre>
 cat > hub.sh << "EOF"
 #! /bin/sh
@@ -363,6 +377,11 @@ cat > test-init.sh << "EOF"
 set -e
 export PATH="/host/batctl/:$PATH"
 
+## get internet access
+dhclient enp0s2
+
+## Simple batman-adv setup
+
 # ip link add dummy0 type dummy
 ip link set up dummy0
 
@@ -393,21 +412,11 @@ h2. Building the batman-adv module
 The kernel module can be build outside the virtual environment and shared over the 9p mount. The path to the kernel sources have to be provided to the make process
 
 <pre>
-make KERNELPATH=/home/batman/linux-next
+make KERNELPATH="$(pwd)/../linux-next"
 </pre>
 
 The kernel module can also be compiled for better readability for the calltraces:
 
 <pre>
-make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/qemu-batman/linux-next V=1
-</pre>
-
-h2. View traffic via wireshark from virtual machine
-
-On host system
-
-<pre>
-mkfifo remote-dump
-ssh root@192.168.251.51 'tcpdump -i enp3s0 -s 0 -U -n -w - "port not 22"' > remote-dump
-wireshark -k -i remote-dump
+make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls" KERNELPATH="$(pwd)/../linux-next" V=1
 </pre>
