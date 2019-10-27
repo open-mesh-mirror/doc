@@ -8,11 +8,12 @@ h2. Debugging Session
 
 The debugging session with gdb can be started from the linux-next directory:
 
-<pre>
-$ gdb -iex "set auto-load safe-path scripts/gdb/" -ex 'target remote 127.0.0.1:23001' -ex c  ./vmlinux
-</pre>
+<pre><code class="shell">
+gdb -iex "set auto-load safe-path scripts/gdb/" -ex 'target remote 127.0.0.1:23001' -ex c  ./vmlinux
+</code></pre>
 
-The module can now be loaded in the qemu instance. After that, we have to reload the symbol information via <code>lx-symbol</code> and can set any kind of breakpoints on the batman-adv module:
+
+The module can now be loaded in the qemu instance as normal. But after that, we have to reload the symbol information via <code>lx-symbol</code>. This allows us to set any kind of breakpoints on the batman-adv module and to to get useful backtraces in gdb:
 
 <pre>
 ^C
