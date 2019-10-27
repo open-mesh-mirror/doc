@@ -2,6 +2,8 @@ h1. OpenWrt in QEMU
 
 The [[open-mesh:Emulation Environment#Architecture|simple emulation architecture]] can be implemented rather easily using qemu and an x86_64 image from OpenWrt.
 
+!openwrt_in_qemu.png!
+
 h2. OpenWrt preparation
 
 It is possible to just use an x86_64 which was "downloaded from OpenWrt's servers":https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-x86-64-combined-ext4.img.gz. But it is highly recommended to build an own image which:
