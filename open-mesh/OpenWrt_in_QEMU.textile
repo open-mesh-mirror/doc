@@ -58,7 +58,7 @@ chmod +x interconnect.sh
 
 h3. VM instances bringup
 
-Each instance will need to write to the provided image. If the same image is specified as drive for each instance then write to this file would conflict and data corruption would happen. To avoid this, each instance gets its own (copy on write) snapshot of the base image.
+Each instance will need to write to the provided image. If the same image is specified as drive for each instance then writes to this file would conflict and data corruption would happen. To avoid this, each instance gets its own (copy on write) snapshot of the base image.
 
 The three node environment must be started inside a screen session. Each instance will end up in an own screen window. This allows access to the serial console of each instance while having each instance's output separated from each other.
 
