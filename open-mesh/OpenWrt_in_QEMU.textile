@@ -19,9 +19,9 @@ mount -t 9p host /host
 EOF
 </code></pre>
 
-The shared path is a folder from the host system which is mapped via 9p into all virtual instances. It can be used exchange data between the instances and the host.
+The shared path is a folder from the host system which is mapped via 9p into all virtual instances. It can be used to exchange files between the instances and the host.
 
-The resulting openwrt-x86-64-combined-ext4.img.gz has to be extracted and copies to the path with the other scripts.
+The openwrt build result <code>openwrt-x86-64-combined-ext4.img.gz</code> has to be extracted and copied to the path with the other scripts.
 
 h2. Start scripts for the simple environment
 
