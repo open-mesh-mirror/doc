@@ -138,7 +138,7 @@ The [[open-mesh:OpenWrt_in_QEMU#VM-instances-bringup|run.sh from the OpenWrt env
 
 <pre><code class="diff">
 -        -nic tap,ifname=tap$i,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
-+        -nic vde,sock=num${i}.ctl,port=1,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
++        -nic vde,sock=num${i}.ctl,port=1,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
 </code></pre>
 
 It is also possible to have both (just with different mac addresses) to have SSH access to the virtual instance over the tap interface.
