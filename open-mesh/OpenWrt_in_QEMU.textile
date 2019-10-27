@@ -25,17 +25,17 @@ The openwrt build result <code>openwrt-x86-64-combined-ext4.img.gz</code> has to
 
 h2. Start scripts for the simple environment
 
-The virtual instances and the interconnect will be started using a set of simple scripts. This simplifies everything and makes the setup more reproducible.
+The virtual instances and the virtual network will be started using a set of simple scripts. This simplifies everything and makes the setup more reproducible.
 
-h3. interconnect initialization
+h3. virtual network initialization
 
-The interconnect (bridge br-qemu with 3 tap devices) has to be started first to have a simple network. All devices in this interconnect can talk to each other - which is not optimal for tests but enough for a start. More complex network setups can be on the pages [[vde switch interconnect]] and [[bridge interconnect]].
+The virtual network (bridge br-qemu with 3 tap devices) has to be started first to have a simple network. All devices in this virtual network can talk to each other - which is not optimal for tests but enough for a start. More complex network setups can be on the pages [[vde switch virtual network]] and [[Advanced Bridge virtual network]].
 
 The tap interfaces will be created with access rights for the current user. This allows the qemu instance to start up without being root.
 
 
 <pre><code class="shell">
-cat > interconnect.sh << "EOF"
+cat > virtual-network.sh << "EOF"
 #! /bin/sh
 
 USER="$(whoami)"
@@ -53,7 +53,7 @@ sudo ip link set "${BRIDGE}" up
 sudo ip addr replace 192.168.251.1/24 dev "${BRIDGE}"
 EOF
 
-chmod +x interconnect.sh
+chmod +x virtual-network.sh
 </code></pre>
 
 h3. VM instances bringup
@@ -69,7 +69,7 @@ The qemu instance is started in a rather specific way to enable all features whi
 * serial output is enabled for kernel output and login shell
 * 2 core SMP is activated to better see effects of multicore systems
 * 512 MB RAM is provided to the virtual instance ("KSM":https://en.wikipedia.org/wiki/Kernel_same-page_merging should be activated in setups with larger number of virtual instances)
-* a NIC is connected to the tap interface (from the interconnect) to transport mesh (and other) traffic
+* a NIC is connected to the tap interface (from the virtual network) to transport mesh (and other) traffic
 * a user NIC is created to transport (NAT'ed) traffic to/from the internet
 * a shared path from host is provided for the client
 * the qemu gdb server is enabled to allow [[open-mesh:Kernel_debugging_with_qemu's_GDB_server|kernel debugging]]
@@ -161,6 +161,6 @@ Everything can then be started up inside a screen session
 
 <pre><code class="shell">
 screen
-./interconnect.sh
+./virtual-network.sh
 ./run.sh
 </code></pre>
