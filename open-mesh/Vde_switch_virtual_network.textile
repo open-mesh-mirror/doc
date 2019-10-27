@@ -1,6 +1,6 @@
 h1. vde_switch interconnect
 
-The simple interconnect from [[open-mesh:OpenWrt in QEMU#interconnect-initialization]] is a simple bridge which allows full communication between all devices.  This is not optimal to create not fully meshed setups. One alternative is to use a modified vde_switch to create a user defined links between each virtual instance.
+The simple interconnect from [[open-mesh:OpenWrt in QEMU#interconnect-initialization]] is a Linux bridge which allows full communication between  the tap interfaces of all virtual instances.  This is not optimal to create not fully meshed setups. One alternative is to use a modified vde_switch to create user defined links between each virtual instance.
 
 h2. Components
 
@@ -49,7 +49,7 @@ h3. vde_switch
 
 You should read the "detailed vde_switch parameters documentation":http://www.linuxhowtos.org/manpages/1/vde_switch.htm. The main advantage of "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking over "uml_switch":http://user-mode-linux.sourceforge.net/old/networking.html is that any clients can be attached to this virtual switch: QEMU, KVM, UML, tap interfaces, virtual interconnections, and not just UML instances.
 
-If the vde_switches were just connected with wirefilter "patch cables" without modification, we would end up creating a broadcast domain and switch loops which we don't want: The goal is to allow the packets to travel only from one host to it's neighbor, not farther.
+If the vde_switches were just connected with wirefilter "patch cables" without modification, we would end up creating a broadcast domain and switch loops which we don't want: The goal is to allow the packets to travel only from one host to it's neighbor, not further.
 
 To accomplish this, the vde_switch needs to be modified to have "coloured" ports. The idea is:
 
@@ -141,7 +141,7 @@ The [[open-mesh:OpenWrt_in_QEMU#VM-instances-bringup|run.sh from the OpenWrt env
 +        -nic vde,sock=num${i}.ctl,port=1,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
 </code></pre>
 
-It is also possible to have both (just with different mac addresses) to have SSH access to the virtual instance over the tap interface.
+It is also possible to have both (just with different mac addresses) to allow SSH access to the virtual instance over the tap interface.
 
 h3. Automatic test initialization
 
