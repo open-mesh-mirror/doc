@@ -2,7 +2,7 @@ h1. Emulation Debug
 
 h2. Create an Image
 
-<pre>
+<pre><code class="shell">
 qemu-img create debian.img 8G
 sudo mkfs.ext4 -O '^has_journal' -F debian.img
 sudo mkdir debian
@@ -62,7 +62,7 @@ sudo zerofree -v debian.img
 ## optionally: convert image to qcow2
 #sudo qemu-img convert -c -f raw -O qcow2 debian.img debian.qcow2
 #sudo mv debian.qcow2 debian.img
-</pre>
+</code></pre>
 
 h2. Kernel compile
 
