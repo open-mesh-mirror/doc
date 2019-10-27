@@ -308,9 +308,9 @@ make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls" KERNELPATH="$(pw
 
 h2. Start of the environment
 
-h3. interconnect initialization
+h3. virtual network initialization
 
-The [[open-mesh:OpenWrt_in_QEMU#interconnect-initialization|interconnect.sh from the OpenWrt environment]] can be reused again.
+The [[open-mesh:OpenWrt_in_QEMU#virtual-network-initialization|virtual-network.sh from the OpenWrt environment]] can be reused again.
 
 h3. VM instances bringup
 
