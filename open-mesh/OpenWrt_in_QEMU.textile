@@ -1,13 +1,37 @@
 h1. OpenWrt in QEMU
 
-The [[open-mesh:Emulation_Environment#Architecture]]
+The [[open-mesh:Emulation Environment#Architecture|simple emulation architecture]] can be implemented rather easily using qemu and an x86_64 image from OpenWrt.
+
+h2. OpenWrt preparation
+
+It is possible to just use an x86_64 which was "downloaded from OpenWrt's servers":https://downloads.openwrt.org/snapshots/targets/x86/64/openwrt-x86-64-combined-ext4.img.gz. But it is highly recommended to build an own image which:
+
+* enables the routing protocols (like batman-adv) from the "openwrt-routing feed":https://git.openwrt.org/?p=feed/routing.git;a=summary. 
+* enables the 9p filesystem (and virtio)
+* integrates its own startup scripts (for automatic test initialization and shared path support) via <code>files/etc/rc.local</code> <pre><code class="shell">
+mkdir -p files/etc/
+cat > files/etc/rc.local << "EOF"
+#!/bin/sh
+
+mkdir -p /host
+mount -t 9p host /host
+[ ! -x /host/test-init.sh ] || /host/test-init.sh
+EOF
+</code></pre>
+
+The shared is a folder from the host system which is mapped into all virtual instances. It can be used exchange data between the instances and the host.
+
+The resulting openwrt-x86-64-combined-ext4.img.gz has to be extracted and copies to the path with the other scripts.
+
 
 h2. Start of the simple environment
 
-The two node environment must be started inside a screen session. The hub (bridge with 5 tap devices) has to be started first to have a simple network. A more complex network setup can be on the page [[vde switch interconnect]] and [[bridge interconnect]]
+h3. interconnect initialization
 
-<pre>
-cat > hub.sh << "EOF"
+The interconnect (bridge with 3 tap devices) has to be started first to have a simple network. All devices in this interconnect can talk to each other - which is not optimal for tests but enough for a start. More complex network setups can be on the pages [[vde switch interconnect]] and [[bridge interconnect]]
+
+<pre><code class="shell">
+cat > interconnect.sh << "EOF"
 #! /bin/sh
 
 USER="$(whoami)"
@@ -25,12 +49,16 @@ sudo ip link set "${BRIDGE}" up
 sudo ip addr replace 192.168.251.1/24 dev "${BRIDGE}"
 EOF
 
-chmod +x hub.sh
-</pre>
+chmod +x interconnect.sh
+</code></pre>
 
-The @SHARED_PATH@ in run.sh has to be changed to a valid path which is used to share the precompiled batman-adv.ko and other tools
+h3. VM instances bringup
 
-<pre>
+The three node environment must be started inside a screen session.
+
+The @SHARED_PATH@ in run.sh has to be changed to a valid path which is used to share thins like a precompiled batman-adv.ko and other tools
+
+<pre><code class="shell">
 cat > run.sh << "EOF"
 #! /bin/bash
 
@@ -80,12 +108,14 @@ for i in $(seq 1 "${NUM_SESSIONS}"); do
 done
 EOF
 
-chmod +x run.sh 
-</pre>
+chmod +x run.sh
+</code></pre>
 
-The test-init.sh script can be used to automatically initialize the test setup during boot:
+h3. Automatic test initialization
 
-<pre>
+The test-init.sh script in the SHARED_PATH can be used to automatically initialize the test setup during boot. A simple example is:
+
+<pre><code class="shell">
 cat > test-init.sh << "EOF"
 #! /bin/sh
 
@@ -96,21 +126,23 @@ set -e
 rmmod batman-adv || true
 modprobe batman-adv
 batctl routing_algo BATMAN_IV
-batctl if add dummy0
-batctl it 5000
 batctl if add eth0
+batctl it 5000
 ip link set up dev eth0
 ip link set up dev bat0
 EOF
 
 chmod +x test-init.sh
-</pre>
+</code></pre>
 
+
+h3. Start
 
 Everything can then be started up inside a screen session
 
-<pre>
+<pre><code class="shell">
 screen
-./hub.sh
+./interconnect.sh
 ./run.sh
-</pre>
+</code></pre>
+
