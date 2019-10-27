@@ -2,9 +2,9 @@ h1. Bridge interconnect
 
 {{toc}}
 
-The simple interconnect from [[open-mesh:OpenWrt in QEMU#interconnect-initialization]] is a simple bridge which allows full communication between all devices.  This is not optimal to create not fully meshed setups. But it is possible to use the bridge and netfilter functionality of the host's kernel to improve the bridge interconnect.
+The simple interconnect from [[open-mesh:OpenWrt in QEMU#interconnect-initialization]] is a Linux bridge which allows full communication between the tap interfaces of all virtual instances.  This is not optimal because fully connected meshes are not really interesting. But it is possible to use the bridge and netfilter functionality of the host's kernel to improve the bridge interconnect.
 
-The tool of choice today is nft(ables). The following examples will introduce some common concepts based on nft. For older systems, ebtables and/or tc can also be used.
+The tool of choice at the moment is is nft(ables). The following examples will introduce some common concepts based on nft. For older systems, ebtables and/or tc can also be used to achieve the same.
 
 It is important to understand the different filter hooks we have to use:
 
@@ -77,9 +77,9 @@ sudo ./interconnect-filter-traffic.nft
 
 h2. Loss between nodes
 
-The chain setup is already a nice test for mesh setups. But other characteristics of a link might be interesting for a mesh protocol. A probability of packet loss is one of such a link characteristics. 
+The chain setup is already a nice test for mesh setups. But other characteristics of a link might be interesting for a mesh protocol. The probability of packet loss (or in this case packet success) is one of such a link characteristics. 
 
-!bridge-netfilter-chain-loss.png!
+!bridge-netfilter-loss.png!
 
 A simple (uniformly distributed, bidirectional) packet loss can be implemented using
 
@@ -114,7 +114,7 @@ sudo ./interconnect-filter-traffic.nft
 
 h2. Throughput limit between nodes
 
-It is also possible to limit the maximum throughput per second for a link. The limits are specified in bytes per second and bits per second have to be converted manually to this unit.
+It is also possible to limit the maximum throughput per second for a link. The limits are specified in bytes per second. And bits per second (in the picture) have to be converted manually to this unit.
 
 !bridge-netfilter-throughput.png!
 
