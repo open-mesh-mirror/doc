@@ -1,6 +1,6 @@
 h1. Mixing VM with gluon hardware
 
-The "freifunk gluon":https://github.com/freifunk-gluon/gluon firmware is a relative common framework to create OpenWrt based firmware images for mesh networks with central VPN servers. The [[Emulation_Environment|emulation environments]] using Linux bridge as interconnect can be directly connected to a device running a gluon firmware.
+The "freifunk gluon":https://github.com/freifunk-gluon/gluon firmware is a relative common framework to create OpenWrt based firmware images for mesh networks with central VPN servers. The [[Emulation_Environment|emulation environments]] using Linux bridge as virtual network can be directly connected to a device running a gluon firmware.
 
 !gluon-vxlan.png!
 
@@ -21,7 +21,7 @@ The configured gluon hardware has to be connected via ethernet to the our emulat
 We must then create a vxlan interface on top of our normal ethernet interface, make sure that the ethernet interface is using an EUI64 based IPv6 link local address and insert the new interface in our bridge
 
 <pre><code class="shell">
-cat > interconnect-add-vxlan.sh << "EOF"
+cat > virtual-network-add-vxlan.sh << "EOF"
 #! /bin/sh
 
 BRIDGE=br-qemu
@@ -56,7 +56,7 @@ ip -6 link add "${VXLAN}" type vxlan \
 ip link set "${VXLAN}" up master "${BRIDGE}"
 EOF
 
-chmod +x interconnect-add-vxlan.sh
+chmod +x virtual-network-add-vxlan.sh
 
-sudo ./interconnect-add-vxlan.sh
+sudo ./virtual-network-add-vxlan.sh
 </code></pre>
