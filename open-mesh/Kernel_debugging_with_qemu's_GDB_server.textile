@@ -32,7 +32,7 @@ Breakpoint 1 at 0xffffffffa0005d60: file /home/sven/tmp/qemu-batman/batman-adv/n
 
 h2. Python datastructure helper
 
-It is also possible to evaluate data structures in the gdb commandline using small python code blocks. To get for example the name of all devices which batman-adv knows about and the name of the batman-adv interface they belong to:
+It is also possible to evaluate data structures in the gdb commandline using small python code blocks. To get for example the name of all devices which batman-adv knows about and the name of the batman-adv interface they belong to, just enter following in the initialized, interrupted gdb session:
 
 <pre>
 python
