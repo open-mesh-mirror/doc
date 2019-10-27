@@ -1,6 +1,6 @@
-h1. vde_switch interconnect
+h1. vde_switch virtual network
 
-The simple interconnect from [[open-mesh:OpenWrt in QEMU#interconnect-initialization]] is a Linux bridge which allows full communication between  the tap interfaces of all virtual instances.  This is not optimal to create not fully meshed setups. One alternative is to use a modified vde_switch to create user defined links between each virtual instance.
+The simple virtual network from [[open-mesh:OpenWrt in QEMU#virtual-network-initialization]] is a Linux bridge which allows full communication between  the tap interfaces of all virtual instances.  This is not optimal to create not fully meshed setups. One alternative is to use a modified vde_switch to create user defined links between each virtual instance.
 
 h2. Components
 
@@ -98,7 +98,7 @@ You can specify up to 10 packet types (separated by colon). The patch against vd
 
 h2. Start of the environment
 
-h3. interconnect initialization
+h3. virtual network initialization
 
 The script does:
 * kill old instances
@@ -107,7 +107,7 @@ The script does:
 !mesh.gif!
 
 <pre><code class="shell">
-cat > interconnect.sh << "EOF"
+cat > virtual-network.sh << "EOF"
 #!/bin/sh
 
 NUM_SESSIONS=9
@@ -129,12 +129,12 @@ for i in $(seq 1 $((${NUM_SESSIONS} - 2))); do
 done
 EOF
 
-chmod + interconnect.sh
+chmod + virtual-network.sh
 </code></pre>
 
 h3. VM instances bringup
 
-The [[open-mesh:OpenWrt_in_QEMU#VM-instances-bringup|run.sh from the OpenWrt environment]] can mostly be reused. There are only minimal adjustments required. The interconnect tap NIC has to be replaced with a vde NIC.
+The [[open-mesh:OpenWrt_in_QEMU#VM-instances-bringup|run.sh from the OpenWrt environment]] can mostly be reused. There are only minimal adjustments required. The virtual network tap NIC has to be replaced with a vde NIC.
 
 <pre><code class="diff">
 -        -nic tap,ifname=tap$i,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
@@ -145,4 +145,4 @@ It is also possible to have both (just with different mac addresses) to allow SS
 
 h3. Automatic test initialization
 
-The [[open-mesh:OpenWrt_in_QEMU#Automatic-test-initialization|test-init.sh from the OpenWrt environment]] is always test specific. But it can just be reused again with this interconnect.
+The [[open-mesh:OpenWrt_in_QEMU#Automatic-test-initialization|test-init.sh from the OpenWrt environment]] is always test specific. But it can just be reused again with this virtual network.
