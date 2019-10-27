@@ -23,7 +23,7 @@ The shared is a folder from the host system which is mapped into all virtual ins
 
 The resulting openwrt-x86-64-combined-ext4.img.gz has to be extracted and copies to the path with the other scripts.
 
-h2. Start of the simple environment
+h2. Start scripts for the simple environment
 
 The virtual instances and the interconnect will be started using a set of simple scripts. This simplifies everything and makes the setup more reproducible.
 
@@ -137,7 +137,7 @@ chmod +x test-init.sh
 </code></pre>
 
 
-h3. Start
+h2. Start
 
 Everything can then be started up inside a screen session
 
