@@ -2,7 +2,7 @@ h1. Kernel debugging with qemu's GDB server
 
 h2. General
 
-The instances from [[OpenWrt in QEMU]] are listening on 127.0.0.1 TCP port <code>23000 + instance_no</code>. We will use in the following example instance number 1. Also the [[Kernel hacking Debian image]] is used as for this VM. The gdb debugger can be started from the linux source directory and all <code>lx-*</code> helpers will automatically be loaded.
+The instances from [[OpenWrt in QEMU]] are listening on 127.0.0.1 TCP port <code>23000 + instance_no</code>. We will use in the following example instance number 1. It is also assumed that the [[Kernel hacking Debian image]] is used as for this VM. The gdb debugger can be started from the linux source directory and all <code>lx-*</code> helpers will automatically be loaded.
 
 h2. Debugging Session
 
