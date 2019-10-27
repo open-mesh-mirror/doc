@@ -29,7 +29,10 @@ The virtual instances and the interconnect will be started using a set of simple
 
 h3. interconnect initialization
 
-The interconnect (bridge with 3 tap devices) has to be started first to have a simple network. All devices in this interconnect can talk to each other - which is not optimal for tests but enough for a start. More complex network setups can be on the pages [[vde switch interconnect]] and [[bridge interconnect]]
+The interconnect (bridge br-qemu with 3 tap devices) has to be started first to have a simple network. All devices in this interconnect can talk to each other - which is not optimal for tests but enough for a start. More complex network setups can be on the pages [[vde switch interconnect]] and [[bridge interconnect]].
+
+The tap interfaces will be created with access rights for the current user. This allows the qemu instance to start up without being root.
+
 
 <pre><code class="shell">
 cat > interconnect.sh << "EOF"
