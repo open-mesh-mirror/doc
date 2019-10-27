@@ -245,7 +245,7 @@ h2. Start debugging session
 
 h3. Disable kASLR
 
-The kernel address space layout randomization complicates the resolving of addresses of symbols. It is highly recommended to start the kernel with the parameter "nokaslr". For example by adding it to <code>CONFIG_CMDLINE</code> or by adjusting the <code>bootargs</code>. It should be checked in <code>/proc/cmdline</code> whether it was really booted with this parameter.
+The kernel address space layout randomization complicates the resolving of addresses of symbols. It is highly recommended to start the kernel with the parameter "nokaslr". For example by adding it to <code>CONFIG_CMDLINE</code> or by adjusting the <code>bootargs</code> in the bootloader. It should be checked in <code>/proc/cmdline</code> whether it was really booted with this parameter.
 
 h3. Configure KGDB serial
 
