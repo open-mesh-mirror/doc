@@ -58,7 +58,7 @@ chmod +x interconnect.sh
 
 h3. VM instances bringup
 
-Each instance will need to write to the provided image. If the same image is specified as drive for each instance then writes to this file would conflict and data corruption would happen. To avoid this, each instance gets its own (copy on write) snapshot of the base image.
+Each instance will need to write to the provided image. If the same image is specified as drive for each instance then writes to this file would conflict and data corruption be the result. To avoid this, each instance gets its own (copy on write) snapshot of the base image.
 
 The three node environment must be started inside a screen session. Each instance will end up in an own screen window. This allows access to the serial console of each instance while having each instance's output separated from each other.
 
@@ -67,10 +67,10 @@ The qemu instance is started in a rather specific way to enable all features whi
 * KVM is enabled to speed up the virtual instances (by avoiding slow emulation as much as possible)
 * no graphic display is activated
 * serial output is enabled for kernel output and login shell
-* 2 core SMP is activated to better recreate SMP race conditions
+* 2 core SMP is activated to better see effects of multicore systems
 * 512 MB RAM is provided to the virtual instance ("KSM":https://en.wikipedia.org/wiki/Kernel_same-page_merging should be activated in setups with larger number of virtual instances)
-* a nic is connected to the tap interface (from the interconnect) to transport mesh (and other) traffic
-* a user nic is created to transport (NAT'ed) traffic to/from the internet
+* a NIC is connected to the tap interface (from the interconnect) to transport mesh (and other) traffic
+* a user NIC is created to transport (NAT'ed) traffic to/from the internet
 * a shared path from host is provided for the client
 * the qemu gdb server is enabled to allow [[open-mesh:Kernel_debugging_with_qemu's_GDB_server|kernel debugging]]
 
