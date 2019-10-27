@@ -1,6 +1,6 @@
 h1. Kernel hacking Debian image
 
-The [[OpenWrt in QEMU|OpenWrt image]] is an easy way to start multiple virtual instances. But these instances usually don't provide the required infrastructure to test kernel modules extensively. And it also require special toolchains to prepare the used tools/modules which should tested.
+The [[OpenWrt in QEMU|OpenWrt image]] is an easy way to start multiple virtual instances. But these instances usually don't provide the required infrastructure to test kernel modules extensively. And it also depends on special toolchains to prepare the used tools/modules which should tested.
 
 It is often easier to use the same operating system in the virtual environment and on the host. Only the kernel is modified here to provide the necessary helpers for in-kernel development.
 
@@ -300,7 +300,7 @@ The kernel module can be build outside the virtual environment and shared over t
 make KERNELPATH="$(pwd)/../linux-next"
 </code></pre>
 
-The kernel module can also be compiled for better readability for the calltraces:
+The kernel module can also be compiled in a way which creates better stack traces and increases the usability with (k)gdb:
 
 <pre><code class="shell">
 make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls" KERNELPATH="$(pwd)/../linux-next" V=1
@@ -316,7 +316,7 @@ h3. VM instances bringup
 
 The [[open-mesh:OpenWrt_in_QEMU#VM-instances-bringup|run.sh from the OpenWrt environment]] can mostly be reused. There are only minimal adjustments required.
 
-The BASE_IMG is of course no longer the same because a new image "debian.img" was created for our new environment. The image also doesn't contain a bootloader or kernel anymore. These must now be supplied manually to qemu.
+The BASE_IMG is of course no longer the same because a new image "debian.img" was created for our new environment. The image also doesn't contain a bootloader or kernel anymore. The kernel must now be supplied manually to qemu.
 
 <pre><code class="shell">
 BASE_IMG=debian.img
