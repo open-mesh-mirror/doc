@@ -1,4 +1,4 @@
-h1. Analyzing interconnect packets
+h1. Analyzing virtual network packets
 
 h2. Wireshark
 
