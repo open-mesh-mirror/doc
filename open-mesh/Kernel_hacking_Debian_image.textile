@@ -344,7 +344,7 @@ ip link set up dummy0
 
 rmmod batman-adv || true
 insmod /host/batman-adv/net/batman-adv/batman-adv.ko
-batctl routing_algo BATMAN_IV
+/host/batctl/batctl routing_algo BATMAN_IV
 /host/batctl/batctl if add dummy0
 /host/batctl/batctl it 5000
 /host/batctl/batctl if add enp0s1
