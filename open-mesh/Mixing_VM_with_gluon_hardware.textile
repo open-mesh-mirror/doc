@@ -1,6 +1,6 @@
 h1. Mixing VM with gluon hardware
 
-The "freifunk gluon":https://github.com/freifunk-gluon/gluon firmware is a relative common framework to create OpenWrt based firmware images for mesh systems with central VPN servers. The [[Emulation_Environment|emulation environments]] using Linux bridge as interconnect can be directly connected to a device running a gluon firmware.
+The "freifunk gluon":https://github.com/freifunk-gluon/gluon firmware is a relative common framework to create OpenWrt based firmware images for mesh networks with central VPN servers. The [[Emulation_Environment|emulation environments]] using Linux bridge as interconnect can be directly connected to a device running a gluon firmware.
 
 !gluon-vxlan.png!
 
@@ -42,9 +42,9 @@ interface_linklocal() {
         echo "fe80::$(xor2 "$1")$2:$3ff:fe$4:$5$6"
 }
 
-sudo ip addr add "$(interface_linklocal)"/64 dev "$ETH"
-sudo ip link del "${VXLAN}"
-sudo ip -6 link add "${VXLAN}" type vxlan \
+ip addr add "$(interface_linklocal)"/64 dev "$ETH"
+ip link del "${VXLAN}"
+ip -6 link add "${VXLAN}" type vxlan \
    id "${VXLAN_ID}" \
    dstport 4789 \
    local "$(interface_linklocal)" \
@@ -53,8 +53,10 @@ sudo ip -6 link add "${VXLAN}" type vxlan \
    udp6zerocsumtx udp6zerocsumrx \
    ttl 1
 
-sudo ip link set "${VXLAN}" up master "${BRIDGE}"
+ip link set "${VXLAN}" up master "${BRIDGE}"
 EOF
 
 chmod +x interconnect-add-vxlan.sh
+
+sudo ./interconnect-add-vxlan.sh
 </code></pre>
