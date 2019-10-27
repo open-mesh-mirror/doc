@@ -1,6 +1,6 @@
 h1. OpenWrt KGDB
 
-The [[Emulation Debug]] documentation explains how to start multiple virtual Linux kernels+userspace, connect them and connect various helpers to test/debug a whole linux system. But some problems might only be reproducible on actual hardware. It is therefore sometimes necessary to debug a whole system.
+The [[Emulation Environment]] documentation explains how to start multiple virtual Linux kernels+userspace, connect them and connect various helpers to test/debug a whole linux system. But some problems might only be reproducible on actual hardware ([[Mixing_VM_with_gluon_hardware|connected to the emulation setup]]). It is therefore sometimes necessary to debug a whole system.
 
 In best case, the system can be "debugged using JTAG":https://openwrt.org/docs/techref/hardware/port.jtag. But this is often not possible and an in-kernel gdb remote stub like "KGDB":https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html has to be used. The only requirement it has on the actual board is a simple serial console with <code>poll_{get,put}_char()</code> support.
 
@@ -297,7 +297,7 @@ lx-symbols ../batman-adv-2019.2/.pkgdir/ ../backports-4.19.66-1/.pkgdir/ ../butt
 
 The rest of the usage now works similar to debugging using gdbserver. Just set some additional breakpoints and let the kernel run again. kgdb will then inform gdb whenever a breakpoints was hit. Just keep in mind that it is not possible to interrupt the kernel from gdb (without a Oops or an already existing breakpoint) - use sysrq from linux for that.
 
-Some other ideas are documented in [[Emulation_Debug#Using-GDB]]. This document also contains important hints about [[Emulation_Debug#Building-the-batman-adv-module|increasing the chance of getting debugable modules]] which didn't had all information optimized away. The relevant flags could be set directly in the routing feed like this:
+Some other ideas are documented in [[Kernel_debugging_with_qemu's_GDB_server]]. This document also contains important hints about [[Kernel_hacking_Debian_image#Building-the-batman-adv-module|increasing the chance of getting debugable modules]] which didn't had all information optimized away. The relevant flags could be set directly in the routing feed like this:
 
 <pre><code class="diff">
 diff --git a/batman-adv/Makefile b/batman-adv/Makefile

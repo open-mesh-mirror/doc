@@ -11,7 +11,7 @@ h2. B.A.T.M.A.N. General questions
 h3. Does B.A.T.M.A.N. have simulator (NS2, Omnet++, etc) support?
 
 *Q:* Does B.A.T.M.A.N. have his own simulator?
-*A:*  At this point no, but B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [[open-mesh:Emulation|read our emulation document]].
+*A:*  At this point no, but B.A.T.M.A.N. implementation (we know of) supports simulators like the ones mentioned above. However, some people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If you are looking for step-by-step instructions to install such a system you can [[open-mesh:Emulation Environment|read our emulation document]].
 
 h3. How to make my mesh network secure ?
 

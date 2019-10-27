@@ -1,0 +1,39 @@
+h1. Emulation Environment
+
+To give an answer to the often asked question "How to test/evaluate/debug mesh network protocols?", this document explains a virtual machine setup which can be used to test batman-adv in a controlled environment. The idea is to use "QEMU":https://www.qemu.org/ (instead of pure simulation systems like "NS-2":https://www.isi.edu/nsnam/ns/) to run an unmodified Linux system with the unmodified source code as it is used in real world setups. Besides B.A.T.M.A.N., you could evaluate any routing protocol.
+
+A simple setup is shown first and various extension and debugging helpers are explained later.
+
+
+h2. Architecture
+
+The test stack consists of the following components:
+
+* Host running the virtual instances
+* virtual instances (cloned) from a single image
+* interconnect to connect the virtual instances
+* various debugging tools
+* optional external devices and services
+
+!emulation_overview.png!
+
+h2. Virtual Instances
+
+The main components of the testing setup are the virtual instances. Various images can be used to create them. There is not a single image for all tasks but the right one has to be chosen.
+
+* [[OpenWrt in QEMU]]
+* [[Kernel hacking Debian image]]
+
+h2. Advanced interconnects
+
+The default interconnect is only creating a single broadcasting domain using a bridge. This cannot be used to simulate interesting topologies. I more advanced techniques can be used to extend or replace the bridge to still achieve a reasonable setup
+
+* [[bridge interconnect]]
+* [[vde_switch interconnect]]
+* [[mixing VM with gluon hardware]]
+
+h2. Debugging helpers
+
+* [[Analyzing interconnect packets]]
+* [[Kernel debugging with qemu's GDB server]]
+* [[Kernel debugging with kgdb]]

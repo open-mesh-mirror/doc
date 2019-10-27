@@ -270,7 +270,7 @@ make all -j$(nproc || echo 1)
 
 h2. Start of the simple environment
 
-The two node environment must be started inside a screen session. The hub (bridge with 5 tap devices) has to be started first to have a simple network. A more complex network setup can be on the page [[Emulation]]
+The two node environment must be started inside a screen session. The hub (bridge with 5 tap devices) has to be started first to have a simple network. A more complex network setup can be on the page [[vde switch interconnect]] and [[bridge interconnect]]
 
 The @ETH@ in hub.sh has to be changed to the real interface which provides internet-connectivity
 
