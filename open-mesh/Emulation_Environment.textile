@@ -4,14 +4,13 @@ To give an answer to the often asked question "How to test/evaluate/debug mesh n
 
 A simple setup is shown first and various extension and debugging helpers are explained later.
 
-
 h2. Architecture
 
 The test stack consists of the following components:
 
 * Host running the virtual instances
 * virtual instances (cloned) from a single image
-* interconnect to connect the virtual instances
+* interconnect to allow commmunication between the virtual instances
 * various debugging tools
 * optional external devices and services
 
