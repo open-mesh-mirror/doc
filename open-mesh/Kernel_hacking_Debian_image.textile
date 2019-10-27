@@ -66,9 +66,17 @@ sudo zerofree -v debian.img
 
 h2. Kernel compile
 
-Any recent kernel can be used for the setup. The build result @arch/x86/boot/bzImage@ has to be copied to the same directory as the debian.img
+Any recent kernel can be used for the setup. We will use linux-next here to get the most recent development kernels. It is also assumed that the sources are copied to the same directory as the debian.img and a x86_64 image will be used.
 
-<pre>
+The kernel will be build to enhance the virtualization and debugging experience. It is configured with:
+
+* basic kernel features
+* support for necessary drivers
+* kernel hacking helpers
+* kernel address + undefined sanitizers
+* support for hwsim
+
+<pre><code class="shell">
 # make sure that libelf-dev is installed or module build will fail with something like "No rule to make target 'net/batman-adv/bat_algo.o'"
 
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
@@ -266,7 +274,7 @@ EOF
 make olddefconfig
 
 make all -j$(nproc || echo 1)
-</pre>
+</code></pre>
 
 h2. Start of the simple environment
 
