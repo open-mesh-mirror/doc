@@ -1,8 +1,8 @@
-h1. Bridge interconnect
+h1. Advanced Bridge virtual network
 
 {{toc}}
 
-The simple interconnect from [[open-mesh:OpenWrt in QEMU#interconnect-initialization]] is a Linux bridge which allows full communication between the tap interfaces of all virtual instances.  This is not optimal because fully connected meshes are not really interesting. But it is possible to use the bridge and netfilter functionality of the host's kernel to improve the bridge interconnect.
+The simple virtual network from [[open-mesh:OpenWrt in QEMU#virtual-network-initialization]] is a Linux bridge which allows full communication between the tap interfaces of all virtual instances.  This is not optimal because fully connected meshes are not really interesting. But it is possible to use the bridge and netfilter functionality of the host's kernel to improve the bridge virtual network.
 
 The tool of choice at the moment is is nft(ables). The following examples will introduce some common concepts based on nft. For older systems, ebtables and/or tc can also be used to achieve the same.
 
@@ -23,7 +23,7 @@ h2. Preventing communication between nodes
 By default, all ports of a bridge can talk to each other. It is possible to prevent this forwarding behavior between the tap interfaces. The communication of the host with the virtual instances is not affected because it would be handled as output/input traffic.
 
 <pre><code class="shell">
-cat > interconnect-filter-traffic.nft << "EOF"
+cat > virtual-network-filter-traffic.nft << "EOF"
 #!/usr/sbin/nft -f
 
 flush ruleset bridge
@@ -36,9 +36,9 @@ table bridge filter {
 }
 EOF
 
-chmod +x interconnect-filter-traffic.nft
+chmod +x virtual-network-filter-traffic.nft
 
-sudo ./interconnect-filter-traffic.nft
+sudo ./virtual-network-filter-traffic.nft
 </code></pre>
 
 h2. Allow communication between specific nodes
@@ -50,7 +50,7 @@ The previous example was not that useful for a mesh because nothing really meshe
 A simple chain is build here by allowing forwarding from one slave interface to another slave interface:
 
 <pre><code class="shell">
-cat > interconnect-filter-traffic.nft << "EOF"
+cat > virtual-network-filter-traffic.nft << "EOF"
 #!/usr/sbin/nft -f
 
 flush ruleset bridge
@@ -70,9 +70,9 @@ table bridge filter {
 }
 EOF
 
-chmod +x interconnect-filter-traffic.nft
+chmod +x virtual-network-filter-traffic.nft
 
-sudo ./interconnect-filter-traffic.nft
+sudo ./virtual-network-filter-traffic.nft
 </code></pre>
 
 h2. Loss between nodes
@@ -84,7 +84,7 @@ The chain setup is already a nice test for mesh setups. But other characteristic
 A simple (uniformly distributed, bidirectional) packet loss can be implemented using
 
 <pre><code class="shell">
-cat > interconnect-filter-traffic.nft << "EOF"
+cat > virtual-network-filter-traffic.nft << "EOF"
 #!/usr/sbin/nft -f
 
 flush ruleset bridge
@@ -107,9 +107,9 @@ table bridge filter {
 }
 EOF
 
-chmod +x interconnect-filter-traffic.nft
+chmod +x virtual-network-filter-traffic.nft
 
-sudo ./interconnect-filter-traffic.nft
+sudo ./virtual-network-filter-traffic.nft
 </code></pre>
 
 h2. Throughput limit between nodes
@@ -119,7 +119,7 @@ It is also possible to limit the maximum throughput per second for a link. The l
 !bridge-netfilter-throughput.png!
 
 <pre><code class="shell">
-cat > interconnect-filter-traffic.nft << "EOF"
+cat > virtual-network-filter-traffic.nft << "EOF"
 #!/usr/sbin/nft -f
 
 flush ruleset bridge
@@ -142,7 +142,7 @@ table bridge filter {
 }
 EOF
 
-chmod +x interconnect-filter-traffic.nft
+chmod +x virtual-network-filter-traffic.nft
 
-sudo ./interconnect-filter-traffic.nft
+sudo ./virtual-network-filter-traffic.nft
 </code></pre>
