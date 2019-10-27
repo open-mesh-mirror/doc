@@ -257,7 +257,7 @@ echo ttyS0,115200 > /sys/module/kgdboc/parameters/kgdboc
 
 h3. Switch to kgdb
 
-The gdb frontend cannot directly talk to the kernel over serial and create breakpoints. The sysrq mechanism has to be used to switch to kgdb before gdb can be used. Under OpenWrt, this is the easily done using
+The gdb frontend cannot directly talk to the kernel over serial and create breakpoints. The sysrq mechanism has to be used to switch from Linux to kgdb before gdb can be used. Under OpenWrt, this can be done using
 
 <pre><code class="shell">
 echo g > /proc/sysrq-trigger
@@ -265,20 +265,20 @@ echo g > /proc/sysrq-trigger
 
 h3. Connecting gdb
 
-I would use following folder in my x86-64 build environment:
+I would use following folder in my x86-64 build environment but they will be different for other architectures or OpenWrt versions:
 
 * <code>LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-4.14.148/</code>
 * <code>GDB=${OPENWRT_DIR}/staging_dir/toolchain-x86_64_gcc-7.4.0_musl/bin/x86_64-openwrt-linux-gdb</code>
 * <code>BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2019.2/</code>
 
-When kgdb is activated using sysrq, we can configure gdb to connect via a serial adapter to the device. But we should first load the vmlinux with our target specific gdb. We must change to the LINUX_DIR first and can then start our GDB before we will connect to the remote device.
+When kgdb is activated using sysrq, we can configure gdb. It has to connect via a serial adapter to the target device. We must change to the LINUX_DIR first and can then start our target specific GDB with our uncompressed kernel image before we will connect to the remote device.
 
 <pre><code class="shell">
 cd "${LINUX_DIR}"
 "${GDB}" -iex "set auto-load safe-path scripts/gdb/"  ./vmlinux
 </code></pre>
 
-In this example, we are using an USB TTL converter. It has to be configured in gdb
+In this example, we are using an USB TTL converter (<code>/dev/ttyUSB0</code>). It has to be configured in gdb
 
 <pre>
 set serial baud 115200
@@ -295,7 +295,7 @@ You should make sure that it doesn't load any <code>*.ko</code> files from <code
 lx-symbols ../batman-adv-2019.2/.pkgdir/ ../backports-4.19.66-1/.pkgdir/ ../button-hotplug/.pkgdir/
 </pre>
 
-The rest of the usage now works similar to debugging using gdbserver. Just set some additional breakpoints and let the kernel run again. kgdb will then inform gdb whenever a breakpoints was hit. Just keep in mind that it is not possible to interrupt the kernel from gdb (without a Oops or an already existing breakpoint) - use sysrq from linux for that.
+The rest of the process works similar to debugging using gdbserver. Just set some additional breakpoints and let the kernel run again. kgdb will then inform gdb whenever a breakpoints was hit. Just keep in mind that it is not possible to interrupt the kernel from gdb (without a Oops or an already existing breakpoint) - use the sysrq mechanism again from Linux to switch back to kgdb.
 
 Some other ideas are documented in [[Kernel_debugging_with_qemu's_GDB_server]]. This document also contains important hints about [[Kernel_hacking_Debian_image#Building-the-batman-adv-module|increasing the chance of getting debugable modules]] which didn't had all information optimized away. The relevant flags could be set directly in the routing feed like this:
 
