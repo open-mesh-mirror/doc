@@ -13,7 +13,7 @@ h2. vde setup
 
 Download "vde2.3.1":https://sourceforge.net/projects/vde/files/vde2/ and the vde colour patch attachment:vde2-2.3.1_colour.patch
 
-h3. patch the "vde2-2.3.1_colour.patch" for vde.
+h3. apply "vde2-2.3.1_colour.patch" for vde.
 
 <pre><code class="shell">
 cd vde-2.3.1
@@ -146,4 +146,3 @@ It is also possible to have both (just with different mac addresses) to have SSH
 h3. Automatic test initialization
 
 The [[open-mesh:OpenWrt_in_QEMU#Automatic-test-initialization|test-init.sh from the OpenWrt environment]] is always test specific. But it can just be reused again with this interconnect.
-
