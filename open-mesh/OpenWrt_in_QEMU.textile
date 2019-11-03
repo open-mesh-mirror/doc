@@ -100,7 +100,7 @@ BASE_IMG=openwrt-x86-64-combined-ext4.img
 #BASE_IMG=debian.img
 #BOOTARGS+=("-bios" "qboot/bios.bin")
 #BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-#BOOTARGS+=("-append" "root=/dev/vda rw console=ttyS0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0")
+#BOOTARGS+=("-append" "root=/dev/vda rw console=ttyS0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1")
 
 for i in $(seq 1 "${NUM_SESSIONS}"); do
     if [ ! -e "/sys/class/net/tap${i}" ]; then
