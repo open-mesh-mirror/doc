@@ -95,12 +95,14 @@ NUM_SESSIONS=3
 
 ## OpenWrt in QEMU
 BASE_IMG=openwrt-x86-64-combined-ext4.img
+BOOTARGS+=("-serial" "chardev:charconsole0")
 
 ## Kernel hacking Debian image
 #BASE_IMG=debian.img
 #BOOTARGS+=("-bios" "qboot/bios.bin")
 #BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-#BOOTARGS+=("-append" "root=/dev/vda rw console=ttyS0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1")
+#BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1")
+#BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 
 for i in $(seq 1 "${NUM_SESSIONS}"); do
     if [ ! -e "/sys/class/net/tap${i}" ]; then
@@ -115,7 +117,6 @@ for i in $(seq 1 "${NUM_SESSIONS}"); do
 
     qemu-img create -b "${BASE_IMG}" -f qcow2 root.cow$i
     screen qemu-system-x86_64 -enable-kvm -name "instance${i}" \
-        "${BOOTARGS[@]}" \
         -display none -no-user-config -nodefaults \
         -m 512M,maxmem=2G,slots=2 -device virtio-balloon \
         -cpu host -smp 2 -machine q35,accel=kvm,usb=off,dump-guest-core=off \
@@ -125,7 +126,9 @@ for i in $(seq 1 "${NUM_SESSIONS}"); do
         -virtfs local,path="${SHARED_PATH}",security_model=none,mount_tag=host \
         -gdb tcp:127.0.0.1:$((23000+$i)) \
         -device virtio-rng-pci \
-        -serial mon:stdio
+        -device virtio-serial-pci,id=virtio-serial \
+        -chardev stdio,id=charconsole0,mux=on,signal=off -mon chardev=charconsole0,mode=readline \
+        "${BOOTARGS[@]}"
     sleep 1
 done
 EOF
