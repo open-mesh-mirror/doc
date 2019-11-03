@@ -335,8 +335,10 @@ The BASE_IMG is of course no longer the same because a new image "debian.img" wa
 BASE_IMG=debian.img
 BOOTARGS+=("-bios" "qboot/bios.bin")
 BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-BOOTARGS+=("-append" "root=/dev/vda rw console=ttyS0 nokaslr")
+BOOTARGS+=("-append" "root=/dev/vda rw console=ttyS0,115200,8n1 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0")
 </code></pre>
+
+It is also recommended to use <code>linux-next/vmlinux</code> instead of <code>bzImage</code> with qemu 4.0.0 (or later)
 
 h3. Automatic test initialization
 
