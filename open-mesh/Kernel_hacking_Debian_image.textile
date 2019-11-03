@@ -296,6 +296,15 @@ make olddefconfig
 make all -j$(nproc || echo 1)
 </code></pre>
 
+h2. Build the BIOS
+
+The (sea)bios used by qemu is nice to boot all kind of legacy images but reduces the performance for booting a paravirtualized Linux system. Something like qboot works better for this purpose:
+
+<pre><code class="shell">
+git clone https://github.com/bonzini/qboot.git
+make -C qboot
+</code></pre>
+
 h2. Building the batman-adv module
 
 The kernel module can be build outside the virtual environment and shared over the 9p mount. The path to the kernel sources have to be provided to the make process
@@ -324,6 +333,7 @@ The BASE_IMG is of course no longer the same because a new image "debian.img" wa
 
 <pre><code class="shell">
 BASE_IMG=debian.img
+BOOTARGS+=("-bios" "qboot/bios.bin")
 BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
 BOOTARGS+=("-append" "root=/dev/vda rw console=ttyS0 nokaslr")
 </code></pre>
