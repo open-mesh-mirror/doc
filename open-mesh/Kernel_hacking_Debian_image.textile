@@ -214,6 +214,7 @@ CONFIG_NO_HZ_IDLE=y
 
 # makes boot a lot slower but required for shutdown
 CONFIG_ACPI=y
+CONFIG_CPU_IDLE_GOV_HALTPOLL=y
 
 #debug stuff
 CONFIG_CC_STACKPROTECTOR_STRONG=y
