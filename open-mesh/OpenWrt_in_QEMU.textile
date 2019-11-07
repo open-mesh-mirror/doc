@@ -121,12 +121,12 @@ for i in $(seq 1 "${NUM_SESSIONS}"); do
         -m 512M,maxmem=2G,slots=2 -device virtio-balloon \
         -cpu host -smp 2 -machine q35,accel=kvm,usb=off,dump-guest-core=off \
         -drive file=root.cow$i,if=virtio,cache=unsafe \
-        -nic tap,ifname=tap$i,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
-        -nic user,model=virtio-net-pci,mac=06:ba:de:af:fe:"${twodigit_id}" \
+        -nic tap,ifname=tap$i,script=no,model=virtio,mac=02:ba:de:af:fe:"${twodigit_id}" \
+        -nic user,model=virtio,mac=06:ba:de:af:fe:"${twodigit_id}" \
         -virtfs local,path="${SHARED_PATH}",security_model=none,mount_tag=host \
         -gdb tcp:127.0.0.1:$((23000+$i)) \
-        -device virtio-rng-pci \
-        -device virtio-serial-pci,id=virtio-serial \
+        -device virtio-rng \
+        -device virtio-serial,id=virtio-serial \
         -chardev stdio,id=charconsole0,mux=on,signal=off -mon chardev=charconsole0,mode=readline \
         "${BOOTARGS[@]}"
     sleep 1
