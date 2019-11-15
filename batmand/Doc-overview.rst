@@ -32,8 +32,8 @@ Developer Information / Advanced Features
 -  :doc:`Vis output <VisOutput>` - working with the vis server output
 -  :doc:`How to get a coredump <Coredump>` - documentation about coredump
    configuration & retrieval
--  :doc:`Emulation HowTo </open-mesh/Emulation>` - how to create an
-   environment to emulate wireless setups using QEMU and VDE
+-  :doc:`Emulation HowTo </open-mesh/Emulation\_Environment>` - how to create an
+   environment to emulate wireless setups using QEMU
 
 Protocol Documentation
 ----------------------

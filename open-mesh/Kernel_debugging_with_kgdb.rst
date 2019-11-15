@@ -3,18 +3,19 @@
 OpenWrt KGDB
 ============
 
-The :doc:`Emulation Debug <Emulation_Debug>` documentation explains how to start multiple
-virtual Linux kernels+userspace, connect them and connect various
-helpers to test/debug a whole linux system. But some problems might only
-be reproducible on actual hardware. It is therefore sometimes necessary
-to debug a whole system.
+The :doc:`Emulation Environment <Emulation_Environment>`  documentation explains how to start
+multiple virtual Linux kernels+userspace, connect them and connect
+various helpers to test/debug a whole linux system. But some problems
+might only be reproducible on actual hardware
+:doc:`connected to the emulation setup <Mixing_VM_with_gluon_hardware>`. It
+is therefore sometimes necessary to debug a whole system.
 
 In best case, the system can be `debugged using
 JTAG <https://openwrt.org/docs/techref/hardware/port.jtag>`__. But this
 is often not possible and an in-kernel gdb remote stub like
 `KGDB <https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html>`__
 has to be used. The only requirement it has on the actual board is a
-simple serial console.
+simple serial console with poll_{get,put}_char() support.
 
 Preparing OpenWrt
 -----------------
@@ -132,6 +133,108 @@ would be:
 
    USE_ATKBD = generic 64
 
+For ar71xx (GL.inet AR750 in my case), it would look like:
+
+.. code-block:: diff
+
+  diff --git a/target/linux/ar71xx/config-4.14 b/target/linux/ar71xx/config-4.14
+  index 4bc84792b6..8bd7c8b299 100644
+  --- a/target/linux/ar71xx/config-4.14
+  +++ b/target/linux/ar71xx/config-4.14
+  @@ -290,7 +290,7 @@ CONFIG_ATH79=y
+   # CONFIG_ATH79_NVRAM is not set
+   # CONFIG_ATH79_PCI_ATH9K_FIXUP is not set
+   # CONFIG_ATH79_ROUTERBOOT is not set
+  -CONFIG_ATH79_WDT=y
+  +# CONFIG_ATH79_WDT is not set
+   CONFIG_CEVT_R4K=y
+   CONFIG_CLKDEV_LOOKUP=y
+   CONFIG_CLONE_BACKWARDS=y
+  @@ -299,6 +299,8 @@ CONFIG_CMDLINE_BOOL=y
+   # CONFIG_CMDLINE_OVERRIDE is not set
+   CONFIG_COMMON_CLK=y
+   # CONFIG_COMMON_CLK_BOSTON is not set
+  +CONFIG_CONSOLE_POLL=y
+  +CONFIG_CONSOLE_TRANSLATIONS=y
+   CONFIG_CPU_BIG_ENDIAN=y
+   CONFIG_CPU_GENERIC_DUMP_TLB=y
+   CONFIG_CPU_HAS_PREFETCH=y
+  @@ -316,10 +318,15 @@ CONFIG_CPU_SUPPORTS_MSA=y
+   CONFIG_CRYPTO_RNG2=y
+   CONFIG_CRYPTO_WORKQUEUE=y
+   CONFIG_CSRC_R4K=y
+  +CONFIG_DEBUG_INFO=y
+  +CONFIG_DEBUG_INFO_DWARF4=y
+  +# CONFIG_DEBUG_INFO_REDUCED is not set
+   CONFIG_DMA_NONCOHERENT=y
+  +CONFIG_DUMMY_CONSOLE=y
+   CONFIG_EARLY_PRINTK=y
+   CONFIG_ETHERNET_PACKET_MANGLE=y
+   CONFIG_FIXED_PHY=y
+  +CONFIG_GDB_SCRIPTS=y
+   CONFIG_GENERIC_ATOMIC64=y
+   CONFIG_GENERIC_CLOCKEVENTS=y
+   CONFIG_GENERIC_CMOS_UPDATE=y
+  @@ -385,6 +392,7 @@ CONFIG_HAVE_PERF_EVENTS=y
+   CONFIG_HAVE_REGS_AND_STACK_ACCESS_API=y
+   CONFIG_HAVE_SYSCALL_TRACEPOINTS=y
+   CONFIG_HAVE_VIRT_CPU_ACCOUNTING_GEN=y
+  +CONFIG_HW_CONSOLE=y
+   CONFIG_HZ_PERIODIC=y
+   CONFIG_I2C=y
+   CONFIG_I2C_ALGOBIT=y
+  @@ -395,13 +403,20 @@ CONFIG_INITRAMFS_COMPRESSION=""
+   CONFIG_INITRAMFS_ROOT_GID=0
+   CONFIG_INITRAMFS_ROOT_UID=0
+   CONFIG_INITRAMFS_SOURCE="../../root"
+  +CONFIG_INPUT=y
+   CONFIG_INTEL_XWAY_PHY=y
+   CONFIG_IP17XX_PHY=y
+   CONFIG_IRQ_DOMAIN=y
+   CONFIG_IRQ_FORCED_THREADING=y
+   CONFIG_IRQ_MIPS_CPU=y
+   CONFIG_IRQ_WORK=y
+  +CONFIG_KGDB=y
+  +# CONFIG_KGDB_KDB is not set
+  +# CONFIG_KGDB_LOW_LEVEL_TRAP is not set
+  +CONFIG_KGDB_SERIAL_CONSOLE=y
+  +# CONFIG_KGDB_TESTS is not set
+   CONFIG_LEDS_GPIO=y
+  +CONFIG_MAGIC_SYSRQ=y
+   CONFIG_MARVELL_PHY=y
+   CONFIG_MDIO_BITBANG=y
+   CONFIG_MDIO_BUS=y
+  @@ -472,6 +487,7 @@ CONFIG_RTL8367_PHY=y
+   # CONFIG_SERIAL_8250_FSL is not set
+   CONFIG_SERIAL_8250_NR_UARTS=1
+   CONFIG_SERIAL_8250_RUNTIME_UARTS=1
+  +# CONFIG_SERIAL_KGDB_NMI is not set
+   # CONFIG_SOC_AR71XX is not set
+   # CONFIG_SOC_AR724X is not set
+   # CONFIG_SOC_AR913X is not set
+  @@ -503,3 +519,8 @@ CONFIG_SYS_SUPPORTS_ZBOOT_UART_PROM=y
+   CONFIG_TICK_CPU_ACCOUNTING=y
+   CONFIG_TINY_SRCU=y
+   CONFIG_USB_SUPPORT=y
+  +# CONFIG_VGACON_SOFT_SCROLLBACK is not set
+  +CONFIG_VGA_CONSOLE=y
+  +CONFIG_VT=y
+  +CONFIG_VT_CONSOLE=y
+  +# CONFIG_VT_HW_CONSOLE_BINDING is not set
+  diff --git a/target/linux/ar71xx/image/Makefile b/target/linux/ar71xx/image/Makefile
+  index 804532b55c..c485389f56 100644
+  --- a/target/linux/ar71xx/image/Makefile
+  +++ b/target/linux/ar71xx/image/Makefile
+  @@ -58,7 +58,7 @@ define Device/Default
+     PROFILES = Default Minimal $$(DEVICE_PROFILE)
+     MTDPARTS :=
+     BLOCKSIZE := 64k
+  -  CONSOLE := ttyS0,115200
+  +  CONSOLE := ttyS0,115200 nokaslr
+     CMDLINE = $$(if $$(BOARDNAME),board=$$(BOARDNAME)) $$(if $$(MTDPARTS),mtdparts=$$(MTDPARTS)) $$(if $$(CONSOLE),console=$$(CONSOLE))
+     KERNEL := kernel-bin | patch-cmdline | lzma | uImage lzma
+     COMPILE :=
+
 Enabling python support for gdb
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -176,8 +279,8 @@ Disable kASLR
 The kernel address space layout randomization complicates the resolving
 of addresses of symbols. It is highly recommended to start the kernel
 with the parameter “nokaslr”. For example by adding it to CONFIG_CMDLINE
-or by adjusting the bootargs. It should be checked in /proc/cmdline
-whether it was really booted with this parameter.
+or by adjusting the bootargs in the bootloader. It should be checked in
+/proc/cmdline whether it was really booted with this parameter.
 
 Configure KGDB serial
 ~~~~~~~~~~~~~~~~~~~~~
@@ -194,8 +297,9 @@ Switch to kgdb
 ~~~~~~~~~~~~~~
 
 The gdb frontend cannot directly talk to the kernel over serial and
-create breakpoints. The sysrq mechanism has to be used to switch to kgdb
-before gdb can be used. Under OpenWrt, this is the easily done using
+create breakpoints. The sysrq mechanism has to be used to switch from
+Linux to kgdb before gdb can be used. Under OpenWrt, this can be done
+using
 
 .. code-block:: sh
 
@@ -204,24 +308,25 @@ before gdb can be used. Under OpenWrt, this is the easily done using
 Connecting gdb
 ~~~~~~~~~~~~~~
 
-I would use following folder in my x86-64 build environment:
+I would use following folder in my x86-64 build environment but they
+will be different for other architectures or OpenWrt versions:
 
 * ``LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-4.14.148/``
 * ``GDB=${OPENWRT_DIR}/staging_dir/toolchain-x86_64_gcc-7.4.0_musl/bin/x86_64-openwrt-linux-gdb``
 * ``BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2019.2/``
 
-When kgdb is activated using sysrq, we can configure gdb to connect via
-a serial adapter to the device. But we should first load the vmlinux
-with our target specific gdb. We must change to the LINUX_DIR first and
-can then start our GDB before we will connect to the remote device.
+When kgdb is activated using sysrq, we can configure gdb. It has to
+connect via a serial adapter to the target device. We must change to the
+LINUX_DIR first and can then start our target specific GDB with our
+uncompressed kernel image before we will connect to the remote device.
 
 .. code-block:: sh
 
   cd "${LINUX_DIR}"
   "${GDB}" -iex "set auto-load safe-path scripts/gdb/"  ./vmlinux
 
-In this example, we are using an USB TTL converter. It has to be
-configured in gdb
+In this example, we are using an USB TTL converter (/dev/ttyUSB0). It
+has to be configured in gdb
 
 ::
 
@@ -241,18 +346,20 @@ or specify the folders with the unstripped kernel modules:
 
   lx-symbols ../batman-adv-2019.2/.pkgdir/ ../backports-4.19.66-1/.pkgdir/ ../button-hotplug/.pkgdir/
 
-The rest of the usage now works similar to debugging using gdbserver.
-Just set some additional breakpoints and let the kernel run again. kgdb
-will then inform gdb whenever a breakpoints was hit. Just keep in mind
-that it is not possible to interrupt the kernel from gdb (without a Oops
-or an already existing breakpoint) - use sysrq from linux for that.
+The rest of the process works similar to debugging using gdbserver. Just
+set some additional breakpoints and let the kernel run again. kgdb will
+then inform gdb whenever a breakpoints was hit. Just keep in mind that
+it is not possible to interrupt the kernel from gdb (without a Oops or
+an already existing breakpoint) - use the sysrq mechanism again from
+Linux to switch back to kgdb.
 
-Some other ideas are documented in :ref:`Emulation Debug <open-mesh-open-mesh-emulation-debug-using-gdb>`. This
-document also contains important hints about
-:ref:`increasing the chance of getting debugable modules <open-mesh-open-mesh-emulation-debug-building-the-batman-adv-module>`
-which didn’t had all information
-optimized away. THe relevant flags could be set directly in the routing
-feed like this:
+Some other ideas are documented in
+:doc:`Kernel debugging with qemu's GDB server <Kernel_debugging_with_qemu\'s_GDB_server>`.
+This document also contains important hints about
+:ref:`increasing the chance of getting debugable modules <open-mesh-kernel-hacking-debian-image-building-the-batman-adv-module>`
+which didn’t had all
+information optimized away. The relevant flags could be set directly in
+the routing feed like this:
 
 .. code-block:: diff
 
@@ -269,3 +376,39 @@ feed like this:
           NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
           modules
    endef
+
+Working with external Watchdog over GPIO
+----------------------------------------
+
+There are various boards on ar71xx which use external watchdogs chips
+via GPIO. They have to be triggered regularly (every minute or even more
+often) or otherwise the board will just suddenly reboot. This will of
+course not work when Linux is no longer in control and kgdb/gdb is the
+only way to interact with the system.
+
+But luckily, we can just write manually to the ar71xx registers (every n
+seconds). We have two possible ways:
+
+* write to the clear/set registers
+
+  -  set bit n in register ``GPIO_SET (0x1804000C)`` to set output value to
+     1 for GPIO n
+  -  set bit n in register ``GPIO_CLEAR (0x18040010)`` to set output value
+     to 0 for GPIO n
+
+* overwrite the complete ``GPIO_OUT (0x18040008)`` register (which might
+  modify more GPIO bits then required)
+
+We will only demonstrate this here for GPIO 12 with GPIO_SET/GPIO_CLEAR.
+
+::
+
+  # check where iomem 018040000-180400ff is mapped to
+  (gdb) print ath79_gpio_base
+  $1 = (void *) 0xb8040000
+
+  # set GPIO 12 to low
+  (gdb) set {uint32_t}0xb8040010 = 0x00001000
+
+  # set GPIO 12 to high
+  (gdb) set {uint32_t}0xb804000C = 0x00001000

@@ -1,12 +1,42 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Emulation Debug
-===============
+Kernel hacking Debian image
+===========================
+
+The :doc:`OpenWrt image <OpenWrt_in_QEMU>` is an easy way to start multiple
+virtual instances. But these instances usually don’t provide the
+required infrastructure to test kernel modules extensively. And it also
+depends on special toolchains to prepare the used tools/modules which
+should tested.
+
+It is often easier to use the same operating system in the virtual
+environment and on the host. Only the kernel is modified here to provide
+the necessary helpers for in-kernel development.
+
+An interested reader might even extend this further to only provide a
+modified kernel and use the currently running rootfs also in the virtual
+environment. Such an approach is used in `hostap’s test
+vm <https://w1.fi/cgit/hostap/tree/tests/hwsim/vm>`__ but it is out of
+scope for this document.
 
 Create an Image
 ---------------
 
-::
+The debian root filesystem is used here to a minimal system to boot and
+run the test programs. It is a simple ext4 filesystem with only
+userspace components from Debian. The configuration is changed to:
+
+* automatically mount the shared folder
+* automatically set up a static IPv4 address and hostname on bootup
+* start a test-init.sh script from the shared folder on bootup
+* disable root password
+* prefer batctl binary from shared folder’s batctl subdirectory instead
+  of virtual environment binary
+
+The installation is also cleaned up at the end to reduce the required
+storage space
+
+.. code-block:: sh
 
   qemu-img create debian.img 8G
   sudo mkfs.ext4 -O '^has_journal' -F debian.img
@@ -16,7 +46,7 @@ Create an Image
   sudo chroot debian apt update
   sudo chroot debian apt install --no-install-recommends build-essential vim openssh-server less \
    pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump \
-   trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev
+   trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
 
   sudo mkdir debian/root/.ssh/
   ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
@@ -49,8 +79,8 @@ Create an Image
   # sudo sed -i 's/^UsePAM.*/UsePAM no/' debian/etc/ssh/sshd_config
 
   ## optionally: enable autologin for user root
-  #sudo mkdir debian/etc/systemd/system/serial-getty@ttyS0.service.d/
-  #sudo sh -c 'cat > debian/etc/systemd/system/serial-getty@ttyS0.service.d/autologin.conf  << EOF
+  #sudo mkdir debian/etc/systemd/system/serial-getty@hvc0.service.d/
+  #sudo sh -c 'cat > debian/etc/systemd/system/serial-getty@hvc0.service.d/autologin.conf  << EOF
   #[Service]
   #ExecStart=
   #ExecStart=-/sbin/agetty --autologin root -s %I 115200,38400,9600 vt102
@@ -71,11 +101,21 @@ Create an Image
 Kernel compile
 --------------
 
-Any recent kernel can be used for the setup. The build result
-``arch/x86/boot/bzImage`` has to be copied to the same directory as the
-debian.img
+Any recent kernel can be used for the setup. We will use linux-next here
+to get the most recent development kernels. It is also assumed that the
+sources are copied to the same directory as the debian.img and a x86_64
+image will be used.
 
-::
+The kernel will be build to enhance the virtualization and debugging
+experience. It is configured with:
+
+* basic kernel features
+* support for necessary drivers
+* kernel hacking helpers
+* kernel address + undefined sanitizers
+* support for hwsim
+
+.. code-block:: sh
 
   # make sure that libelf-dev is installed or module build will fail with something like "No rule to make target 'net/batman-adv/bat_algo.o'"
 
@@ -121,6 +161,13 @@ debian.img
   CONFIG_DRM_VIRTIO_GPU=y
   CONFIG_CAIF=y
   CONFIG_CAIF_VIRTIO=y
+  CONFIG_CRYPTO_DEV_VIRTIO=y
+  CONFIG_FUSE_FS=y
+  CONFIG_VIRTIO_FS=y
+  CONFIG_IOMMU_SUPPORT=y
+  CONFIG_VIRTIO_IOMMU=y
+  CONFIG_LIBNVDIMM=y
+  CONFIG_VIRTIO_PMEM=y
   CONFIG_CRC16=y
   CONFIG_LIBCRC32C=y
   CONFIG_CRYPTO_SHA512=y
@@ -141,8 +188,6 @@ debian.img
   CONFIG_EXT4_FS=y
   CONFIG_EXT4_USE_FOR_EXT23=y
   CONFIG_TTY=y
-  CONFIG_SERIAL_8250=y
-  CONFIG_SERIAL_8250_CONSOLE=y
   CONFIG_HW_RANDOM=y
   CONFIG_VHOST_RING=y
   CONFIG_GENERIC_ALLOCATOR=y
@@ -152,7 +197,10 @@ debian.img
   CONFIG_NET_CORE=y
   CONFIG_DEVTMPFS=y
   CONFIG_HYPERVISOR_GUEST=y
+  CONFIG_PVH=y
   CONFIG_PARAVIRT=y
+  CONFIG_PARAVIRT_TIME_ACCOUNTING=y
+  CONFIG_PARAVIRT_SPINLOCKS=y
   CONFIG_KVM_GUEST=y
   CONFIG_BINFMT_ELF=y
   CONFIG_BINFMT_SCRIPT=y
@@ -176,13 +224,7 @@ debian.img
   CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
   CONFIG_INOTIFY_USER=y
   CONFIG_FHANDLE=y
-  CONFIG_E1000=y
-  CONFIG_CPU_FREQ=y
-  CONFIG_CONFIG_X86_ACPI_CPUFREQ=y
-  CONFIG_CPU_FREQ_GOV_ONDEMAND=y
-  CONFIG_CPU_FREQ_DEFAULT_GOV_ONDEMAND=y
   CONFIG_CFG80211=y
-  CONFIG_PARAVIRT_SPINLOCKS=y
   CONFIG_DUMMY=y
   CONFIG_PACKET=y
   CONFIG_VETH=y
@@ -192,9 +234,13 @@ debian.img
   CONFIG_NET_IPGRE=y
   CONFIG_NET_IPGRE_BROADCAST=y
   # CONFIG_LEGACY_PTYS is not set
+  CONFIG_NO_HZ_IDLE=y
+  CONFIG_CPU_IDLE_GOV_HALTPOLL=y
+  CONFIG_PVPANIC=y
 
   # makes boot a lot slower but required for shutdown
   CONFIG_ACPI=y
+
 
   #debug stuff
   CONFIG_CC_STACKPROTECTOR_STRONG=y
@@ -275,90 +321,98 @@ debian.img
 
   make all -j$(nproc || echo 1)
 
-Start of the simple environment
--------------------------------
+Build the BIOS
+--------------
 
-The two node environment must be started inside a screen session. The
-hub (bridge with 5 tap devices) has to be started first to have a simple
-network. A more complex network setup can be on the page [[Emulation]]
+The (sea)bios used by qemu is nice to boot all kind of legacy images but
+reduces the performance for booting a paravirtualized Linux system.
+Something like qboot works better for this purpose:
 
-The ``ETH`` in hub.sh has to be changed to the real interface which
-provides internet-connectivity
+.. code-block:: sh
 
-::
+  git clone https://github.com/bonzini/qboot.git
+  make -C qboot
 
-  cat > hub.sh << "EOF"
-  #! /bin/sh
-  USER="$(whoami)"
-  BRIDGE=br-qemu
+.. _open-mesh-kernel-hacking-debian-image-building-the-batman-adv-module:
 
-  sudo ip link add "${BRIDGE}" type bridge
-  for i in `seq 1 5`; do
-          sudo ip tuntap add dev tap$i mode tap user "$USER"
-          sudo ip link set tap$i up
-          sudo ip link set tap$i master "${BRIDGE}"
-  done
+Building the batman-adv module
+------------------------------
 
-  sudo ip link set "${BRIDGE}" up
-  sudo ip addr replace 192.168.251.1/24 dev br-qemu
-  EOF
+The kernel module can be build outside the virtual environment and
+shared over the 9p mount. The path to the kernel sources have to be
+provided to the make process
 
-  chmod +x hub.sh
+.. code-block:: sh
 
-The ``SHARED_PATH`` in run.sh has to be changed to a valid path which is
-used to share the precompiled batman-adv.ko and other tools
+  make KERNELPATH="$(pwd)/../linux-next"
 
-::
+The kernel module can also be compiled in a way which creates better
+stack traces and increases the usability with (k)gdb:
 
-  cat > run.sh << "EOF"
-  #! /bin/sh
+.. code-block:: sh
 
-  if [ "${LINKS_XTERM}" != "screen" ]; then
-          echo "must be started inside a screen session" >&2
-          exit 1
-  fi
+  make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls" KERNELPATH="$(pwd)/../linux-next" V=1
 
-  SHARED_PATH=/home/sven/tmp/qemu-batman/
+Start of the environment
+------------------------
 
-  for i in $(seq 1 5); do
-          qemu-img create -b debian.img -f qcow2 root.cow$i
-          normalized_id="$(echo "$i"|awk '{ printf "%02d\n",$1 }')"
-          twodigit_id="$(echo $i|awk '{ printf "%02X", $1 }')"
-          screen qemu-system-x86_64 -enable-kvm -name "debian${i}" \
-                  -kernel linux-next/arch/x86/boot/bzImage -append "root=/dev/vda rw console=ttyS0 nokaslr" \
-                  -display none -no-user-config -nodefaults \
-                  -m 512 -device virtio-balloon \
-                  -cpu host -smp 2 -machine q35,accel=kvm,usb=off,dump-guest-core=off \
-                  -drive file=root.cow$i,if=virtio,cache=unsafe \
-                  -nic tap,ifname=tap$i,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
-                  -nic user,model=virtio-net-pci,mac=06:ba:de:af:fe:"${twodigit_id}" \
-                  -virtfs local,path="${SHARED_PATH}",security_model=none,mount_tag=host \
-                  -gdb tcp:127.0.0.1:$((23000+$i)) \
-                  -device virtio-rng-pci \
-                  -serial mon:stdio
-          sleep 1
-  done
-  EOF
+virtual network initialization
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  chmod +x run.sh 
+The
+:ref:`virtual-network.sh from the OpenWrt environment <open-mesh-openwrt-in-qemu-virtual-network-initialization>`
+can be reused again.
 
-The test-init.sh script can be used to automatically initialize the
-testsetup during boot:
+VM instances bringup
+~~~~~~~~~~~~~~~~~~~~
 
-::
+The 
+:ref:`run.sh from the OpenWrt environment <open-mesh-openwrt-in-qemu-vm-instances-bringup>`
+can mostly be reused. There are only minimal
+adjustments required.
+
+The BASE_IMG is of course no longer the same because a new image
+“debian.img” was created for our new environment. The image also doesn’t
+contain a bootloader or kernel anymore. The kernel must now be supplied
+manually to qemu.
+
+.. code-block:: sh
+
+  BASE_IMG=debian.img
+  BOOTARGS+=("-bios" "qboot/bios.bin")
+  BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
+  BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1")
+  BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
+
+It is also recommended to use linux-next/vmlinux instead of bzImage with
+qemu 4.0.0 (or later)
+
+Automatic test initialization
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The
+:ref:`test-init.sh from the OpenWrt environment <open-mesh-openwrt-in-qemu-automatic-test-initialization>`
+is always test specific. But its main
+functionality is still the same as before. A simple example would be:
+
+.. code-block:: sh
 
   cat > test-init.sh << "EOF"
   #! /bin/sh
 
   set -e
-  export PATH="/host/batctl/:$PATH"
+
+  ## get internet access
+  dhclient enp0s2
+
+  ## Simple batman-adv setup
 
   # ip link add dummy0 type dummy
   ip link set up dummy0
 
   rmmod batman-adv || true
   insmod /host/batman-adv/net/batman-adv/batman-adv.ko
-  batctl routing_algo BATMAN_IV
+  /host/batctl/batctl routing_algo BATMAN_IV
   /host/batctl/batctl if add dummy0
   /host/batctl/batctl it 5000
   /host/batctl/batctl if add enp0s1
@@ -368,96 +422,9 @@ testsetup during boot:
 
   chmod +x test-init.sh
 
-Everything can then be started up inside a screen session
+Start
+-----
 
-::
-
-  screen
-  ./hub.sh
-  ./run.sh
-
-.. _open-mesh-open-mesh-emulation-debug-building-the-batman-adv-module:
-
-Building the batman-adv module
-------------------------------
-
-The kernel module can be build outside the virtual environment and
-shared over the 9p mount. The path to the kernel sources have to be
-provided to the make process
-
-::
-
-  make KERNELPATH=/home/batman/linux-next
-
-The kernel module can also be compiled for better readability for the
-calltraces:
-
-::
-
-  make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls" KERNELPATH=/home/sven/tmp/qemu-batman/linux-next V=1
-
-View traffic via wireshark from virtual machine
------------------------------------------------
-
-On host system
-
-::
-
-   mkfifo remote-dump
-   ssh root@192.168.251.51 'tcpdump -i enp3s0 -s 0 -U -n -w - "port not 22"' > remote-dump
-   wireshark -k -i remote-dump
-
-.. _open-mesh-open-mesh-emulation-debug-using-gdb:
-
-Using GDB
----------
-
-The instances are listening on 127.0.0.1 TCP port 23000 + instance_no.
-We will use in the following example instance 1. The gdb debugger can be
-started from the linux source directory and all lx-\* helpers will
-automatically be loaded.
-
-The debugging session with gdb can be started from the linux-next
-directory:
-
-::
-
-  $ gdb -iex "set auto-load safe-path scripts/gdb/" -ex 'target remote 127.0.0.1:23001' -ex c  ./vmlinux
-
-The module can now be loaded in the qemu instance. After that, we have
-to reload the symbol information via lx-symbol and can set any kind of
-breakpoints on the batman-adv module:
-
-::
-
-  ^C
-  Thread 1 received signal SIGINT, Interrupt.
-  default_idle () at arch/x86/kernel/process.c:581
-  581             trace_cpu_idle_rcuidle(PWR_EVENT_EXIT, smp_processor_id());
-  (gdb) lx-symbols /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv/
-  loading vmlinux
-  scanning for modules in /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv/
-  scanning for modules in /home/sven/tmp/qemu-batman/linux-next
-  loading @0xffffffffa0000000: /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv//batman-adv.ko
-  (gdb) b batadv_iv_send_outstanding_bat_ogm_packet
-  Breakpoint 1 at 0xffffffffa0005d60: file /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv/bat_iv_ogm.c, line 1692.
-  (gdb) c
-
-It is also possible to evaluate data structures in the gdb commandline
-using small python code blocks. To get for example the name of all
-devices which batman-adv knows about and the name of the batman-adv
-interface they belong to:
-
-::
-
-  python
-  import linux.lists
-  from linux.utils import CachedType
-
-  struct_batadv_hard_iface = CachedType('struct batadv_hard_iface').get_type().pointer()
-
-  for node in linux.lists.list_for_each_entry(gdb.parse_and_eval("batadv_hardif_list"), struct_batadv_hard_iface, 'list'):
-      hardif = node['net_dev']['name'].string()
-      softif = node['soft_iface']['name'].string() if node['soft_iface'] else "none"
-      gdb.write("hardif {} belongs to {}\n".format(hardif, softif))
-  end
+The startup method 
+:ref:`from the OpenWrt environment <open-mesh-openwrt-in-qemu-start>`
+should be used here.

@@ -27,7 +27,7 @@ Does B.A.T.M.A.N. have simulator (NS2, Omnet, etc) support?
 supports simulators like the ones mentioned above. However, some
 people experiment with B.A.T.M.A.N. using emulators (UML/Qemu/etc). If
 you are looking for step-by-step instructions to install such a system
-you can :doc:`read our emulation document </open-mesh/Emulation>`.
+you can :doc:`read our emulation document </open-mesh/Emulation\_Environment>`.
 
 How to make my mesh network secure ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

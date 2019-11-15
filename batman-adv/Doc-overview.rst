@@ -81,8 +81,8 @@ Developer Information / Advanced Features
    documentation
 -  :doc:`Using the batman git repos </open-mesh/UsingBatmanGit>` - this page
    explains how the git repository is structured and how to use it
--  :doc:`Emulation HowTo </open-mesh/Emulation>` - how to create an
-   environment to emulate wireless setups using QEMU and VDE
+-  :doc:`Emulation HowTo </open-mesh/Emulation\_Environment>` - how to create an
+   environment to emulate wireless setups using QEMU
 -  :doc:`TVLV <TVLV>` - details regarding the TVLV
    (type-version-length-value) API and defined TVLV containers
 
