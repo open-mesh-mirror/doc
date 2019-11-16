@@ -25,7 +25,7 @@ The main components of the testing setup are the virtual instances. Various imag
 
 h2. Advanced virtual networks
 
-The default virtual network is only creating a single broadcasting domain using a bridge. This cannot be used to simulate interesting topologies. I more advanced techniques can be used to extend or replace the bridge to still achieve a reasonable setup
+The default virtual network is only creating a single broadcasting domain using a bridge. This cannot be used to simulate interesting topologies. More advanced techniques can be used to extend or replace the bridge to still achieve a reasonable setup
 
 * [[Advanced Bridge virtual network]]
 * [[vde_switch virtual network]]
