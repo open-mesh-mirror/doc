@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2019.5 released
 
-Dec 3th, 2019. Today the B.A.T.M.A.N. team publishes the December 2019 update to batman-adv, batctl and alfred! TODO
+Dec 4th, 2019. Today the B.A.T.M.A.N. team publishes the December 2019 update to batman-adv, batctl and alfred! TODO
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -55,14 +55,14 @@ bugfixes
 
 
 
-2019.5 (2019-12-03)
+2019.5 (2019-12-04)
 ===================
 
 * support latest kernels (3.16 - 5.5)
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - TODO
+  - fix DAT candidate selection on little endian systems
 
 </pre>
 
@@ -79,7 +79,7 @@ bugfix
 ======
 
 
-2019.5 (2019-12-03)
+2019.5 (2019-12-04)
 ===================
 
 * (no changes)
@@ -96,7 +96,7 @@ $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-2019.5 (2019-12-03)
+2019.5 (2019-12-04)
 ===================
 
 * (no changes)
