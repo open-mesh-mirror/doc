@@ -11,7 +11,6 @@ h2. Thanks
 Thanks to all people sending in patches:
 
 * Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-* Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 * Taehee Yoo <ap420073@gmail.com>
