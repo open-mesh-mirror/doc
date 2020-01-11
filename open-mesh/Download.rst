@@ -15,22 +15,22 @@ Download Released Source Code
 -----------------------------
 
 -  The latest version of :doc:`batman-adv </batman-adv/Wiki>` is
-   `batman-adv-2019.4.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.4.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.4.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.4.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.4.tar.gz.asc>`__
+   `batman-adv-2019.5.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.5.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.5.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.5.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2019.5.tar.gz.asc>`__
 -  The latest version of batctl (management and control tool for
    batman-adv) is
-   `batctl-2019.4.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.4.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.4.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.4.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.4.tar.gz.asc>`__
+   `batctl-2019.5.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.5.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.5.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.5.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2019.5.tar.gz.asc>`__
 -  The latest version of alfred (Almighty Lightweight Fact Remote
    Exchange Daemon) is
-   `alfred-2019.4.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.4.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.4.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.4.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.4.tar.gz.asc>`__
+   `alfred-2019.5.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.5.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.5.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.5.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2019.5.tar.gz.asc>`__
 
 -  The latest stable version of batmand
    (:ref:`unmaintained <open-mesh-BranchesExplained-batmand>`) is
@@ -178,6 +178,8 @@ contain, so that you can easily pick the compatible batctl packages:
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 -  linux 5.4 => batman-adv 2019.4 (get batctl 2019.4 from
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 5.5 => batman-adv 2019.5 (get batctl 2019.5 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 
 Arch Linux
 ----------
@@ -234,8 +236,8 @@ B.A.T.M.A.N. is also included in OpenWRT as a package. Download the
 extra package feed, link the batman folder into your main OpenWRT svn
 directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor
 you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly
-into your builds (see :doc:`this page </batman-adv/Building-with-openwrt>`
-for a detailed explanation).
+into your builds (see :doc:`this page </batman-adv/Building-with-openwrt>` for
+a detailed explanation).
 
 More information about how to build the OpenWRT toolchain is available
 `here <https://wiki.openwrt.org/doc/howto/build>`__.

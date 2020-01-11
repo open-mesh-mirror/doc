@@ -4,7 +4,8 @@ DRAFT: Batman-adv 2019.5 released
 =================================
 
 Dec 4th, 2019. Today the B.A.T.M.A.N. team publishes the December 2019
-update to batman-adv, batctl and alfred! TODO
+update to batman-adv, batctl and alfred! This release only contains
+bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled
 against, it does not make sense to provide binaries on our website. As
@@ -18,7 +19,6 @@ Thanks
 Thanks to all people sending in patches:
 
 * Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-* Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 * Taehee Yoo <ap420073@gmail.com>
@@ -103,11 +103,11 @@ alfred
   $ range=v2019.4..v2019.4-1-g0e3505c
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
-
+  
+  
   2019.5 (2019-12-04)
   ===================
-
+  
   * (no changes)
 
 Happy routing,
