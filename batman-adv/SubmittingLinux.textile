@@ -3,7 +3,7 @@
 h1. Submitting Patches to Linux
 
 
-We currently submit patches for Linux from our next branch. I try to give a short overview about it using some patches submitted to DaveM.
+We currently submit patches for Linux from our next branch. I try to give a short overview about it using some patches submitted to DaveM/Kuba.
 
 Following steps must always be done:
 
@@ -362,7 +362,7 @@ A good commit in has to be chosen. We should not send more than 20 patches for n
 Lets assume a good commit is 4e3e823b5a503235630921287f130e1d8d22d200
 
 <pre>
-TAG=batadv-next-for-davem-20160701
+TAG=batadv-next-for-netdev-20160701
 git tag -s ${TAG} 4e3e823b5a503235630921287f130e1d8d22d200
 # write a good commit message
 git push origin ${TAG}
@@ -371,23 +371,23 @@ git push origin ${TAG}
 The patches then have to be prepared and the cover letter has to be created for the pull request. For net-next it would look like:
 
 <pre>
-TAG=batadv-next-for-davem-20160701
+TAG=batadv-next-for-netdev-20160701
 git format-patch --cover-letter base/net-next..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
 git request-pull base/net-next git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
-git send-email --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
+git send-email --to=davem@davemloft.net --to=kuba@kernel.org --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
 
 or for net:
 
 <pre>
-TAG=batadv-net-for-davem-20160701
+TAG=batadv-net-for-netdev-20160701
 git format-patch --cover-letter base/net..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
 git request-pull base/net git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
-git send-email --to=davem@davemloft.net --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
+git send-email --to=davem@davemloft.net --to=kuba@kernel.org --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
 
 Now I will write something like
@@ -412,7 +412,7 @@ The following changes since commit 99860208bc62d8ebd5c57495b84856506fe075bc:
 
 are available in the git repository at:
 
-  git://git.open-mesh.org/linux-merge.git tags/batadv-next-for-davem-20160701
+  git://git.open-mesh.org/linux-merge.git tags/batadv-next-for-netdev-20160701
 
 for you to fetch changes up to 4e3e823b5a503235630921287f130e1d8d22d200:
 
