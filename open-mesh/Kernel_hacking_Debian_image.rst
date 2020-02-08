@@ -92,6 +92,7 @@ storage space
   sudo e4defrag -v debian/
   sudo umount debian
   sudo zerofree -v debian.img
+  sudo fallocate --dig-holes debian.img
 
 
   ## optionally: convert image to qcow2
