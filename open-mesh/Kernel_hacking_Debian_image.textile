@@ -72,6 +72,7 @@ sudo rm debian/var/cache/apt/archives/*.deb
 sudo rm debian/var/lib/apt/lists/*
 sudo e4defrag -v debian/
 sudo umount debian
+sudo fsck.ext4 -fD debian.img
 sudo zerofree -v debian.img
 sudo fallocate --dig-holes debian.img
 
