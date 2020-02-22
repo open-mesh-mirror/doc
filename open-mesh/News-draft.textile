@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2020.0 released
 
-Feb 18th, 2020. Today the B.A.T.M.A.N. team publishes the February 2020 update to batman-adv, batctl and alfred! TODO
+Feb 25th, 2020. Today the B.A.T.M.A.N. team publishes the February 2020 update to batman-adv, batctl and alfred! This release disables the (deprecated) sysfs support by default. The next milestone in this process is the removal of debugfs and sysfs support  next year. The B.A.T.M.A.N. V code can now use the PHY transmission rates as another fallback source to calculate the expected throughput to specific neighbors. The alfred gps daemon gained support for the gpsd API 9 (libgps >= 3.20). Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -23,8 +23,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.5-14-gdd5387bd
-$ range=v2019.5..v2019.5-14-gdd5387bd
+v2019.5-16-g0b7b07f5
+$ range=v2019.5..v2019.5-16-g0b7b07f5
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -66,13 +66,17 @@ various
 
 
 
-2020.0 (2020-02-18)
+2020.0 (2020-02-25)
 ===================
 
 * support latest kernels (3.16 - 5.6)
 * coding style cleanups and refactoring
 * use wifi tx rates as fallback for the B.A.T.M.A.N. V throughput estimation
 * disable deprecated sysfs support by default
+* bugs squashed:
+
+  - fix crash during the scheduling of OGMs for removed interfaces
+
 
 </pre>
 
@@ -90,7 +94,7 @@ bugfix
 ======
 
 
-2020.0 (2020-02-18)
+2020.0 (2020-02-25)
 ===================
 
 * (no changes)
@@ -109,10 +113,10 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 
       alfred-gpsd: Fix build against gpsd ABI 9.0
 
-2020.0 (2020-02-18)
+2020.0 (2020-02-25)
 ===================
 
-* Fix build against gpsd API 9.0
+* fix build against gpsd API 9.0
 </pre>
 
 
