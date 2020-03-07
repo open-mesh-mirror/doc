@@ -1,31 +1,36 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-DRAFT: Batman-adv 2019.5 released
+DRAFT: Batman-adv 2020.0 released
 =================================
 
-Dec 4th, 2019. Today the B.A.T.M.A.N. team publishes the December 2019
-update to batman-adv, batctl and alfred! This release only contains
-bugfixes and code cleanups.
+Feb 25th, 2020. Today the B.A.T.M.A.N. team publishes the February 2020 update
+to batman-adv, batctl and alfred! This release disables the (deprecated) sysfs
+support by default. The next milestone in this process is the removal of
+debugfs and sysfs support  next year. The B.A.T.M.A.N. V code can now use the
+PHY transmission rates as another (fallback) source to calculate the expected
+throughput to specific neighbors. The alfred gps daemon gained support for the
+gpsd API 9 (libgps >= 3.20). Also several bugfixes and code cleanups are
+included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled
 against, it does not make sense to provide binaries on our website. As
 usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2019.5/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2020.0/
 
 Thanks
 ------
 
 Thanks to all people sending in patches:
 
-* Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+* Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
+* René Treffer <treffer@measite.de>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
-* Taehee Yoo <ap420073@gmail.com>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Antonio Quartulli <a@unstable.cc>
+* Peter Green <plugwash@p10link.net>
 
 batman-adv
 ----------
@@ -33,45 +38,54 @@ batman-adv
 ::
 
   $ git describe origin/master
-  v2019.4-9-g890c6748
-  $ range=v2019.4..v2019.4-9-g890c6748
+  v2019.5-16-g0b7b07f5^M
+  $ range=v2019.5..v2019.5-16-g0b7b07f5
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
   new kernel support
   ==================
 
-        batman-adv: Use sizeof_member() macro
+        batman-adv: Use sizeof_field() macro
+        batman-adv: Provide backports-like kernel version helpers
+        batman-adv: Drop workaround for Debian's make-kpkg
 
   coding style cleanup/refactoring
   ================================
 
-        batman-adv: use generic lockdep keys
-        batman-adv: Use GCC attribute for fallthrough compat
-        batman-adv: Use 'fallthrough' pseudo keyword
-        batman-adv: Drop lockdep.h include for soft-interface.c
-        batman-adv: Simplify 'batadv_v_ogm_aggr_list_free()'
-        batman-adv: Axe 'aggr_list_lock'
+        batman-adv: Strip dots from variable macro kerneldoc
+        batman-adv: Fix typo metAdata
+        batman-adv: Annotate bitwise integer pointer casts
+        batman-adv: Replace FIELD_SIZEOF with sizeof_field
+        batman-adv: Avoid comment line over 80 characters
 
   BATMAN V
   =========
 
+        batman-adv: ELP - use wifi tx bitrate as fallback throughput
 
   bugfixes
   ========
 
+  various
+  =======
+  
+        batman-adv: Disable CONFIG_BATMAN_ADV_SYSFS by default
 
 
 
 
-  2019.5 (2019-12-04)
+
+  2020.0 (2020-02-25)
   ===================
 
-  * support latest kernels (3.16 - 5.5)
+  * support latest kernels (3.16 - 5.6)
   * coding style cleanups and refactoring
+  * use wifi tx rates as fallback for the B.A.T.M.A.N. V throughput estimation
+  * disable deprecated sysfs support by default
   * bugs squashed:
 
-    - fix DAT candidate selection on little endian systems
+    - fix crash during the scheduling of OGMs for removed interfaces
 
 batctl
 ------
@@ -79,8 +93,8 @@ batctl
 ::
 
   $ git describe origin/master
-  v2019.4-1-g6046cf9
-  $ range=v2019.4..v2019.4-1-g6046cf9
+  v2019.5-2-g83e319f^M
+  $ range=v2019.5..v2019.5-2-g83e319f
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -88,7 +102,7 @@ batctl
   ======
 
 
-  2019.5 (2019-12-04)
+  2020.0 (2020-02-25)
   ===================
 
   * (no changes)
@@ -99,16 +113,16 @@ alfred
 ::
 
   $ git describe origin/master
-  v2019.4-1-g0e3505c
-  $ range=v2019.4..v2019.4-1-g0e3505c
+  v2019.5-3-g060d699^M
+  $ range=v2019.5..v2019.5-3-g060d699
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
   
   
-  2019.5 (2019-12-04)
+  2020.0 (2020-02-25)
   ===================
   
-  * (no changes)
+  * fix build against gpsd API 9.0
 
 Happy routing,
 

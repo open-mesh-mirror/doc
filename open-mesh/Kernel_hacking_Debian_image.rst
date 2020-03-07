@@ -45,7 +45,7 @@ storage space
   sudo debootstrap buster debian
   sudo chroot debian apt update
   sudo chroot debian apt install --no-install-recommends build-essential vim openssh-server less \
-   pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump \
+   pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5 \
    trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
 
   sudo mkdir debian/root/.ssh/
@@ -91,6 +91,7 @@ storage space
   sudo rm debian/var/lib/apt/lists/*
   sudo e4defrag -v debian/
   sudo umount debian
+  sudo fsck.ext4 -fD debian.img
   sudo zerofree -v debian.img
   sudo fallocate --dig-holes debian.img
 
@@ -302,6 +303,12 @@ experience. It is configured with:
   CONFIG_DYNAMIC_FTRACE=y
   CONFIG_FUNCTION_PROFILER=y
   CONFIG_HIST_TRIGGERS=y
+  CONFIG_SYMBOLIC_ERRNAME=y
+  CONFIG_DYNAMIC_DEBUG=y
+  CONFIG_PRINTK_TIME=y
+  CONFIG_PRINTK_CALLER=y
+  CONFIG_DEBUG_MISC=y
+  CONFIG_PROVE_RCU_LIST=y
 
   # for GCC 5+
   CONFIG_KASAN=y
