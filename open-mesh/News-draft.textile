@@ -1,81 +1,75 @@
-h1. DRAFT: Batman-adv 2020.0 released
+h1. DRAFT: Batman-adv 2020.1 released
 
-Feb 25th, 2020. Today the B.A.T.M.A.N. team publishes the February 2020 update to batman-adv, batctl and alfred! This release disables the (deprecated) sysfs support by default. The next milestone in this process is the removal of debugfs and sysfs support  next year. The B.A.T.M.A.N. V code can now use the PHY transmission rates as another (fallback) source to calculate the expected throughput to specific neighbors. The alfred gps daemon gained support for the gpsd API 9 (libgps >= 3.20). Also several bugfixes and code cleanups are included in this version.
+Apr 28th, 2020. Today the B.A.T.M.A.N. team publishes the April 2020 update to batman-adv, batctl and alfred! TODO
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2020.0/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2020.1/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Pankaj Bharadiya <pankaj.laxminarayan.bharadiya@intel.com>
-* René Treffer <treffer@measite.de>
+* George Spelvin <lkml@sdf.org>
+* Gustavo A. R. Silva <gustavo@embeddedor.com>
+* Leonardo Mörlein <me@irrelefant.net>
+* Linus Torvalds <torvalds@linux-foundation.org>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
+* Xiyu Yang <xiyuyang19@fudan.edu.cn>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Peter Green <plugwash@p10link.net>
+* Madhuparna Bhowmik <madhuparnabhowmik10@gmail.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2019.5-16-g0b7b07f5
-$ range=v2019.5..v2019.5-16-g0b7b07f5
+v2020.0-11-gb8b3b6b3
+$ range=v2020.0..v2020.0-11-gb8b3b6b3
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
-
-
 
 new kernel support
 ==================
 
-      batman-adv: Use sizeof_field() macro
-      batman-adv: Provide backports-like kernel version helpers
-      batman-adv: Drop workaround for Debian's make-kpkg
-
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Strip dots from variable macro kerneldoc
-      batman-adv: Fix typo metAdata
-      batman-adv: Annotate bitwise integer pointer casts
-      batman-adv: Replace FIELD_SIZEOF with sizeof_field
-      batman-adv: Avoid comment line over 80 characters
+      batman-adv: Replace zero-length array with flexible-array member
+      batman-adv: Avoid RCU list-traversal in spinlock
 
 BATMAN V
 =========
-
-      batman-adv: ELP - use wifi tx bitrate as fallback throughput
 
 
 bugfixes
 ========
 
+      batman-adv: fix batadv_nc_random_weight_tq
+      batman-adv: Fix refcnt leak in batadv_show_throughput_override
+      batman-adv: Fix refcnt leak in batadv_store_throughput_override
+      batman-adv: Fix refcnt leak in batadv_v_ogm_process
 
 various
 =======
 
-      batman-adv: Disable CONFIG_BATMAN_ADV_SYSFS by default
+      MAINTAINERS: sort field names for all entries
 
 
 
 
-
-2020.0 (2020-02-25)
+2020.1 (2020-04-28)
 ===================
 
-* support latest kernels (3.16 - 5.6)
+* support latest kernels (3.16 - 5.7-rc2)
 * coding style cleanups and refactoring
-* use wifi tx rates as fallback for the B.A.T.M.A.N. V throughput estimation
-* disable deprecated sysfs support by default
 * bugs squashed:
 
-  - fix crash during the scheduling of OGMs for removed interfaces
+  - fix reference leaks in throughput_override sysfs file
+  - fix reference leak in B.A.T.M.A.N. V OGM error handling
+  - fix network coding random weighting
 
 
 </pre>
@@ -84,8 +78,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2019.5-2-g83e319f
-$ range=v2019.5..v2019.5-2-g83e319f
+v2020.0-3-g2c4980f
+$ range=v2020.0..v2020.0-3-g2c4980f
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -93,11 +87,14 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 bugfix
 ======
 
+      batctl: Return EXIT_FAILURE when throughputmeter failed
 
-2020.0 (2020-02-25)
+2020.1 (2020-04-28)
 ===================
 
-* (no changes)
+* bugs squashed:
+
+  - Fix error code on throughputmeter errors
 
 </pre>
 
@@ -105,18 +102,16 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2019.5-3-g060d699
-$ range=v2019.5..v2019.5-3-g060d699
+v2020.0-1-ga4adede
+$ range=v2020.0..v2020.0-1-ga4adede
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-      alfred-gpsd: Fix build against gpsd ABI 9.0
-
-2020.0 (2020-02-25)
+2020.1 (2020-04-28)
 ===================
 
-* fix build against gpsd API 9.0
+* (no changes)
 </pre>
 
 
