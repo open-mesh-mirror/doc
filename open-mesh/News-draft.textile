@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2020.1 released
 
-Apr 28th, 2020. Today the B.A.T.M.A.N. team publishes the April 2020 update to batman-adv, batctl and alfred! TODO
+Apr 28th, 2020. Today the B.A.T.M.A.N. team publishes the April 2020 update to batman-adv, batctl and alfred! This release only contains bugfixes and code cleanups.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
