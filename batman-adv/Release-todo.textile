@@ -38,7 +38,6 @@ h2. Release
 * [ ] move packages/checksums to stable/sources / create symlinks from releases
 * [ ] update download links in the [[open-mesh:Download|redmine downloads page]]
 * [ ] "Add news":/projects/open-mesh/news/new based on [[open-mesh:News-draft]]
-* [ ] send release mail
 * [ ] update IRC channel topic
 
 h2. Distributions
