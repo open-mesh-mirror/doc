@@ -312,7 +312,9 @@ The (sea)bios used by qemu is nice to boot all kind of legacy images but reduces
 
 <pre><code class="shell">
 git clone https://github.com/bonzini/qboot.git
-make -C qboot
+cd qboot
+meson build && ninja -C build
+cd ..
 </code></pre>
 
 h2. Building the batman-adv module
@@ -343,7 +345,7 @@ The BASE_IMG is of course no longer the same because a new image "debian.img" wa
 
 <pre><code class="shell">
 BASE_IMG=debian.img
-BOOTARGS+=("-bios" "qboot/bios.bin")
+BOOTARGS+=("-bios" "qboot/build/bios.bin")
 BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
 BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1")
 BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
