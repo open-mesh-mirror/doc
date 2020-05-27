@@ -83,7 +83,7 @@ git format-patch $BASECOMMIT
 * Add or update kerneldoc to functions and structures you add or modify.
 * batman-adv changes affecting batctl have to be send with the batctl patches in the same patchset
 * it is recommended to use `git send-email` to send the mails to the mailinglist
-* An exemplary good submission you may want to look at can be found here: https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2009-December/002033.html
+* An exemplary good submission you may want to look at can be found here: https://patchwork.open-mesh.org/project/b.a.t.m.a.n./patch/1261051915-13960-1-git-send-email-sven.eckelmann@gmx.de/
 
 
 
