@@ -4,4 +4,4 @@ You can subscribe to our Mailing Lists "here":https://lists.open-mesh.org/. You 
 
 +Note+: HTML email will be rejected - just plain text is allowed (this cuts the rate of SPAM mails dramatically).
 
-Old messages can be read in the "B.A.T.M.A.N. archives":https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/.
+Old messages can be read in the "B.A.T.M.A.N. archives":https://lists.open-mesh.org/mailman3/hyperkitty/list/b.a.t.m.a.n@lists.open-mesh.org/.
