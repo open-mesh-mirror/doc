@@ -32,7 +32,7 @@ Concept discussion
 * OGMv3 (no-tt OGM)
 * Multicast (evolution) support inclusion
 * `Howto to optimise the Bandwidth based GW
-  selection <https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2013-January/008964.html>`__
+  selection <https://lists.open-mesh.org/mailman3/hyperkitty/list/b.a.t.m.a.n@lists.open-mesh.org/message/5FJF5RSSYJVX4R3TLCIZ2A3Z2BTXENHH/>`__
 * Multiple L3 border Gateways to the same network: how to choose the
   best one assuming each of them has a different (L3) cost to the
   destination

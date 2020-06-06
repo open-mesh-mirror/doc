@@ -121,4 +121,4 @@ guidelines:
    mailinglist
 -  An exemplary good submission you may want to look at can be found
    here:
-   https://lists.open-mesh.org/pipermail/b.a.t.m.a.n/2009-December/002033.html
+   https://patchwork.open-mesh.org/project/b.a.t.m.a.n./patch/1261051915-13960-1-git-send-email-sven.eckelmann@gmx.de/
