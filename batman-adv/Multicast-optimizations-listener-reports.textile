@@ -54,7 +54,7 @@ _Disadvantages:_
 
 h4. Side note 1: Why does the current implementation without bridge support have no such issues?
 
-There are usually two parties interested in multicast listener reports. For one thing, bridges ("software switches") and snooping switches (enterprise hardware switches). For another thing, multicast routers want IGMP/MLD reports. If the former, a bridge, exists then multicast optimizations are disabled at the moment, so the issue can't occure. For the latter, reports to multicast routers, let's consider the following two cases:
+There are usually two parties interested in multicast listener reports. For one thing, bridges ("software switches") and snooping switches (enterprise hardware switches). For another thing, multicast routers want IGMP/MLD reports. If the former, a bridge, exists then multicast optimizations are turned off at the moment, so the issue can't occure. For the latter, reports to multicast routers, let's consider the following two cases:
 
 a) Multicast listeners joining a link-local address
 b) Multicast listeners joining a non-link-local address
