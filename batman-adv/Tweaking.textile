@@ -147,7 +147,7 @@ batctl meshif bat0 gw_mode
 server (announced bw: 10.0/2.0 MBit)
 </pre>
 
-A batman-adv node can either run in server mode (sharing its internet connection with the mesh) or in client mode (searching for the most suitable internet connection in the mesh) or having the gateway support disabled entirely (which is the default setting). Gateways can tweak the announced internet bandwidth whereas clients can configure the manner in which batman-adv chooses its gateway.
+A batman-adv node can either run in server mode (sharing its internet connection with the mesh) or in client mode (searching for the most suitable internet connection in the mesh) or having the gateway support turned off entirely (which is the default setting). Gateways can tweak the announced internet bandwidth whereas clients can configure the manner in which batman-adv chooses its gateway.
 
 If multiple batman-adv gateways are available a batman-adv client node selects its best gateway based on certain criteria such as link quality / announced bandwidth / etc. The selection algorithm can be modified to best serve the requirements. The gateway selection class of '20' is the default value. All available gateway selection classes are thoroughly explained in the "batctl manpage":https://downloads.open-mesh.org/batman/manpages/batctl.8.html.
 
