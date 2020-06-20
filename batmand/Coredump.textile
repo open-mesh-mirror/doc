@@ -7,7 +7,7 @@ A coredump is the state of the programs memory when it crashed. It allows progra
 h2. Why do I need ulimit and what does it do ?
 
 
-As coredumps save the programs memory on the hard disk the coredump files can become quite large because some applications consume a lot of memory. On embedded devices (e.g. small routers) a coredump can fill the entire disk easily. Therefore the tool "ulimit" allows you to control what memory size is safe to be saved on disk. A "ulimit -c 20000" saves coredumps of up to 20MB, "ulimit -c unlimited" saves everything no matter how big it is. You can check your systems default by running "ulimit -c" without any value. If the setting is too small or coredumping is disabled you have to run "ulimit -c <value>" each time before you start batman.
+As coredumps save the programs memory on the hard disk the coredump files can become quite large because some applications consume a lot of memory. On embedded devices (e.g. small routers) a coredump can fill the entire disk easily. Therefore the tool "ulimit" allows you to control what memory size is safe to be saved on disk. A "ulimit -c 20000" saves coredumps of up to 20MB, "ulimit -c unlimited" saves everything no matter how big it is. You can check your systems default by running "ulimit -c" without any value. If the setting is too small or coredumping is deactivated, you have to run "ulimit -c <value>" each time before you start batman.
 
 
 h2. How to get a batman coredump ?
