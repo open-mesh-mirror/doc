@@ -160,7 +160,7 @@ batctl meshif bat0 gw_mode server 10Mbit/2Mbit
 # switch to client and and use selection class 20
 batctl meshif bat0 gw_mode client 20
 
-# disable gateway mode
+# turn off gateway mode
 batctl meshif bat0 gw_mode off
 </pre>
 
