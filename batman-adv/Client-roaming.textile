@@ -12,7 +12,7 @@ To detect whether a recently detected non-mesh client is a roaming client or a n
 
 The roaming advertisement message is a unicast TVLV packet and its content is explained in the [[TVLV#Roaming-Advertisement-message|related TVLV section]].
 
-The information contained in this packet is used to update the old node's global table so that, in case of payload packet directed to him while the network is not in sync, with a payload destination equal to 'client address is redirected to 'source address'.
+The information contained in this packet is used to update the old node's global table so that, in case of payload packet directed to it while the network is not in sync, with a payload destination equal to 'client address is redirected to 'source address'.
 
 Due to this mechanism, immediately after a roaming the data packets might follow a slightly sub-optimal path (data flow is going through the old node) until the network is in sync again and every node has updated its global translation table. This strategy will help to avoid losing packets that are still flowing to the old node.
 
