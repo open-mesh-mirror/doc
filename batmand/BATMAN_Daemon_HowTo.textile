@@ -146,14 +146,14 @@ h4(#d-debug-level). @-d@ debug level
 
 The debug level can be set to five values.
 
-* 0 - debug disabled (default)
+* 0 - debug turned off (default)
 * 1 - list neighbors
 * 2 - list gateways
 * 3 - observe batmand
 * 4 - observe batmand (very verbose)
 * 5 - memory debug / cpu usage
 
-Note that debug level 5 can be disabled at compile time.
+Note that debug level 5 can be turned off at compile time.
 
 For example, you can run in normal start:
 
@@ -276,7 +276,7 @@ Since no topology database is computed by the protocol an additional solution to
 
 h4(#policy-routing-script). @--policy-routing-script@
 
-This option disables the policy routing feature of batmand &#45; all routing changes are send to the script which can make use of this information or not. Firmware and package maintainers can use this option to tightly integrate batmand into their own routing policies. This option is only available in daemon mode.
+This option turns off the policy routing feature of batmand &#45; all routing changes are send to the script which can make use of this information or not. Firmware and package maintainers can use this option to tightly integrate batmand into their own routing policies. This option is only available in daemon mode.
 
 h2(#troubleshooting). Troubleshooting
 
