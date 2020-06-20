@@ -40,7 +40,7 @@ Make sure, that they see each other with a reasonable TQ quality (i.e. > 200). B
 
 h3. Do all nodes run the same batman-adv version ?
 
-If 'batctl o' does not show the neighbor you expect to see you should verify whether or not all nodes runt he same batman-adv version. Having the same version on all nodes is the safest way to be sure that the versions are compatible. A new release might change the compatibility number to avoid problems when incompatible versions run in the same mesh. Incompatible nodes will simply ignore each other. Consult our [[Compatversion|compatibility table]] to find out which release(s) carry which compatibility number.
+If 'batctl o' does not show the neighbor you expect to see you should verify whether or not all nodes run the same batman-adv version. Having the same version on all nodes is the safest way to be sure that the versions are compatible. A new release might change the compatibility number to avoid problems when incompatible versions run in the same mesh. Incompatible nodes will simply ignore each other. Consult our [[Compatversion|compatibility table]] to find out which release(s) carry which compatibility number.
 
 
 h3. Are those tq-values rather stable or acting crazy?
