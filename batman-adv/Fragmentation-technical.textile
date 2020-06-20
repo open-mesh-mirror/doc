@@ -61,12 +61,11 @@ h2. Configuration
 
 First of all, fragmentation shouldn't be needed (except for tt-tables, see below). It is a fix for drivers/hardware that is unable to handle MTU's greater than 1528 bytes, it is slow (due to increase is packets), and is susceptible to packet loss.
 
-It can be enabled and disabled via batctl:
+It can be turned on and off via batctl:
 <pre>
-% batctl meshif bat0 fragmentation 1 # enable (default)
-% batctl meshif bat0 fragmentation 0 # disable
+% batctl meshif bat0 fragmentation 1 # on (default)
+% batctl meshif bat0 fragmentation 0 # off
 </pre>
-
 
 h2. Limitations 
 
