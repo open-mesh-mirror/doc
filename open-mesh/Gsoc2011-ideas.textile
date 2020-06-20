@@ -128,4 +128,4 @@ h2. misc
 * multiple interface support in Mesh 3D
 * ap51flash GUI; ap51flash multi-flash on single interface
 * Android/Maemo/Meego porting + _maintenance_!
-* Cooperative work with Pidgin guys? (video/audio/file-transfer/bonjour in pidgin and improving its + batman-adv's combined performance in a mesh network?)
+* Cooperative work with Pidgin persons? (video/audio/file-transfer/bonjour in pidgin and improving its + batman-adv's combined performance in a mesh network?)
