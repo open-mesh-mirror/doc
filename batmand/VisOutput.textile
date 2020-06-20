@@ -34,9 +34,9 @@ h2. Batman to batman connection
 
 The batman node 5.174.37.225 has a connection towards the batman node 5.224.160.202 with a link quality of "2.13" whereas the 5.224.160.202 has a link quality of "1.28" towards the 5.174.37.225. The connection is listed twice because each node reports it individually which gives you the option of seeing asymetric links if you want to display it.
 
-The link quality gives information how batman evaluates this link. 1.00 means 100%25 link quality, 2.00 means 50%25, 3.00 is 33.3%25 and 4.00 is 25%25, etc. The number tells you  how many packets you need to send in order to get a single successful transmission.
+The link quality gives information how batman evaluates this link. 1.00 means 100% link quality, 2.00 means 50%, 3.00 is 33.3% and 4.00 is 25%, etc. The number tells you  how many packets you need to send in order to get a single successful transmission.
 
-While looking at originator tables, debug logs or other batman output you might see different numbers. Due to performance considerations batman uses his own format (TQ value) to express link quality. Its max value is 255 and goes down to 0 (float operations are quite expensive on embedded devices). The vis server transforms the TQ value into its own format before outputting it.
+While looking at originator tables, debug logs or other batman output you might see different numbers. Due to performance considerations batmand uses its own format (TQ value) to express link quality. Its max value is 255 and goes down to 0 (float operations are quite expensive on embedded devices). The vis server transforms the TQ value into its own format before outputting it.
 
 
 
