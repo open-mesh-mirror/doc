@@ -16,7 +16,8 @@ DAT will not use any broadcast packet. Node A gets the ARP request, computes the
 
 h2. Enable/Disable DAT
 
-DAT can be enabled/disabled in two different manners:
+DAT can be turned on/off in two different manners:
+
 # at compile time
 # at runtime
 
