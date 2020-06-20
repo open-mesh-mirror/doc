@@ -28,7 +28,7 @@ An alfred network used for exchanging data is built using different nodes runnin
 
 Such a network has to contain at least one primary server. Primary servers are used as global data storage and help to synchronize data with other nodes. This role is so important that they actively announce there presence to all nodes. Other primary servers are automatically synchronizing their stored data to have it distributed to all reachable primary nodes.
 
-The second type of servers are secondaries. Secondaries don't try to gather all data stored in the alfred network. Instead they only connect to their best primary server to request data when required and to push the data from local clients to the alfred network through primary servers.
+The other type of servers are secondaries. Secondaries don't try to gather all data stored in the alfred network. Instead they only connect to their best primary server to request data when required and to push the data from local clients to the alfred network through primary servers.
 
 h3. Network layer
 
