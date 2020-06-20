@@ -6,16 +6,16 @@ In best case, the system can be "debugged using JTAG":https://openwrt.org/docs/t
 
 h2. Preparing OpenWrt
 
-h3. Disabling watchdog
+h3. Turning off watchdog
 
-Most CPUs have some kind of watchdog integrated. They can often be disabled and are often inactive when the watchdog driver is not loaded. For example, ath79/ar71xx can be build without the internal watchdog support by changing in <code>target/linux/{ar71xx,ath79}/config-*</code>:
+Most CPUs have some kind of watchdog integrated. They can often be turned off and are often inactive when the watchdog driver is not loaded. For example, ath79/ar71xx can be build without the internal watchdog support by changing in <code>target/linux/{ar71xx,ath79}/config-*</code>:
 
 <pre><code class="diff">
 -CONFIG_ATH79_WDT=y
 +# CONFIG_ATH79_WDT is not set
 </code></pre>
 
-Unfortunately, there are also external watchdog chips which cannot be disabled. They have to be manually triggered regularly during the debugging process to prevent a sudden reboot. The details depend on the actual hardware but it often ends up in writing to a specific (GPIO control/set/clear) register.
+Unfortunately, there are also external watchdog chips which cannot be turned off. They have to be manually triggered regularly during the debugging process to prevent a sudden reboot. The details depend on the actual hardware but it often ends up in writing to a specific (GPIO control/set/clear) register.
 
 h3. Enabling KGDB in kernel
 
@@ -243,7 +243,7 @@ index 3b884f9e79..9b0149faca 100644
 
 h2. Start debugging session
 
-h3. Disable kASLR
+h3. Turning off kASLR
 
 The kernel address space layout randomization complicates the resolving of addresses of symbols. It is highly recommended to start the kernel with the parameter "nokaslr". For example by adding it to <code>CONFIG_CMDLINE</code> or by adjusting the <code>bootargs</code> in the bootloader. It should be checked in <code>/proc/cmdline</code> whether it was really booted with this parameter.
 
