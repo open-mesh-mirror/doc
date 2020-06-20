@@ -58,4 +58,4 @@ To get it really to send something we have to add the mail information to the ho
 	emailprefix = "[linux-next] "
 </pre>
 
-Now the guy with my-address@foobar.com will receive our and foreign patches which touches net/batman-adv in linux-next... each day at 0:15 (or at least once a day).
+Now the owner of my-address@foobar.com will receive our and foreign patches which touches net/batman-adv in linux-next... each day at 0:15 (or at least once a day).
