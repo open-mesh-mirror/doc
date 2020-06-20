@@ -116,7 +116,7 @@ TODO - more details
 
 h4. No "::" Source Address for Query Messages
 
-MLD requires multicast listeners to consider query messages with such a source address as broken - they will not respond. Explicitly forbid sending queries with a "::" source address as it seems to be a common misconception that a switch may use it. If a snooping switch is not able to obtain a link-local source address then multicast snooping must be disabled.
+MLD requires multicast listeners to consider query messages with such a source address as broken - they will not respond. Explicitly forbid sending queries with a "::" source address as it seems to be a common misconception that a switch may use it. If a snooping switch is not able to obtain a link-local source address then multicast snooping must be turned off.
 
 In other words, require a snooping switch to be capable of performing the IPv6 protocol for obtaining a link-local address.
 
