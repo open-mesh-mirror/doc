@@ -12,7 +12,7 @@ Some information about kmem-cache can be found "here":https://static.lwn.net/ima
 
 The idea of these tests is to feed one 32MB RAM, embedded device with as many global TT entries as possible from a second, more powerful device. The test scripts continuously fetch the number of global TT entries until the embedded device reboots due to an Out-of-Memory error.
 
-We then compare this count with various configurations, for instance with kmalloc() vs. kmem-cache-alloc() vs. kmem-cache-alloc(SLAB_HWCACHE_ALIGN). But also with wifi enabled/disabled or full global TT dump + count vs. direct, global TT count access.
+We then compare this count with various configurations, for instance with kmalloc() vs. kmem-cache-alloc() vs. kmem-cache-alloc(SLAB_HWCACHE_ALIGN). But also with wifi turned on/off or full global TT dump + count vs. direct, global TT count access.
 
 h2. 2) Test setup
 
@@ -66,15 +66,15 @@ Gluon, by default, provides both a mesh interface (either IBSS or 802.11s w/o fw
 
 Tests were performed once with these two wifi interfaces enabled, but hidden. And once with no wifi interfaces (UCI wifi interface sections disabled).
 
-h3. 3.3) Bridge FDB (Forwarding Database) enabled vs. disabled ("nofdb" run)
+h3. 3.3) Bridge FDB (Forwarding Database) turned on vs. off ("nofdb" run)
 
 By default, the bridge keeps track of behind which bridge port which MAC address can be found. This information is stored in the so called forwarding database, or FDB for short.
 
 This is similar to how batman-adv stores which client and according MAC address can be found on which mesh node. And by that also not strictly necessary for a bridged mesh network to function correctly.
 
-The bridge allows to disable the FDB learning on specific ports as well as to configure on which ports ethernet frames with an unknown destination MAC should be flooded.
+The bridge allows to turn off the FDB learning on specific ports as well as to configure on which ports ethernet frames with an unknown destination MAC should be flooded.
 
-The "nofdb" test run disables learning on the bat0 bridge port and lets the bridge simply flood frames with unknown destination to bat0. Then batman-adv will determine via its global translation table if an appropriate host in the mesh exists and if so, forwards the frame further.
+The "nofdb" test run turns off learning on the bat0 bridge port and lets the bridge simply flood frames with unknown destination to bat0. Then batman-adv will determine via its global translation table if an appropriate host in the mesh exists and if so, forwards the frame further.
 
 h3. 3.4) Full Global Translation Table Dump vs. Count Dump only ("notg" run)
 
