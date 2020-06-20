@@ -71,7 +71,7 @@ If you plan to attach non-batman clients to your batman internet client you have
 
 h3. batman 0.3.2 and later
 
-The batman daemon will try to locate the iptables binary to setup the masquerading automatically. This behaviour can be disabled using the "--disable-client-nat" option. If the outgoing packets are not masqueraded (the iptables binary wasn't found / the automatism disabled) batman will switch to the "half tunnel" mode which operates without masquerading. Beware: This mode +requires+ the gateway to have a routing entry for each client that accesses the internet (e.g. non-batman clients may be announced via HNA). Also, batman won't be able to automatically detect whether the chosen gateway is connected to the internet or not as only outgoing packets go through gate0.
+The batman daemon will try to locate the iptables binary to setup the masquerading automatically. This behaviour can be turned off using the "--disable-client-nat" option. If the outgoing packets are not masqueraded (the iptables binary wasn't found / the automatism deactivated) batman will switch to the "half tunnel" mode which operates without masquerading. Beware: This mode +requires+ the gateway to have a routing entry for each client that accesses the internet (e.g. non-batman clients may be announced via HNA). Also, batman won't be able to automatically detect whether the chosen gateway is connected to the internet or not as only outgoing packets go through gate0.
 
 
 h2. Tuning
