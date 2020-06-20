@@ -3,7 +3,7 @@ h1. The OLSR.ORG story
 
 Proactive protocols (Link State Routing Protocols) generate a lot of overhead because they have to keep topoloy information and routing tables in sync amongst all or at least amongst adjacent  nodes. If the protocol does not manage to keep the routing tables synced it is likely that the payload will spin in routing loops until the TimeToLive (TTL) is expired. Apart from high traffic-overhead and CPU-Load this is the biggest issue for Link State Routing Protocols.  We were actively involved in the evolution of olsrd from olsr.org. Actually we were the people that made it functional. RFC3626 - the initial IETF-draft of olsr - does not work in real life. If you want to find out what it's developers intended it to be and how it should work, I would like to suggest reading the RFC3626 after you have seen the presentation of Andreas Tøennesen on the OLSR.ORG website about RFC3626.
 
-We heavily modified olsr over the time. We disabled almost everything that the inital designers of olsr thought was smart and replaced it with the LQ/ETX-Mechanism and Fish-Eye Mechanism tp update topology information.
+We heavily modified olsr over the time. We turned off almost everything that the inital designers of olsr thought was smart and replaced it with the LQ/ETX-Mechanism and Fish-Eye Mechanism tp update topology information.
 
 What we did to improve olsr (in historical order):  
 
@@ -30,10 +30,10 @@ Conclusion:
 
 What we did:  
 
-* Disable hysteresis.
-* Disable MPRs - all nodes forward topology information.
+* Deactivate hysteresis.
+* Deactivate MPRs - all nodes forward topology information.
 
-Now almost everything that was meant to optimize Link State Routing was disabled - a simple proactive link-state routing protocol with support for multiple interfaces was all that was left. We started to deploy OLSR in the Freifunk Mesh in Berlin - rather we should have named it LSR back then. But since the implementation came from olsr.org and everything  could be switched on and off by the configuration file we didn't think about starting a new project and renaming it. This became later a source of confusion and disappointment for all people that tried olsr.org and had no idea what was going on in Berlin. If you use the standard configuration file that is shipped with olsr.org, olsrd will still behave according to RFC3626. So if you want to see how miserable RFC3626
+Now almost everything that was meant to optimize Link State Routing was turned off - a simple proactive link-state routing protocol with support for multiple interfaces was all that was left. We started to deploy OLSR in the Freifunk Mesh in Berlin - rather we should have named it LSR back then. But since the implementation came from olsr.org and everything  could be switched on and off by the configuration file we didn't think about starting a new project and renaming it. This became later a source of confusion and disappointment for all people that tried olsr.org and had no idea what was going on in Berlin. If you use the standard configuration file that is shipped with olsr.org, olsrd will still behave according to RFC3626. So if you want to see how miserable RFC3626
 works - try it with the default configuration file.
 
 _Deployment of OLSR (with 'Optimizations' removed) in the Berlin Freifunk  mesh cloud - 2004_
