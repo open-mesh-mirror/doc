@@ -1,75 +1,77 @@
-h1. DRAFT: Batman-adv 2020.1 released
+h1. DRAFT: Batman-adv 2020.2 released
 
-Apr 28th, 2020. Today the B.A.T.M.A.N. team publishes the April 2020 update to batman-adv, batctl and alfred! This release only contains bugfixes and code cleanups.
+Jun 30th, 2020. Today the B.A.T.M.A.N. team publishes the Jun 2020 update to batman-adv, batctl and alfred! TODO
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2020.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2020.2/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* George Spelvin <lkml@sdf.org>
-* Gustavo A. R. Silva <gustavo@embeddedor.com>
-* Leonardo Mörlein <me@irrelefant.net>
-* Linus Torvalds <torvalds@linux-foundation.org>
+* Al Viro <viro@zeniv.linux.org.uk>
+* Antonio Quartulli <a@unstable.cc>
+* Cong Wang <xiyou.wangcong@gmail.com>
+* Marek Lindner <mareklindner@neomailbox.ch>
+* Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
-* Xiyu Yang <xiyuyang19@fudan.edu.cn>
+* YueHaibing <yuehaibing@huawei.com>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Madhuparna Bhowmik <madhuparnabhowmik10@gmail.com>
+* Andreas Ziegler <az@freifunk-altdorf.de>
+* Matthias Schiffer <mschiffer@universe-factory.net>
+* Taehee Yoo <ap420073@gmail.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2020.0-11-gb8b3b6b3
-$ range=v2020.0..v2020.0-11-gb8b3b6b3
+v2020.1-13-ga042622f
+$ range=v2020.1..v2020.1-13-ga042622f
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
 
 new kernel support
 ==================
 
+      batman-adv: Drop support for Linux < 4.4
+
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Replace zero-length array with flexible-array member
-      batman-adv: Avoid RCU list-traversal in spinlock
+      batman-adv: get rid of pointless access_ok()
+      batman-adv: use rcu_replace_pointer() where appropriate
+      batman-adv: partially revert dynamic lockdep key changes
+      batman-adv: change addr_list_lock back to static key
+      batman-adv: Fix spelling error in term buffer
+      batman-adv: trace: Drop unneeded types.h include
+      batman-adv: Utilize prandom_u32_max for random [0, max) values
+      batman-adv: Sync config options for external module builds
+      batman-adv: Use alphabetical order for external build config options
 
 BATMAN V
 =========
 
+      batman-adv: Revert "disable ethtool link speed detection when auto negotiation off"
 
 bugfixes
 ========
 
-      batman-adv: fix batadv_nc_random_weight_tq
-      batman-adv: Fix refcnt leak in batadv_show_throughput_override
-      batman-adv: Fix refcnt leak in batadv_store_throughput_override
-      batman-adv: Fix refcnt leak in batadv_v_ogm_process
-
-various
-=======
-
-      MAINTAINERS: sort field names for all entries
 
 
 
 
-2020.1 (2020-04-28)
+2020.2 (2020-04-28)
 ===================
 
-* support latest kernels (3.16 - 5.7-rc2)
+* support latest kernels (4.4 - 5.8)
 * coding style cleanups and refactoring
-* bugs squashed:
-
-  - fix reference leaks in throughput_override sysfs file
-  - fix reference leak in B.A.T.M.A.N. V OGM error handling
-  - fix network coding random weighting
+* dropped support for kernels < 4.4
+* re-enabled link speed detection for interfaces without auto negotiation
 
 
 </pre>
@@ -78,23 +80,37 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2020.0-3-g2c4980f
-$ range=v2020.0..v2020.0-3-g2c4980f
+v2020.1-8-g51b0746
+$ range=v2020.1..v2020.1-8-g51b0746
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
+various
+=======
+
+      batctl: Disable automatic destruction of empty meshifs
+
+coding style cleanup/refactoring
+================================
+
+      batctl: Change/fix a throughput override function name
+
 bugfix
 ======
 
-      batctl: Return EXIT_FAILURE when throughputmeter failed
+      batctl: fix endianness when reading radiotap header
+      batctl: Only remove batadv interface on hardif reduction
 
-2020.1 (2020-04-28)
+
+2020.2 (2020-04-28)
 ===================
 
+* coding style cleanups and refactoring
+* drop support for automatic destruction of empty meshifs
 * bugs squashed:
 
-  - Fix error code on throughputmeter errors
+  - Fix parsing of radiotap headers on big endian systems
 
 </pre>
 
@@ -102,16 +118,20 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2020.0-1-ga4adede
-$ range=v2020.0..v2020.0-1-ga4adede
+v2020.1-3-g112788d
+$ range=v2020.1..v2020.1-3-g112788d
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-2020.1 (2020-04-28)
+Sven Eckelmann <sven@narfation.org> (2):
+      alfred: Switch mailing list subscription page
+      alfred: Use primary/secondary to describe server roles
+
+2020.2 (2020-04-28)
 ===================
 
-* (no changes)
+* Rephrase names of server roles
 </pre>
 
 
