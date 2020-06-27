@@ -1,6 +1,6 @@
 h1. Using the batman git repositories
 
-If you want to find out why we also have a git repository now, please read [[2009-10-23-batman-goes-mainline|here]].
+If you want to find out why we also have a git repository now, please read news#6.
 
 h2. Checkout
 
