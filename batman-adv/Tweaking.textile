@@ -329,7 +329,7 @@ h3. throughput_override
 
 Available since: batman-adv 2019.3
 
-Defines the throughput value to be used by B.A.T.M.A.N. V when estimating the link throughput using this interface. If the value is set to 0 then batman-adv will try to estimate the throughput by itself.
+Defines the throughput value to be used by B.A.T.M.A.N. V when estimating the link throughput using this interface. If the value is set to 0 then batman-adv will try to retrieve the expected throughput from the hardif (driver).
 
 <pre>
 batctl hardif eth0 throughput_override
