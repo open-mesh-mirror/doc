@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2020.2 released
 
-Jun 30th, 2020. Today the B.A.T.M.A.N. team publishes the Jun 2020 update to batman-adv, batctl and alfred! TODO
+Jun 30th, 2020. Today the B.A.T.M.A.N. team publishes the Jun 2020 update to batman-adv, batctl and alfred! This release drops the support for the end-of-life Linux kernel versions (<4.3). The B.A.T.M.A.N. V throughput detection for ethernet devices without auto-negotiation was enabled again to support more configuration out of the box. Most users will still require a manual setting via the throughput_override for such devices. The automatic removal of (empty) batadv mesh interfaces during a <code>batctl meshif bat0 interface del ....</code> was dropped. An explicit <code>batctl meshif bat0 interface destroy</code> is now required to remove the batadv interface. Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -65,7 +65,7 @@ bugfixes
 
 
 
-2020.2 (2020-04-28)
+2020.2 (2020-06-30)
 ===================
 
 * support latest kernels (4.4 - 5.8)
@@ -103,7 +103,7 @@ bugfix
       batctl: Only remove batadv interface on hardif reduction
 
 
-2020.2 (2020-04-28)
+2020.2 (2020-06-30)
 ===================
 
 * coding style cleanups and refactoring
@@ -128,7 +128,7 @@ Sven Eckelmann <sven@narfation.org> (2):
       alfred: Switch mailing list subscription page
       alfred: Use primary/secondary to describe server roles
 
-2020.2 (2020-04-28)
+2020.2 (2020-06-30)
 ===================
 
 * Rephrase names of server roles
