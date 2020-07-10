@@ -374,7 +374,7 @@ h2. Routing algorithm
 
 Batman-adv allows [[Tweaking|changing the routing algorithm]] at runtime. It also exports the list of available routing protocols:
 <pre>
-root@node01:~# batctl meshif bat0 ra
+root@node01:~# batctl ra
 Active routing protocol configuration:
  * bat0: BATMAN_IV
 
