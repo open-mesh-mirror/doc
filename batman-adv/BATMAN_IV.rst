@@ -47,7 +47,7 @@ Unlike wired networks, WiFi setups often face the problem of asymetric
 links (Node A has a better connection towards Node B than vice versa).
 To ensure that the detected connections allow communication in both
 directions each B.A.T.M.A.N. node awaits rebroadcasts of its own OGMs
-from his neighbors within a certain timeframe (bidirectional link
+from its neighbors within a certain timeframe (bidirectional link
 check). If the OGMs are not successfully retransmitted the connection is
 considered too asymetric (unusable) and therefore ignored.
 
@@ -57,7 +57,7 @@ B.A.T.M.A.N. IV (TQ)
 The B.A.T.M.A.N. III algorithm has serious problems when it comes to
 asymetric links. The bidirectional link check tries to limit its impact
 but the result is far from being perfect. The timeframe in which
-B.A.T.M.A.N. accepts his own OGMs being rebroadcasted by its neighbor
+B.A.T.M.A.N. accepts its own OGMs being rebroadcasted by its neighbor
 allows to tweak the behaviour. If this timeframe is rather short
 B.A.T.M.A.N. is very strict on choosing links. This may lead to many
 ignored links which might be usable in one direction. Only symetric
@@ -122,7 +122,7 @@ count.
    |Receive Quality (RQ)|
 
 2. B.A.T.M.A.N. knows the echo link quality (EQ) by counting
-   rebroadcasts of its own OGMs from his neighbors.
+   rebroadcasts of its own OGMs from its neighbors.
 
    |Echo Link Quality (EQ)|
 
@@ -143,8 +143,8 @@ Transmit Quality Propagation
 
 The local link quality needs to be propagated throughout the network to
 inform other nodes about the transmit quality. Therefore B.A.TM.A.N. IV
-introduces a new field called "TQ" which is 1 byte long. This field is
-added to the known B.A.T.M.A.N. III packet. Whenever the OGM is
+introduces a new field called "TQ" which is 1 byte long. This field
+is added to the known B.A.T.M.A.N. III packet. Whenever the OGM is
 generated this field is set to maximum length (255) before it is
 broadcasted. The receiving neighbor will calculate their own local link
 quality into the received TQ value and rebroadcast the packet. Hence,
@@ -222,7 +222,7 @@ Although the transmit link quality is most important decision factor
 B.A.T.M.A.N. IV also keeps track of the receiving link quality. On the
 WiFi layer every unicast packet has to be acknowledged by the neighbor
 node to approve the transmission. If this neighbor is not able to
-sucessfully send his ACKs the WiFi layer considers this transmission to
+sucessfully send its ACKs the WiFi layer considers this transmission to
 be failed and tries to retransmit until it gives up.
 
 |Asymetry situation without asymetry penalty|
@@ -234,10 +234,9 @@ turns on or off a link, B.A.T.M.A.N. IV uses the function
 .. math::
   f_{asym} = (100\% - (100\% - {RQ})^3)
 
-to weight the penalty for the receiving link
-quality. As visible in the plot below, small packet loss will influence
-the link rating only a little, while huge packet loss will still have a
-severe influence TQ.
+to weight the penalty for the receiving link quality. As visible in the
+plot below, small packet loss will influence the link rating only a
+little, while huge packet loss will still have a severe influence TQ.
 
 |graph for asymetry penalty|
 
@@ -256,10 +255,10 @@ B.A.T.M.A.N. IV loosens the strict packet drop policy used by
 B.A.T.M.A.N. III to make the TQ algorithm work. B.A.T.M.A.N. IV checks
 for unknown sequence numbers via a specific neighbor whereas
 B.A.T.M.A.N. III checks for known sequence numbers. If this combination
-is "new" the OGM will be accepted, processed and rebroadcasted. This may
-duplicate known information when the message "comes back" due to
-rebroadcasting (so called echos). In dense areas without heavy packet
-loss this leads to increased bandwidth and CPU usage.
+is "new" the OGM will be accepted, processed and rebroadcasted.
+This may duplicate known information when the message "comes back"
+due to rebroadcasting (so called echos). In dense areas without heavy
+packet loss this leads to increased bandwidth and CPU usage.
 
 Example: 3 nodes (A, B and C) in a row (A can hear B but not C). Node A
 emits an OGM, Node B hears and rebroadcasts it. The broadcast from node
@@ -272,12 +271,12 @@ detect that it broadcasted the message before.
 |communication without echo cancellation|
 
 To detect echos (messages that already passed through a node)
-B.A.T.M.A.N. IV introduces a new protocol field called "previous sender"
-which contains the IP address of the node rebroadcasting the OGM.
-Whenever a node receives a message from a neighbor it will fill the
-"previous sender" field with the address of the sending neighbor before
-rebroadcasting it. If a node detects his own IP address in the "previous
-sender" field the packet will be ignored.
+B.A.T.M.A.N. IV introduces a new protocol field called "previous
+sender" which contains the IP address of the node rebroadcasting
+the OGM. Whenever a node receives a message from a neighbor it will fill
+the "previous sender" field with the address of the sending
+neighbor before rebroadcasting it. If a node detects its own IP address
+in the "previous sender" field the packet will be ignored.
 
 Back to the example: Node B will ignore (drop) the packet coming back
 from node C as node C wrote the IP address of node B in the "previous

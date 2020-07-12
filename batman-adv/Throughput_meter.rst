@@ -5,8 +5,8 @@ Bandwidth meter
 
 This page is about a general overview of the Bandwith Meter tool in
 B.A.T.M.A.N.-Advanced.
-This project was started by Edo Monticelli during his 2012 Google
-Summer Of Code and it is possible to read his final report
+This project was started by Edo Monticelli during the 2012 Google
+Summer Of Code and it is possible to read the final report
 `here <https://www.open-mesh.org/news/45>`__.
 Since then, the project evolved a lot and the protocol used by it
 moved from a naïve Go-Back-N to the more sophisticated TCP NewReno.
@@ -27,11 +27,11 @@ NewReno as congestion handling mechanism.
 Since the implementations of the bandwidth meter tries to reflect the
 TCP one, more details can directly be found in the following documents:
 
--  `RFC 5681 <https://tools.ietf.org/html/rfc5681>`__ (TCP)
--  `RFC 6582 <https://tools.ietf.org/html/rfc6582>`__ (NewReno
-   extension)
--  `RFC 6298 <https://tools.ietf.org/html/rfc6298>`__ (Retransmission
-   Timeout computation)
+* `RFC 5681 <https://tools.ietf.org/html/rfc5681>`__ (TCP)
+* `RFC 6582 <https://tools.ietf.org/html/rfc6582>`__ (NewReno
+  extension)
+* `RFC 6298 <https://tools.ietf.org/html/rfc6298>`__ (Retransmission
+  Timeout computation)
 
 During the test batman-adv sends ICMP packets only. For this purpose a
 new ICMP packet type has been created: the BW.
@@ -58,7 +58,7 @@ It is possible to start a test by issuing the following command:
 
 ::
 
-    # batctl bw -t 10000 
+  # batctl bw -t 10000 <originator address>
 
 where **-t 10000** is an option telling batman-adv how much
 *milliseconds* the test should last.

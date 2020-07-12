@@ -15,15 +15,16 @@ the same rules but use another output style.
 
 ::
 
-    digraph topology
-    {
-    "5.174.37.225" -> "5.224.160.202"[label="2.13"]
-    "5.174.37.225" -> "192.168.15.0/24"[label="HNA"]
-    "5.174.117.226" -> "5.174.37.225"[label="5.00"]
-    "5.174.117.226" -> "0.0.0.0/0.0.0.0"[label="HNA"]
-    "5.224.160.202" -> "5.174.37.225"[label="1.28"]
-    "5.224.160.202" -> "0.0.0.0/0.0.0.0"[label="HNA"]
-    }
+   digraph topology
+   {
+   "5.174.37.225" -> "5.224.160.202"[label="2.13"]
+   "5.174.37.225" -> "192.168.15.0/24"[label="HNA"]
+   "5.174.117.226" -> "5.174.37.225"[label="5.00"]
+   "5.174.117.226" -> "0.0.0.0/0.0.0.0"[label="HNA"]
+   "5.224.160.202" -> "5.174.37.225"[label="1.28"]
+   "5.224.160.202" -> "0.0.0.0/0.0.0.0"[label="HNA"]
+   }
+   </code>
 
 Each "digraph { ... }" block contains a complete dump of the vis servers
 internal database at a given time. Every line contains the IP address of
@@ -37,8 +38,8 @@ Batman to batman connection
 
 ::
 
-    "5.174.37.225" -> "5.224.160.202"[label="2.13"]
-    "5.224.160.202" -> "5.174.37.225"[label="1.28"]
+   "5.174.37.225" -> "5.224.160.202"[label="2.13"]
+   "5.224.160.202" -> "5.174.37.225"[label="1.28"]
 
 The batman node 5.174.37.225 has a connection towards the batman node
 5.224.160.202 with a link quality of "2.13" whereas the 5.224.160.202
@@ -47,13 +48,13 @@ listed twice because each node reports it individually which gives you
 the option of seeing asymetric links if you want to display it.
 
 The link quality gives information how batman evaluates this link. 1.00
-means 100%25 link quality, 2.00 means 50%25, 3.00 is 33.3%25 and 4.00 is
-25%25, etc. The number tells you how many packets you need to send in
-order to get a single successful transmission.
+means 100% link quality, 2.00 means 50, 3.00 is 33.3 and 4.00 is 25%,
+etc. The number tells you how many packets you need to send in order to
+get a single successful transmission.
 
 While looking at originator tables, debug logs or other batman output
 you might see different numbers. Due to performance considerations
-batman uses his own format (TQ value) to express link quality. Its max
+batmand uses its own format (TQ value) to express link quality. Its max
 value is 255 and goes down to 0 (float operations are quite expensive on
 embedded devices). The vis server transforms the TQ value into its own
 format before outputting it.
@@ -63,7 +64,7 @@ Internet gateways
 
 ::
 
-    "5.224.160.202" -> "0.0.0.0/0.0.0.0"[label="HNA"]
+   "5.224.160.202" -> "0.0.0.0/0.0.0.0"[label="HNA"]
 
 The 5.224.160.202 announces a connection to the internet:
 "0.0.0.0/0.0.0.0" and the HNA label represent gateway functionality in
@@ -74,7 +75,7 @@ Announced networks
 
 ::
 
-    "5.174.37.225" -> "192.168.15.0/24"[label="HNA"]
+   "5.174.37.225" -> "192.168.15.0/24"[label="HNA"]
 
 The 5.174.37.225 announces a connection to the 192.168.15.0/24 network
 (which does not run batman). All nodes that establish a connection to
@@ -90,10 +91,10 @@ additional subgraph block:
 
 ::
 
-    subgraph "cluster_00:11:22:33:44:55" {
-        "00:11:22:33:44:55" [peripheries=2]
-        "01:23:45:67:89:AB"
-    }
+   subgraph "cluster_00:11:22:33:44:55" {
+       "00:11:22:33:44:55" [peripheries=2]
+       "01:23:45:67:89:AB"
+   }
 
 In this example the originator '00:11:22:33:44:55' has two active
 interfaces, "00:11:22:33:44:55" and "01:23:45:67:89:AB". With 'fdp' from

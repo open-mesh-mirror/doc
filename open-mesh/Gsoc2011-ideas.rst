@@ -56,8 +56,8 @@ greatly decrease.
 A suitable solution shall be implemented. This might be based on time
 slots, multiple interfaces or channel switching and might be implemented
 within batman-adv or an extra module. See
-:doc:`here </batman-adv/Bcast-hidden-node>` for a more detailed description
-of the problem and a solution proposal.
+:doc:`here </batman-adv/Bcast-hidden-node>` for a more detailed description of
+the problem and a solution proposal.
 
 OGM/NDP Congestion Avoidance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -111,9 +111,9 @@ throughput will be just 6x 1MBit/s. However in mixed wireless and
 wired networks, it might be desirable to accumulate the throughput of
 a Gigabit-Ethernet interface and a 802.11g interface.
 Therefore checks for links' capacities (detect full queues etc.) to
-gain performance of IF1 + IF2 + ... instead of min(IF1, IF2, ...)
-shall be implemented. If an interface is busy, it shall be skipped in
-this round robin cycle. Furthermore simple per hop pre-ordering on
+gain performance of IF1 + IF2 + ... instead of min(IF1, IF2, ...) shall be
+implemented. If an interface is busy, it shall be skipped in this
+round robin cycle. Furthermore simple per hop pre-ordering on
 batman-adv's layer shall be implemented to increase the TCP
 performance.
 
@@ -204,10 +204,10 @@ Dead node fast path switching/invalidating
 node/link failures and avoid packet drops in case of link failures.
 
 When a node notices the breakdown of a neighbor (see
-:ref:`routing scenarios <open-mesh-routing\_scenarios-Convergencespeed>` to get an
-idea about the conditions), this node could send any data packet, which
-it would usually send over this neighbor to either its second best hop
-if available (which does not always have to be the case due to OGM
+[[routing_scenarios#Convergencespeed|routing scenarios]] to get an idea
+about the conditions), this node could send any data packet, which it
+would usually send over this neighbor to either its second best hop if
+available (which does not always have to be the case due to OGM
 forwarding policies). Or it could send the packet back to the next hop
 towards the source again. With the help of sequence numbers, any node on
 the 'backtracking' path (the backtracking path can be different from the
@@ -276,6 +276,6 @@ misc
 -  multiple interface support in Mesh 3D
 -  ap51flash GUI; ap51flash multi-flash on single interface
 -  Android/Maemo/Meego porting + *maintenance*!
--  Cooperative work with Pidgin guys? (video/audio/file-transfer/bonjour
-   in pidgin and improving its + batman-adv's combined performance in a
-   mesh network?)
+-  Cooperative work with Pidgin persons?
+   (video/audio/file-transfer/bonjour in pidgin and improving its +
+   batman-adv's combined performance in a mesh network?)

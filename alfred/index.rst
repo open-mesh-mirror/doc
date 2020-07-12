@@ -50,6 +50,6 @@ for usage.
 Further resources
 =================
 
-* alfred slave on android: https://github.com/basros/alfreda
+* alfred secondary server on android: https://github.com/basros/alfreda
 * Wireshark dissector for alfred:
   https://github.com/basros/alfred-dissector

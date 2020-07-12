@@ -15,27 +15,27 @@ illustrate the usage:
 
 ::
 
-    batmand -g 5000 [interface]
+  batmand -g 5000 [interface]
 
 ::
 
-    batmand -g 5000kbit [interface]
+  batmand -g 5000kbit [interface]
 
 ::
 
-    batmand -g 5mbit [interface]
+  batmand -g 5mbit [interface]
 
 ::
 
-    batmand -g 5mbit/1024 [interface]
+  batmand -g 5mbit/1024 [interface]
 
 ::
 
-    batmand -g 5mbit/1024kbit [interface]
+  batmand -g 5mbit/1024kbit [interface]
 
 ::
 
-    batmand -g 5mbit/1mbit [interface]
+  batmand -g 5mbit/1mbit [interface]
 
 The syntax is very flexible and allows all these values to become
 gateway class 49.
@@ -68,7 +68,7 @@ available:
 
 ::
 
-    batmand -r 1 [interface]
+  batmand -r 1 [interface]
 
 This mode is called "fast internet connection" because it considers the
 link quality and the advertised gateway class before choosing the
@@ -78,7 +78,7 @@ stateful connections.
 
 ::
 
-    batmand -r 2 [interface]
+  batmand -r 2 [interface]
 
 This mode only considers the link quality towards the gateway while
 choosing it. Therefore it is named "stable internet connection". It also
@@ -86,7 +86,7 @@ will keep the tunnel open as long as possible.
 
 ::
 
-    batmand -r 3 [interface]
+  batmand -r 3 [interface]
 
 This mode also considers the link quality only but it will destroy the
 established tunnel as soon as another gateway with a better link quality
@@ -94,7 +94,7 @@ is found (fast-switching).
 
 ::
 
-    batmand -r (number between 3 and 256) [interface]
+  batmand -r (number between 3 and 256) [interface]
 
 This mode also considers the link quality only but switches to another
 gateway as soon as this gateway has a TQ value which is $number better
@@ -118,14 +118,14 @@ batman 0.3.2 and later
 ~~~~~~~~~~~~~~~~~~~~~~
 
 The batman daemon will try to locate the iptables binary to setup the
-masquerading automatically. This behaviour can be disabled using the
+masquerading automatically. This behaviour can be turned off using the
 "--disable-client-nat" option. If the outgoing packets are not
-masqueraded (the iptables binary wasn't found / the automatism disabled)
-batman will switch to the "half tunnel" mode which operates without
-masquerading. Beware: This mode *requires* the gateway to have a routing
-entry for each client that accesses the internet (e.g. non-batman
-clients may be announced via HNA). Also, batman won't be able to
-automatically detect whether the chosen gateway is connected to the
+masqueraded (the iptables binary wasn't found / the automatism
+deactivated) batman will switch to the "half tunnel" mode which operates
+without masquerading. Beware: This mode requires the gateway to have a
+routing entry for each client that accesses the internet (e.g.
+non-batman clients may be announced via HNA). Also, batman won't be able
+to automatically detect whether the chosen gateway is connected to the
 internet or not as only outgoing packets go through gate0.
 
 Tuning
@@ -142,25 +142,25 @@ gateway class:
 
 ::
 
-    batmand -c -g 0
+  batmand -c -g 0
 
 You could even say: I try to get my internet over that mesh as well:
 
 ::
 
-    batmand -c -r 1
+  batmand -c -r 1
 
 Later you deactivate it again and reactivate your gateway announcement:
 
 ::
 
-    batmand -c -r 0 && batmand -c -g 5000
+  batmand -c -r 0 && batmand -c -g 5000
 
 Or in one step:
 
 ::
 
-    batmand -c -g 5000
+  batmand -c -g 5000
 
 If you know that you want to use a particular gateway you can use the
 preferred gateway option (-p) to specify it. If batman finds the given
@@ -171,7 +171,7 @@ For example:
 
 ::
 
-    batmand -c -p 1.2.3.4
+  batmand -c -p 1.2.3.4
 
 The preferred gateway option can also be given at startup time.
 
@@ -184,10 +184,10 @@ module. Have a look in your kernel logs to see its boot up messages:
 
 ::
 
-    batgat: [init_module:96] batgat loaded rv959
-    batgat: [init_module:97] I was assigned major number 252. To talk to
-    batgat: [init_module:98] the driver, create a dev file with 'mknod /dev/batgat c 252 0'.
-    batgat: [init_module:99] Remove the device file and module when done.
+  batgat: [init_module:96] batgat loaded rv959
+  batgat: [init_module:97] I was assigned major number 252. To talk to
+  batgat: [init_module:98] the driver, create a dev file with 'mknod /dev/batgat c 252 0'.
+  batgat: [init_module:99] Remove the device file and module when done.
 
 Now the module is loaded but inactive. When you start batmand the daemon
 will automatically look for a file '/dev/batgat' to communicate with the
@@ -204,4 +204,4 @@ filesystem:
 
 ::
 
-    cat /proc/devices | grep batgat
+   cat /proc/devices | grep batgat

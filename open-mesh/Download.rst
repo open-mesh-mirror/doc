@@ -14,23 +14,23 @@ know exactly what you are doing and are prepared for the big unknown.
 Download Released Source Code
 -----------------------------
 
--  The latest version of [[batman-adv:Wiki|batman-adv]] is
-   `batman-adv-2020.1.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.1.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.1.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.1.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.1.tar.gz.asc>`__
+-  The latest version of batman-adv is
+   `batman-adv-2020.2.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.2.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.2.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.2.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.2.tar.gz.asc>`__
 -  The latest version of batctl (management and control tool for
    batman-adv) is
-   `batctl-2020.1.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.1.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.1.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.1.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.1.tar.gz.asc>`__
+   `batctl-2020.2.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.2.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.2.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.2.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.2.tar.gz.asc>`__
 -  The latest version of alfred (Almighty Lightweight Fact Remote
    Exchange Daemon) is
-   `alfred-2020.1.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.1.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.1.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.1.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.1.tar.gz.asc>`__
+   `alfred-2020.2.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.2.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.2.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.2.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.2.tar.gz.asc>`__
 
 -  The latest stable version of batmand
    (:ref:`unmaintained <open-mesh-BranchesExplained-batmand>`) is
@@ -184,6 +184,8 @@ contain, so that you can easily pick the compatible batctl packages:
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 -  linux 5.7 => batman-adv 2020.1 (get batctl 2020.1 from
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 5.8 => batman-adv 2020.2 (get batctl 2020.2 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 
 Arch Linux
 ----------
@@ -240,7 +242,7 @@ B.A.T.M.A.N. is also included in OpenWRT as a package. Download the
 extra package feed, link the batman folder into your main OpenWRT svn
 directory and use "make menuconfig" to select the B.A.T.M.A.N. flavor
 you intend to use. This enables you to integrate B.A.T.M.A.N. seamlessly
-into your builds (see :doc:`this page </batman-adv/Building-with-openwrt>` for
+into your builds (see  :doc:`this page </batman-adv/Building-with-openwrt>` for
 a detailed explanation).
 
 More information about how to build the OpenWRT toolchain is available

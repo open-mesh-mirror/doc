@@ -28,9 +28,9 @@ useful status data, followed by the single hop neighbor table:
 
 ::
 
-   <interface>
-      <single hop neighbor>
-         <last-seen> 
+  <interface>
+     <single hop neighbor>
+        <last-seen>
 
 Sample output:
 
@@ -152,7 +152,7 @@ introduced. As a result each interface will expose its routing table:
 
 ::
 
-  batctl -m ${meshif} o -i ${interface}
+  batctl meshif ${meshif} o -i ${interface}
 
 The routing table format is identical to the default table.
 
@@ -318,7 +318,7 @@ the mesh:
 Note:
 
 * Clients claimed by the node itself are marked with an '[x]'.
-* If no VLAN was found a VID of '-1' is printed.
+* If no VLAN was found a VID of '–1' is printed.
 
 ::
 
@@ -347,9 +347,9 @@ Note:
 
 * the own originator address is not printed, only other backbone
   gateways
-* If no VLAN was found a VID of '-1' is printed.
-* the last seen time should be between 0 and 10 seconds if there is
-  no packet lost
+* If no VLAN was found a VID of '–1' is printed.
+* the last seen time should be between 0 and 10 seconds if there is no
+  packet lost
 
 ::
 
@@ -463,7 +463,7 @@ protocol internals. After you activated debugging +tracing at compile
 time (instructions can be found in `the README
 file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
 ) and the appropriate log level has been set (read about the log levels
-:doc:`here <Tweaking>`)) you can retrieve the logs by simply reading the 'log'
+:doc:`here <Tweaking>`) you can retrieve the logs by simply reading the 'log'
 file:
 
 ::
@@ -487,13 +487,13 @@ runtime. It also exports the list of available routing protocols:
 
 ::
 
-  root@node01:~# batctl meshif bat0 ra
+  root@node01:~# batctl ra
   Active routing protocol configuration:
    * bat0: BATMAN_IV
-  
+
   Selected routing algorithm (used when next batX interface is created):
    => BATMAN_IV
-  
+
   Available routing algorithms:
    * BATMAN_IV
    * BATMAN_V

@@ -17,7 +17,7 @@ developers intended it to be and how it should work, I would like to
 suggest reading the RFC3626 after you have seen the presentation of
 Andreas Tøennesen on the OLSR.ORG website about RFC3626.
 
-We heavily modified olsr over the time. We disabled almost everything
+We heavily modified olsr over the time. We turned off almost everything
 that the inital designers of olsr thought was smart and replaced it with
 the LQ/ETX-Mechanism and Fish-Eye Mechanism tp update topology
 information.
@@ -57,11 +57,11 @@ Conclusion:
 
 What we did:
 
--  Disable hysteresis.
--  Disable MPRs - all nodes forward topology information.
+-  Deactivate hysteresis.
+-  Deactivate MPRs - all nodes forward topology information.
 
 Now almost everything that was meant to optimize Link State Routing
-was disabled - a simple proactive link-state routing protocol with
+was turned off - a simple proactive link-state routing protocol with
 support for multiple interfaces was all that was left. We started to
 deploy OLSR in the Freifunk Mesh in Berlin - rather we should have
 named it LSR back then. But since the implementation came from
@@ -154,16 +154,16 @@ information that has to be synced. Another source of failure.
 
 So we had to find a way to make sure that information about topology
 changes is updated in time to avoid routing loops. A perfect routing
-table that only works as long as the network is idle is quite
-useless...  One viable solution in a small mesh would be to send
-topology control messages (TC-Messages) more often than Hello's - but
-we already had a mesh with more than 100 nodes, so the traffic caused
-by redundant TC-Messages would suffocate the network by introducing
-massive overhead. Than we had the idea of sending TC-Messages with
-different TTL (Time-To-Live) values. I had the hypothesis that routing
-loops would occur amongst adjacent nodes - so we would only have to
-update topology changes quickly and redundant amongst adjacent nodes.
-We had to design
+table that only works as long as the network is idle is quite useless...
+One viable solution in a small mesh would be to send topology control
+messages (TC-Messages) more often than Hello's - but we already had a
+mesh with more than 100 nodes, so the traffic caused by redundant
+TC-Messages would suffocate the network by introducing massive
+overhead. Than we had the idea of sending TC-Messages with different
+TTL (Time-To-Live) values. I had the hypothesis that routing loops
+would occur amongst adjacent nodes - so we would only have to update
+topology changes quickly and redundant amongst adjacent nodes.  We had
+to design
 an algorithm that would make sure that adjacent nodes have correct
 topology information - but the problem is that it seemingly would not
 work without massive overhead.  The idea we came up with is to send TC
@@ -187,7 +187,7 @@ sequence of TTL values is used by olsrd:
 
 ::
 
-    255 3 2 1 2 1 1 3 2 1 2 1 1
+  255 3 2 1 2 1 1 3 2 1 2 1 1
 
 Hence, a TC interval of 0.5 seconds leads to the following TC broadcast
 scheme.
@@ -215,7 +215,7 @@ Djikstra-Table - this would be far too often. LinkQualityDjikstraLimit
 allows to set an interval for recalculating the Djikstra-Table.
 
 *Deployment of olsr-0.4.10*
-
+ 
 Results:  
 
 -  Now it is really working and usable :)
@@ -244,8 +244,8 @@ paths to every node - if all it can do is decide which direct neighbor
 it chooses as the next hop? If a node has a only  a single neighbor to
 talk to a mesh of 500 nodes it will calculate each and every route - but
 all it can do is to select its only single hop neighbor as gateway to
-every destination... So all topology / route calculation is superfluous
-in this case. What's more: What a node calculates based on stale
+every destination... So all topology / route calculation is superfluous in
+this case. What's more: What a node calculates based on stale
 information has nothing to do with the path a packet actually takes on a
 routing path of considerable length. This is a bliss for Olsr - because
 nodes closer to the destination have better knowledge about the

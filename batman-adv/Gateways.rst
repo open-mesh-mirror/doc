@@ -16,8 +16,8 @@ Announcements
 To make the internet uplink known in the mesh network, batman-adv
 allows enabling the so-called 'gateway mode'. The user specified
 internet uplink bandwidth is propagated in the mesh network using the
-:ref:`gateway TVLVs <batman-adv-TVLV-Gateway-announcement>`. All other
-mesh participants receive these announcements and maintain a list of
+:ref:`gateway TVLVs <batman-adv-TVLV-Gateway-announcement>`. All other mesh
+participants receive these announcements and maintain a list of
 internet gateways in the network (see:
 :ref:`gateway table <batman-adv-Understand-your-batman-adv-network-Gateway-table>`).
 To take advantage of this knowledge, each batman-adv node without an
@@ -80,7 +80,7 @@ running:
 
 ::
 
-    batctl gw_mode server
+  batctl gw_mode server
 
 Batman-adv always announces the gateway's internet bandwidth, so that
 clients can base their decision on the link quality towards the gateway
@@ -90,7 +90,7 @@ an upload of 1Mbit run the following command:
 
 ::
 
-    batctl gw_mode server 5mbit/1mbit
+  batctl gw_mode server 5mbit/1mbit
 
 Details regarding the syntax of the bandwidth setting can be found in
 the `batctl
@@ -103,7 +103,7 @@ The client can be activated with the following command:
 
 ::
 
-    batctl gw_mode client
+  batctl gw_mode client
 
 If multiple gateways are available batman-adv selects its best gateway
 based on certain criteria such as link quality / bandwidth / etc. The
@@ -114,18 +114,18 @@ currently selected gateway:
 
 ::
 
-    batctl gw_mode client 20
+  batctl gw_mode client 20
 
 All available gateway selection classes are thoroughly explained in the
 `batctl
 manpage <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__.
 
-With B.A.T.M.A.N. V this behavior changed: the value is measured in kbit/s,
-for example, if gw_sel_class is set to 1500 the gateway will be selected if
-the throughput is at least 1500 kbit/s faster than the throughput of the
-currently selected gateway. Throughput is determined by evaluating which
-is lower: the advertised throughput by the gateway or the maximum bandwidth
-across the entire path.
+With B.A.T.M.A.N. V this behavior changed: the value is measured in
+kbit/s, for example, if gw_sel_class is set to 1500 the gateway will be
+selected if the throughput is at least 1500 kbit/s faster than the
+throughput of the currently selected gateway. Throughput is determined
+by evaluating which is lower: the advertised throughput by the gateway
+or the maximum bandwidth across the entire path.
 
 gateway status
 ~~~~~~~~~~~~~~
@@ -134,13 +134,13 @@ To see all available gateways and their announced throughput run:
 
 ::
 
-    batctl gwl
+  batctl gwl
 
 The mode of the current node can be seen by running:
 
 ::
 
-    batctl gw_mode
+  batctl gw_mode
 
 Controversy
 -----------
@@ -152,9 +152,9 @@ functionality. The former claim that a well-designed protocol should not
 mess with other layers but instead collaborate with tools made for
 higher layers. The latter group has pointed out that the rule of network
 layer separation can be bent in real-world applications to improve
-usability. To achieve a compromise the gateway mechanism is disabled per
-default and only operates on top of DHCP (details below). Feel free to
-contact us in case you want to propose alternative ideas.
+usability. To achieve a compromise the gateway mechanism is turned off
+per default and only operates on top of DHCP (details below). Feel free
+to contact us in case you want to propose alternative ideas.
 
 .. |image0| image:: gateway1.png
 .. |image1| image:: gateway2.png

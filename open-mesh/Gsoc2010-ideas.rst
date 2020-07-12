@@ -1,18 +1,17 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-==============
 Gsoc2010 ideas
 ==============
 
 Requirements for students
-=========================
+-------------------------
 
 -  Excited interest in Mesh networking technologies
 -  Routing and networking knowledge in general
 -  Programming language: C
 
 Recommended and/or useful
-=========================
+-------------------------
 
 These things are not a prerequisite but might be very useful and/or have
 to be learned during the GSoC anyway.
@@ -30,10 +29,10 @@ to be learned during the GSoC anyway.
    batman-adv dissector)
 
 Ideas
-=====
+-----
 
 link layer fragmentation / compression
---------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Brief description:** Introducing link-layer fragmentation and header
 compression to offer alternative packet overhead solutions.
@@ -52,7 +51,7 @@ compression) and/or implement a lightweight link layer fragmentation
 and/or develop another solution.
 
 forward error correction
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Brief description:** Forward error correction to avoid retransmissions
 in the mesh network.
@@ -73,7 +72,7 @@ retransmissions. The parity packet rate can by dynamically adjusted
 depending on the link quality towards the final destination.
 
 B.A.T.M.A.N. protocol overhead reduction
-----------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Brief description:** Split the currently used OGM packets into two
 separate types to reduce the amount of packets flooded in the
@@ -94,7 +93,7 @@ linear growth of traffic with more nodes in the local neighborhood
 instead of a squared amount].
 
 B.A.T.M.A.N. protocol convergence speed
----------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Brief description:** Implement a fast changing environment detection
 algorithm to let mobile nodes adapt to their new surroundings faster.
@@ -103,9 +102,9 @@ Fast moving nodes always have the problem of adjusting their routing
 information in time. They can choose to send more routing information,
 so that their environment can adjust to them but stationary nodes won't
 do the same and increase the mobile node's adaption time greatly.
-However, when a B.A.T.M.A.N. node detects that his local environment
-changed quickly he will enter the starvation mode. In this mode the node
-will actively try to confirm a working route as fast as possible by
+However, when a B.A.T.M.A.N. node detects that its local environment
+changed quickly, it will enter the starvation mode. In this mode the
+node will actively try to confirm a working route as fast as possible by
 sending a "batman ping" to its new neighbors. Each B.A.T.M.A.N. neighbor
 will try to forward the message to its destination, once arrived there
 it will travel back. If the mobile node receives the reply it can change
@@ -114,7 +113,7 @@ flooding as the route has been verified. The goal of this project is to
 implement the starving mode together with the "batman ping".
 
 Optimize multicast performance
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Brief description:** Avoid broadcasting multicast traffic to nodes not
 belonging to a certain multicast group.
@@ -129,7 +128,7 @@ subgraph containing the nodes of a certain multicast group and other
 connecting nodes only.
 
 Dynamic OGM intervals
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 
 **Brief description:** A batman-adv node shall select originator
 interval rates according to the dense and dynamics in its closer
@@ -148,7 +147,7 @@ broadcasts could be automatically increased if there are not that many
 direct neighbors.
 
 More batctl ping/traceroute options
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Brief description:** Add useful options for administrating a mesh
 network to batctl.
@@ -161,7 +160,7 @@ quality of an alternative path. Feature proposals that make the
 administration of a complex mesh network more easy are welcome.
 
 Live VIS in map
----------------
+~~~~~~~~~~~~~~~
 
 **Brief description:** Building tools that visualize the dot output of
 the vis server with additional gps coordinates on a map.
@@ -182,7 +181,7 @@ without having to use fancy command line tools. This feature would be
 useful for anyone administrating (parts of) a mesh network.
 
 Multiple interfaces per node support in Mesh3D
-----------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Brief description:** Adapting Mesh3D to handle the new visualization
 format features from current batman-adv.
@@ -197,7 +196,7 @@ visualizing overlapping links in Mesh3D would probably have to be planed
 (adding transparency to Mesh3D for instance).
 
 Multiple switch ports for redundancy
-------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Brief description:** Allow multiple bridge uplinks to wired networks
 

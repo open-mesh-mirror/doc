@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="17cm" height="11cm" viewBox="278 258 326 203" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="17cm" height="11cm" viewBox="278 258 323 203" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs/>
   <g id="Background">
     <rect style="fill: #90ee90; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="400" y="260" width="80" height="60" rx="0" ry="0"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="440" y="286.45">
-      <tspan x="440" y="286.45">node 1</tspan>
-      <tspan x="440" y="302.45">(master)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="440" y="286.431">
+      <tspan x="440" y="286.431">node 1</tspan>
+      <tspan x="440" y="302.431">(primary)</tspan>
     </text>
     <rect style="fill: #ffc780; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="400" y="400" width="80" height="60" rx="20" ry="20"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="440" y="426.45">
-      <tspan x="440" y="426.45">node 3</tspan>
-      <tspan x="440" y="442.45">(slave)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="440" y="426.431">
+      <tspan x="440" y="426.431">node 3</tspan>
+      <tspan x="440" y="442.431">(secondary)</tspan>
     </text>
     <rect style="fill: #ffc780; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="280" y="400" width="80" height="60" rx="20" ry="20"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="426.45">
-      <tspan x="320" y="426.45">node 2</tspan>
-      <tspan x="320" y="442.45">(slave)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="320" y="426.431">
+      <tspan x="320" y="426.431">node 2</tspan>
+      <tspan x="320" y="442.431">(secondary)</tspan>
     </text>
     <rect style="fill: #ffc780; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="520" y="400" width="80" height="60" rx="20" ry="20"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="560" y="426.45">
-      <tspan x="560" y="426.45">node 4</tspan>
-      <tspan x="560" y="442.45">(slave)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="560" y="426.431">
+      <tspan x="560" y="426.431">node 4</tspan>
+      <tspan x="560" y="442.431">(secondary)</tspan>
     </text>
     <g>
       <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" points="440,320.983 440,375 320,375 320,389.259 "/>
@@ -39,8 +39,9 @@
       <tspan x="461" y="346"></tspan>
     </text>
     <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="340">
-      <tspan x="460" y="340">Master announcement</tspan>
-      <tspan x="460" y="356">broadcast</tspan>
+      <tspan x="460" y="340">Primary</tspan>
+      <tspan x="460" y="356">announcement</tspan>
+      <tspan x="460" y="372">broadcast</tspan>
     </text>
     <ellipse style="fill: #ff6e75; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="440" cy="350" rx="8" ry="8"/>
   </g>

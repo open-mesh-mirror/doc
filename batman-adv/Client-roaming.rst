@@ -46,7 +46,7 @@ content is explained in the
 :ref:`related TVLV section <batman-adv-TVLV-Roaming-Advertisement-message>`.
 
 The information contained in this packet is used to update the old
-node's global table so that, in case of payload packet directed to him
+node's global table so that, in case of payload packet directed to it
 while the network is not in sync, with a payload destination equal to
 'client address is redirected to 'source address'.
 
@@ -70,8 +70,8 @@ roaming procedure will react:
 #. C sends a ROAM\_ADV to node A (same mechanism of point 2)
 #. A updates its global table in order to reroute the packets to the
    correct (new) destination
-#. A sends a ROAM\_ADV to B to tell it that the roaming phase is over
-   and that the client "came back" (new feature to avoid B to do not
+#. A sends a ROAM\_ADV to B to tell it that the roaming phase is over and
+   that the client "came back" (new feature to avoid B to do not
    re-route packets correctly)
 
 In this way data will be still sent to A first and then rerouted to the
@@ -98,11 +98,12 @@ if necessary.
 Translation table consistency
 -----------------------------
 
-As described in the :doc:`client announcement document <Client-announcement>` each node computes a set of CRC32 checksum values and floods
-it through the network using OGMs. The translation table changes
-triggered by the roaming advertisement message leads to a temporary
-inconsistent global translation table because the table changes happen
-outside of the ttvn/CRC32 mechanism.
+As described in the :doc:`client announcement document <Client-announcement>`
+each node computes a set of CRC32 checksum values and floods it through
+the network using OGMs. The translation table changes triggered by the
+roaming advertisement message leads to a temporary inconsistent global
+translation table because the table changes happen outside of the
+ttvn/CRC32 mechanism.
 
 A node receiving a roaming advertisement message will add a global
 translation table entry pointing towards the new mesh node, remove the

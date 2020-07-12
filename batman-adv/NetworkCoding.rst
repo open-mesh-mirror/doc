@@ -47,32 +47,32 @@ Requirements
 There are a few requirements to your setup, if you want to benefit from
 network coding:
 
--  For network coding to work, it is required to have an enabled and
-   working promiscuous mode on all nodes, as promiscuity is used to both
-   overhear packets and receive network coded packets. Be aware that
-   many wireless devices have no functioning promiscuous mode, so some
-   testing might be required.
--  Your wireless device must support an MTU of 1546, as the batman-adv
-   header for network coded packets carries more information than usual
-   unicast packets.
+* For network coding to work, it is required to have an enabled and
+  working promiscuous mode on all nodes, as promiscuity is used to both
+  overhear packets and receive network coded packets. Be aware that
+  many wireless devices have no functioning promiscuous mode, so some
+  testing might be required.
+* Your wireless device must support an MTU of 1546, as the batman-adv
+  header for network coded packets carries more information than usual
+  unicast packets.
 
 To enable network coding, enable it a compile time (consult `the
 README.external
 file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
-to learn how to set the compile option). It can be disabled at runtime
+to learn how to set the compile option). It can be turned off at runtime
 with batctl:
 
 ::
 
-    # batctl nc 0
+  # batctl nc 0
 
 Remember to set promiscuous mode and adjust the MTU to the bigger
 batman-header for coded packets:
 
 ::
 
-    # ip link set dev wlan0 promisc on
-    # ip link set dev wlan0 mtu 1546
+  # ip link set dev wlan0 promisc on
+  # ip link set dev wlan0 mtu 1546
 
 where "wlan0" is the wireless device you have added to batman-adv with
 "batctl if add wlan0".

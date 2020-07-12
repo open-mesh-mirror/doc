@@ -3,7 +3,7 @@
 OpenWrt KGDB
 ============
 
-The :doc:`Emulation Environment <Emulation_Environment>`  documentation explains how to start
+The :doc:`Emulation Environment <Emulation_Environment>` documentation explains how to start
 multiple virtual Linux kernels+userspace, connect them and connect
 various helpers to test/debug a whole linux system. But some problems
 might only be reproducible on actual hardware
@@ -20,13 +20,13 @@ simple serial console with poll_{get,put}_char() support.
 Preparing OpenWrt
 -----------------
 
-Disabling watchdog
-~~~~~~~~~~~~~~~~~~
+Turning off watchdog
+~~~~~~~~~~~~~~~~~~~~
 
 Most CPUs have some kind of watchdog integrated. They can often be
-disabled and are often inactive when the watchdog driver is not loaded.
-For example, ath79/ar71xx can be build without the internal watchdog
-support by changing in target/linux/{ar71xx,ath79}/config-\*:
+turned off and are often inactive when the watchdog driver is not
+loaded. For example, ath79/ar71xx can be build without the internal
+watchdog support by changing in target/linux/{ar71xx,ath79}/config-\*:
 
 .. code-block:: diff
 
@@ -34,7 +34,7 @@ support by changing in target/linux/{ar71xx,ath79}/config-\*:
   +# CONFIG_ATH79_WDT is not set
 
 Unfortunately, there are also external watchdog chips which cannot be
-disabled. They have to be manually triggered regularly during the
+turned off. They have to be manually triggered regularly during the
 debugging process to prevent a sudden reboot. The details depend on the
 actual hardware but it often ends up in writing to a specific (GPIO
 control/set/clear) register.
@@ -42,7 +42,7 @@ control/set/clear) register.
 Enabling KGDB in kernel
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-The actual kernel gdbstub cannot be enabled via OpenWrt’s .config.
+The actual kernel gdbstub cannot be enabled via OpenWrt's .config.
 Instead the actual configuration has to be set in the target
 configuration:
 
@@ -273,12 +273,12 @@ patch:
 Start debugging session
 -----------------------
 
-Disable kASLR
-~~~~~~~~~~~~~
+Turning off kASLR
+~~~~~~~~~~~~~~~~~
 
 The kernel address space layout randomization complicates the resolving
 of addresses of symbols. It is highly recommended to start the kernel
-with the parameter “nokaslr”. For example by adding it to CONFIG_CMDLINE
+with the parameter "nokaslr". For example by adding it to CONFIG_CMDLINE
 or by adjusting the bootargs in the bootloader. It should be checked in
 /proc/cmdline whether it was really booted with this parameter.
 
@@ -337,8 +337,8 @@ has to be configured in gdb
 
   continue
 
-You should make sure that it doesn’t load any \ **.ko files from
-ipkg-**\  directories. These files are stripped and doesn’t contain the
+You should make sure that it doesn't load any \ **.ko files from
+ipkg-**\  directories. These files are stripped and doesn't contain the
 necessary symbol information. When necessary, just delete these folders
 or specify the folders with the unstripped kernel modules:
 
@@ -354,10 +354,9 @@ an already existing breakpoint) - use the sysrq mechanism again from
 Linux to switch back to kgdb.
 
 Some other ideas are documented in
-:doc:`Kernel debugging with qemu's GDB server <Kernel_debugging_with_qemu\'s_GDB_server>`.
-This document also contains important hints about
-:ref:`increasing the chance of getting debugable modules <open-mesh-kernel-hacking-debian-image-building-the-batman-adv-module>`
-which didn’t had all
+:doc:`Kernel debugging with qemu's GDB server <Kernel_debugging_with_qemu\'s_GDB_server>`. This document also contains
+important hints about
+:ref:`increasing the chance of getting debugable modules <open-mesh-kernel-hacking-debian-image-building-the-batman-adv-module>` which didn't had all
 information optimized away. The relevant flags could be set directly in
 the routing feed like this:
 
@@ -391,10 +390,10 @@ seconds). We have two possible ways:
 
 * write to the clear/set registers
 
-  -  set bit n in register ``GPIO_SET (0x1804000C)`` to set output value to
-     1 for GPIO n
-  -  set bit n in register ``GPIO_CLEAR (0x18040010)`` to set output value
-     to 0 for GPIO n
+  - set bit n in register ``GPIO_SET (0x1804000C)`` to set output value to
+    1 for GPIO n
+  - set bit n in register ``GPIO_CLEAR (0x18040010)`` to set output value
+    to 0 for GPIO n
 
 * overwrite the complete ``GPIO_OUT (0x18040008)`` register (which might
   modify more GPIO bits then required)

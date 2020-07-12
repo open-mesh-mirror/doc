@@ -19,9 +19,9 @@ B.A.T.M.A.N. General questions
 ------------------------------
 
 Does B.A.T.M.A.N. have simulator (NS2, Omnet, etc) support?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Q:** Does B.A.T.M.A.N. have his own simulator?
+**Q:** Does B.A.T.M.A.N. have its own simulator?
 
 **A:** At this point no, but B.A.T.M.A.N. implementation (we know of)
 supports simulators like the ones mentioned above. However, some
@@ -188,8 +188,8 @@ choose bad mesh nodes as next hop in the IP routing. As extracting/using
 TQ in other protocols is just an idea/proposal right now, please contact
 us if you want to do that.
 
-Log file doesn't exists in trace-cmd?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Logs not received via trace-cmd?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Q:** The trace-cmd shows now log messages for batman-adv?
 
@@ -302,20 +302,25 @@ B.A.T.M.A.N. Advanced - VLAN questions
 VLAN forwarding doesn't work
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Q**: When I have a bridge which connects an ethernet devices with bat0, VLAN
-frames from the ethernet interfaces are not forwarded by batman-adv. Instead a
-warning like ``batman_adv: bat0: adding TT local entry xx:xx:xx:xx:xx:xx to
-non-existent VLAN 23`` is printed periodically. How is it possible to forward
-these frames
+**Q**: When I have a bridge which connects an ethernet devices with
+bat0, VLAN frames from the ethernet interfaces are not forwarded by
+batman-adv. Instead a warning like
+``batman_adv: bat0: adding TT local entry xx:xx:xx:xx:xx:xx to non-existent VLAN 23``
+is printed periodically. How is it possible to forward these frames
 
-**A**: batman-adv since 2014.0.0 is VLAN-aware. It is only able to forward VLAN
-frames when it knows about the VLAN. This can either be done by creating a VLAN
-device with the correct VID on top of the batadv (bat0) device::
+**A**: batman-adv since 2014.0.0 is VLAN-aware. It is only able to
+forward VLAN frames when it knows about the VLAN. This can either be
+done by creating a VLAN device with the correct VID on top of the
+batadv (bat0) device:
+
+::
 
   ip link add link bat0 name bat0.23 type vlan id 23
 
-Or in case of a VLAN-aware bridge, it is better to add the correctly add the
-VLANs as required to the specific ports::
+Or in case of a VLAN-aware bridge, it is better to add the correctly add
+the VLANs as required to the specific ports:
+
+::
 
   bridge vlan add vid 23 dev bat0
 

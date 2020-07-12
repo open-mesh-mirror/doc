@@ -7,7 +7,7 @@ This page aims to provide a collection of links towards press reviews &
 papers related to B.A.T.M.A.N. as well as projects using the
 B.A.T.M.A.N. protocol in real live scenarios. This collection only
 reflects a small percentage of the things out there because not
-everybody contacts us to share his experience. If you have made some
+everybody contacts us to share their experience. If you have made some
 experience or even setup a B.A.T.M.A.N. mesh network at someplace in
 this universe please feel urged to :doc:`tell us <MailingList>` or drop us a
 link!
@@ -39,7 +39,7 @@ Press:
 -  `Kernel Log: Coming 3.8 -
    Drivers <http://www.h-online.com/open/features/Kernel-Log-Coming-in-3-8-Part-3-Drivers-1802696.html>`__,
    The H Open (February 2013)
--  `Conway’s Game of Life on top of
+-  `Conway's Game of Life on top of
    B.A.T.M.A.N. <https://hackaday.com/2012/02/04/using-routers-as-displays/>`__,
    Hack a Day (February 2012)
 -  `The dream of global mesh

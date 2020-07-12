@@ -76,11 +76,10 @@ batman-adv nodes.
 
 *Disadvantages:*
 
-* Multicast report overhead for every node (both throughput and
-  memory)
-* Might cause issues for switches if more than 4k hosts on the
-  network: Usually the MAC table of hardware switches only allows up to
-  4k clients (there are batman-adv networks with 1.5k hosts already).
+* Multicast report overhead for every node (both throughput and memory)
+* Might cause issues for switches if more than 4k hosts on the network:
+  Usually the MAC table of hardware switches only allows up to 4k
+  clients (there are batman-adv networks with 1.5k hosts already).
 * Central querier(s)
 
 (Yet another simple approach to tackle these disadvantages could be
@@ -98,9 +97,9 @@ There are usually two parties interested in multicast listener reports.
 For one thing, bridges ("software switches") and snooping switches
 (enterprise hardware switches). For another thing, multicast routers
 want IGMP/MLD reports. If the former, a bridge, exists then multicast
-optimizations are disabled at the moment, so the issue can't occure. For
-the latter, reports to multicast routers, let's consider the following
-two cases:
+optimizations are turned off at the moment, so the issue can't occure.
+For the latter, reports to multicast routers, let's consider the
+following two cases:
 
 a) Multicast listeners joining a link-local address
 b) Multicast listeners joining a non-link-local address

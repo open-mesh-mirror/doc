@@ -52,14 +52,14 @@ problem as well. As it will check for dependencies using modprobe.
 Are both nodes having the same cell id?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Check with ``iw dev wlan0 link``. Some wifi drivers are a little buggy and do
-not always merge two ad-hoc cells, therefore you're usually best advised to
-choose and configure one manually (i.e.
-``iw dev wlan0 ibss join $SSID $FREQ HT20 fixed-freq 02:XX:XX:XX:XX:XX``).
-While configuring a cell-id manually, you should
-set the 7th bit of the first byte - or start it with "02:" in other
-words. To keep this id (mostly) unique, using one of the routers
-mac-address for the rest is usually the safest way to go.
+Check with ``iw dev wlan0 link``. Some wifi drivers are a little buggy and
+do not always merge two ad-hoc cells, therefore you're usually best
+advised to choose and configure one manually (i.e. 'iw dev wlan0 ibss
+join $SSID $FREQ HT20 fixed-freq 02:XX:XX:XX:XX:XX'). While configuring
+a cell-id manually, you should set the 7th bit of the first byte - or
+start it with "02:" in other words. To keep this id (mostly) unique,
+using one of the routers mac-address for the rest is usually the safest
+way to go.
 
 Is 'batctl if' showing the used interfaces as active?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,13 +83,13 @@ Do all nodes run the same batman-adv version ?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If 'batctl o' does not show the neighbor you expect to see you should
-verify whether or not all nodes runt he same batman-adv version. Having
+verify whether or not all nodes run the same batman-adv version. Having
 the same version on all nodes is the safest way to be sure that the
 versions are compatible. A new release might change the compatibility
 number to avoid problems when incompatible versions run in the same
 mesh. Incompatible nodes will simply ignore each other. Consult our
-:doc:`compatibility table <Compatversion>` to find out which release(s)
-carry which compatibility number.
+:doc:`compatibility table <Compatversion>` to find out which release(s) carry
+which compatibility number.
 
 Are those tq-values rather stable or acting crazy?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

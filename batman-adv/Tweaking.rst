@@ -125,8 +125,8 @@ which prevents one connected wireless client to talk to another wireless
 client. In most situations this is considered a security feature. If the
 WiFi AP interface is bridged into a batman-adv mesh network it might be
 desirable to extend this wireless client isolation throughout the mesh
-network, therefore batman-adv has the ability to do just that (disabled
-by default). This setting only affects packets without any VLAN tag
+network, therefore batman-adv has the ability to do just that (turned
+off by default). This setting only affects packets without any VLAN tag
 (untagged packets). The ap isolation setting for VLAN tagged packets is
 modifiable through the per-VLAN settings.
 
@@ -241,9 +241,9 @@ manpage <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__.
 A batman-adv node can either run in server mode (sharing its internet
 connection with the mesh) or in client mode (searching for the most
 suitable internet connection in the mesh) or having the gateway support
-disabled entirely (which is the default setting). Gateways can tweak the
-announced internet bandwidth whereas clients can configure the manner in
-which batman-adv chooses its gateway.
+turned off entirely (which is the default setting). Gateways can tweak
+the announced internet bandwidth whereas clients can configure the
+manner in which batman-adv chooses its gateway.
 
 If multiple batman-adv gateways are available a batman-adv client node
 selects its best gateway based on certain criteria such as link quality
@@ -253,7 +253,7 @@ default value. All available gateway selection classes are thoroughly
 explained in the `batctl
 manpage <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__.
 
-Note: Please read the :doc:`internet gateway documentation <Gateways>`  to
+Note: Please read the :doc:`internet gateway documentation <Gateways>` to
 understand its interaction with DHCP.
 
 ::
@@ -264,7 +264,7 @@ understand its interaction with DHCP.
    # switch to client and and use selection class 20
    batctl meshif bat0 gw_mode client 20
 
-   # disable gateway mode
+   # turn off gateway mode
    batctl meshif bat0 gw_mode off
 
 hop penalty
@@ -529,7 +529,8 @@ Available since: batman-adv 2019.3
 
 Defines the throughput value to be used by B.A.T.M.A.N. V when
 estimating the link throughput using this interface. If the value is set
-to 0 then batman-adv will try to estimate the throughput by itself.
+to 0 then batman-adv will try to retrieve the expected throughput from
+the hardif (driver).
 
 ::
 

@@ -55,7 +55,7 @@ the received entry in its local storage for further caching.
 Enable/Disable DAT
 ------------------
 
-DAT can be enabled/disabled in two different manners:
+DAT can be turned on/off in two different manners:
 
 #. at compile time
 #. at runtime
@@ -74,7 +74,7 @@ the following batctl command:
 
 ::
 
-    # batctl dat <0|1>
+  # batctl dat <0|1>
 
 Inspecting the Local DAT table
 ------------------------------
@@ -85,7 +85,7 @@ currectly storing, it is possible to use the following command:
 
 ::
 
-    # batctl dc
+  # batctl dc
 
 An explanation of the output can be found here (link needed).
 

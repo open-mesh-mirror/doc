@@ -14,14 +14,14 @@ frontend.
 
 ::
 
-    git clone https://git.open-mesh.org/batman-adv.git batman-adv
+  git clone https://git.open-mesh.org/batman-adv.git batman-adv
 
 There is also a repository for kernel integration. You are about to
 download 300MB of sources - that may take a while!
 
 ::
 
-    git clone https://git.open-mesh.org/linux-merge.git -b batadv/net-next
+  git clone https://git.open-mesh.org/linux-merge.git -b batadv/net-next
 
 Branches
 --------
@@ -45,14 +45,14 @@ the repository
 
 ::
 
-    git checkout -b maint --track origin/maint
+  git checkout -b maint --track origin/maint
 
 Cherry-picking a commit from master branch
 
 ::
 
-    git checkout maint
-    git cherry-pick $SHA1
+   git checkout maint
+   git cherry-pick $SHA1
 
 Linux integration
 ~~~~~~~~~~~~~~~~~

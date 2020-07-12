@@ -10,15 +10,15 @@ Installing from source
 Pre-requirements
 ----------------
 
-* Compile environment and libraries.
+* Compile environment and libraries
 
-   # gcc
-   # libc6-dev
-   # build-essential
-   # binutils
-   # makedev
-   # GNU make
-   # libpthread
+  # gcc
+  # libc6-dev
+  # build-essential
+  # binutils
+  # makedev
+  # GNU make
+  # libpthread
 
 * Download the B.A.T.M.A.N. daemon code from the website
   <https://www.open-mesh.org/projects/open-mesh/wiki/Download>
@@ -31,18 +31,18 @@ file called *batmand*.
 
 ::
 
-    $ wget \
-    https://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz
-    $ tar xzvf batman-0.3.tar.gz
-    $ cd batman-0.3
-    $ make
+  $ wget \
+  https://downloads.open-mesh.org/batman/stable/sources/batman/batman-0.3.tar.gz
+  $ tar xzvf batman-0.3.tar.gz
+  $ cd batman-0.3
+  $ make
 
 If you want reduce the size of executable file, just strip it by
 executing:
 
 ::
 
-    $ strip batmand
+  $ strip batmand
 
 Note that if you want to help us finding a bug in the daemon, please
 don't strip it.
@@ -54,13 +54,13 @@ Copy *batmand* to a location somewhere in your path, for example
 
 ::
 
-    $ cp batmand /usr/sbin/
+  $ cp batmand /usr/sbin/
 
 Or start it right from the directory where you compiled it
 
 ::
 
-    $ ./batmand
+  $ ./batmand
 
 Usage
 =====
@@ -84,13 +84,13 @@ at least one interface batmand runs on.
 
 ::
 
-    $ batmand eth1
+  $ batmand eth1
 
 If you have more interfaces, then you just add them behind the first.
 
 ::
 
-    $ batmand eth1 eth2 eth3
+  $ batmand eth1 eth2 eth3
 
 The B.A.T.M.A.N. daemon can also run on alias interfaces. Note that we
 use alias interfaces to separate B.A.T.M.A.N. routing protocol and olsr
@@ -98,7 +98,7 @@ routing protocol.
 
 ::
 
-    $ batmand eth1:test1 eth2:test2 eth3:test3
+  $ batmand eth1:test1 eth2:test2 eth3:test3
 
 Note that the B.A.T.M.A.N. daemon will take the ip address and the
 broadcast address from the given interfaces.
@@ -129,21 +129,21 @@ what a announced network is, but executing this command is wrong:
 
 ::
 
-    $ batmand -a 192.168.100.101 eth1
+  $ batmand -a 192.168.100.101 eth1
 
 Because you have to specify the netmask parameter and different netmask
 parameters cause different results. Let's make a example:
 
 ::
 
-    $ batmand -a 192.168.100.101/32 eth1
+  $ batmand -a 192.168.100.101/32 eth1
 
 In this case, it means that node A can only connect to node B, because
 your parameter is /32.
 
 ::
 
-    $ batmand -a 192.168.100.101/24 eth1
+  $ batmand -a 192.168.100.101/24 eth1
 
 In this case, it means that node A can connect to the whole
 192.168.100.x network, because your parameter is /24. So, if you use
@@ -159,7 +159,7 @@ execute the following command:
 
 ::
 
-    $ batmand -a 192.168.100.101/24 -a 192.168.200.201/24 eth1
+  $ batmand -a 192.168.100.101/24 -a 192.168.200.201/24 eth1
 
 Note that node A has to have a route to connect the node or network.
 
@@ -179,8 +179,8 @@ if you use "-b" it will execute once and then stop.
 
 ::
 
-    $ batmand eth1
-    $ batmand -b -c -d 1
+  $ batmand eth1
+  $ batmand -b -c -d 1
 
 In this case, it means run debug level 1 once.
 
@@ -202,8 +202,8 @@ current configuration even if changed at runtime.
 
 ::
 
-    $ batmand eth1
-    $ batmand -c -d 1
+  $ batmand eth1
+  $ batmand -c -d 1
 
 In this case, you ask the daemon to output debug level 1 in your current
 shell. The B.A.T.M.A.N. daemon will update the information after a
@@ -218,25 +218,25 @@ level.
 The debug level can be set to five values.
 
 0
-    debug disabled (default)
+  debug turned off (default)
 1
-    list neighbors
+  list neighbors
 2
-    list gateways
+  list gateways
 3
-    observe batmand
+  observe batmand
 4
-    observe batmand (very verbose)
+  observe batmand (very verbose)
 5
-    memory debug / cpu usage
+  memory debug / cpu usage
 
-Note that debug level 5 can be disabled at compile time.
+Note that debug level 5 can be turned off at compile time.
 
 For example, you can run in normal start:
 
 ::
 
-    $ batmand -d 1 eth1
+   $ batmand -d 1 eth1
 
 Level 1
 ^^^^^^^
@@ -245,12 +245,12 @@ just lists the neighbors in your B.A.T.M.A.N. network.
 
 ::
 
-    Originator      Router (#/128):       Potential routers... [B.A.T.M.A.N. 0.2,
-    MainIF/IP: eth2 105.131.131.175, UT: 0d 0h 3m]
-    105.131.83.2    105.131.1.3 (  71):   105.131.1.3 (  71)
-    105.131.1.2     105.131.1.2 (  52):   105.131.1.2 (  52)
-    105.131.56.10   105.131.1.4 (  25):   105.131.1.4 (  25),105.131.1.6 ( 15),...
-    105.131.131.70  105.131.131.70 (121): 105.131.131.70 (121)
+  Originator      Router (#/128):       Potential routers... [B.A.T.M.A.N. 0.2,
+  MainIF/IP: eth2 105.131.131.175, UT: 0d 0h 3m]
+  105.131.83.2    105.131.1.3 (  71):   105.131.1.3 (  71)
+  105.131.1.2     105.131.1.2 (  52):   105.131.1.2 (  52)
+  105.131.56.10   105.131.1.4 (  25):   105.131.1.4 (  25),105.131.1.6 ( 15),...
+  105.131.131.70  105.131.131.70 (121): 105.131.131.70 (121)
 
 * In the first line, we will see the version of the B.A.T.M.A.N.
   daemon, main interface, main IP, and uptime.
@@ -277,21 +277,20 @@ just lists gateways in the B.A.T.M.A.N. network.
 
 ::
 
-    Gateway         Router (#/128)
-    105.131.83.5    105.131.41.1 ( 57), gw_class 11  ->6 MBit, reliability: 0
-    105.131.41.5    105.131.41.1 ( 53), gw_class 11  ->6 MBit, reliability: 0
+  Gateway         Router (#/128)
+  105.131.83.5    105.131.41.1 ( 57), gw_class 11  ->6 MBit, reliability: 0
+  105.131.41.5    105.131.41.1 ( 53), gw_class 11  ->6 MBit, reliability: 0
 
--  In the first column, we can see those IPs which are our gateways.
-
--  In the second column, we can see those IPs which we sent our packets
-   to when we want to reach the IP of the first column. The number in
-   the parenthesis indicates the link quality of the connection and the
-   #/128 shows the maximum number of packets. The gw\_class means
-   gateway class of the gateway and 11 ->6 MBit means how much bandwidth
-   the gateway owner wants to share. The reliability means how good the
-   quality of the internet connection is. In this case, 0 means this is
-   the best quality. The reliability number will increase if the quality
-   is poor.
+* In the first column, we can see those IPs which are our gateways.
+* In the second column, we can see those IPs which we sent our packets
+  to when we want to reach the IP of the first column. The number in
+  the parenthesis indicates the link quality of the connection and the
+  #/128 shows the maximum number of packets. The gw_class means gateway
+  class of the gateway and 11 ->6 MBit means how much bandwidth the
+  gateway owner wants to share. The reliability means how good the
+  quality of the internet connection is. In this case, 0 means this is
+  the best quality. The reliability number will increase if the quality
+  is poor.
 
 Level 3
 ^^^^^^^
@@ -312,9 +311,10 @@ and received from where etc.
 
 The gateway class is used to tell other nodes in the network your
 available internet bandwidth. Just enter any number (optionally followed
-by "kbit" or "mbit") and the daemon will guess your appropriate gateway
-class. Use "/" to seperate the down- and upload rates. You can omit the
-upload rate and batmand will assume an upload of .
+by "kbit" or "mbit") and the daemon will guess your
+appropriate gateway class. Use "/" to seperate the down- and upload
+rates. You can omit the upload rate and batmand will assume an upload of
+.
 
 * 5000
 * 5000kbit
@@ -327,7 +327,7 @@ You only can set the value in a normal start
 
 ::
 
-    $ batmand -g 5mbit/1024 -d 3 eth1
+  $ batmand -g 5mbit/1024 -d 3 eth1
 
 Note that if you use debug level 3, then you will know whether you
 succeed setting the gateway class or not.
@@ -346,7 +346,7 @@ This option is only available in daemon mode.
 
 ::
 
-    $ batmand -o 2000 eth1
+  $ batmand -o 2000 eth1
 
 In this case, batmand will wait 2 second until sending the next OGMs.
 
@@ -356,13 +356,13 @@ In this case, batmand will wait 2 second until sending the next OGMs.
 Set the internet gateway by yourself.
 
 Note that this automatically switches your B.A.T.M.A.N. daemon to
-"internet search modus" with "-r 1" unless "-r" is given. If the
-preferred gateway is not found the gateway selection will use the
+"internet search modus" with "-r 1" unless "-r" is given.
+If the preferred gateway is not found the gateway selection will use the
 current routing class to choose a gateway.
 
 ::
 
-    $ batmand -r 3 -d 3 -p 192.168.1.1 eth1
+  $ batmand -r 3 -d 3 -p 192.168.1.1 eth1
 
 In this case, you set 192.168.1.1 as your preferred gateway, so all of
 your internet packets will be sent to the 192.168.1.1.
@@ -375,15 +375,15 @@ search modus". The daemon will choose an internet gateway based on
 certain criteria (unless "-p" is specified):
 
 0
-    set no default route (default)
+  set no default route (default)
 1
-    use fast connection
+  use fast connection
 2
-    use stable connection
+  use stable connection
 3
-    use fast-switch connection
+  use fast-switch connection
 XX
-    use late-switch connection
+  use late-switch connection
 
 Level 1
 ^^^^^^^
@@ -416,7 +416,7 @@ XX ist a number between 3 and 256
 
 ::
 
-    $ batmand -r 3 -d 3 eth1
+  $ batmand -r 3 -d 3 eth1
 
 In this case, the B.A.T.M.A.N. daemon will choose the best statistic
 internet connection for you. Note that if you use debug level 3, then
@@ -436,11 +436,11 @@ can be used to visualize mesh-clouds using B.A.T.M.A.N.
 ``--policy-routing-script``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This option disables the policy routing feature of batmand - all routing
-changes are send to the script which can make use of this information or
-not. Firmware and package maintainers can use this option to tightly
-integrate batmand into their own routing policies. This option is only
-available in daemon mode.
+This option turns off the policy routing feature of batmand - all
+routing changes are send to the script which can make use of this
+information or not. Firmware and package maintainers can use this option
+to tightly integrate batmand into their own routing policies. This
+option is only available in daemon mode.
 
 Troubleshooting
 ===============
@@ -454,8 +454,8 @@ new settings.
 
 ::
 
-    $ killall batmand
-    $ batmand eth1
+  $ killall batmand
+  $ batmand eth1
 
 Why I can't connect to the Internet after setting the default gateway?
 ----------------------------------------------------------------------
@@ -465,6 +465,7 @@ options to set default route.
 
 ::
 
-    $ iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+  $ iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
 
 Note that you don't set the default route by yourself.
+

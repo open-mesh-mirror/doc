@@ -5,7 +5,7 @@ What is a coredump ?
 
 A coredump is the state of the programs memory when it crashed. It
 allows programmers to exactly nail down the line in the code which
-caused the segfault. See https://en.wikipedia.org/wiki/Core\_dump for
+caused the segfault. See https://en.wikipedia.org/wiki/Core_dump for
 more information.
 
 Why do I need ulimit and what does it do ?
@@ -19,8 +19,8 @@ what memory size is safe to be saved on disk. A "ulimit -c 20000" saves
 coredumps of up to 20MB, "ulimit -c unlimited" saves everything no
 matter how big it is. You can check your systems default by running
 "ulimit -c" without any value. If the setting is too small or
-coredumping is disabled you have to run "ulimit -c " each time before
-you start batman.
+coredumping is deactivated, you have to run "ulimit -c " each time
+before you start batman.
 
 How to get a batman coredump ?
 ------------------------------

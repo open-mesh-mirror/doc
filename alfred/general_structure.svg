@@ -4,44 +4,44 @@
   <defs/>
   <g id="Background">
     <rect style="fill: #90ee90; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="400" y="260" width="80" height="60" rx="0" ry="0"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="440" y="286.45">
-      <tspan x="440" y="286.45">node 6</tspan>
-      <tspan x="440" y="302.45">(master)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="440" y="286.431">
+      <tspan x="440" y="286.431">node 6</tspan>
+      <tspan x="440" y="302.431">(primary)</tspan>
     </text>
     <rect style="fill: #ffc780; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="420" y="140" width="80" height="60" rx="20" ry="20"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="166.45">
-      <tspan x="460" y="166.45">node 4</tspan>
-      <tspan x="460" y="182.45">(slave)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="166.431">
+      <tspan x="460" y="166.431">node 4</tspan>
+      <tspan x="460" y="182.431">(secondary)</tspan>
     </text>
     <rect style="fill: #ffc780; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="260" y="250" width="80" height="60" rx="20" ry="20"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="300" y="276.45">
-      <tspan x="300" y="276.45">node 5</tspan>
-      <tspan x="300" y="292.45">(slave)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="300" y="276.431">
+      <tspan x="300" y="276.431">node 5</tspan>
+      <tspan x="300" y="292.431">(secondary)</tspan>
     </text>
     <rect style="fill: #ffc780; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="320" y="380" width="80" height="60" rx="20" ry="20"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="360" y="406.45">
-      <tspan x="360" y="406.45">node 9</tspan>
-      <tspan x="360" y="422.45">(slave)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="360" y="406.431">
+      <tspan x="360" y="406.431">node 9</tspan>
+      <tspan x="360" y="422.431">(secondary)</tspan>
     </text>
     <rect style="fill: #90ee90; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="260" y="140" width="80" height="60" rx="0" ry="0"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="300" y="166.45">
-      <tspan x="300" y="166.45">node 3</tspan>
-      <tspan x="300" y="182.45">(master)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="300" y="166.431">
+      <tspan x="300" y="166.431">node 3</tspan>
+      <tspan x="300" y="182.431">(primary)</tspan>
     </text>
     <rect style="fill: #ffc780; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="220" y="40" width="80" height="60" rx="20" ry="20"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="260" y="66.45">
-      <tspan x="260" y="66.45">node 1</tspan>
-      <tspan x="260" y="82.45">(slave)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="260" y="66.4312">
+      <tspan x="260" y="66.4312">node 1</tspan>
+      <tspan x="260" y="82.4312">(secondary)</tspan>
     </text>
     <rect style="fill: #ffc780; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke-linejoin: round; stroke: #000000" x="120" y="140" width="80" height="60" rx="20" ry="20"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="160" y="166.45">
-      <tspan x="160" y="166.45">node 2</tspan>
-      <tspan x="160" y="182.45">(slave)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="160" y="166.431">
+      <tspan x="160" y="166.431">node 2</tspan>
+      <tspan x="160" y="182.431">(secondary)</tspan>
     </text>
     <rect style="fill: #90ee90; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="140" y="330" width="80" height="60" rx="0" ry="0"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="180" y="356.45">
-      <tspan x="180" y="356.45">node 8</tspan>
-      <tspan x="180" y="372.45">(master)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="180" y="356.431">
+      <tspan x="180" y="356.431">node 8</tspan>
+      <tspan x="180" y="372.431">(primary)</tspan>
     </text>
     <g>
       <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="204.777" y1="320.77" x2="275.223" y2="209.23"/>

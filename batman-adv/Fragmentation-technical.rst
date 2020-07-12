@@ -45,9 +45,9 @@ Any type of unicast packet (e.g. ``struct unicast_packet``,
 
 The size is checked in ``send_skb_to_orig()`` and if larger than the MTU
 of the selected outgoing interface (selected by
-:doc:`bonding </batman-adv/Multi-link-optimize>`) the packet
-is passed to ``frag_send_packet()``. Here, fragments are created and
-sent from the tail of the original packet, so that the first fragment
+:doc:`bonding </batman-adv/Multi-link-optimize>`) the packet is
+passed to ``frag_send_packet()``. Here, fragments are created and sent
+from the tail of the original packet, so that the first fragment
 contains the end of the original packet:
 
 |image1|
@@ -106,12 +106,12 @@ see below). It is a fix for drivers/hardware that is unable to handle
 MTU's greater than 1528 bytes, it is slow (due to increase is packets),
 and is susceptible to packet loss.
 
-It can be enabled and disabled via batctl:
+It can be turned on and off via batctl:
 
 ::
 
-    % batctl meshif bat0 fragmentation 1 # enable (default)
-    % batctl meshif bat0 fragmentation 0 # disable
+  % batctl meshif bat0 fragmentation 1 # on (default)
+  % batctl meshif bat0 fragmentation 0 # off
 
 Limitations
 -----------

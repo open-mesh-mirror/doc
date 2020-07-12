@@ -4,52 +4,52 @@
   <defs/>
   <g id="Background">
     <rect style="fill: #90ee90; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="380" y="60" width="368.6" height="320" rx="0" ry="0"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="564.3" y="71.9">
-      <tspan x="564.3" y="71.9">node 1</tspan>
-      <tspan x="564.3" y="87.9">(master)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="564.3" y="71.8812">
+      <tspan x="564.3" y="71.8812">node 1</tspan>
+      <tspan x="564.3" y="87.8812">(primary)</tspan>
     </text>
     <rect style="fill: #00ee00; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="560" y="120" width="160" height="240" rx="0" ry="0"/>
     <g>
       <polygon style="fill: #ffe938; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="640,160 700,219.43 640,278.859 580,219.43 "/>
-      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="640" y="207.33">
-        <tspan x="640" y="207.33">data</tspan>
-        <tspan x="640" y="223.33">global</tspan>
-        <tspan x="640" y="239.33">store</tspan>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="640" y="207.311">
+        <tspan x="640" y="207.311">data</tspan>
+        <tspan x="640" y="223.311">global</tspan>
+        <tspan x="640" y="239.311">store</tspan>
       </text>
     </g>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="640" y="131.9">
-      <tspan x="640" y="131.9">alfred server</tspan>
-      <tspan x="640" y="147.9">(master)</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="640" y="131.881">
+      <tspan x="640" y="131.881">alfred server</tspan>
+      <tspan x="640" y="147.881">(primary)</tspan>
     </text>
     <ellipse style="fill: #ff434c; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="449.4" cy="307.1" rx="50" ry="30"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="449.4" y="303.55">
-      <tspan x="449.4" y="303.55">alfred</tspan>
-      <tspan x="449.4" y="319.55">client 2</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="449.4" y="303.531">
+      <tspan x="449.4" y="303.531">alfred</tspan>
+      <tspan x="449.4" y="319.531">client 2</tspan>
     </text>
     <ellipse style="fill: #ff434c; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="449.4" cy="167.1" rx="50" ry="30"/>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="449.4" y="163.55">
-      <tspan x="449.4" y="163.55">alfred</tspan>
-      <tspan x="449.4" y="179.55">client 1</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="449.4" y="163.531">
+      <tspan x="449.4" y="163.531">alfred</tspan>
+      <tspan x="449.4" y="179.531">client 1</tspan>
     </text>
     <g>
       <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 499.811,162.476 A 30.3308,30.3308 0 0 1 555.652,148.498"/>
       <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="558.835,154.937 551.469,146.526 556.938,147.68 561.144,143.997 "/>
     </g>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="519.4" y="118.1">
-      <tspan x="519.4" y="118.1">Request</tspan>
-      <tspan x="519.4" y="134.1">data</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="519.4" y="118.081">
+      <tspan x="519.4" y="118.081">Request</tspan>
+      <tspan x="519.4" y="134.081">data</tspan>
     </text>
     <g>
       <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" d="M 559.4,197.1 A 34.0547,34.0547 0 0 1 497.118,189.167"/>
       <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="495.857,182.032 500.786,192.068 495.804,189.532 490.786,191.996 "/>
     </g>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="519.4" y="229">
-      <tspan x="519.4" y="229">Push</tspan>
-      <tspan x="519.4" y="245">data</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="519.4" y="228.981">
+      <tspan x="519.4" y="228.981">Push</tspan>
+      <tspan x="519.4" y="244.981">data</tspan>
     </text>
-    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="519.4" y="278.1">
-      <tspan x="519.4" y="278.1">Push</tspan>
-      <tspan x="519.4" y="294.1">data</tspan>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="519.4" y="278.081">
+      <tspan x="519.4" y="278.081">Push</tspan>
+      <tspan x="519.4" y="294.081">data</tspan>
     </text>
     <g>
       <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="500.405" y1="307.1" x2="549.664" y2="307.1"/>
