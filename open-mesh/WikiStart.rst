@@ -51,10 +51,3 @@ Merchandise
 -  :doc:`Logos <Logos>` - download logos
 -  `T-Shirts <https://www.freewear.org/?org=B.A.T.M.A.N%2e>`__ - get
    T-Shirts
-
-Other Projects on open-mesh.org
--------------------------------
-
--  :doc:`FFTrace <FFTrace>` - freifunk traceroute tool
--  :doc:`MeshLinux <MeshLinux>` - Linux distribution geared to build mesh
-   supernodes

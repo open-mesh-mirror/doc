@@ -154,8 +154,8 @@ for 'bat0' and in that case they will affect the behaviour only for the plain
 mesh interface (i.e. bat0 - the untagged LAN).
 
 
-Batman-adv 2013.0.0 and  till 2019.0-2
---------------------------------------
+Batman-adv 2019.0-2  and older
+------------------------------
 
 With batman-adv 2013.0.0 the OpenWrt package was converted to integrate
 with OpenWrt's netifd system. This has some impact on the configuration
@@ -252,69 +252,3 @@ kernel module's default:
     	option proto 'batadv'
     	option mesh 'bat0'
     	option routing_algo 'BATMAN_V'
-
-Batman-adv 2012.4.0 and older
------------------------------
-
-The wifi interface needs to be configured in '/etc/config/wireless':
-
-::
-
-    config wifi-device 'radio0'
-    	option [..]
-
-    config wifi-iface 'wmesh'
-    	option device 'radio0'
-    	option ifname 'adhoc0'
-    	option network 'bat0_hardif_wlan'
-    	option mode 'adhoc'
-    	option ssid 'mesh'
-    	option 'mcast_rate' '18000'
-    	option bssid '02:CA:FE:CA:CA:40'
-
-It is assumed you configured the 'wifi-device' depending on your
-requirements and your hardware. The interesting part is the 'wifi-iface'
-stanza with its options:
-
-* 'device' points back to your radio (wifi-device) interface
-* 'ifname' allows you to specify an arbitrary name for your adhoc
-  interface (which we are going to re-use later)
-* 'network' points to the corresponding stanza in
-  '/etc/config/network'
-* 'mode' defines the wifi mode (adhoc in our case)
-* 'mcast\_rate' helps to avoid low bandwidth routes (routes with a
-  lower throughput rate than the mcast rate will not be visible to
-  batman-adv)
-* 'ssid' and 'bssid' are basic wireless settings you might want to
-  set to your liking
-
-More information can be found in the `OpenWrt wireless
-configuration <https://wiki.openwrt.org/doc/uci/wireless>`__
-
-Configure the MTU in '/etc/config/network'
-
-::
-
-    config interface 'bat0_hardif_wlan'
-    	option ifname 'adhoc0'
-    	option mtu '1528'
-    	option proto 'none'
-
-The stanza's name 'mesh' as well as the ifname option have to match your
-wireless configuration.
-
-Batman-adv is configured through its own configuration in
-'/etc/config/batman-adv':
-
-::
-
-    config mesh 'bat0'
-    	option interfaces 'adhoc0'
-    	option 'aggregated_ogms'
-    	option 'ap_isolation' 
-    	option [..]
-
-The 'interfaces' option is the key element here, as it tells batman-adv
-which interface(s) to run on. All the other options enable / disable /
-tweak all the batman-adv features you can also access at runtime through
-batctl.
