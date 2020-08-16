@@ -1,78 +1,62 @@
-h1. DRAFT: Batman-adv 2020.2 released
+h1. DRAFT: Batman-adv 2020.3 released
 
-Jul 1th, 2020. Today the B.A.T.M.A.N. team publishes the July 2020 update to batman-adv, batctl and alfred! This release drops the support for the end-of-life Linux kernel versions (<4.3). The B.A.T.M.A.N. V throughput detection for ethernet devices without auto-negotiation was enabled again to support more configurations out of the box. Most users will still require a manual setting via the throughput_override for such devices. The automatic removal of (empty) batadv mesh interfaces during a <code>batctl meshif bat0 interface del ....</code> was dropped. An explicit <code>batctl meshif bat0 interface destroy</code> is now required to remove the batadv interface. Also several bugfixes and code cleanups are included in this version.
+Aug 25th, 2020. Today the B.A.T.M.A.N. team publishes the August 2020 update to batman-adv, batctl and alfred! An additional hop penalty can now be configured on a per interface basis. Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2020.2/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2020.3/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Al Viro <viro@zeniv.linux.org.uk>
-* Antonio Quartulli <a@unstable.cc>
-* Cong Wang <xiyou.wangcong@gmail.com>
-* Marek Lindner <mareklindner@neomailbox.ch>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
-* YueHaibing <yuehaibing@huawei.com>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Andreas Ziegler <az@freifunk-altdorf.de>
-* Matthias Schiffer <mschiffer@universe-factory.net>
-* Taehee Yoo <ap420073@gmail.com>
+* Antonio Quartulli <a@unstable.cc>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2020.1-13-ga042622f
-$ range=v2020.1..v2020.1-13-ga042622f
+v2020.2-7-geded19e9
+$ range=v2020.2..v2020.2-7-geded19e9
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-new kernel support
-==================
-
-      batman-adv: Drop support for Linux < 4.4
-
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: get rid of pointless access_ok()
-      batman-adv: use rcu_replace_pointer() where appropriate
-      batman-adv: partially revert dynamic lockdep key changes
-      batman-adv: change addr_list_lock back to static key
-      batman-adv: Fix spelling error in term buffer
-      batman-adv: trace: Drop unneeded types.h include
-      batman-adv: Utilize prandom_u32_max for random [0, max) values
-      batman-adv: Sync config options for external module builds
-      batman-adv: Use alphabetical order for external build config options
+      batman-adv: Switch mailing list subscription page
+      batman-adv: Fix typos and grammar in documentation
 
-BATMAN V
-=========
+various
+=======
 
-      batman-adv: Revert "disable ethtool link speed detection when auto negotiation off"
+      batman-adv: Introduce a configurable per interface hop penalty
 
 bugfixes
 ========
 
+      batman-adv: Avoid uninitialized chaddr when handling DHCP
+      batman-adv: Fix own OGM check in aggregated OGMs
 
 
 
-
-2020.2 (2020-07-01)
+2020.3 (2020-08-25)
 ===================
 
-* support latest kernels (4.4 - 5.8)
+* support latest kernels (4.4 - 5.9)
 * coding style cleanups and refactoring
-* dropped support for kernels < 4.4
-* re-enabled link speed detection for interfaces without auto negotiation
+* introduce a configurable per interface hop penalty
+* bugs squashed:
 
+  - avoid uninitialized chaddr when handling DHCP
+  - fix own OGMv2 check in aggregation receive handling
 
 </pre>
 
@@ -80,8 +64,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2020.1-8-g51b0746
-$ range=v2020.1..v2020.1-8-g51b0746
+v2020.2-3-g2c893e3
+$ range=v2020.2..v2020.2-3-g2c893e3
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -89,28 +73,13 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 various
 =======
 
-      batctl: Disable automatic destruction of empty meshifs
-
-coding style cleanup/refactoring
-================================
-
-      batctl: Change/fix a throughput override function name
-
-bugfix
-======
-
-      batctl: fix endianness when reading radiotap header
-      batctl: Only remove batadv interface on hardif reduction
+      batctl: Add per interface hop penalty command
 
 
-2020.2 (2020-07-01)
+2020.3 (2020-08-25)
 ===================
 
-* coding style cleanups and refactoring
-* drop support for automatic destruction of empty meshifs
-* bugs squashed:
-
-  - Fix parsing of radiotap headers on big endian systems
+* add per interface hop penalty command
 
 </pre>
 
@@ -118,20 +87,18 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2020.1-3-g112788d
-$ range=v2020.1..v2020.1-3-g112788d
+v2020.2-2-g921940b
+$ range=v2020.2..v2020.2-2-g921940b
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
+Sven Eckelmann <sven@narfation.org> (1):
+      batctl: Sync batman-adv netlink uapi header
 
-Sven Eckelmann <sven@narfation.org> (2):
-      alfred: Switch mailing list subscription page
-      alfred: Use primary/secondary to describe server roles
-
-2020.2 (2020-07-01)
+2020.3 (2020-08-25)
 ===================
 
-* Rephrase names of server roles
+* synchronization of batman-adv netlink header
 </pre>
 
 
