@@ -1,6 +1,7 @@
-{{include(open-mesh:TemplateDeprecated)}}
+h1. This page is OUTDATED!
 
 This page is not in sync with the actual implementation. Neither the packet format matches nor the use as unicast probe frames is explained.
+
 
 h1. Echo Location Protocol (ELP)
 
