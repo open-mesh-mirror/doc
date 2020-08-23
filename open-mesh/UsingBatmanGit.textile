@@ -2,8 +2,7 @@ h1. Using the batman git repositories
 
 If you want to find out why we also have a git repository now, please read news#6.
 
-h2. Checkout
-
+h2. Clone
 
 To retrieve the latest changes you can pull from the read-only http frontend.
 
@@ -11,7 +10,7 @@ To retrieve the latest changes you can pull from the read-only http frontend.
 git clone https://git.open-mesh.org/batman-adv.git batman-adv
 </pre>
 
-There is also a repository for kernel integration. You are about to download 300MB of sources - that may take a while!
+There is also a repository for kernel integration. You are about to download 2GB of sources - that may take a while!
 
 <pre>
 git clone https://git.open-mesh.org/linux-merge.git -b batadv/net-next
@@ -33,16 +32,16 @@ The maint only gathers bug fixes for the last release.
 Create branch associated with the remote-tracking branch after cloning the repository
 
 <pre>
-git checkout -b maint --track origin/maint
+git switch -c maint --track origin/maint
 </pre>
 
 Cherry-picking a commit from master branch
 
 <pre>
-git checkout maint
+git switch maint
 git cherry-pick $SHA1
 </pre>
 
 h3. Linux integration
 
-The linux-merge repository is a clone of David Miller's net-next tree. With the help of some git voodoo the master branch is merged with this branch in the folder: net/batman-adv/. If you wish to merge the latest master branch changes into the linux branch you need to [[batman-adv:SubmittingLinux|pull the newest changes in master from the batman-adv.git]] repository.
+The linux-merge repository is a clone of netdev's net-next tree. With the help of some git voodoo the master branch is merged with this branch in the folder: net/batman-adv/. If you wish to merge the latest master branch changes into the linux branch you need to [[batman-adv:SubmittingLinux|pull the newest changes in master from the batman-adv.git]] repository.
