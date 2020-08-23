@@ -80,11 +80,11 @@ git -C linux-merge remote update --prune
 git -C linux-merge branch -r --contains="${BASE_NET}" net/master
 git -C linux-merge branch -r --contains="${BASE_NETNEXT}" net-next/master
 
-git -C linux-merge checkout base/net
+git -C linux-merge switch base/net
 git -C linux-merge merge --ff-only "origin/base/net"
 git -C linux-merge merge --ff-only "${BASE_NET}"
 
-git -C linux-merge checkout base/net-next
+git -C linux-merge switch base/net-next
 git -C linux-merge merge --ff-only "origin/base/net-next"
 git -C linux-merge merge --ff-only "${BASE_NETNEXT}"
 
@@ -98,10 +98,10 @@ The same has to be done for the batman-adv repository. Here it is is important t
 <pre>
 git -C batman-adv remote update --prune
 
-git -C batman-adv checkout "${LM_MAINT}"
+git -C batman-adv switch "${LM_MAINT}"
 git -C batman-adv merge --ff-only "origin/${LM_MAINT}"
 
-git -C batman-adv checkout "${LM_MASTER}"
+git -C batman-adv switch "${LM_MASTER}"
 git -C batman-adv merge --ff-only "origin/${LM_MASTER}"
 </pre>
 
@@ -111,7 +111,7 @@ h3. from master
 
 <pre>
 cd batman-adv
-git checkout -B rebase --no-track origin/master
+git switch -C rebase --no-track origin/master
 GIT_SEQUENCE_EDITOR="sh -c 'git rev-list --reverse --no-merges '\\''${LM_MASTER}..origin/master'\\'' --not origin/maint|awk '\\''{ print \"pick \"\$1}'\\'' > \$1' \$@" \
  git rebase -i origin/maint --onto "${LM_MASTER}" --no-ff
 </pre>
@@ -139,7 +139,7 @@ git rebase -i "${LM_MASTER}"
 git commit --amend
 
 # remove changes either reverting to previous versions (new files have to be deleted)
-git checkout HEAD~1 compat-sources compat-include README.external CHANGELOG Makefile .gitignore .gitattributes compat.h gen-compat-autoconf.sh README
+git restore -s HEAD~1 README.external.rst CHANGELOG.rst Makefile .gitignore .gitattributes compat.h gen-compat-autoconf.sh README.rst
 
 # delete some new file (example)
 git rm -f compat-include/net/genetlink.h
@@ -158,7 +158,7 @@ If everything looks good then these patches should be formatted (make sure that 
 
 <pre>
 git format-patch -s "${LM_MASTER}"..rebase
-git checkout "${LM_MASTER}"
+git switch "${LM_MASTER}"
 git merge --ff-only origin/master
 git push origin "${LM_MASTER}"
 </pre>
@@ -173,7 +173,7 @@ The rest of the rebase process works similar to the next process
 
 <pre>
 cd batman-adv
-git checkout -B rebase --no-track origin/maint
+git switch -C rebase --no-track origin/maint
 git rebase -i "${LM_MAINT}"
 </pre>
 
@@ -200,7 +200,7 @@ git rebase -i "${LM_MAINT}"
 git commit --amend
 
 # remove changes either reverting to previous versions (new files have to be deleted)
-git checkout HEAD~1 compat-sources compat-include README.external CHANGELOG Makefile .gitignore .gitattributes compat.h gen-compat-autoconf.sh README
+git restore -s HEAD~1 README.external.rst CHANGELOG.rst Makefile .gitignore .gitattributes compat.h gen-compat-autoconf.sh README.rst
 
 # delete some new file (example)
 git rm -f compat-include/net/genetlink.h
@@ -219,7 +219,7 @@ If everything looks good then these patches should be formatted (make sure that 
 
 <pre>
 git format-patch -s "${LM_MAINT}"..rebase
-git checkout "${LM_MAINT}"
+git switch "${LM_MAINT}"
 git merge --ff-only origin/maint
 git push origin "${LM_MAINT}"
 </pre>
@@ -234,7 +234,7 @@ The patches were already exported. So they only have to be applied in the correc
 
 <pre>
 cd linux-merge
-git checkout batadv/net-next
+git switch batadv/net-next
 git merge --ff-only origin/batadv/net-next
 ./scripts/checkpatch --strict "${EXPORTED_PATCHES_MASTER}"/*.patch
 git am -s "${EXPORTED_PATCHES_MASTER}"/*.patch
@@ -247,7 +247,7 @@ The patches were already exported. So they only have to be applied in the correc
 
 <pre>
 cd linux-merge
-git checkout batadv/net
+git switch batadv/net
 git merge --ff-only origin/batadv/net
 ./scripts/checkpatch --strict "${EXPORTED_PATCHES_MAINT}"/*.patch
 git am -s "${EXPORTED_PATCHES_MAINT}"/*.patch
@@ -346,7 +346,7 @@ make -j$(nproc || echo 1)
 Then the rebuild has to be done between batadv/net-next and base/net-next (or between batadv/net and base/net) for each commit:
 
 <pre>
-git checkout batadv/net-next
+git switch batadv/net-next
 git rebase -i base/net-next -x 'make C=1'
 </pre>
 
