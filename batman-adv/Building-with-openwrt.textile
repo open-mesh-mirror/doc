@@ -6,7 +6,7 @@ Many tutorials assume that you have batman-adv running on an Openwrt system with
 h2. Getting the Openwrt build environment
 
 
-First, you need to obtain a copy of the Openwrt build system which contains all the build information to compile & package a complete Linux system. You can either checkout the sources via git or get tarballs from the Openwrt project website. The various versions of Openwrt (bleeding edge 'trunk', last stable release, previous release, etc) can be downloaded directly from the "Openwrt repositories":https://dev.openwrt.org/wiki/GetSource.
+First, you need to obtain a copy of the Openwrt build system which contains all the build information to compile & package a complete Linux system. You can either clone the sources via git or get tarballs from the Openwrt project website. The various versions of Openwrt (bleeding edge 'trunk', last stable release, previous release, etc) can be downloaded directly from the "Openwrt repositories":https://dev.openwrt.org/wiki/GetSource.
 
 Once downloaded change into the Openwrt directory and configure the system to meet you needs (e.g. choose the platform and additional packages you intend to use).
 
