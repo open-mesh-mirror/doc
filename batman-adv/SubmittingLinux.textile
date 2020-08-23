@@ -17,6 +17,7 @@ Following steps must always be done:
 * do a merge in a temporary branch and compare the result with batman-adv:next.git
 * check commit messages author/signed-off-by of patches
 * check if all patches are checkpatch.pl clean
+* check (for net-next) that "net-next is really open":http://vger.kernel.org/~davem/net-next.html
 * prepare changelog
 * create tag for david which includes the changelog
 * format patches
