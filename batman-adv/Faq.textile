@@ -157,7 +157,7 @@ h3. VLAN forwarding doesn't work
 ip link add link bat0 name bat0.23 type vlan id 23
 </pre>
 
-Or in case of a VLAN-aware bridge, it is better to add the correctly add the VLANs as required to the specific ports:
+Or in case of a VLAN-aware bridge, it is better to add the VLANs as required to the specific ports:
 
 <pre>
 bridge vlan add vid 23 dev bat0
