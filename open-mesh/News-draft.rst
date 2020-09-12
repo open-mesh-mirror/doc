@@ -19,6 +19,7 @@ Thanks
 
 Thanks to all people sending in patches:
 
+* Jussi Kivilinna <jussi.kivilinna@haltian.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
@@ -55,6 +56,7 @@ batman-adv
 
         batman-adv: Avoid uninitialized chaddr when handling DHCP
         batman-adv: Fix own OGM check in aggregated OGMs
+        batman-adv: bla: use netif_rx_ni when not in interrupt context
 
 
 
@@ -68,6 +70,7 @@ batman-adv
 
     - avoid uninitialized chaddr when handling DHCP
     - fix own OGMv2 check in aggregation receive handling
+    - fix "NOHZ: local_softirq_pending 08" warnings caused by BLA
 
 batctl
 ------

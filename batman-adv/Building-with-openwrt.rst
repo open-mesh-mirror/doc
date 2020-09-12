@@ -13,7 +13,7 @@ Getting the Openwrt build environment
 
 First, you need to obtain a copy of the Openwrt build system which
 contains all the build information to compile & package a complete Linux
-system. You can either checkout the sources via git or get tarballs from
+system. You can either clone the sources via git or get tarballs from
 the Openwrt project website. The various versions of Openwrt (bleeding
 edge 'trunk', last stable release, previous release, etc) can be
 downloaded directly from the `Openwrt

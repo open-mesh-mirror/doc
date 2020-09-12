@@ -6,8 +6,8 @@ Using the batman git repositories
 If you want to find out why we also have a git repository now, please
 read `here <https://www.open-mesh.org/news/6>`__.
 
-Checkout
---------
+Clone
+-----
 
 To retrieve the latest changes you can pull from the read-only http
 frontend.
@@ -17,7 +17,7 @@ frontend.
   git clone https://git.open-mesh.org/batman-adv.git batman-adv
 
 There is also a repository for kernel integration. You are about to
-download 300MB of sources - that may take a while!
+download 2GB of sources - that may take a while!
 
 ::
 
@@ -45,19 +45,19 @@ the repository
 
 ::
 
-  git checkout -b maint --track origin/maint
+  git switch -c maint --track origin/maint
 
 Cherry-picking a commit from master branch
 
 ::
 
-   git checkout maint
+   git switch maint
    git cherry-pick $SHA1
 
 Linux integration
 ~~~~~~~~~~~~~~~~~
 
-The linux-merge repository is a clone of David Miller's net-next tree.
+The linux-merge repository is a clone of netdev's net-next tree.
 With the help of some git voodoo the master branch is merged with this
 branch in the folder: net/batman-adv/. If you wish to merge the latest
 master branch changes into the linux branch you need to

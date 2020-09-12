@@ -43,8 +43,8 @@ storage space
   sudo mkdir debian
   sudo mount -o loop debian.img debian
   sudo debootstrap buster debian
-  sudo chroot debian apt update
-  sudo chroot debian apt install --no-install-recommends build-essential vim openssh-server less \
+  sudo systemd-nspawn -D debian apt update
+  udo systemd-nspawn -D debian debian apt install --no-install-recommends build-essential vim openssh-server less \
    pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5 \
    trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
 

@@ -121,6 +121,7 @@ to avoid fragmentation.::
   	option mtu '1536'
   	option ifname 'eth0'
   	option 'elp_interval' 500
+  	option hop_penalty 15
   	# change throughput_override to 0 to use automatic detection; also allows kbit suffix
   	option 'throughput_override' '1mbit'
 

@@ -317,8 +317,8 @@ batadv (bat0) device:
 
   ip link add link bat0 name bat0.23 type vlan id 23
 
-Or in case of a VLAN-aware bridge, it is better to add the correctly add
-the VLANs as required to the specific ports:
+Or in case of a VLAN-aware bridge, it is better to add the
+VLANs as required to the specific ports:
 
 ::
 

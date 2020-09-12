@@ -15,22 +15,22 @@ Download Released Source Code
 -----------------------------
 
 -  The latest version of batman-adv is
-   `batman-adv-2020.2.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.2.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.2.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.2.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.2.tar.gz.asc>`__
+   `batman-adv-2020.3.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.3.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.3.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.3.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2020.3.tar.gz.asc>`__
 -  The latest version of batctl (management and control tool for
    batman-adv) is
-   `batctl-2020.2.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.2.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.2.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.2.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.2.tar.gz.asc>`__
+   `batctl-2020.3.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.3.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.3.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.3.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2020.3.tar.gz.asc>`__
 -  The latest version of alfred (Almighty Lightweight Fact Remote
    Exchange Daemon) is
-   `alfred-2020.2.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.2.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.2.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.2.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.2.tar.gz.asc>`__
+   `alfred-2020.3.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.3.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.3.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.3.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2020.3.tar.gz.asc>`__
 
 -  The latest stable version of batmand
    (:ref:`unmaintained <open-mesh-BranchesExplained-batmand>`) is
@@ -72,9 +72,10 @@ batman-adv in the Linux tree
 
 Since linux 2.6.33 batman-adv is part of the official linux tree. You
 can build batman-adv along with your linux binary by simply selecting
-batman-adv in the Linux drivers section. If you use an older kernel or
-want to have access to the latest features you can checkout our git
-repository which still are backward compatible until 2.6.29.
+batman-adv in the Linux drivers section. If you want to have access to
+the latest features on a non-bleeding edge kernel, you can clone our
+git repository which still are backward compatible to all
+stable/longterm kernels.
 
 It follows an overview of linux versions and the batman-adv version they
 contain, so that you can easily pick the compatible batctl packages:
@@ -185,6 +186,8 @@ contain, so that you can easily pick the compatible batctl packages:
 -  linux 5.7 => batman-adv 2020.1 (get batctl 2020.1 from
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 -  linux 5.8 => batman-adv 2020.2 (get batctl 2020.2 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 5.9 => batman-adv 2020.3 (get batctl 2020.3 from
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 
 Arch Linux
