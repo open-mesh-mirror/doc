@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2020.4 released
 
-Oct 27th, 2020. Today the B.A.T.M.A.N. team publishes the Octover 2020 update to batman-adv, batctl and alfred! The bridge loop avoidance and translation table code received several bugfixes to improve the coexistance with the multicast optimization. Also several code cleanups are included in this version.
+Oct 27th, 2020. Today the B.A.T.M.A.N. team publishes the October 2020 update to batman-adv, batctl and alfred! The bridge loop avoidance and translation table code received several fixes for bugs in connection with the multicast optimization. Which would otherwise potentially cause packet loss or even routing loops. Also several code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
