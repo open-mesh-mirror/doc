@@ -1,28 +1,27 @@
-h1. DRAFT: Batman-adv 2020.4 released
+h1. DRAFT: Batman-adv 2021.0 released
 
-Oct 27th, 2020. Today the B.A.T.M.A.N. team publishes the October 2020 update to batman-adv, batctl and alfred! The bridge loop avoidance and translation table code received several fixes for bugs in connection with the multicast optimization. Which would otherwise potentially cause packet loss or even routing loops. Also several code cleanups are included in this version.
+Jan 5th, 2021. Today the B.A.T.M.A.N. team publishes the January 2021 update to batman-adv, batctl and alfred! TODO. Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2020.4/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2021.0/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Jakub Kicinski <kuba@kernel.org>
-* Linus Lüssing <linus.luessing@c0d3.blue>
-* Nikolay Aleksandrov <nikolay@nvidia.com>
-* Randy Dunlap <rdunlap@infradead.org>
-* Simon Wunderlich <sw@simonwunderlich.de>
-* Sven Eckelmann <sven@narfation.org>
+* 
+
+and to all those that supported us with good advice or rigorous testing:
+
+*
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2020.3-16-gfb9256b1
-$ range=v2020.3..v2020.3-16-gfb9256b1
+v2020.4-16-gfb9256b1
+$ range=v2020.4..v2020.4-16-gfb9256b1
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -30,15 +29,6 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: genetlink: move to smaller ops wherever possible
-      net: bridge: mcast: rename br_ip's u member to dst
-      net: batman-adv: types.h: delete duplicated words
-      batman-adv: Drop unused function batadv_hardif_remove_interfaces()
-      batman-adv: Drop repeated words in comments
-      batman-adv: Migrate to linux/prandom.h
-      batman-adv: Add missing include for in_interrupt()
-      batman-adv: compat: Fix prandom.h include for older LTS kernels
-      batman-adv: bla: fix type misuse for backbone_gw hash indexing
 
 various
 =======
@@ -47,22 +37,16 @@ various
 bugfixes
 ========
 
-      batman-adv: mcast/TT: fix wrongly dropped or rerouted packets
-      batman-adv: mcast: fix duplicate mcast packets in BLA backbone from LAN
-      batman-adv: mcast: fix duplicate mcast packets in BLA backbone from mesh
-      batman-adv: mcast: fix duplicate mcast packets from BLA backbone to mesh
 
 
-
-2020.4 (2020-10-27)
+2021.0 (2021-01-05)
 ===================
 
-* support latest kernels (4.4 - 5.10)
+* support latest kernels (4.4 - 5.11)
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - fix incorrect reroute handling of multicast packets
-  - improve handling of multicast packets by bridge loop avoidance
+  - 
 
 </pre>
 
@@ -70,23 +54,20 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2020.3-3-g2a13424
-$ range=v2020.3..v2020.3-3-g2a13424
+v2020.4-3-g2a13424
+$ range=v2020.4..v2020.4-3-g2a13424
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 bugfixes
 ========
 
-      batctl: tcpdump: Fix endianness in ICMPv6 Echo Request/Reply parsing
 
 
-2020.4 (2020-10-27)
+2021.0 (2021-01-05)
 ===================
 
-* bugs squashed:
-
-   - Fix endianness in ICMPv6 Echo Request/Reply parsing
+* 
 
 </pre>
 
@@ -94,17 +75,17 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2020.3-1-g3425515
-$ range=v2020.3..v2020.3-1-g3425515
+v2020.4-1-g3425515
+$ range=v2020.4..v2020.4-1-g3425515
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
-2020.4 (2020-10-27)
+2021.0 (2021-01-05)
 ===================
 
-* (no changes)
+* 
 </pre>
 
 
