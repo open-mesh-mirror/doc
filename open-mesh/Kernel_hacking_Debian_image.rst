@@ -53,7 +53,7 @@ storage space
 
   sudo mkdir debian/host
   sudo sh -c 'cat > debian/etc/fstab  << EOF
-  host            /host   9p      trans=virtio,version=9p2000.L 0 0
+  host            /host   9p      trans=virtio,version=9p2000.L,posixacl,msize=524288 0 0
   EOF'
 
   sudo sh -c 'cat > debian/etc/rc.local << "EOF"
