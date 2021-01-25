@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2021.0 released
 
-Jan 5th, 2021. Today the B.A.T.M.A.N. team publishes the January 2021 update to batman-adv, batctl and alfred! The deprecated support for batman-adv's sysfs and debugfs files was removed from all components. batctl and batman-adv now also allow the selection of the routing algorithm during the interface creation. This can be used to avoid a potential race between multiple processes trying to create interfaces with different routing algorithms. Also several bugfixes and code cleanups are included in this version.
+Jan 5th, 2021. Today the B.A.T.M.A.N. team publishes the January 2021 update to batman-adv, batctl and alfred! The deprecated support for batman-adv's sysfs and debugfs files was removed from all components. batctl and batman-adv now also allow the selection of the routing algorithm during the interface creation. This can be used to avoid the undefined behavior when multiple processes trying to create interfaces with different routing algorithms. Also several bugfixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
