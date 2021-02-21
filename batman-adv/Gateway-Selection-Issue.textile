@@ -34,9 +34,9 @@ client (selection class: 5.0 MBit)
 N2$ batctl gwl
 [B.A.T.M.A.N. adv openwrt-2019.2-10, MainIF/MAC: primary0/<orig-mac> (bat0/<bat0-mac> BATMAN_V)]
   Router            ( throughput) Next Hop          [outgoingIf]  Bandwidth
-* GW2               (       50.0) GW1               [     wlan0]: 1000.0/1000.0 MBit
+* GW3               (       50.0) GW1               [     wlan0]: 1000.0/1000.0 MBit
   GW1               (       50.0) GW1               [     wlan0]: 1000.0/1000.0 MBit
-  GW3               (       50.0) GW1               [     wlan0]: 1000.0/1000.0 MBit
+  GW2               (       50.0) GW1               [     wlan0]: 1000.0/1000.0 MBit
 </code></pre>
 
 On node N2 the BATMAN V metric to all gateways is 50 MBit/s because BATMAN V calculates the minimum of the received throughput in the OGM (to GW1: 1000, to GW2: 941.1, to GW3: 941.1) and the link throughput towards the destination (50 Mbit/s).
