@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="34cm" height="21cm" viewBox="319 229 662 412" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs/>
+  <g id="Background">
+    <ellipse style="fill: #ffa500; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="610" cy="490" rx="30" ry="30"/>
+    <ellipse style="fill: #add8e6; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="770" cy="570" rx="30" ry="30"/>
+    <ellipse style="fill: #ffa500; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="430" cy="490" rx="30" ry="30"/>
+    <ellipse style="fill: #ffa500; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="520" cy="350" rx="30" ry="30"/>
+    <ellipse style="fill: #add8e6; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="950" cy="570" rx="30" ry="30"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="412" y="492">
+      <tspan x="412" y="492">GW2</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="592" y="492">
+      <tspan x="592" y="492">GW1</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="502" y="352">
+      <tspan x="502" y="352">GW3</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="760" y="572">
+      <tspan x="760" y="572">N1</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="940" y="572">
+      <tspan x="940" y="572">N2</tspan>
+    </text>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 10; stroke: #000000" x1="536.754" y1="376.062" x2="593.246" y2="463.938"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 10; stroke: #000000" x1="503.246" y1="376.062" x2="446.754" y2="463.938"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 10; stroke: #000000" x1="579.008" y1="490" x2="460.992" y2="490"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 10; stroke: #000000" x1="742.305" y1="556.152" x2="637.695" y2="503.848"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="800.992" y1="570" x2="919.008" y2="570"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="716" y="340">
+      <tspan x="716" y="340">GW1, GW2, GW3: Gateway server mode</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="780" y="360">
+      <tspan x="780" y="360">N1, N2: Gateway client mode</tspan>
+    </text>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 10; stroke: #000000" x1="764" y1="384" x2="814" y2="384"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="824" y="388">
+      <tspan x="824" y="388">: 1000 Mbit/s link</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="824" y="416">
+      <tspan x="824" y="416">:     50 Mbit/s link</tspan>
+    </text>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #000000" x1="764" y1="412" x2="814" y2="412"/>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="640" y="630">
+      <tspan x="640" y="630">Selected GW: GW1</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #90ee90" d="M 748.786,591.214 A 96.8203,96.8203 0 0 1 612.024,529.486"/>
+      <polygon style="fill: #90ee90; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #90ee90" fill-rule="evenodd" points="610.356,522.207 616.886,531.283 611.552,529.612 607.014,532.877 "/>
+    </g>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="860" y="520">
+      <tspan x="860" y="520">Selected GW: GW3</tspan>
+    </text>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff3f00" d="M 925.2 551.4 C 885.2,521.4 823.334,540 780,530 C 736.666,520 670,480 640,460 C 610,440 661,350 560.736,350"/>
+      <polygon style="fill: #ff3f00; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #ff3f00" fill-rule="evenodd" points="553.236,350 563.236,345 560.736,350 563.236,355 "/>
+    </g>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="350" cy="610" rx="30" ry="30"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="390" cy="260" rx="30" ry="30"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 10; stroke: #000000" x1="494.506" y1="332.35" x2="415.494" y2="277.65"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 10; stroke: #000000" x1="412.808" y1="515.789" x2="367.192" y2="584.211"/>
+  </g>
+</svg>
