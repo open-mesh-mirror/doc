@@ -118,7 +118,7 @@ config wifi-device 'radio0'
 config wifi-iface 'wmesh'
 	option device 'radio0'
 	option ifname 'mesh0'
-	option network 'bat0_hardif_mesh0'
+	option network 'bat0_hardif_mesh0' # automatically configure interface as shown in bat0_hardif_mesh0 /etc/config/network block 
 	option mode 'mesh'
 	option mesh_id 'mesh'
 	option mesh_fwding '0'
