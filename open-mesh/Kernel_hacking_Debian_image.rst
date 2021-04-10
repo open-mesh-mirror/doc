@@ -44,7 +44,7 @@ storage space
   sudo mount -o loop debian.img debian
   sudo debootstrap buster debian
   sudo systemd-nspawn -D debian apt update
-  udo systemd-nspawn -D debian debian apt install --no-install-recommends build-essential vim openssh-server less \
+  sudo systemd-nspawn -D debian apt install --no-install-recommends build-essential vim openssh-server less \
    pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5 \
    trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
 
@@ -310,6 +310,7 @@ experience. It is configured with:
   CONFIG_DEBUG_MISC=y
   CONFIG_PROVE_RCU_LIST=y
   CONFIG_DEBUG_FORCE_FUNCTION_ALIGN_32B=y
+  CONFIG_DEBUG_SLAB=y
 
   # for GCC 5+
   CONFIG_KASAN=y
@@ -317,6 +318,8 @@ experience. It is configured with:
   CONFIG_UBSAN_SANITIZE_ALL=y
   CONFIG_UBSAN=y
   CONFIG_UBSAN_NULL=y
+  CONFIG_KCSAN=y
+  CONFIG_KFENCE=y
   EOF
   make olddefconfig
 
@@ -392,7 +395,7 @@ manually to qemu.
   BASE_IMG=debian.img
   BOOTARGS+=("-bios" "qboot/build/bios.bin")
   BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-  BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1")
+  BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
   BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 
 It is also recommended to use linux-next/vmlinux instead of bzImage with
