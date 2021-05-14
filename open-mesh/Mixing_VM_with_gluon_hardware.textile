@@ -22,7 +22,7 @@ We must then create a vxlan interface on top of our normal ethernet interface, m
 
 <pre><code class="shell">
 cat > virtual-network-add-vxlan.sh << "EOF"
-#! /bin/sh
+#! /bin/bash
 
 BRIDGE=br-qemu
 ETH=enp8s0
