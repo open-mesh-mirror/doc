@@ -90,6 +90,7 @@ It follows an overview of linux versions and the batman-adv version they contain
 * linux 5.10 => batman-adv 2020.4 (get batctl 2020.4 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 5.11 => batman-adv 2021.0 (get batctl 2021.0 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 5.13 => batman-adv 2021.1 (get batctl 2021.1 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
+
 h2. Arch Linux
 
 Batman-adv and Batctl are avaible in the "AUR":https://wiki.archlinux.org/index.php/AUR as PKGBUILD:
