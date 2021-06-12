@@ -43,7 +43,7 @@ IPv6 link local address and insert the new interface in our bridge
 .. code-block:: sh
 
   cat > virtual-network-add-vxlan.sh << "EOF"
-  #! /bin/sh
+  #! /bin/bash
 
   BRIDGE=br-qemu
   ETH=enp8s0

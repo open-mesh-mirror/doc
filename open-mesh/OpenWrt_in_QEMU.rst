@@ -143,9 +143,9 @@ used to share things like a precompiled batman-adv.ko and other tools
 
   ## Kernel hacking Debian image
   #BASE_IMG=debian.img
-  #BOOTARGS+=("-bios" "qboot/bios.bin")
+  #BOOTARGS+=("-bios" "qboot/build/bios.bin")
   #BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-  #BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1")
+  #BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
   #BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 
   for i in $(seq 1 "${NUM_SESSIONS}"); do

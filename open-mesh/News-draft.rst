@@ -1,35 +1,41 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-DRAFT: Batman-adv 2021.0 released
+DRAFT: Batman-adv 2021.1 released
 =================================
 
-Jan 5th, 2021. Today the B.A.T.M.A.N. team publishes the January 2021
-update to batman-adv, batctl and alfred! The deprecated support for
-batman-adv’s sysfs and debugfs files was removed from all components.
-batctl and batman-adv now also allow the selection of the routing
-algorithm during the interface creation. This can be used to avoid the
-undefined behavior when multiple processes trying to create interfaces
-with different routing algorithms. Also several bugfixes and code
+May 18th, 2021. Today the B.A.T.M.A.N. team publishes the May 2021
+update to batman-adv, batctl and alfred! batctl gained the support for
+“\*_json” commands which make it possible to query the batman-adv kernel
+module over generic netlink and receive the answer as JSON. The alfred
+server was modified to start the server even when batman-adv or
+interface(s) are not yet available. A special parameter “—force” must be
+provided to enable this behavior. Also several bugfixes and code
 cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled
 against, it does not make sense to provide binaries on our website. As
 usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2021.0/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2021.1/
 
 Thanks
 ------
 
 Thanks to all people sending in patches:
 
+* Alexander Sarmanow <asarmanow@gmail.com>
+* Leon Romanovsky <leonro@nvidia.com>
+* Linus Lüssing <linus.luessing@c0d3.blue>
+* Masahiro Yamada <masahiroy@kernel.org>
+* Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+* Taehee Yoo <ap420073@gmail.com>
 * Sven Eckelmann <sven@narfation.org>
 * Simon Wunderlich <sw@simonwunderlich.de>
-* Taehee Yoo <ap420073@gmail.com>
+* Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Linus Lüssing <linus.luessing@c0d3.blue>
+* Marek Lindner <mareklindner@neomailbox.ch>
 
 batman-adv
 ----------
@@ -37,46 +43,49 @@ batman-adv
 ::
 
   $ git describe origin/master
-  v2020.4-15-g47df68d0
-  $ range=v2020.4..v2020.4-15-g47df68d0
+  v2021.0-14-g007b4c4b
+  $ range=v2021.0..v2021.0-14-g007b4c4b
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
+
+  new kernel version
+  ==================
+
+        batman-adv: convert ifmcaddr6 to RCU
+        batman-adv: Use netif_rx_any_context().
+        batman-adv: remove never implemented MODULE_SUPPORTED_DEVICE
+
   coding style cleanup/refactoring
   ================================
 
-        batman-adv: Drop deprecated sysfs support
-        batman-adv: Drop deprecated debugfs support
-        batman-adv: Drop legacy code for auto deleting mesh interfaces
-        batman-adv: Drop unused soft-interface.h include in fragmentation.c
-        batman-adv: Add new include for min/max helpers
+        batman-adv: Update copyright years for 2021
+        batman-adv: Avoid sizeof on flexible structure
+        batman-adv: Fix names for kernel-doc blocks
+        batman-adv: Drop publication years from copyright info
+        batman-adv: Fix misspelled "wont"
+        batman-adv: remove redundant 'depends on NET'
+        batman-adv: Fix order of kernel doc in batadv_priv
 
   various
   =======
 
-        batman-adv: Prepare infrastructure for newlink settings
-        batman-adv: Allow selection of routing algorithm over rtnetlink
 
   bugfixes
   ========
 
-        (batman-adv: set .owner to THIS_MODULE)
-        batman-adv: Consider fragmentation for needed_headroom
-        batman-adv: Reserve needed_*room for fragments
-        batman-adv: Don't always reallocate the fragmentation skb head
+        batman-adv: initialize "struct batadv_tvlv_tt_vlan_data"->reserved field
 
 
-  2021.0 (2021-01-05)
+  2021.1 (2021-05-18)
   ===================
 
-  * support latest kernels (4.4 - 5.11)
+  * support latest kernels (4.4 - 5.13)
   * coding style cleanups and refactoring
-  * drop support for sysfs+debugfs
-  * allow to select routing algorithm during creation of interface
   * bugs squashed:
 
-    - allocate enough reserved room on fragments for lower devices
+    - correctly initialize padding when sending out translation table TVLVs
 
 batctl
 ------
@@ -84,8 +93,8 @@ batctl
 ::
 
   $ git describe origin/master
-  v2020.4-10-ga0da92b
-  $ range=v2020.4..v2020.4-10-ga0da92b
+  v2021.0-38-g35d8327
+  $ range=v2021.0..v2021.0-38-g35d8327
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -93,31 +102,58 @@ batctl
   features
   ========
 
-        batctl: Allow to configure routing_algo during interface creation
+        batctl: netlink: Make netlink_query_common non-static
+        batctl: genl_json: Add generic JSON interface
+        batctl: Introduce JSON_* command types
+        batctl: Introduce handler for JSON_* command types
+        batctl: Add neighbors_json command
+        batctl: Add originators_json command
+        batctl: Add transtable_global_json command
+        batctl: Add transtable_local_json command
+        batctl: Consume genl ACKs after setting reads
+        batctl: throughputmeter: Use global genl socket
+        batctl: interface: List using shared genl socket
+        batctl: Get meshif info using shared genl socket
+        batctl: Use common genl socket for netlink_query_common
+        batctl: routing_algo: List using shared genl socket
+        batctl: originators: Get outgoing ifname from netlink
+        batctl: neighbors: Get outgoing ifname from netlink
+        batctl: ping: Get outgoing ifname from netlink
+        batctl: event: Get ifname from netlink message
+        batctl: Realign netlink_policy array
+        batctl: translocal: Simplify evaluation of last_seen
+        batctl: netlink: Allow to use netlink_query_common hardif/vlan
+        batctl: Add bla_backbone_json command
+        batctl: Add bla_claim_json command
+        batctl: Add dat_cache_json command
+        batctl: Add gateways_json command
+        batctl: Add hardif_json command
+        batctl: Add hardifs_json command
+        batctl: Add mcast_flags_json command
+        batctl: Add mesh_json command
+        batctl: Add vlan_json command
+
 
   coding style cleanup/refactoring
   ================================
 
-        batctl: Switch active routing algo list to netlink
-        batctl: Drop deprecated debugfs support
-        batctl: Drop deprecated sysfs support
+        batctl: Fix build of routing_algo against musl
+        batctl: Update copyright years for 2021
+        batctl: Drop publication years from copyright info
+        batctl: Avoid boolean in structures
+        batctl: Reorder and clean up README
+        batctl: Don't mention log command in manpage
 
   bugfixes
   ========
 
-        batctl: Fix retrieval of meshif ap_isolation
-        batctl: Don't stop when create_interface detected existing interface
 
 
-  2021.0 (2021-01-05)
+  2021.1 (2021-05-18)
   ===================
 
-  * Drop support for batman-adv's sysfs+debugfs
-  * allow to select routing algorithm during creation of interface
-  * bugs squashed:
-
-    - fix query of meshif's ap_isolation status
-    - ignore "interface already exists" error during "interface add"
+  * add various commands to print generic netlink replies as JSON
+  * coding style cleanups and refactoring
 
 alfred
 ------
@@ -125,22 +161,26 @@ alfred
 ::
 
   $ git describe origin/master
-  v2020.4-5-gbdd9fc8
-  $ range=v2020.4..v2020.4-5-gbdd9fc8
+  v2021.0-7-ge9a3bfc
+  $ range=v2021.0..v2021.0-7-ge9a3bfc
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
+  Sven Eckelmann <sven@narfation.org> (6):
+        alfred: Update copyright years for 2021
+        alfred: Drop publication years from copyright info
+        alfred: Show error message for invalid batadv interface
+        alfred: Allow exactly one interface for secondary mode
+        alfred: Save global mode flags in bitfield
+        alfred: Allow start of server without valid interface
 
-        alfred: Drop deprecated debugfs support
-        alfred: Drop deprecated sysfs support
-        alfred: Sync batman-adv netlink uapi header
 
-
-  2021.0 (2021-01-05)
+  2021.1 (2021-05-18)
   ===================
 
-  * Drop support for batman-adv's sysfs+debugfs
+  * Allow to force of alfred startup when the interfaces don't work/exist (yet)
+  * coding style cleanups and refactoring
 
 Happy routing,
 

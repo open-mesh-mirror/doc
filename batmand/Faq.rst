@@ -3,7 +3,7 @@
 FAQ
 ===
 
-See below a list of batmand (B.A.T.M.A.N. deamon) related questions and
+See below a list of batmand (B.A.T.M.A.N. daemon) related questions and
 answers.
 
 If your question is not listed below, please contact us. You can contact
