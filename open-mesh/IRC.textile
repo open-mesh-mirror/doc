@@ -3,7 +3,7 @@ h1. Contact us on IRC
 
 We are waiting for you on IRC. :)
 
-* Server: "*irc.hackint.org* (port 6697, SSL)":https://www.hackint.org/connect
+* Server: "*irc.hackint.org* [port 6697, SSL]":https://www.hackint.org/connect
 * Channel: "*#batadv*":https://webirc.hackint.org/#ircs://irc.hackint.org/#batadv
 
 Please be patient, we are actually not waiting there all the time. ;) 
