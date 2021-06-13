@@ -2,7 +2,7 @@ h1. FAQ
 
 {{TOC}}
 
-Below you can see a list of frequently asked questions and answers. If your question is not listed below, please contact us.  You can contact us via IRC: "#batman channel":https://webchat.freenode.net/?channels=batman on Freenode.org or by sending an e-mail to: "b.a.t.m.a.n@lists.open-mesh.org":mailto:b.a.t.m.a.n@lists.open-mesh.org (only plain-text).
+Below you can see a list of frequently asked questions and answers. If your question is not listed below, please contact us.  You can contact us via IRC: "#batadv channel":https://webirc.hackint.org/#ircs://irc.hackint.org/#batadv on hackint.org or by sending an e-mail to: "b.a.t.m.a.n@lists.open-mesh.org":mailto:b.a.t.m.a.n@lists.open-mesh.org (only plain-text).
 
 If you got any problems? See: the [[Troubleshooting|Troubleshooting]] page.
 
