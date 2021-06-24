@@ -91,7 +91,7 @@ However the interaction of Quagga with the mesh network will be "batman-adv-agno
 
 h3. Logs not received via trace-cmd?
 
-*Q:* The trace-cmd shows now log messages for batman-adv?
+*Q:* The trace-cmd shows no log messages for batman-adv?
 *A:* You need to compile the batman-adv with logging support.
 
 * Linux tree
