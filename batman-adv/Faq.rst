@@ -5,9 +5,9 @@ FAQ
 
 Below you can see a list of frequently asked questions and answers. If
 your question is not listed below, please contact us. You can contact us
-via IRC: `#batman
-channel <https://webchat.freenode.net/?channels=batman>`__ on
-Freenode.org or by sending an e-mail to: b.a.t.m.a.n@lists.open-mesh.org
+via IRC: `#batadv
+channel <https://webirc.hackint.org/#ircs://irc.hackint.org/#batadv>`__ on
+hackint.org or by sending an e-mail to: b.a.t.m.a.n@lists.open-mesh.org
 (only plain-text).
 
 If you got any problems? See: the :doc:`Troubleshooting <Troubleshooting>`
@@ -191,7 +191,7 @@ us if you want to do that.
 Logs not received via trace-cmd?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Q:** The trace-cmd shows now log messages for batman-adv?
+**Q:** The trace-cmd shows no log messages for batman-adv?
 
 **A:** You need to compile the batman-adv with logging support.
 

@@ -62,12 +62,6 @@ stable version:
     scripts/feeds install kmod-batman-adv
     scripts/feeds install batctl
 
-*Note*: If you downloaded an Openwrt release but intend to build the
-latest batman-adv package you might need to modify your
-feeds.conf(.default). Make sure you have "src-git routing
-git://github.com/openwrt-routing/packages.git" instead of e.g. "src-git
-routing git://github.com/openwrt-routing/packages.git;for-12.09.x".
-
 developer version:
 
 Append the following line to your Openwrt feed configuration file

@@ -7,9 +7,9 @@ See below a list of batmand (B.A.T.M.A.N. daemon) related questions and
 answers.
 
 If your question is not listed below, please contact us. You can contact
-us via IRC: `#batman
-channel <https://webchat.freenode.net/?channels=batman>`__ on
-Freenode.org or by sending an e-mail to: b.a.t.m.a.n@lists.open-mesh.org
+us via IRC: `#batadv
+channel <https://webirc.hackint.org/#ircs://irc.hackint.org/#batadv>`__ on
+hackint.org or by sending an e-mail to: b.a.t.m.a.n@lists.open-mesh.org
 (only plain-text).
 
 Understanding the version and compatibility number
