@@ -16,6 +16,6 @@ __Link-Forwarding Optimizations__
 __Broadcast & Multicast__
 
 * [[Broadcast|Broadcasts in B.A.T.M.A.N. Advanced]] - An overview of broadcast/multicast support
-* [[gateways|Gateway support]] - How batman-adv can be used to choose the nearest internet gateway node.
+* [[gateways|DHCP Gateway Optimization]] - How batman-adv can be used to choose the nearest internet gateway node.
 * [[DistributedArpTable|Distributed ARP Table]] - How batman-adv can speed up your mesh experience by caching ARP replies.
 * [[Multicast-optimizations|Multicast Optimizations]] - multicast optimizations overview
