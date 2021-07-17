@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="70.383881mm"
+   height="29.377794mm"
+   viewBox="0 0 70.38388 29.377794"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="batadv-introduction-switch.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="126.76665"
+     inkscape:cy="97.872897"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="true"
+     showguides="false"
+     inkscape:window-width="1573"
+     inkscape:window-height="1375"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid833"
+       originx="-3.831857"
+       originy="-1.1861021" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-3.8318573,-1.1861019)">
+    <rect
+       style="opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.264583, 0.264583;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect835"
+       width="70.114578"
+       height="29.104166"
+       x="3.9687514"
+       y="1.3229165"
+       ry="1.3229166" />
+    <g
+       id="g1014"
+       transform="translate(3.9687503,1.3229163)">
+      <rect
+         style="vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.264583, 0.264583;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         id="rect835-3"
+         width="19.843754"
+         height="19.84375"
+         x="2.6458302"
+         y="6.6145835"
+         ry="0" />
+      <g
+         id="g965"
+         transform="translate(-2.6458329,1.3229166)">
+        <rect
+           style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.265, 0.265;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect901"
+           width="14.552083"
+           height="13.229167"
+           x="7.9375"
+           y="9.260417" />
+        <rect
+           style="vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.265, 0.265;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect901-56"
+           width="3.9687502"
+           height="1.3229166"
+           x="13.229166"
+           y="7.9375" />
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:125%;font-family:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="16.539558"
+       y="6.614583"
+       id="text1077"><tspan
+         sodipodi:role="line"
+         id="tspan1075"
+         x="16.539558"
+         y="6.614583"
+         style="font-size:4.23333px;text-align:center;text-anchor:middle;stroke-width:0.264583px">node1</tspan></text>
+    <g
+       id="g1014-8"
+       transform="translate(26.458334,1.3229163)">
+      <rect
+         style="vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.264583, 0.264583;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         id="rect835-3-4"
+         width="19.843754"
+         height="19.84375"
+         x="2.6458302"
+         y="6.6145835"
+         ry="0" />
+      <g
+         id="g965-5"
+         transform="translate(-2.6458329,1.3229166)">
+        <rect
+           style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.265, 0.265;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect901-0"
+           width="14.552083"
+           height="13.229167"
+           x="7.9375"
+           y="9.260417" />
+        <rect
+           style="vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.265, 0.265;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect901-56-3"
+           width="3.9687502"
+           height="1.3229166"
+           x="13.229166"
+           y="7.9375" />
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:125%;font-family:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="39.029144"
+       y="6.6145835"
+       id="text1077-6"><tspan
+         sodipodi:role="line"
+         id="tspan1075-1"
+         x="39.029144"
+         y="6.6145835"
+         style="font-size:4.23333px;text-align:center;text-anchor:middle;stroke-width:0.264583px">node2</tspan></text>
+    <g
+       id="g1014-0"
+       transform="translate(48.947917,1.3229163)">
+      <rect
+         style="vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.264583;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.264583, 0.264583;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+         id="rect835-3-6"
+         width="19.843754"
+         height="19.84375"
+         x="2.6458302"
+         y="6.6145835"
+         ry="0" />
+      <g
+         id="g965-3"
+         transform="translate(-2.6458329,1.3229166)">
+        <rect
+           style="opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.265, 0.265;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect901-2"
+           width="14.552083"
+           height="13.229167"
+           x="7.9375"
+           y="9.260417" />
+        <rect
+           style="vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.265, 0.265;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect901-56-0"
+           width="3.9687502"
+           height="1.3229166"
+           x="13.229166"
+           y="7.9375" />
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333px;line-height:125%;font-family:'Bitstream Vera Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="61.518726"
+       y="6.6145835"
+       id="text1077-61"><tspan
+         sodipodi:role="line"
+         id="tspan1075-5"
+         x="61.518726"
+         y="6.6145835"
+         style="font-size:4.23333px;text-align:center;text-anchor:middle;stroke-width:0.264583px">node3</tspan></text>
+  </g>
+</svg>
