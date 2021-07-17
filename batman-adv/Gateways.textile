@@ -1,4 +1,4 @@
-h1. Batman-adv gateways
+h1. DHCP Gateway Optimization
 
 Often batman-adv is used to cover a bigger area with wireless access to the internet where several nodes have internet access while the other nodes try to find the best route towards one of the gateways. In this case, it is desirable that the routing protocol helps with the decision to find the best path since it already knows the topology of the network.
 
