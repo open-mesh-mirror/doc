@@ -275,15 +275,12 @@ When kgdb is activated using sysrq, we can configure gdb. It has to connect via 
 
 <pre><code class="shell">
 cd "${LINUX_DIR}"
-"${GDB}" -iex "set auto-load safe-path scripts/gdb/"  ./vmlinux
+"${GDB}" -iex "set auto-load safe-path scripts/gdb/" -iex "set serial baud 115200" -iex "target remote /dev/ttyUSB0" ./vmlinux
 </code></pre>
 
 In this example, we are using an USB TTL converter (<code>/dev/ttyUSB0</code>). It has to be configured in gdb
 
 <pre>
-set serial baud 115200
-target remote /dev/ttyUSB0
-
 lx-symbols ..
 
 continue
