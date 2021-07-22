@@ -34,5 +34,4 @@ The default virtual network is only creating a single broadcasting domain using 
 h2. Debugging helpers
 
 * [[Analyzing virtual network packets]]
-* [[Kernel debugging with qemu's GDB server]]
-* [[Kernel debugging with kgdb]]
+* [[Kernel Debugging]]
