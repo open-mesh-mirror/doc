@@ -17,3 +17,28 @@ for node in linux.lists.list_for_each_entry(gdb.parse_and_eval("batadv_hardif_li
     gdb.write("hardif {} belongs to {}\n".format(hardif, softif))
 end
 </pre>
+
+h2. Working with external Watchdog over GPIO
+
+There are various boards on ar71xx which use external watchdogs chips via GPIO. They have to be triggered regularly (every minute or even more often) or otherwise the board will just suddenly reboot. This will of course not work when Linux is no longer in control and kgdb/gdb is the only way to interact with the system.
+
+But luckily, we can just write manually to the ar71xx registers (every n seconds). We have two possible ways:
+
+* write to the clear/set registers
+** set bit n in register GPIO_SET (0x1804000C) to set output value to 1 for GPIO n
+** set bit n in register GPIO_CLEAR (0x18040010) to set output value to 0 for GPIO n
+* overwrite the complete GPIO_OUT (0x18040008) register (which might modify more GPIO bits then required)
+
+We will only demonstrate this here for GPIO 12 with GPIO_SET/GPIO_CLEAR.
+
+<pre>
+# check where iomem 018040000-180400ff is mapped to
+(gdb) print ath79_gpio_base
+$1 = (void *) 0xb8040000
+
+# set GPIO 12 to low
+(gdb) set {uint32_t}0xb8040010 = 0x00001000
+
+# set GPIO 12 to high
+(gdb) set {uint32_t}0xb804000C = 0x00001000
+</pre>
