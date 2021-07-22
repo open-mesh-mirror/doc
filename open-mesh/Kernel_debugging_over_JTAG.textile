@@ -33,7 +33,7 @@ The debug and target board via at least following of the debug adapter hardware:
 
 The adapter boards must then also be select in the OpenOCD configuration.
 
-h3. Bus Blaster
+h3. Bus Blaster adapter board
 
 The Bus Blaster v3 with the 20 pin header and the default buffer logic the usage of the pins already written next to header. Just make sure to leave the board in self powered (not closed 2 pin header)
 
