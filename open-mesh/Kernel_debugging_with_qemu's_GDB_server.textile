@@ -20,30 +20,15 @@ The module can now be loaded in the qemu instance as normal. But after that, we 
 Thread 1 received signal SIGINT, Interrupt.
 default_idle () at arch/x86/kernel/process.c:581
 581             trace_cpu_idle_rcuidle(PWR_EVENT_EXIT, smp_processor_id());
+
+
 (gdb) lx-symbols /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv/
 loading vmlinux
 scanning for modules in /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv/
 scanning for modules in /home/sven/tmp/qemu-batman/linux-next
 loading @0xffffffffa0000000: /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv//batman-adv.ko
+
 (gdb) b batadv_iv_send_outstanding_bat_ogm_packet
 Breakpoint 1 at 0xffffffffa0005d60: file /home/sven/tmp/qemu-batman/batman-adv/net/batman-adv/bat_iv_ogm.c, line 1692.
 (gdb) c
-</pre>
-
-h2. Python datastructure helper
-
-It is also possible to evaluate data structures in the gdb commandline using small python code blocks. To get for example the name of all devices which batman-adv knows about and the name of the batman-adv interface they belong to, just enter following in the initialized, interrupted gdb session:
-
-<pre>
-python
-import linux.lists
-from linux.utils import CachedType
-
-struct_batadv_hard_iface = CachedType('struct batadv_hard_iface').get_type().pointer()
-
-for node in linux.lists.list_for_each_entry(gdb.parse_and_eval("batadv_hardif_list"), struct_batadv_hard_iface, 'list'):
-    hardif = node['net_dev']['name'].string()
-    softif = node['soft_iface']['name'].string() if node['soft_iface'] else "none"
-    gdb.write("hardif {} belongs to {}\n".format(hardif, softif))
-end
 </pre>
