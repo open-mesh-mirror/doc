@@ -10,4 +10,4 @@ h2. GDB remote stubs
 
 h2. Various
 
-* [[gdb linux snippets]]
+* [[GDB Linux snippets]]
