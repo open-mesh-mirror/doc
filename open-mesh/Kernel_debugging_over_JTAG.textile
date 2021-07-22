@@ -77,6 +77,8 @@ The 8devices lima reference board exposes all over its GPIO pins:
 * GND: J1 16 - GND
 * VTG: J1 15 - 3.3V
 
+!/attachments/download/944/jtag-8devices-lima.svg!
+
 
 h2. Preparing OpenWrt
 
