@@ -1,6 +1,6 @@
 h1. Kernel debugging over JTAG
 
-"debugged using JTAG":https://openwrt.org/docs/techref/hardware/port.jtag
+{{>toc}}
 
 As shown in the [[Kernel debugging with_qemu's GDB server]] documentation, it is easy to debug the Linux kernel in an [[OpenWrt_in_QEMU|emulated system]]. But some problems might only be reproducible on actual hardware ([[Mixing_VM_with_gluon_hardware|connected to the emulation setup]]). It is therefore sometimes necessary to debug a whole system.
 
