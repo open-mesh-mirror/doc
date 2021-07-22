@@ -111,10 +111,10 @@ For ar71xx (GL.inet AR750 in my case), it would look like:
 
 <pre><code class="diff">
 diff --git a/target/linux/ar71xx/config-4.14 b/target/linux/ar71xx/config-4.14
-index 4bc84792b6..8bd7c8b299 100644
+index 9a524fae4316caa10431bd6b3b4dadbe8660f14c..397e15bcecd4e9c696a2321174969541b673cbd3 100644
 --- a/target/linux/ar71xx/config-4.14
 +++ b/target/linux/ar71xx/config-4.14
-@@ -290,7 +290,7 @@ CONFIG_ATH79=y
+@@ -282,7 +282,7 @@ CONFIG_ATH79=y
  # CONFIG_ATH79_NVRAM is not set
  # CONFIG_ATH79_PCI_ATH9K_FIXUP is not set
  # CONFIG_ATH79_ROUTERBOOT is not set
@@ -123,16 +123,16 @@ index 4bc84792b6..8bd7c8b299 100644
  CONFIG_CEVT_R4K=y
  CONFIG_CLKDEV_LOOKUP=y
  CONFIG_CLONE_BACKWARDS=y
-@@ -299,6 +299,8 @@ CONFIG_CMDLINE_BOOL=y
+@@ -291,6 +291,8 @@ CONFIG_CMDLINE_BOOL=y
  # CONFIG_CMDLINE_OVERRIDE is not set
- CONFIG_COMMON_CLK=y
  # CONFIG_COMMON_CLK_BOSTON is not set
+ CONFIG_COMMON_CLK=y
 +CONFIG_CONSOLE_POLL=y
 +CONFIG_CONSOLE_TRANSLATIONS=y
  CONFIG_CPU_BIG_ENDIAN=y
  CONFIG_CPU_GENERIC_DUMP_TLB=y
  CONFIG_CPU_HAS_PREFETCH=y
-@@ -316,10 +318,15 @@ CONFIG_CPU_SUPPORTS_MSA=y
+@@ -308,10 +310,15 @@ CONFIG_CPU_SUPPORTS_MSA=y
  CONFIG_CRYPTO_RNG2=y
  CONFIG_CRYPTO_WORKQUEUE=y
  CONFIG_CSRC_R4K=y
@@ -148,7 +148,7 @@ index 4bc84792b6..8bd7c8b299 100644
  CONFIG_GENERIC_ATOMIC64=y
  CONFIG_GENERIC_CLOCKEVENTS=y
  CONFIG_GENERIC_CMOS_UPDATE=y
-@@ -385,6 +392,7 @@ CONFIG_HAVE_PERF_EVENTS=y
+@@ -372,6 +379,7 @@ CONFIG_HAVE_PERF_EVENTS=y
  CONFIG_HAVE_REGS_AND_STACK_ACCESS_API=y
  CONFIG_HAVE_SYSCALL_TRACEPOINTS=y
  CONFIG_HAVE_VIRT_CPU_ACCOUNTING_GEN=y
@@ -156,7 +156,7 @@ index 4bc84792b6..8bd7c8b299 100644
  CONFIG_HZ_PERIODIC=y
  CONFIG_I2C=y
  CONFIG_I2C_ALGOBIT=y
-@@ -395,13 +403,20 @@ CONFIG_INITRAMFS_COMPRESSION=""
+@@ -381,13 +389,20 @@ CONFIG_IMAGE_CMDLINE_HACK=y
  CONFIG_INITRAMFS_ROOT_GID=0
  CONFIG_INITRAMFS_ROOT_UID=0
  CONFIG_INITRAMFS_SOURCE="../../root"
@@ -176,8 +176,8 @@ index 4bc84792b6..8bd7c8b299 100644
 +CONFIG_MAGIC_SYSRQ=y
  CONFIG_MARVELL_PHY=y
  CONFIG_MDIO_BITBANG=y
- CONFIG_MDIO_BUS=y
-@@ -472,6 +487,7 @@ CONFIG_RTL8367_PHY=y
+ CONFIG_MDIO_BOARDINFO=y
+@@ -454,6 +469,7 @@ CONFIG_RTL8367_PHY=y
  # CONFIG_SERIAL_8250_FSL is not set
  CONFIG_SERIAL_8250_NR_UARTS=1
  CONFIG_SERIAL_8250_RUNTIME_UARTS=1
@@ -185,9 +185,9 @@ index 4bc84792b6..8bd7c8b299 100644
  # CONFIG_SOC_AR71XX is not set
  # CONFIG_SOC_AR724X is not set
  # CONFIG_SOC_AR913X is not set
-@@ -503,3 +519,8 @@ CONFIG_SYS_SUPPORTS_ZBOOT_UART_PROM=y
+@@ -484,3 +500,8 @@ CONFIG_SYS_SUPPORTS_ZBOOT=y
+ CONFIG_SYS_SUPPORTS_ZBOOT_UART_PROM=y
  CONFIG_TICK_CPU_ACCOUNTING=y
- CONFIG_TINY_SRCU=y
  CONFIG_USB_SUPPORT=y
 +# CONFIG_VGACON_SOFT_SCROLLBACK is not set
 +CONFIG_VGA_CONSOLE=y
@@ -195,7 +195,7 @@ index 4bc84792b6..8bd7c8b299 100644
 +CONFIG_VT_CONSOLE=y
 +# CONFIG_VT_HW_CONSOLE_BINDING is not set
 diff --git a/target/linux/ar71xx/image/Makefile b/target/linux/ar71xx/image/Makefile
-index 804532b55c..c485389f56 100644
+index 804532b55cb145134acf47accd095bbb24dee059..c485389f56c34ca8216c1016d515be2836ab2349 100644
 --- a/target/linux/ar71xx/image/Makefile
 +++ b/target/linux/ar71xx/image/Makefile
 @@ -58,7 +58,7 @@ define Device/Default
@@ -215,7 +215,7 @@ OpenWrt will build a gdb when <code>CONFIG_GDB=y</code> is set in .config. But t
 
 <pre><code class="diff">
 diff --git a/toolchain/gdb/Makefile b/toolchain/gdb/Makefile
-index 3b884f9e79..9b0149faca 100644
+index 41ba9853fd26d5ea2ba3759946a9591c668d92e9..afe4f01201fca21adc465a3fbd3c3751ec23df25 100644
 --- a/toolchain/gdb/Makefile
 +++ b/toolchain/gdb/Makefile
 @@ -45,7 +45,7 @@ HOST_CONFIGURE_ARGS = \
@@ -231,7 +231,7 @@ index 3b884f9e79..9b0149faca 100644
  	$(INSTALL_BIN) $(HOST_BUILD_DIR)/gdb/gdb $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb
  	ln -fs $(TARGET_CROSS)gdb $(TOOLCHAIN_DIR)/bin/$(GNU_TARGET_NAME)-gdb
  	strip $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb
-+	$(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory install
++	-$(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory install
  endef
  
  define Host/Clean
