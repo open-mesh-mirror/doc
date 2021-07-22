@@ -20,7 +20,7 @@ Requirements:
 
 h2. Preparing the hardware
 
-The connection between the debug adapter and the target board must established by connecting a couple of pins with each other.
+The connection between the debug adapter and the target board must established by connecting a couple of pins with each other. The color schema used here is from the "Sparkfun Bus Pirate cable":https://antibore.wordpress.com/2011/06/22/quick-reference-for-sparkfun-bus-pirate-cable/
 
 The debug and target board via at least following of the debug adapter hardware:
 
@@ -35,7 +35,9 @@ The adapter boards must then also be select in the OpenOCD configuration.
 
 h3. Bus Blaster
 
-The Bus Blaster v3 with the 20 pin header and the default buffer logic the usage of the pins already written next to header.
+The Bus Blaster v3 with the 20 pin header and the default buffer logic the usage of the pins already written next to header. Just make sure to leave the board in self powered (not closed 2 pin header)
+
+!/attachments/download/943/jtag-busblaster.svg!
 
 The configuration of the adapter board and the target board is also straight forward since the release of OpenOCD 0.11
 
