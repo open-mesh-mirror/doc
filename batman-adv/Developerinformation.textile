@@ -4,4 +4,5 @@ h2. Developer Information / Advanced Features
 * [[uevent|B.A.T.M.A.N. user space events]] - batman-adv's uevent documentation
 * [[open-mesh:UsingBatmanGit|Using the batman git repos]] - this page explains how the git repository is structured and how to use it
 * [[open-mesh:Emulation_Environment|Emulation HowTo]] - how to create an environment to emulate wireless setups using QEMU
+* [[open-mesh:Kernel_Debugging|Emulation HowTo]] - various information how to debug kernel modules on real hardware or under QEMU
 * [[TVLV|TVLV]] - details regarding the TVLV (type-version-length-value) API and defined TVLV containers
