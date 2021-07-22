@@ -235,7 +235,7 @@ index 3b884f9e79..9b0149faca 100644
  endef
  
  define Host/Clean
-+	$(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory uninstall
++	-$(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory uninstall
  	rm -rf \
  		$(HOST_BUILD_DIR) \
  		$(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb \
