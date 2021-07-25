@@ -10,11 +10,11 @@ h2. Thanks
 
 Thanks to all people sending in patches:
 
-Linus Lüssing <linus.luessing@c0d3.blue>
-Shaokun Zhang <zhangshaokun@hisilicon.com>
-Simon Wunderlich <sw@simonwunderlich.de>
-Sven Eckelmann <sven@narfation.org>
-Zheng Yongjun <zhengyongjun3@huawei.com>
+* Linus Lüssing <linus.luessing@c0d3.blue>
+* Shaokun Zhang <zhangshaokun@hisilicon.com>
+* Simon Wunderlich <sw@simonwunderlich.de>
+* Sven Eckelmann <sven@narfation.org>
+* Zheng Yongjun <zhengyongjun3@huawei.com>
 
 and to all those that supported us with good advice or rigorous testing:
 
