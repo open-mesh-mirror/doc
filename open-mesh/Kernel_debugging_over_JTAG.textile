@@ -60,9 +60,7 @@ EOF
 
 h3. Raspberry PI (4 B) adapter board
 
-The Raspberry PI 4B can be used as a simple adapter board because there are plenty of GPIOs available and OpenOCD is able to control them directly. But it is a rather slow debug adapter compared to one which was specifically build for this purpose. For example a <code>flash read_bank 0 flash.img 0 65536</code> takes 117.896889s.
-
-Only the correctly "raw GPIO number for each Pin":https://www.raspberrypi-spy.co.uk/2012/06/simple-guide-to-the-rpi-gpio-header-and-pins/ has to be found. A good way to connect them (while keeping the SPI pins free for reflashing SPI chips) is:
+The Raspberry PI 4B can be used as a simple adapter board because there are plenty of GPIOs available and OpenOCD is able to control them directly. Only the correctly "raw GPIO number for each Pin":https://www.raspberrypi-spy.co.uk/2012/06/simple-guide-to-the-rpi-gpio-header-and-pins/ has to be found. A good way to connect them (while keeping the SPI pins free for reflashing SPI chips) is:
 
 * GND: Pin 9
 * TDO: GPIO17 (Pin 11)
@@ -105,7 +103,7 @@ EOF
 
 h3. Bus Pirate adapter board
 
-The Bus Pirate's SPI pins can also be used for JTAG. But it is an extremely slow debug adapter compared to one which was specifically build for this purpose.
+The Bus Pirate's SPI pins can also be used for JTAG. But it is an extremely slow debug adapter compared to the previously mentioned ones. For example a <code>flash read_bank 0 flash.img 0 65536</code> takes TODO-TODO-TODO for the lima board - an Raspberry Pi 4B for example will only need 2 minutes for the same operations.
 
 Just connect:
 
