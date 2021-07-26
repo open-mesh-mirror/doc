@@ -57,6 +57,52 @@ source [find board/8devices-lima.cfg]
 EOF
 </code></pre>
 
+
+h3. Raspberry PI (4 B)
+
+The Raspberry PI 4B can be used as a simple adapter board because there are plenty of GPIOs available and OpenOCD is able to control them directly. But it is a rather slow debug adapter compared to one which was specifically build for this purpose. For example a <code>flash read_bank 0 flash.img 0 65536</code> takes 117.896889s.
+
+Only the correctly "raw GPIO number for each Pin":https://www.raspberrypi-spy.co.uk/2012/06/simple-guide-to-the-rpi-gpio-header-and-pins/ has to be found. A good way to connect them (while keeping the SPI pins free for reflashing SPI chips) is:
+
+* GND: Pin 9
+* TDO: GPIO17 (Pin 11)
+* TDI: GPIO27 (Pin 13)
+* TCK: GPIO22 (Pin 15)
+* TMS: GPIO23 (Pin 16)
+
+The hardest part is to find the "correct base of the GPIO controller and to set the speed settings":https://openwrt.org/toh/meraki/mr18/jtag
+
+The configuration of the adapter board and the target board is also possible since the release of OpenOCD 0.11
+
+<pre><code class="diff">
+cat > jtag_debug.cfg << "EOF"
+adapter driver bcm2835gpio
+
+# GPIOs for: tck tms tdi tdo
+bcm2835gpio_jtag_nums 22 23 27 17
+
+# configuration for raspberry pi 4B
+bcm2835gpio_peripheral_base 0xFE000000
+bcm2835gpio_speed_coeffs 236181 60
+
+adapter speed 1000
+
+transport select jtag
+
+# in case to start debugging session without "reset halt":
+# "reset halt" would be necessary here because otherwise the flash chip cannot
+# be detected  and the gdb attach fails with
+# "Unknown flash device (ID 0x00000000)"
+gdb_memory_map disable
+
+source [find board/8devices-lima.cfg]
+
+
+# allow to connect via telnet/gdb to OpenOCD from actual development machine
+bindto 0.0.0.0
+EOF
+</code></pre>
+
 h3. 8devices target board
 
 The board which should run the firmware must be connected to at least following pins of the debug adapter hardware:
@@ -78,7 +124,6 @@ The 8devices lima reference board exposes all over its GPIO pins:
 * VTG: J1 15 - 3.3V
 
 !/attachments/download/944/jtag-8devices-lima.svg!
-
 
 h2. Preparing OpenWrt
 
