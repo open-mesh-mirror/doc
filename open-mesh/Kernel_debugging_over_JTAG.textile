@@ -58,7 +58,7 @@ EOF
 </code></pre>
 
 
-h3. Raspberry PI (4 B)
+h3. Raspberry PI (4 B) adapter board
 
 The Raspberry PI 4B can be used as a simple adapter board because there are plenty of GPIOs available and OpenOCD is able to control them directly. But it is a rather slow debug adapter compared to one which was specifically build for this purpose. For example a <code>flash read_bank 0 flash.img 0 65536</code> takes 117.896889s.
 
@@ -100,6 +100,43 @@ source [find board/8devices-lima.cfg]
 
 # allow to connect via telnet/gdb to OpenOCD from actual development machine
 bindto 0.0.0.0
+EOF
+</code></pre>
+
+h3. Bus Pirate adapter board
+
+The Bus Pirate's SPI pins can also be used for JTAG. But it is an extremely slow debug adapter compared to one which was specifically build for this purpose.
+
+Just connect:
+
+* TDO: MISO
+* TDI: MOSI
+* TMS: CS
+* TCK: SCK
+* GND: GND
+
+The configuration of the adapter board and the target board is also straight forward since the release of OpenOCD 0.11
+
+<pre><code class="diff">
+cat > jtag_debug.cfg << "EOF"
+source [find interface/buspirate.cfg]
+
+buspirate_vreg 0
+buspirate_mode normal
+buspirate_pullup 0
+
+buspirate_port /dev/ttyUSB2
+
+adapter speed 1000
+transport select jtag
+
+# in case to start debugging session without "reset halt":
+# "reset halt" would be necessary here because otherwise the flash chip cannot
+# be detected  and the gdb attach fails with
+# "Unknown flash device (ID 0x00000000)"
+gdb_memory_map disable
+
+source [find board/8devices-lima.cfg]
 EOF
 </code></pre>
 
