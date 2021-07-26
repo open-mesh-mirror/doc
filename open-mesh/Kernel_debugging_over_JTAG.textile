@@ -18,7 +18,7 @@ Requirements:
 * On Chip Debugger for JTAG/SWD
 ** "OpenOCD":http://openocd.org/
 
-h2. Preparing the hardware
+h2. Preparing an debug adapter board
 
 The connection between the debug adapter and the target board must established by connecting a couple of pins with each other. The color schema used here is from the "Sparkfun Bus Pirate cable":https://antibore.wordpress.com/2011/06/22/quick-reference-for-sparkfun-bus-pirate-cable/
 
@@ -32,6 +32,8 @@ The debug and target board via at least following of the debug adapter hardware:
 * VTG (voltage reference)
 
 The adapter boards must then also be select in the OpenOCD configuration.
+
+Only one adapter board must be attached. But some example configurations are shown as reference.
 
 h3. Bus Blaster adapter board
 
@@ -138,7 +140,7 @@ source [find board/8devices-lima.cfg]
 EOF
 </code></pre>
 
-h3. 8devices target board
+h2. Preparing the 8devices lima target board board
 
 The board which should run the firmware must be connected to at least following pins of the debug adapter hardware:
 
