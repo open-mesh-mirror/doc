@@ -105,7 +105,7 @@ EOF
 
 h3. Bus Pirate adapter board
 
-The Bus Pirate's SPI pins can also be used for JTAG. But it is an extremely slow debug adapter compared to the previously mentioned ones. For example a <code>flash read_bank 0 flash.img 0 65536</code> takes TODO-TODO-TODO for the lima board - an Raspberry Pi 4B for example will only need 2 minutes for the same operations.
+The Bus Pirate's SPI pins can also be used for JTAG. But it is an extremely slow debug adapter compared to the previously mentioned ones. For example a <code>flash read_bank 0 flash.img 0 65536</code> takes 35682s when using the 8devices lima as target board - for example, an Raspberry Pi 4B as debug adapter board will only need 2 minutes for the same operations.
 
 Just connect:
 
