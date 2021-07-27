@@ -140,7 +140,7 @@ source [find board/8devices-lima.cfg]
 EOF
 </code></pre>
 
-h2. Preparing the 8devices lima target board board
+h2. Preparing the 8devices lima target board
 
 The board which should run the firmware must be connected to at least following pins of the debug adapter hardware:
 
