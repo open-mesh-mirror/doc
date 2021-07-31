@@ -59,7 +59,6 @@ source [find board/8devices-lima.cfg]
 EOF
 </code></pre>
 
-
 h3. Raspberry PI (4 B) adapter hardware
 
 The Raspberry PI 4B can be used as a simple adapter hardware because there are plenty of GPIOs available and OpenOCD is able to control them directly. Only the correctly "raw GPIO number for each Pin":https://www.raspberrypi-spy.co.uk/2012/06/simple-guide-to-the-rpi-gpio-header-and-pins/ has to be found. A good way to connect them (while keeping the SPI pins free for reflashing SPI chips) is:
@@ -69,6 +68,8 @@ The Raspberry PI 4B can be used as a simple adapter hardware because there are p
 * TDI: GPIO27 (Pin 13)
 * TCK: GPIO22 (Pin 15)
 * TMS: GPIO23 (Pin 16)
+
+!/attachments/download/945/jtag-rpi4.svg!
 
 The hardest part is to find the "correct base of the GPIO controller and to set the speed settings":https://openwrt.org/toh/meraki/mr18/jtag
 
