@@ -1,41 +1,32 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-DRAFT: Batman-adv 2021.1 released
+DRAFT: Batman-adv 2021.2 released
 =================================
 
-May 18th, 2021. Today the B.A.T.M.A.N. team publishes the May 2021
-update to batman-adv, batctl and alfred! batctl gained the support for
-“\*_json” commands which make it possible to query the batman-adv kernel
-module over generic netlink and receive the answer as JSON. The alfred
-server was modified to start the server even when batman-adv or
-interface(s) are not yet available. A special parameter “—force” must be
-provided to enable this behavior. Also several bugfixes and code
-cleanups are included in this version.
+Juli 27th, 2021. Today the B.A.T.M.A.N. team publishes the Juli 2021
+update to batman-adv, TODO Also several bugfixes and code cleanups are
+included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled
 against, it does not make sense to provide binaries on our website. As
 usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2021.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2021.2/
 
 Thanks
 ------
 
 Thanks to all people sending in patches:
 
-* Alexander Sarmanow <asarmanow@gmail.com>
-* Leon Romanovsky <leonro@nvidia.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
-* Masahiro Yamada <masahiroy@kernel.org>
-* Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-* Taehee Yoo <ap420073@gmail.com>
-* Sven Eckelmann <sven@narfation.org>
+* Shaokun Zhang <zhangshaokun@hisilicon.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
-* Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+* Sven Eckelmann <sven@narfation.org>
+* Zheng Yongjun <zhengyongjun3@huawei.com>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Marek Lindner <mareklindner@neomailbox.ch>
+* Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
 
 batman-adv
 ----------
@@ -43,8 +34,8 @@ batman-adv
 ::
 
   $ git describe origin/master
-  v2021.0-14-g007b4c4b
-  $ range=v2021.0..v2021.0-14-g007b4c4b
+  v2021.1-13-ge684c002
+  $ range=v2021.1..v2021.1-13-ge684c002
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -53,39 +44,40 @@ batman-adv
   new kernel version
   ==================
 
-        batman-adv: convert ifmcaddr6 to RCU
-        batman-adv: Use netif_rx_any_context().
-        batman-adv: remove never implemented MODULE_SUPPORTED_DEVICE
 
   coding style cleanup/refactoring
   ================================
 
-        batman-adv: Update copyright years for 2021
-        batman-adv: Avoid sizeof on flexible structure
-        batman-adv: Fix names for kernel-doc blocks
-        batman-adv: Drop publication years from copyright info
-        batman-adv: Fix misspelled "wont"
-        batman-adv: remove redundant 'depends on NET'
-        batman-adv: Fix order of kernel doc in batadv_priv
+        batman-adv: Fix spelling mistakes
+        batman-adv: Remove the repeated declaration
+        batman-adv: Drop implicit creation of batadv net_devices
+        batman-adv: Avoid name based attaching of hard interfaces
+        batman-adv: Don't manually reattach hard-interface
+        batman-adv: Drop reduntant batadv interface check
 
   various
   =======
 
+        batman-adv: Always send iface index+name in genlmsg
+        batman-adv: mcast: add MRD + routable IPv4 multicast with bridges support
+        batman-adv: bcast: queue per interface, if needed
+        batman-adv: bcast: avoid skb-copy for (re)queued broadcasts
 
   bugfixes
   ========
 
-        batman-adv: initialize "struct batadv_tvlv_tt_vlan_data"->reserved field
+        batman-adv: Avoid WARN_ON timing related checks
 
-
-  2021.1 (2021-05-18)
+  2021.2 (2021-07-27)
   ===================
 
-  * support latest kernels (4.4 - 5.13)
+  * support latest kernels (4.4 - 5.14)
   * coding style cleanups and refactoring
+  * add MRD + routable IPv4 multicast with bridges support
+  * rewrite of broadcast queuing
   * bugs squashed:
 
-    - correctly initialize padding when sending out translation table TVLVs
+    - avoid kernel warnings on timing related checks
 
 batctl
 ------
@@ -93,66 +85,42 @@ batctl
 ::
 
   $ git describe origin/master
-  v2021.0-38-g35d8327
-  $ range=v2021.0..v2021.0-38-g35d8327
+  v2021.1-11-g041f35f
+  $ range=v2021.1..v2021.1-11-g041f35f
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
 
 
   features
   ========
 
-        batctl: netlink: Make netlink_query_common non-static
-        batctl: genl_json: Add generic JSON interface
-        batctl: Introduce JSON_* command types
-        batctl: Introduce handler for JSON_* command types
-        batctl: Add neighbors_json command
-        batctl: Add originators_json command
-        batctl: Add transtable_global_json command
-        batctl: Add transtable_local_json command
-        batctl: Consume genl ACKs after setting reads
-        batctl: throughputmeter: Use global genl socket
-        batctl: interface: List using shared genl socket
-        batctl: Get meshif info using shared genl socket
-        batctl: Use common genl socket for netlink_query_common
-        batctl: routing_algo: List using shared genl socket
-        batctl: originators: Get outgoing ifname from netlink
-        batctl: neighbors: Get outgoing ifname from netlink
-        batctl: ping: Get outgoing ifname from netlink
-        batctl: event: Get ifname from netlink message
-        batctl: Realign netlink_policy array
-        batctl: translocal: Simplify evaluation of last_seen
-        batctl: netlink: Allow to use netlink_query_common hardif/vlan
-        batctl: Add bla_backbone_json command
-        batctl: Add bla_claim_json command
-        batctl: Add dat_cache_json command
-        batctl: Add gateways_json command
-        batctl: Add hardif_json command
-        batctl: Add hardifs_json command
-        batctl: Add mcast_flags_json command
-        batctl: Add mesh_json command
-        batctl: Add vlan_json command
 
 
   coding style cleanup/refactoring
   ================================
 
-        batctl: Fix build of routing_algo against musl
-        batctl: Update copyright years for 2021
-        batctl: Drop publication years from copyright info
-        batctl: Avoid boolean in structures
-        batctl: Reorder and clean up README
-        batctl: Don't mention log command in manpage
+
+        batctl: Combine command section attributes
+        batctl: man: Fix alignment after json list
+        batctl: man: Move commands to own section
+        batctl: man: Convert lists to indented paragraph
+        batctl: man: Use native list support
+        batctl: man: Use tbl groff preprocessor for tables
+        batctl: man: Switch to manpage font convention
+        batctl: man: Add example section
+        batctl: man: Reorder and restructure sections
+        batctl: man: Rewrite SEE ALSO list
 
   bugfixes
   ========
 
 
 
-  2021.1 (2021-05-18)
+  2021.2 (2021-07-27)
   ===================
 
-  * add various commands to print generic netlink replies as JSON
+  * manpage cleanups
   * coding style cleanups and refactoring
 
 alfred
@@ -161,26 +129,20 @@ alfred
 ::
 
   $ git describe origin/master
-  v2021.0-7-ge9a3bfc
-  $ range=v2021.0..v2021.0-7-ge9a3bfc
+  v2021.1-7-ge9a3bfc
+  $ range=v2021.1..v2021.1-3-g40bc247
   $ git shortlog --email --no-merges "${range}"
   $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-  Sven Eckelmann <sven@narfation.org> (6):
-        alfred: Update copyright years for 2021
-        alfred: Drop publication years from copyright info
-        alfred: Show error message for invalid batadv interface
-        alfred: Allow exactly one interface for secondary mode
-        alfred: Save global mode flags in bitfield
-        alfred: Allow start of server without valid interface
+        alfred: Move IRC channel to hackint.org
+        alfred: man: Fix format of interface parameter
 
 
-  2021.1 (2021-05-18)
+  2021.2 (2021-07-27)
   ===================
 
-  * Allow to force of alfred startup when the interfaces don't work/exist (yet)
-  * coding style cleanups and refactoring
+  * manpage cleanups
 
 Happy routing,
 

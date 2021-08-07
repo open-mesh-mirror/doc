@@ -65,8 +65,7 @@ Debugging helpers
    :maxdepth: 1
 
    Analyzing_virtual_network_packets
-   Kernel_debugging_with_qemu's_GDB_server
-   Kernel_debugging_with_kgdb
+   Kernel_Debugging
 
 .. |image0| image:: emulation_overview.svg
 

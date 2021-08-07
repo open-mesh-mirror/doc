@@ -25,6 +25,50 @@ participating. Therefore all nodes appear to be link local and are
 unaware of the network's topology as well as unaffected by any network
 changes.
 
+The easiest way to think about a batman-adv mesh network is to imagine
+it as a distributed switch. Each system (often called "node") running
+batman-adv is equal to a switch port.
+
+.. image:: batadv-introduction-switch.svg
+
+Each node is running an instance of batman-adv. Such an instance is a
+virtual network interface (often called "bat0") which looks to the
+system like a switch port that allows access to the distributed switch.
+The actual details of the (direct or indirect) communication between the
+nodes is then hidden behind the "bat0" network interface.
+
+.. image:: batadv-introduction-switch-distributed.svg
+
+To make communication possible between the different bat0 interfaces on
+the different nodes, batman-adv relies on ethernet compatible network
+interfaces which gets attached to bat0 as so called (lower) hard
+interfaces. This concept should already be known by Linux bridges
+
+.. image:: batadv-introduction-switch-hardinterface.svg
+
+The node3 in the last picture can now communicate with node2 even when
+the wifi link via its "mesh0" interface to node2 would be too weak to
+transport data over it. The node1 can be used in this scenario to
+forward traffic between node3 and node1. The data would be transported
+via the (often quite stable) ethernet interface "eth0". And node1 can
+talk to node2 via the "mesh0" interface. And batman-adv handles all
+these things internally and the upper layers can simply use the bat0
+like any other network interface.
+
+This also means that any other interface can be bridged to the bat0
+interface. Another ethernet interface ("eth1" in this example) can be
+used to grant a non batman-adv aware client connectivity to node1,
+node2, node3 or other non batman-adv aware clients. The same is true for
+wifi clients which connect to a bridge accesspoint interface.
+
+.. image:: batadv-introduction-switch-clients.svg
+
+In this example, the blue wifi-client on node2 should be able to talk to
+the red ethernet client on node3. Even when they both don't have any
+knowledge about batman-adv or the medium (ethernet vs. wifi) of the
+remote client.
+
+
 This design bears some interesting characteristics:
 
 -  network-layer agnostic - you can run whatever you wish on top of

@@ -3,15 +3,14 @@
 OpenWrt KGDB
 ============
 
-The :doc:`Emulation Environment <Emulation_Environment>` documentation explains how to start
-multiple virtual Linux kernels+userspace, connect them and connect
-various helpers to test/debug a whole linux system. But some problems
-might only be reproducible on actual hardware
+As shown in the :doc:`Kernel_debugging_with_qemu's_GDB_server` documentation, it
+is easy to debug Linux kernel in an :doc:`emulated system <OpenWrt_in_QEMU>`.
+But some problems might only be reproducible on actual hardware
 :doc:`connected to the emulation setup <Mixing_VM_with_gluon_hardware>`. It
 is therefore sometimes necessary to debug a whole system.
 
-In best case, the system can be `debugged using
-JTAG <https://openwrt.org/docs/techref/hardware/port.jtag>`__. But this
+In best case, the system can be :doc:`debugged using
+JTAG <Kernel_debugging_over_JTAG>`. But this
 is often not possible and an in-kernel gdb remote stub like
 `KGDB <https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html>`__
 has to be used. The only requirement it has on the actual board is a
@@ -37,7 +36,9 @@ Unfortunately, there are also external watchdog chips which cannot be
 turned off. They have to be manually triggered regularly during the
 debugging process to prevent a sudden reboot. The details depend on the
 actual hardware but it often ends up in writing to a specific (GPIO
-control/set/clear) register.
+control/set/clear) register. An example how to manually trigger an GPIO
+connected watchdog manually can be found in
+:ref:`GDB Linux snippets <open-mesh-gdb-linux-snippets-Working-with-external-Watchdog-over-GPIO>`
 
 Enabling KGDB in kernel
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,10 +139,10 @@ For ar71xx (GL.inet AR750 in my case), it would look like:
 .. code-block:: diff
 
   diff --git a/target/linux/ar71xx/config-4.14 b/target/linux/ar71xx/config-4.14
-  index 4bc84792b6..8bd7c8b299 100644
+  index 9a524fae4316caa10431bd6b3b4dadbe8660f14c..397e15bcecd4e9c696a2321174969541b673cbd3 100644
   --- a/target/linux/ar71xx/config-4.14
   +++ b/target/linux/ar71xx/config-4.14
-  @@ -290,7 +290,7 @@ CONFIG_ATH79=y
+  @@ -282,7 +282,7 @@ CONFIG_ATH79=y
    # CONFIG_ATH79_NVRAM is not set
    # CONFIG_ATH79_PCI_ATH9K_FIXUP is not set
    # CONFIG_ATH79_ROUTERBOOT is not set
@@ -150,16 +151,16 @@ For ar71xx (GL.inet AR750 in my case), it would look like:
    CONFIG_CEVT_R4K=y
    CONFIG_CLKDEV_LOOKUP=y
    CONFIG_CLONE_BACKWARDS=y
-  @@ -299,6 +299,8 @@ CONFIG_CMDLINE_BOOL=y
+  @@ -291,6 +291,8 @@ CONFIG_CMDLINE_BOOL=y
    # CONFIG_CMDLINE_OVERRIDE is not set
-   CONFIG_COMMON_CLK=y
    # CONFIG_COMMON_CLK_BOSTON is not set
+   CONFIG_COMMON_CLK=y
   +CONFIG_CONSOLE_POLL=y
   +CONFIG_CONSOLE_TRANSLATIONS=y
    CONFIG_CPU_BIG_ENDIAN=y
    CONFIG_CPU_GENERIC_DUMP_TLB=y
    CONFIG_CPU_HAS_PREFETCH=y
-  @@ -316,10 +318,15 @@ CONFIG_CPU_SUPPORTS_MSA=y
+  @@ -308,10 +310,15 @@ CONFIG_CPU_SUPPORTS_MSA=y
    CONFIG_CRYPTO_RNG2=y
    CONFIG_CRYPTO_WORKQUEUE=y
    CONFIG_CSRC_R4K=y
@@ -175,7 +176,7 @@ For ar71xx (GL.inet AR750 in my case), it would look like:
    CONFIG_GENERIC_ATOMIC64=y
    CONFIG_GENERIC_CLOCKEVENTS=y
    CONFIG_GENERIC_CMOS_UPDATE=y
-  @@ -385,6 +392,7 @@ CONFIG_HAVE_PERF_EVENTS=y
+  @@ -372,6 +379,7 @@ CONFIG_HAVE_PERF_EVENTS=y
    CONFIG_HAVE_REGS_AND_STACK_ACCESS_API=y
    CONFIG_HAVE_SYSCALL_TRACEPOINTS=y
    CONFIG_HAVE_VIRT_CPU_ACCOUNTING_GEN=y
@@ -183,7 +184,7 @@ For ar71xx (GL.inet AR750 in my case), it would look like:
    CONFIG_HZ_PERIODIC=y
    CONFIG_I2C=y
    CONFIG_I2C_ALGOBIT=y
-  @@ -395,13 +403,20 @@ CONFIG_INITRAMFS_COMPRESSION=""
+  @@ -381,13 +389,20 @@ CONFIG_IMAGE_CMDLINE_HACK=y
    CONFIG_INITRAMFS_ROOT_GID=0
    CONFIG_INITRAMFS_ROOT_UID=0
    CONFIG_INITRAMFS_SOURCE="../../root"
@@ -203,8 +204,8 @@ For ar71xx (GL.inet AR750 in my case), it would look like:
   +CONFIG_MAGIC_SYSRQ=y
    CONFIG_MARVELL_PHY=y
    CONFIG_MDIO_BITBANG=y
-   CONFIG_MDIO_BUS=y
-  @@ -472,6 +487,7 @@ CONFIG_RTL8367_PHY=y
+  + CONFIG_MDIO_BOARDINFO=y
+  +@@ -454,6 +469,7 @@ CONFIG_RTL8367_PHY=y
    # CONFIG_SERIAL_8250_FSL is not set
    CONFIG_SERIAL_8250_NR_UARTS=1
    CONFIG_SERIAL_8250_RUNTIME_UARTS=1
@@ -212,9 +213,9 @@ For ar71xx (GL.inet AR750 in my case), it would look like:
    # CONFIG_SOC_AR71XX is not set
    # CONFIG_SOC_AR724X is not set
    # CONFIG_SOC_AR913X is not set
-  @@ -503,3 +519,8 @@ CONFIG_SYS_SUPPORTS_ZBOOT_UART_PROM=y
+  +@@ -484,3 +500,8 @@ CONFIG_SYS_SUPPORTS_ZBOOT=y
+  + CONFIG_SYS_SUPPORTS_ZBOOT_UART_PROM=y
    CONFIG_TICK_CPU_ACCOUNTING=y
-   CONFIG_TINY_SRCU=y
    CONFIG_USB_SUPPORT=y
   +# CONFIG_VGACON_SOFT_SCROLLBACK is not set
   +CONFIG_VGA_CONSOLE=y
@@ -222,7 +223,7 @@ For ar71xx (GL.inet AR750 in my case), it would look like:
   +CONFIG_VT_CONSOLE=y
   +# CONFIG_VT_HW_CONSOLE_BINDING is not set
   diff --git a/target/linux/ar71xx/image/Makefile b/target/linux/ar71xx/image/Makefile
-  index 804532b55c..c485389f56 100644
+  index 804532b55cb145134acf47accd095bbb24dee059..c485389f56c34ca8216c1016d515be2836ab2349 100644
   --- a/target/linux/ar71xx/image/Makefile
   +++ b/target/linux/ar71xx/image/Makefile
   @@ -58,7 +58,7 @@ define Device/Default
@@ -245,7 +246,7 @@ patch:
 .. code-block:: diff
 
   diff --git a/toolchain/gdb/Makefile b/toolchain/gdb/Makefile
-  index 3b884f9e79..9b0149faca 100644
+  index 41ba9853fd26d5ea2ba3759946a9591c668d92e9..afe4f01201fca21adc465a3fbd3c3751ec23df25 100644
   --- a/toolchain/gdb/Makefile
   +++ b/toolchain/gdb/Makefile
   @@ -45,7 +45,7 @@ HOST_CONFIGURE_ARGS = \
@@ -261,11 +262,11 @@ patch:
       $(INSTALL_BIN) $(HOST_BUILD_DIR)/gdb/gdb $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb
       ln -fs $(TARGET_CROSS)gdb $(TOOLCHAIN_DIR)/bin/$(GNU_TARGET_NAME)-gdb
       strip $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb
-  +   $(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory install
+  +	-$(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory install
    endef
 
    define Host/Clean
-  +   $(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory uninstall
+  +   -$(MAKE) -C $(HOST_BUILD_DIR)/gdb/data-directory uninstall
       rm -rf \
           $(HOST_BUILD_DIR) \
           $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb \
@@ -323,15 +324,12 @@ uncompressed kernel image before we will connect to the remote device.
 .. code-block:: sh
 
   cd "${LINUX_DIR}"
-  "${GDB}" -iex "set auto-load safe-path scripts/gdb/"  ./vmlinux
+  "${GDB}" -iex "set auto-load safe-path scripts/gdb/" -iex "set serial baud 115200" -iex "target remote /dev/ttyUSB0" ./vmlinux
 
 In this example, we are using an USB TTL converter (/dev/ttyUSB0). It
 has to be configured in gdb
 
 ::
-
-  set serial baud 115200
-  target remote /dev/ttyUSB0
 
   lx-symbols ..
 
@@ -354,9 +352,10 @@ an already existing breakpoint) - use the sysrq mechanism again from
 Linux to switch back to kgdb.
 
 Some other ideas are documented in
-:doc:`Kernel debugging with qemu's GDB server <Kernel_debugging_with_qemu\'s_GDB_server>`. This document also contains
-important hints about
-:ref:`increasing the chance of getting debugable modules <open-mesh-kernel-hacking-debian-image-building-the-batman-adv-module>` which didn't had all
+:doc:`GDB_Linux_snippets`.
+
+The kernel hacking debian image page should also be checked to
+:ref:`increase the chance of getting debugable modules <open-mesh-kernel-hacking-debian-image-building-the-batman-adv-module>` which didn't had all
 information optimized away. The relevant flags could be set directly in
 the routing feed like this:
 
@@ -375,39 +374,3 @@ the routing feed like this:
           NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
           modules
    endef
-
-Working with external Watchdog over GPIO
-----------------------------------------
-
-There are various boards on ar71xx which use external watchdogs chips
-via GPIO. They have to be triggered regularly (every minute or even more
-often) or otherwise the board will just suddenly reboot. This will of
-course not work when Linux is no longer in control and kgdb/gdb is the
-only way to interact with the system.
-
-But luckily, we can just write manually to the ar71xx registers (every n
-seconds). We have two possible ways:
-
-* write to the clear/set registers
-
-  - set bit n in register ``GPIO_SET (0x1804000C)`` to set output value to
-    1 for GPIO n
-  - set bit n in register ``GPIO_CLEAR (0x18040010)`` to set output value
-    to 0 for GPIO n
-
-* overwrite the complete ``GPIO_OUT (0x18040008)`` register (which might
-  modify more GPIO bits then required)
-
-We will only demonstrate this here for GPIO 12 with GPIO_SET/GPIO_CLEAR.
-
-::
-
-  # check where iomem 018040000-180400ff is mapped to
-  (gdb) print ath79_gpio_base
-  $1 = (void *) 0xb8040000
-
-  # set GPIO 12 to low
-  (gdb) set {uint32_t}0xb8040010 = 0x00001000
-
-  # set GPIO 12 to high
-  (gdb) set {uint32_t}0xb804000C = 0x00001000

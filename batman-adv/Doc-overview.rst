@@ -57,7 +57,7 @@ Broadcast & Multicast
 ~~~~~~~~~~~~~~~~~~~~~
 
 -  :doc:`Broadcasts in B.A.T.M.A.N. Advanced <Broadcast>` - An overview of broadcast/multicast support
--  :doc:`Gateway support <Gateways>` - How batman-adv can be used to choose
+-  :doc:`DHCP Gateway Optimization <Gateways>` - How batman-adv can be used to choose
    the nearest internet gateway node.
 -  :doc:`Distributed ARP Table <DistributedArpTable>` - How batman-adv can
    speed up your mesh experience by caching ARP replies.
@@ -83,6 +83,8 @@ Developer Information / Advanced Features
    explains how the git repository is structured and how to use it
 -  :doc:`Emulation HowTo </open-mesh/Emulation\_Environment>` - how to create an
    environment to emulate wireless setups using QEMU
+-  :doc:`Kernel Debugging </open-mesh/Kernel\_Debugging>` - various information
+    how to debug kernel modules on real hardware or under QEMU
 -  :doc:`TVLV <TVLV>` - details regarding the TVLV
    (type-version-length-value) API and defined TVLV containers
 

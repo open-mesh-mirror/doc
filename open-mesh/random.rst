@@ -11,6 +11,7 @@ Random
 
    BATMANConcept
    Emulation_Environment
+   Kernel_Debugging
    Joker
    Logos
    BatmanAdvBootLogo
