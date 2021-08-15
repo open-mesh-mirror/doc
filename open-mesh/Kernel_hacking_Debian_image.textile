@@ -23,7 +23,7 @@ qemu-img create debian.img 8G
 sudo mkfs.ext4 -O '^has_journal' -F debian.img
 sudo mkdir debian
 sudo mount -o loop debian.img debian
-sudo debootstrap buster debian
+sudo debootstrap bullseye debian
 sudo systemd-nspawn -D debian apt update
 sudo systemd-nspawn -D debian apt install --no-install-recommends build-essential vim openssh-server less \
  pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5 \
