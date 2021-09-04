@@ -101,7 +101,7 @@ BOOTARGS+=("-serial" "chardev:charconsole0")
 #BASE_IMG=debian.img
 #BOOTARGS+=("-bios" "qboot/build/bios.bin")
 #BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-#BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
+#BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
 #BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 
 for i in $(seq 1 "${NUM_SESSIONS}"); do
@@ -120,7 +120,9 @@ for i in $(seq 1 "${NUM_SESSIONS}"); do
         -display none -no-user-config -nodefaults \
         -m 512M,maxmem=2G,slots=2 -device virtio-balloon \
         -cpu host -smp 2 -machine q35,accel=kvm,usb=off,dump-guest-core=off \
-        -drive file=root.cow$i,if=virtio,cache=unsafe \
+        -device virtio-scsi-pci \
+        -device scsi-hd,drive=drive0 \
+        -drive file=root.cow$i,if=none,id=drive0,cache=unsafe,discard=unmap \
         -nic tap,ifname=tap$i,script=no,downscript=no,model=virtio,mac=02:ba:de:af:fe:"${twodigit_id}" \
         -nic user,model=virtio,mac=06:ba:de:af:fe:"${twodigit_id}" \
         -virtfs local,path="${SHARED_PATH}",security_model=none,mount_tag=host \
