@@ -28,6 +28,7 @@ sudo systemd-nspawn -D debian apt update
 sudo systemd-nspawn -D debian apt install --no-install-recommends build-essential vim openssh-server less \
  pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5 \
  trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
+sudo systemd-nspawn -D debian systemctl enable fstrim.timer
 
 sudo mkdir debian/root/.ssh/
 ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
@@ -55,17 +56,19 @@ sudo chmod a+x debian/etc/rc.local
 sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
 
 ## optionally: allow ssh logins without passwords
-# sudo sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' debian/etc/ssh/sshd_config
-# sudo sed -i 's/^#PermitEmptyPasswords.*/PermitEmptyPasswords yes/' debian/etc/ssh/sshd_config
-# sudo sed -i 's/^UsePAM.*/UsePAM no/' debian/etc/ssh/sshd_config
+#cat << "EOF" | sudo tee debian/etc/ssh/sshd_config.d/local.conf 
+#PermitRootLogin yes
+#PermitEmptyPasswords yes
+#UsePAM no
+#EOF
 
 ## optionally: enable autologin for user root
 #sudo mkdir debian/etc/systemd/system/serial-getty@hvc0.service.d/
-#sudo sh -c 'cat > debian/etc/systemd/system/serial-getty@hvc0.service.d/autologin.conf  << EOF
+#cat << "EOF" | sudo tee debian/etc/systemd/system/serial-getty@hvc0.service.d/autologin.conf
 #[Service]
 #ExecStart=
 #ExecStart=-/sbin/agetty --autologin root -s %I 115200,38400,9600 vt102
-#EOF'
+#EOF
 
 sudo sh -c 'echo '\''PATH="/host/batctl/:$PATH"'\'' >> debian/etc/profile'
 sudo rm debian/var/cache/apt/archives/*.deb
@@ -115,6 +118,8 @@ CONFIG_VSOCKETS=y
 CONFIG_VIRTIO_VSOCKETS=y
 CONFIG_IOMMU_SUPPORT=y
 CONFIG_VIRTIO_IOMMU=y
+CONFIG_SCSI_VIRTIO=y
+CONFIG_BLK_DEV_SD=y
 CONFIG_CRC16=y
 CONFIG_LIBCRC32C=y
 CONFIG_DEBUG_FS=y
@@ -202,7 +207,6 @@ CONFIG_GDB_SCRIPTS=y
 CONFIG_READABLE_ASM=y
 CONFIG_STACK_VALIDATION=y
 CONFIG_WQ_WATCHDOG=y
-CONFIG_DEBUG_KOBJECT_RELEASE=y
 CONFIG_DEBUG_WQ_FORCE_RR_CPU=y
 CONFIG_DEBUG_SECTION_MISMATCH=y
 CONFIG_UNWINDER_ORC=y
@@ -231,6 +235,9 @@ CONFIG_UBSAN_SANITIZE_ALL=y
 CONFIG_UBSAN=y
 CONFIG_KCSAN=y
 CONFIG_KFENCE=y
+
+# avoid that boot is delayed much by the delayed kobject release code
+CONFIG_DEBUG_KOBJECT_RELEASE=n
 EOF
 
 make allnoconfig
@@ -281,7 +288,7 @@ The BASE_IMG is of course no longer the same because a new image "debian.img" wa
 BASE_IMG=debian.img
 BOOTARGS+=("-bios" "qboot/build/bios.bin")
 BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
+BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
 BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 </code></pre>
 
