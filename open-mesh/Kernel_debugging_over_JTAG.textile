@@ -261,7 +261,7 @@ The start of OpenOCD couldn't be more trivial:
 openocd -f jtag_debug.cfg
 </code></pre>
 
-It should start a telnet server (for manual intervention) on TCP port 3333, scan the JTAG chains and afterwards start the internal gdbserver on port 3333.
+It should start a telnet server (for manual intervention) on TCP port 4444, scan the JTAG chains and afterwards start the internal gdbserver on port 3333.
 
 h3. Connecting gdb
 
