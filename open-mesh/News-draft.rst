@@ -3,8 +3,12 @@
 DRAFT: Batman-adv 2021.2 released
 =================================
 
-Juli 27th, 2021. Today the B.A.T.M.A.N. team publishes the Juli 2021
-update to batman-adv, TODO Also several bugfixes and code cleanups are
+Aug 17th, 2021. Today the B.A.T.M.A.N. team publishes the August 2021 update to
+batman-adv, batctl and alfred! The multicast support in batman-adv can now
+utilize the Multicast Router Discovery of the Linux bridge to detect IPv4/IPv6
+multicast listeners and routers. The broadcast packet handling was also
+redesigned to reduce the latency and to prepare the necessary infrastructure for
+interfaces specific handling. Also several bugfixes and code cleanups are
 included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled
@@ -68,7 +72,7 @@ batman-adv
 
         batman-adv: Avoid WARN_ON timing related checks
 
-  2021.2 (2021-07-27)
+  2021.2 (2021-08-16)
   ===================
 
   * support latest kernels (4.4 - 5.14)
@@ -117,7 +121,7 @@ batctl
 
 
 
-  2021.2 (2021-07-27)
+  2021.2 (2021-08-16)
   ===================
 
   * manpage cleanups
@@ -139,7 +143,7 @@ alfred
         alfred: man: Fix format of interface parameter
 
 
-  2021.2 (2021-07-27)
+  2021.2 (2021-08-16)
   ===================
 
   * manpage cleanups

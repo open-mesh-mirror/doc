@@ -42,12 +42,14 @@ storage space
   sudo mkfs.ext4 -O '^has_journal' -F debian.img
   sudo mkdir debian
   sudo mount -o loop debian.img debian
-  sudo debootstrap buster debian
+  sudo debootstrap bullseye debian
   sudo systemd-nspawn -D debian apt update
   sudo systemd-nspawn -D debian apt install --no-install-recommends build-essential vim openssh-server less \
    pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5 \
    trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
-
+  sudo systemd-nspawn -D debian apt remove rsyslog
+  sudo systemd-nspawn -D debian systemctl enable fstrim.timer
+  
   sudo mkdir debian/root/.ssh/
   ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
 
@@ -72,19 +74,27 @@ storage space
   sudo chmod a+x debian/etc/rc.local
 
   sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
-
+  
+  sudo mkdir -p debian/etc/systemd/journald.conf.d
+  cat << "EOF" | sudo tee debian/etc/systemd/journald.conf.d/storage.conf
+  [Journal]
+  Storage=volatile
+  EOF
+  
   ## optionally: allow ssh logins without passwords
-  # sudo sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' debian/etc/ssh/sshd_config
-  # sudo sed -i 's/^#PermitEmptyPasswords.*/PermitEmptyPasswords yes/' debian/etc/ssh/sshd_config
-  # sudo sed -i 's/^UsePAM.*/UsePAM no/' debian/etc/ssh/sshd_config
+  #cat << "EOF" | sudo tee debian/etc/ssh/sshd_config.d/local.conf
+  #PermitRootLogin yes
+  #PermitEmptyPasswords yes
+  #UsePAM no
+  #EOF
 
   ## optionally: enable autologin for user root
   #sudo mkdir debian/etc/systemd/system/serial-getty@hvc0.service.d/
-  #sudo sh -c 'cat > debian/etc/systemd/system/serial-getty@hvc0.service.d/autologin.conf  << EOF
+  #cat << "EOF" | sudo tee debian/etc/systemd/system/serial-getty@hvc0.service.d/autologin.conf
   #[Service]
   #ExecStart=
   #ExecStart=-/sbin/agetty --autologin root -s %I 115200,38400,9600 vt102
-  #EOF'
+  #EOF
 
   sudo sh -c 'echo '\''PATH="/host/batctl/:$PATH"'\'' >> debian/etc/profile'
   sudo rm debian/var/cache/apt/archives/*.deb
@@ -123,91 +133,41 @@ experience. It is configured with:
 
   git clone git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
   cd linux-next
-
-  make allnoconfig
-  cat >> .config << EOF
-
+  
+  cat > ./kernel/configs/debug_kernel.config << EOF
+  
   # small configuration
   CONFIG_SMP=y
-  CONFIG_EMBEDDED=n
-  # CONFIG_EXPERT is not set
   CONFIG_MODULES=y
   CONFIG_MODULE_UNLOAD=y
   CONFIG_MODVERSIONS=y
   CONFIG_MODULE_SRCVERSION_ALL=y
   CONFIG_64BIT=y
-  CONFIG_X86_VSYSCALL_EMULATION=n
-  CONFIG_IA32_EMULATION=n
-  CONFIG_VOP_BUS=y
-  CONFIG_VOP=y
   CONFIG_HW_RANDOM_VIRTIO=y
-  CONFIG_NET_9P_VIRTIO=y
-  CONFIG_VIRTIO_MENU=y
-  CONFIG_SCSI_VIRTIO=y
   CONFIG_VIRTIO_BALLOON=y
-  CONFIG_VIRTIO_BLK=y
-  CONFIG_VIRTIO_CONSOLE=y
-  CONFIG_VIRTIO_INPUT=y
-  CONFIG_VIRTIO_NET=y
-  CONFIG_VIRTIO_PCI=y
-  CONFIG_VIRTIO_PCI_LEGACY=y
-  CONFIG_VIRTIO_BALLOON=y
-  CONFIG_VIRTIO_BLK_SCSI=y
-  CONFIG_VIRTIO_INPUT=y
-  CONFIG_VIRTIO_MMIO=y
-  CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
-  CONFIG_RPMSG_VIRTIO=y
   CONFIG_VSOCKETS=y
   CONFIG_VIRTIO_VSOCKETS=y
-  CONFIG_DRM=y
-  CONFIG_DRM_VIRTIO_GPU=y
-  CONFIG_CAIF=y
-  CONFIG_CAIF_VIRTIO=y
-  CONFIG_CRYPTO_DEV_VIRTIO=y
-  CONFIG_FUSE_FS=y
-  CONFIG_VIRTIO_FS=y
   CONFIG_IOMMU_SUPPORT=y
   CONFIG_VIRTIO_IOMMU=y
-  CONFIG_LIBNVDIMM=y
-  CONFIG_VIRTIO_PMEM=y
+  CONFIG_SCSI_VIRTIO=y
+  CONFIG_BLK_DEV_SD=y
   CONFIG_CRC16=y
   CONFIG_LIBCRC32C=y
-  CONFIG_CRYPTO_SHA512=y
-  CONFIG_NET=y
-  CONFIG_INET=y
   CONFIG_DEBUG_FS=y
   CONFIG_IPV6=y
   CONFIG_BRIDGE=y
   CONFIG_VLAN_8021Q=y
-  CONFIG_WIRELESS=n
-  CONFIG_NET_9P=y
-  CONFIG_NETWORK_FILESYSTEMS=y
-  CONFIG_9P_FS=y
   CONFIG_9P_FS_POSIX_ACL=y
   CONFIG_9P_FS_SECURITY=y
-  CONFIG_BLOCK=y
-  CONFIG_BLK_DEV=y
   CONFIG_EXT4_FS=y
-  CONFIG_EXT4_USE_FOR_EXT23=y
-  CONFIG_TTY=y
   CONFIG_HW_RANDOM=y
-  CONFIG_VHOST_RING=y
-  CONFIG_GENERIC_ALLOCATOR=y
-  CONFIG_SCSI_LOWLEVEL=y
   CONFIG_SCSI=y
-  CONFIG_NETDEVICES=y
-  CONFIG_NET_CORE=y
   CONFIG_DEVTMPFS=y
-  CONFIG_HYPERVISOR_GUEST=y
   CONFIG_PVH=y
-  CONFIG_PARAVIRT=y
   CONFIG_PARAVIRT_TIME_ACCOUNTING=y
   CONFIG_PARAVIRT_SPINLOCKS=y
-  CONFIG_KVM_GUEST=y
-  CONFIG_BINFMT_ELF=y
   CONFIG_BINFMT_SCRIPT=y
   CONFIG_BINFMT_MISC=y
-  CONFIG_PCI=y
   CONFIG_SYSVIPC=y
   CONFIG_POSIX_MQUEUE=y
   CONFIG_CROSS_MEMORY_ATTACH=y
@@ -218,35 +178,32 @@ experience. It is configured with:
   CONFIG_CGROUP_CPUACCT=y
   CONFIG_CGROUP_DEVICE=y
   CONFIG_CGROUP_FREEZER=y
-  CONFIG_CGROUP_HUGETLB=y
   CONFIG_CGROUP_NET_CLASSID=y
   CONFIG_CGROUP_NET_PRIO=y
   CONFIG_CGROUP_PERF=y
   CONFIG_CGROUP_SCHED=y
-  CONFIG_DEVPTS_MULTIPLE_INSTANCES=y
   CONFIG_INOTIFY_USER=y
-  CONFIG_FHANDLE=y
   CONFIG_CFG80211=y
   CONFIG_DUMMY=y
   CONFIG_PACKET=y
   CONFIG_VETH=y
   CONFIG_IP_MULTICAST=y
   CONFIG_NET_IPGRE_DEMUX=y
-  CONFIG_NET_IP_TUNNEL=y
   CONFIG_NET_IPGRE=y
   CONFIG_NET_IPGRE_BROADCAST=y
-  # CONFIG_LEGACY_PTYS is not set
   CONFIG_NO_HZ_IDLE=y
   CONFIG_CPU_IDLE_GOV_HALTPOLL=y
   CONFIG_PVPANIC=y
-
+  
   # makes boot a lot slower but required for shutdown
   CONFIG_ACPI=y
-
-
+  
+  
   #debug stuff
-  CONFIG_CC_STACKPROTECTOR_STRONG=y
-  CONFIG_LOCKUP_DETECTOR=y
+  CONFIG_STACKPROTECTOR=y
+  CONFIG_STACKPROTECTOR_STRONG=y
+  CONFIG_SOFTLOCKUP_DETECTOR=y
+  CONFIG_HARDLOCKUP_DETECTOR=y
   CONFIG_DETECT_HUNG_TASK=y
   CONFIG_SCHED_STACK_END_CHECK=y
   CONFIG_DEBUG_RT_MUTEXES=y
@@ -257,16 +214,13 @@ experience. It is configured with:
   CONFIG_DEBUG_LOCKDEP=y
   CONFIG_DEBUG_ATOMIC_SLEEP=y
   CONFIG_DEBUG_LIST=y
-  CONFIG_DEBUG_PI_LIST=y
+  CONFIG_DEBUG_PLIST=y
   CONFIG_DEBUG_SG=y
   CONFIG_DEBUG_NOTIFIERS=y
-  CONFIG_PROVE_RCU_REPEATEDLY=y
-  CONFIG_SPARSE_RCU_POINTER=y
-  CONFIG_DEBUG_STRICT_USER_COPY_CHECKS=y
   CONFIG_X86_VERBOSE_BOOTUP=y
-  CONFIG_DEBUG_RODATA=y
+  CONFIG_STRICT_KERNEL_RWX=y
   CONFIG_DEBUG_RODATA_TEST=n
-  CONFIG_DEBUG_SET_MODULE_RONX=y
+  CONFIG_STRICT_MODULE_RWX=y
   CONFIG_PAGE_EXTENSION=y
   CONFIG_DEBUG_PAGEALLOC=y
   CONFIG_DEBUG_OBJECTS=y
@@ -277,20 +231,14 @@ experience. It is configured with:
   CONFIG_DEBUG_OBJECTS_PERCPU_COUNTER=y
   CONFIG_DEBUG_KERNEL=y
   CONFIG_DEBUG_KMEMLEAK=y
-  CONFIG_DEBUG_KMEMLEAK_EARLY_LOG_SIZE=8000
   CONFIG_DEBUG_STACK_USAGE=y
-  CONFIG_DEBUG_STACKOVERFLOW=y
   CONFIG_DEBUG_INFO=y
-  CONFIG_DEBUG_INFO_DWARF4=y
+  CONFIG_DEBUG_INFO_DWARF5=y
   CONFIG_GDB_SCRIPTS=y
   CONFIG_READABLE_ASM=y
   CONFIG_STACK_VALIDATION=y
   CONFIG_WQ_WATCHDOG=y
-  CONFIG_DEBUG_KOBJECT_RELEASE=y
   CONFIG_DEBUG_WQ_FORCE_RR_CPU=y
-  CONFIG_OPTIMIZE_INLINING=y
-  CONFIG_ENABLE_MUST_CHECK=y
-  CONFIG_ENABLE_WARN_DEPRECATED=y
   CONFIG_DEBUG_SECTION_MISMATCH=y
   CONFIG_UNWINDER_ORC=y
   CONFIG_FTRACE=y
@@ -309,29 +257,24 @@ experience. It is configured with:
   CONFIG_PRINTK_TIME=y
   CONFIG_PRINTK_CALLER=y
   CONFIG_DEBUG_MISC=y
-  CONFIG_PROVE_RCU_LIST=y
-  CONFIG_DEBUG_FORCE_FUNCTION_ALIGN_32B=y
-  CONFIG_DEBUG_SLAB=y
-
+  CONFIG_SLUB_DEBUG=y
+  
   # for GCC 5+
   CONFIG_KASAN=y
   CONFIG_KASAN_INLINE=y
   CONFIG_UBSAN_SANITIZE_ALL=y
   CONFIG_UBSAN=y
-  CONFIG_UBSAN_NULL=y
   CONFIG_KCSAN=y
   CONFIG_KFENCE=y
+  
+  # avoid that boot is delayed much by the delayed kobject release code
+  CONFIG_DEBUG_KOBJECT_RELEASE=n
   EOF
-  make olddefconfig
-
-  cat >> .config << EOF
-  # allow to use unsigned regdb with hwsim
-  CONFIG_EXPERT=y
-  CONFIG_CFG80211_CERTIFICATION_ONUS=y
-  # CONFIG_CFG80211_REQUIRE_SIGNED_REGDB is not set
-  EOF
-  make olddefconfig
-
+  
+  make allnoconfig
+  make kvm_guest.config
+  make debug_kernel.config
+  
   make all -j$(nproc || echo 1)
 
 Build the BIOS
@@ -396,7 +339,7 @@ manually to qemu.
   BASE_IMG=debian.img
   BOOTARGS+=("-bios" "qboot/build/bios.bin")
   BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-  BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
+  BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
   BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 
 It is also recommended to use linux-next/vmlinux instead of bzImage with

@@ -324,13 +324,13 @@ The start of OpenOCD couldn’t be more trivial:
   openocd -f jtag_debug.cfg
 
 It should start a telnet server (for manual intervention) on TCP port
-3333, scan the JTAG chains and afterwards start the internal gdbserver
+4444, scan the JTAG chains and afterwards start the internal gdbserver
 on port 3333.
 
 Connecting gdb
 ~~~~~~~~~~~~~~
 
-I would use following folder in my ar711x build environment but they
+I would use following folder in my ar71xx build environment but they
 will be different for other architectures or OpenWrt versions:
 
 * ``LINUX_DIR=${OPENWRT_DIR}/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/linux-4.14.236/``
