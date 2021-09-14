@@ -72,7 +72,7 @@ bugfixes
 
 * support latest kernels (4.4 - 5.15)
 * coding style cleanups and refactoring
-* reduce memory copy overhead when sending broadcasts
+* reduced memory copy overhead when sending broadcasts
 </pre>
 
 h2. batctl
