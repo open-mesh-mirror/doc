@@ -2,7 +2,7 @@ h1. Advanced Bridge virtual network
 
 {{toc}}
 
-The simple virtual network from [[open-mesh:OpenWrt in QEMU#virtual-network-initialization]] is a Linux bridge which allows full communication between the tap interfaces of all virtual instances.  This is not optimal because fully connected meshes are not really interesting. But it is possible to use the bridge and netfilter functionality of the host's kernel to improve the bridge virtual network.
+The simple virtual network from [[OpenWrt in QEMU#virtual-network-initialization]] is a Linux bridge which allows full communication between the tap interfaces of all virtual instances.  This is not optimal because fully connected meshes are not really interesting. But it is possible to use the bridge and netfilter functionality of the host's kernel to improve the bridge virtual network.
 
 The tool of choice at the moment is is nft(ables). The following examples will introduce some common concepts based on nft. For older systems, ebtables and/or tc can also be used to achieve the same.
 
