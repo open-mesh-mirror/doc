@@ -11,3 +11,5 @@ h2. GDB remote stubs
 h2. Various
 
 * [[GDB Linux snippets]]
+* [[Crashlog with pstore]]
+* [[Crashdumps with kdump]]
