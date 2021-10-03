@@ -4,3 +4,4 @@ h3. Wikis
 &nbsp;›&nbsp;[[batman-adv:]]
 &nbsp;&nbsp;&nbsp;&nbsp;»&nbsp; *[[alfred:]]*
 &nbsp;›&nbsp;[[batmand:]]
+&nbsp;›&nbsp;[[devtools:]]
