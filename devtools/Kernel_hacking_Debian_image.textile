@@ -283,11 +283,11 @@ h2. Start of the environment
 
 h3. virtual network initialization
 
-The [[open-mesh:OpenWrt_in_QEMU#virtual-network-initialization|virtual-network.sh from the OpenWrt environment]] can be reused again.
+The [[OpenWrt_in_QEMU#virtual-network-initialization|virtual-network.sh from the OpenWrt environment]] can be reused again.
 
 h3. VM instances bringup
 
-The [[open-mesh:OpenWrt_in_QEMU#VM-instances-bringup|run.sh from the OpenWrt environment]] can mostly be reused. There are only minimal adjustments required.
+The [[OpenWrt_in_QEMU#VM-instances-bringup|run.sh from the OpenWrt environment]] can mostly be reused. There are only minimal adjustments required.
 
 The BASE_IMG is of course no longer the same because a new image "debian.img" was created for our new environment. The image also doesn't contain a bootloader or kernel anymore. The kernel must now be supplied manually to qemu.
 
@@ -303,7 +303,7 @@ It is also recommended to use <code>linux-next/vmlinux</code> instead of <code>b
 
 h3. Automatic test initialization
 
-The [[open-mesh:OpenWrt_in_QEMU#Automatic-test-initialization|test-init.sh from the OpenWrt environment]] is always test specific. But its main functionality is still the same as before. A simple example would be:
+The [[OpenWrt_in_QEMU#Automatic-test-initialization|test-init.sh from the OpenWrt environment]] is always test specific. But its main functionality is still the same as before. A simple example would be:
 
 <pre><code class="shell">
 cat > test-init.sh << "EOF"
@@ -334,4 +334,4 @@ chmod +x test-init.sh
 
 h2. Start
 
-The startup method [[open-mesh:OpenWrt_in_QEMU#Start|from the OpenWrt environment]] should be used here.
+The startup method [[OpenWrt_in_QEMU#Start|from the OpenWrt environment]] should be used here.
