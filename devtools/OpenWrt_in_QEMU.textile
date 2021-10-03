@@ -1,6 +1,6 @@
 h1. OpenWrt in QEMU
 
-The [[open-mesh:Emulation Environment#Architecture|simple emulation architecture]] can be implemented rather easily using qemu and an x86_64 image from OpenWrt.
+The [[Emulation Environment#Architecture|simple emulation architecture]] can be implemented rather easily using qemu and an x86_64 image from OpenWrt.
 
 !openwrt_in_qemu.png!
 
@@ -74,7 +74,7 @@ The qemu instance is started in a rather specific way to enable all features whi
 * a NIC is connected to the tap interface (from the virtual network) to transport mesh (and other) traffic
 * a user NIC is created to transport (NAT'ed) traffic to/from the internet
 * a shared path from host is provided for the client
-* the qemu gdb server is enabled to allow [[open-mesh:Kernel_debugging_with_qemu's_GDB_server|kernel debugging]]
+* the qemu gdb server is enabled to allow [[Kernel_debugging_with_qemu's_GDB_server|kernel debugging]]
 
 
 The @SHARED_PATH@ in run.sh has to be changed to a valid path which is used to share things like a precompiled batman-adv.ko and other tools
