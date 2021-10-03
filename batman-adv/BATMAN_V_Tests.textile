@@ -1,6 +1,6 @@
 h1. BATMAN V Tests
 
-The following tests have been performed on [[open-mesh:Emulation Environment|OpenWRT with emulation setup]] to test convergence times.
+The following tests have been performed on [[devtools:Emulation Environment|OpenWRT with emulation setup]] to test convergence times.
 
 h1. Configuration:
 
