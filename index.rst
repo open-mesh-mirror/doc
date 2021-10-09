@@ -16,3 +16,4 @@ Welcome to open-mesh.org's documentation!
    alfred/index
    batmand/index
    open-mesh/index
+   devtools/index

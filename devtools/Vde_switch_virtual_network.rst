@@ -4,7 +4,7 @@ vde_switch virtual network
 ==========================
 
 The simple virtual network from 
-:ref:`OpenWrt in Qemu <open-mesh-openwrt-in-qemu-virtual-network-initialization>`
+:ref:`OpenWrt in Qemu <devtools-openwrt-in-qemu-virtual-network-initialization>`
 is a Linux bridge which allows
 full communication between the tap interfaces of all virtual instances.
 This is not optimal to create not fully meshed setups. One alternative
@@ -190,7 +190,7 @@ The script does:
 VM instances bringup
 ~~~~~~~~~~~~~~~~~~~~
 
-The :ref:`run.sh from the OpenWrt environment <open-mesh-openwrt-in-qemu-vm-instances-bringup>`
+The :ref:`run.sh from the OpenWrt environment <devtools-openwrt-in-qemu-vm-instances-bringup>`
 can mostly be reused. There are only minimal
 adjustments required. The virtual network tap NIC has to be replaced
 with a vde NIC.
@@ -206,7 +206,7 @@ allow SSH access to the virtual instance over the tap interface.
 Automatic test initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The :ref:`test-init.sh from the OpenWrt environment <open-mesh-openwrt-in-qemu-automatic-test-initialization>`
+The :ref:`test-init.sh from the OpenWrt environment <devtools-openwrt-in-qemu-automatic-test-initialization>`
 is always test specific. But it can just
 be reused again with this virtual network.
 

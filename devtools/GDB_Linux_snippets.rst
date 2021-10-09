@@ -26,7 +26,7 @@ interrupted gdb session:
       gdb.write("hardif {} belongs to {}\n".format(hardif, softif))
   end
 
-.. _open-mesh-gdb-linux-snippets-Working-with-external-Watchdog-over-GPIO:
+.. _devtools-gdb-linux-snippets-Working-with-external-Watchdog-over-GPIO:
 
 Working with external Watchdog over GPIO
 ----------------------------------------

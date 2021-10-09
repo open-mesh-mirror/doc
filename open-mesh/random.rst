@@ -10,14 +10,10 @@ Random
 
 
    BATMANConcept
-   Emulation_Environment
-   Kernel_Debugging
    Joker
    Logos
    BatmanAdvBootLogo
    New_papers
-   News-archive
-   News-draft
    ResearchProposals
    Routing_scenarios
    The-olsr-story

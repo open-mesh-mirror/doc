@@ -15,7 +15,7 @@ setups. Besides B.A.T.M.A.N., you could evaluate any routing protocol.
 A simple setup is shown first and various extension and debugging
 helpers are explained later.
 
-.. _open-mesh-emulation-environment-architecture:
+.. _devtools-emulation-environment-architecture:
 
 Architecture
 ------------

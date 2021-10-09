@@ -3,7 +3,7 @@
 OpenWrt in QEMU
 ===============
 
-The :ref:`simple emulation architecture <open-mesh-emulation-environment-architecture>`
+The :ref:`simple emulation architecture <devtools-emulation-environment-architecture>`
 can be implemented rather easily using qemu and an x86_64
 image from OpenWrt.
 
@@ -48,7 +48,7 @@ The virtual instances and the virtual network will be started using a
 set of simple scripts. This simplifies everything and makes the setup
 more reproducible.
 
-.. _open-mesh-openwrt-in-qemu-virtual-network-initialization:
+.. _devtools-openwrt-in-qemu-virtual-network-initialization:
 
 virtual network initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,7 +84,7 @@ user. This allows the qemu instance to start up without being root.
 
   chmod +x virtual-network.sh
 
-.. _open-mesh-openwrt-in-qemu-vm-instances-bringup:
+.. _devtools-openwrt-in-qemu-vm-instances-bringup:
 
 VM instances bringup
 ~~~~~~~~~~~~~~~~~~~~
@@ -181,7 +181,7 @@ used to share things like a precompiled batman-adv.ko and other tools
 
   chmod +x run.sh
 
-.. _open-mesh-openwrt-in-qemu-automatic-test-initialization:
+.. _devtools-openwrt-in-qemu-automatic-test-initialization:
 
 Automatic test initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -209,7 +209,7 @@ initialize the test setup during boot. A simple example is:
 
   chmod +x test-init.sh
 
-.. _open-mesh-openwrt-in-qemu-start:
+.. _devtools-openwrt-in-qemu-start:
 
 Start
 -----

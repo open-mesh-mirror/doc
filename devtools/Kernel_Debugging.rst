@@ -28,3 +28,5 @@ Various
    Kernel_debugging_with_kgdb
    Kernel_debugging_over_JTAG
    GDB_Linux_snippets
+   Crashlog_with_pstore
+   Crashdumps_with_kdump

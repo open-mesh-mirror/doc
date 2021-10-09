@@ -4,7 +4,7 @@ Advanced Bridge virtual network
 ===============================
 
 The simple virtual network from
-:ref:`OpenWrt in Qemu <open-mesh-openwrt-in-qemu-virtual-network-initialization>`
+:ref:`OpenWrt in Qemu <devtools-openwrt-in-qemu-virtual-network-initialization>`
 is a Linux bridge which allows
 full communication between the tap interfaces of all virtual instances.
 This is not optimal because fully connected meshes are not really

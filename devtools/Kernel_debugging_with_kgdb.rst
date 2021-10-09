@@ -38,7 +38,7 @@ debugging process to prevent a sudden reboot. The details depend on the
 actual hardware but it often ends up in writing to a specific (GPIO
 control/set/clear) register. An example how to manually trigger an GPIO
 connected watchdog manually can be found in
-:ref:`GDB Linux snippets <open-mesh-gdb-linux-snippets-Working-with-external-Watchdog-over-GPIO>`
+:ref:`GDB Linux snippets <devtools-gdb-linux-snippets-Working-with-external-Watchdog-over-GPIO>`
 
 Enabling KGDB in kernel
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -355,7 +355,7 @@ Some other ideas are documented in
 :doc:`GDB_Linux_snippets`.
 
 The kernel hacking debian image page should also be checked to
-:ref:`increase the chance of getting debugable modules <open-mesh-kernel-hacking-debian-image-building-the-batman-adv-module>` which didn't had all
+:ref:`increase the chance of getting debugable modules <devtools-hacking-debian-image-building-the-batman-adv-module>` which didn't had all
 information optimized away. The relevant flags could be set directly in
 the routing feed like this:
 

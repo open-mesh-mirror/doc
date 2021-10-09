@@ -291,7 +291,7 @@ Something like qboot works better for this purpose:
   meson build && ninja -C build
   cd ..
 
-.. _open-mesh-kernel-hacking-debian-image-building-the-batman-adv-module:
+.. _devtools-hacking-debian-image-building-the-batman-adv-module:
 
 Building the batman-adv module
 ------------------------------
@@ -318,14 +318,14 @@ virtual network initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The
-:ref:`virtual-network.sh from the OpenWrt environment <open-mesh-openwrt-in-qemu-virtual-network-initialization>`
+:ref:`virtual-network.sh from the OpenWrt environment <devtools-openwrt-in-qemu-virtual-network-initialization>`
 can be reused again.
 
 VM instances bringup
 ~~~~~~~~~~~~~~~~~~~~
 
 The 
-:ref:`run.sh from the OpenWrt environment <open-mesh-openwrt-in-qemu-vm-instances-bringup>`
+:ref:`run.sh from the OpenWrt environment <devtools-openwrt-in-qemu-vm-instances-bringup>`
 can mostly be reused. There are only minimal
 adjustments required.
 
@@ -349,7 +349,7 @@ Automatic test initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The
-:ref:`test-init.sh from the OpenWrt environment <open-mesh-openwrt-in-qemu-automatic-test-initialization>`
+:ref:`test-init.sh from the OpenWrt environment <devtools-openwrt-in-qemu-automatic-test-initialization>`
 is always test specific. But its main
 functionality is still the same as before. A simple example would be:
 
@@ -384,5 +384,5 @@ Start
 -----
 
 The startup method 
-:ref:`from the OpenWrt environment <open-mesh-openwrt-in-qemu-start>`
+:ref:`from the OpenWrt environment <devtools-openwrt-in-qemu-start>`
 should be used here.
