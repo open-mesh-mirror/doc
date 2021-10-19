@@ -71,6 +71,8 @@ The old crashlog implementation used a couple of kilobytes at the 63MB address (
  	chosen {
 </code></pre>
 
+Other options how to specify the "ramoops region are defined in the official documentation":https://docs.kernel.org/admin-guide/ramoops.html
+
 The system will initialize the area on bootup:
 
 <pre><code class="shell">
