@@ -12,4 +12,4 @@ h2. Various
 
 * [[GDB Linux snippets]]
 * [[Crashlog with pstore]]
-* [[Crashdumps with kdump]]
+* [[Crashdumps with kexec]]
