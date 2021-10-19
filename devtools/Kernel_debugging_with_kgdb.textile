@@ -1,5 +1,7 @@
 h1. OpenWrt KGDB
 
+{{>toc}}
+
 As shown in the [[Kernel debugging with_qemu's GDB server]] documentation, it is easy to debug the Linux kernel in an [[OpenWrt_in_QEMU|emulated system]]. But some problems might only be reproducible on actual hardware ([[Mixing_VM_with_gluon_hardware|connected to the emulation setup]]). It is therefore sometimes necessary to debug a whole system.
 
 In best case, the system can be [[Kernel debugging over JTAG|debugged using JTAG]]. But this is often not possible and an in-kernel gdb remote stub like "KGDB":https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html has to be used. The only requirement it has on the actual board is a simple serial console with <code>poll_{get,put}_char()</code> support.
