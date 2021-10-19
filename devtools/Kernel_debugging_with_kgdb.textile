@@ -347,6 +347,8 @@ To connect to the terminal session, a simple telnet is enough:
 $ telnet localhost 5550
 </code></pre>
 
+The setup of the kgdboc must happen exactly as described before. Including the switch to the debugging mode via sysrq.
+
 The gdb has to be attached like to a remote gdb session
 
 <pre><code class="shell">
