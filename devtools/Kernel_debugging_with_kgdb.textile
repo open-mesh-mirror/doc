@@ -363,3 +363,15 @@ The gdb has to be attached like to a remote gdb session
 $ cd "${LINUX_DIR}"
 $ "${GDB}" -iex "set auto-load safe-path scripts/gdb/" -iex "target remote localhost:5551" ./vmlinux
 </code></pre>
+
+h2. Enable KGDB on panic
+
+Usually, a debugger catches problems like segfaults and allows a user to debug the problem further. On modern setups with kgdb, this is not the case because the system will automatically reboot after n-seconds.
+
+This can be avoided by changing the sysctl config <code>kernel.panic</code> to 0. Either in /etc/sysctl.d/ or by manually issuing
+
+<pre><code class="shell">
+sysctl -w kernel.panic=0
+</code></pre>
+
+If a kgdb(oc) is attached then it should automatically receive a message when the Oops was noticed and can then be debugged further.
