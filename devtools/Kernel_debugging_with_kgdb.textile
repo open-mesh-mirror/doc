@@ -345,7 +345,7 @@ To connect to the terminal session, a simple telnet is enough:
 
 <pre><code class="shell">
 $ telnet localhost 5550
-</code><pre>
+</code></pre>
 
 The gdb has to be attached like to a remote gdb session
 
