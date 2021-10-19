@@ -235,7 +235,7 @@ h3. decode_stacktrace
 
 The faddr2line has no real functional benefits when comparing it with gdb. But the has another useful script which can decode the whole stacktrace in a single run. It can even handle multiple modules when they are under a common folder:
 
-<pre>
+<pre><code class="shell">
 $ LXBASE=./build_dir/target-mips_24kc_musl/linux-ath79_generic
 $ CROSS_COMPILE=mips-linux-gnu- $LXBASE/linux-5.4.152/scripts/decode_stacktrace.sh $LXBASE/linux-5.4.152/vmlinux $LXBASE/linux-5.4.152/  $LXBASE  < dmesg-ramoops-1
 
@@ -305,4 +305,4 @@ Code starting with the faulting instruction
 <4>[   96.062319] ---[ end trace ff181e2552b1e823 ]---
 <0>[   96.077613] Kernel panic - not syncing: Fatal exception
 
-</pre>
+</code></pre>
