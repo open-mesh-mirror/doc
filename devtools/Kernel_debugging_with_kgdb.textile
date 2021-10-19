@@ -8,7 +8,7 @@ h2. Preparing OpenWrt
 
 h3. Turning off watchdog
 
-Most CPUs have some kind of watchdog integrated. They can often be turned off and are often inactive when the watchdog driver is not loaded. For example, ath79/ar71xx can be build without the internal watchdog support by changing in <code>target/linux/{ar71xx,ath79}/config-*</code>:
+Most CPUs have some kind of watchdog integrated. They can often be turned off and are often inactive when the watchdog driver is not loaded. For example, ath79 can be build without the internal watchdog support by changing in <code>target/linux/ath79/config-*</code>:
 
 <pre><code class="diff">
 -CONFIG_ATH79_WDT=y
@@ -31,26 +31,27 @@ CONFIG_DEBUG_INFO_DWARF4=y
 # CONFIG_DEBUG_INFO_REDUCED is not set
 CONFIG_GDB_SCRIPTS=y
 
-# optional: to allow activation of kgdb over serial instead of /proc/sysrq-trigger
+# optional: to allow activation of kgdb over serial by agent-proxy
+# instead of manually triggering it over /proc/sysrq-trigger
 CONFIG_MAGIC_SYSRQ_SERIAL=y
 </pre>
 
 For x86-64, the change (mostly created using <code>make kernel_menuconfig</code>) would be:
 
 <pre><code class="diff">
-diff --git a/target/linux/x86/config-4.14 b/target/linux/x86/config-4.14
-index 014e7b275b..c6c6f871a9 100644
---- a/target/linux/x86/config-4.14
-+++ b/target/linux/x86/config-4.14
-@@ -70,6 +70,7 @@ CONFIG_CLONE_BACKWARDS=y
- CONFIG_COMMON_CLK=y
+diff --git a/target/linux/x86/config-5.4 b/target/linux/x86/config-5.4
+index 6676f9501a..2518c8f57b 100644
+--- a/target/linux/x86/config-5.4
++++ b/target/linux/x86/config-5.4
+@@ -78,6 +78,7 @@ CONFIG_COMMON_CLK=y
  CONFIG_COMPAT_32=y
+ CONFIG_COMPAT_32BIT_TIME=y
  # CONFIG_COMPAT_VDSO is not set
 +CONFIG_CONSOLE_POLL=y
  CONFIG_CONSOLE_TRANSLATIONS=y
  # CONFIG_CPU5_WDT is not set
  CONFIG_CPU_FREQ=y
-@@ -108,6 +109,9 @@ CONFIG_DCACHE_WORD_ACCESS=y
+@@ -116,6 +117,9 @@ CONFIG_DCACHE_WORD_ACCESS=y
  # CONFIG_DCDBAS is not set
  # CONFIG_DEBUG_BOOT_PARAMS is not set
  # CONFIG_DEBUG_ENTRY is not set
@@ -58,17 +59,17 @@ index 014e7b275b..c6c6f871a9 100644
 +CONFIG_DEBUG_INFO_DWARF4=y
 +# CONFIG_DEBUG_INFO_REDUCED is not set
  CONFIG_DEBUG_MEMORY_INIT=y
+ CONFIG_DEBUG_MISC=y
  # CONFIG_DEBUG_NMI_SELFTEST is not set
- # CONFIG_DEBUG_TLBFLUSH is not set
-@@ -144,6 +148,7 @@ CONFIG_FUSION=y
- # CONFIG_FUSION_LOGGING is not set
+@@ -161,6 +165,7 @@ CONFIG_FUSION=y
  CONFIG_FUSION_MAX_SGE=128
  CONFIG_FUSION_SPI=y
+ CONFIG_FW_LOADER_PAGED_BUF=y
 +CONFIG_GDB_SCRIPTS=y
  CONFIG_GENERIC_ALLOCATOR=y
  CONFIG_GENERIC_BUG=y
  CONFIG_GENERIC_CLOCKEVENTS=y
-@@ -288,6 +293,11 @@ CONFIG_KALLSYMS=y
+@@ -306,6 +311,11 @@ CONFIG_KALLSYMS=y
  CONFIG_KEXEC=y
  CONFIG_KEXEC_CORE=y
  CONFIG_KEYBOARD_ATKBD=y
@@ -78,9 +79,9 @@ index 014e7b275b..c6c6f871a9 100644
 +CONFIG_KGDB_SERIAL_CONSOLE=y
 +# CONFIG_KGDB_TESTS is not set
  # CONFIG_LEDS_CLEVO_MAIL is not set
- CONFIG_LIBNVDIMM=y
+ CONFIG_LOCK_DEBUGGING_SUPPORT=y
  # CONFIG_M486 is not set
-@@ -296,6 +306,8 @@ CONFIG_M586MMX=y
+@@ -314,6 +324,8 @@ CONFIG_M586MMX=y
  # CONFIG_M586TSC is not set
  # CONFIG_M686 is not set
  # CONFIG_MACHZ_WDT is not set
@@ -89,84 +90,86 @@ index 014e7b275b..c6c6f871a9 100644
  # CONFIG_MATOM is not set
  # CONFIG_MCORE2 is not set
  # CONFIG_MCRUSOE is not set
-@@ -404,6 +415,7 @@ CONFIG_SCx200HR_TIMER=y
+@@ -421,6 +433,7 @@ CONFIG_SCx200HR_TIMER=y
+ # CONFIG_SCx200_GPIO is not set
  # CONFIG_SCx200_WDT is not set
- # CONFIG_SERIAL_8250_FSL is not set
  CONFIG_SERIAL_8250_PCI=y
 +# CONFIG_SERIAL_KGDB_NMI is not set
  CONFIG_SERIO=y
  CONFIG_SERIO_I8042=y
  CONFIG_SERIO_LIBPS2=y
 diff --git a/target/linux/x86/image/Makefile b/target/linux/x86/image/Makefile
-index 84a3d88a7f..c8a017f970 100644
+index f61e4ff802..e8c05c58e5 100644
 --- a/target/linux/x86/image/Makefile
 +++ b/target/linux/x86/image/Makefile
-@@ -14,7 +14,7 @@ GRUB2_MODULES_ISO = biosdisk boot chain configfile iso9660 linux ls part_msdos r
+@@ -9,7 +9,7 @@ GRUB2_VARIANT =
  GRUB_TERMINALS =
  GRUB_SERIAL_CONFIG =
  GRUB_TERMINAL_CONFIG =
 -GRUB_CONSOLE_CMDLINE =
 +GRUB_CONSOLE_CMDLINE = nokaslr
  
- USE_ATKBD = generic 64
+ ifneq ($(CONFIG_GRUB_CONSOLE),)
+   GRUB_CONSOLE_CMDLINE += console=tty0
 </code></pre>
 
-For ar71xx (GL.inet AR750 in my case), it would look like:
+For ath79 (GL.inet AR750 in my case), it would look like:
 
 <pre><code class="diff">
-diff --git a/target/linux/ar71xx/config-4.14 b/target/linux/ar71xx/config-4.14
-index 9a524fae4316caa10431bd6b3b4dadbe8660f14c..397e15bcecd4e9c696a2321174969541b673cbd3 100644
---- a/target/linux/ar71xx/config-4.14
-+++ b/target/linux/ar71xx/config-4.14
-@@ -282,7 +282,7 @@ CONFIG_ATH79=y
- # CONFIG_ATH79_NVRAM is not set
- # CONFIG_ATH79_PCI_ATH9K_FIXUP is not set
- # CONFIG_ATH79_ROUTERBOOT is not set
+diff --git a/target/linux/ath79/config-5.4 b/target/linux/ath79/config-5.4
+index 60f57692e2..01b66897fe 100644
+--- a/target/linux/ath79/config-5.4
++++ b/target/linux/ath79/config-5.4
+@@ -25,7 +25,7 @@ CONFIG_ARCH_WANT_DEFAULT_TOPDOWN_MMAP_LAYOUT=y
+ CONFIG_ARCH_WANT_IPC_PARSE_VERSION=y
+ CONFIG_AT803X_PHY=y
+ CONFIG_ATH79=y
 -CONFIG_ATH79_WDT=y
 +# CONFIG_ATH79_WDT is not set
+ CONFIG_BLK_MQ_PCI=y
  CONFIG_CEVT_R4K=y
  CONFIG_CLKDEV_LOOKUP=y
- CONFIG_CLONE_BACKWARDS=y
-@@ -291,6 +291,8 @@ CONFIG_CMDLINE_BOOL=y
+@@ -34,6 +34,8 @@ CONFIG_CMDLINE="rootfstype=squashfs,jffs2"
+ CONFIG_CMDLINE_BOOL=y
  # CONFIG_CMDLINE_OVERRIDE is not set
- # CONFIG_COMMON_CLK_BOSTON is not set
  CONFIG_COMMON_CLK=y
 +CONFIG_CONSOLE_POLL=y
 +CONFIG_CONSOLE_TRANSLATIONS=y
+ # CONFIG_COMMON_CLK_BOSTON is not set
+ CONFIG_COMPAT_32BIT_TIME=y
  CONFIG_CPU_BIG_ENDIAN=y
- CONFIG_CPU_GENERIC_DUMP_TLB=y
- CONFIG_CPU_HAS_PREFETCH=y
-@@ -308,10 +310,15 @@ CONFIG_CPU_SUPPORTS_MSA=y
+@@ -52,9 +54,13 @@ CONFIG_CPU_SUPPORTS_HIGHMEM=y
+ CONFIG_CPU_SUPPORTS_MSA=y
  CONFIG_CRYPTO_RNG2=y
- CONFIG_CRYPTO_WORKQUEUE=y
  CONFIG_CSRC_R4K=y
 +CONFIG_DEBUG_INFO=y
 +CONFIG_DEBUG_INFO_DWARF4=y
 +# CONFIG_DEBUG_INFO_REDUCED is not set
  CONFIG_DMA_NONCOHERENT=y
+ CONFIG_DMA_NONCOHERENT_CACHE_SYNC=y
+ CONFIG_DTC=y
 +CONFIG_DUMMY_CONSOLE=y
  CONFIG_EARLY_PRINTK=y
+ CONFIG_EFI_EARLYCON=y
  CONFIG_ETHERNET_PACKET_MANGLE=y
- CONFIG_FIXED_PHY=y
+@@ -63,6 +69,7 @@ CONFIG_FONT_8x16=y
+ CONFIG_FONT_AUTOSELECT=y
+ CONFIG_FONT_SUPPORT=y
+ CONFIG_FW_LOADER_PAGED_BUF=y
 +CONFIG_GDB_SCRIPTS=y
  CONFIG_GENERIC_ATOMIC64=y
  CONFIG_GENERIC_CLOCKEVENTS=y
  CONFIG_GENERIC_CMOS_UPDATE=y
-@@ -372,6 +379,7 @@ CONFIG_HAVE_PERF_EVENTS=y
- CONFIG_HAVE_REGS_AND_STACK_ACCESS_API=y
+@@ -132,18 +139,27 @@ CONFIG_HAVE_REGS_AND_STACK_ACCESS_API=y
+ CONFIG_HAVE_RSEQ=y
  CONFIG_HAVE_SYSCALL_TRACEPOINTS=y
  CONFIG_HAVE_VIRT_CPU_ACCOUNTING_GEN=y
 +CONFIG_HW_CONSOLE=y
  CONFIG_HZ_PERIODIC=y
- CONFIG_I2C=y
- CONFIG_I2C_ALGOBIT=y
-@@ -381,13 +389,21 @@ CONFIG_IMAGE_CMDLINE_HACK=y
- CONFIG_INITRAMFS_ROOT_GID=0
- CONFIG_INITRAMFS_ROOT_UID=0
- CONFIG_INITRAMFS_SOURCE="../../root"
+ CONFIG_IMAGE_CMDLINE_HACK=y
+ CONFIG_INITRAMFS_SOURCE=""
 +CONFIG_INPUT=y
- CONFIG_INTEL_XWAY_PHY=y
- CONFIG_IP17XX_PHY=y
+ CONFIG_IRQCHIP=y
  CONFIG_IRQ_DOMAIN=y
  CONFIG_IRQ_FORCED_THREADING=y
  CONFIG_IRQ_MIPS_CPU=y
@@ -177,62 +180,62 @@ index 9a524fae4316caa10431bd6b3b4dadbe8660f14c..397e15bcecd4e9c696a2321174969541
 +CONFIG_KGDB_SERIAL_CONSOLE=y
 +# CONFIG_KGDB_TESTS is not set
  CONFIG_LEDS_GPIO=y
+ # CONFIG_LEDS_RESET is not set
+ CONFIG_LIBFDT=y
+ CONFIG_LOCK_DEBUGGING_SUPPORT=y
 +CONFIG_MAGIC_SYSRQ=y
 +CONFIG_MAGIC_SYSRQ_SERIAL=y
- CONFIG_MARVELL_PHY=y
  CONFIG_MDIO_BITBANG=y
- CONFIG_MDIO_BOARDINFO=y
-@@ -454,6 +469,7 @@ CONFIG_RTL8367_PHY=y
- # CONFIG_SERIAL_8250_FSL is not set
+ CONFIG_MDIO_BUS=y
+ CONFIG_MDIO_DEVICE=y
+@@ -161,6 +177,7 @@ CONFIG_MIPS_CLOCK_VSYSCALL=y
+ # CONFIG_MIPS_CMDLINE_FROM_BOOTLOADER is not set
+ CONFIG_MIPS_CMDLINE_FROM_DTB=y
+ # CONFIG_MIPS_ELF_APPENDED_DTB is not set
++CONFIG_MIPS_FP_SUPPORT=y
+ CONFIG_MIPS_L1_CACHE_SHIFT=5
+ # CONFIG_MIPS_NO_APPENDED_DTB is not set
+ CONFIG_MIPS_RAW_APPENDED_DTB=y
+@@ -217,6 +234,7 @@ CONFIG_RESET_ATH79=y
+ CONFIG_RESET_CONTROLLER=y
  CONFIG_SERIAL_8250_NR_UARTS=1
  CONFIG_SERIAL_8250_RUNTIME_UARTS=1
 +# CONFIG_SERIAL_KGDB_NMI is not set
- # CONFIG_SOC_AR71XX is not set
- # CONFIG_SOC_AR724X is not set
- # CONFIG_SOC_AR913X is not set
-@@ -484,3 +500,8 @@ CONFIG_SYS_SUPPORTS_ZBOOT=y
- CONFIG_SYS_SUPPORTS_ZBOOT_UART_PROM=y
- CONFIG_TICK_CPU_ACCOUNTING=y
+ CONFIG_SERIAL_AR933X=y
+ CONFIG_SERIAL_AR933X_CONSOLE=y
+ CONFIG_SERIAL_AR933X_NR_UARTS=2
+@@ -248,3 +266,8 @@ CONFIG_TICK_CPU_ACCOUNTING=y
+ CONFIG_TINY_SRCU=y
  CONFIG_USB_SUPPORT=y
+ CONFIG_USE_OF=y
 +# CONFIG_VGACON_SOFT_SCROLLBACK is not set
-+CONFIG_VGA_CONSOLE=y
++# CONFIG_VGA_CONSOLE is not set
 +CONFIG_VT=y
-+CONFIG_VT_CONSOLE=y
++# CONFIG_VT_CONSOLE is not set
 +# CONFIG_VT_HW_CONSOLE_BINDING is not set
-diff --git a/target/linux/ar71xx/image/Makefile b/target/linux/ar71xx/image/Makefile
-index 804532b55cb145134acf47accd095bbb24dee059..c485389f56c34ca8216c1016d515be2836ab2349 100644
---- a/target/linux/ar71xx/image/Makefile
-+++ b/target/linux/ar71xx/image/Makefile
-@@ -58,7 +58,7 @@ define Device/Default
-   PROFILES = Default Minimal $$(DEVICE_PROFILE)
-   MTDPARTS :=
-   BLOCKSIZE := 64k
--  CONSOLE := ttyS0,115200
-+  CONSOLE := ttyS0,115200 nokaslr
-   CMDLINE = $$(if $$(BOARDNAME),board=$$(BOARDNAME)) $$(if $$(MTDPARTS),mtdparts=$$(MTDPARTS)) $$(if $$(CONSOLE),console=$$(CONSOLE))
-   KERNEL := kernel-bin | patch-cmdline | lzma | uImage lzma
-   COMPILE :=
 </code></pre>
 
 h3. Enabling python support for gdb
 
-OpenWrt will build a gdb when <code>CONFIG_GDB=y</code> is set in .config. But this version is missing python support. But it can be enabled with following patch:
+OpenWrt will build a gdb when <code>CONFIG_GDB=y</code> is set in .config. But it is important to also enable the python support via <code>CONFIG_GDB_PYTHON=y</code> or otherwise the Linux helper will not be able to correctly scan for modules. This feature was only added *after* the OpenWrt 21.02 release.
+
+For older versions of OpenWrt (including 21.02.x), following script can also be used:
 
 <pre><code class="diff">
 diff --git a/toolchain/gdb/Makefile b/toolchain/gdb/Makefile
-index 41ba9853fd26d5ea2ba3759946a9591c668d92e9..afe4f01201fca21adc465a3fbd3c3751ec23df25 100644
+index 05e3c7de3c..0ab20cb2d5 100644
 --- a/toolchain/gdb/Makefile
 +++ b/toolchain/gdb/Makefile
-@@ -45,7 +45,7 @@ HOST_CONFIGURE_ARGS = \
+@@ -36,7 +36,7 @@ HOST_CONFIGURE_ARGS = \
  	--without-included-gettext \
  	--enable-threads \
  	--with-expat \
 -	--without-python \
 +	--with-python \
+ 	--disable-unit-tests \
+ 	--disable-ubsan \
  	--disable-binutils \
- 	--disable-ld \
- 	--disable-gas \
-@@ -56,9 +56,11 @@ define Host/Install
+@@ -49,9 +49,11 @@ define Host/Install
  	$(INSTALL_BIN) $(HOST_BUILD_DIR)/gdb/gdb $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb
  	ln -fs $(TARGET_CROSS)gdb $(TOOLCHAIN_DIR)/bin/$(GNU_TARGET_NAME)-gdb
  	strip $(TOOLCHAIN_DIR)/bin/$(TARGET_CROSS)gdb
@@ -272,9 +275,9 @@ h3. Connecting gdb
 
 I would use following folder in my x86-64 build environment but they will be different for other architectures or OpenWrt versions:
 
-* <code>LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-4.14.148/</code>
-* <code>GDB=${OPENWRT_DIR}/staging_dir/toolchain-x86_64_gcc-7.4.0_musl/bin/x86_64-openwrt-linux-gdb</code>
-* <code>BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2019.2/</code>
+* <code>LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-5.4.143/</code>
+* <code>GDB=${OPENWRT_DIR}/staging_dir/toolchain-x86_64_gcc-8.4.0_musl/bin/x86_64-openwrt-linux-gdb</code>
+* <code>BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2021.1/</code>
 
 When kgdb is activated using sysrq, we can configure gdb. It has to connect via a serial adapter to the target device. We must change to the LINUX_DIR first and can then start our target specific GDB with our uncompressed kernel image before we will connect to the remote device.
 
@@ -294,7 +297,7 @@ continue
 You should make sure that it doesn't load any <code>*.ko</code> files from <code>ipkg-*</code> directories. These files are stripped and doesn't contain the necessary symbol information. When necessary, just delete these folders or specify the folders with the unstripped kernel modules:
 
 <pre>
-lx-symbols ../batman-adv-2019.2/.pkgdir/ ../backports-4.19.66-1/.pkgdir/ ../button-hotplug/.pkgdir/
+lx-symbols ../batman-adv-2021.1/.pkgdir/ ../backports-5.10.42-1/.pkgdir/ ../button-hotplug/.pkgdir/
 </pre>
 
 The rest of the process works similar to debugging using gdbserver. Just set some additional breakpoints and let the kernel run again. kgdb will then inform gdb whenever a breakpoints was hit. Just keep in mind that it is not possible to interrupt the kernel from gdb (without a Oops or an already existing breakpoint) - use the sysrq mechanism again from Linux to switch back to kgdb.
