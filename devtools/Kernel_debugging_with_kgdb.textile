@@ -323,3 +323,35 @@ index 967965e..0abd42f 100644
  		modules
  endef
 </code></pre>
+
+h2. Agent-Proxy
+
+Instead of switching all the time between gdb and the terminal emulator (via UART/TTL), it can be rather helpful to use a splitter which can multiplex the kgdb and the normal terminal. So instead of using screen/minicom/... + gdb against the tty device, the different sessions are just started against a TCP port.
+
+h3. Installation
+
+<pre><code class="shell">
+$ git clone https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git/
+$ make -C agent-proxy
+</code><pre>
+
+h3. Starting up session
+
+
+
+<pre><code class="shell">
+$ /agent-proxy/agent-proxy '127.0.0.1:5550^127.0.0.1:5551' 0 /dev/ttyUSB0,115200
+</code><pre>
+
+To connect to the terminal session, a simple telnet is enough:
+
+<pre><code class="shell">
+$ telnet localhost 5550
+</code><pre>
+
+The gdb has to be attached like to a remote gdb session
+
+<pre><code class="shell">
+$ cd "${LINUX_DIR}"
+$ "${GDB}" -iex "set auto-load safe-path scripts/gdb/" -iex "target remote localhost:5551" ./vmlinux
+</code></pre>
