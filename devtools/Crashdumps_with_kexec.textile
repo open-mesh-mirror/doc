@@ -127,6 +127,132 @@ root@OpenWrt:/# echo c > /proc/sysrq-trigger
 
 After the boot (without going through BIOS + grub), a file <code>/proc/vmcore</code> should be available which can be saved for further analysis.
 
+h3. ath79
+
+The setup under ath79 is significantly more complicated. It already starts with the problem that the normal kernel and the crashkernel are completely different ones. This is the result of the missing relocation support and the inability of kexec to load an uImage with appended DTB.
+
+Another problem is the <code>CONFIG_HARDENED_USERCOPY=y</code> which prevents kexec under MIPS at the moment. So just disable it in in the kernel configuration. Also make sure that the devicetree for the device already reserves some space for the crashkernel. In this example, it is a 128MB device and 32 MB are reserved at the 64MB boundary
+
+<pre>
+diff --git a/target/linux/generic/config-5.4 b/target/linux/generic/config-5.4
+index e922d23d2c..0d24b4c041 100644
+--- a/target/linux/generic/config-5.4
++++ b/target/linux/generic/config-5.4
+@@ -1881,7 +1881,7 @@ CONFIG_GPIO_SYSFS=y
+ # CONFIG_HAMACHI is not set
+ # CONFIG_HAMRADIO is not set
+ # CONFIG_HAPPYMEAL is not set
+-CONFIG_HARDENED_USERCOPY=y
++# CONFIG_HARDENED_USERCOPY is not set
+ # CONFIG_HARDENED_USERCOPY_FALLBACK is not set
+ # CONFIG_HARDENED_USERCOPY_PAGESPAN is not set
+ CONFIG_HARDEN_EL2_VECTORS=y
+--- a/target/linux/ath79/dts/xxx_xxx.dts
++++ b/target/linux/ath79/dts/xxx_xxx.dts
+@@ -12,5 +12,5 @@
+ 
+ 	chosen {
+-		bootargs = "console=ttyS0,115200n8";
++		bootargs = "console=ttyS0,115200n8 crashkernel=32M@0x04000000";
+ 	};
+ 
+ 	aliases {
+</pre>
+
+This should be visible when booting this device:
+
+<pre><code class="shell">
+root@OpenWrt:/# cat /proc/iomem |grep -e 'System RAM' -e 'Crash kernel'
+00000000-07ffffff : System RAM
+  04000000-05ffffff : Crash kernel
+</code></pre>
+
+The device should of course also have the kexec support enabled in OpenWrt's <code>.config</code>
+
+<pre><code class="diff">
+diff --git a/.config b/.config
+index 54067570a2..8a88b5f140 100644
+--- a/.config
++++ b/.config
+@@ -829,7 +829,7 @@ CONFIG_KERNEL_ELF_CORE=y
+ CONFIG_KERNEL_PRINTK_TIME=y
+ # CONFIG_KERNEL_SLABINFO is not set
+ # CONFIG_KERNEL_PROC_PAGE_MONITOR is not set
+-# CONFIG_KERNEL_KEXEC is not set
++CONFIG_KERNEL_KEXEC=y
+ # CONFIG_USE_RFKILL is not set
+ # CONFIG_USE_SPARSE is not set
+ # CONFIG_KERNEL_DEVTMPFS is not set
+@@ -3704,6 +3712,16 @@ CONFIG_PACKAGE_uboot-envtools=y
+ # CONFIG_PACKAGE_iwcap is not set
+ CONFIG_PACKAGE_iwinfo=y
+ CONFIG_PACKAGE_jshn=y
++CONFIG_PACKAGE_kexec=y
++
++#
++# Configuration
++#
++CONFIG_KEXEC_ZLIB=y
++CONFIG_KEXEC_LZMA=y
++# end of Configuration
++
++# CONFIG_PACKAGE_kexec-tools is not set
+ CONFIG_PACKAGE_libjson-script=y
+ # CONFIG_PACKAGE_libucode is not set
+ # CONFIG_PACKAGE_logger is not set
+</code></pre>
+
+
+The next major part is to prepare a kernel which can be booted by kexec, supports crashdump and is running from the correct physical address. The former requires that the dtb is embedded as part of the elf binary - which is not how OpenWrt is currently building the ath79 kernels. Luckily, it only requires a config change (<code>CONFIG_MIPS_RAW_APPENDED_DTB=y<code> to <code>CONFIG_MIPS_ELF_APPENDED_DTB=y</code>) and some binutils commands (objcopy, strip, ...). The setup of crashdump is also just a couple of configuration settings. The most important setting is <code>CONFIG_PHYSICAL_START</code> which must match the address in <code>crashkernel</code>
+
+<pre><code class="diff">
+diff --git a/target/linux/ath79/config-5.4 b/target/linux/ath79/config-5.4
+index e37b728554..24892b7435 100644
+--- a/target/linux/ath79/config-5.4
++++ b/target/linux/ath79/config-5.4
+@@ -160,10 +160,10 @@ CONFIG_MIPS_CLOCK_VSYSCALL=y
+ # CONFIG_MIPS_CMDLINE_DTB_EXTEND is not set
+ # CONFIG_MIPS_CMDLINE_FROM_BOOTLOADER is not set
+ CONFIG_MIPS_CMDLINE_FROM_DTB=y
+-# CONFIG_MIPS_ELF_APPENDED_DTB is not set
++CONFIG_MIPS_ELF_APPENDED_DTB=y
+ CONFIG_MIPS_L1_CACHE_SHIFT=5
+ # CONFIG_MIPS_NO_APPENDED_DTB is not set
+-CONFIG_MIPS_RAW_APPENDED_DTB=y
++# CONFIG_MIPS_RAW_APPENDED_DTB is not set
+ CONFIG_MIPS_SPRAM=y
+ CONFIG_MODULES_USE_ELF_REL=y
+ CONFIG_MTD_CFI_ADV_OPTIONS=y
+@@ -249,3 +249,7 @@ CONFIG_TICK_CPU_ACCOUNTING=y
+ CONFIG_TINY_SRCU=y
+ CONFIG_USB_SUPPORT=y
+ CONFIG_USE_OF=y
++
++CONFIG_CRASH_DUMP=y
++CONFIG_PROC_VMCORE=y
++CONFIG_PHYSICAL_START=0x04000000
+</code></pre>
+
+As mentioned earlier, this kernel is not yet ready to be used because the device tree must be embedded:
+
+<pre><code class="shell">
+$ LXBASE=./build_dir/target-mips_24kc_musl/linux-ath79_generic
+</code></pre>
+
+
+The system kernel must now be loaded in the "Crash kernel" region so the panic handler can boot it on demand.
+
+<pre><code class="shell">
+root@OpenWrt:/# kexec -p /tmp/vmlinux.elf --command-line "$(cat /proc/cmdline)" --append '1 reset_devices'
+Modified cmdline:1 irqpoll nr_cpus=1 reset_devices mem=32767K@65536K elfcorehdr=97276K 
+</code></pre>
+
+<pre><code class="shell">
+root@OpenWrt:/# echo c > /proc/sysrq-trigger
+</code></pre>
+
+After the boot (without going through u-boot), a file <code>/proc/vmcore</code> should be available which can be saved for further analysis.
+
 h2. Analyzing vmcore
 
 gdb is usually the correct way to start analyzing coredumps or have interactive (remote) debugging sessions. But this usually ends like this when trying to operate on various memory regions:
