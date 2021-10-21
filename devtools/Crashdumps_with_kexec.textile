@@ -1,5 +1,7 @@
 h1. Crashdumps with kexec
 
+{{>toc}}
+
 [[Crashlog_with_pstore|Stack traces]] are a nice way to have a first glance at a kernel problem. But sometimes the stack traces provide not enough information and an offline (post-mortem) analysis would be required. Normal coredumps can be used for userspace programs but this wouldn't provide any insights in the state of the kernel.
 
 The kernel provides for this task the crash_dump feature which is based on kexec. The latter is used to start a kernel on the running system - replacing the old while bypassing system firmware and bootloaders. This can either be triggered manually by system call or on a kernel panic. Such a crash/panic handling requires that the system memory has a portion of the system RAM's physical address space reserved for the crash kernel.
