@@ -54,7 +54,7 @@ But the details are architecture and system specific
 
 h3. x86-64
 
-The system setup for x86(-64) is rather straight forward. It is possible to use a correct compiled kernel for both normal kernel and for the crashkernel. There are even kdump packages under distributions like OpenWrt and Debian which can automate the setup (after the kernel commandline is configured correctly) and will only use the crashkernel to save the <code>/proc/vmcore</code> to the filesystem before rebooting the system again afterwards.
+The system setup for x86(-64) is rather straight forward. It is possible to use a correct compiled kernel for both normal kernel and for the crashkernel. There are even kdump packages under distributions like OpenWrt and Debian which can automate the setup (after the kernel commandline is configured correctly) and will only use the crashkernel to save the <code>/proc/vmcore</code> to the filesystem before rebooting the system again to return to the normal environment.
 
 Let us check the setup on OpenWrt without using the kdump packages. First step is to enable the KEXEC specific options in OpenWrt's <code>.config</code>. The boot cmdline can also directly set up during the image build (or later changed under OpenWrt):
 
@@ -374,4 +374,3 @@ LINE: 448
 * 448                   attr->nla_len = 23;
   449           }
 </pre>
-
