@@ -131,7 +131,7 @@ h3. ath79
 
 The setup under ath79 is significantly more complicated. It already starts with the problem that the normal kernel and the crashkernel are completely different ones. This is the result of the missing relocation support and the inability of kexec to load an uImage with appended DTB.
 
-Another problem is the <code>CONFIG_HARDENED_USERCOPY=y</code> which prevents kexec under MIPS at the moment. So just disable it in in the kernel configuration. Also make sure that the devicetree for the device already reserves some space for the crashkernel. In this example, it is a 128MB device and 32 MB are reserved at the 64MB boundary
+Another problem is the <code>CONFIG_HARDENED_USERCOPY=y</code> which prevents kexec under MIPS at the moment. So just disable it in in the kernel configuration. Also make sure that the devicetree for the device already reserves some space for the crashkernel. In this example, it is a 128MB device and 32 MB are reserved at the 16MB boundary
 
 <pre>
 diff --git a/target/linux/generic/config-5.4 b/target/linux/generic/config-5.4
@@ -153,7 +153,7 @@ index e922d23d2c..0d24b4c041 100644
  
  	chosen {
 -		bootargs = "console=ttyS0,115200n8";
-+		bootargs = "console=ttyS0,115200n8 crashkernel=32M@0x04000000";
++		bootargs = "console=ttyS0,115200n8 crashkernel=32M@0x01000000";
  	};
  
  	aliases {
@@ -164,7 +164,7 @@ This should be visible when booting this device:
 <pre><code class="shell">
 root@OpenWrt:/# cat /proc/iomem |grep -e 'System RAM' -e 'Crash kernel'
 00000000-07ffffff : System RAM
-  04000000-05ffffff : Crash kernel
+  01000000-02ffffff : Crash kernel
 </code></pre>
 
 The device should of course also have the kexec support enabled in OpenWrt's <code>.config</code>
@@ -230,7 +230,7 @@ index e37b728554..24892b7435 100644
 +
 +CONFIG_CRASH_DUMP=y
 +CONFIG_PROC_VMCORE=y
-+CONFIG_PHYSICAL_START=0x04000000
++CONFIG_PHYSICAL_START=0x01000000
 </code></pre>
 
 As mentioned earlier, this kernel is not yet ready to be used because the device tree must be embedded:
