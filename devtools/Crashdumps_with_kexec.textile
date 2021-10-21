@@ -243,7 +243,7 @@ $ LXBASE=./build_dir/target-mips_24kc_musl/linux-ath79_generic
 The system kernel must now be loaded in the "Crash kernel" region so the panic handler can boot it on demand.
 
 <pre><code class="shell">
-root@OpenWrt:/# kexec -p /tmp/vmlinux.elf --command-line "$(cat /proc/cmdline)" --append '1 reset_devices'
+root@OpenWrt:/# kexec -p /tmp/vmlinux.elf --command-line "" --append '$(cat /proc/cmdline) 1 reset_devices'
 Modified cmdline:1 irqpoll nr_cpus=1 reset_devices mem=32767K@65536K elfcorehdr=97276K 
 </code></pre>
 
