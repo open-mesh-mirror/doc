@@ -248,6 +248,9 @@ As mentioned earlier, this kernel is not yet ready to be used because the device
 
 <pre><code class="shell">
 $ LXBASE=./build_dir/target-mips_24kc_musl/linux-ath79_generic
+$ cp "$LXBASE"/vmlinux.elf vmlinux.elf
+$ mips-linux-gnu-strip vmlinux.elf
+$ mips-linux-gnu-objcopy --update-section .appended_dtb="$LXBASE"/image-xxx_xxx.dtb vmlinux.elf
 </code></pre>
 
 
