@@ -203,7 +203,7 @@ index 54067570a2..8a88b5f140 100644
 </code></pre>
 
 
-The next major part is to prepare a kernel which can be booted by kexec, supports crashdump and is running from the correct physical address. The former requires that the dtb is embedded as part of the elf binary - which is not how OpenWrt is currently building the ath79 kernels. Luckily, it only requires a config change (<code>CONFIG_MIPS_RAW_APPENDED_DTB=y</code> to <code>CONFIG_MIPS_ELF_APPENDED_DTB=y</code>) and some binutils commands (objcopy, strip, ...). The setup of crashdump is also just a couple of configuration settings. The most important setting is <code>CONFIG_PHYSICAL_START</code> which must match the address in <code>crashkernel</code>
+The next major part is to prepare a kernel which can be booted by kexec, supports crashdump and is running from the correct physical address. The former requires that the dtb is embedded as part of the elf binary - which is not how OpenWrt is currently building the ath79 kernels. Luckily, it only requires a config change (<code>CONFIG_MIPS_RAW_APPENDED_DTB=y</code> to <code>CONFIG_MIPS_ELF_APPENDED_DTB=y</code>) and some binutils commands (objcopy, strip, ...). The setup of crashdump is also just a couple of configuration settings. The most important setting is <code>CONFIG_PHYSICAL_START</code> which must match the address in <code>crashkernel</code> + 0x80000000 (the address where physical pages are mapped to in the virtual address space for this architecture).
 
 <pre><code class="diff">
 diff --git a/target/linux/ath79/config-5.4 b/target/linux/ath79/config-5.4
@@ -230,7 +230,7 @@ index e37b728554..24892b7435 100644
 +
 +CONFIG_CRASH_DUMP=y
 +CONFIG_PROC_VMCORE=y
-+CONFIG_PHYSICAL_START=0x01000000
++CONFIG_PHYSICAL_START=0x81000000
 </code></pre>
 
 As mentioned earlier, this kernel is not yet ready to be used because the device tree must be embedded:
