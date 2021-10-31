@@ -79,15 +79,17 @@ Example: ff02::1 (all nodes) |
 (excl. all nodes addr.) |=. supported without bridges¹.
 Example: 224.0.0.251 (mDNS) |=. supported².
 Example: ff12::39 (locally administrated) |
-| *routable* |=. supported without bridges³.
-Example: 239.1.2.3 (locally administrated) |=. supported².
+| *routable* |=. supported³.
+Example: 239.1.2.3 (locally administrated) |=. supported²⁴.
 Example: ff0e::101 (NTP) |
 
 ¹: These addresses cannot be considered for optimization towards nodes which have a bridge interface on top of their batman interface as they are not snoopable. See  [[multicast-optimizations-flags#BATADV_MCAST_WANT_ALL_UNSNOOPABLES]] for details.
 
 ²: In bridged scenarios, an IGMP/MLD querier needs to be present in the mesh. Also, a 3.17 kernel or newer is required.
 
-³: Routable IPv4 multicast addresses in bridged scenarios are not supported yet. See  [[multicast-optimizations-tech#routable-multicast-addresses]] for details.
+³: Routable IPv4 multicast addresses in bridged scenarios require a 5.14 kernel or newer and "batman-adv 2021.2":https://www.open-mesh.org/news/104 or newer. Before that only supported without bridges.
+
+⁴: With a 5.14 kernel or newer and "batman-adv 2021.2":https://www.open-mesh.org/news/104 or newer proper "MRD":https://www.rfc-editor.org/rfc/rfc4286.html support is used to detect multicast routers. Otherwise with batman-adv v2019.3 until v2021.1 multicast routers are "guessed" by listeners on ff02::2. Which will "overestimate" by including unicast routers without multicast routing, too.
 
 For details on IPv4 and IPv6 multicast address ranges check out this detailed article on "Wikipedia":https://en.wikipedia.org/wiki/Multicast_address.
 
