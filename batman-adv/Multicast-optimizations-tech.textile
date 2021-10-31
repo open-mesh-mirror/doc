@@ -95,9 +95,7 @@ For details on IPv4 and IPv6 multicast address ranges check out this detailed ar
 
 h3. Routable multicast addresses
 
-For routable multicast addresses, further consideration has to be given: The according multicast packets not only need to be forwarded to any multicast listener on the local link, but to any multicast router, too. Otherwise off-link listeners, which are only reachable via a layer 3 multicast router, would not receive these multicast packets anymore.
-
-batman-adv currently detects IPv6 multicast routers by searching for ff02::2 all-routers multicast listeners (which overestimates by including unicast routers, too). For proper IPv4+IPv6 multicast router detection "Multicast Router Discovery":https://tools.ietf.org/search/rfc4286 needs to be implemented in batman-adv (implemented in the bridge, tapping into this is still ToDo).
+For routable multicast addresses, further consideration has to be given: The according multicast packets not only need to be forwarded to any multicast listener on the local link, but to any multicast router, too. Otherwise off-link listeners, which are only reachable via a layer 3 multicast router, would not receive these multicast packets anymore. batman-adv detects node local multicast routers through _/proc/sys/net/<ipv4|ipv6>/conf/<iface>/mc_forwarding_ and uses a bridge's "Multicast Router Discovery":https://tools.ietf.org/search/rfc4286 capabilities for bridged-in hosts.
 
 h2. Limitations
 
