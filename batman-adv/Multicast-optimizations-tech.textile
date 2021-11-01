@@ -89,7 +89,7 @@ Example: ff0e::101 (NTP) |
 
 ³: Routable IPv4 multicast addresses in bridged scenarios require a 5.14 kernel or newer and "batman-adv 2021.2":https://www.open-mesh.org/news/104 or newer. Before that only supported without bridges.
 
-⁴: With a 5.14 kernel or newer and "batman-adv 2021.2":https://www.open-mesh.org/news/104 or newer proper "MRD":https://www.rfc-editor.org/rfc/rfc4286.html support is used to detect multicast routers. Otherwise with batman-adv v2019.3 until v2021.1 multicast routers are "guessed" by listeners on ff02::2. Which will "overestimate" by including unicast routers without multicast routing, too.
+⁴: With a 5.14 kernel or newer and "batman-adv 2021.2":https://www.open-mesh.org/news/104 or newer proper "MRD":https://www.rfc-editor.org/rfc/rfc4286.html support is used to detect multicast routers. Otherwise with "batman-adv v2019.3":https://www.open-mesh.org/news/92 until v2021.1 multicast routers are "guessed" by listeners on ff02::2. Which will "overestimate" by including unicast routers without multicast routing, too.
 
 For details on IPv4 and IPv6 multicast address ranges check out this detailed article on "Wikipedia":https://en.wikipedia.org/wiki/Multicast_address.
 
