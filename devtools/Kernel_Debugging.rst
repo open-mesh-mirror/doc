@@ -24,9 +24,6 @@ Various
 .. toctree::
    :maxdepth: 1
 
-   Kernel_debugging_with_qemu's_GDB_server
-   Kernel_debugging_with_kgdb
-   Kernel_debugging_over_JTAG
    GDB_Linux_snippets
    Crashlog_with_pstore
    Crashdumps_with_kexec
