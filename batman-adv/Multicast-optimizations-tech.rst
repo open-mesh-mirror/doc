@@ -136,9 +136,9 @@ sent as broadcast as a fallback solution.
      - supported²
        Example: ff12::39 (locally administrated)
    * - routable
-     - supported without bridges³
+     - supported³
        Example: 239.1.2.3 (locally administrated)
-     - supported²
+     - supported²⁴
        Example: ff0e::101 (NTP)
 
 ¹: These addresses cannot be considered for optimization towards nodes
@@ -150,14 +150,15 @@ for details.
 ²: In bridged scenarios, an IGMP/MLD querier needs to be present in the
 mesh. Also, a 3.17 kernel or newer is required.
 
-³: Routable IPv4 multicast addresses in bridged scenarios are not supported
-yet. See 
-:ref:`multicast-optimizations-tech#routable-multicast-addresses <batman-adv-Multicast-optimizations-tech-routable-multicast-addresses>` for
-details.
+³: Routable IPv4 multicast addresses in bridged scenarios require a 5.14 kernel
+or newer and batman-adv 2021.2 or newer. Before that only supported without
+bridges.
 
-For details on IPv4 and IPv6 multicast address ranges check out this
-detailed article on
-`Wikipedia <https://en.wikipedia.org/wiki/Multicast_address>`__.
+⁴: With a 5.14 kernel or newer and batman-adv 2021.2 or newer proper
+`MRD <https://www.rfc-editor.org/rfc/rfc4286.html>`__ support is used to detect
+multicast routers. Otherwise with batman-adv v2019.3 until v2021.1 multicast
+routers are "guessed" by listeners on ff02::2. Which will "overestimate" by
+including unicast routers without multicast routing, too.
 
 .. _batman-adv-multicast-optimizations-tech-routable-multicast-addresses:
 
@@ -168,18 +169,11 @@ For routable multicast addresses, further consideration has to be given:
 The according multicast packets not only need to be forwarded to any
 multicast listener on the local link, but to any multicast router, too.
 Otherwise off-link listeners, which are only reachable via a layer 3
-multicast router, would not receive these multicast packets anymore. To
-be on the safe side, batman-adv currently simply floods these address
-ranges. To support these address ranges later, too, `Multicast Router
-Discovery <https://tools.ietf.org/search/rfc4286>`__ needs to be
-implemented in batman-adv (which was not done yet).
-
-+batman-adv currently detects IPv6 multicast routers by searching for
-ff02::2 all-routers multicast listeners (which overestimates by including
-unicast routers, too). For proper IPv4+IPv6 multicast router detection
-"Multicast Router Discovery":https://tools.ietf.org/search/rfc4286 needs
-to be implemented in batman-adv (implemented in the bridge, tapping into
-this is still ToDo).
+multicast router, would not receive these multicast packets anymore.
+batman-adv detects node local multicast routers through
+``/proc/sys/net/<ipv4|ipv6>/conf/<iface>/mc_forwarding`` and uses a bridge's
+`Multicast Router Discovery <https://tools.ietf.org/search/rfc4286>`__
+capabilities for bridged-in hosts.
 
 Limitations
 -----------
@@ -207,9 +201,6 @@ Next Steps / Roadmap
   - some-to-many / streaming: implement path tracking and use these
     patches (see :doc:`Multicast-ideas-updated <Multicast-ideas-updated>`)
 
-* integrate bridge's `Multicast Router
-  Discovery <https://tools.ietf.org/search/rfc4286>`__ to to properly support scopes
-  greater than link-local
 * implement some faster listener roaming mechanism for bridged in
   hosts (for instance announce (multicast-address, source address) pairs
   and use general TT roaming mechanism)

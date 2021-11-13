@@ -378,15 +378,25 @@ the routing feed like this:
 .. code-block:: diff
 
   diff --git a/batman-adv/Makefile b/batman-adv/Makefile
-  index a7c6a79..c18f978 100644
+  index 967965e..0abd42f 100644
   --- a/batman-adv/Makefile
   +++ b/batman-adv/Makefile
-  @@ -89,7 +89,7 @@ define Build/Compile
-          CROSS_COMPILE="$(TARGET_CROSS)" \
-          SUBDIRS="$(PKG_BUILD_DIR)/net/batman-adv" \
-          $(PKG_EXTRA_KCONFIG) \
-  -       EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS)" \
-  +       EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS) -fno-inline -Og -fno-optimize-sibling-calls" \
-          NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
-          modules
+  @@ -17,6 +17,9 @@ PKG_LICENSE_FILES:=LICENSES/preferred/GPL-2.0 LICENSES/preferred/MIT
+   
+   STAMP_CONFIGURED_DEPENDS := $(STAGING_DIR)/usr/include/mac80211-backport/backport/autoconf.h
+   
+  +RSTRIP:=:
+  +STRIP:=:
+  +
+   include $(INCLUDE_DIR)/kernel.mk
+   include $(INCLUDE_DIR)/package.mk
+   
+  @@ -77,7 +80,7 @@ define Build/Compile
+   		$(KERNEL_MAKE_FLAGS) \
+   		M="$(PKG_BUILD_DIR)/net/batman-adv" \
+   		$(PKG_EXTRA_KCONFIG) \
+  -		EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS)" \
+  +		EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS) -fno-inline -Og -fno-optimize-sibling-calls" \
+   		NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
+   		modules
    endef
