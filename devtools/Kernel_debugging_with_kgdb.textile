@@ -351,10 +351,10 @@ h3. Starting up session
 $ /agent-proxy/agent-proxy '127.0.0.1:5550^127.0.0.1:5551' 0 /dev/ttyUSB0,115200
 </code></pre>
 
-To connect to the terminal session, a simple telnet is enough:
+To connect to the terminal session, a simple telnet or telnet-like tool is enough:
 
 <pre><code class="shell">
-$ telnet localhost 5550
+$ screen //telnet localhost 5550
 </code></pre>
 
 The setup of the kgdboc must happen exactly as described before. Including the switch to the debugging mode via sysrq.
