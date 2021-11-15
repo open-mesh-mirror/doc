@@ -1,86 +1,75 @@
-h1. DRAFT: Batman-adv 2021.3 released
+h1. DRAFT: Batman-adv 2021.4 released
 
-Sep 16th, 2021. Today the B.A.T.M.A.N. team publishes the September 2021 update to batman-adv, batctl and alfred! The broadcast queuing changes from 2021.2 were now utilized to reduce the packet copy overhead when sending broadcast packets. Also several code cleanups are included in this version.
+Nov 16th, 2021. Today the B.A.T.M.A.N. team publishes the November 2021 update to batman-adv, batctl and alfred! The broadcast queuing changes from 2021.3 were now utilized to reduce the packet copy overhead when sending broadcast packets. Also several code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2021.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2021.4/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Alexey Dobriyan <adobriyan@gmail.com>
-* Linus Lüssing <linus.luessing@c0d3.blue>
+* Eric W. Biederman <ebiederm@xmission.com>
+* Jakub Kicinski <kuba@kernel.org>
+* Kyungrok Chung <acadx0@gmail.com>
+* Pavel Skripkin <paskripkin@gmail.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
-* Sven Eckelmann <sven@narfation.org>
-* Yajun Deng <yajun.deng@linux.dev>
-
-and to all those that supported us with good advice or rigorous testing:
-
-* Ard Biesheuvel <ardb@kernel.org>
-* Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2021.2-10-g36d05979
-$ range=v2021.2..v2021.2-10-g36d05979
+v2021.3-11-g80822fdf
+$ range=v2021.3..v2021.3-11-g80822fdf
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-Alexey Dobriyan <adobriyan@gmail.com> (1):
-
-Linus Lüssing <linus.luessing@c0d3.blue> (1):
-      batman-adv: bcast: remove remaining skb-copy calls
 
 
-Sven Eckelmann <sven@narfation.org> (5):
-
-Yajun Deng <yajun.deng@linux.dev> (2):
-      batman-adv: compat: add the case if dev is NULL
-      batman-adv: Remove redundant if statements
 
 
 new kernel version
 ==================
 
-      batman-adv: use Linux's stdarg.h
-      batman-adv: compat: Add support for linux/kstrtox.h
-      batman-adv: Switch to kstrtox.h for kstrtou64
+      batman-adv: prepare for const netdev->dev_addr
+      batman-adv: create netdev->dev_addr assignment helpers
+      batman-adv: use eth_hw_addr_set() instead of ether_addr_copy()
 
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Check ptr for NULL before reducing its refcnt
-      batman-adv: Drop NULL check before dropping references
+      batman-adv: Have kernel threads return instead of calling do_exit
+      batman-adv: make use of helper netif_is_bridge_master()
 
 various
 =======
 
-      batman-adv: Move IRC channel to hackint.org
 
 bugfixes
 ========
 
+      batman-adv: fix error handling
 
-2021.3 (2021-09-16)
+
+2021.4 (2021-11-16)
 ===================
 
-* support latest kernels (4.4 - 5.15)
+* support latest kernels (4.4 - 5.16)
 * coding style cleanups and refactoring
-* reduced memory copy overhead when sending broadcasts
+* bugs squashed:
+
+  - fix error handling during interface initialization
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/master
-v2021.2-1-ge5020fb
-$ range=v2021.2..v2021.2-1-ge5020fb
+v2021.3-1-g2d4e026
+$ range=v2021.3..v2021.3-1-g2d4e026
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -102,7 +91,7 @@ bugfixes
 
 
 
-2021.3 (2021-09-16)
+2021.4 (2021-11-16)
 ===================
 
 * (no changes)
@@ -114,14 +103,14 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2021.2-1-gf45db30
-$ range=v2021.2..v2021.2-1-gf45db30
+v2021.3-1-g34374fa
+$ range=v2021.3..v2021.3-1-g34374fa
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
-2021.3 (2021-09-16)
+2021.4 (2021-11-16)
 ===================
 
 * (no changes)
