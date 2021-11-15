@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2021.4 released
 
-Nov 16th, 2021. Today the B.A.T.M.A.N. team publishes the November 2021 update to batman-adv, batctl and alfred! The broadcast queuing changes from 2021.3 were now utilized to reduce the packet copy overhead when sending broadcast packets. Also several code cleanups are included in this version.
+Nov 16th, 2021. Today the B.A.T.M.A.N. team publishes the November 2021 update to batman-adv! Several code cleanups and bugfixes are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
