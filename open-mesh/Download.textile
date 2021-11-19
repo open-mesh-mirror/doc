@@ -92,7 +92,7 @@ It follows an overview of linux versions and the batman-adv version they contain
 * linux 5.13 => batman-adv 2021.1 (get batctl 2021.1 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 5.14 => batman-adv 2021.2 (get batctl 2021.2 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 5.15 => batman-adv 2021.3 (get batctl 2021.3 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 5.16 => batman-adv 2021.3 (get batctl 2021.4 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 5.16 => batman-adv 2021.3
 
 h2. Arch Linux
 
