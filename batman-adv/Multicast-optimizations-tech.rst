@@ -187,7 +187,7 @@ Limitations
   BATADV\_MCAST\_WANT\_ALL\_UNSNOOPABLES, that is no node configures a
   bridge on batman-adv.
 * no awareness for source-specific multicasts
-* multcast packets over VLANs are always flooded
+* multicast packets over VLANs are always flooded
 
 Next Steps / Roadmap
 --------------------

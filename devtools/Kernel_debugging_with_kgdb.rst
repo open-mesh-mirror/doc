@@ -440,7 +440,7 @@ Enable KGDB on panic
 --------------------
 
 Usually, a debugger catches problems like segfaults and allows a user to debug
-the problem further. On modern setups with kgdb, this is not the case because
+the problem further. On modern setups with kgdb, this is not the case becaus
 the system will automatically reboot after n-seconds.
 
 This can be avoided by changing the sysctl config ``kernel.panic`` to 0. Either

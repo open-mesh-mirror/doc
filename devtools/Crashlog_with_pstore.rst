@@ -82,14 +82,14 @@ manually to the devicetree file of the board:
 
    / {
   +   reserved-memory {
-  +       #address-cells = <2>;
-  +       #size-cells = <2>;
+  +       #address-cells = <1>;
+  +       #size-cells = <1>;
   +       ranges;
   +
   +       /* 64 KiB reserved for ramoops/pstore */
   +       ramoops@03f00000 {
   +           compatible = "ramoops";
-  +           reg = <0 0x03f00000 0 0x10000>;
+  +           reg = <0x03f00000 0x10000>;
   +           record-size = <0x1000>;
   +           console-size = <0x1000>;
   +       };
