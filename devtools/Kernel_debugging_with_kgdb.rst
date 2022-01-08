@@ -417,7 +417,7 @@ Starting up session
 
 .. code-block:: shell
 
-  $ /agent-proxy/agent-proxy '127.0.0.1:5550^127.0.0.1:5551' 0 /dev/ttyUSB0,115200
+  $ ./agent-proxy/agent-proxy '127.0.0.1:5550^127.0.0.1:5551' 0 /dev/ttyUSB0,115200
 
 To connect to the terminal session, a simple telnet or telnet-like tool
 is enough:
