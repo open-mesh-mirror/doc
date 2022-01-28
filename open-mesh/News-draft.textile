@@ -1,75 +1,71 @@
-h1. DRAFT: Batman-adv 2021.4 released
+h1. DRAFT: Batman-adv 2022.0 released
 
-Nov 16th, 2021. Today the B.A.T.M.A.N. team publishes the November 2021 update to batman-adv! Several code cleanups and bugfixes are included in this version.
+Feb 1st, 2022. Today the B.A.T.M.A.N. team publishes the February 2022 update to batman-adv! To improve the usability in containers, batman-adv can now be controlled and monitored via netlink in unprivileged containers. alfred got more flexible in the way it is handling interfaces. The batman-adv interface can now be changed at runtime and it can be started without any interfaces. Also several code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2021.4/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2022.0/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Eric W. Biederman <ebiederm@xmission.com>
-* Jakub Kicinski <kuba@kernel.org>
-* Kyungrok Chung <acadx0@gmail.com>
-* Pavel Skripkin <paskripkin@gmail.com>
+* Linus Lüssing <linus.luessing@c0d3.blue>
+* Marek Lindner <mareklindner@neomailbox.ch>
+* Minghao Chi <chi.minghao@zte.com.cn>
 * Simon Wunderlich <sw@simonwunderlich.de>
+* Sven Eckelmann <sven@narfation.org>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2021.3-11-g80822fdf
-$ range=v2021.3..v2021.3-11-g80822fdf
+v2021.4-7-ga2484e1a
+$ range=v2021.4..v2021.4-7-ga2484e1a
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
-
-
-
 
 
 new kernel version
 ==================
 
-      batman-adv: prepare for const netdev->dev_addr
-      batman-adv: create netdev->dev_addr assignment helpers
-      batman-adv: use eth_hw_addr_set() instead of ether_addr_copy()
+      batman-adv: compat: Fix linux/build_bug.h include for Linux 4.9.297
 
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Have kernel threads return instead of calling do_exit
-      batman-adv: make use of helper netif_is_bridge_master()
+      batman-adv: remove unneeded variable
 
 various
 =======
+
+      batman-adv: allow netlink usage in unprivileged containers
 
 
 bugfixes
 ========
 
-      batman-adv: fix error handling
+      batman-adv: mcast: don't send link-local multicast to mcast routers
 
 
-2021.4 (2021-11-16)
+2022.0 (2021-02-01)
 ===================
 
-* support latest kernels (4.4 - 5.16)
+* support latest kernels (4.4 - 5.17)
 * coding style cleanups and refactoring
+* allow netlink usage in unprivileged containers
 * bugs squashed:
 
-  - fix error handling during interface initialization
+  - don't send link-local multicast to mcast routers
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/master
-v2021.3-1-g2d4e026
-$ range=v2021.3..v2021.3-1-g2d4e026
+v2021.4-1-ge45cb92
+$ range=v2021.4..v2021.4-1-ge45cb92
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -91,7 +87,7 @@ bugfixes
 
 
 
-2021.4 (2021-11-16)
+2022.0 (2021-02-01)
 ===================
 
 * (no changes)
@@ -103,17 +99,30 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2021.3-1-g34374fa
-$ range=v2021.3..v2021.3-1-g34374fa
+v2021.4-7-g2cca531
+$ range=v2021.4..v2021.4-7-g2cca531
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
+Marek Lindner <mareklindner@neomailbox.ch> (4):
+      alfred: remove meaningless printf() call
+      alfred: introduce 'change batman-adv interface' IPC call
+      alfred: move interface check into helper function
+      alfred: Allow operating without any interface specified
 
+Simon Wunderlich <sw@simonwunderlich.de> (1):
+      alfred: Start new development cycle
 
-2021.4 (2021-11-16)
+Sven Eckelmann <sven@narfation.org> (2):
+      alfred: Avoid large send buffer for fixed size IPC commands
+      alfred: Simplify calculation of fixed size IPC TLV length
+
+2022.0 (2021-02-01)
 ===================
 
-* (no changes)
+* coding style cleanups and refactoring
+* allow changing of batman-adv interface at runtime
+* allow to start alfred without interfaces specified
 </pre>
 
 
