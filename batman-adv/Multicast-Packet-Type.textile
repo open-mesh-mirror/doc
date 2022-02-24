@@ -1,0 +1,102 @@
+h1. Multicast Packet Type
+
+h2. Brief
+
+Reduce number of packets / overhead by introducing a new batman-adv multicast packet type which is capable of holding multiple destination addresses.
+
+h2. Current State
+
+batman-adv now has IP multicast group awareness. And with that can detect in advance which other nodes want to receive an IPv4/IPv6 multicast packet for a specific multicast destination/multicast group.
+
+The sender algorithm so far is simply either sending a packet via one batman-adv unicast packet for each interested destination node:
+
+!{width: 66%;}https://www.open-mesh.org/attachments/download/888/basic-multicast-multiple-receivers.png!
+
+Or when the number of destination is larger than 16 (default, configurable) it will fall back to using a single batman-adv broadcast packet:
+
+!{width: 66%;}https://www.open-mesh.org/attachments/download/890/basic-multicast-many-receivers.png!
+
+The former method is more efficient when the number of interested nodes is rather small. And allows bothering less nodes in the mesh and by that then generating less overhead in the overall mesh. However it still often leads to duplicated transmissions of the multicast IP packet especially on the first hops.
+
+For more details see:
+* [[Multicast-optimizations]]
+
+h2. Technical Specification
+
+MCAST packet type header:
+
+<pre><code>    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |  Packet Type  |  Version      |  TTL          | reserved      |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |  (Anonymous) Originator / MCAST Tracker-ID ...                |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   |  ...                          |  TVLV length                  |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-|
+   |  MCAST Tracker TVLV ...                                       |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-|
+   |  Data ...                                                     |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</code></pre>
+
+* Packet Type: BATADV_MCAST (0x05)
+* Version: 15
+* TTL:
+* reserved: 0x00
+* (Anonymous) Originator / Tracker-ID: 6 random bytes per (orig-addr, mcast-addr) tuple
+* TVLV length:
+
+
+MCAST Tracker TVLV:
+
+<pre><code>    0                   1                   2                   3
+    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | TVLV Type     | TVLV Version  | TVLV Length                   |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | MCAST Address ...                                             |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | ...                           | #Num Dests (N)                |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | Dest 1 ...                                                    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | ...                           | Dest 2 ...                    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | ...                                                           |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | Dest N ...                                                    |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   | ...                           | [padding]                     |
+   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</code></pre>
+
+* TVLV Type:
+
+h4. Preparations for Multicast Tracker Packets (future enhancements)
+
+The fields _Tracker-ID_ and _MCAST Address_ will not be used in the initial implementation of the batman-adv multicast packet type. But they are in preparation for the future enhancements where control and data plane can be separated. That is where batman-adv multicast packets can also be send without _Data_ (_Multicast Tracker Packets_) and the destinations are cached on nodes on the path. And then further batman-adv multicast packets could be send with _Data_ but with a zero length TVLV, so without the destination addresses.
+
+h2. Implementation Tasks
+
+*All nodes:*
+* Signalize Multicast Packet capability to other nodes (add flag to BATADV_TVLV_MCAST)
+
+*Forwarding Nodes:*
+* Parse Multicast Packet Type, potentially split multicast packet if multiple next hops to forward to
+
+*Receiving Nodes:*
+* Decapsulate: Remove batman-adv multicast packet header, forward to upper interface (bat0)
+
+*Originating Nodes:*
+# Check if all (optimization: on path) batman-adv originators support Multicast Packet Capability
+# If yes, further check if number of batman-adv multicast per IP multicast packet is smaller than multicast fanout setting. So calculate MTU - sizeof(_Data_) - sizeof(multicast-packet-header) and divide by number of destinations (check Translation Table). If it exceeds multicast fanout then bail out and fall back to broadcast flooding. Otherwise continue:
+# 
+
+
+TODOs:
+
+* 1 or 2 bytes for #Num Dests for Address X?
+  * If limit of entries were reached, we could just send another
+    mcast packet? (~6*256 = 1536). Or do we want to be prepared
+    for jumbo frames?
