@@ -128,6 +128,7 @@ The extra stuff which should not be submitted can be identified via:
 
 <pre>
 git log --stat --oneline "${LM_MASTER}"..rebase -- compat-sources compat-include README.external CHANGELOG Makefile .gitignore .gitattributes compat.h gen-compat-autoconf.sh README
+git log -p -SUGLY_HACK "${LM_MASTER}"..rebase
 </pre>
 
 This can all be cleaned up by using git-rebase and then marking the relevant commits for editing. It may also be a good idea to move patches like "Start-new-development-cycle" to the front
@@ -189,6 +190,7 @@ The extra stuff which should not be submitted can be identified via:
 
 <pre>
 git log --stat --oneline "${LM_MAINT}"..rebase -- compat-sources compat-include README.external CHANGELOG Makefile .gitignore .gitattributes compat.h gen-compat-autoconf.sh README
+git log -p -SUGLY_HACK "${LM_MAINT}"..rebase
 </pre>
 
 This can all be cleaned up by using git-rebase and then marking the relevant commits for editing. It may also be a good idea to move patches like "Start-new-development-cycle" to the front
