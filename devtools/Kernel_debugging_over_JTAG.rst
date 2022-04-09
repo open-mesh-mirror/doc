@@ -201,9 +201,9 @@ following pins of the debug adapter hardware:
 
 The 8devices lima reference board exposes all over its GPIO pins:
 
--  TDI: J2 - GPIO1
--  TDO: J2 - GPIO2
--  TCK: J2 - GPIO0
+-  TDI: J2 11 - GPIO1
+-  TDO: J2 12 - GPIO2
+-  TCK: J2 10 - GPIO0
 -  TMS: J2 13 - GPIO3
 -  GND: J1 16 - GND
 -  VTG: J1 15 - 3.3V
