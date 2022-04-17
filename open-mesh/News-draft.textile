@@ -73,6 +73,8 @@ bugfixes
     the network namespace of a lower device
   - fix sanity check of network devices in different namespaces with
     colliding IDs
+  - prevent transmission errors after splitting large GRO packets into
+    smaller fragments
 </pre>
 
 h2. batctl
