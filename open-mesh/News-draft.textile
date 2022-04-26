@@ -19,6 +19,7 @@ Thanks to all people sending in patches:
 
 and to all those that supported us with good advice or rigorous testing:
 
+* Felix Kaechele <felix@kaechele.ca>
 * Leonardo Mörlein <freifunk@irrelefant.net>
 * Sabrina Dubroca <sd@queasysnail.net>
 * Roman Le bg <roman@romanlebg.fr>
