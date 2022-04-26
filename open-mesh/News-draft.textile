@@ -21,6 +21,7 @@ and to all those that supported us with good advice or rigorous testing:
 
 * Leonardo Mörlein <freifunk@irrelefant.net>
 * Sabrina Dubroca <sd@queasysnail.net>
+* Roman Le bg <roman@romanlebg.fr>
 
 h2. batman-adv
 
@@ -31,11 +32,6 @@ $ range=v2022.0..v2022.0-10-gf07a0c37
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
-
-
-Sven Eckelmann <sven@narfation.org> (5):
-
-
 new kernel version
 ==================
 
@@ -43,7 +39,7 @@ new kernel version
       batman-adv: make mc_forwarding atomic
       batman-adv: Use netif_rx().
       batman-adv: Migrate to linux/container_of.h
-
+      batman-adv: compat: Add atomic mc_fowarding support for stable kernels
 
 coding style cleanup/refactoring
 ================================
@@ -61,6 +57,7 @@ bugfixes
       batman-adv: Request iflink once in batadv_get_real_netdevice
       batman-adv: Don't expect inter-netns unique iflink indices
       batman-adv: Demote batadv-on-batadv skip error message
+      batman-adv: Don't skb_split skbuffs with frag_list
 
 
 2022.1 (2021-04-12)
@@ -81,8 +78,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/master
-v2022.0-1-g517a0f3
-$ range=v2022.0..v2022.0-1-g517a0f3
+v2022.0-4-g447ec66
+$ range=v2022.0..v2022.0-3-gea5bdd8
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -103,12 +100,15 @@ coding style cleanup/refactoring
 bugfixes
 ========
 
+batctl: ping: Skip sleep after last packet
 
 
 2022.1 (2021-04-12)
 ===================
 
-* (no changes)
+* bugs squashed:
+
+  - drop additional delay after the ping packet
 
 
 </pre>
