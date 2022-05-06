@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2022.1 released
 
-Apr 10th, 2022. Today the B.A.T.M.A.N. team publishes the April 2022 update to batman-adv! alfred got a new IPC message to request the current configuration of server instance. Also several code cleanups are included in this version.
+May 6th, 2022. Today the B.A.T.M.A.N. team publishes the April 2022 update to batman-adv! alfred got a new IPC message to request the current configuration of server instance. Also several code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -61,7 +61,7 @@ bugfixes
       batman-adv: Don't skb_split skbuffs with frag_list
 
 
-2022.1 (2021-04-12)
+2022.1 (2022-05-06)
 ===================
 
 * support latest kernels (4.9 - 5.18)
@@ -104,7 +104,7 @@ bugfixes
 batctl: ping: Skip sleep after last packet
 
 
-2022.1 (2021-04-12)
+2022.1 (2022-05-06)
 ===================
 
 * bugs squashed:
@@ -136,7 +136,7 @@ Sven Eckelmann <sven@narfation.org> (5):
       alfred: Check server_status type before parsing packet
       alfred: Ensure processed change_bat_iface packet is 0-terminated
 
-2022.1 (2021-04-12)
+2022.1 (2022-05-06)
 ===================
 
 * coding style cleanups and refactoring
