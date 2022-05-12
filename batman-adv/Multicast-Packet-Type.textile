@@ -1,4 +1,6 @@
-h1. Multicast Packet Type
+h1. DRAFT - Multicast Packet Type
+
+_This is a draft and not implemented at the moment._
 
 h2. Brief
 
@@ -94,9 +96,32 @@ h2. Implementation Tasks
 # 
 
 
-TODOs:
+h2. Open questions, known issues, TODOs
+
+h3. #Num Dests size
 
 * 1 or 2 bytes for #Num Dests for Address X?
   * If limit of entries were reached, we could just send another
     mcast packet? (~6*256 = 1536). Or do we want to be prepared
     for jumbo frames?
+
+h3. Non ideal splits
+
+If a packet with n destinations gets too large for the MTU then batman-adv would/should/could try to split it into m packets with n/3 destinations each. where m <= mcast_fanout.
+
+However when splitting like this then such the splitting node does not know the best sorting into these m packets. Another node will likely later need to split again due to different next hops for the destinations in a packet.
+
+A batman-adv node currently cannot anticipate this for optimized splitting, as it does not know the full topology. Which would potentially lead to more transmissions than necessary.
+
+
+h3. Fragmentation / MTUs: 
+
+On transit a forwarding node might have an interface with a smaller MTU than the node which originated the packet. A node could try to split a packet into multiple packets with less destinations. However if the payload data is larger than the interface MTU already then it would still not fit. And the batman-adv fragmentation code won't be able to look into and split within a multicast packet type header.
+
+Workaround A):
+
+By default only apply multicast packet type if resulting packet is smaller than 1280 (minimum IPv6 packet size) or even 576 (minimum accepeted IPv4 datagram size?). Maybe add a configuration option, which defaults to 576 bytes? While in practice configuring it to 1280 should usually be fine these days with IPv6 capable networks.
+
+Solution B)
+
+Later ideally the fragmentation code would be able to split the payload within a multicast packet type, while leaving multicast packet type headers in tact. A node should still forward packets if due to this splitting the mcast-fanout limit were violated, to avoid packet loss.
