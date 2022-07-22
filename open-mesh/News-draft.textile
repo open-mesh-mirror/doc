@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2022.2 released
 
-Jul 26th, 2022. Today the B.A.T.M.A.N. team publishes the July 2022 update to batman-adv! alfred can now announce changes to its stored data via unix sockets. This should reduce the overhead the --update-command imposed because it always required the start of a new program. Also several code cleanups are included in this version.
+Jul 26th, 2022. Today the B.A.T.M.A.N. team publishes the July 2022 update to batman-adv! alfred can now announce changes to its stored data via unix sockets. This should avoid the overhead the --update-command imposed because it always required the start of a new program. Also several code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
