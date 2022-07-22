@@ -1,50 +1,46 @@
-h1. DRAFT: Batman-adv 2022.1 released
+h1. DRAFT: Batman-adv 2022.2 released
 
-May 6th, 2022. Today the B.A.T.M.A.N. team publishes the April 2022 update to batman-adv! alfred got a new IPC message to request the current configuration of server instance. Also several code cleanups are included in this version.
+Jul 26th, 2022. Today the B.A.T.M.A.N. team publishes the July 2022 update to batman-adv! alfred can now announce changes to its stored data via unix sockets. This should reduce the overhead the --update-command imposed because it always required the start of a new program. Also several code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2022.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2022.2/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-* Eric Dumazet <edumazet@google.com>
+* Jakub Kicinski <kuba@kernel.org>
 * Marek Lindner <mareklindner@neomailbox.ch>
-* Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
+* Yu Zhe <yuzhe@nfschina.com>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Felix Kaechele <felix@kaechele.ca>
-* Leonardo Mörlein <freifunk@irrelefant.net>
-* Sabrina Dubroca <sd@queasysnail.net>
-* Roman Le bg <roman@romanlebg.fr>
+* Johannes Berg <johannes@sipsolutions.net>
+* Stefan Schmidt <stefan@datenfreihafen.org>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2022.0-10-gf07a0c37
-$ range=v2022.0..v2022.0-10-gf07a0c37
+v2022.1-4-gafecf7c4
+$ range=v2022.1..v2022.1-4-gafecf7c4
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
 
 new kernel version
 ==================
 
-      batman-adv: Remove redundant 'flush_workqueue()' calls
-      batman-adv: make mc_forwarding atomic
-      batman-adv: Use netif_rx().
-      batman-adv: Migrate to linux/container_of.h
-      batman-adv: compat: Add atomic mc_fowarding support for stable kernels
+      batman-adv: wrap the wireless pointers in struct net_device in an ifdef
+
 
 coding style cleanup/refactoring
 ================================
 
+      batman-adv: remove unnecessary type castings
 
 various
 =======
@@ -54,33 +50,21 @@ various
 bugfixes
 ========
 
-      batman-adv: Request iflink once in batadv-on-batadv check
-      batman-adv: Request iflink once in batadv_get_real_netdevice
-      batman-adv: Don't expect inter-netns unique iflink indices
-      batman-adv: Demote batadv-on-batadv skip error message
-      batman-adv: Don't skb_split skbuffs with frag_list
 
 
-2022.1 (2022-05-06)
+
+2022.2 (2022-07-26)
 ===================
 
-* support latest kernels (4.9 - 5.18)
-* bugs squashed:
-
-  - resolve "time-of-check-time-of-use" race condition when checking the
-    the network namespace of a lower device
-  - fix sanity check of network devices in different namespaces with
-    colliding IDs
-  - prevent transmission errors after splitting large GRO packets into
-    smaller fragments
+* support latest kernels (4.9 - 5.19)
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/master
-v2022.0-4-g447ec66
-$ range=v2022.0..v2022.0-3-gea5bdd8
+v2022.1-2-g6e9783a
+$ range=v2022.1..v2022.1-2-g6e9783a
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -104,12 +88,10 @@ bugfixes
 batctl: ping: Skip sleep after last packet
 
 
-2022.1 (2022-05-06)
+2022.2 (2022-07-26)
 ===================
 
-* bugs squashed:
-
-  - drop additional delay after the ping packet
+* (no changes)
 
 
 </pre>
@@ -118,33 +100,25 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2022.0-7-g6beca03
-$ range=v2022.0..v2022.0-7-g6beca03
+v2022.1-5-g95c4a44
+$ range=v2022.1..v2022.1-5-g95c4a44
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 Marek Lindner <mareklindner@neomailbox.ch> (1):
-      alfred: introduce 'server status' IPC call
+      alfred: notify event listener via unix socket
 
-Simon Wunderlich <sw@simonwunderlich.de> (1):
-      alfred: Start new development cycle
+Sven Eckelmann <sven@narfation.org> (3):
+      alfred: Stabilize synchronization period using timerfd
+      alfred: Switch to epoll for socket handling
+      alfred: Fix years in changelog
 
-Sven Eckelmann <sven@narfation.org> (5):
-      alfred: Ensure processed change_iface packet is 0-terminated
-      alfred: Ensure evaluation order in FIXED_TLV_LEN
-      alfred: Ensure printed interfaces in status are 0-terminated
-      alfred: Check server_status type before parsing packet
-      alfred: Ensure processed change_bat_iface packet is 0-terminated
-
-2022.1 (2022-05-06)
+2022.2 (2022-07-26)
 ===================
 
-* coding style cleanups and refactoring
-* introduce 'server status' IPC call
-* bugs fixed:
-
-  - prevent potential read outside of buffer when parsing
-    alfred_change_interface_v0/alfred_change_bat_iface_v0 IPC message
+* support event notification via unix socket
+* improve timing stability of transmitted announcement packets
+* reduce socket handling overhead when many clients and interfaces
 </pre>
 
 
