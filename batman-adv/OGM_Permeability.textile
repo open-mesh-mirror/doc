@@ -1,0 +1,8 @@
+h1. OGM Permeability
+
+h2. Goal
+
+Reducing batman-adv OGM overhead in VPN connected network topologies, by not forwarding all OGMs.
+
+h2. Scenario
+
