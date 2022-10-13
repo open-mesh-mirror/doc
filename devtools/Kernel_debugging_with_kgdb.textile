@@ -19,6 +19,14 @@ Most CPUs have some kind of watchdog integrated. They can often be turned off an
 
 Unfortunately, there are also external watchdog chips which cannot be turned off. They have to be manually triggered regularly during the debugging process to prevent a sudden reboot. The details depend on the actual hardware but it often ends up in writing to a specific (GPIO control/set/clear) register. An example how to manually trigger an GPIO connected watchdog manually can be found in [[GDB Linux snippets#Working-with-external-Watchdog-over-GPIO]]
 
+
+It is also possible to stop the watchdog service at runtime without disabling the driver. This should work for many optional watchdogs in SoCs:
+
+<pre><code class="shell">
+ubus call system watchdog '{"magicclose":true}'
+ubus call system watchdog '{"stop":true}'
+</code></pre>
+
 h3. Enabling KGDB in kernel
 
 The actual kernel gdbstub cannot be enabled via OpenWrt's .config. Instead the actual configuration has to be set in the target configuration:
