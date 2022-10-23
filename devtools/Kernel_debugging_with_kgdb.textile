@@ -36,9 +36,6 @@ From: Sven Eckelmann <sven@narfation.org>
 Date: Thu, 13 Oct 2022 16:40:21 +0200
 Subject: openwrt: Add support for easily selectable kernel debugger support
 
-See https://www.open-mesh.org/projects/devtools/wiki/Kernel_debugging_with_kgdb#Start-debugging-session
-for more information.
-
 When enabling this KERNEL_KGDB, make sure to clean some packages to make
 sure that they are compiled with the correct settings:
 
@@ -59,7 +56,7 @@ The rest has then to be done with the gdb(-remote) instance on the host.
 But the system must not be stopped too long because the external (GPIO)
 will otherwise kill the system.
 
-Important here, is that OpenWrt 22.03 (on IPQ807x/IPQ60xx) doesn't provide
+Important here, is that OpenWrt 22.03 on some targets doesn't provide
 the correctly mapped vmlinux in the source directory, So it is necessary to
 run it like this:
 
