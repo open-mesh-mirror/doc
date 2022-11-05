@@ -1,10 +1,10 @@
-h1. DRAFT: Batman-adv 2022.2 released
+h1. DRAFT: Batman-adv 2022.3 released
 
-Jul 26th, 2022. Today the B.A.T.M.A.N. team publishes the July 2022 update to batman-adv! alfred can now announce changes to its stored data via unix sockets. This should avoid the overhead the --update-command imposed because it always required the start of a new program. Also several code cleanups are included in this version.
+Nov 8th, 2022. Today the B.A.T.M.A.N. team publishes the November 2022 update to batman-adv! Several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2022.2/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2022.3/
 
 h2. Thanks
 
@@ -12,21 +12,22 @@ Thanks to all people sending in patches:
 
 * Jakub Kicinski <kuba@kernel.org>
 * Marek Lindner <mareklindner@neomailbox.ch>
+* Shigeru Yoshida <syoshida@redhat.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
+* Steven Rostedt (Google) <rostedt@goodmis.org>
 * Sven Eckelmann <sven@narfation.org>
-* Yu Zhe <yuzhe@nfschina.com>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Johannes Berg <johannes@sipsolutions.net>
-* Stefan Schmidt <stefan@datenfreihafen.org>
+* Paul Moore <paul@paul-moore.com> (NetLabel)
+
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/master
-v2022.1-4-gafecf7c4
-$ range=v2022.1..v2022.1-4-gafecf7c4
+v2022.2-12-g402531de
+$ range=v2022.2..v2022.2-12-g402531de
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -34,13 +35,19 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 new kernel version
 ==================
 
-      batman-adv: wrap the wireless pointers in struct net_device in an ifdef
+      batman-adv: genetlink: start to validate reserved header bytes
+      batman-adv: tracing: Use the new __vstring() helper
+      batman-adv: tracing: Use the new __vstring() helper
 
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: remove unnecessary type castings
+      batman-adv: genetlink: start to validate reserved header bytes
+      batman-adv: Drop unused headers in trace.h
+      batman-adv: compat: Add support for ETH_MIN_MTU
+      batman-adv: Add missing header for EINVAL
+      batman-adv: Drop initialization of flexible ethtool_link_ksettings
 
 various
 =======
@@ -50,25 +57,29 @@ various
 bugfixes
 ========
 
+      batman-adv: Fix hang up with small MTU hard-interface
 
 
 
-2022.2 (2022-07-26)
+2022.3 (2022-11-08)
 ===================
 
-* support latest kernels (4.9 - 5.19)
+* support latest kernels (4.9 - 6.1)
+* coding style cleanups and refactoring
+* bugs squashed:
+
+  - limit the minimum MTU of hard-interface to avoid
+    "Forced to purge local tt entries" errors
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/master
-v2022.1-2-g6e9783a
-$ range=v2022.1..v2022.1-2-g6e9783a
+v2022.2-1-gb4052ae
+$ range=v2022.2..v2022.2-1-gb4052ae
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
-
 
 
 features
@@ -85,10 +96,9 @@ coding style cleanup/refactoring
 bugfixes
 ========
 
-batctl: ping: Skip sleep after last packet
 
 
-2022.2 (2022-07-26)
+2022.3 (2022-11-08)
 ===================
 
 * (no changes)
@@ -100,25 +110,23 @@ h2. alfred
 
 <pre>
 $ git describe origin/master
-v2022.1-5-g95c4a44
-$ range=v2022.1..v2022.1-5-g95c4a44
+v2022.2-6-g678c732
+$ range=v2022.2..v2022.2-6-g678c732
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
-Marek Lindner <mareklindner@neomailbox.ch> (1):
-      alfred: notify event listener via unix socket
+Marek Lindner <mareklindner@neomailbox.ch> (5):
+      alfred: add missing alfred_event_notify_v0 struct documentation
+      alfred: fix erroneous documentation of '-r' argument
+      alfred: mismaching declarations of is_valid_ether_addr()
+      alfred: remove unnecessary backslash
+      alfred: improve grammar in documentation of '-r' argument
 
-Sven Eckelmann <sven@narfation.org> (3):
-      alfred: Stabilize synchronization period using timerfd
-      alfred: Switch to epoll for socket handling
-      alfred: Fix years in changelog
 
-2022.2 (2022-07-26)
+2022.3 (2022-11-08)
 ===================
 
-* support event notification via unix socket
-* improve timing stability of transmitted announcement packets
-* reduce socket handling overhead when many clients and interfaces
+* coding style cleanups and refactoring
 </pre>
 
 
