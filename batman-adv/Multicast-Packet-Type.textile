@@ -106,6 +106,7 @@ h3. #Num Dests size
   * If limit of entries were reached, we could just send another
     mcast packet? (~6*256 = 1536). Or do we want to be prepared
     for jumbo frames?
+    * going for 2 bytes / potential jumbo frame support
 
 h3. Non ideal splits
 
