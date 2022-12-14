@@ -118,7 +118,7 @@ A batman-adv node currently cannot anticipate this for optimized splitting, as i
 
 ---
 
--> Going for just one multicast packet instead of up to mcast_fanout to start with.
+-> Going for just one multicast packet instead of up to mcast_fanout to start with, for simplicity.
 
 h3. Fragmentation / MTUs: 
 
