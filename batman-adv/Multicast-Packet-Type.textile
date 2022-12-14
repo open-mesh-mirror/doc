@@ -95,8 +95,7 @@ h2. Implementation Tasks
 *Originating Nodes:*
 # Check if all (optimization: on path) batman-adv originators support Multicast Packet Capability
 # If yes, further check if number of batman-adv multicast per IP multicast packet is smaller than multicast fanout setting. So calculate MTU - sizeof(_Data_) - sizeof(multicast-packet-header) and divide by number of destinations (check Translation Table). If it exceeds multicast fanout then bail out and fall back to broadcast flooding. Otherwise continue:
-# 
-
+#
 
 h2. Open questions, known issues, TODOs
 
@@ -134,3 +133,13 @@ By default only apply multicast packet type if resulting packet is smaller than 
 Solution B)
 
 Later ideally the fragmentation code would be able to split the payload within a multicast packet type, while leaving multicast packet type headers in tact. A node should still forward packets if due to this splitting the mcast-fanout limit were violated, to avoid packet loss.
+
+h3. Adding a sequence number? / How to avoid loops with tracker marking later?
+
+When later implementing a split control <-> data plane as originally envisioned, by allowing to send a multicast packet with only the tracker TVLV, without data. And caching this information to fill a multicast routing table. And then allowing to send a multicast packet without the tracker TVLV afterwards, there is the following issue:
+
+When first a path is marked through the tracker TVLV, then paths change due to OGM updates. And then a tracker packet marks such new paths then the merger of both the old and newly tracker marked paths could create routing loops, as the old path is not automatically invalidated.
+
+Solution:
+
+Don't mark paths. Instead use the tracker TVLV to fill a cache with the mcast/dests lists and assign a hash to this information. Then later send the multicast data with a TVLV containing only this hash instead of the full mcast/dests list. Therefore a specific list of destinations is still maintained and routing decisions still happen on the go, loopfree, instead of trying to a maintain a loopfree, adjacent multicast routing table.
