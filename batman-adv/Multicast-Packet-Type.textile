@@ -116,6 +116,9 @@ However when splitting like this then such the splitting node does not know the 
 
 A batman-adv node currently cannot anticipate this for optimized splitting, as it does not know the full topology. Which would potentially lead to more transmissions than necessary.
 
+---
+
+-> Going for just one multicast packet instead of up to mcast_fanout to start with.
 
 h3. Fragmentation / MTUs: 
 
