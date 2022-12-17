@@ -2,7 +2,7 @@ h1. Download B.A.T.M.A.N.
 
 We are currently working on different branches. To get the details about the differences of these branches, see our [[BranchesExplained|Branches Explained page]].
 
-Please use the maint branch for your public infrastructure unless you know exactly what you are doing and are prepared for the big unknown.
+Please use the stable branch for your public infrastructure unless you know exactly what you are doing and are prepared for the big unknown.
 
 
 h2. Download Released Source Code
