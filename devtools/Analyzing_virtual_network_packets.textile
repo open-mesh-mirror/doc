@@ -2,7 +2,7 @@ h1. Analyzing virtual network packets
 
 h2. Wireshark
 
-The easiest way to get the traffic of a virtual machine is via the tap interfaces. It is recommended to use the newest wireshark version (git master branch) to get support for batman-adv's packet format. Wireshark can then be started manually on a specific tap interface:
+The easiest way to get the traffic of a virtual machine is via the tap interfaces. It is recommended to use the newest wireshark version (git main branch) to get support for batman-adv's packet format. Wireshark can then be started manually on a specific tap interface:
 
 <pre><code class="shell">
 wireshark -k -i tap1
