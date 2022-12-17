@@ -21,27 +21,27 @@ h2. Branches
 
 The main git repository is divided into several branches to make working easier.
 
-h3. master branch
+h3. main branch
 
-The master branch will have all upcoming changes. Bugfixes are merged from maint to master.
+The main branch will have all upcoming changes. Bugfixes are merged from stable to main.
 
-h3. maint branch
+h3. stable branch
 
-The maint only gathers bug fixes for the last release.
+The stable only gathers bug fixes for the last release.
 
 Create branch associated with the remote-tracking branch after cloning the repository
 
 <pre>
-git switch -c maint --track origin/maint
+git switch -c stable --track origin/stable
 </pre>
 
-Cherry-picking a commit from master branch
+Cherry-picking a commit from main branch
 
 <pre>
-git switch maint
+git switch stable
 git cherry-pick $SHA1
 </pre>
 
 h3. Linux integration
 
-The linux-merge repository is a clone of netdev's net-next tree. With the help of some git voodoo the master branch is merged with this branch in the folder: net/batman-adv/. If you wish to merge the latest master branch changes into the linux branch you need to [[batman-adv:SubmittingLinux|pull the newest changes in master from the batman-adv.git]] repository.
+The linux-merge repository is a clone of netdev's net-next tree. With the help of some git voodoo the main branch is merged with this branch in the folder: net/batman-adv/. If you wish to merge the latest main branch changes into the linux branch you need to [[batman-adv:SubmittingLinux|pull the newest changes in main from the batman-adv.git]] repository.
