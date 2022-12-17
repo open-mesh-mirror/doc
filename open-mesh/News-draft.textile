@@ -25,7 +25,7 @@ and to all those that supported us with good advice or rigorous testing:
 h2. batman-adv
 
 <pre>
-$ git describe origin/master
+$ git describe origin/main
 v2022.2-12-g402531de
 $ range=v2022.2..v2022.2-12-g402531de
 $ git shortlog --email --no-merges "${range}"
@@ -75,7 +75,7 @@ bugfixes
 h2. batctl
 
 <pre>
-$ git describe origin/master
+$ git describe origin/main
 v2022.2-1-gb4052ae
 $ range=v2022.2..v2022.2-1-gb4052ae
 $ git shortlog --email --no-merges "${range}"
@@ -109,7 +109,7 @@ bugfixes
 h2. alfred
 
 <pre>
-$ git describe origin/master
+$ git describe origin/main
 v2022.2-6-g678c732
 $ range=v2022.2..v2022.2-6-g678c732
 $ git shortlog --email --no-merges "${range}"
