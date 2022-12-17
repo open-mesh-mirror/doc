@@ -21,13 +21,13 @@ cp /srv/git/batman-adv/hooks/post-receive linux-next.git/hooks/manual-hook
 chmod +x linux-next.git/hooks/manual-hook
 cat << 'EOF' > linux-next.git/sync-git
 #! /bin/sh
-export MY_REV="refs/heads/master"
+export MY_REV="refs/heads/main"
 export GIT_DIR=/home/batman/linux-next.git
 cd "$GIT_DIR"
 cd /home/batman/linux-next.git
 oldrev="@git rev-parse $MY_REV@"
 git fetch
-newref="@git rev-parse master@"
+newref="@git rev-parse main@"
 if [ "$oldrev" != "$newref" ]; then
 	echo "$oldrev" "$newref" "$MY_REV" | ./hooks/manual-hook
 fi
@@ -35,7 +35,7 @@ EOF
 chmod +x linux-next.git/sync-git
 </pre>
 
-The script has to be modified a little bit to get it working after refs/heads/master was modified. Just exchange
+The script has to be modified a little bit to get it working after refs/heads/main was modified. Just exchange
 <pre>
 git rev-parse --not --branches | grep -v $(git rev-parse $refname) | git rev-list --reverse --stdin $oldrev..$newrev -- net/batman-adv
 </pre>
