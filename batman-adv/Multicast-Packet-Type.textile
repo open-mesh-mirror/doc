@@ -74,10 +74,9 @@ MCAST Tracker TVLV:
 * #Num Dests: Number of destinations (originator MAC addresses)
 * [padding]: Optional, only present if #Num Dests are even, to make Tracker TVLV 4 byte aligned (to make encapsulated IP packets 4 byte aligned)
 
-
-h4. Preparations for Multicast Tracker Packets (future enhancements)
-
-The fields _Tracker-ID_ and _MCAST Address_ will not be used in the initial implementation of the batman-adv multicast packet type. But they are in preparation for the future enhancements where control and data plane can be separated. That is where batman-adv multicast packets can also be send without _Data_ (_Multicast Tracker Packets_) and the destinations are cached on nodes on the path. And then further batman-adv multicast packets could be send with _Data_ but with a zero length TVLV, so without the destination addresses.
+h4. -Preparations for Multicast Tracker Packets (future enhancements)
+-
+-The fields _Tracker-ID_ and _MCAST Address_ will not be used in the initial implementation of the batman-adv multicast packet type. But they are in preparation for the future enhancements where control and data plane can be separated. That is where batman-adv multicast packets can also be send without _Data_ (_Multicast Tracker Packets_) and the destinations are cached on nodes on the path. And then further batman-adv multicast packets could be send with _Data_ but with a zero length TVLV, so without the destination addresses.-
 
 h2. Implementation Tasks
 
