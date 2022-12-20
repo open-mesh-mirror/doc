@@ -32,13 +32,11 @@ MCAST packet type header:
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |  Packet Type  |  Version      |  TTL          | reserved      |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  (Anonymous) Originator / MCAST Tracker-ID ...                |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   |  ...                          |  TVLV length                  |
+   |  TVLV length                  |  MCAST Tracker TVLV ...       |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-|
-   |  MCAST Tracker TVLV ...                                       |
+   |  ...                          |  Data ...                     |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-|
-   |  Data ...                                                     |
+   |  ...                                                          |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </code></pre>
 
@@ -46,8 +44,8 @@ MCAST packet type header:
 * Version: 15
 * TTL:
 * reserved: 0x00
-* (Anonymous) Originator / Tracker-ID: 6 random bytes per (orig-addr, mcast-addr) tuple
 * TVLV length:
+* Data: Encapsulated ethernet frame with 2 byte alignment (to make IP packets 4 byte aligned)
 
 
 MCAST Tracker TVLV:
@@ -55,27 +53,27 @@ MCAST Tracker TVLV:
 <pre><code>    0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | TVLV Type     | TVLV Version  | TVLV Length                   |
+   |  TVLV Type    |  TVLV Version |  TVLV Length                  |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | MCAST Address ...                                             |
+   |  [padding]                    |  #Num Dests (N)               |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | ...                           | VID                           |
+   |  Dest 1 ...                                                   |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | #Num Dests (N)                | Dest 1 ...                    |
+   |  ...                          |  Dest 2 ...                   |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | ...                                                           |
+   |  ...                                                          |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | Dest 2 ...                                                    |
+   |  ...                          |  Dest N ...                   |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | ...                           | ...                           |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | Dest N ...                                                    |
-   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   | ...                           | [padding]                     |
+   |  ...                                                          |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </code></pre>
 
-* TVLV Type:
+* TVLV Type: 0x07
+* TVLV Version: 1
+* #Num Dests: Number of destinations (originator MAC addresses)
+* [padding]: Optional, only present if #Num Dests are even, to make Tracker TVLV 4 byte aligned (to make encapsulated IP packets 4 byte aligned)
+
 
 h4. Preparations for Multicast Tracker Packets (future enhancements)
 
