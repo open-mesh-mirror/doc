@@ -1,6 +1,8 @@
 h1. DRAFT - Multicast Packet Type
 
-_This is a draft and not implemented at the moment._
+_This is a draft and not upstream yet._
+
+Implementation: "linus/multicast-packet-type":https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-packet-type
 
 h2. Brief
 
@@ -87,13 +89,13 @@ Signalizes that:
 
 h2. Limitations
 
-* Neither the BATMAN IV nor BATMAN V routing algorithm can currently perform path MTU discovery. And the batman-adv fragmentation is not yet capable of handling this new batman-adv packet type, nor is it capable of reassembling per hop. Therefore the easy solution for now is to require an interface MTU of at least 1280 bytes on each active hard interface. 1280 bytes is also the IPv6 minimum MTU, so this makes it already less likely to be undercut in practice.
+* Neither the BATMAN IV nor BATMAN V routing algorithm can currently perform path MTU discovery. And the batman-adv fragmentation is not yet capable of handling this new batman-adv packet type, nor is it capable of reassembling per hop. Therefore the easy solution for now is to require an interface MTU of at least 1280 bytes on each active hard interface. 1280 bytes is also the "IPv6 minimum MTU":https://www.rfc-editor.org/rfc/rfc2460#section-5, so this makes it already less likely to be undercut in practice.
 * If the payload data's size together with the number destination nodes is too large, so if the final batman-adv multicast packet would exceed 1280 bytes (excluding the outter ethernet frame), then the batman-adv multicast packet type cannot/will not be used. Example limits:
 ** 2 destination nodes: 1222 bytes ethernet frame size
 ** 8 destination nodes: 1186 bytes ethernet frame size
 ** 32 destination nodes: 1030 bytes ethernet frame size
 ** 128 destination nodes: 454 bytes ethernet frame size
-** 196 destination nodes: 46 bytes ethernet frame size (= minimum ethernet frame size without a VLAN)
+** 196 destination nodes: 46 bytes ethernet frame size (= "minimum ethernet frame size":https://en.wikipedia.org/wiki/Ethernet_frame#Payload without a VLAN)
 
 If such a limitation is reached then batman-adv will either fallback to multicast via multiple batman-adv unicast packes. Or if that is not possible either, to classic flooding.
 
