@@ -97,7 +97,7 @@ h2. Limitations
 
 If such a limitation is reached then batman-adv will either fallback to multicast via multiple batman-adv unicast packes. Or if that is not possible either, to classic flooding.
 
-h2. Open questions, known issues, TODOs
+h2. Open questions
 
 h3. -#Num Dests size-
 
