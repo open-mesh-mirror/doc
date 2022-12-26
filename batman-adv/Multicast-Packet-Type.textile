@@ -99,12 +99,12 @@ If such a limitation is reached then batman-adv will either fallback to multicas
 
 h2. Open questions, known issues, TODOs
 
-h3. #Num Dests size
+h3. -#Num Dests size-
 
-* 1 or 2 bytes for #Num Dests for Address X?
-** If limit of entries were reached, we could just send another
+-* 1 or 2 bytes for #Num Dests for Address X?-
+-** If limit of entries were reached, we could just send another
     mcast packet? (~6*256 = 1536). Or do we want to be prepared
-    for jumbo frames?
+    for jumbo frames?-
 
 ---
 
