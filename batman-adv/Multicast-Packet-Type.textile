@@ -110,13 +110,13 @@ h3. #Num Dests size
 
 -> going for 2 bytes / potential jumbo frame support
 
-h3. Non ideal splits
+h3. -Non ideal splits-
 
-If a packet with n destinations gets too large for the MTU then batman-adv would/should/could try to split it into m packets with n/3 destinations each. where m <= mcast_fanout.
+-If a packet with n destinations gets too large for the MTU then batman-adv would/should/could try to split it into m packets with n/3 destinations each. where m <= mcast_fanout.-
 
-However when splitting like this then such the splitting node does not know the best sorting into these m packets. Another node will likely later need to split again due to different next hops for the destinations in a packet.
+-However when splitting like this then such the splitting node does not know the best sorting into these m packets. Another node will likely later need to split again due to different next hops for the destinations in a packet.-
 
-A batman-adv node currently cannot anticipate this for optimized splitting, as it does not know the full topology. Which would potentially lead to more transmissions than necessary.
+-A batman-adv node currently cannot anticipate this for optimized splitting, as it does not know the full topology. Which would potentially lead to more transmissions than necessary.-
 
 ---
 
