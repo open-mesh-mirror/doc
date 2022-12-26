@@ -85,21 +85,17 @@ Signalizes that:
 # This node is capable of receiving, parsing and forwarding a batman-adv multicast packet with a multicast tracker TVLV.
 # All hard interfaces of this node have an MTU of at least 1280.
 
-h2. Implementation Tasks
+h2. Limitations
 
-*All nodes:*
-* Signalize Multicast Packet capability to other nodes (add flag to BATADV_TVLV_MCAST)
+* Neither the BATMAN IV nor BATMAN V routing algorithm can currently perform path MTU discovery. And the batman-adv fragmentation is not yet capable of handling this new batman-adv packet type, nor is it capable of reassembling per hop. Therefore the easy solution for now is to require an interface MTU of at least 1280 bytes on each active hard interface. 1280 bytes is also the IPv6 minimum MTU, so this makes it already less likely to be undercut in practice.
+* If the payload data's size together with the number destination nodes is too large, so if the final batman-adv multicast packet would exceed 1280 bytes (excluding the outter ethernet frame), then the batman-adv multicast packet type cannot/will not be used. Example limits:
+** 2 destination nodes: 1222 bytes ethernet frame size
+** 8 destination nodes: 1186 bytes ethernet frame size
+** 32 destination nodes: 1030 bytes ethernet frame size
+** 128 destination nodes: 454 bytes ethernet frame size
+** 196 destination nodes: 46 bytes ethernet frame size (= minimum ethernet frame size without a VLAN)
 
-*Forwarding Nodes:*
-* Parse Multicast Packet Type, potentially split multicast packet if multiple next hops to forward to
-
-*Receiving Nodes:*
-* Decapsulate: Remove batman-adv multicast packet header, forward to upper interface (bat0)
-
-*Originating Nodes:*
-# Check if all (optimization: on path) batman-adv originators support Multicast Packet Capability
-# If yes, further check if number of batman-adv multicast per IP multicast packet is smaller than multicast fanout setting. So calculate MTU - sizeof(_Data_) - sizeof(multicast-packet-header) and divide by number of destinations (check Translation Table). If it exceeds multicast fanout then bail out and fall back to broadcast flooding. Otherwise continue:
-#
+If such a limitation is reached then batman-adv will either fallback to multicast via multiple batman-adv unicast packes. Or if that is not possible either, to classic flooding.
 
 h2. Open questions, known issues, TODOs
 
