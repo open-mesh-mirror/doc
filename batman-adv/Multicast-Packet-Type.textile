@@ -87,6 +87,12 @@ Signalizes that:
 # This node is capable of receiving, parsing and forwarding a batman-adv multicast packet with a multicast tracker TVLV.
 # All hard interfaces of this node have an MTU of at least 1280.
 
+h2. Extensibility
+
+Using an optional TVLV for receiver indication allows more flexibility between the data and control plane, to increase the number of receiving node and/or reducing overhead in the future.
+
+For instance a forwarding node could cache the destinations in the tracker TVLV with a hash in a _key:hash([dests]) -> [dests]_ database. And a sender could prefill this database by sending a multicast packet with a tracker TVLV, but without the actual payload data. Then a sender could later use a more compact tracker TVLV variant which only contains the _hash([dests])_ next to the payload data.
+
 h2. Limitations
 
 * Neither the BATMAN IV nor BATMAN V routing algorithm can currently perform path MTU discovery. And the batman-adv fragmentation is not yet capable of handling this new batman-adv packet type, nor is it capable of reassembling per hop. Therefore the easy solution for now is to require an interface MTU of at least 1280 bytes on each active hard interface. 1280 bytes is also the "IPv6 minimum MTU":https://www.rfc-editor.org/rfc/rfc2460#section-5, so this makes it already less likely to be undercut in practice.
