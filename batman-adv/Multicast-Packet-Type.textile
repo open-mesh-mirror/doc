@@ -150,7 +150,7 @@ h3. -Fragmentation / MTUs:-
 
 h3. -Adding a sequence number? / How to avoid loops with tracker marking later?-
 
--When later implementing a split control <-> data plane as originally envisioned, by allowing to send a multicast packet with only the tracker TVLV, without data. And caching this information to fill a multicast routing table. And then allowing to send a multicast packet without the tracker TVLV afterwards, there is the following issue:-
+-When later implementing a split control <=> data plane as originally envisioned, by allowing to send a multicast packet with only the tracker TVLV, without data. And caching this information to fill a multicast routing table. And then allowing to send a multicast packet without the tracker TVLV afterwards, there is the following issue:-
 
 -When first a path is marked through the tracker TVLV, then paths change due to OGM updates. And then a tracker packet marks such new paths then the merger of both the old and newly tracker marked paths could create routing loops, as the old path is not automatically invalidated.-
 
