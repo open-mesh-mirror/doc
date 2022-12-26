@@ -122,17 +122,21 @@ h3. -Non ideal splits-
 
 -> Going for just one multicast packet instead of up to mcast_fanout to start with, for simplicity.
 
-h3. Fragmentation / MTUs: 
+h3. -Fragmentation / MTUs:-
 
-On transit a forwarding node might have an interface with a smaller MTU than the node which originated the packet. A node could try to split a packet into multiple packets with less destinations. However if the payload data is larger than the interface MTU already then it would still not fit. And the batman-adv fragmentation code won't be able to look into and split within a multicast packet type header.
+-On transit a forwarding node might have an interface with a smaller MTU than the node which originated the packet. A node could try to split a packet into multiple packets with less destinations. However if the payload data is larger than the interface MTU already then it would still not fit. And the batman-adv fragmentation code won't be able to look into and split within a multicast packet type header.-
 
-Workaround A):
+-Workaround A):-
 
-By default only apply multicast packet type if resulting packet is smaller than 1280 (minimum IPv6 packet size) or even 576 (minimum accepeted IPv4 datagram size?). Maybe add a configuration option, which defaults to 576 bytes? While in practice configuring it to 1280 should usually be fine these days with IPv6 capable networks.
+-By default only apply multicast packet type if resulting packet is smaller than 1280 (minimum IPv6 packet size) or even 576 (minimum accepeted IPv4 datagram size?). Maybe add a configuration option, which defaults to 576 bytes? While in practice configuring it to 1280 should usually be fine these days with IPv6 capable networks.-
 
-Solution B)
+-Solution B)-
 
-Later ideally the fragmentation code would be able to split the payload within a multicast packet type, while leaving multicast packet type headers in tact. A node should still forward packets if due to this splitting the mcast-fanout limit were violated, to avoid packet loss.
+-Later ideally the fragmentation code would be able to split the payload within a multicast packet type, while leaving multicast packet type headers in tact. A node should still forward packets if due to this splitting the mcast-fanout limit were violated, to avoid packet loss.-
+
+---
+
+-> Workaround C): We require a 1280 bytes MTU on all hard interfaces and only then set the multicast packet type capability flag.
 
 h3. Adding a sequence number? / How to avoid loops with tracker marking later?
 
