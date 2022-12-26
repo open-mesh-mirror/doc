@@ -25,7 +25,7 @@ For more details see:
 
 h2. Technical Specification
 
-MCAST packet type header:
+h3. MCAST packet type header
 
 <pre><code>    0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -48,7 +48,7 @@ MCAST packet type header:
 * Data: Encapsulated ethernet frame with 2 byte alignment (to make IP packets 4 byte aligned)
 
 
-MCAST Tracker TVLV:
+h3. MCAST Tracker TVLV
 
 <pre><code>    0                   1                   2                   3
     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -74,9 +74,16 @@ MCAST Tracker TVLV:
 * #Num Dests: Number of destinations (originator MAC addresses)
 * [padding]: Optional, only present if #Num Dests are even, to make Tracker TVLV 4 byte aligned (to make encapsulated IP packets 4 byte aligned)
 
-h4. -Preparations for Multicast Tracker Packets (future enhancements)
--
--The fields _Tracker-ID_ and _MCAST Address_ will not be used in the initial implementation of the batman-adv multicast packet type. But they are in preparation for the future enhancements where control and data plane can be separated. That is where batman-adv multicast packets can also be send without _Data_ (_Multicast Tracker Packets_) and the destinations are cached on nodes on the path. And then further batman-adv multicast packets could be send with _Data_ but with a zero length TVLV, so without the destination addresses.-
+h3. OGM Multicast TVLV flags
+
+The following flag is added to the [[Multicast-optimizations-tech#Multicast-TVLV|MCAST flags]] in the multicast TVLV of an OGM:
+
+h4. BATADV_MCAST_HAVE_MC_PTYPE_CAPA (Bit 5):
+
+Signalizes that:
+
+# This node is capable of receiving, parsing and forwarding a batman-adv multicast packet with a multicast tracker TVLV.
+# All hard interfaces of this node have an MTU of at least 1280.
 
 h2. Implementation Tasks
 
