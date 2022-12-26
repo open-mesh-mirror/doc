@@ -87,6 +87,21 @@ Signalizes that:
 # This node is capable of receiving, parsing and forwarding a batman-adv multicast packet with a multicast tracker TVLV.
 # All hard interfaces of this node have an MTU of at least 1280.
 
+h2. Statistics Counters
+
+__"$ batctl statistics"__ can be used to check if the batman-adv multicast packet type is used and working as expected.
+
+* *mcast_tx:* transmitted batman-adv multicast packets (for each outgoing ethernet frame)
+* *mcast_tx_bytes:* bytes counter for __mcast_tx__ (encapsulated packet size, includes/assumes 14 bytes for outer ethernet frame)
+* *mcast_tx_local:* counter for multicast packets which were locally encapsulated and transmitted as batman-adv multicast packets
+* *mcast_tx_local_bytes:* bytes counter for __mcast_tx_local__ (decapsulated packet size, including the payload ethernet frame)
+* *mcast_rx:* received batman-adv multicast packet counter (for each incoming ethernet frame)
+* *mcast_rx_bytes:* bytes counter for __mcast_rx__ (encapsulated packet size, includes/assumes 14 bytes for outer ethernet frame)
+* *mcast_rx_local:* counter for received batman-adv multicast packets which were forwarded to the local soft interface, ak. "bat0"
+* *mcast_rx_local_bytes:* bytes counter for __mcast_rx_local__ (decapsulated packet size, including the payload ethernet frame)
+* *mcast_fwd:* counter for received batman-adv multicast packets which were forwarded to other, neighboring nodes (for each incoming ethernet frame)
+* *mcast_fwd_bytes:* bytes counter for __mcast_fwd__ (encapsulated packet size, includes/assumes 14 bytes for outer ethernet frame)
+
 h2. Extensibility
 
 Using an optional TVLV for receiver indication allows more flexibility between the data and control plane, to increase the number of receiving node and/or reducing overhead in the future.
