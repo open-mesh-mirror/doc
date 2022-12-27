@@ -104,7 +104,7 @@ __"$ batctl statistics"__ can be used to check if the batman-adv multicast packe
 
 h2. Extensibility
 
-Using an optional TVLV for receiver indication allows more flexibility between the data and control plane, to increase the number of receiving node and/or reducing overhead in the future.
+Using an optional TVLV for receiver indication allows more flexibility between the data and control plane, to increase the number of receiving nodes and/or reducing overhead in the future.
 
 For instance a forwarding node could cache the destinations in the tracker TVLV with a hash in a _key:hash([dests]) -> [dests]_ database. And a sender could prefill this database by sending a multicast packet with a tracker TVLV, but without the actual payload data. Then a sender could later use a more compact tracker TVLV variant which only contains the _hash([dests])_ next to the payload data.
 
