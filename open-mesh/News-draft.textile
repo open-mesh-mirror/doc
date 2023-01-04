@@ -1,33 +1,26 @@
-h1. DRAFT: Batman-adv 2022.3 released
+h1. DRAFT: Batman-adv 2023.3 released
 
-Nov 8th, 2022. Today the B.A.T.M.A.N. team publishes the November 2022 update to batman-adv! Several bug fixes and code cleanups are included in this version.
+Jan 10th, 2023. Today the B.A.T.M.A.N. team publishes the January 2023 update to batman-adv! Several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2022.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2023.0/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
 * Jakub Kicinski <kuba@kernel.org>
-* Marek Lindner <mareklindner@neomailbox.ch>
-* Shigeru Yoshida <syoshida@redhat.com>
+* Jason A. Donenfeld <Jason@zx2c4.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
-* Steven Rostedt (Google) <rostedt@goodmis.org>
-* Sven Eckelmann <sven@narfation.org>
-
-and to all those that supported us with good advice or rigorous testing:
-
-* Paul Moore <paul@paul-moore.com> (NetLabel)
 
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2022.2-12-g402531de
-$ range=v2022.2..v2022.2-12-g402531de
+v2022.3-3-ga15d3f3c
+$ range=v2022.3..v2022.3-3-ga15d3f3c
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -35,19 +28,13 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 new kernel version
 ==================
 
-      batman-adv: genetlink: start to validate reserved header bytes
-      batman-adv: tracing: Use the new __vstring() helper
-      batman-adv: tracing: Use the new __vstring() helper
+      batman-adv: genetlink: introduce split op representation
+      batman-adv: use get_random_u32_below() instead of deprecated function
+
 
 
 coding style cleanup/refactoring
 ================================
-
-      batman-adv: genetlink: start to validate reserved header bytes
-      batman-adv: Drop unused headers in trace.h
-      batman-adv: compat: Add support for ETH_MIN_MTU
-      batman-adv: Add missing header for EINVAL
-      batman-adv: Drop initialization of flexible ethtool_link_ksettings
 
 various
 =======
@@ -57,27 +44,21 @@ various
 bugfixes
 ========
 
-      batman-adv: Fix hang up with small MTU hard-interface
 
 
 
-2022.3 (2022-11-08)
+2023.0 (2023-01-10)
 ===================
 
-* support latest kernels (4.9 - 6.1)
-* coding style cleanups and refactoring
-* bugs squashed:
-
-  - limit the minimum MTU of hard-interface to avoid
-    "Forced to purge local tt entries" errors
+* support latest kernels (4.9 - 6.2)
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/main
-v2022.2-1-gb4052ae
-$ range=v2022.2..v2022.2-1-gb4052ae
+v2022.3-1-g0f4749c
+$ range=v2022.3..v2022.3-1-g0f4749c
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -98,7 +79,7 @@ bugfixes
 
 
 
-2022.3 (2022-11-08)
+2023.0 (2023-01-10)
 ===================
 
 * (no changes)
@@ -110,23 +91,18 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2022.2-6-g678c732
-$ range=v2022.2..v2022.2-6-g678c732
+v2022.3-1-g1ff43b3
+$ range=v2022.3..v2022.3-1-g1ff43b3
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
-Marek Lindner <mareklindner@neomailbox.ch> (5):
-      alfred: add missing alfred_event_notify_v0 struct documentation
-      alfred: fix erroneous documentation of '-r' argument
-      alfred: mismaching declarations of is_valid_ether_addr()
-      alfred: remove unnecessary backslash
-      alfred: improve grammar in documentation of '-r' argument
 
 
-2022.3 (2022-11-08)
+
+2023.0 (2023-01-10)
 ===================
 
-* coding style cleanups and refactoring
+* (no changes)
 </pre>
 
 
