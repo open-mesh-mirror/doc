@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2023.3 released
 
-Jan 10th, 2023. Today the B.A.T.M.A.N. team publishes the January 2023 update to batman-adv! Several bug fixes and code cleanups are included in this version.
+Jan 10th, 2023. Today the B.A.T.M.A.N. team publishes the January 2023 update to batman-adv! Support for new kernel versions was integrated.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
