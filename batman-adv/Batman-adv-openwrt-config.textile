@@ -12,7 +12,7 @@ The batman-adv OpenWrt support provides three different protos:
 
 * batadv_hardif
 ** network interface used by batadv meshif to transport the batman-adv packets
-** it is assignedt to the batadv meshif
+** it is assigned to the batadv meshif
 * batadv (meshif/softif)
 ** virtual interface that emulates a normal 802.3 interface on top
 ** encapsulates traffic and forwards it via the batadv hardifs
