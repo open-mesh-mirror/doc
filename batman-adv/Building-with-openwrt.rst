@@ -224,7 +224,7 @@ Building from a different branch
 
 The developer package offers a convenient way to select another branch
 to build from. This is particularly useful for testing features that
-have not been merged into the master branch yet. Simply enter the branch
+have not been merged into the main branch yet. Simply enter the branch
 or git tag you wish to build in the Openwrt build menu.
 
 Kernel crash debug

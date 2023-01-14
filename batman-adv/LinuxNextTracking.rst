@@ -35,13 +35,13 @@ Initial setup
   chmod +x linux-next.git/hooks/manual-hook
   cat << 'EOF' > linux-next.git/sync-git
   #! /bin/sh
-  export MY_REV="refs/heads/master"
+  export MY_REV="refs/heads/main"
   export GIT_DIR=/home/batman/linux-next.git
   cd "$GIT_DIR"
   cd /home/batman/linux-next.git
   oldrev="@git rev-parse $MY_REV@"
   git fetch
-  newref="@git rev-parse master@"
+  newref="@git rev-parse main@"
   if [ "$oldrev" != "$newref" ]; then
       echo "$oldrev" "$newref" "$MY_REV" | ./hooks/manual-hook
   fi
@@ -49,7 +49,7 @@ Initial setup
   chmod +x linux-next.git/sync-git
 
 The script has to be modified a little bit to get it working after
-refs/heads/master was modified. Just exchange
+refs/heads/main was modified. Just exchange
 
 ::
 

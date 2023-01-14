@@ -6,7 +6,7 @@ Download B.A.T.M.A.N.
 We are currently working on different branches. To get the details about
 the differences of these branches, see our :doc:`Branches Explained page <BranchesExplained>`.
 
-Please use the maint branch for your public infrastructure unless you
+Please use the stable branch for your public infrastructure unless you
 know exactly what you are doing and are prepared for the big unknown.
 
 .. _open-mesh-download-download-released-source-code:

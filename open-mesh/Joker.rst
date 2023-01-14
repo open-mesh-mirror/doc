@@ -23,7 +23,7 @@ Release tarballs as well as snapshots are available:
 
 * git web directory: https://git.open-mesh.org/joker.git
 * git download: git clone git://git.open-mesh.org/joker.git
-* snapshot:https://git.open-mesh.org/joker.git/snapshot/refs/heads/master.tar.gz
+* snapshot:https://git.open-mesh.org/joker.git/snapshot/refs/heads/main.tar.gz
 
 Usage
 -----

@@ -28,7 +28,7 @@ configuration. A user can request data from alfred, and will receive the
 information available from all alfred servers in the network.
 
 See the
-`README <https://git.open-mesh.org/alfred.git/blob_plain/refs/heads/master:/README.rst>`__
+`README <https://git.open-mesh.org/alfred.git/blob_plain/refs/heads/main:/README.rst>`__
 for more information or the
 `manpage <https://downloads.open-mesh.org/batman/manpages/alfred.8.html>`__
 for usage.

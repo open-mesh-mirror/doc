@@ -168,7 +168,7 @@ LAN to a standstill. The :doc:`bridge loop avoidance page <Bridge-loop-avoidance
 as the batman-adv approach to address it.
 It is necessary to activate the bridge loop avoidance at compile time
 before you can use this feature (consult `the README.external
-file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
+file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external>`__
 to learn how to set the compile option).
 
 ::
@@ -189,7 +189,7 @@ available in our wiki. One document focuses on the
 second document is about the :doc:`technical details & implementation specifics <DistributedArpTable-technical>`.
 It is necessary to activate the distributed ARP table at compile time
 before you can use this feature (consult `the README.external
-file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
+file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external>`__
 to learn how to set the compile option).
 
 ::
@@ -327,7 +327,7 @@ extended logs that can be used to understand and/or debug the routing
 protocol. Keep in mind that it is necessary to activate debugging at
 compile time before you can use these facilities (consult `the
 README.external
-file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
+file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external>`__
 to learn how to set the compile option). Per default, the logging is
 deactivated (log level: 0).
 
@@ -379,7 +379,7 @@ wiki. One document focuses on the :doc:`general network coding concept </batman-
 coding talks.
 It is necessary to activate network coding at compile time before you
 can use this feature (consult `the README.external
-file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
+file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external>`__
 to learn how to set the compile option).
 
 ::

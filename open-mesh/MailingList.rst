@@ -14,3 +14,5 @@ cuts the rate of SPAM mails dramatically).
 
 Old messages can be read in the `B.A.T.M.A.N.
 archives <https://lists.open-mesh.org/mailman3/hyperkitty/list/b.a.t.m.a.n@lists.open-mesh.org/>`__.
+Or via the various subscription (or mirror) methods from
+`lore.kernel.org <https://lore.kernel.org/batman>`__

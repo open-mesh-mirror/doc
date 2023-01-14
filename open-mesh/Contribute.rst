@@ -105,7 +105,7 @@ guidelines:
 * Check it using static analysis tools like
   `sparse <https://sparse.wiki.kernel.org/>`__ (cgcc) and
   `cppcheck <http://cppcheck.sourceforge.net/>`__
-* Patches against the batman-adv master branch must be formatted using
+* Patches against the batman-adv main branch must be formatted using
 
 ::
 

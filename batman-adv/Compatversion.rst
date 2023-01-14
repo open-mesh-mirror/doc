@@ -7,7 +7,7 @@ COMPAT\_VERSION in packet.h is used to identify an incoming packet and
 check if it can processed by the current version. The packet structure
 should be identified by this version. The stuff which appears in a
 packet jumps a little bit with each version because we change stuff in
-trunk/master and in next and import those changes to the packet
+trunk/main and in next and import those changes to the packet
 structure out-of-order.
 
 Following changes were identified and documented.

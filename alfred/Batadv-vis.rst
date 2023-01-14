@@ -13,7 +13,7 @@ It allows output of different formats (json, graphviz) and replaces the
 in-kernel vis functionality found in older batman-adv kernel modules
 (<2014). See the sample picture below. For more information, please read
 the vis section of the
-`README <https://git.open-mesh.org/alfred.git/blob_plain/refs/heads/master:/README.rst>`__
+`README <https://git.open-mesh.org/alfred.git/blob_plain/refs/heads/main:/README.rst>`__
 or the
 `manpage <https://downloads.open-mesh.org/batman/manpages/batadv-vis.html>`__
 for usage.

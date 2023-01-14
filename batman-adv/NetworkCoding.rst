@@ -58,7 +58,7 @@ network coding:
 
 To enable network coding, enable it a compile time (consult `the
 README.external
-file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/master:/README.external>`__
+file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external>`__
 to learn how to set the compile option). It can be turned off at runtime
 with batctl:
 

@@ -142,7 +142,7 @@ virtual machines:
 ::
 
     root@OpenWrt:/# batctl o
-    [B.A.T.M.A.N. adv master-b82b9b2, MainIF/MAC: eth0/fe:f0:00:00:02:01 (bat0 BATMAN_IV)]
+    [B.A.T.M.A.N. adv main-b82b9b2, MainIF/MAC: eth0/fe:f0:00:00:02:01 (bat0 BATMAN_IV)]
       Originator      last-seen (#/255)           Nexthop [outgoingIF]:   Potential nexthops ...
     fe:f1:00:00:03:01    0.350s   (254) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (254)
     fe:f1:00:00:01:01    0.800s   (255) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (255)

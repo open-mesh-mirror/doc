@@ -21,6 +21,8 @@ multicast listeners, more precisely the according multicast MAC
 addresses, to the rest of the mesh network via the
 `translation table infrastructure <https://www.open-mesh.org/news/38>`__.
 
+.. _batman-adv-multicast-optimizations-tech-multicast-tvlv:
+
 Multicast TVLV
 --------------
 
