@@ -103,7 +103,7 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 2023.0 (2023-01-10)
 ===================
 
-* (no changes)
+* add support for gpsd 3.25
 </pre>
 
 
