@@ -1,7 +1,13 @@
+#! /usr/bin/env python3
+
 import psycopg2
+import psycopg2.extensions
 import os
 import os.path
 import subprocess
+
+psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
+psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
 
 def git_commit(entry):
 	env = os.environ.copy()
@@ -21,6 +27,7 @@ def download_attachment(entry):
 	subprocess.call(['/usr/bin/curl', 'https://www.open-mesh.org/attachments/download/' + str(entry['id']), '-o', entry['filename']])
 
 conn = psycopg2.connect(database="redmine_default")
+conn.set_client_encoding('UTF-8')
 
 cur = conn.cursor()
 cur.execute('''
