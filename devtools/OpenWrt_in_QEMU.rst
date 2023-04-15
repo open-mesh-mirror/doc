@@ -159,7 +159,7 @@ used to share things like a precompiled batman-adv.ko and other tools
       normalized_id="$(echo "$i"|awk '{ printf "%02d\n",$1 }')"
       twodigit_id="$(echo $i|awk '{ printf "%02X", $1 }')"
 
-      qemu-img create -b "${BASE_IMG}" -f qcow2 root.cow$i
+      qemu-img create -b "${BASE_IMG}" -f qcow2 -F qcow2 root.cow$i
       screen qemu-system-x86_64 -enable-kvm -name "instance${i}" \
           -display none -no-user-config -nodefaults \
           -m 512M,maxmem=2G,slots=2 -device virtio-balloon \
