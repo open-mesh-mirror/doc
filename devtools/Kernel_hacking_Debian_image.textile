@@ -276,7 +276,7 @@ make KERNELPATH="$(pwd)/../linux-next"
 The kernel module can also be compiled in a way which creates better stack traces and increases the usability with (k)gdb:
 
 <pre><code class="shell">
-make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls" KERNELPATH="$(pwd)/../linux-next" V=1
+make EXTRA_CFLAGS="-fno-inline -Og -fno-reorder-blocks -fno-ipa-cp-clone -fno-partial-inlining" KERNELPATH="$(pwd)/../linux-next" V=1
 </code></pre>
 
 h2. Start of the environment
