@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2023.1 released
 
-May 16th, 2023. Today the B.A.T.M.A.N. team publishes the May 2023 update to batman-adv! Support for new kernel versions was integrated.
+May 16th, 2023. Today the B.A.T.M.A.N. team publishes the May 2023 update to batman-adv! Initial infrastructure changes for multicast packets with multiple (unicast) destination addresses were integrated.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
