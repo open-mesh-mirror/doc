@@ -1,36 +1,44 @@
-h1. DRAFT: Batman-adv 2023.0 released
+h1. DRAFT: Batman-adv 2023.1 released
 
-Jan 10th, 2023. Today the B.A.T.M.A.N. team publishes the January 2023 update to batman-adv! Support for new kernel versions was integrated.
+May 16th, 2023. Today the B.A.T.M.A.N. team publishes the May 2023 update to batman-adv! Support for new kernel versions was integrated.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2023.0/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2023.1/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Jakub Kicinski <kuba@kernel.org>
-* Jason A. Donenfeld <Jason@zx2c4.com>
-* Sven Eckelmann <sven@narfation.org>
+* Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
+* Sven Eckelmann <sven@narfation.org>
+* Vladimir Oltean <vladimir.oltean@nxp.com>
 
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2022.3-3-ga15d3f3c
-$ range=v2022.3..v2022.3-3-ga15d3f3c
+v2023.0-6-gb097e63c
+$ range=v2023.0..v2023.0-6-gb097e63c
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
+
+
+features
+========
+
+      batman-adv: mcast: remove now redundant single ucast forwarding
+      batman-adv: tvlv: prepare for tvlv enabled multicast packet type
 
 
 new kernel version
 ==================
 
-      batman-adv: genetlink: introduce split op representation
-      batman-adv: use get_random_u32_below() instead of deprecated function
+      batman-adv: introduce skb_vlan_eth_hdr()
+      batman-adv: Drop prandom.h includes
 
 
 
@@ -40,6 +48,7 @@ coding style cleanup/refactoring
 various
 =======
 
+      batman-adv: Fix mailing list address
 
 
 bugfixes
@@ -48,18 +57,21 @@ bugfixes
 
 
 
-2023.0 (2023-01-10)
+2023.1 (2023-05-16)
 ===================
 
-* support latest kernels (4.14 - 6.2)
+* support latest kernels (4.14 - 6.4)
+* drop single unicast transfer optimization for unsnoopable IP addresses
+* prepare infrastructure for multicast packets with multiple unicast destination
+  addresses
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/main
-v2022.3-1-g0f4749c
-$ range=v2022.3..v2022.3-1-g0f4749c
+v2023.0-2-gea10c02
+$ range=v2023.0..v2023.0-2-gea10c02
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -72,6 +84,7 @@ features
 coding style cleanup/refactoring
 ================================
 
+* batman-adv: prepare for tvlv enabled multicast packet type
 
 
 
@@ -80,10 +93,10 @@ bugfixes
 
 
 
-2023.0 (2023-01-10)
+2023.1 (2023-05-16)
 ===================
 
-* (no changes)
+* Synchronize with kernel headers
 
 
 </pre>
@@ -92,18 +105,18 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2022.3-1-g1ff43b3
-$ range=v2022.3..v2022.3-1-g1ff43b3
+v2023.0-1-g06844d5
+$ range=v2023.0..v2023.0-1-g06844d5
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
 
-2023.0 (2023-01-10)
+2023.1 (2023-05-16)
 ===================
 
-* add support for gpsd 3.25
+* (no changes)
 </pre>
 
 
