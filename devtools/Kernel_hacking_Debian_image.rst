@@ -309,7 +309,7 @@ stack traces and increases the usability with (k)gdb:
 
 .. code-block:: sh
 
-  make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls" KERNELPATH="$(pwd)/../linux-next" V=1
+  make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls -fno-reorder-blocks -fno-ipa-cp-clone -fno-partial-inlining" KERNELPATH="$(pwd)/../linux-next" V=1
 
 Start of the environment
 ------------------------

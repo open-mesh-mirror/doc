@@ -280,7 +280,7 @@ the routing feed like this:
           M="$(PKG_BUILD_DIR)/net/batman-adv" \
           $(PKG_EXTRA_KCONFIG) \
   -       EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS)" \
-  +       EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS) -fno-inline -Og -fno-optimize-sibling-calls" \
+  +       EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS) -fno-inline -Og -fno-optimize-sibling-calls -fno-reorder-blocks -fno-ipa-cp-clone -fno-partial-inlining" \
           NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
           modules
    endef
