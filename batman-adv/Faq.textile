@@ -162,3 +162,5 @@ Or in case of a VLAN-aware bridge, it is better to add the VLANs as required to 
 <pre>
 bridge vlan add vid 23 dev bat0
 </pre>
+
+Note: Do *not* rely on VLAN packets being filtered when no VLAN is added on top of bat0. This is likely subject to change in the future.
