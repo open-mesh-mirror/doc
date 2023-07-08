@@ -303,14 +303,14 @@ VLAN forwarding doesn't work
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Q**: When I have a bridge which connects an ethernet devices with
-bat0, VLAN frames from the ethernet interfaces are not forwarded by
-batman-adv. Instead a warning like
+bat0, 802.1Q VLAN frames from the ethernet interfaces are not forwarded
+by batman-adv. Instead a warning like
 ``batman_adv: bat0: adding TT local entry xx:xx:xx:xx:xx:xx to non-existent VLAN 23``
 is printed periodically. How is it possible to forward these frames
 
-**A**: batman-adv since 2014.0.0 is VLAN-aware. It is only able to
+**A**: batman-adv since 2014.0.0 is 802.1Q VLAN-aware. It is only able to
 forward VLAN frames when it knows about the VLAN. This can either be
-done by creating a VLAN device with the correct VID on top of the
+done by creating a 802.1Q VLAN device with the correct VID on top of the
 batadv (bat0) device:
 
 ::
@@ -323,6 +323,9 @@ VLANs as required to the specific ports:
 ::
 
   bridge vlan add vid 23 dev bat0
+
+Note: Do **not** rely on VLAN packets being filtered when no VLAN is added
+on top of bat0. This is likely subject to change in the future.
 
 .. |image0| image:: quagga_integration.png
 
