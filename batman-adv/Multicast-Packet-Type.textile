@@ -71,7 +71,7 @@ h3. MCAST Tracker TVLV
 * TVLV Type: 0x07
 * TVLV Version: 1
 * #Num Dests: Number of destinations (originator MAC addresses)
-* [padding]: Optional, only present if #Num Dests are even, to make Tracker TVLV 4 byte aligned (to make encapsulated IP packets 4 byte aligned)
+* [padding]: Optional 2 byte padding, only present if #Num Dests are even, to make Tracker TVLV 4 byte aligned (to make encapsulated IP packets 4 byte aligned)
 
 h3. OGM Multicast TVLV flags
 
