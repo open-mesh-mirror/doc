@@ -115,7 +115,7 @@ h2. Limitations
 ** 128 destination nodes: 454 bytes ethernet frame size
 ** 196 destination nodes: 46 bytes ethernet frame size (= "minimum ethernet frame size":https://en.wikipedia.org/wiki/Ethernet_frame#Payload without a VLAN)
 
-If such a limitation is reached then batman-adv will either fallback to multicast via multiple batman-adv unicast packes. Or if that is not possible either, to classic flooding.
+If such a limitation is reached then batman-adv will either fall back to multicast via multiple batman-adv unicast packes. Or if that is not possible either, to classic flooding.
 
 * Multicast fanout setting is not considered yet. A multicast payload packet will only use one or no batman-adv multicast packet for now, for reduced complexity. And a batman-adv node would not know how to best split destinations to reduce the number of resplits/retransmissions along the paths / multicast tree.
 
