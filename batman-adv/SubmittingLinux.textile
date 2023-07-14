@@ -375,7 +375,7 @@ The patches then have to be prepared and the cover letter has to be created for 
 
 <pre>
 TAG=batadv-next-for-netdev-20160701
-git format-patch --cover-letter base/net-next..${TAG}
+git format-patch --cover-letter --subject-prefix='PATCH net-next' base/net-next..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
 git request-pull base/net-next git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
@@ -386,7 +386,7 @@ or for net:
 
 <pre>
 TAG=batadv-net-for-netdev-20160701
-git format-patch --cover-letter base/net..${TAG}
+git format-patch --cover-letter --subject-prefix='PATCH net' base/net..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
 git request-pull base/net git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
