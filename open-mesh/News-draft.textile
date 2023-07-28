@@ -1,27 +1,28 @@
-h1. DRAFT: Batman-adv 2023.1 released
+h1. DRAFT: Batman-adv 2023.2 released
 
-May 16th, 2023. Today the B.A.T.M.A.N. team publishes the May 2023 update to batman-adv! Initial infrastructure changes for multicast packets with multiple (unicast) destination addresses were integrated.
+Aug 4th, 2023. Today the B.A.T.M.A.N. team publishes the August 2023 update to batman-adv! Alfred now allows to send data via unix socket to a primary server when none of the interfaces is ready. Also several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2023.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2023.2/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Linus Lüssing <linus.luessing@c0d3.blue>
+* Marek Lindner <mareklindner@neomailbox.ch>
+* Remi Pommarel <repk@triplefau.lt>
 * Simon Wunderlich <sw@simonwunderlich.de>
-* Sven Eckelmann <sven@narfation.org>
-* Vladimir Oltean <vladimir.oltean@nxp.com>
+* Sven Eckelmann <sven@narfation.org> 
+* Vladislav Efanov <VEfanov@ispras.ru>
 
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2023.0-6-gb097e63c
-$ range=v2023.0..v2023.0-6-gb097e63c
+v2023.1-9-ged12d0c1
+$ range=v2023.1..v2023.1-9-ged12d0c1
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -30,15 +31,9 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 features
 ========
 
-      batman-adv: mcast: remove now redundant single ucast forwarding
-      batman-adv: tvlv: prepare for tvlv enabled multicast packet type
-
 
 new kernel version
 ==================
-
-      batman-adv: introduce skb_vlan_eth_hdr()
-      batman-adv: Drop prandom.h includes
 
 
 
@@ -48,30 +43,36 @@ coding style cleanup/refactoring
 various
 =======
 
-      batman-adv: Fix mailing list address
-
+      batman-adv: compat: Use native kstrtox.h for 5.10.185
 
 bugfixes
 ========
 
+      batman-adv: Do not get eth header before batadv_check_management_packet
+      batman-adv: Trigger events for auto adjusted MTU
+      batman-adv: Don't increase MTU when set by user
+      batman-adv: Broken sync while rescheduling delayed work
 
 
 
-2023.1 (2023-05-16)
+2023.2 (2023-08-04)
 ===================
 
-* support latest kernels (4.14 - 6.4)
-* drop single unicast transfer optimization for unsnoopable IP addresses
-* prepare infrastructure for multicast packets with multiple unicast destination
-  addresses
+* support latest kernels (4.14 - 6.5)
+* bugs squashed:
+
+  - potenial invalid memory access when processing ELP/OGM2 packets
+  - drop pending DAT worker when interface shuts down
+  - inform network stack about automatically adjusted MTUs
+  - keep user defined MTU limit when MTU is recalculated
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/main
-v2023.0-2-gea10c02
-$ range=v2023.0..v2023.0-2-gea10c02
+v2023.1-1-g2cfb13e
+$ range=v2023.1..v2023.1-1-g2cfb13e
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -84,7 +85,6 @@ features
 coding style cleanup/refactoring
 ================================
 
-* batman-adv: prepare for tvlv enabled multicast packet type
 
 
 
@@ -93,11 +93,10 @@ bugfixes
 
 
 
-2023.1 (2023-05-16)
+2023.2 (2023-08-04)
 ===================
 
-* Synchronize with kernel headers
-
+* (no changes)
 
 </pre>
 
@@ -105,18 +104,18 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2023.0-1-g06844d5
-$ range=v2023.0..v2023.0-1-g06844d5
+v2023.1-2-g94b3c4b
+$ range=v2023.1..v2023.1-2-g94b3c4b
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
 
-2023.1 (2023-05-16)
+2023.2 (2023-08-04)
 ===================
 
-* (no changes)
+* receive data with valid source on unix sock without active interface
 </pre>
 
 
