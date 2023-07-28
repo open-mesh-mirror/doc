@@ -16,7 +16,6 @@ Thanks to all people sending in patches:
 * Sven Eckelmann <sven@narfation.org> 
 * Vladislav Efanov <VEfanov@ispras.ru>
 
-
 h2. batman-adv
 
 <pre>
@@ -61,7 +60,7 @@ bugfixes
 * support latest kernels (4.14 - 6.5)
 * bugs squashed:
 
-  - potenial invalid memory access when processing ELP/OGM2 packets
+  - avoid potential invalid memory access when processing ELP/OGM2 packets
   - drop pending DAT worker when interface shuts down
   - inform network stack about automatically adjusted MTUs
   - keep user defined MTU limit when MTU is recalculated
