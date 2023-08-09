@@ -20,8 +20,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2023.1-9-ged12d0c1
-$ range=v2023.1..v2023.1-9-ged12d0c1
+v2023.1-13-g67f427d8
+$ range=v2023.1..v2023.1-13-g67f427d8
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -64,6 +64,8 @@ bugfixes
   - drop pending DAT worker when interface shuts down
   - inform network stack about automatically adjusted MTUs
   - keep user defined MTU limit when MTU is recalculated
+  - fix packet memory leak when sending OGM2 via inactive interfaces
+  - fix TT memory leak for roamed back clients
 </pre>
 
 h2. batctl
