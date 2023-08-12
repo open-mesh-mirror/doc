@@ -82,25 +82,23 @@ MCAST Tracker TVLV
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |  TVLV Type    |  TVLV Version |  TVLV Length                  |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  #Num Dests (N)               |  [padding]                    |
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  Dest 1 ...                                                   |
-  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  ...                          |  Dest 2 ...                   |
+  |  #Num Dests (N)               |  Dest 1 ...                   |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |  ...                                                          |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |  Dest 2 ...                                                   |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |  ...                          |  Dest N ...                   |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  ...                                                          |
+  |  ...                          | [padding]                     |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 * TVLV Type: 0x07
 * TVLV Version: 1
 * #Num Dests: Number of destinations (originator MAC addresses)
-* [padding]: Optional, only present if #Num Dests are even, to make
-  Tracker TVLV 4 byte aligned (to make encapsulated IP packets 4 byte
-  aligned)
+* [padding]: Optional 2 byte padding, only present if #Num Dests are
+  even, to make Tracker TVLV 4 byte aligned (to make encapsulated IP
+  packets 4 byte aligned)
 
 OGM Multicast TVLV flags
 ------------------------
@@ -181,11 +179,10 @@ Limitations
   hard interface. 1280 bytes is also the `IPv6 minimum
   MTU <https://www.rfc-editor.org/rfc/rfc2460#section-5>`__, so this
   makes it already less likely to be undercut in practice.
-* If the payload data’s size together with the number destination nodes
-  is too large, so if the final batman-adv multicast packet would
-  exceed 1280 bytes (excluding the outter ethernet frame), then the
-  batman-adv multicast packet type cannot/will not be used. Example
-  limits:
+* If the payload data's size together with the number destination nodes
+  is too large, so if the final batman-adv multicast packet would exceed
+  1280 bytes (excluding the outer ethernet frame), then the batman-adv
+  multicast packet type cannot/will not be used. Example limits:
 
   - 2 destination nodes: 1222 bytes ethernet frame size
   - 8 destination nodes: 1186 bytes ethernet frame size
@@ -196,7 +193,7 @@ Limitations
     size <https://en.wikipedia.org/wiki/Ethernet_frame#Payload>`__
     without a VLAN)
 
-If such a limitation is reached then batman-adv will either fallback to
+If such a limitation is reached then batman-adv will either fall back to
 multicast via multiple batman-adv unicast packes. Or if that is not
 possible either, to classic flooding.
 
