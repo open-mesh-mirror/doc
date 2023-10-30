@@ -1,31 +1,34 @@
-h1. DRAFT: Batman-adv 2023.2 released
+h1. DRAFT: Batman-adv 2023.3 released
 
-Aug 4th, 2023. Today the B.A.T.M.A.N. team publishes the August 2023 update to batman-adv! Alfred now allows to send data via unix socket to a primary server when none of the interfaces is ready. Also several bug fixes and code cleanups are included in this version.
+Nov 15th, 2023. Today the B.A.T.M.A.N. team publishes the November 2023 update to batman-adv! batman-adv is no longer warning about an MTU reduction when the soft-interfaces already has a reduced MTU. Also several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2023.2/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2023.3/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Marek Lindner <mareklindner@neomailbox.ch>
-* Remi Pommarel <repk@triplefau.lt>
 * Simon Wunderlich <sw@simonwunderlich.de>
-* Sven Eckelmann <sven@narfation.org> 
-* Vladislav Efanov <VEfanov@ispras.ru>
+* Sven Eckelmann <sven@narfation.org>
+* YueHaibing <yuehaibing@huawei.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2023.1-13-g67f427d8
-$ range=v2023.1..v2023.1-13-g67f427d8
+v2023.2-9-g5fecd4a3
+$ range=v2023.2..v2023.2-9-g5fecd4a3
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
+
+Sven Eckelmann <sven@narfation.org> (6):
+
+YueHaibing <yuehaibing@huawei.com> (1):
+      batman-adv: Remove unused declarations
 
 features
 ========
@@ -39,41 +42,43 @@ new kernel version
 coding style cleanup/refactoring
 ================================
 
+      batman-adv: Remove unused declarations
+      batman-adv: Avoid magic value for minimum MTU
+      batman-adv: Drop unused function batadv_gw_bandwidth_set
+      batman-adv: Keep batadv_netlink_notify_* static
+      batman-adv: Drop per algo GW section class code
+
 various
 =======
 
-      batman-adv: compat: Use native kstrtox.h for 5.10.185
+      batman-adv: Check hardif MTU against runtime MTU
+
 
 bugfixes
 ========
 
-      batman-adv: Do not get eth header before batadv_check_management_packet
-      batman-adv: Trigger events for auto adjusted MTU
-      batman-adv: Don't increase MTU when set by user
-      batman-adv: Broken sync while rescheduling delayed work
+      batman-adv: Hold rtnl lock during MTU update via netlink
 
 
 
-2023.2 (2023-08-04)
+
+2023.3 (2023-11-15)
 ===================
 
-* support latest kernels (4.14 - 6.5)
+* support latest kernels (4.14 - 6.7)
+* coding style cleanups and refactoring
+* only warn about too small MTU when soft interfaces wasn't already reduced
 * bugs squashed:
 
-  - avoid potential invalid memory access when processing ELP/OGM2 packets
-  - drop pending DAT worker when interface shuts down
-  - inform network stack about automatically adjusted MTUs
-  - keep user defined MTU limit when MTU is recalculated
-  - fix packet memory leak when sending OGM2 via inactive interfaces
-  - fix TT memory leak for roamed back clients
+  - Hold rtnl lock during MTU update via netlink
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/main
-v2023.1-1-g2cfb13e
-$ range=v2023.1..v2023.1-1-g2cfb13e
+v2023.2-1-g5b72033
+$ range=v2023.2..v2023.2-1-g5b72033
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -94,7 +99,7 @@ bugfixes
 
 
 
-2023.2 (2023-08-04)
+2023.3 (2023-11-15)
 ===================
 
 * (no changes)
@@ -105,18 +110,18 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2023.1-2-g94b3c4b
-$ range=v2023.1..v2023.1-2-g94b3c4b
+v2023.2-1-ge51f93a
+$ range=v2023.2..v2023.2-1-ge51f93a
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
 
-2023.2 (2023-08-04)
+2023.3 (2023-11-15)
 ===================
 
-* receive data with valid source on unix sock without active interface
+* (no changes)
 </pre>
 
 
