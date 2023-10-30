@@ -62,7 +62,6 @@ h2. Development
 
 You looked in the code ? Fixed bugs ? Added a cool new function ? Integrated B.A.T.M.A.N. in a distribution ? Don't hesitate to let us and others know! We can avoid duplicated work by publishing it here or linking to your page. Patches are always welcome and can be posted on the [[MailingList|mailing list]] to get integrated. We also hand out git access to people that want to get involved.
 
-
 h2. Submitting patches
 
 
@@ -75,15 +74,11 @@ If you intend to send us patches, please consider the following guidelines:
 * Add a "Signed-off-by: Your Name <you@example.com>" line to the patch message to make the ownership of the patch clear.
 * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style closely (use checkpatch.pl to verify your patch) as well as the linux "how to submit patches" guidelines (search for the term SubmitPatches to find thorough documentation).
 * Check it using static analysis tools like "sparse":https://sparse.wiki.kernel.org/ (cgcc) and "cppcheck":http://cppcheck.sourceforge.net/
-* Patches against the batman-adv main branch must be formatted using
-<pre>
+* Patches against the batman-adv main branch must be formatted using <pre>
 git format-patch $BASECOMMIT
-</pre>
+</pre> or an equivalent tool (like <code>b4</code>)
 * README, manpage and sysfs-class-net-* must be updated together with the related source change
 * Add or update kerneldoc to functions and structures you add or modify.
 * batman-adv changes affecting batctl have to be send with the batctl patches in the same patchset
-* it is recommended to use `git send-email` to send the mails to the mailinglist
+* it is recommended to use "b4":https://b4.docs.kernel.org/ to send the patch mails to the mailinglist - but plain `git send-email` is also fine.
 * An exemplary good submission you may want to look at can be found here: https://patchwork.open-mesh.org/project/b.a.t.m.a.n./patch/1261051915-13960-1-git-send-email-sven.eckelmann@gmx.de/
-
-
-
