@@ -38,6 +38,7 @@ h1. Feature History
 ** v0.1
 * *BATMAN V*
 ** OGMv2 / ELP / Throughput metric: v2016.1
+** WiFi TX bitrate fallback: v2020.0
 * *TT*
 ** Initial support: 2011.3.0
 ** Speedy Join: v2012.4.0
