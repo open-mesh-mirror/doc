@@ -30,7 +30,7 @@ h1. Feature History
 ** Multicast TT + TVLV support: v2014.2.0
 ** Bridge support: v2016.3
 ** Multicast-to-multi-unicast: v2019.2
-** Preliminary routable IPv6 multicast support: v2019.3
+** Preliminary routable IPv6 multicast address support: v2019.3
 ** Full, MRD based routable IPv4/IPv6 multicast address support: v2021.2
 * *Network Coding*
 ** v2013.2.0
