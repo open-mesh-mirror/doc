@@ -107,9 +107,11 @@ guidelines:
   `cppcheck <http://cppcheck.sourceforge.net/>`__
 * Patches against the batman-adv main branch must be formatted using
 
-::
+  ::
 
     git format-patch $BASECOMMIT
+
+  or an equivalent tool (like ``b4``)
 
 -  README, manpage and sysfs-class-net-\* must be updated together with
    the related source change
@@ -117,8 +119,7 @@ guidelines:
    modify.
 -  batman-adv changes affecting batctl have to be send with the batctl
    patches in the same patchset
--  it is recommended to use \`git send-email\` to send the mails to the
-   mailinglist
+-  it is recommended to use `b4 <https://b4.docs.kernel.org/>`__ to send the patch mails to the mailinglist - but plain ``git send-email`` is also fine.
 -  An exemplary good submission you may want to look at can be found
    here:
    https://patchwork.open-mesh.org/project/b.a.t.m.a.n./patch/1261051915-13960-1-git-send-email-sven.eckelmann@gmx.de/

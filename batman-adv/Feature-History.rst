@@ -50,6 +50,8 @@ Feature History
    -  Multicast TT + TVLV support: v2014.2.0
    -  Bridge support: v2016.3
    -  Multicast-to-multi-unicast: v2019.2
+   -  Preliminary routable IPv6 multicast address support: v2019.3
+   -  Full, MRD based routable IPv4/IPv6 multicast address support: v2021.2
 
 -  **Network Coding**
 
@@ -62,6 +64,7 @@ Feature History
 -  **BATMAN V**
 
    -  OGMv2 / ELP / Throughput metric: v2016.1
+   -  WLAN TX bitrate fallback: v2020.0
 
 -  **TT**
 
