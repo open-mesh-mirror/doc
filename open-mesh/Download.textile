@@ -102,7 +102,7 @@ It follows an overview of linux versions and the batman-adv version they contain
 * linux 6.3 => batman-adv 2023.0 (get batctl 2023.0 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 6.4 => batman-adv 2023.1 (get batctl 2023.1 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 6.5 => batman-adv 2023.2 (get batctl 2023.2 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
-* linux 6.6 => batman-adv 2023.2 (get batctl 2023.2 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
+* linux 6.6 => batman-adv 2023.3 (get batctl 2023.3 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
 * linux 6.7 => batman-adv 2023.3 (get batctl 2023.3 from "here":https://downloads.open-mesh.org/batman/stable/sources/batctl/)
 
 h2. Arch Linux
