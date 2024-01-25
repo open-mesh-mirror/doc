@@ -1,90 +1,89 @@
-h1. DRAFT: Batman-adv 2023.3 released
+h1. DRAFT: Batman-adv 2024.0 released
 
-Nov 15th, 2023. Today the B.A.T.M.A.N. team publishes the November 2023 update to batman-adv! batman-adv is no longer warning about an MTU reduction when the soft-interfaces already has a reduced MTU. Also several bug fixes and code cleanups are included in this version.
+Jan 30th, 2024. Today the B.A.T.M.A.N. team publishes the January 2024 update to batman-adv! batman-adv gained support for the new stateless, TVLV capable batman-adv multicast packet type. The originator of a multicast packet includes all destinations for this packet. The routers on the way will potentially split this destination list (based on the best next hops) and and forward for each chunk an adjusted packet to the  best next neighbor.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2023.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2024.0/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
+* Linus Lüssing <linus.luessing@c0d3.blue>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
-* YueHaibing <yuehaibing@huawei.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2023.2-9-g5fecd4a3
-$ range=v2023.2..v2023.2-9-g5fecd4a3
+v2023.3-11-gecdc425a
+$ range=v2023.3..v2023.3-11-gecdc425a
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-
-Sven Eckelmann <sven@narfation.org> (6):
-
-YueHaibing <yuehaibing@huawei.com> (1):
-      batman-adv: Remove unused declarations
+Sven Eckelmann <sven@narfation.org> (4):
 
 features
 ========
+
+      batman-adv: mcast: implement multicast packet reception and forwarding
+      batman-adv: mcast: implement multicast packet generation
+      batman-adv: mcast: shrink tracker packet after scrubbing
+      batman-adv: mcast: fix mcast packet type counter on timeouted nodes
+      batman-adv: mcast: fix memory leak on deleting a batman-adv interface
 
 
 new kernel version
 ==================
 
+      batman-adv: compat: Fix skb_vlan_eth_hdr conflict in stable kernels
+      batman-adv: Drop support for Linux < 4.19
 
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Remove unused declarations
-      batman-adv: Avoid magic value for minimum MTU
-      batman-adv: Drop unused function batadv_gw_bandwidth_set
-      batman-adv: Keep batadv_netlink_notify_* static
-      batman-adv: Drop per algo GW section class code
+      batman-adv: Switch to linux/sprintf.h
+      batman-adv: Switch to linux/array_size.h
 
 various
 =======
-
-      batman-adv: Check hardif MTU against runtime MTU
 
 
 bugfixes
 ========
 
-      batman-adv: Hold rtnl lock during MTU update via netlink
 
 
 
 
-2023.3 (2023-11-15)
+2024.0 (2024-01-30)
 ===================
 
-* support latest kernels (4.14 - 6.7)
+* support latest kernels (4.19 - 6.8)
 * coding style cleanups and refactoring
-* only warn about too small MTU when soft interfaces wasn't already reduced
-* bugs squashed:
-
-  - Hold rtnl lock during MTU update via netlink
+* Add stateless multicast packet format support
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/main
-v2023.2-1-g5b72033
-$ range=v2023.2..v2023.2-1-g5b72033
+v2023.3-3-gaf2806d
+$ range=v2023.3..v2023.3-3-gaf2806d
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
+
 features
 ========
+
+      batctl: mcast_flags: update to current state
+      batctl: tcpdump: parse batman-adv mcast packet type
 
 
 
@@ -99,10 +98,10 @@ bugfixes
 
 
 
-2023.3 (2023-11-15)
+2024.0 (2024-01-30)
 ===================
 
-* (no changes)
+* Add stateless multicast packet format support
 
 </pre>
 
@@ -110,15 +109,14 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2023.2-1-ge51f93a
-$ range=v2023.2..v2023.2-1-ge51f93a
+v2023.3-1-g729f31f
+$ range=v2023.3..v2023.3-1-g729f31f
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
-
-2023.3 (2023-11-15)
+2024.0 (2024-01-30)
 ===================
 
 * (no changes)
