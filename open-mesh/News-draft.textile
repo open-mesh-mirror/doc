@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2024.0 released
 
-Jan 30th, 2024. Today the B.A.T.M.A.N. team publishes the January 2024 update to batman-adv! batman-adv gained support for the new stateless, TVLV capable batman-adv multicast packet type. The originator of a multicast packet includes all destinations for this packet. The routers on the way will potentially split this destination list (based on the best next hops) and and forward for each chunk an adjusted packet to the  best next neighbor.
+Jan 30th, 2024. Today the B.A.T.M.A.N. team publishes the January 2024 update to batman-adv! batman-adv gained support for the new stateless, TVLV capable batman-adv multicast packet type. The originator of a multicast packet includes all destinations for this packet. The routers on the way will potentially split this destination list (based on the best next hops) and and forward for each chunk an adjusted packet to the  best next neighbor. Also several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -72,8 +72,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2023.3-3-gaf2806d
-$ range=v2023.3..v2023.3-3-gaf2806d
+v2023.3-9-gfb7a514
+$ range=v2023.3..v2023.3-9-gfb7a514
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -96,12 +96,20 @@ coding style cleanup/refactoring
 bugfixes
 ========
 
-
+      batctl: tcpdump: Fix missing sanity check for batman-adv header
+      batctl: tcpdump: Add missing throughput header length check
+      batctl: tcpdump: Fix IPv4 header length check
+      batctl: tcpdump: Add missing ICMPv6 Neighbor Advert length check
+      batctl: tcpdump: Add missing ICMPv6 Neighbor Solicit length check
+      batctl: tcpdump: Fix ICMPv4 inner IPv4 header length check
 
 2024.0 (2024-01-30)
 ===================
 
 * Add stateless multicast packet format support
+* bugs squashed:
+
+  - Fix various length checks in tcpdump-like subcommand
 
 </pre>
 
