@@ -82,6 +82,8 @@ Overall, in general: Allows to use an untrusted wireless community mesh network 
 
 h3. Implementation Milestones/Tasks
 
+Steps for a first, minimum implementation with real-world usability:
+
 <pre><code>
 # Preparation:
 
@@ -105,7 +107,8 @@ Hook into/within hostapd:
 ### On-demand initalization + EAP handling:
 
 [] parse domain from unencrypted EAP-TTLS username from EAPoL frames
-[] create a UDP/L2TP tunnel to parsed domain
+[] create a UDP/L2TP tunnel/session to parsed domain
+   (likely utilize the l2tp kernel module)
 [] associate/memorize MAC + UDP socket (address+port)
 [] encapsulate EAPoL 
 [] EAPoL frames from client to the socket/tunnel:
@@ -124,21 +127,40 @@ Hook into/within hostapd:
   [] decapsulate/remove our IP/UDP/L2TP header
   [] forward to mac80211
 
-## Remote side
+## Remote Side / Remote Authenticator
 
-### Initialization
+### Early initialization:
 
-Option A)
-* Setup/Utilize mac80211_hwsim kernel module?
+[] add configuration/enable option to hostapd
+[] initialize socket to listen for L2TP packets on
+   a specific <UDP-port>
+[] load mac80211/cfg80211 kernel modules
 
-Option B)
-* 
+### On-demand initialization + EAP handling:
 
-  * Remote Server side, initialization / EAP handling:
-  * Remote Server side, data forwarding, from client:
-    ...
-  * Remote Server side, data forwarding, to client:
-    ...
+[] receive L2TP packets
+[] initialize L2TP tunnel/session
+   (likely utilize the l2tp kernel module)
+[] EAPoL frames from hostapd to the socket/tunnel:
+  [] encapsulate with our IP/UDP/L2TP header
+  [] forward to IP router/stack
+[] EAPoL frames from the socket/tunnel to hostapd:
+  [] decapsulate/remove our IP/UDP/L2TP header
+  [] forward/handle in hostapd's existing EAPoL code
+[] establish PMK from EAPoL exchange
+[] setup mac80211/cfg80211 with PMK to use
+   the Linux kernel's software encryption/decryption
+   of WPA (likely via the mac80211_hwsim kernel module)
+   [] (likely) needs changes/additions / new API to mac80211(_hwsim)
+
+### Data forwarding:
+
+[] WPA CCMP frames from mac80211(_hwsim) to the socket/tunnel:
+  [] encapsulate with our IP/UDP/L2TP header to <domain>
+  [] forward to IP router/stack
+[] WPA CCMP frames from socket/tunnel to mac80211(_hwsim):
+  [] decapsulate/remove our IP/UDP/L2TP header
+  [] forward to mac80211
 
 ## Firmware Packaging/Integration
 
@@ -148,7 +170,7 @@ AP/client side:
 
 [] allow building a hostapd/wpa_supplicant/wpad variant
    without OpenHarbor code (size tuneability matters
-   on embedded)
+   on embedded / for upstream acceptance)
 
 [] add an openharbor-client package
   [] add requirement to usable hostapd/wpa_supplicant/wpad
@@ -157,9 +179,9 @@ AP/client side:
   [] add documentation/description to package
   [] add document/description on OpenWrt Wiki's "UCI /etc/config/wireless page":https://openwrt.org/docs/guide-user/network/wifi/basic
 
-Remote side:
+Remote Authenticator Side:
 
-[] add an openharbor-server package
+[] add an openharbor-server (openharbor-authenticator) package
   [] add documentation/description to package
 
 ### Freifunk/Gluon integration
