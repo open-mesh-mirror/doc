@@ -212,6 +212,9 @@ h3. Optional/additional/future Milestones/Ideas
 * Add RADIUS server option to (Gluon's) openharbor-server/authenticator
   integration, for a more sophisticated/flexible authentication
   management (for more technically versed people)
+* Signal "OpenHarbor" capability via a vendor field in beacons?
+  To avoid a client only relying on the "OpenHarbor" ESSID name?
+  (if I recall correctly also Passpoint had options for similar signalling?)
 * Passpoint / Hotspot 2.0 compatibility
 * additional Layer 2 encapsulation method, which skips the IP/UDP/L2TP headers and
   uses a smaller, custom ethernet frame header
