@@ -200,13 +200,21 @@ Remote Authenticator Side:
          combinations
 </code></pre>
 
-## Optional/additional/future Milestones/Ideas
+h3. Optional/additional/future Milestones/Ideas
 
-* Kernel module / mac82011 additions for encapsulation for performance - if necessary?
-* Passpoint / Hotspot 2.0 compatibility
+* Extra kernel module which forwards between the
+  mac80211(_hwsim) kernel module and the l2tp
+  kernel module (or implement within mac80211_hwsim)
+  for increased/usable performance on embedded devices
 * More EAP methods: Any other methods other than EAP-TTLS which
   can provide a cleartext username and/or domain?
-* Layer 2 encapsulation method, which skips the IP/UDP/L2TP headers and
+* Add RADIUS server option to (Gluon's) openharbor-server/authenticator
+  integration, for a more sophisticated/flexible authentication
+  management (for more technically versed people)
+* Passpoint / Hotspot 2.0 compatibility
+* additional Layer 2 encapsulation method, which skips the IP/UDP/L2TP headers and
   uses a smaller, custom ethernet frame header
   * allows login via: <username>@<mac-address-destination>
-    -> useful to tunnel from one mesh node to another?
+    -> useful to tunnel from one mesh node to another,
+       within this layer 2 domain, without layer 3 routing involved
+* MTU signaling compliant with "RFC:4459":https://www.rfc-editor.org/rfc/rfc4459
