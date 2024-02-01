@@ -206,6 +206,7 @@ h3. Optional/additional/future Milestones/Ideas
   mac80211(_hwsim) kernel module and the l2tp
   kernel module (or implement within mac80211_hwsim)
   for increased/usable performance on embedded devices
+  (ideally already done early for/with the initial implementation)
 * More EAP methods: Any other methods other than EAP-TTLS which
   can provide a cleartext username and/or domain?
 * Add RADIUS server option to (Gluon's) openharbor-server/authenticator
@@ -217,4 +218,18 @@ h3. Optional/additional/future Milestones/Ideas
   * allows login via: <username>@<mac-address-destination>
     -> useful to tunnel from one mesh node to another,
        within this layer 2 domain, without layer 3 routing involved
+* allow using node names for login:
+  * Gluon nodes only have an IPv6 address to be accesed.
+    And (typically) no public DNS entry for this IPv6 address.
+    Having a user to enter <login-name>@<mesh-node's-IPv6-address>
+    won't be usable in practice for the gluon-openharbor-server
+    package. Instead the hostname, which a Gluon mesh node owner
+    can set in the Gluon config-mode and is then visible on
+    a central map server, should be usable for a client
+  * option A) integrate mDNS? -> nicely decentral, but likely has too high protocol overhead
+  * option B) a small nsswitch module on the openharbor AP side
+    which resolves a given @<node>.local (or similar TLD)
+    via the nodes.json fetched from the map server
+  * option C) a cronjob which fetches node names from
+    the map server and populates /etc/hosts on the AP
 * MTU signaling compliant with "RFC:4459":https://www.rfc-editor.org/rfc/rfc4459
