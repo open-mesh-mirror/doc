@@ -1,0 +1,50 @@
+h1. Idea/Draft: OpenHarbors ("Gotham Docks")
+
+**DRAFT / NOT IMPLEMENTED**
+
+This document specifies a way to dynamically tunnel WPA over a potentially untrusted IP network to a gateway of the user's choice.
+
+h2. Issues
+
+h3. Issues with Gluon based mesh networks
+
+In a wireless community mesh network like "Freifunk":https://en.wikipedia.org/wiki/Freifunk involving "batman-adv":https://www.open-mesh.org/projects/batman-adv/wiki/ + "Gluon":https://github.com/freifunk-gluon/gluon/ has two issues:
+
+1) A user's internet traffic is typically unencrypted in the WLAN mesh cloud
+2) A set of central gateways behind a VPN tunnel is used for internet traffic (which contradicts Freifunk's philosophy of decentralization, but became defacto mandatory due to for private people unclear Secondary Liability law in Germany: "''Störerhaftung''":https://de.wikipedia.org/wiki/St%C3%B6rerhaftung)
+
+!OpenHarbors-diagram-freifunk-unencrypted.png!
+
+Gluon also supports adding the following three types of WLAN encryption:
+
+1) "SAE":https://en.wikipedia.org/wiki/Simultaneous_Authentication_of_Equals to encrypt traffic between mesh nodes
+2) "OWE":https://en.wikipedia.org/wiki/Opportunistic_Wireless_Encryption to encrypt traffic from a user device to the direct mesh node / AP
+3) A "''Private WiFi''":https://gluon.readthedocs.io/en/latest/features/private-wlan.html with WPA-Personal/preshared key encryption, simply bridged to a mesh node's WAN port
+
+While 1)+2) protects against passive snooping, it however does not protect against an active attacker in an open, public network like Freifunk. Due to the open nature of Freifunk, the SAE password would need to be published / added to the firmware (source code) to allow anyone to setup their own mesh node. Overall Freifunk even with 1)+2) would still be susceptible to Man-in-the-Middle attacks.
+
+The issue with option 3) is that while it is secure, as the mesh node owner can configure their own, private password for it in the Gluon Config-Mode Web-GUI of their Gluon mesh router, it can't be used on foreign, other mesh nodes over the mesh network.
+
+!OpenHarbors-diagram-freifunk.png!
+
+h3. Issues with Passpoint/Hotspot 2.0/OpenRoaming solutions
+
+Industry leaders currently seem to propose and advocate for solutions based on Passpoint/Hotspot 2.0 which in turn builds upon "WPA-Enterprise":https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access#Target_users_(authentication_key_distribution). Potentially with "WBA OpenRoaming":https://wballiance.com/openroaming/ (Informational RFC: "here":https://datatracker.ietf.org/doc/draft-tomas-openroaming/ or similar trust/contract relations as a federation. Hotspot 2.0 was/is also a requirement for the EU "WiFi4EU":https://wifi4eu.ec.europa.eu/#/home initiative.
+
+Unfortunately, WPA-Enterprise / Hotspot 2.0/Passpoint like as follows has conceptual, compatibility issues with open wireless community mesh networks, like in the following scenario:
+
+!OpenHarbors-diagram-old-approach.png!
+
+* WPA payload frames are encrypted between the client device (ak. supplicant) and the AP it connects to through the Pairwise-Master-Key
+* The PMK is securely established via EAP between client device and a RADIUS server (ak. authentication server)
+* The communication between the AP and the RADIUS server might be encrypted via TLS ("RadSec":https://en.wikipedia.org/wiki/RadSec)
+* However, the PMK after it was generated is then forwarded from the RADIUS server to the AP (ak. authenticator).
+  -> the RADIUS server needs to **trust** the AP here
+
+Which means the WPA-Enterprise approach (and therefore also its users like Wifi4EU / Passpoint/Hotspot 2.0, or also eduroam) only works if the APs are run by *trusted administrators*. Or a *trusted, closed source* firmware/vendor.
+
+h2. Solution
+
+1) Determine the tunnel destination from a domain suffix in the unencrypted login name the user provided
+2) Tunnel the full WPA exchange over IP
+
