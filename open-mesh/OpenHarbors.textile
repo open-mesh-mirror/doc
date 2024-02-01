@@ -53,8 +53,12 @@ The second issue with WBA OpenRoaming is that it currently requires a membership
 
 h2. Solution
 
+----
+
 # Determine the tunnel destination from a domain suffix in the unencrypted login name (ak. "identity") the user provided
-# Tunnel the full WPA exchange over IP
+# Tunnel the full WPA exchange (EAPoL + encrypted payload) over IP
+
+---
 
 Or in other words, move the 802.1x authenticator from the AP to a remote host of a user's choosing:
 
