@@ -209,7 +209,9 @@ h3. Optional/additional/future Milestones/Ideas
   (ideally already done early for/with the initial implementation)
 * Roaming / handover support: When a client roams to another AP
   then the old AP would need to hand over the L2TP tunnel to
-  the new AP.
+  the new AP? Or will the client go through the full EAPoL steps
+  again anyway? Or is a handover protocol only needed if 802.11r
+  were involved?
 * More EAP methods: Any other methods other than EAP-TTLS which
   can provide a cleartext username and/or domain?
 * Add RADIUS server option to (Gluon's) openharbor-server/authenticator
