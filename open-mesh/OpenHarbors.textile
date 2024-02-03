@@ -37,10 +37,10 @@ Unfortunately, WPA-Enterprise / Hotspot 2.0/Passpoint like as follows has concep
 
 With WPA-Enterprise:
 
-* WPA payload frames are encrypted between the client device (ak. supplicant) and the AP it connects to through the Pairwise-Master-Key
+* WPA payload frames are encrypted between the client device (ak. supplicant) and the AP (ak. authenticator) it connects to through the Pairwise-Master-Key
 * The PMK is securely established via EAP between client device and a RADIUS server (ak. authentication server)
 * The communication between the AP and the RADIUS server might be encrypted via TLS ("RadSec":https://en.wikipedia.org/wiki/RadSec)
-* However, the PMK after it was generated is then forwarded from the RADIUS server to and installed on the AP (ak. authenticator).
+* However, the PMK after it was generated is then forwarded from the RADIUS server to and installed on the AP.
   -> the RADIUS server needs to **trust** the AP here
 
 ----
