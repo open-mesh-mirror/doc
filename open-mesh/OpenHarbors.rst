@@ -1,0 +1,353 @@
+.. SPDX-License-Identifier: GPL-2.0
+
+Idea/Draft: OpenHarbors (“Gotham Docks” / “WPA over L2TP”)
+==========================================================
+
+**DRAFT / NOT IMPLEMENTED**
+
+This document specifies a way to dynamically tunnel WPA over a
+potentially untrusted IP network to a gateway of the user’s choice.
+
+Issues
+------
+
+Issues with Gluon based mesh networks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In a wireless community mesh network like
+`Freifunk <https://en.wikipedia.org/wiki/Freifunk>`__ involving
+`batman-adv <https://www.open-mesh.org/projects/batman-adv/wiki/>`__ +
+`Gluon <https://github.com/freifunk-gluon/gluon/>`__ has two issues:
+
+#. A user’s internet traffic is typically unencrypted in the WLAN mesh
+   cloud (except for https etc.)
+#. A set of central gateways behind a VPN tunnel is used for internet
+   traffic (which contradicts Freifunk’s philosophy of decentralization,
+   but became defacto mandatory due to for private people unclear
+   Secondary Liability law in Germany:
+   `‘’Störerhaftung’’ <https://de.wikipedia.org/wiki/St%C3%B6rerhaftung)>`__
+
+.. image:: OpenHarbors-diagram-freifunk-unencrypted.svg
+   :alt: 
+
+Gluon also supports adding the following three types of WLAN encryption:
+
+#. `SAE <https://en.wikipedia.org/wiki/Simultaneous_Authentication_of_Equals>`__
+   to encrypt traffic between mesh nodes:
+   `gluon-mesh-wireless-sae <https://gluon.readthedocs.io/en/latest/package/gluon-mesh-wireless-sae.html>`__
+#. `OWE <https://en.wikipedia.org/wiki/Opportunistic_Wireless_Encryption>`__
+   to encrypt traffic from a user device to the direct mesh node / AP:
+   `OWE on client
+   network <https://gluon.readthedocs.io/en/latest/releases/v2020.2.html#owe-on-client-network>`__
+#. A `‘’Private
+   WiFi’’ <https://gluon.readthedocs.io/en/latest/features/private-wlan.html>`__
+   with WPA-Personal/preshared key encryption, simply bridged to a mesh
+   node’s WAN port
+
+While 1)+2) protects against passive snooping, it however does not
+protect against an active attacker in an open, public network like
+Freifunk. Due to the open nature of Freifunk, the SAE password would
+need to be published / added to the firmware (source code) to allow
+anyone to setup their own mesh node. So overall Freifunk even with 1)+2)
+would still be susceptible to Man-in-the-Middle attacks.
+
+The issue with option 3) is that while it is secure, as the mesh node
+owner can configure their own, private password for it in the Gluon
+Config-Mode Web-GUI of their Gluon mesh router, it can’t be used on
+foreign, other mesh nodes over the mesh network. There is no secure
+tunneling or provisioning/collaboration between mesh nodes for the
+“Private WiFi” feature in Gluon.
+
+.. image:: OpenHarbors-diagram-freifunk.svg
+   :alt: 
+
+Issues with Passpoint/Hotspot 2.0/OpenRoaming solutions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Industry leaders currently seem to propose and advocate for solutions
+based on `Passpoint/Hotspot
+2.0 <https://en.wikipedia.org/wiki/Wi-Fi_hotspot#Hotspot_2.0>`__ (which
+in turn utilizes/builds upon
+`WPA-Enterprise <https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access#Target_users_(authentication_key_distribution))>`__.
+Potentially with `WBA
+OpenRoaming <https://wballiance.com/openroaming/>`__ (Informational RFC:
+`here <https://datatracker.ietf.org/doc/draft-tomas-openroaming/>`__ or
+similar trust/contract relations as a federation. Hotspot 2.0 was/is
+also a requirement for the EU
+`WiFi4EU <https://wifi4eu.ec.europa.eu/#/home>`__ initiative/funding.
+
+Unfortunately, WPA-Enterprise / Hotspot 2.0/Passpoint like as follows
+has conceptual, compatibility issues with open wireless community mesh
+networks, like in the following scenario:
+
+.. image:: OpenHarbors-diagram-old-approach.svg
+   :alt: 
+
+With WPA-Enterprise:
+
+-  WPA payload frames are encrypted between the client device (ak.
+   supplicant) and the AP (ak. authenticator) it connects to through the
+   Pairwise-Master-Key
+-  The PMK is securely established via EAP between client device and a
+   RADIUS server (ak. authentication server)
+-  The communication between the AP and the RADIUS server might be
+   encrypted via TLS (`RadSec <https://en.wikipedia.org/wiki/RadSec)>`__
+-  However, the PMK after it was generated is then forwarded from the
+   RADIUS server to and installed on the AP.
+   -> the RADIUS server needs to **trust** the AP here
+
+--------------
+
+*Which means the WPA-Enterprise approach (and therefore also its users
+like Wifi4EU / Passpoint/Hotspot 2.0, or also eduroam) only works if the
+APs are run by*\ **trusted administrators**\ *. Or a*\ **trusted, closed
+source**\ *firmware/vendor.*
+
+--------------
+
+The second issue with WBA OpenRoaming is that it currently requires a
+membership, which includes a membership fee of $3000 one-time plus $3000
+yearly. Which is not affordable for a **non-commercial** community
+initiative like Freifunk.
+
+Solution
+--------
+
+--------------
+
+#. Determine the tunnel destination from a domain suffix in the
+   unencrypted login name (ak. “identity”) the user provided
+#. Tunnel the full WPA exchange (EAPoL + encrypted payload) over IP
+
+--------------
+
+Or in other words, move the 802.1x authenticator from the AP to a remote
+host of a user’s choosing:
+
+.. image:: OpenHarbors-diagram.svg
+   :alt: 
+
+(Additional) Use-cases & Benefits
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This proposed, dynamic solution yields the following, additional
+interesting opportunities:
+
+#. Securely connecting to the wireless mesh community’s gateways. So far
+   in a Freifunk mesh network internet traffic is typically only
+   encrypted on the VPN tunnel between a mesh node with an internet
+   uplink and the gateway, if at all.
+#. Allows anyone to set up and use alternative gateways:
+
+   #. Securely connecting to your home network via this tunnel, even on
+      untrusted/insecure community mesh networks. In a mesh network that
+      is Freifunk / Gluon based this could even result in faster
+      throughputs for the user, as internet traffic would not need to go
+      over the Freifunk gateway. This could be useful for a residential
+      community, too.
+   #. Allows a club / organisation / residential community / group to
+      securely share its internet connection and/or devices/services,
+      like printers, network storage, media centers or LAN multiplayer
+      games, over an untrusted mesh network.
+   #. Securely connecting to your departments/organisations network via
+      this tunnel, even on untrusted/insecure community mesh networks.
+      For instance blue light organisations like fire, police or
+      ambulance services?
+   #. Securely connecting to a commercial VPN provider and use it as an
+      alternative gateway than the ones a wireless community network
+      provides by default. Without the need of installing and setting up
+      an extra VPN software, as smartphones typically already support
+      WPA Enterprise. And for the VPN providers, would need no extra
+      contract or setup on the APs or other third party devices to be
+      authorized, as the protocol for setting up the tunnel is
+      intrinsic, without needing a broker / rendez-vous point. In
+      contrast to a classic VPN or WPA Enterprise, where both sides
+      would likely need to exchange credentials and addresses
+      beforehand.
+   #. Securely connecting to your commercial ISP’s gateways. Also usable
+      for mobile-to-WiFi offloading? Similar to one of WiFi Passpoints
+      goals, but now also usable over on untrusted WiFi APs.
+   #. Allows using eduroam on untrusted Freifunk nodes.
+   #. Increase gateway diversity in wireless community networks like
+      Freifunk, without legal obstacles. Currently in most Freifunk
+      networks the few, select gateways are run by a few admins in their
+      spare time, which contradicts Freifunk’s principle of
+      decentralization. Choosing and using alternative internet gateways
+      in a such a Freifunk network is currently infeasible for a
+      non-technical user here.
+
+Overall, in general: Allows to use an untrusted wireless community mesh
+network as an easy-to-use, flexible, open, mobile carrier with
+end-to-gateway encryption.
+
+Implementation Milestones/Tasks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Steps for a first, minimum implementation with real-world usability:
+
+::
+
+   <code>
+   # Preparation:
+
+   [] (Familiarizing with hostapd code, find code points to hook into)
+   [] Specifiy tunneling protocol:
+     [] packet format
+     [] UDP port
+     [] ...
+
+   # Implementation, hostapd:
+
+   ## AP side
+
+   Hook into/within hostapd:
+
+   ### Early initalization:
+
+   [] enable/react on OpenHarbors ESSID if configuration option is enabled
+   [] setup mac80211/cfg80211 to receive encrypted WPA CCMP frames in hostapd
+
+   ### On-demand initalization + EAP handling:
+
+   [] parse domain from unencrypted EAP-TTLS username from EAPoL frames
+   [] create a UDP/L2TP tunnel/session to parsed domain
+      (likely utilize the l2tp kernel module)
+   [] associate/memorize MAC + UDP socket (address+port)
+   [] encapsulate EAPoL 
+   [] EAPoL frames from client to the socket/tunnel:
+     [] encapsulate with our IP/UDP/L2TP header
+     [] forward to IP router/stack
+   [] EAPoL frames from the socket/tunnel to the client:
+     [] decapsulate/remove our IP/UDP/L2TP header
+     [] forward to mac80211
+
+   ### Data forwarding:
+
+   [] WPA CCMP frames from client to the socket/tunnel:
+     [] encapsulate with our IP/UDP/L2TP header to <domain>
+     [] forward to IP router/stack
+   [] WPA CCMP frames from socket/tunnel to client:
+     [] decapsulate/remove our IP/UDP/L2TP header
+     [] forward to mac80211
+
+   ## Remote Side / Remote Authenticator
+
+   ### Early initialization:
+
+   [] add configuration/enable option to hostapd
+   [] initialize socket to listen for L2TP packets on
+      a specific <UDP-port>
+   [] load mac80211/cfg80211 kernel modules
+
+   ### On-demand initialization + EAP handling:
+
+   [] receive L2TP packets
+   [] initialize L2TP tunnel/session
+      (likely utilize the l2tp kernel module)
+   [] EAPoL frames from hostapd to the socket/tunnel:
+     [] encapsulate with our IP/UDP/L2TP header
+     [] forward to IP router/stack
+   [] EAPoL frames from the socket/tunnel to hostapd:
+     [] decapsulate/remove our IP/UDP/L2TP header
+     [] forward/handle in hostapd's existing EAPoL code
+   [] establish PMK from EAPoL exchange
+   [] setup mac80211/cfg80211 with PMK to use
+      the Linux kernel's software encryption/decryption
+      of WPA (likely via the mac80211_hwsim kernel module)
+      [] (likely) needs changes/additions / new API to mac80211(_hwsim)
+
+   ### Data forwarding:
+
+   [] WPA CCMP frames from mac80211(_hwsim) to the socket/tunnel:
+     [] encapsulate with our IP/UDP/L2TP header to <domain>
+     [] forward to IP router/stack
+   [] WPA CCMP frames from socket/tunnel to mac80211(_hwsim):
+     [] decapsulate/remove our IP/UDP/L2TP header
+     [] forward to mac80211
+
+   ## Firmware Packaging/Integration
+
+   ### OpenWrt package/integration:
+
+   AP/client side:
+
+   [] allow building a hostapd/wpa_supplicant/wpad variant
+      without OpenHarbor code (size tuneability matters
+      on embedded / for upstream acceptance)
+
+   [] add an openharbor-client package
+     [] add requirement to usable hostapd/wpa_supplicant/wpad
+        build variants
+     [] integrate into OpenWrt's netifd('s mac80211.sh)
+     [] add documentation/description to package
+     [] add document/description on OpenWrt Wiki's "UCI /etc/config/wireless page":https://openwrt.org/docs/guide-user/network/wifi/basic
+
+   Remote Authenticator Side:
+
+   [] add an openharbor-server (openharbor-authenticator) package
+     [] add documentation/description to package
+
+   ### Freifunk/Gluon integration
+
+   [] add a gluon-openharbor-client package to enable OpenHarbor on
+      WiFi radios used by Gluon
+      [] add documentation/description to package
+         / Gluon's readthedocs, including use-cases/illustrations
+         for Gluon/Freifunk users
+   [] add a gluon-openharbor-server package
+      [] add Gluon Config-Mode Web-GUI integration,
+         usable by non-technical people:
+         [] to set output interface for decrypted WPA
+            (e.g. WAN vs. LAN ports)
+         [] to set a list of allowed username//password
+            combinations
+   </code>
+
+Optional/additional/future Milestones/Ideas
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  Extra kernel module which forwards between the
+   mac80211(_hwsim) kernel module and the l2tp
+   kernel module (or implement within mac80211_hwsim)
+   for increased/usable performance on embedded devices
+   (ideally already done early for/with the initial implementation)
+-  Roaming / handover support: When a client roams to another AP
+   then the old AP would need to hand over the L2TP tunnel to
+   the new AP? Or will the client go through the full EAPoL steps
+   again anyway? Or is a handover protocol only needed if 802.11r
+   were involved?
+-  More EAP methods: Any other methods other than EAP-TTLS which
+   can provide a cleartext username and/or domain?
+-  Add RADIUS server option to (Gluon’s) openharbor-server/authenticator
+   integration, for a more sophisticated/flexible authentication
+   management (for more technically versed people)
+-  Signal “OpenHarbor” capability via a vendor field in beacons?
+   To avoid a client only relying on the “OpenHarbor” ESSID name?
+   (if I recall correctly also Passpoint had options for similar
+   signalling?)
+-  Passpoint / Hotspot 2.0 compatibility
+-  additional Layer 2 encapsulation method, which skips the IP/UDP/L2TP
+   headers and
+   uses a smaller, custom ethernet frame header
+
+   -  allows login via: \ ``<mac-address-destination>
+          -> useful to tunnel from one mesh node to another,
+             within this layer 2 domain, without layer 3 routing involved
+      * allow using node names for login:
+      ** Gluon nodes only have an IPv6 address to be accesed.
+          And (typically) no public DNS entry for this IPv6 address.
+          Having a user to enter <login-name>``\ <mesh-node’s-IPv6-address>
+      won’t be usable in practice for the gluon-openharbor-server
+      package. Instead the hostname, which a Gluon mesh node owner
+      can set in the Gluon config-mode and is then visible on
+      a central map server, should be usable for a client
+   -  option A) integrate mDNS? -> nicely decentral, but likely has too
+      high protocol overhead
+   -  option B) a small nsswitch module on the openharbor AP side
+      which resolves a given @.local (or similar TLD)
+      via the nodes.json fetched from the map server
+   -  option C) a cronjob which fetches node names from
+      the map server and populates /etc/hosts on the AP
+
+-  MTU signaling compliant with
+   `RFC:4459 <https://www.rfc-editor.org/rfc/rfc4459>`__
