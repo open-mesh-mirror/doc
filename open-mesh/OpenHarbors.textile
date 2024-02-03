@@ -1,4 +1,4 @@
-h1. Idea/Draft: OpenHarbors ("Gotham Docks" / "WPAoverL2TP")
+h1. Idea/Draft: OpenHarbors ("Gotham Docks" / "WPA over L2TP")
 
 **DRAFT / NOT IMPLEMENTED**
 
