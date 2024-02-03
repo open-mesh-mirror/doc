@@ -207,6 +207,9 @@ h3. Optional/additional/future Milestones/Ideas
   kernel module (or implement within mac80211_hwsim)
   for increased/usable performance on embedded devices
   (ideally already done early for/with the initial implementation)
+* Roaming / handover support: When a client roams to another AP
+  then the old AP would need to hand over the L2TP tunnel to
+  the new AP.
 * More EAP methods: Any other methods other than EAP-TTLS which
   can provide a cleartext username and/or domain?
 * Add RADIUS server option to (Gluon's) openharbor-server/authenticator
