@@ -1,8 +1,6 @@
-h1. DRAFT - Multicast Packet Type
+h1. Multicast Packet Type
 
-_This is a draft and not upstream yet._
-
-Implementation: "linus/multicast-packet-type":https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-packet-type
+Available since: "v2024.0":https://www.open-mesh.org/news/115.
 
 h2. Brief
 
