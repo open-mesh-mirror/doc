@@ -1,13 +1,10 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-=============================
-DRAFT - Multicast Packet Type
-=============================
+=====================
+Multicast Packet Type
+=====================
 
-*This is a draft and not upstream yet.*
-
-Implementation:
-`linus/multicast-packet-type <https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-packet-type>`__
+Available since: `v2024.0 <https://www.open-mesh.org/news/115>`__.
 
 Brief
 =====
@@ -73,7 +70,7 @@ MCAST packet type header
   packets 4 byte aligned)
 
 MCAST Tracker TVLV
-~~~~~~~~~~~~~~~~~~
+------------------
 
 ::
 
@@ -90,7 +87,7 @@ MCAST Tracker TVLV
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   |  ...                          |  Dest N ...                   |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  |  ...                          | [padding]                     |
+  |  ...                          |  [padding]                    |
   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 * TVLV Type: 0x07
@@ -104,7 +101,7 @@ OGM Multicast TVLV flags
 ------------------------
 
 The following flag is added to the
-:ref:`MCAST flags <batman-adv-multicast-optimizations-tech-multicast-tvlv>`  in the
+:ref:`MCAST flags <batman-adv-multicast-optimizations-tech-multicast-tvlv>` in the
 multicast TVLV of an OGM:
 
 BATADV_MCAST_HAVE_MC_PTYPE_CAPA (Bit 5):
@@ -179,10 +176,11 @@ Limitations
   hard interface. 1280 bytes is also the `IPv6 minimum
   MTU <https://www.rfc-editor.org/rfc/rfc2460#section-5>`__, so this
   makes it already less likely to be undercut in practice.
-* If the payload data's size together with the number destination nodes
-  is too large, so if the final batman-adv multicast packet would exceed
-  1280 bytes (excluding the outer ethernet frame), then the batman-adv
-  multicast packet type cannot/will not be used. Example limits:
+* If the payload data’s size together with the number destination nodes
+  is too large, so if the final batman-adv multicast packet would
+  exceed 1280 bytes (excluding the outer ethernet frame), then the
+  batman-adv multicast packet type cannot/will not be used. Example
+  limits:
 
   - 2 destination nodes: 1222 bytes ethernet frame size
   - 8 destination nodes: 1186 bytes ethernet frame size
@@ -213,7 +211,6 @@ Open questions
 | - If limit of entries were reached, we could just send another
 | mcast packet? (~6*256 = 1536). Or do we want to be prepared
 | for jumbo frames?-
-
 
 -> going for 2 bytes / potential jumbo frame support
 

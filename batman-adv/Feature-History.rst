@@ -1,5 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
+===============
 Feature History
 ===============
 
@@ -51,7 +52,9 @@ Feature History
    -  Bridge support: v2016.3
    -  Multicast-to-multi-unicast: v2019.2
    -  Preliminary routable IPv6 multicast address support: v2019.3
-   -  Full, MRD based routable IPv4/IPv6 multicast address support: v2021.2
+   -  Full, MRD based routable IPv4/IPv6 multicast address support:
+      v2021.2
+   -  Stateless batman-adv multicast packet type support: v2024.0
 
 -  **Network Coding**
 
@@ -84,3 +87,4 @@ Feature History
    -  Hop-penalty 15 -> 30: v2014.4.0 (and in v2012.2.0? how much?)
    -  Multiple mesh interfaces: v2010.2.0
    -  Netlink: v2016.3 (+ v2016.4, v2016.5, …)
+   -  Netlink in unprivileged containers: v2022.0
