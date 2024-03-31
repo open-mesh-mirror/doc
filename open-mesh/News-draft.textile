@@ -1,16 +1,16 @@
-h1. DRAFT: Batman-adv 2024.0 released
+h1. DRAFT: Batman-adv 2024.1 released
 
-Jan 30th, 2024. Today the B.A.T.M.A.N. team publishes the January 2024 update to batman-adv! batman-adv gained support for the new stateless, TVLV capable batman-adv multicast packet type. The originator of a multicast packet includes all destinations for this packet. The routers on the way will potentially split this destination list (based on the best next hops) and and forward for each chunk an adjusted packet to the  best next neighbor. Also several bug fixes and code cleanups are included in this version.
+Apr 2nd, 2024. Today the B.A.T.M.A.N. team publishes the April 2024 update to batman-adv! Several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2024.0/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2024.1/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Linus Lüssing <linus.luessing@c0d3.blue>
+* Markus Elfring <elfring@users.sourceforge.net>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
@@ -18,36 +18,34 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2023.3-11-gecdc425a
-$ range=v2023.3..v2023.3-11-gecdc425a
+v2024.0-6-gfa7059d9
+$ range=v2024.0..v2024.0-6-gfa7059d9
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-Sven Eckelmann <sven@narfation.org> (4):
+Markus Elfring <elfring@users.sourceforge.net> (2):
+      batman-adv: Return directly after a failed batadv_dat_select_candidates() in batadv_dat_forward_data()
+      batman-adv: Improve exception handling in batadv_throw_uevent()
+
+
+Sven Eckelmann <sven@narfation.org> (2):
+      batman-adv: Drop usage of export.h
+      batman-adv: Avoid infinite loop trying to resize local TT
 
 features
 ========
 
-      batman-adv: mcast: implement multicast packet reception and forwarding
-      batman-adv: mcast: implement multicast packet generation
-      batman-adv: mcast: shrink tracker packet after scrubbing
-      batman-adv: mcast: fix mcast packet type counter on timeouted nodes
-      batman-adv: mcast: fix memory leak on deleting a batman-adv interface
 
 
 new kernel version
 ==================
 
-      batman-adv: compat: Fix skb_vlan_eth_hdr conflict in stable kernels
-      batman-adv: Drop support for Linux < 4.19
 
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Switch to linux/sprintf.h
-      batman-adv: Switch to linux/array_size.h
 
 various
 =======
@@ -60,20 +58,22 @@ bugfixes
 
 
 
-2024.0 (2024-01-30)
+2024.1 (2024-04-02)
 ===================
 
-* support latest kernels (4.19 - 6.8)
+* support latest kernels (4.19 - 6.9)
 * coding style cleanups and refactoring
-* Add stateless multicast packet format support
+* bugs squashed:
+
+  - avoid infinite loop while trying to resize local translation table
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/main
-v2023.3-9-gfb7a514
-$ range=v2023.3..v2023.3-9-gfb7a514
+v2024.0-1-g05e6984
+$ range=v2024.0..v2024.0-1-g05e6984
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -82,49 +82,33 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 features
 ========
 
-      batctl: mcast_flags: update to current state
-      batctl: tcpdump: parse batman-adv mcast packet type
-
 
 
 coding style cleanup/refactoring
 ================================
 
-
-
-
 bugfixes
 ========
 
-      batctl: tcpdump: Fix missing sanity check for batman-adv header
-      batctl: tcpdump: Add missing throughput header length check
-      batctl: tcpdump: Fix IPv4 header length check
-      batctl: tcpdump: Add missing ICMPv6 Neighbor Advert length check
-      batctl: tcpdump: Add missing ICMPv6 Neighbor Solicit length check
-      batctl: tcpdump: Fix ICMPv4 inner IPv4 header length check
 
-2024.0 (2024-01-30)
+2024.1 (2024-04-02)
 ===================
 
-* Add stateless multicast packet format support
-* bugs squashed:
-
-  - Fix various length checks in tcpdump-like subcommand
-
+* (no changes)
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/main
-v2023.3-1-g729f31f
-$ range=v2023.3..v2023.3-1-g729f31f
+v2024.0-1-g53b0b32
+$ range=v2024.0..v2024.0-1-g53b0b32
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
-2024.0 (2024-01-30)
+2024.1 (2024-04-02)
 ===================
 
 * (no changes)
