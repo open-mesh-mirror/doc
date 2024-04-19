@@ -113,11 +113,11 @@ h2. Limitations
 
 h2. Next Steps / Roadmap
 
-* optimization for groups with two or more members:
-** many-to-some: implement batman-adv multicast packet type supporting a list of destination addresses (to reduce ICMPv6 overhead like Neighbor Solicitation Messages, Router Solicitation Messages, MLD Reports, ...)
-** some-to-many / streaming: implement path tracking and use these patches (see [[Multicast-ideas-updated]])
+* optimization for groups with many members:
+** implement path tracking and use these patches (see [[Multicast-ideas-updated]]) or
+** implement generic (but esp. for MCAST Tracker TVLV) TVLV->hash compression/caching 
 * implement some faster listener roaming mechanism for bridged in hosts (for instance announce (multicast-address, source address) pairs and use general TT roaming mechanism)
-* implement source-specific multicast in Linux bridge and batman-adv
+* implement source-specific multicast in batman-adv
 * multicast TT announcements and forwarding have to be performed per VLAN
 * ...
 
