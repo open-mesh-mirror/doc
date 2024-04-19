@@ -34,7 +34,7 @@ h3. Limitations
 
 !{width: 66%;}basic-multicast-many-receivers.png!
 
-In the following cases multicast packets are still distributed via classic flooding:
+In the following cases multicast packets are still distributed via [[Broadcast|classic flooding]]:
 
 * If the multicast packet is not an IPv4/IPv6 packet
 * If the [[Multicast-Packet-Type|batman-adv multicast packet type]] is not applicable
