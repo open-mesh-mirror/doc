@@ -48,7 +48,14 @@ h4. BATADV_MCAST_WANT_NO_RTR6 (Bit 4):
 
 Signalizes that we have no IPv6 multicast router and therefore only need routable IPv6 multicast packets we signed up for explicitly.
 
-h4. Bits 5 to 7:
+h4. BATADV_MCAST_HAVE_MC_PTYPE_CAPA (Bit 5):
+
+Signalizes that:
+
+# This node is capable of receiving, parsing and forwarding a batman-adv multicast packet with a multicast tracker TVLV.
+# All hard interfaces of this node have an MTU of at least 1280.
+
+h4. Bits 6 to 7:
 
 reserved for future extensions
 
