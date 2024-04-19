@@ -14,17 +14,19 @@ The current multicast optimizations in batman-adv provide a basic infrastructure
 
 !batman-adv-multicast-type-decision.png!
 
-h3. 1) No multicast listener/router: Discard
+h3. A) No multicast listener/router: Discard
 
 !{width: 66%;}basic-multicast-no-receiver.png!
 
 batman-adv detects whether there are any potential IPv4/IPv6 multicast listeners or multicast routers interested in traffic to the given multicast destination address. If not then the packet is never forwarded into the mesh network.
 
-h3. 2) batman-adv multicast packet
+h3. B) batman-adv multicast packet
 
-If all nodes support the [[Multicast-Packet-Type|batman-adv multicast packet]] and encapsulating the IP packet in it, with all its destination node entries included, would fit into a 1280 bytes frame (excluding outer ethernet frame header) then this packet type is chosen for forwarding.
+!{width: 66%;}basic-multicast-multiple-receivers-mcast.png!
 
-h3. 3) batman-adv unicast packet(s)
+If all nodes support the [[Multicast-Packet-Type|batman-adv multicast packet type]] and encapsulating the IP packet in it, with all its destination node entries included, would fit into a 1280 bytes frame (excluding outer ethernet frame header) then this packet type is chosen for forwarding.
+
+h3. C) batman-adv unicast packet(s)
 
 !{width: 66%;}basic-multicast-multiple-receivers.png!
 
