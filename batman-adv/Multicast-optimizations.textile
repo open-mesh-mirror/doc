@@ -48,7 +48,7 @@ Additionally, in _bridged_ scenarios multicast packets are still flooded in the 
 
 h2. How to deactivate the multicast optimizations?
 
-By default multicast optimizations are activated. You can force the old behaviour, classic flooding of all multicast frames, on a certain node via the following command, executed as root (here: bat0):
+By default multicast optimizations are activated. You can force the old behaviour, [[Broadcast|classic flooding]] of all multicast frames, on a certain node via the following command, executed as root (here: bat0):
 
 <pre>batctl meshif bat0 multicast_forceflood 1</pre>
 
