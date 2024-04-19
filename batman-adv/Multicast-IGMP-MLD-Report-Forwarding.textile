@@ -82,7 +82,7 @@ _Can bridged-in host B send multicast to bridged-in host A?_
 
 h4. Scenario C, Analysis:
 
-Answer: no
+Answer: **no!**
 
 !mld-to-mcast-routers-only-scenario-C.png!
 
