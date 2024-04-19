@@ -1,5 +1,10 @@
 h1. Multicast Packet Type
 
+Prior Readings:
+
+* [[multicast-optimizations|Multicast Optimizations]]
+* [[multicast-optimizations-tech|Multicast Optimizations – Technical Description]]
+
 Available since: "v2024.0":https://www.open-mesh.org/news/115.
 
 h2. Brief
