@@ -15,7 +15,7 @@ h2. Previous State
 
 batman-adv now has IP multicast group awareness. And with that can detect in advance which other nodes want to receive an IPv4/IPv6 multicast packet for a specific multicast destination/multicast group.
 
-Before the sender algorithm so far was simply either sending a packet via one batman-adv unicast packet for each interested destination node:
+Before, the sender algorithm so far was simply either sending a packet via one batman-adv unicast packet for each interested destination node:
 
 !{width: 66%;}https://www.open-mesh.org/attachments/download/888/basic-multicast-multiple-receivers.png!
 
