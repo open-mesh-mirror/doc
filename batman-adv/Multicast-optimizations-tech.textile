@@ -107,7 +107,6 @@ For routable multicast addresses, further consideration has to be given: The acc
 h2. Limitations
 
 * groups with more listeners (+routers) than #multicast-fanout (default: 16) don't get optimized
-* optimization for routable IPv4 multicast in bridged scenarios is not supported yet
 * optimization for link-local IPv4 (224.0.0.0/24) or all-nodes IPv6 multicast (ff02::1) is only done if no node announces BATADV_MCAST_WANT_ALL_UNSNOOPABLES, that is no node configures a  bridge on batman-adv.
 * no awareness for source-specific multicasts
 * multicast packets over VLANs are always flooded
