@@ -65,6 +65,8 @@ h2. Multicast Sender
 
 Optimization for IPv4 or IPv6 multicast packets is performed by considering a few special cases. First, the number of nodes interested in a group is counted. Interest has been announced by either including the multicast group in TT entries, or setting the BATADV_MCAST_WANT_ALL_IPV4 or BATADV_MCAST_WANT_ALL_IPV6 flags or the BATADV_MCAST_WANT_ALL_UNSNOOPABLES flag in case of unsnoopable ranges in the Multicast TVLV flag.
 
+For routable IP multicast destinations the amount of multicast routers, signaled via the absence of either the BATADV_MCAST_WANT_NO_RTR4 or BATADV_MCAST_WANT_NO_RTR6 flags, is further included in the count (see below for details).
+
 If the total number of nodes interested in a group is:
 
 * ... 0, then this frame can be safely dropped.
