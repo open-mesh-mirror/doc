@@ -49,3 +49,9 @@ h4. Scenario C, Analysis:
 Answer: no
 
 !mld-to-mcast-routers-only-scenario-C.png!
+
+Potential Workarounds:
+
+A) Set bridge port _multicast_router_ setting for bat0 to 2 (e.g.: _$ echo 2 > /sys/class/net/bat0/brport/multicast_router_) => always forwards multicast packets to bat0
+B) Send report not just to multicast routers, but also to queriers (not implemented)
+C) Export batman-adv TT-global to bridge MDB (not implemented)
