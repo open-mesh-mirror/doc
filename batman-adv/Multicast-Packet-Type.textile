@@ -11,15 +11,15 @@ h2. Brief
 
 Reduce number of packets / overhead by introducing a new batman-adv multicast packet type which is capable of holding multiple destination addresses.
 
-h2. Current State
+h2. Previous State
 
 batman-adv now has IP multicast group awareness. And with that can detect in advance which other nodes want to receive an IPv4/IPv6 multicast packet for a specific multicast destination/multicast group.
 
-The sender algorithm so far is simply either sending a packet via one batman-adv unicast packet for each interested destination node:
+Before the sender algorithm so far was simply either sending a packet via one batman-adv unicast packet for each interested destination node:
 
 !{width: 66%;}https://www.open-mesh.org/attachments/download/888/basic-multicast-multiple-receivers.png!
 
-Or when the number of destination is larger than 16 (default, configurable) it will fall back to using a single batman-adv broadcast packet:
+Or when the number of destination is larger than 16 (default, configurable) it would fall back to using a single batman-adv broadcast packet:
 
 !{width: 66%;}https://www.open-mesh.org/attachments/download/890/basic-multicast-many-receivers.png!
 
