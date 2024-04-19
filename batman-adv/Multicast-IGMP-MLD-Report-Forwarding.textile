@@ -99,7 +99,7 @@ Answer: **no!**
 **Multicast packet forwarding:**
 
 4) Bridged-in host B sends a multicast packet to the multicast address <MC-LL-A>
-4.1) br0 on node X has not heard of <MC-LL-A>, but will forward the multicast packet towards the MLD Querier - and not towards bat0 - as required by RFC4541
+4.1) br0 on node X has not heard of <MC-LL-A>, but will forward the multicast packet towards the MLD Querier - but not to bat0 - as required by RFC4541
 4.2) batman-adv on node X had previously learned through the TT that <MC-LL-B> has a listener on node Y and batman-adv will therefore forward the multicast packet to node Y
 4.3) br0 on node Y has previously learned about <MC-LL-B> through the MLD Report, so it forwards the multicast packet on eth0 to host B
 4.4) Host B successfully receives the multicast packet from host A!
