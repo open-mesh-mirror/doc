@@ -10,7 +10,7 @@ In the field observations revealed that a typical multicast session is actually 
 
 h2. Overview
 
-The current multicast optimizations in batman-adv provide a basic infrastructure for multicast awareness. So far, this optimization reduces overhead for IPv4/IPv6 packets through the following forwarding decisions:
+The current multicast optimizations in batman-adv provide a basic infrastructure for multicast awareness. So far, this optimization reduces overhead for IPv4/IPv6 packets through the following forwarding decisions on the initial hop:
 
 !batman-adv-multicast-type-decision.png!
 
