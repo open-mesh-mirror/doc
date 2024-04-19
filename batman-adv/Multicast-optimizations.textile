@@ -1,5 +1,7 @@
 h1. Multicast Optimizations
 
+!{width:33%;}Multicast.png!
+
 "Multicast":https://en.wikipedia.org/wiki/Multicast allows to transmit data to a group of receivers, unlike unicast which transmits to just one receiver and broadcast which transmits to everyone. Multicast is used for applications like IPTV, internet radio or group communication and more. Also IPv6 relies on multicast for its basic services.
 
 Without optimization, switches (including batman-adv) typically implement multicast as broadcast. If everyone gets the packet, all group members get it too. Consequently, all layer 2 switches are multicast capable, but that comes with a cost: Even if there are only a few multicast listeners interested, the whole mesh network is unnecessarily bothered with these multicast packets. Considering that broadcast transmissions are particularly expensive operations on WiFi in general and wireless mesh networks (in terms of bandwidth) reducing the amount of multicast traffic by only forwarding traffic to its multicast group members will greatly improve performance for these services.
