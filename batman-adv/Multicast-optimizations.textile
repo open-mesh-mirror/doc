@@ -36,7 +36,8 @@ h3. Limitations
 
 In the following cases multicast packets are still distributed via classic flooding:
 
-* If there are more than #multicast-fanout (default: 16) listeners for a specific multicast group.
+* If the [[Multicast-Packet-Type|batman-adv multicast packet type]] is not applicable
+* If there are more than #multicast-fanout (default: 16) listeners/routers for a specific multicast group.
 
 Additionally, in _bridged_ scenarios multicast packets are still flooded in the following cases:
 
