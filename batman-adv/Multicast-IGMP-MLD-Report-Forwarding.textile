@@ -86,6 +86,16 @@ Answer: **no!**
 
 !mld-to-mcast-routers-only-scenario-C.png!
 
+Learning:
+
+1) Bridged-in host A listens to a link-local multicast address <MC-LL-A>
+2) Node Y floods an MLD Query through the mesh
+3) Host A replies to the MLD query with an MLD Report for <MC-LL-A>
+3.1) br0 on node X learns that a listener for <MC-LL-A> is behind eth0 and then forwards the MLD Report further towards the querier on bat0, as required by RFC4541
+3.2) batman-adv on node X learns about the listener for <MC-LL-A> through the export of the bridge and then adds it to TT, which gets distributed to other nodes.
+3.3) With the batman-adv multicast_rtr_only option enabled bat0 on node X will not forward the MLD Report
+3.4) batman-adv on nodes Y learns about <MC-LL-A> through the TT
+
 Potential Workarounds:
 
 A) Set bridge port _multicast_router_ setting for bat0 to 2 (e.g.: _$ echo 2 > /sys/class/net/bat0/brport/multicast_router_) => always forwards multicast packets to bat0
