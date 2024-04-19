@@ -68,8 +68,10 @@ Optimization for IPv4 or IPv6 multicast packets is performed by considering a fe
 If the total number of nodes interested in a group is:
 
 * ... 0, then this frame can be safely dropped.
-* ... 1, then this frame is encapsulated in and forwarded via a batman-adv unicast packet to the according destination.
-* > 1, then this frame is encapsulated in a batman-adv broadcast packet and forwarded via classic flooding to all nodes.
+* >= 1, then this frame is, in this order of priority, either:
+** encapsulated in and forwarded via a [[Multicast-Packet-Type|batman-adv multicast packet]] to the according destination(s).
+** encapsulated in and forwarded via batman-adv unicast packet(s) to the according destination(s).
+** encapsulated in a [[Broadcast|batman-adv broadcast packet]] and forwarded via classic flooding to all nodes.
 
 The latter case is the general fallback to broadcast, which is also used when the the multicast optimization is turned off.
 
