@@ -109,3 +109,15 @@ Answer: **no!**
 A) Set bridge port _multicast_router_ setting for bat0 to 2 (e.g.: _$ echo 2 > /sys/class/net/bat0/brport/multicast_router_) => always forwards multicast packets to bat0
 B) Send report not just to multicast routers, but also to queriers (not implemented)
 C) Export batman-adv TT-global to bridge MDB (not implemented)
+
+h3. Scenario D: Multicast to/from host on node with a bridged-in querier
+
+WIP
+
+h4. Scenario D, Overview:
+
+_Can bridged-in host A send multicast to bridged-in host B?_
+
+h4. Scenario D, Analysis:
+
+Answer: yes
