@@ -123,4 +123,5 @@ h2. Next Steps / Roadmap
 
 h2. Further Readings
 
+* [[Multicast-Packet-Type|Multicast Optimizations – Multicast Packet Type]] 
 * [[multicast-optimizations-flags|Multicast Optimizations – Flags Explained]]
