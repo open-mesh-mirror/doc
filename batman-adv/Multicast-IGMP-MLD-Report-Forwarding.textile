@@ -40,7 +40,7 @@ Answer: yes
 4.1) br0 on node X has not heard of <MC-LL-B>, but will forward the multicast packet towards the MLD Querier, as required by RFC4541
 4.2) batman-adv on node X had previously learned through the TT that <MC-LL-B> has a listener on node Y and batman-adv will therefore forward the multicast packet to node Y
 4.3) br0 on node Y has previously learned about <MC-LL-B> through the MLD Report, so it forwards the multicast packet on eth0 to host B
-4.4) host B successfully receives the multicast packet!
+4.4) Host B successfully receives the multicast packet from host A!
 
 h3. Scenario B: Multicast to host on node with a querier
 
