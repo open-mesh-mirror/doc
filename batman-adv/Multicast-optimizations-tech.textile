@@ -71,7 +71,7 @@ If the total number of nodes interested in a group is:
 
 * ... 0, then this frame can be safely dropped.
 * >= 1, then this frame is encapsulated in and forwarded, in this order of priority, either via:
-** a [[Multicast-Packet-Type|batman-adv multicast packet]] to the according destination(s) - if the count and headroom allows it
+** a [[Multicast-Packet-Type|batman-adv multicast packet]] to the according destination(s) - if the count and available headroom allows it
 ** batman-adv unicast packet(s) to the according destination(s) - if the count and multicast-fanout setting allows it
 ** [[Broadcast|batman-adv broadcast packet]] and forwarded via classic flooding to all nodes.
 
