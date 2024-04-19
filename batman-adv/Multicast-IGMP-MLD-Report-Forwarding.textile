@@ -13,12 +13,33 @@ Currently batman-adv forwards/floods an IGMP/MLD Report to all other nodes by de
 
 h3. Scenario A: Multicast to host on node without querier
 
+h4. Scenario A, Overview:
+
 !mld-to-mcast-routers-only-scenario-A-overview.png!
+_Can bridged-in host A send multicast to bridged-in host B?_
+
+h4. Scenario A, Analysis:
+
+!mld-to-mcast-routers-only-scenario-A.png!
 
 h3. Scenario B: Multicast to host on node with a querier
 
-!mld-to-mcast-routers-only-scenario-A-overview.png!
+h4. Scenario B, Overview:
+
+!mld-to-mcast-routers-only-scenario-B-overview.png!
+_Can bridged-in host A send multicast to bridged-in host B?_
+
+h4. Scenario B, Analysis:
+
+!mld-to-mcast-routers-only-scenario-B.png!
 
 h3. Scenario C: Multicast from host on node with a querier
 
-!mld-to-mcast-routers-only-scenario-A-overview.png!
+h4. Scenario C, Overview:
+
+!mld-to-mcast-routers-only-scenario-C-overview.png!
+_Can bridged-in host B send multicast to bridged-in host A?_
+
+h4. Scenario C, Analysis:
+
+!mld-to-mcast-routers-only-scenario-C.png!
