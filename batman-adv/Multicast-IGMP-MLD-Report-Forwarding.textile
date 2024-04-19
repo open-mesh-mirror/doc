@@ -62,8 +62,8 @@ Answer: yes
 3) Host B replies to the MLD query with an MLD Report for <MC-LL-B>
 3.1) br0 on node Y learns that a listener for <MC-LL-B> is behind eth0 and then forwards the MLD Report further towards the querier on br0 - but not to bat0 - as required by RFC4541
 3.2) batman-adv on node Y learns about the listener for <MC-LL-B> through the export of the bridge and then adds it to TT, which gets distributed to other nodes.
-3.3) No matter if enabling or disabling the batman-adv multicast_rtr_only option node bat0 on node Y will not have received an MLD Report
-3.4) batman-adv on nodes X learns about <MC-LL-B> through the TT
+3.3) No matter if enabling or disabling the batman-adv multicast_rtr_only option bat0 on node Y will not have received an MLD Report
+3.4) batman-adv on node X learns about <MC-LL-B> through the TT
 
 **Multicast packet forwarding:**
 
