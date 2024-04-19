@@ -20,6 +20,8 @@ _Can bridged-in host A send multicast to bridged-in host B?_
 
 h4. Scenario A, Analysis:
 
+Answer: yes
+
 !mld-to-mcast-routers-only-scenario-A.png!
 
 h3. Scenario B: Multicast to host on node with a querier
@@ -31,6 +33,8 @@ _Can bridged-in host A send multicast to bridged-in host B?_
 
 h4. Scenario B, Analysis:
 
+Answer: yes
+
 !mld-to-mcast-routers-only-scenario-B.png!
 
 h3. Scenario C: Multicast from host on node with a querier
@@ -41,5 +45,7 @@ h4. Scenario C, Overview:
 _Can bridged-in host B send multicast to bridged-in host A?_
 
 h4. Scenario C, Analysis:
+
+Answer: no
 
 !mld-to-mcast-routers-only-scenario-C.png!
