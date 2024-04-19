@@ -104,7 +104,7 @@ Answer: **no!**
 4.3) br0 on node Y has previously learned about <MC-LL-B> through the MLD Report, so it forwards the multicast packet on eth0 to host B
 4.4) Host B successfully receives the multicast packet from host A!
 
-Potential Workarounds:
+**Potential Workarounds:**
 
 A) Set bridge port _multicast_router_ setting for bat0 to 2 (e.g.: _$ echo 2 > /sys/class/net/bat0/brport/multicast_router_) => always forwards multicast packets to bat0
 B) Send report not just to multicast routers, but also to queriers (not implemented)
