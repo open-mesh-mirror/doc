@@ -38,7 +38,7 @@ h3. Limitations
 
 In the following cases multicast packets are still distributed via [[Broadcast|classic flooding]]:
 
-* If the multicast packet is not an IPv4/IPv6 packet
+* If the multicast packet/frame is not an IPv4/IPv6 packet
 * If the [[Multicast-Packet-Type|batman-adv multicast packet type]] is not applicable
 * If there are more than #multicast-fanout (default: 16) listeners/routers for a specific multicast group.
 
