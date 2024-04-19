@@ -1,0 +1,24 @@
+h1. Multicast - IGMP/MLD Report Forwarding
+
+Patches:
+
+* "batman-adv":https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-mld-rtr-only
+* "batctl":https://git.open-mesh.org/batctl.git/shortlog/refs/heads/linus/multicast-rtr-only
+
+WIP/Draft - not yet upstream
+
+h2. Introduction
+
+Currently batman-adv forwards/floods an IGMP/MLD Report to all other nodes by default. The _multicast_mld_rtr_only_ option allows to change this behavior to only forward IGMP/MLD Reports to nodes with a multicast router, to reduce IGMP/MLD overhead in the mesh. However this option is not always safe to use, so this page illustrates the scenarios where this option can and cannot be used.
+
+h3. Scenario A: Multicast to host on node without querier
+
+!mld-to-mcast-routers-only-scenario-A-overview.png!
+
+h3. Scenario B: Multicast to host on node with a querier
+
+!mld-to-mcast-routers-only-scenario-A-overview.png!
+
+h3. Scenario C: Multicast from host on node with a querier
+
+!mld-to-mcast-routers-only-scenario-A-overview.png!
