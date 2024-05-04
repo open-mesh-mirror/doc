@@ -26,9 +26,10 @@ sudo mount -o loop debian.img debian
 sudo debootstrap bookworm debian
 sudo systemd-nspawn -D debian apt update
 sudo systemd-nspawn -D debian apt install --no-install-recommends build-essential vim openssh-server less \
- pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5 \
+ pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5  initscripts \
  trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
 sudo systemd-nspawn -D debian systemctl enable fstrim.timer
+sudo rm debian/etc/machine-id
 
 sudo mkdir debian/root/.ssh/
 ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
@@ -38,6 +39,7 @@ sudo sh -c 'cat > debian/etc/fstab  << EOF
 host            /host   9p      trans=virtio,version=9p2000.L,posixacl,msize=524288 0 0
 EOF'
 
+sudo mkdir -p debian/etc/boot.d/
 sudo sh -c 'cat > debian/etc/boot.d/test-init << "EOF"
 #!/bin/sh
 
