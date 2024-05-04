@@ -94,7 +94,7 @@ rm -f debian.img
 
 h2. Kernel compile
 
-Any recent kernel can be used for the setup. We will use linux-next here to get the most recent development kernels. It is also assumed that the sources are copied to the same directory as the debian.img and a x86_64 image will be used.
+Any recent kernel can be used for the setup. We will use linux-next here to get the most recent development kernels. It is also assumed that the sources are copied to the same directory as the debian.qcow2 and a x86_64 image will be used.
 
 The kernel will be build to enhance the virtualization and debugging experience. It is configured with:
 
@@ -290,10 +290,11 @@ h3. VM instances bringup
 
 The [[OpenWrt_in_QEMU#VM-instances-bringup|run.sh from the OpenWrt environment]] can mostly be reused. There are only minimal adjustments required.
 
-The BASE_IMG is of course no longer the same because a new image "debian.img" was created for our new environment. The image also doesn't contain a bootloader or kernel anymore. The kernel must now be supplied manually to qemu.
+The BASE_IMG is of course no longer the same because a new image "debian.qcow2" was created for our new environment. The image also doesn't contain a bootloader or kernel anymore. The kernel must now be supplied manually to qemu.
 
 <pre><code class="shell">
-BASE_IMG=debian.img
+BASE_IMG=debian.qcow2
+BASE_IMG_FMT=qcow2
 BOOTARGS+=("-bios" "qboot/build/bios.bin")
 BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
 BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
