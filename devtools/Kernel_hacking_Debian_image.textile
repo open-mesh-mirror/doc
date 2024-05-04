@@ -89,7 +89,7 @@ sudo fallocate --dig-holes debian.img
 
 
 sudo qemu-img convert -c -f raw -O qcow2 debian.img debian.qcow2
-sudo mv debian.qcow2 debian.img
+rm -f debian.img
 </code></pre>
 
 h2. Kernel compile
