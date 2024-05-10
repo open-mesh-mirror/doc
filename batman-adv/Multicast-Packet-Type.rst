@@ -4,6 +4,11 @@
 Multicast Packet Type
 =====================
 
+Prior Readings:
+
+* :doc:`Multicast Optimizations <Multicast-optimizations>`
+* :doc:`Multicast Optimizations – Technical Description <Multicast-optimizations-tech>`
+
 Available since: `v2024.0 <https://www.open-mesh.org/news/115>`__.
 
 Brief
@@ -13,20 +18,20 @@ Reduce number of packets / overhead by introducing a new batman-adv
 multicast packet type which is capable of holding multiple destination
 addresses.
 
-Current State
-=============
+Previous State
+==============
 
 batman-adv now has IP multicast group awareness. And with that can
 detect in advance which other nodes want to receive an IPv4/IPv6
 multicast packet for a specific multicast destination/multicast group.
 
-The sender algorithm so far is simply either sending a packet via one
-batman-adv unicast packet for each interested destination node:
+Before, the sender algorithm so far was simply either sending a packet
+via one batman-adv unicast packet for each interested destination node:
 
 .. image:: basic-multicast-multiple-receivers.svg
 
 Or when the number of destination is larger than 16 (default,
-configurable) it will fall back to using a single batman-adv broadcast
+configurable) it would fall back to using a single batman-adv broadcast
 packet:
 
 .. image:: basic-multicast-many-receivers.svg
@@ -200,92 +205,3 @@ possible either, to classic flooding.
   for reduced complexity. And a batman-adv node would not know how to
   best split destinations to reduce the number of
   resplits/retransmissions along the paths / multicast tree.
-
-Open questions
-==============
-
-[STRIKEOUT:#Num Dests size]
----------------------------
-
-| [STRIKEOUT:\* 1 or 2 bytes for #Num Dests for Address X?]
-| - If limit of entries were reached, we could just send another
-| mcast packet? (~6*256 = 1536). Or do we want to be prepared
-| for jumbo frames?-
-
--> going for 2 bytes / potential jumbo frame support
-
-[STRIKEOUT:Non ideal splits]
-----------------------------
-
-[STRIKEOUT:If a packet with n destinations gets too large for the MTU
-then batman-adv would/should/could try to split it into m packets with
-n/3 destinations each. where m <= mcast_fanout.]
-
-[STRIKEOUT:However when splitting like this then such the splitting node
-does not know the best sorting into these m packets. Another node will
-likely later need to split again due to different next hops for the
-destinations in a packet.]
-
-[STRIKEOUT:A batman-adv node currently cannot anticipate this for
-optimized splitting, as it does not know the full topology. Which would
-potentially lead to more transmissions than necessary.]
-
--> Going for just one multicast packet instead of up to mcast_fanout to
-start with, for simplicity.
-
-[STRIKEOUT:Fragmentation / MTUs:]
----------------------------------
-
-[STRIKEOUT:On transit a forwarding node might have an interface with a
-smaller MTU than the node which originated the packet. A node could try
-to split a packet into multiple packets with less destinations. However
-if the payload data is larger than the interface MTU already then it
-would still not fit. And the batman-adv fragmentation code won’t be able
-to look into and split within a multicast packet type header.]
-
-[STRIKEOUT:Workaround A):]
-
-[STRIKEOUT:By default only apply multicast packet type if resulting
-packet is smaller than 1280 (minimum IPv6 packet size) or even 576
-(minimum accepeted IPv4 datagram size?). Maybe add a configuration
-option, which defaults to 576 bytes? While in practice configuring it to
-1280 should usually be fine these days with IPv6 capable networks.]
-
-[STRIKEOUT:Solution B)]
-
-[STRIKEOUT:Later ideally the fragmentation code would be able to split
-the payload within a multicast packet type, while leaving multicast
-packet type headers in tact. A node should still forward packets if due
-to this splitting the mcast-fanout limit were violated, to avoid packet
-loss.]
-
--> Workaround C): We require a 1280 bytes MTU on all hard interfaces and
-only then set the multicast packet type capability flag.
-
-[STRIKEOUT:Adding a sequence number? / How to avoid loops with tracker marking later?]
---------------------------------------------------------------------------------------
-
-[STRIKEOUT:When later implementing a split control <=> data plane as
-originally envisioned, by allowing to send a multicast packet with only
-the tracker TVLV, without data. And caching this information to fill a
-multicast routing table. And then allowing to send a multicast packet
-without the tracker TVLV afterwards, there is the following issue:]
-
-[STRIKEOUT:When first a path is marked through the tracker TVLV, then
-paths change due to OGM updates. And then a tracker packet marks such
-new paths then the merger of both the old and newly tracker marked paths
-could create routing loops, as the old path is not automatically
-invalidated.]
-
-[STRIKEOUT:Solution:]
-
-[STRIKEOUT:Don’t mark paths. Instead use the tracker TVLV to fill a
-cache with the mcast/dests lists and assign a hash to this information.
-Then later send the multicast data with a TVLV containing only this hash
-instead of the full mcast/dests list. Therefore a specific list of
-destinations is still maintained and routing decisions still happen on
-the go, loopfree, instead of trying to a maintain a loopfree, adjacent
-multicast routing table.]
-
--> Don’t add a sequence number, we don’t need it now. And a new
-hashing/caching TVLV described above should work fine later.

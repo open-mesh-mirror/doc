@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="48cm" height="40cm" viewBox="152 79 946 781" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Hintergrund"/>
+  <g id="Background"/>
+  <g id="Background">
+    <g>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="312.238,154.688 471.101,234.119 312.238,313.551 153.375,234.119 "/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="312.238" y="223.819">
+        <tspan x="312.238" y="223.819">Has interested</tspan>
+        <tspan x="312.238" y="239.819">IPv4/IPv6 Multicast</tspan>
+        <tspan x="312.238" y="255.819">Listener(s)/Router(s)?</tspan>
+      </text>
+    </g>
+    <g>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="820" y="216" width="67.05" height="38" rx="0" ry="0"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="853.525" y="240.7">
+        <tspan x="853.525" y="240.7">Discard</tspan>
+      </text>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="471.102" y1="234.12" x2="809.261" y2="234.898"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="816.761,234.915 806.75,239.892 809.261,234.898 806.773,229.892 "/>
+    </g>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="620" y="220">
+      <tspan x="620" y="220">No</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="330" y="340">
+      <tspan x="330" y="340">Yes</tspan>
+    </text>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="312.238" y1="314.551" x2="312.238" y2="350.264"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="312.238,357.764 307.238,347.764 312.238,350.264 317.238,347.764 "/>
+    </g>
+    <g>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="312.238,360 444.476,426.119 312.238,492.238 180,426.119 "/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="312.238" y="423.819">
+        <tspan x="312.238" y="423.819">All nodes support</tspan>
+        <tspan x="312.238" y="439.819">Multicast Packet Type?</tspan>
+      </text>
+    </g>
+    <g>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="635.872,354 767.745,426.232 635.872,498.464 504,426.232 "/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="635.872" y="415.932">
+        <tspan x="635.872" y="415.932">Fits into</tspan>
+        <tspan x="635.872" y="431.932">batman-adv Multicast</tspan>
+        <tspan x="635.872" y="447.932">Packet Type?</tspan>
+      </text>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="444.476" y1="426.12" x2="494.264" y2="426.214"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="501.764,426.228 491.755,431.209 494.264,426.214 491.773,421.209 "/>
+    </g>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="410">
+      <tspan x="460" y="410">Yes</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="330" y="500">
+      <tspan x="330" y="500">No</tspan>
+    </text>
+    <g>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="820" y="400" width="151.7" height="54" rx="0" ry="0"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="895.85" y="424.7">
+        <tspan x="895.85" y="424.7">Send via batman-adv</tspan>
+        <tspan x="895.85" y="440.7">Multicast Packet Type</tspan>
+      </text>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="767.744" y1="426.232" x2="810.265" y2="426.857"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="817.764,426.967 807.692,431.82 810.265,426.857 807.839,421.821 "/>
+    </g>
+    <g>
+      <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="312.451" cy="99.2254" rx="38.4507" ry="19.2254"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="312.451" y="104.925">
+        <tspan x="312.451" y="104.925">Start</tspan>
+      </text>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="312.45" y1="118.451" x2="312.295" y2="144.952"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="312.251,152.452 307.31,142.422 312.295,144.952 317.309,142.481 "/>
+    </g>
+    <g>
+      <polygon style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="312.963,552 443.926,617.482 312.963,682.963 182,617.482 "/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="312.963" y="615.182">
+        <tspan x="312.963" y="615.182">#receiving nodes &lt;=</tspan>
+        <tspan x="312.963" y="631.182">multicast-fanout setting?</tspan>
+      </text>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="312.238" y1="492.238" x2="312.846" y2="542.265"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="312.937,549.764 307.816,539.826 312.846,542.265 317.815,539.704 "/>
+    </g>
+    <g>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="820" y="590" width="156.6" height="54" rx="0" ry="0"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="898.3" y="614.7">
+        <tspan x="898.3" y="614.7">Send via batman-adv</tspan>
+        <tspan x="898.3" y="630.7">Unicast Packet(s)</tspan>
+      </text>
+    </g>
+    <g>
+      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="443.926" y1="617.482" x2="809.304" y2="617.094"/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="816.804,617.086 806.809,622.097 809.304,617.094 806.798,612.097 "/>
+    </g>
+    <g>
+      <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="820" y="690" width="157.15" height="54" rx="0" ry="0"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="898.575" y="714.7">
+        <tspan x="898.575" y="714.7">Send via batman-adv</tspan>
+        <tspan x="898.575" y="730.7">Broadcast Packet Type</tspan>
+      </text>
+    </g>
+    <g>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="312.963,682.963 312.963,717 810.264,717 "/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="817.764,717 807.764,722 810.264,717 807.764,712 "/>
+    </g>
+    <g>
+      <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="1058.45" cy="839.225" rx="38.4507" ry="19.2254"/>
+      <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="1058.45" y="844.925">
+        <tspan x="1058.45" y="844.925">End</tspan>
+      </text>
+    </g>
+    <g>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="887.05,235 1058.45,235 1058.45,810.264 "/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1058.45,817.764 1053.45,807.764 1058.45,810.264 1063.45,807.764 "/>
+    </g>
+    <g>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="971.7,427 1058.45,427 1058.45,810.264 "/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1058.45,817.764 1053.45,807.764 1058.45,810.264 1063.45,807.764 "/>
+    </g>
+    <g>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="976.6,617 1058.45,617 1058.45,810.264 "/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1058.45,817.764 1053.45,807.764 1058.45,810.264 1063.45,807.764 "/>
+    </g>
+    <g>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="977.15,717 1058.45,717 1058.45,810.264 "/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="1058.45,817.764 1053.45,807.764 1058.45,810.264 1063.45,807.764 "/>
+    </g>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="620" y="580">
+      <tspan x="620" y="580">Yes</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="620" y="700">
+      <tspan x="620" y="700">No</tspan>
+    </text>
+    <g>
+      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="635.872,498.464 635.872,520 312.964,520 312.964,542.264 "/>
+      <polygon style="fill: #000000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" fill-rule="evenodd" points="312.964,549.764 307.964,539.764 312.964,542.264 317.964,539.764 "/>
+    </g>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="460" y="510">
+      <tspan x="460" y="510">No</tspan>
+    </text>
+    <text font-size="12.8" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="780" y="410">
+      <tspan x="780" y="410">Yes</tspan>
+    </text>
+  </g>
+  <g id="Underlining">
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ffff00" x1="832" y1="444" x2="960" y2="444"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ffa500" x1="848" y1="636" x2="948" y2="636"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="832" y1="736" x2="964" y2="736"/>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #00ff00" x1="832" y1="244" x2="876" y2="244"/>
+  </g>
+</svg>

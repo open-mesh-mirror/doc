@@ -42,13 +42,13 @@ storage space
   sudo mkfs.ext4 -O '^has_journal' -F debian.img
   sudo mkdir debian
   sudo mount -o loop debian.img debian
-  sudo debootstrap bullseye debian
+  sudo debootstrap bookworm debian
   sudo systemd-nspawn -D debian apt update
   sudo systemd-nspawn -D debian apt install --no-install-recommends build-essential vim openssh-server less \
-   pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5 \
+   pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5  initscripts \
    trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
-  sudo systemd-nspawn -D debian apt remove rsyslog
   sudo systemd-nspawn -D debian systemctl enable fstrim.timer
+  sudo rm debian/etc/machine-id
   
   sudo mkdir debian/root/.ssh/
   ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
@@ -58,8 +58,9 @@ storage space
   host            /host   9p      trans=virtio,version=9p2000.L,posixacl,msize=524288 0 0
   EOF'
 
-  sudo sh -c 'cat > debian/etc/rc.local << "EOF"
-  #!/bin/sh -e
+  sudo mkdir -p debian/etc/boot.d/
+  sudo sh -c 'cat > debian/etc/boot.d/test-init << "EOF"
+  #!/bin/sh
 
   MAC_PART="$(ip link show enp0s1 | awk "/ether/ {print \$2}"| sed -e "s/.*://" -e "s/[\\n\\ ].*//"|awk "{print (\"0x\"\$1)*1 }")"
   IP_PART="$(echo $MAC_PART|awk "{ print \$1+50 }")"
@@ -71,7 +72,7 @@ storage space
   [ ! -x /host/test-init.sh ] || /host/test-init.sh
   exit 0
   EOF'
-  sudo chmod a+x debian/etc/rc.local
+  sudo chmod a+x debian/etc/boot.d/test-init
 
   sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
   
@@ -106,16 +107,15 @@ storage space
   sudo fallocate --dig-holes debian.img
 
 
-  ## optionally: convert image to qcow2
-  #sudo qemu-img convert -c -f raw -O qcow2 debian.img debian.qcow2
-  #sudo mv debian.qcow2 debian.img
+  sudo qemu-img convert -c -f raw -O qcow2 debian.img debian.qcow2
+  rm -f debian.img
 
 Kernel compile
 --------------
 
 Any recent kernel can be used for the setup. We will use linux-next here
 to get the most recent development kernels. It is also assumed that the
-sources are copied to the same directory as the debian.img and a x86_64
+sources are copied to the same directory as the debian.qcow2 and a x86_64
 image will be used.
 
 The kernel will be build to enhance the virtualization and debugging
@@ -331,13 +331,14 @@ can mostly be reused. There are only minimal
 adjustments required.
 
 The BASE_IMG is of course no longer the same because a new image
-“debian.img” was created for our new environment. The image also doesn’t
+“debian.qcow2” was created for our new environment. The image also doesn’t
 contain a bootloader or kernel anymore. The kernel must now be supplied
 manually to qemu.
 
 .. code-block:: sh
 
-  BASE_IMG=debian.img
+  BASE_IMG=debian.qcow2
+  BASE_IMG_FMT=qcow2
   BOOTARGS+=("-bios" "qboot/build/bios.bin")
   BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
   BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")

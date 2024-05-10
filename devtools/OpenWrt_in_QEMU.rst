@@ -139,10 +139,12 @@ used to share things like a precompiled batman-adv.ko and other tools
 
   ## OpenWrt in QEMU
   BASE_IMG=openwrt-x86-64-combined-ext4.img
+  BASE_IMG_FMT=raw
   BOOTARGS+=("-serial" "chardev:charconsole0")
 
   ## Kernel hacking Debian image
-  #BASE_IMG=debian.img
+  #BASE_IMG=debian.qcow2
+  #BASE_IMG_FMT=qcow2
   #BOOTARGS+=("-bios" "qboot/build/bios.bin")
   #BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
   #BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
@@ -159,7 +161,7 @@ used to share things like a precompiled batman-adv.ko and other tools
       normalized_id="$(echo "$i"|awk '{ printf "%02d\n",$1 }')"
       twodigit_id="$(echo $i|awk '{ printf "%02X", $1 }')"
 
-      qemu-img create -b "${BASE_IMG}" -f qcow2 -F qcow2 root.cow$i
+      qemu-img create -b "${BASE_IMG}" -f qcow2 -F "${BASE_IMG_FMT}" root.cow$i
       screen qemu-system-x86_64 -enable-kvm -name "instance${i}" \
           -display none -no-user-config -nodefaults \
           -m 512M,maxmem=2G,slots=2 -device virtio-balloon \
