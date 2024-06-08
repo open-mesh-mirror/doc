@@ -13,7 +13,9 @@ Thanks to all people sending in patches:
 * Dmitry Antipov <dmantipov@yandex.ru>
 * Eric Dumazet <edumazet@google.com>
 * Jakub Kicinski <kuba@kernel.org>
+* Steven Rostedt <rostedt@goodmis.org>
 * Simon Wunderlich <sw@simonwunderlich.de>
+* Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
