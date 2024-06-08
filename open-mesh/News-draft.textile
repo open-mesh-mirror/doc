@@ -1,37 +1,34 @@
-h1. DRAFT: Batman-adv 2024.1 released
+h1. DRAFT: Batman-adv 2024.2 released
 
-Apr 2nd, 2024. Today the B.A.T.M.A.N. team publishes the April 2024 update to batman-adv! Several bug fixes and code cleanups are included in this version.
+Jun 11th, 2024. Today the B.A.T.M.A.N. team publishes the June 2024 update to batman-adv! Several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2024.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2024.2/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Markus Elfring <elfring@users.sourceforge.net>
+* Dmitry Antipov <dmantipov@yandex.ru>
+* Eric Dumazet <edumazet@google.com>
+* Jakub Kicinski <kuba@kernel.org>
 * Simon Wunderlich <sw@simonwunderlich.de>
-* Sven Eckelmann <sven@narfation.org>
+
+and to all those that supported us with good advice or rigorous testing:
+
+* Shannon Nelson <shannon.nelson@amd.com>
+* Simon Horman <horms@kernel.org>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2024.0-6-gfa7059d9
-$ range=v2024.0..v2024.0-6-gfa7059d9
+v2024.1-5-g8f27a9c1
+$ range=v2024.1..v2024.1-5-g8f27a9c1
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
-
-Markus Elfring <elfring@users.sourceforge.net> (2):
-      batman-adv: Return directly after a failed batadv_dat_select_candidates() in batadv_dat_forward_data()
-      batman-adv: Improve exception handling in batadv_throw_uevent()
-
-
-Sven Eckelmann <sven@narfation.org> (2):
-      batman-adv: Drop usage of export.h
-      batman-adv: Avoid infinite loop trying to resize local TT
 
 features
 ========
@@ -46,6 +43,10 @@ new kernel version
 coding style cleanup/refactoring
 ================================
 
+*       batman-adv: prefer kfree_rcu() over call_rcu() with free-only callbacks
+*       batman-adv: bypass empty buckets in batadv_purge_orig_ref()
+*      batman-adv: annotate writes on dev->mtu from ndo_change_mtu()
+* batman-adv: remove linux/genetlink.h
 
 various
 =======
@@ -58,22 +59,19 @@ bugfixes
 
 
 
-2024.1 (2024-04-02)
+2024.2 (2024-06-11)
 ===================
 
-* support latest kernels (4.19 - 6.9)
+* support latest kernels (4.19 - 6.10)
 * coding style cleanups and refactoring
-* bugs squashed:
-
-  - avoid infinite loop while trying to resize local translation table
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/main
-v2024.0-1-g05e6984
-$ range=v2024.0..v2024.0-1-g05e6984
+v2024.1-1-gafbac72
+$ range=v2024.1..v2024.1-1-gafbac72
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -91,7 +89,7 @@ bugfixes
 ========
 
 
-2024.1 (2024-04-02)
+2024.2 (2024-06-11)
 ===================
 
 * (no changes)
@@ -101,14 +99,14 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2024.0-1-g53b0b32
-$ range=v2024.0..v2024.0-1-g53b0b32
+v2024.1-1-g2950cee
+$ range=v2024.1..v2024.1-1-g2950cee
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
-2024.1 (2024-04-02)
+2024.2 (2024-06-11)
 ===================
 
 * (no changes)
