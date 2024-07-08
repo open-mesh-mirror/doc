@@ -12,7 +12,7 @@ In a wireless community mesh network like "Freifunk":https://en.wikipedia.org/wi
 
 # Anyone can setup a node to join + contribute to the mesh
 # No prior authorization, anonymous participation possible
-# Uses OpenSource firmware code
+# Uses a firmware with public OpenSource code
 
 Currently has the following two issues:
 
