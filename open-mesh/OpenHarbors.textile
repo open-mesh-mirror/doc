@@ -4,15 +4,15 @@ h1. Idea/Draft: OpenHarbors ("Gotham Docks" / "WPA over L2TP")
 
 This document specifies a way to dynamically tunnel WPA over a potentially untrusted IP network to a gateway of the user's choice.
 
-h2. Issues
-
-h3. A) - Issues in Decentral Wireless Community Mesh Networks
+h2. Scenario A): Decentral Wireless Community Mesh Networks
 
 In a wireless community mesh network like "Freifunk":https://en.wikipedia.org/wiki/Freifunk involving "batman-adv":https://www.open-mesh.org/projects/batman-adv/wiki/ + "Gluon":https://github.com/freifunk-gluon/gluon/:
 
 # Anyone can setup a node to join + contribute to the mesh
 # No prior authorization, anonymous participation possible
 # Uses a firmware with public OpenSource code
+
+h3. Issues in Decentral Wireless Community Mesh Networks
 
 Currently has the following two issues:
 
@@ -69,6 +69,8 @@ h2. Solution
 Or in other words, move the 802.1x authenticator from the AP to a remote host of a user's choosing:
 
 !OpenHarbors-diagram.png!
+
+h3. S
 
 h3. (Additional) Use-cases & Benefits
 
