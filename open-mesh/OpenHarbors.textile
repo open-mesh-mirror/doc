@@ -84,7 +84,7 @@ h3. Issue
 ** can get physical access to the AP
 # Can then copy the AP's flash and extract RADIUS credentials
 # Can then replace with a rogue Man-in-the-Middle AP or install a backdoor
-** If no extra encryption/authentication is used between AP<->server then can also simply add a snooping device between AP and wire
+** If no extra encryption/authentication is used between AP<->server then can also simply add a snooping device between AP and wire to server
 # Now has access to sensitive data in the locked server room
 
 h3. Solution
