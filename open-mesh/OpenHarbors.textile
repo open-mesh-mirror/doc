@@ -72,6 +72,7 @@ Or in other words, move the 802.1x authenticator from the AP to a remote host of
 
 h2. Scenario B) Hospital/University/Company/...
 
+
 h3. (Additional) Use-cases & Benefits
 
 This proposed, dynamic solution yields the following, additional interesting opportunities:
