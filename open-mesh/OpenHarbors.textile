@@ -6,7 +6,7 @@ This document specifies a way to dynamically tunnel WPA over a potentially untru
 
 h2. Issues
 
-h3. A) - Decentral Wireless Community Mesh Networks
+h3. A) - Issues in Decentral Wireless Community Mesh Networks
 
 In a wireless community mesh network like "Freifunk":https://en.wikipedia.org/wiki/Freifunk involving "batman-adv":https://www.open-mesh.org/projects/batman-adv/wiki/ + "Gluon":https://github.com/freifunk-gluon/gluon/ has two issues:
 
