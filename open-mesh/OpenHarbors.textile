@@ -8,7 +8,12 @@ h2. Issues
 
 h3. A) - Issues in Decentral Wireless Community Mesh Networks
 
-In a wireless community mesh network like "Freifunk":https://en.wikipedia.org/wiki/Freifunk involving "batman-adv":https://www.open-mesh.org/projects/batman-adv/wiki/ + "Gluon":https://github.com/freifunk-gluon/gluon/ has two issues:
+In a wireless community mesh network like "Freifunk":https://en.wikipedia.org/wiki/Freifunk involving "batman-adv":https://www.open-mesh.org/projects/batman-adv/wiki/ + "Gluon":https://github.com/freifunk-gluon/gluon/:
+
+# Anyone can setup a node to join + contribute to the mesh
+# No prior authorization, anonymous participation possible
+
+has two issues:
 
 # A user's internet traffic is typically unencrypted in the WLAN mesh cloud (except for https etc.)
 # A set of central gateways behind a VPN tunnel is used for internet traffic (which contradicts Freifunk's philosophy of decentralization, but became defacto mandatory due to for private people unclear Secondary Liability law in Germany: "''Störerhaftung''":https://de.wikipedia.org/wiki/St%C3%B6rerhaftung)
