@@ -70,7 +70,7 @@ Or in other words, move the 802.1x authenticator from the AP to a remote host of
 
 !OpenHarbors-diagram.png!
 
-h3. S
+h2. Scenario B) Hospital/University/Company/...
 
 h3. (Additional) Use-cases & Benefits
 
