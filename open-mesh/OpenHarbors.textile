@@ -11,8 +11,8 @@ h3. A) - Issues in Decentral Wireless Community Mesh Networks
 In a wireless community mesh network like "Freifunk":https://en.wikipedia.org/wiki/Freifunk involving "batman-adv":https://www.open-mesh.org/projects/batman-adv/wiki/ + "Gluon":https://github.com/freifunk-gluon/gluon/:
 
 # Anyone can setup a node to join + contribute to the mesh
-# OpenSource firmware code
 # No prior authorization, anonymous participation possible
+# Uses OpenSource firmware code
 
 Currently has the following two issues:
 
