@@ -27,7 +27,7 @@ The issue with option 3) is that while it is secure, as the mesh node owner can 
 
 !OpenHarbors-diagram-freifunk.png!
 
-h3. Issues with Passpoint/Hotspot 2.0/OpenRoaming solutions
+h3. A) Issues with Passpoint/Hotspot 2.0/OpenRoaming solutions
 
 Industry leaders currently seem to propose and advocate for solutions based on "Passpoint/Hotspot 2.0":https://en.wikipedia.org/wiki/Wi-Fi_hotspot#Hotspot_2.0 (which in turn utilizes/builds upon "WPA-Enterprise":https://en.wikipedia.org/wiki/Wi-Fi_Protected_Access#Target_users_(authentication_key_distribution)). Potentially with "WBA OpenRoaming":https://wballiance.com/openroaming/ (Informational RFC: "here":https://datatracker.ietf.org/doc/draft-tomas-openroaming/ or similar trust/contract relations as a federation. Hotspot 2.0 was/is also a requirement for the EU "WiFi4EU":https://wifi4eu.ec.europa.eu/#/home initiative/funding.
 
