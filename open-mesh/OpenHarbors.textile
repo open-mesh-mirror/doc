@@ -94,7 +94,7 @@ h3. Solution
 # Like in scenario A), move the authenticator from the AP into the server room
 # Client device will have encrypted communication into the server room, AP + wire becomes part of the untrusted medium
 # No potential to Man-in-the-Middle from outside the server room
-# Attacker now *needs a physical key* to the server room to get the sensitive data
+# Attacker now *needs a physical key* to the server room to get the sensitive data (or access to the client device)
 
 h2. (Additional) Use-cases & Benefits
 
