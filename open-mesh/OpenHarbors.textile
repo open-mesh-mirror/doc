@@ -21,7 +21,7 @@ Gluon also supports adding the following three types of WLAN encryption:
 # "OWE":https://en.wikipedia.org/wiki/Opportunistic_Wireless_Encryption to encrypt traffic from a user device to the direct mesh node / AP: "OWE on client network":https://gluon.readthedocs.io/en/latest/releases/v2020.2.html#owe-on-client-network
 # A "''Private WiFi''":https://gluon.readthedocs.io/en/latest/features/private-wlan.html with WPA-Personal/preshared key encryption, simply bridged to a mesh node's WAN port
 
-While 1)+2) protects against passive snooping, it however **does not protect against an active attacker in an open, public network** like Freifunk. Due to the open nature of Freifunk, the SAE password would need to be published / added to the firmware (source code) to allow anyone to setup their own mesh node. So overall Freifunk even with 1)+2) would still be susceptible to Man-in-the-Middle attacks.
+While 1)+2) protects against passive snooping, it however **does not protect against an active attacker in an open, public network** like Freifunk. Due to the open nature of Freifunk, the **SAE password would need to be published** / added to the firmware (source code) to allow anyone to setup their own mesh node. So overall Freifunk even with 1)+2) would still be susceptible to Man-in-the-Middle attacks.
 
 The issue with option 3) is that while it is secure, as the mesh node owner can configure their own, private password for it in the Gluon Config-Mode Web-GUI of their Gluon mesh router, it can't be used on foreign, other mesh nodes over the mesh network. There is no secure tunneling or provisioning/collaboration between mesh nodes for the "Private WiFi" feature in Gluon.
 
