@@ -75,7 +75,7 @@ h2. Scenario B) Hospital/University/Company/...
 !university-server-room-scenario-traditional.png!
 
 * An exposed AP, visible/reachable by visitors
-* A server with sensitive data
+* A server with sensitive data inside a locked server room
 * Authorized employees/students/... accessing the server via WPA Enterprise from their laptop
 
 h3. Issue
