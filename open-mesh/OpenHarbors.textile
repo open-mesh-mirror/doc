@@ -72,8 +72,31 @@ Or in other words, move the 802.1x authenticator from the AP to a remote host of
 
 h2. Scenario B) Hospital/University/Company/...
 
+!university-server-room-scenario-traditional.png!
 
-h3. (Additional) Use-cases & Benefits
+* An exposed AP, visible/reachable by visitors
+* A server with sensitive data
+* Authorized employees/students/... accessing the server via WPA Enterprise from their laptop
+
+h3. Issue
+
+# Via easy social engineering (e.g. putting on the right cloths, suitcase, a ladder):
+** can get physical access to the AP
+# Can then copy the AP's flash and extract RADIUS credentials
+# Can then replace with a rogue Man-in-the-Middle AP or install a backdoor
+** If no extra encryption/authentication is used between AP<->server then can also simply add a snooping device between AP and wire
+# Now has access to sensitive data in the locked server room
+
+h3. Solution
+
+!university-server-room-scenario-tunneled.png!
+
+# Like in scenario A), move the authenticator from the AP into the server room
+# Client device will have encrypted communication into the server room, AP + wire becomes part of the untrusted medium
+# No potential to Man-in-the-Middle from outside the server room
+# Attacker now *needs a physical key* to the server room to get the sensitive data
+
+h2. (Additional) Use-cases & Benefits
 
 This proposed, dynamic solution yields the following, additional interesting opportunities:
 
