@@ -8,16 +8,22 @@ Idea/Draft: OpenHarbors (“Gotham Docks” / “WPA over L2TP”)
 This document specifies a way to dynamically tunnel WPA over a
 potentially untrusted IP network to a gateway of the user’s choice.
 
-Issues
-------
-
-Issues with Gluon based mesh networks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Scenario A): Decentral Wireless Community Mesh Networks
+-------------------------------------------------------
 
 In a wireless community mesh network like
 `Freifunk <https://en.wikipedia.org/wiki/Freifunk>`__ involving
 `batman-adv <https://www.open-mesh.org/projects/batman-adv/wiki/>`__ +
-`Gluon <https://github.com/freifunk-gluon/gluon/>`__ has two issues:
+`Gluon <https://github.com/freifunk-gluon/gluon/>`__:
+
+#. Anyone can setup a node to join + contribute to the mesh
+#. No prior authorization, anonymous participation possible
+#. Uses a firmware with public OpenSource code
+
+Issues in Decentral Wireless Community Mesh Networks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Currently has the following two issues:
 
 #. A user’s internet traffic is typically unencrypted in the WLAN mesh
    cloud (except for https etc.)
@@ -27,7 +33,7 @@ In a wireless community mesh network like
    Secondary Liability law in Germany:
    `‘’Störerhaftung’’ <https://de.wikipedia.org/wiki/St%C3%B6rerhaftung)>`__
 
-.. image:: OpenHarbors-diagram-freifunk-unencrypted.svg
+.. image:: OpenHarbors-diagram-freifunk-unencrypted.png
    :alt: 
 
 Gluon also supports adding the following three types of WLAN encryption:
@@ -44,10 +50,10 @@ Gluon also supports adding the following three types of WLAN encryption:
    with WPA-Personal/preshared key encryption, simply bridged to a mesh
    node’s WAN port
 
-While 1)+2) protects against passive snooping, it however does not
-protect against an active attacker in an open, public network like
-Freifunk. Due to the open nature of Freifunk, the SAE password would
-need to be published / added to the firmware (source code) to allow
+While 1)+2) protects against passive snooping, it however **does not
+protect against an active attacker in an open, public network** like
+Freifunk. Due to the open nature of Freifunk, the **SAE password would
+need to be published** / added to the firmware (source code) to allow
 anyone to setup their own mesh node. So overall Freifunk even with 1)+2)
 would still be susceptible to Man-in-the-Middle attacks.
 
@@ -127,8 +133,53 @@ host of a user’s choosing:
 .. image:: OpenHarbors-diagram.svg
    :alt: 
 
+Scenario B) Hospital/University/Company/…
+-----------------------------------------
+
+.. image:: university-server-room-scenario-traditional.png
+   :alt: 
+
+-  An exposed AP, visible/reachable by visitors
+-  A server with sensitive data inside a locked server room
+-  Authorized employees/students/… accessing the server via WPA
+   Enterprise from their laptop
+
+Issue
+~~~~~
+
+#. Via easy social engineering (e.g. putting on the right cloths,
+   suitcase, a ladder):
+
+   -  can get physical access to the AP
+
+#. Can then copy the AP’s flash and extract RADIUS credentials
+#. Can then replace with a rogue Man-in-the-Middle AP or install a
+   backdoor
+
+   -  If no extra encryption/authentication/tunnel is used between
+      AP<->server then can also simply add a snooping device between AP
+      and wire to server
+
+#. Now has access to sensitive data in the locked server room
+
+.. _solution-1:
+
+Solution
+~~~~~~~~
+
+.. image:: university-server-room-scenario-tunneled.png
+   :alt: 
+
+#. Like in scenario A), move the authenticator from the AP into the
+   server room
+#. Client device will have encrypted communication into the server room,
+   AP + wire becomes part of the untrusted medium
+#. No potential to Man-in-the-Middle from outside the server room
+#. Attacker now **needs a physical key** to the server room to get the
+   sensitive data (or access to the client device)
+
 (Additional) Use-cases & Benefits
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------
 
 This proposed, dynamic solution yields the following, additional
 interesting opportunities:
