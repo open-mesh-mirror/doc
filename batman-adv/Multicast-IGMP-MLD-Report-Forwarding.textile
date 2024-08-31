@@ -129,7 +129,23 @@ Answer: yes
 
 **Learning:**
 
-WIP
+1) Bridged-in host A listens to a link-local multicast address <MC-LL-A>
+2) Bridged-in host C on node Y floods an MLD Query through the mesh
+2.1) Node Y sets and floods a WANT_ALL flag, because querier is potentially [[Multicast-optimizations-flags#Case-3-Shadowing-Multicast-Querier|"shadowing"]].
+2.2) Node X learns node Y's WANT_ALL flag.
+3) Host A replies to the MLD query with an MLD Report for <MC-LL-A>
+3.1) br0 on node X learns that a listener for <MC-LL-A> is behind eth0 and then forwards the MLD Report further towards the querier on bat0, as required by RFC4541
+3.2) batman-adv on node X learns about the listener for <MC-LL-A> through the export of the bridge and then adds it to TT, which gets distributed to other nodes.
+3.3) batman-adv on node X will forward the MLD Report towards node Y, even with the multicast_rtr_only option enabled, as node Y has the WANT_ALL flag set.
+3.4) batman-adv on node Y learns about <MC-LL-A> through the TT
+3.5) br0 on node Y learns that a listener for <MC-LL-A> is behind bat0 and then forwards the MLD Report further towards the querier on eth0, as required by RFC4541
+
+**Multicast packet forwarding:**
+
+4) Bridged-in host B sends a multicast packet to the multicast address <MC-LL-A>
+4.1) br0 on node X has heard of <MC-LL-B> and will forward the multicast packet towards bat0, as required by RFC4541
+...
+Packet arrives at bridged-in host A
 
 h3. Scenario E: Multicast to host on node with a bridged-in querier
 
