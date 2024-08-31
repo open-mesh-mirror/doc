@@ -163,4 +163,18 @@ Answer: yes
 
 **Learning:**
 
-WIP
+1) Bridged-in host A listens to a link-local multicast address <MC-LL-A>
+2) Bridged-in host C on node X floods an MLD Query through the mesh
+2.1) Node X sets and floods a WANT_ALL flag, because querier is potentially "shadowing".
+2.2) Node Y learns node Y's WANT_ALL flag.
+3) Host A replies to the MLD query with an MLD Report for <MC-LL-A>
+3.1) br0 on node X learns that a listener for <MC-LL-A> is behind eth0 (unless it's shadowed by the querier on host C) and will refrain to forward the MLD Report further towards bat0 because bat0 has no querier behind it, as required by RFC4541
+3.2) batman-adv on node X learns about <MC-LL-A> through the export of the bridge (unless it's shadowed), but will not add it to TT, because it has the WANT_ALL flag set
+
+**Multicast packet forwarding:**
+
+4) Bridged-in host B sends a multicast packet to the multicast address <MC-LL-A>
+4.1) br0 on node Y has not heard of <MC-LL-A>, but will forward the multicast packet towards the MLD Querier, as required by RFC4541
+4.2) batman-adv on node Y has not previously learned through the TT about <MC-LL-A> but batman-adv will forward the multicast packet to node X regardless because of the WANT_ALL flag
+4.3) br0 on node X has previously learned about <MC-LL-A> through the MLD Report, so it forwards the multicast packet on eth0 to host A
+4.4) Host A successfully receives the multicast packet from host B!
