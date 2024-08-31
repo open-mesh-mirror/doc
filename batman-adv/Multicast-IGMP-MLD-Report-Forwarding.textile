@@ -11,6 +11,8 @@ h2. Introduction
 
 Currently batman-adv forwards/floods an IGMP/MLD Report to all other nodes by default. The _multicast_mld_rtr_only_ option allows to change this behavior to only forward IGMP/MLD Reports to nodes with a multicast router, to reduce IGMP/MLD overhead in the mesh while still enabling layer 3 multicast routing. However this option is not always safe to use, so this page illustrates the scenarios where this option can and cannot be used.
 
+tl;dr: Scenario C is the potentially unsafe scenario for a _multicast_mld_rtr_only_ option.
+
 h3. Scenario A: Multicast to host on node without querier
 
 h4. Scenario A, Overview:
