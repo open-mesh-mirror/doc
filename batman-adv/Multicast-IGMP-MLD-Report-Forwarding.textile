@@ -112,14 +112,36 @@ C) Run a bridged-in multicast router (which supports MRD) on node Y (disadvantag
 D) Send report not just to multicast routers, but also to queriers (not implemented)
 E) Export batman-adv TT-global to bridge MDB (not implemented)
 
-h3. Scenario D: Multicast to/from host on node with a bridged-in querier
-
-WIP
+h3. Scenario D: Multicast from host on node with a bridged-in querier
 
 h4. Scenario D, Overview:
 
-_Can bridged-in host A send multicast to bridged-in host B?_
+!mld-to-mcast-routers-only-scenario-D-overview.png!
+_Can bridged-in host B send multicast to bridged-in host A?_
 
 h4. Scenario D, Analysis:
 
 Answer: yes
+
+!mld-to-mcast-routers-only-scenario-D.png!
+
+**Learning:**
+
+WIP
+
+h3. Scenario E: Multicast to host on node with a bridged-in querier
+
+h4. Scenario E, Overview:
+
+!mld-to-mcast-routers-only-scenario-E-overview.png!
+_Can bridged-in host B send multicast to bridged-in host A?_
+
+h4. Scenario E, Analysis:
+
+Answer: yes
+
+!mld-to-mcast-routers-only-scenario-E.png!
+
+**Learning:**
+
+WIP
