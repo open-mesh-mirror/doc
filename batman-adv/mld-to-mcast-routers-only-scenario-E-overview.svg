@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="55cm" height="30cm" viewBox="139 20 1098 600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="63cm" height="25cm" viewBox="-21 139 1243 482" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs/>
   <g id="Hintergrund"/>
   <g id="Background"/>
@@ -72,16 +72,10 @@
       <tspan x="1180" y="460">B</tspan>
     </text>
     <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="1120,380 1120,460 1160,460 1160,460 "/>
-    <text font-size="18.0622" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="520">
-      <tspan x="140" y="520">1) A: Listens:  MC-LL-A</tspan>
-    </text>
     <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="170" cy="450" rx="30" ry="30"/>
     <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" points="240,380 240,460 200,460 200,450 "/>
     <text font-size="23.7067" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="160" y="460">
       <tspan x="160" y="460">A</tspan>
-    </text>
-    <text font-size="18.0622" style="fill: #ea7227; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1040" y="560">
-      <tspan x="1040" y="560">4) B: Sends: To MC-LL-A</tspan>
     </text>
     <text font-size="23.7067" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="200" y="220">
       <tspan x="200" y="220">X</tspan>
@@ -89,109 +83,27 @@
     <text font-size="23.7067" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="920" y="180">
       <tspan x="920" y="180">Y</tspan>
     </text>
-    <text font-size="18.0622" style="fill: #008000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="560">
-      <tspan x="140" y="560">3) A: Sends: MLD Report</tspan>
+    <g>
+      <path style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 20; stroke: #ea7227" d="M 1168.79,471.214 A 4164.08,4164.08 0 0 1 200.883,472.346"/>
+      <polygon style="fill: #ea7227; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #ea7227" fill-rule="evenodd" points="193.434,471.476 203.952,467.685 200.882,472.357 202.778,477.616 "/>
+    </g>
+    <text font-size="18.0622" style="fill: #ea7227; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="660" y="480">
+      <tspan x="660" y="480">OK?</tspan>
     </text>
-    <text font-size="18.0622" style="fill: #008000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="480" y="180">
-      <tspan x="480" y="180">3.2) bat0 of X:</tspan>
-      <tspan x="480" y="202.578">Learns: MC-LL-A from br0,</tspan>
-      <tspan x="480" y="225.156">TT =&gt; adds MC-LL-A</tspan>
+    <text font-size="18.0622" style="fill: #ea7227; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1080" y="520">
+      <tspan x="1080" y="520">Multicast Sender</tspan>
     </text>
-    <text font-size="18.0622" style="fill: #008000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="420" y="520">
-      <tspan x="420" y="520">3.4) bat0 of Y:</tspan>
-      <tspan x="420" y="542.578">From TT, learns: MC-LL-A @X</tspan>
+    <text font-size="18.0622" style="fill: #ea7227; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="520">
+      <tspan x="140" y="520">Multicast Receiver</tspan>
     </text>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #0000ff" x1="1160" y1="380" x2="1160" y2="430.264"/>
-      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="1160,437.764 1155,427.764 1160,430.264 1165,427.764 "/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #0000ff" x1="1000" y1="260" x2="1000" y2="310.264"/>
-      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="1000,317.764 995,307.764 1000,310.264 1005,307.764 "/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #0000ff" x1="200" y1="380" x2="200" y2="440.264"/>
-      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="200,447.764 195,437.764 200,440.264 205,437.764 "/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #0000ff" x1="360" y1="320" x2="360" y2="269.736"/>
-      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="360,262.236 365,272.236 360,269.736 355,272.236 "/>
-    </g>
-    <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #0000ff" points="360,320 320,320 320,320 289.736,320 "/>
-      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="282.236,320 292.236,315 289.736,320 292.236,325 "/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #0000ff" x1="920" y1="350" x2="449.736" y2="350"/>
-      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="442.236,350 452.236,345 449.736,350 452.236,355 "/>
-    </g>
-    <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="1060" y="160" width="120" height="60" rx="0" ry="0"/>
-    <text font-size="23.7067" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1080" y="200">
-      <tspan x="1080" y="200">Querier</tspan>
+    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x1="200" y1="350" x2="140" y2="350"/>
+    <ellipse style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" cx="110" cy="350" rx="30" ry="30"/>
+    <text font-size="23.7067" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="100" y="360">
+      <tspan x="100" y="360">C</tspan>
     </text>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #0000ff" x1="1080" y1="260" x2="1080" y2="310.264"/>
-      <polygon style="fill: #0000ff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #0000ff" fill-rule="evenodd" points="1080,317.764 1075,307.764 1080,310.264 1085,307.764 "/>
-    </g>
-    <text font-size="18.0622" style="fill: #0000ff; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="1040" y="520">
-      <tspan x="1040" y="520">2) Y: Sends: MLD Query</tspan>
+    <rect style="fill: #ffffff; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #000000" x="-20" y="280" width="120" height="60" rx="0" ry="0"/>
+    <text font-size="23.7067" style="fill: #000000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="0" y="320">
+      <tspan x="0" y="320">Querier</tspan>
     </text>
-    <text font-size="18.0622" style="fill: #008000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="480" y="100">
-      <tspan x="480" y="100">3.1) br0 of X:</tspan>
-      <tspan x="480" y="122.578">Learns: MC-LL-A @eth0</tspan>
-      <tspan x="480" y="145.156">Forwards: to Querier, @bat0</tspan>
-    </text>
-    <text font-size="18.0622" style="fill: #ea7227; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="940" y="40">
-      <tspan x="940" y="40">4.1) br0, to MC-LL-A?</tspan>
-      <tspan x="940" y="62.5778">To Querier =&gt; br0</tspan>
-      <tspan x="940" y="85.1556">To bat0? =&gt; ?? =&gt; no</tspan>
-      <tspan xml:space="preserve" x="940" y="107.733">                        =&gt; NOK</tspan>
-    </text>
-    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ea7227" x1="1060" y1="112" x2="1120" y2="112"/>
-    <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ea7227" x1="1060" y1="116" x2="1120" y2="116"/>
-    <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ea7227" points="1168.79,471.213 1080,471.213 1080,389.736 "/>
-      <polygon style="fill: #ea7227; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #ea7227" fill-rule="evenodd" points="1080,382.236 1085,392.236 1080,389.736 1075,392.236 "/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ea7227" x1="1080" y1="350" x2="1039.74" y2="350"/>
-      <polygon style="fill: #ea7227; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #ea7227" fill-rule="evenodd" points="1032.24,350 1042.24,345 1039.74,350 1042.24,355 "/>
-    </g>
-    <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #008000" points="191.213,471.213 280,471.213 280,389.736 "/>
-      <polygon style="fill: #008000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #008000" fill-rule="evenodd" points="280,382.236 285,392.236 280,389.736 275,392.236 "/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #008000" x1="280" y1="380" x2="350.264" y2="380"/>
-      <polygon style="fill: #008000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #008000" fill-rule="evenodd" points="357.764,380 347.764,385 350.264,380 347.764,375 "/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #008000" x1="440" y1="380" x2="590.264" y2="380"/>
-      <polygon style="fill: #008000; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #008000" fill-rule="evenodd" points="597.764,380 587.764,385 590.264,380 587.764,375 "/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="540" y1="370" x2="560" y2="390"/>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="540" y1="390" x2="560" y2="370"/>
-    </g>
-    <g>
-      <polyline style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke-dasharray: 4; stroke: #ea7227" points="1160,320 1160,230 1089.74,230 "/>
-      <polygon style="fill: #ea7227; fill-opacity: 1; stroke-opacity: 1; stroke-width: 2; stroke: #ea7227" fill-rule="evenodd" points="1082.24,230 1092.24,225 1089.74,230 1092.24,235 "/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="1050" y1="340" x2="1070" y2="360"/>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="1050" y1="360" x2="1070" y2="340"/>
-    </g>
-    <text font-size="18.0622" style="fill: #008000; fill-opacity: 1; stroke: none;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="480" y="260">
-      <tspan x="480" y="260">3.3) bat0, MLD Report fwd:</tspan>
-      <tspan x="480" y="282.578">mro: on =&gt; no</tspan>
-    </text>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="600" y1="268" x2="620" y2="288"/>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="600" y1="288" x2="620" y2="268"/>
-    </g>
-    <g>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="1120" y1="72" x2="1140" y2="92"/>
-      <line style="fill: none; stroke-opacity: 1; stroke-width: 2; stroke: #ff0000" x1="1120" y1="92" x2="1140" y2="72"/>
-    </g>
   </g>
 </svg>
