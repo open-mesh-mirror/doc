@@ -282,3 +282,5 @@ _output:
         grat:
           batbla:
 </code></pre>
+
+One other interesting observation/note: The mentioned and tracked ESP devices above were regularly trying to reach a specific 10.130.x.255 address in our network. It seems that they have a broken IP stack implementation and even though DHCP offered them a /16 subnet, they seemed to wrongly assume a /24. Therefore likely wrongly trying to use/resolve 10.130.x.255 instead of our gateways at 10.130.0.250-255 for instance. The owner was contacted and seems to have disconnected some already.
