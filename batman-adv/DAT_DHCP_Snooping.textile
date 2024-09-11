@@ -116,6 +116,8 @@ Patches:
 
 h3. DHCP Snooping
 
+Status: _merged upstream_
+
 The first patch provides an alternative to filling the DAT DHT: It allows learning IP-MAC pairs not only via ARP spoofing but DHCP spoofing, too. The advantage is that for DHCP we already have the gateway feature which always uses unicast transmissions.
 
 h3. Noflood mark
