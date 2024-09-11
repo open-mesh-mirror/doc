@@ -122,6 +122,8 @@ The first patch provides an alternative to filling the DAT DHT: It allows learni
 
 h3. Noflood mark
 
+Status: _rejected_ (some opinion(s) were that it would be nice to have a more complete filter architecture, also this is not that straightforward/foolproof to administrate/configure)
+_
 The second patch allows to prevent forwarding a frame which batman-adv would otherwise flood. With a DHCP snooping in place and a lease timeout lower than the 5min. DAT timeout ARP Requests for addresses in the DHCP range can safely be dropped. The noflood mark can be configured like:
 
 <pre><code>
@@ -134,7 +136,6 @@ $ ebtables -p ARP --logical-out br0 -o bat0 --arp-op Request --arp-ip-dst 10.84.
 </code></pre>
 
 This would result in the address range of 10.84.0.8-10.84.0.255 being marked for "noflood", while excempting 10.84.0.0-10.84.0.7.
-
 
 h3. Result
 
