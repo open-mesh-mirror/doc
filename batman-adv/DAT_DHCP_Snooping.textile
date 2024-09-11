@@ -163,7 +163,7 @@ Splitting the one DAT cache into a local DAT cache and a DAT DHT cache. Then inc
 
 h3. Result
 
-These two patches decreased the overall ARP broadcast overhead by 89.86% and the ARP broadcast overhead from gateways by 96.22% in a  ~180 nodes setup at Freifunk Lübeck, measured over one week before and after applying the patches on a specific mesh node's mesh-vpn interface.
+These two patches decreased the overall ARP broadcast overhead by 89.86% and the ARP broadcast overhead from gateways by 96.22% in a  ~180 nodes setup at Freifunk Lübeck (firmware v0.19.0+v0.15.5), measured over one week before and after applying the patches on a specific mesh node's mesh-vpn interface.
 
 <pre><code>
 Before:
@@ -185,7 +185,7 @@ Broadcast ARP from gateways, 7 days, before vs. after:
 
 h4. More statistics
 
-Before:
+Before (average 2024-06-28T00:00:00+02:00 + 7 days):
 
 <pre><code>
 # PCAP-file bits/s pkts/s
@@ -213,7 +213,7 @@ bcast-arp.others.req.grat.cap,0.00,0.00
 bcast-arp.others.req.probe.cap,89.75,0.16
 </code></pre>
 
-After:
+After (average 2024-08-06T00:00:00+02:00 + 7 days):
 
 <pre><code>
 # PCAP-file bits/s pkts/s
