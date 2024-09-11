@@ -150,12 +150,14 @@ And the result (daily average) in relation to other layer 2 broadcasts:
 
 !{width:50%}ffda-BCAST.1d.2018-05-10.png!:https://www.open-mesh.org/attachments/850/ffda-BCAST.1d.2018-05-10.png
 
-
 h2. Solution 2)
 
 (_Update 2024-09-11_)
 
-Patches: ...
+Patches:
+
+* https://patchwork.open-mesh.org/project/b.a.t.m.a.n./cover/20240911051259.23384-1-linus.luessing@c0d3.blue/
+* https://patchwork.open-mesh.org/project/b.a.t.m.a.n./patch/20240911051813.23550-1-linus.luessing@c0d3.blue/
 
 h3. DAT Timeout Split + Increase
 
