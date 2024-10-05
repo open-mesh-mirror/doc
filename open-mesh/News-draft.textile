@@ -60,7 +60,7 @@ bugfixes
 
 
 
-2024.3 (2024-10-05)
+2024.3 (2024-10-08)
 ===================
 
 * support latest kernels (4.19 - 6.12)
@@ -98,7 +98,7 @@ batctl: Dynamically select header format in netlink_print_neighbors
 
 
 
-2024.3 (2024-10-05)
+2024.3 (2024-10-08)
 ===================
 
 * bugs squashed:
@@ -120,7 +120,7 @@ alfred: add more verbose error message
 
 
 
-2024.3 (2024-10-05)
+2024.3 (2024-10-08)
 ===================
 
 * improve output for IPv6 related address errors
