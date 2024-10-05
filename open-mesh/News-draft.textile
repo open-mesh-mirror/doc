@@ -1,36 +1,34 @@
-h1. DRAFT: Batman-adv 2024.2 released
+h1. DRAFT: Batman-adv 2024.3 released
 
-Jun 11th, 2024. Today the B.A.T.M.A.N. team publishes the June 2024 update to batman-adv! Several bug fixes and code cleanups are included in this version.
+Oct 8th, 2024. Today the B.A.T.M.A.N. team publishes the October 2024 update to batman-adv! Several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2024.2/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2024.3/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Dmitry Antipov <dmantipov@yandex.ru>
-* Eric Dumazet <edumazet@google.com>
-* Jakub Kicinski <kuba@kernel.org>
-* Linus Lüssing <linus.luessing@c0d3.blue>
-* Steven Rostedt <rostedt@goodmis.org>
+* Alexander Lobakin <aleksander.lobakin@intel.com>
+* Anna-Maria Behnsen <anna-maria@linutronix.de>
+* Noah Peterson <NoahBPeterson1997@gmail.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Shannon Nelson <shannon.nelson@amd.com>
-* Simon Horman <horms@kernel.org>
+* Linus Lüssing <linus.luessing@c0d3.blue>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2024.1-5-g8f27a9c1
-$ range=v2024.1..v2024.1-5-g8f27a9c1
+v2024.2-7-g6398f63b
+$ range=v2024.2..v2024.2-7-g6398f63b
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
 
 
 features
@@ -41,15 +39,14 @@ features
 new kernel version
 ==================
 
+      batman-adv: convert NETIF_F_LLTX to dev->lltx
+      batman-adv: convert NETIF_F_NETNS_LOCAL to dev->netns_local
 
 
 coding style cleanup/refactoring
 ================================
 
-*       batman-adv: prefer kfree_rcu() over call_rcu() with free-only callbacks
-*       batman-adv: bypass empty buckets in batadv_purge_orig_ref()
-*      batman-adv: annotate writes on dev->mtu from ndo_change_mtu()
-* batman-adv: remove linux/genetlink.h
+      batman-adv: Fix wrong singular form of jiffies in comments
 
 various
 =======
@@ -58,26 +55,30 @@ various
 bugfixes
 ========
 
+      batman-adv: Don't accept TT entries for out-of-spec VIDs
 
 
 
 
-2024.2 (2024-06-11)
+2024.3 (2024-10-05)
 ===================
 
-* support latest kernels (4.19 - 6.10)
+* support latest kernels (4.19 - 6.12)
 * coding style cleanups and refactoring
+* bugs squashed:
+
+  - avoid processing of translation table updates for out-of-spec VIDs
+
 </pre>
 
 h2. batctl
 
 <pre>
 $ git describe origin/main
-v2024.1-1-gafbac72
-$ range=v2024.1..v2024.1-1-gafbac72
+v2024.2-2-g649456d
+$ range=v2024.2..v2024.2-2-g649456d
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
 
 
 features
@@ -91,28 +92,38 @@ coding style cleanup/refactoring
 bugfixes
 ========
 
+batctl: Dynamically select header format in netlink_print_neighbors
 
-2024.2 (2024-06-11)
+
+
+
+
+2024.3 (2024-10-05)
 ===================
 
-* (no changes)
+* bugs squashed:
+
+  - fix header for neighbor table with B.A.T.M.A.N. V algorithm
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/main
-v2024.1-1-g2950cee
-$ range=v2024.1..v2024.1-1-g2950cee
+v2024.2-2-g6a0188e
+$ range=v2024.2..v2024.2-2-g6a0188e
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
+alfred: add more verbose error message
 
-2024.2 (2024-06-11)
+
+
+2024.3 (2024-10-05)
 ===================
 
-* (no changes)
+* improve output for IPv6 related address errors
 </pre>
 
 
