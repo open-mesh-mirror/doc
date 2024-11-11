@@ -7,3 +7,4 @@ h2. Documentation
 * [[FAQ|FAQ]] - Frequently Asked Questions
 * [[Experience|Experience]] - Collection of links to B.A.T.M.A.N. press reviews, papers and projects using B.A.T.M.A.N.
 * [[MailingList|Mailing List]]/[[IRC|IRC]] - contact us
+* {{mastodon_link}}
