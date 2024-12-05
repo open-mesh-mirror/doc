@@ -1,31 +1,33 @@
-h1. DRAFT: Batman-adv 2024.3 released
+h1. DRAFT: Batman-adv 2024.4 released
 
-Oct 8th, 2024. Today the B.A.T.M.A.N. team publishes the October 2024 update to batman-adv! Several bug fixes and code cleanups are included in this version.
+Dec 10th, 2024. Today the B.A.T.M.A.N. team publishes the December 2024 update to batman-adv! Several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2024.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2024.4/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Alexander Lobakin <aleksander.lobakin@intel.com>
-* Anna-Maria Behnsen <anna-maria@linutronix.de>
-* Noah Peterson <NoahBPeterson1997@gmail.com>
+* Al Viro <viro@zeniv.linux.org.uk>
+* Alexandru Gagniuc <mr.nuke.me@gmail.com>
+* Erick Archer <erick.archer@outlook.com>
+* Julia Lawall <Julia.Lawall@inria.fr>
+* Remi Pommarel <repk@triplefau.lt>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 and to all those that supported us with good advice or rigorous testing:
 
-* Linus Lüssing <linus.luessing@c0d3.blue>
+* Antonio Quartulli <Antonio@mandelbit.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2024.2-7-g6398f63b
-$ range=v2024.2..v2024.2-7-g6398f63b
+v2024.3-11-g4c4a6026
+$ range=v2024.3..v2024.3-11-g4c4a6026
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -39,14 +41,16 @@ features
 new kernel version
 ==================
 
-      batman-adv: convert NETIF_F_LLTX to dev->lltx
-      batman-adv: convert NETIF_F_NETNS_LOCAL to dev->netns_local
 
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Fix wrong singular form of jiffies in comments
+      batman-adv: Use string choice helper to print booleans
+      batman-adv: Drop support for Linux < 5.4
+      batman-adv: replace call_rcu by kfree_rcu for simple kmem_cache_free callback
+      batman-adv: Add flex array to struct batadv_tvlv_tt_data
+      batman-adv: move asm/unaligned.h to linux/unaligned.h
 
 various
 =======
@@ -55,19 +59,22 @@ various
 bugfixes
 ========
 
-      batman-adv: Don't accept TT entries for out-of-spec VIDs
+      batman-adv: Do not send uninitialized TT changes
+      batman-adv: Remove uninitialized data in full table TT response
+      batman-adv: Do not let TT changes list grows indefinitely
 
 
 
 
-2024.3 (2024-10-08)
+2024.4 (2024-12-10)
 ===================
 
-* support latest kernels (4.19 - 6.12)
+* support latest kernels (5.4 - 6.13)
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - avoid processing of translation table updates for out-of-spec VIDs
+  - prevent transmission of uninitialized memory for TT TVLVs
+  - avoid stuck, overfull translation table changes list
 
 </pre>
 
@@ -75,55 +82,57 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2024.2-2-g649456d
-$ range=v2024.2..v2024.2-2-g649456d
+v2024.3-6-g8875385
+$ range=v2024.3..v2024.3-6-g8875385
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
+
 
 
 features
 ========
 
-
+      batctl: Remove redundant check_root_or_die()
 
 coding style cleanup/refactoring
 ================================
 
+      batctl: Apply checkpatch suggestions
+      batctl: Switch to kernel-style variable declarations
+      batctl: Fix checkpatch errors
+      batctl: Add flex array to struct batadv_tvlv_tt_data
+
 bugfixes
 ========
 
-batctl: Dynamically select header format in netlink_print_neighbors
 
 
 
 
 
-2024.3 (2024-10-08)
+2024.4 (2024-12-10)
 ===================
 
-* bugs squashed:
-
-  - fix header for neighbor table with B.A.T.M.A.N. V algorithm
+* coding style cleanups and refactoring
+* drop explicit requirement to run as root
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/main
-v2024.2-2-g6a0188e
-$ range=v2024.2..v2024.2-2-g6a0188e
+v2024.3-1-g91ed439
+$ range=v2024.3..v2024.3-1-g91ed439
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-alfred: add more verbose error message
 
-
-
-2024.3 (2024-10-08)
+2024.4 (2024-12-10)
 ===================
 
-* improve output for IPv6 related address errors
+* (no changes)
 </pre>
 
 
