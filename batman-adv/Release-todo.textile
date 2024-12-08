@@ -39,6 +39,7 @@ h2. Release
 * [ ] update download links in the [[open-mesh:Download|redmine downloads page]]
 * [ ] "Add news":/projects/open-mesh/news/new based on [[open-mesh:News-draft]]
 * [ ] update IRC channel topic
+* [ ] Add news to the Mastodon account
 
 h2. Distributions
 
