@@ -29,7 +29,7 @@ sudo systemd-nspawn -D debian apt install -y --no-install-recommends build-essen
  pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump dbus rng-tools5 \
  trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
 sudo systemd-nspawn -D debian systemctl enable fstrim.timer
-sudo rm debian/etc/machine-id
+sudo rm -f debian/etc/machine-id debian/var/lib/dbus/machine-id debian/run/machine-id
 
 sudo mkdir debian/root/.ssh/
 ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
