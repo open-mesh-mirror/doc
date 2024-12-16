@@ -23,10 +23,10 @@ qemu-img create debian.img 8G
 sudo mkfs.ext4 -O '^has_journal' -F debian.img
 sudo mkdir debian
 sudo mount -o loop debian.img debian
-sudo debootstrap bookworm debian
+sudo debootstrap trixie debian
 sudo systemd-nspawn -D debian apt update
-sudo systemd-nspawn -D debian apt install --no-install-recommends build-essential vim openssh-server less \
- pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5  initscripts \
+sudo systemd-nspawn -D debian apt install -y --no-install-recommends build-essential vim openssh-server less \
+ pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump dbus rng-tools5 \
  trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
 sudo systemd-nspawn -D debian systemctl enable fstrim.timer
 sudo rm debian/etc/machine-id
@@ -54,6 +54,25 @@ ip link set up dev lo
 exit 0
 EOF'
 sudo chmod a+x debian/etc/boot.d/test-init
+
+sudo sh -c 'cat > debian/etc/rc.local << "EOF"
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+
+if test -d /etc/boot.d ; then
+        run-parts /etc/boot.d
+fi
+exit 0
+EOF'
+sudo chmod a+x debian/etc/rc.local
 
 sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
 
@@ -297,7 +316,7 @@ BASE_IMG=debian.qcow2
 BASE_IMG_FMT=qcow2
 BOOTARGS+=("-bios" "qboot/build/bios.bin")
 BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
+BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
 BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 </code></pre>
 
