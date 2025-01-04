@@ -42,14 +42,14 @@ storage space
   sudo mkfs.ext4 -O '^has_journal' -F debian.img
   sudo mkdir debian
   sudo mount -o loop debian.img debian
-  sudo debootstrap bookworm debian
+  sudo debootstrap trixie debian
   sudo systemd-nspawn -D debian apt update
-  sudo systemd-nspawn -D debian apt install --no-install-recommends build-essential vim openssh-server less \
-   pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump rng-tools5  initscripts \
+  sudo systemd-nspawn -D debian apt install -y --no-install-recommends build-essential vim openssh-server less \
+   pkg-config libnl-3-dev libnl-genl-3-dev libcap-dev tcpdump dbus rng-tools5 \
    trace-cmd flex bison libelf-dev libdw-dev binutils-dev libunwind-dev libssl-dev libslang2-dev liblzma-dev libperl-dev
   sudo systemd-nspawn -D debian systemctl enable fstrim.timer
-  sudo rm debian/etc/machine-id
-  
+  sudo rm -f debian/etc/machine-id debian/var/lib/dbus/machine-id debian/run/machine-id
+
   sudo mkdir debian/root/.ssh/
   ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
 
@@ -74,16 +74,35 @@ storage space
   EOF'
   sudo chmod a+x debian/etc/boot.d/test-init
 
+  sudo sh -c 'cat > debian/etc/rc.local << "EOF"
+  #!/bin/sh -e
+  #
+  # rc.local
+  #
+  # This script is executed at the end of each multiuser runlevel.
+  # Make sure that the script will "exit 0" on success or any other
+  # value on error.
+  #
+  # In order to enable or disable this script just change the execution
+  # bits.
+
+  if test -d /etc/boot.d ; then
+          run-parts /etc/boot.d
+  fi
+  exit 0
+  EOF'
+  sudo chmod a+x debian/etc/rc.local
+
   sudo sed -i 's/^root:[^:]*:/root::/' debian/etc/shadow
-  
+
   sudo mkdir -p debian/etc/systemd/journald.conf.d
   cat << "EOF" | sudo tee debian/etc/systemd/journald.conf.d/storage.conf
   [Journal]
   Storage=volatile
   EOF
-  
+
   ## optionally: allow ssh logins without passwords
-  #cat << "EOF" | sudo tee debian/etc/ssh/sshd_config.d/local.conf
+  #cat << "EOF" | sudo tee debian/etc/ssh/sshd_config.d/local.conf 
   #PermitRootLogin yes
   #PermitEmptyPasswords yes
   #UsePAM no
@@ -115,8 +134,8 @@ Kernel compile
 
 Any recent kernel can be used for the setup. We will use linux-next here
 to get the most recent development kernels. It is also assumed that the
-sources are copied to the same directory as the debian.qcow2 and a x86_64
-image will be used.
+sources are copied to the same directory as the debian.qcow2 and a
+x86_64 image will be used.
 
 The kernel will be build to enhance the virtualization and debugging
 experience. It is configured with:
@@ -133,9 +152,9 @@ experience. It is configured with:
 
   git clone git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
   cd linux-next
-  
+
   cat > ./kernel/configs/debug_kernel.config << EOF
-  
+
   # small configuration
   CONFIG_SMP=y
   CONFIG_MODULES=y
@@ -194,11 +213,11 @@ experience. It is configured with:
   CONFIG_NO_HZ_IDLE=y
   CONFIG_CPU_IDLE_GOV_HALTPOLL=y
   CONFIG_PVPANIC=y
-  
+
   # makes boot a lot slower but required for shutdown
   CONFIG_ACPI=y
-  
-  
+
+
   #debug stuff
   CONFIG_STACKPROTECTOR=y
   CONFIG_STACKPROTECTOR_STRONG=y
@@ -259,7 +278,7 @@ experience. It is configured with:
   CONFIG_PRINTK_CALLER=y
   CONFIG_DEBUG_MISC=y
   CONFIG_SLUB_DEBUG=y
-  
+
   # for GCC 5+
   CONFIG_KASAN=y
   CONFIG_KASAN_INLINE=y
@@ -267,15 +286,15 @@ experience. It is configured with:
   CONFIG_UBSAN=y
   CONFIG_KCSAN=y
   CONFIG_KFENCE=y
-  
+
   # avoid that boot is delayed much by the delayed kobject release code
   CONFIG_DEBUG_KOBJECT_RELEASE=n
   EOF
-  
+
   make allnoconfig
   make kvm_guest.config
   make debug_kernel.config
-  
+
   make all -j$(nproc || echo 1)
 
 Build the BIOS
@@ -325,15 +344,15 @@ can be reused again.
 VM instances bringup
 ~~~~~~~~~~~~~~~~~~~~
 
-The 
+The
 :ref:`run.sh from the OpenWrt environment <devtools-openwrt-in-qemu-vm-instances-bringup>`
-can mostly be reused. There are only minimal
-adjustments required.
+can mostly be reused. There are only minimal adjustments
+required.
 
 The BASE_IMG is of course no longer the same because a new image
-“debian.qcow2” was created for our new environment. The image also doesn’t
-contain a bootloader or kernel anymore. The kernel must now be supplied
-manually to qemu.
+“debian.qcow2” was created for our new environment. The image also
+doesn’t contain a bootloader or kernel anymore. The kernel must now be
+supplied manually to qemu.
 
 .. code-block:: sh
 
@@ -341,7 +360,7 @@ manually to qemu.
   BASE_IMG_FMT=qcow2
   BOOTARGS+=("-bios" "qboot/build/bios.bin")
   BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-  BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
+  BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
   BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 
 It is also recommended to use linux-next/vmlinux instead of bzImage with
@@ -385,6 +404,6 @@ functionality is still the same as before. A simple example would be:
 Start
 -----
 
-The startup method 
+The startup method
 :ref:`from the OpenWrt environment <devtools-openwrt-in-qemu-start>`
 should be used here.

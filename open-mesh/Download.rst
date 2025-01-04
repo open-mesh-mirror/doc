@@ -15,22 +15,22 @@ Download Released Source Code
 -----------------------------
 
 -  The latest version of batman-adv is
-   `batman-adv-2024.3.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2024.3.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2024.3.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2024.3.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2024.3.tar.gz.asc>`__
+   `batman-adv-2024.4.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2024.4.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2024.4.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2024.4.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batman-adv/batman-adv-2024.4.tar.gz.asc>`__
 -  The latest version of batctl (management and control tool for
    batman-adv) is
-   `batctl-2024.3.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2024.3.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2024.3.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2024.3.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2024.3.tar.gz.asc>`__
+   `batctl-2024.4.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2024.4.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2024.4.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2024.4.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/batctl/batctl-2024.4.tar.gz.asc>`__
 -  The latest version of alfred (Almighty Lightweight Fact Remote
    Exchange Daemon) is
-   `alfred-2024.3.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2024.3.tar.gz>`__
-   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2024.3.tar.gz.md5>`__
-   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2024.3.tar.gz.sha1>`__
-   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2024.3.tar.gz.asc>`__
+   `alfred-2024.4.tar.gz <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2024.4.tar.gz>`__
+   `md5 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2024.4.tar.gz.md5>`__
+   `sha1 <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2024.4.tar.gz.sha1>`__
+   `asc <https://downloads.open-mesh.org/batman/stable/sources/alfred/alfred-2024.4.tar.gz.asc>`__
 
 -  The latest stable version of batmand
    (:ref:`unmaintained <open-mesh-BranchesExplained-batmand>`) is
@@ -230,6 +230,8 @@ contain, so that you can easily pick the compatible batctl packages:
 -  linux 6.11 => batman-adv 2024.2 (get batctl 2024.2 from
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 -  linux 6.12 => batman-adv 2024.3 (get batctl 2024.3 from
+   `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
+-  linux 6.13 => batman-adv 2024.4 (get batctl 2024.4 from
    `here <https://downloads.open-mesh.org/batman/stable/sources/batctl/)>`__
 
 Arch Linux
