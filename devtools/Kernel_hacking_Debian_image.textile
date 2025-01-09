@@ -111,7 +111,7 @@ sudo qemu-img convert -c -f raw -O qcow2 debian.img debian.qcow2
 rm -f debian.img
 </code></pre>
 
-h2. Kernel compile
+h2. Kernel compilation
 
 Any recent kernel can be used for the setup. We will use linux-next here to get the most recent development kernels. It is also assumed that the sources are copied to the same directory as the debian.qcow2 and a x86_64 image will be used.
 
