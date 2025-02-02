@@ -14,6 +14,7 @@ Thanks to all people sending in patches:
 * Antonio Quartulli <antonio@mandelbit.com>
 * Marek Lindner <marek.lindner@mailbox.org>
 * Noah Peterson <noahbpeterson1997@gmail.com>
+* Remi Pommarel <repk@triplefau.lt>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
