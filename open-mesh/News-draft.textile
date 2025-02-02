@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2025.0 released
 
-Feb 4th, 2025. Today the B.A.T.M.A.N. team publishes the February 2025 update to batman-adv! batctl got support for subsecond ping intervals. VLAN 0 is now also handled as "untagged VLAN" and no longer like a separate VLAN. batman-adv's B.A.T.M.A.N. IV implementation also fixes a OGM TT changes regression from 2024.4. Several bug fixes and code cleanups are included in this version.
+Feb 4th, 2025. Today the B.A.T.M.A.N. team publishes the February 2025 update to batman-adv! batctl got support for subsecond ping intervals. To reduce the size of OGMs, VLAN 0 is now handled as "untagged VLAN" and announced TT changes have less redundant modifications listed. batman-adv's OGM translation table changes parser also fixed a regression from 2024.4. Several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
@@ -53,13 +53,13 @@ various
 =======
 
       batman-adv: Map VID 0 to untagged TT VLAN
+      batman-adv: Don't keep redundant TT change events
 
 bugfixes
 ========
 
 
       batman-adv: fix panic during interface removal
-      batman-adv: Don't keep redundant TT change events
       batman-adv: Fix incorrect offset in batadv_tt_tvlv_ogm_handler_v1()
       batman-adv: Drop unmanaged ELP metric worker
 
@@ -70,10 +70,10 @@ bugfixes
 
 * support latest kernels (5.4 - 6.14)
 * handle VLAN 0 as untagged VLAN
+* TT changes in OGMs no longer contain redundant TT changes
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - don't keep redundant TT change events
   - fix incorrect offset in OGM handler for translation table TVLV
   - force stop of throughput detection workers on interface removal
 
