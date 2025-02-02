@@ -1,33 +1,28 @@
-h1. DRAFT: Batman-adv 2024.4 released
+h1. DRAFT: Batman-adv 2025.0 released
 
-Dec 10th, 2024. Today the B.A.T.M.A.N. team publishes the December 2024 update to batman-adv! Several bug fixes and code cleanups are included in this version.
+Feb 4th, 2025. Today the B.A.T.M.A.N. team publishes the February 2025 update to batman-adv! batctl now has support for subsecond ping intervals. VLAN 0 is now also handled as "untagged VLAN" and no longer like a separate VLAN. batman-adv's B.A.T.M.A.N. IV implementation also fixes a OGM TT changes regression from 2024.4. Several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2024.4/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2025.0/
 
 h2. Thanks
 
 Thanks to all people sending in patches:
 
-* Al Viro <viro@zeniv.linux.org.uk>
-* Alexandru Gagniuc <mr.nuke.me@gmail.com>
-* Erick Archer <erick.archer@outlook.com>
-* Julia Lawall <Julia.Lawall@inria.fr>
-* Remi Pommarel <repk@triplefau.lt>
+* Andy Strohman <andrew@andrewstrohman.com> 
+* Antonio Quartulli <antonio@mandelbit.com>
+* Marek Lindner <marek.lindner@mailbox.org>
+* Noah Peterson <noahbpeterson1997@gmail.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
-
-and to all those that supported us with good advice or rigorous testing:
-
-* Antonio Quartulli <Antonio@mandelbit.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2024.3-11-g4c4a6026
-$ range=v2024.3..v2024.3-11-g4c4a6026
+v2024.4-15-gdfdce35d
+$ range=v2024.4..v2024.4-15-gdfdce35d
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -46,35 +41,41 @@ new kernel version
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Use string choice helper to print booleans
-      batman-adv: Drop support for Linux < 5.4
-      batman-adv: replace call_rcu by kfree_rcu for simple kmem_cache_free callback
-      batman-adv: Add flex array to struct batadv_tvlv_tt_data
-      batman-adv: move asm/unaligned.h to linux/unaligned.h
+      MAINTAINERS: update email address Antonio Quartulli
+      batman-adv: netlink: reduce duplicate code by returning interfaces
+      MAINTAINERS: update email address of Marek Linder
+      batman-adv: Remove atomic usage for tt.local_changes
+      batman-adv: Reorder includes for distributed-arp-table.c
+      batman-adv: Ignore neighbor throughput metrics in error case
+      batman-adv: Use mailmap to fix old e-mail addresses
 
 various
 =======
 
+      batman-adv: Map VID 0 to untagged TT VLAN
 
 bugfixes
 ========
 
-      batman-adv: Do not send uninitialized TT changes
-      batman-adv: Remove uninitialized data in full table TT response
-      batman-adv: Do not let TT changes list grows indefinitely
+
+      batman-adv: fix panic during interface removal
+      batman-adv: Don't keep redundant TT change events
+      batman-adv: Fix incorrect offset in batadv_tt_tvlv_ogm_handler_v1()
+      batman-adv: Drop unmanaged ELP metric worker
 
 
 
-
-2024.4 (2024-12-10)
+2025.0 (2025-02-04)
 ===================
 
-* support latest kernels (5.4 - 6.13)
+* support latest kernels (5.4 - 6.14)
+* handle VLAN 0 as untagged VLAN
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - prevent transmission of uninitialized memory for TT TVLVs
-  - avoid stuck, overfull translation table changes list
+  - don't keep redundant TT change events
+  - fix incorrect offset in OGM handler for translation table TVLV
+  - force stop of throughput detection workers on interface removal
 
 </pre>
 
@@ -82,26 +83,24 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2024.3-6-g8875385
-$ range=v2024.3..v2024.3-6-g8875385
+v2024.4-6-g1e425f7
+$ range=v2024.4..v2024.4-6-g1e425f7
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
-
 
 
 features
 ========
 
-      batctl: Remove redundant check_root_or_die()
+      batctl: ping: Add subsecond precision to ping interval
 
 coding style cleanup/refactoring
 ================================
 
-      batctl: Apply checkpatch suggestions
-      batctl: Switch to kernel-style variable declarations
-      batctl: Fix checkpatch errors
-      batctl: Add flex array to struct batadv_tvlv_tt_data
+      batctl: update email address of Marek Lindner
+      batctl: Fix misaligned start of lines
+      batctl: Import newest version of list.h
+      batctl: Use mailmap to fix old e-mail addresses
 
 bugfixes
 ========
@@ -111,28 +110,47 @@ bugfixes
 
 
 
-2024.4 (2024-12-10)
+2025.0 (2025-02-04)
 ===================
 
+* subsecond precision support for ping intervals
 * coding style cleanups and refactoring
-* drop explicit requirement to run as root
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/main
-v2024.3-1-g91ed439
-$ range=v2024.3..v2024.3-1-g91ed439
+v2024.4-5-gd4b24b5
+$ range=v2024.4..v2024.4-5-gd4b24b5
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
-2024.4 (2024-12-10)
+features
+========
+
+
+coding style cleanup/refactoring
+================================
+
+      alfred: update email address of Marek Lindner
+      alfred: Use same list implementation as batctl
+      alfred: Fix misaligned start of lines
+      alfred: Use mailmap to fix old e-mail addresses
+
+bugfixes
+========
+
+
+
+
+
+2025.0 (2025-02-04)
 ===================
 
-* (no changes)
+* coding style cleanups and refactoring
 </pre>
 
 
