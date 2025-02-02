@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2025.0 released
 
-Feb 4th, 2025. Today the B.A.T.M.A.N. team publishes the February 2025 update to batman-adv! batctl now has support for subsecond ping intervals. VLAN 0 is now also handled as "untagged VLAN" and no longer like a separate VLAN. batman-adv's B.A.T.M.A.N. IV implementation also fixes a OGM TT changes regression from 2024.4. Several bug fixes and code cleanups are included in this version.
+Feb 4th, 2025. Today the B.A.T.M.A.N. team publishes the February 2025 update to batman-adv! batctl got support for subsecond ping intervals. VLAN 0 is now also handled as "untagged VLAN" and no longer like a separate VLAN. batman-adv's B.A.T.M.A.N. IV implementation also fixes a OGM TT changes regression from 2024.4. Several bug fixes and code cleanups are included in this version.
 
 As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
 
