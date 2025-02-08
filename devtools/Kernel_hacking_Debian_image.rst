@@ -129,8 +129,8 @@ storage space
   sudo qemu-img convert -c -f raw -O qcow2 debian.img debian.qcow2
   rm -f debian.img
 
-Kernel compile
---------------
+Kernel compilation
+------------------
 
 Any recent kernel can be used for the setup. We will use linux-next here
 to get the most recent development kernels. It is also assumed that the

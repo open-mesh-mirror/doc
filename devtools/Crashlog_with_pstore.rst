@@ -10,7 +10,7 @@ older OpenWrt releases, this was for example implemented via the
 ``/sys/kernel/debug/crashlog`` file which was created after a system
 rebooted after a kernel panic. Newer OpenWrt releases (with kernel 5.4
 or newer) don’t use the old (OpenWrt-only) implementation and the user
-has to manually enable the generic kernel implementation. This is is
+has to manually enable the generic kernel implementation. This is in
 most cases ``PSTORE_RAM`` (previously called ramoops).
 
 Enable PSTORE_RAM for ath79 board
