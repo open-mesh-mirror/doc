@@ -17,7 +17,7 @@ The 4 possibilities are the following:
 ## if no: the node queries the DHT table using the requested IP as search key. If no answer is received within a fixed amount of time (currently is 250ms) the ARP request is broadcasted like it is usually done.
 # _Incoming ARP Request_: The packet is intercepted and the source entry [MAC,IP] (contained in the packet) is stored for caching purposes, then the node checks if the requested IP is in the local cache:
 ## if yes: the node drops the request and immediately generates a reply that is sent over the mesh towards the requester.
-## if no: the request is delivered to the local soft interface (thus to the local clients)
+## if no: the request is delivered to the local mesh interface (thus to the local clients)
 # _Incoming ARP Reply_: The packet is inspected, the node will save both the source and the destination entries in its local cache and then the message is delivered to the to the clients (only if the destination is one of them).
 # _Outgoing ARP Reply_: The packet is inspected, the node will save both the source and the destination entries in its local cache and then the message is sent to the DHT in order to populate it following the storing schema.
 
