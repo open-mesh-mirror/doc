@@ -47,7 +47,7 @@ int throw_uevent(struct bat_priv *bat_priv, enum uev_type type,
 </pre>
 
 Arguments explained:
-* bat_priv: The pointer to the soft-interface structure holding all relevant batX information.
+* bat_priv: The pointer to the mesh-interface structure holding all relevant batX information.
 * type: Is the class the uevent belongs to (seen as BATTYPE in user space).
 * action: Defines the event's action (seen as BATACTION in user space).
 * data: Any meaningful payload that need to be sent to the userspace.
