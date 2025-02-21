@@ -60,7 +60,7 @@ h3. Unicast, mesh->backbone:
 
 If the client is not claimed by the backbone gateway receiving the unicast, a claim packet is sent out first. This backbone gateway is now the (new) responsible backbone gateway for this client.
 
-Then, the unicast packet is delivered to the soft interface.
+Then, the unicast packet is delivered to the mesh interface.
 
 h3. Broadcast, backbone->mesh:
 
