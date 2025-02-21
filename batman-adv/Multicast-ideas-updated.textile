@@ -58,7 +58,7 @@ h4. Multicast Flow Measurement
 
 Establishing the optimized multicast routing infrastructure comes with a bandwidth and complexity cost. This cost is marginal compared to the bandwidth cost of for instance multimedia multicast streams, but it defeats its purpose in case of infrequent, small multicast packets with many multicast listeners.
 
-The multicast flow functions provide the capability to count and keep track of our own multicast flow coming in from the soft interface. This allows us to only build up the forwarding infrastructure if a certain threshold of incoming multicast packets of a certain group is reached.
+The multicast flow functions provide the capability to count and keep track of our own multicast flow coming in from the mesh interface. This allows us to only build up the forwarding infrastructure if a certain threshold of incoming multicast packets of a certain group is reached.
 
 h4. Multicast Path Tracking
 
@@ -150,14 +150,14 @@ A batman-adv node must frequently update the translation table with any multicas
 
 Multicast listeners need to be obtained in the following ways:
 
-* Local multicast listeners: Either from the local batman-adv soft interface (i.e. bat0). Or if this soft interface is a slave of another network device (i.e. a bridge) using that one instead.
-* Bridged-in multicast listeners: If the batman-adv soft interface is a slave of a bridge then any multicast listeners behind any other bridge slave need to be obtained via MLD/IGMP snooping.
+* Local multicast listeners: Either from the local batman-adv mesh interface (i.e. bat0). Or if this mesh interface is a slave of another network device (i.e. a bridge) using that one instead.
+* Bridged-in multicast listeners: If the batman-adv mesh interface is a slave of a bridge then any multicast listeners behind any other bridge slave need to be obtained via MLD/IGMP snooping.
 
 h3. Multicast Router Discovery
 
 h3. Multicast Flow Measurement
 
-For any IP multicast packet forwarded into the batman-adv soft interface and this packet having a non-link-local IPv4 multicast address or transient IPv6 multicast address a node MUST perform the following actions:
+For any IP multicast packet forwarded into the batman-adv mesh interface and this packet having a non-link-local IPv4 multicast address or transient IPv6 multicast address a node MUST perform the following actions:
 
 * Increase a counter for the according MAC address.
 
@@ -283,7 +283,7 @@ h3. Multicast Routing Table
 
 h4. Multicast Data Transmission
 
-When receiving a frame from a soft interface perform the following checks:
+When receiving a frame from a mesh interface perform the following checks:
 
 h5. Preliminary Checks
 
@@ -342,7 +342,7 @@ h5. Preliminary Checks
 If those checks pass then:
 
 * Schedule this packet for Multicast Data Forwarding.
-* Transmit a decapsulated packet on the soft interface.
+* Transmit a decapsulated packet on the mesh interface.
 
 
 h4. Multicast Data Forwarding
