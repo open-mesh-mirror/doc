@@ -154,7 +154,7 @@ Client             VID Flags    Last seen (CRC       )
 The current translation table state is represented by the tt version number and the local tt crc that are propagated in the mesh.
 In particular, RPNXW are flags which bear the following meanings:
 * R/Roaming: this client moved to another node but it is still kept for consistency reasons until the next OGM is sent.
-* P/noPurge: this client represents the local soft interface and will never be deleted.
+* P/noPurge: this client represents the local mesh interface and will never be deleted.
 * N/New: this client has recently been added but is not advertised in the mesh until the next OGM is sent (for consistency reasons).
 * X/delete: this client has to be removed for some reason, but it is still kept for consistency reasons until the next OGM is sent.
 * W/Wireless: this client is connected to the node through a wireless device.
