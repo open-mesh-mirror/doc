@@ -97,7 +97,7 @@ __"$ batctl statistics"__ can be used to check if the batman-adv multicast packe
 * *mcast_tx_local_bytes:* bytes counter for __mcast_tx_local__ (decapsulated packet size, including the payload ethernet frame)
 * *mcast_rx:* received batman-adv multicast packet counter (for each incoming ethernet frame)
 * *mcast_rx_bytes:* bytes counter for __mcast_rx__ (encapsulated packet size, includes/assumes 14 bytes for outer ethernet frame)
-* *mcast_rx_local:* counter for received batman-adv multicast packets which were forwarded to the local soft interface, ak. "bat0"
+* *mcast_rx_local:* counter for received batman-adv multicast packets which were forwarded to the local mesh interface, ak. "bat0"
 * *mcast_rx_local_bytes:* bytes counter for __mcast_rx_local__ (decapsulated packet size, including the payload ethernet frame)
 * *mcast_fwd:* counter for received batman-adv multicast packets which were forwarded to other, neighboring nodes (for each incoming ethernet frame)
 * *mcast_fwd_bytes:* bytes counter for __mcast_fwd__ (encapsulated packet size, includes/assumes 14 bytes for outer ethernet frame)
