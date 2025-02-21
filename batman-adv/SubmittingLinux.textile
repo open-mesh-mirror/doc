@@ -479,6 +479,7 @@ Simon Wunderlich (2):
  net/batman-adv/hard-interface.c                    |   6 +-
  net/batman-adv/main.c                              |   2 -
  net/batman-adv/main.h                              |   6 +-
+ net/batman-adv/mesh-interface.c                    |  10 +-
  net/batman-adv/multicast.c                         | 499 +++++++++++++++++++--
  net/batman-adv/multicast.h                         |   3 +
  net/batman-adv/originator.c                        |  40 +-
@@ -487,7 +488,6 @@ Simon Wunderlich (2):
  net/batman-adv/routing.c                           |   2 +
  net/batman-adv/send.c                              |  61 +--
  net/batman-adv/send.h                              |   4 +-
- net/batman-adv/soft-interface.c                    |  10 +-
  net/batman-adv/sysfs.c                             |  22 +-
  net/batman-adv/translation-table.c                 |   2 -
  net/batman-adv/types.h                             |  32 +-
