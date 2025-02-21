@@ -10,7 +10,7 @@ The scenarios where the tests have been executed are the following:
 # iperf from node to node. Iperf was running on the nodes themselves
 # HTTP download from an host behind the first node node to another one behind the second node. In particular:
 ## host is connected to the Ethernet port of the node
-## Ethernet interface is bridged with the batman-adv soft interface
+## Ethernet interface is bridged with the batman-adv mesh interface
 
 Test in scenarios 1 and 2 were executed alternatively (one bw meter, one iperf, one bw meter, one iperf, ...) while the HTTP downloads have been executed all together later on.
 
