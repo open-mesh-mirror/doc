@@ -171,7 +171,7 @@ The asked backbone gateway will send all of its local CLAIM frames again, and se
 The requesting backbone gateway will add all claims it receives through the CLAIM frames, and can check the CRC once more as soon as it receives the final ANNOUNCE frame.
 (If the CRC is still wrong, the process will start again)
 
-While a request is in flight, the requesting backbone gateway will close down its soft-interface for broadcast to avoid loops in this period.
+While a request is in flight, the requesting backbone gateway will close down its mesh-interface for broadcast to avoid loops in this period.
 
 
 h3. LOOP DETECT frame
