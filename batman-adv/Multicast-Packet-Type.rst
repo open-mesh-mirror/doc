@@ -144,7 +144,7 @@ mcast_rx_bytes
  size, includes/assumes 14 bytes for outer ethernet frame)
 mcast_rx_local
  counter for received batman-adv multicast packets
- which were forwarded to the local soft interface, ak. “bat0”
+ which were forwarded to the local mesh interface, ak. “bat0”
 mcast_rx_local_bytes
  bytes counter for *mcast_rx_local*
  (decapsulated packet size, including the payload ethernet frame)

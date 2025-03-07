@@ -42,10 +42,10 @@ field is used:
      - The TT\_CLIENT\_WIFI flag is used to announce that this client is a WiFi client. This information is used for the AP isolation feature.
    * - TT\_CLIENT\_ISOLA
      - OGM, tt\_local, tt\_global
-     - The TT\_CLIENT\_ISOLA flag is used to announce that packets sent by this client were marked with the isolation mark when received on the soft-interface. A node receiving packets from this client has to mark the related skbs with the configured isolation mark before delivering them to its own soft-interface. Moreover two clients marked with this flag cannot exchange packets over the mesh network (this behavior is part of the :doc:`extended isolation <Extended-isolation>`).
+     - The TT\_CLIENT\_ISOLA flag is used to announce that packets sent by this client were marked with the isolation mark when received on the mesh-interface. A node receiving packets from this client has to mark the related skbs with the configured isolation mark before delivering them to its own mesh-interface. Moreover two clients marked with this flag cannot exchange packets over the mesh network (this behavior is part of the :doc:`extended isolation <Extended-isolation>`).
    * - TT\_CLIENT\_NOPURGE
      - tt\_local
-     - The private TT\_CLIENT\_NOPURGE is used to mark a local client to not be purged. This is only used for the address of the mesh soft interface, which should always be announced and never deleted/purged.
+     - The private TT\_CLIENT\_NOPURGE is used to mark a local client to not be purged. This is only used for the address of the mesh interface, which should always be announced and never deleted/purged.
    * - TT\_CLIENT\_NEW
      - tt\_local
      - The private TT\_CLIENT\_NEW flag is used to mark clients which have been added to the local list, but not yet announced within an OGM.

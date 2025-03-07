@@ -109,7 +109,7 @@ defeats its purpose in case of infrequent, small multicast packets with
 many multicast listeners.
 
 The multicast flow functions provide the capability to count and keep
-track of our own multicast flow coming in from the soft interface. This
+track of our own multicast flow coming in from the mesh interface. This
 allows us to only build up the forwarding infrastructure if a certain
 threshold of incoming multicast packets of a certain group is reached.
 
@@ -265,10 +265,10 @@ multicast MAC address of any of its registered multicast listeners.
 
 Multicast listeners need to be obtained in the following ways:
 
--  Local multicast listeners: Either from the local batman-adv soft
-   interface (i.e. bat0). Or if this soft interface is a slave of
+-  Local multicast listeners: Either from the local batman-adv mesh
+   interface (i.e. bat0). Or if this mesh interface is a slave of
    another network device (i.e. a bridge) using that one instead.
--  Bridged-in multicast listeners: If the batman-adv soft interface is a
+-  Bridged-in multicast listeners: If the batman-adv mesh interface is a
    slave of a bridge then any multicast listeners behind any other
    bridge slave need to be obtained via MLD/IGMP snooping.
 
@@ -278,7 +278,7 @@ Multicast Router Discovery
 Multicast Flow Measurement
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-For any IP multicast packet forwarded into the batman-adv soft interface
+For any IP multicast packet forwarded into the batman-adv mesh interface
 and this packet having a non-link-local IPv4 multicast address or
 transient IPv6 multicast address a node MUST perform the following
 actions:
@@ -463,7 +463,7 @@ Multicast Routing Table
 Multicast Data Transmission
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-When receiving a frame from a soft interface perform the following
+When receiving a frame from a mesh interface perform the following
 checks:
 
 Preliminary Checks
@@ -550,7 +550,7 @@ Preliminary Checks
 If those checks pass then:
 
 -  Schedule this packet for Multicast Data Forwarding.
--  Transmit a decapsulated packet on the soft interface.
+-  Transmit a decapsulated packet on the mesh interface.
 
 Multicast Data Forwarding
 ^^^^^^^^^^^^^^^^^^^^^^^^^

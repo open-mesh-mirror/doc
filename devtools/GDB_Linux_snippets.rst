@@ -22,8 +22,8 @@ interrupted gdb session:
 
   for node in linux.lists.list_for_each_entry(gdb.parse_and_eval("batadv_hardif_list"), struct_batadv_hard_iface, 'list'):
       hardif = node['net_dev']['name'].string()
-      softif = node['soft_iface']['name'].string() if node['soft_iface'] else "none"
-      gdb.write("hardif {} belongs to {}\n".format(hardif, softif))
+      meshif = node['mesh_iface']['name'].string() if node['mesh_iface'] else "none"
+      gdb.write("hardif {} belongs to {}\n".format(hardif, meshif))
   end
 
 .. _devtools-gdb-linux-snippets-Working-with-external-Watchdog-over-GPIO:

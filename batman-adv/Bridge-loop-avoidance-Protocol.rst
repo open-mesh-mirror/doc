@@ -209,7 +209,7 @@ it receives the final ANNOUNCE frame.
 (If the CRC is still wrong, the process will start again)
 
 While a request is in flight, the requesting backbone gateway will close
-down its soft-interface for broadcast to avoid loops in this period.
+down its mesh-interface for broadcast to avoid loops in this period.
 
 LOOP DETECT frame
 ~~~~~~~~~~~~~~~~~

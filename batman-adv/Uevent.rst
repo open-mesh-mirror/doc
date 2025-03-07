@@ -77,7 +77,7 @@ Function prototype:
 
 Arguments explained:
 
--  bat\_priv: The pointer to the soft-interface structure holding all
+-  bat\_priv: The pointer to the mesh-interface structure holding all
    relevant batX information.
 -  type: Is the class the uevent belongs to (seen as BATTYPE in user
    space).

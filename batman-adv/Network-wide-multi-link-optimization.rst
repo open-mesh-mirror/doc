@@ -27,7 +27,7 @@ being the number of configured interfaces:
 
 * a routing table per incoming interface
 * an additional 'default' routing table for packets generated locally
-  (e.g. from the soft-interface)
+  (e.g. from the mesh-interface)
 
 The routing table is chosen based on the interface the packet entered
 the system by.

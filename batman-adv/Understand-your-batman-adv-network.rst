@@ -199,7 +199,7 @@ In particular, RPNXW are flags which bear the following meanings:
 
 -  R/Roaming: this client moved to another node but it is still kept for
    consistency reasons until the next OGM is sent.
--  P/noPurge: this client represents the local soft interface and will
+-  P/noPurge: this client represents the local mesh interface and will
    never be deleted.
 -  N/New: this client has recently been added but is not advertised in
    the mesh until the next OGM is sent (for consistency reasons).

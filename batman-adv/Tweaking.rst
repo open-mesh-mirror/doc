@@ -305,7 +305,7 @@ The isolation mark is an extension to the 'ap isolation' that allows the
 user to decide which client has to be classified as isolated by means of
 firewall rules, thus increasing the flexibility of the AP isolation
 feature. batman-adv extracts the fwmark that the firewall attached to
-each packet it receives through the soft-interface and decides based on
+each packet it receives through the mesh-interface and decides based on
 this value if the source client has to be considered as isolated or not.
 The isolation mark needs to be configured in batman-adv in the form
 'value/mask'. Configuration and application details can be found on the

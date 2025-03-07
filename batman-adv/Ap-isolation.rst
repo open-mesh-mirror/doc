@@ -66,7 +66,7 @@ The *:doc:`Extended AP Isolation <Extended-isolation>`* is an improvement
 that allows the user to decide which client has to be classified as
 *isolated* by means of firewall rules, thus increasing the flexibility
 of this feature. batman-adv extracts the fwmark that the firewall
-attached to each packet it receives through the soft-interface and
+attached to each packet it receives through the mesh-interface and
 decides based on this value if the source client has to be considered as
 isolated or not. Similar to other client attributes, the
 *isolated-state* is announced throughout the network in order to inform

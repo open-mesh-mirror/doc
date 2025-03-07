@@ -55,7 +55,7 @@ Only one backbone gateway (out of possibly many gateways) should forward
 traffic from a non-mesh client (coming via the mesh) to the backbone.
 Every backbone gateway announces the mac addresses of the non-mesh
 clients it feels responsible for in the form of "claim frames" on the
-soft-interface bat0. Each backbone gateway will save a claim list of
+mesh-interface bat0. Each backbone gateway will save a claim list of
 other backbone gateways. By doing this, it can:
 
 * see which clients are already tracked (claimed)
@@ -105,7 +105,7 @@ If the client is not claimed by the backbone gateway receiving the
 unicast, a claim packet is sent out first. This backbone gateway is now
 the (new) responsible backbone gateway for this client.
 
-Then, the unicast packet is delivered to the soft interface.
+Then, the unicast packet is delivered to the mesh interface.
 
 Broadcast, backbone->mesh:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

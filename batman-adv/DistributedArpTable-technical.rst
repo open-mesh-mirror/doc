@@ -50,7 +50,7 @@ The 4 possibilities are the following:
 
    #. if yes: the node drops the request and immediately generates a
       reply that is sent over the mesh towards the requester.
-   #. if no: the request is delivered to the local soft interface (thus
+   #. if no: the request is delivered to the local mesh interface (thus
       to the local clients)
 
 #. *Incoming ARP Reply*: The packet is inspected, the node will save
