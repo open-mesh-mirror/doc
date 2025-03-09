@@ -384,7 +384,11 @@ Program Headers:
                  0x0000000000fe0000 0x0000000000fe0000  RWE    0x0
 </pre>
 
-Other tools like "crash":https://github.com/crash-utility/crash are better suited for this task. They can even show how the page is actually mapped. In our case, the problem is that modules are not using continuous physical pages (which are mapped by the program headers) but only virtual address space continuous pages:
+Other tools like "crash":https://github.com/crash-utility/crash or "drgn":https://drgn.readthedocs.io/ are better suited for this task.
+
+h3. crash
+
+crash can even show how the page is actually mapped. In our case, the problem is that modules are not using continuous physical pages (which are mapped by the program headers) but only virtual address space continuous pages:
 
 <pre>
 $ crash ../vmlinux.debug  vmcore
@@ -485,25 +489,25 @@ crash> log
 crash> bt -al
 PID: 2666     TASK: ffff888006454e00  CPU: 0    COMMAND: "batctl"
  #0 [ffffc9000017b6a0] machine_kexec at ffffffff810681a8
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/kernel/machine_kexec_64.c: 394
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/kernel/machine_kexec_64.c: 394
  #1 [ffffc9000017b6f8] __crash_kexec at ffffffff8117e78c
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/./include/linux/atomic/atomic-arch-fallback.h: 511
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/./include/linux/atomic/atomic-arch-fallback.h: 511
  #2 [ffffc9000017b7b8] crash_kexec at ffffffff81180167
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/./arch/x86/include/asm/atomic.h: 28
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/./arch/x86/include/asm/atomic.h: 28
  #3 [ffffc9000017b7c8] oops_end at ffffffff8103a6a2
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/kernel/dumpstack.c: 362
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/kernel/dumpstack.c: 362
  #4 [ffffc9000017b7f0] page_fault_oops at ffffffff81071f10
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 710
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 710
  #5 [ffffc9000017b870] kernelmode_fixup_or_oops.constprop.0 at ffffffff8107223a
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 731
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 731
  #6 [ffffc9000017b898] __bad_area_nosemaphore.constprop.0 at ffffffff810723b2
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 779
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 779
  #7 [ffffc9000017b8e0] bad_area_nosemaphore at ffffffff810724fe
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 827
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 827
  #8 [ffffc9000017b8f0] exc_page_fault at ffffffff81a7e2a1
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 1432
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/mm/fault.c: 1432
  #9 [ffffc9000017b940] asm_exc_page_fault at ffffffff81c00c27
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/./arch/x86/include/asm/idtentry.h: 608
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/./arch/x86/include/asm/idtentry.h: 608
     [exception RIP: batadv_netlink_set_mesh+0x32]
     RIP: ffffffffa073efa2  RSP: ffffc9000017b9f8  RFLAGS: 00010246
     RAX: 0000000000000000  RBX: ffffc9000017ba28  RCX: ffff888005c6ce00
@@ -512,33 +516,33 @@ PID: 2666     TASK: ffff888006454e00  CPU: 0    COMMAND: "batctl"
     R10: 0000000000000000  R11: ffffffff825086a8  R12: ffff8880060de940
     R13: ffff888005c6ce00  R14: ffff888005808c00  R15: ffffc9000017bb20
     ORIG_RAX: ffffffffffffffff  CS: 0010  SS: 0018
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2024.3/net/batman-adv/netlink.c: 447
+    ./build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2024.3/net/batman-adv/netlink.c: 447
 #10 [ffffc9000017ba18] genl_family_rcv_msg_doit at ffffffff818f4b5c
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/genetlink.c: 971
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/genetlink.c: 971
 #11 [ffffc9000017baa0] genl_rcv_msg at ffffffff818f528d
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/genetlink.c: 1051
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/genetlink.c: 1051
 #12 [ffffc9000017bb18] netlink_rcv_skb at ffffffff818f38e8
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/af_netlink.c: 2537
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/af_netlink.c: 2537
 #13 [ffffc9000017bbe0] genl_rcv at ffffffff818f4723
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/genetlink.c: 1076
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/genetlink.c: 1076
 #14 [ffffc9000017bbf8] netlink_unicast at ffffffff818f2e83
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/./include/linux/skbuff.h: 1229
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/./include/linux/skbuff.h: 1229
 #15 [ffffc9000017bc40] netlink_sendmsg at ffffffff818f3178
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/af_netlink.c: 1891
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/netlink/af_netlink.c: 1891
 #16 [ffffc9000017bcb0] ____sys_sendmsg at ffffffff8186ab44
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/socket.c: 730
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/socket.c: 730
 #17 [ffffc9000017bd28] ___sys_sendmsg at ffffffff8186c62a
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/socket.c: 2651
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/socket.c: 2651
 #18 [ffffc9000017be80] __sys_sendmsg at ffffffff8186ca06
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/socket.c: 2678
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/socket.c: 2678
 #19 [ffffc9000017bf18] __x64_sys_sendmsg at ffffffff8186ca88
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/socket.c: 2685
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/net/socket.c: 2685
 #20 [ffffc9000017bf28] x64_sys_call at ffffffff81003c49
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/entry/syscall_64.c: 33
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/entry/syscall_64.c: 33
 #21 [ffffc9000017bf38] do_syscall_64 at ffffffff81a794bd
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/entry/common.c: 51
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/entry/common.c: 51
 #22 [ffffc9000017bf50] entry_SYSCALL_64_after_hwframe at ffffffff81c00130
-    /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/entry/entry_64.S: 121
+    ./build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/arch/x86/entry/entry_64.S: 121
     RIP: 00007f994ff42837  RSP: 00007ffe0724c4c8  RFLAGS: 00000246
     RAX: ffffffffffffffda  RBX: 000000000000002e  RCX: 00007f994ff42837
     RDX: 0000000000000000  RSI: 00007ffe0724c510  RDI: 0000000000000003
@@ -551,7 +555,7 @@ PID: 2666     TASK: ffff888006454e00  CPU: 0    COMMAND: "batctl"
 crash> print batadv_netlink_set_mesh+0x32
 $1 = (int (*)(struct sk_buff *, struct genl_info *)) 0xffffffffa073efa2 <batadv_netlink_set_mesh+50>
 crash> kmem 0xffffffffa073efa2
-ffffffffa073efa2 (t) batadv_netlink_set_mesh+0x32 [batman_adv] /home/sven/tmp/openwrt/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2024.3/net/batman-adv/netlink.c: 447
+ffffffffa073efa2 (t) batadv_netlink_set_mesh+0x32 [batman_adv] ./build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2024.3/net/batman-adv/netlink.c: 447
 
    VMAP_AREA         VM_STRUCT                 ADDRESS RANGE                SIZE
 ffff888003c20e58  ffff8880063d6880  ffffffffa0723000 - ffffffffa0753000   196608
@@ -571,4 +575,120 @@ LINE: 447
   446                   attr = NULL;
 * 447                   attr->nla_len = 23;
   448           }
+</pre>
+
+
+h3. drgn
+
+drgn is actually a highly programmable debugger - with emphasis on  (but not limited to) retro-active poking in the program state and read-only debugging. Its interactive shell is actually a python interpreter and has to be used like one:
+
+<pre>
+$ drgn -c  vmcore -s ../vmlinux.debug -s ../batman-adv-2024.3/.pkgdir/kmod-batman-adv/lib/modules/6.6.73/batman-adv.ko
+[...]
+>>> print_dmesg()
+[   48.631089] Oops: 0002 [#1] SMP NOPTI
+[   48.631561] CPU: 0 PID: 2666 Comm: batctl Kdump: loaded Tainted: G           O       6.6.73 #0
+[   48.632381] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   48.633268] RIP: 0010:batadv_netlink_set_mesh+0x32/0x2b0 [batman_adv]
+[   48.633949] Code: 53 48 89 f3 4c 8b 66 30 48 8b 46 20 48 8b b8 48 01 00 00 48 85 ff 74 1c e8 7b ea ff ff 84 c0 0f 95 c0 0f b6 c0 41 89 44 24 20 <66> c7 04 25 00 00 00 00 17 00 48 8b 43 20 48 8b b8 50 01 00 00 48
+[   48.635712] RSP: 0018:ffffc9000017b9f8 EFLAGS: 00010246
+[   48.636291] RAX: 0000000000000000 RBX: ffffc9000017ba28 RCX: ffff888005c6ce00
+[   48.637003] RDX: 000000000000000b RSI: ffffc9000017ba28 RDI: ffff88800458dd5c
+[   48.637716] RBP: ffffc9000017ba10 R08: 0000000000000000 R09: 0000000000000000
+[   48.638439] R10: 0000000000000000 R11: ffffffff825086a8 R12: ffff8880060de940
+[   48.639173] R13: ffff888005c6ce00 R14: ffff888005808c00 R15: ffffc9000017bb20
+[   48.639891] FS:  00007f994ff64b28(0000) GS:ffff88803fc00000(0000) knlGS:0000000000000000
+[   48.640677] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   48.641299] CR2: 0000000000000000 CR3: 0000000006316000 CR4: 00000000000006f0
+[   48.642042] Call Trace:
+[   48.642434]  <TASK>
+[   48.642794]  ? show_regs+0x60/0x70
+[   48.643251]  ? __die+0x1f/0x70
+[   48.643679]  ? page_fault_oops+0x14c/0x430
+[   48.644177]  ? batadv_netlink_set_mesh+0x32/0x2b0 [batman_adv]
+[   48.644815]  ? search_bpf_extables+0xd/0x60
+[   48.645317]  ? batadv_netlink_set_mesh+0x32/0x2b0 [batman_adv]
+[   48.645949]  ? search_exception_tables+0x5b/0x60
+[   48.646490]  ? fixup_exception+0x22/0x320
+[   48.646981]  ? kernelmode_fixup_or_oops.constprop.0+0x5a/0x70
+[   48.647595]  ? __bad_area_nosemaphore.constprop.0+0x152/0x220
+[   48.648214]  ? find_vma+0x20/0x30
+[   48.648686]  ? bad_area_nosemaphore+0xe/0x20
+[   48.649193]  ? exc_page_fault+0x1f1/0x620
+[   48.649677]  ? asm_exc_page_fault+0x27/0x30
+[   48.650182]  ? batadv_netlink_set_mesh+0x32/0x2b0 [batman_adv]
+[   48.650813]  ? batadv_netlink_set_mesh+0x25/0x2b0 [batman_adv]
+[   48.651434]  genl_family_rcv_msg_doit+0xbc/0x100
+[   48.651964]  genl_rcv_msg+0x15d/0x270
+[   48.652419]  ? __pfx_batadv_pre_doit+0x10/0x10 [batman_adv]
+[   48.653016]  ? __pfx_batadv_netlink_set_mesh+0x10/0x10 [batman_adv]
+[   48.653666]  ? __pfx_batadv_post_doit+0x10/0x10 [batman_adv]
+[   48.654287]  ? __pfx_genl_rcv_msg+0x10/0x10
+[   48.654775]  netlink_rcv_skb+0x58/0x100
+[   48.655237]  genl_rcv+0x23/0x40
+[   48.655650]  netlink_unicast+0x1f3/0x2d0
+[   48.656115]  netlink_sendmsg+0x208/0x440
+[   48.656562]  ____sys_sendmsg+0x244/0x2e0
+[   48.657013]  ? copy_msghdr_from_user+0x5d/0x80
+[   48.657501]  ___sys_sendmsg+0x7a/0xc0
+[   48.657934]  ? __mod_memcg_lruvec_state+0x49/0xa0
+[   48.658451]  ? set_ptes.isra.0+0x23/0xa0
+[   48.658919]  ? __handle_mm_fault+0x67d/0xbd0
+[   48.659390]  __sys_sendmsg+0x46/0xa0
+[   48.659813]  ? irqentry_exit+0x1d/0x30
+[   48.660243]  __x64_sys_sendmsg+0x18/0x20
+[   48.660681]  x64_sys_call+0x1709/0x1c90
+[   48.661111]  do_syscall_64+0x3d/0x90
+[   48.661516]  entry_SYSCALL_64_after_hwframe+0x78/0xe2
+[   48.662031] RIP: 0033:0x7f994ff42837
+[   48.662428] Code: c3 8b 07 85 c0 75 24 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> e9 5a cb ff ff 41 54 b8 02 00 00 00 55 48 89 f5 be 00 88 08 00
+[   48.664044] RSP: 002b:00007ffe0724c4c8 EFLAGS: 00000246 ORIG_RAX: 000000000000002e
+[   48.664736] RAX: ffffffffffffffda RBX: 000000000000002e RCX: 00007f994ff42837
+[   48.665396] RDX: 0000000000000000 RSI: 00007ffe0724c510 RDI: 0000000000000003
+[   48.666068] RBP: 00007f994ff64b28 R08: 0000000000000000 R09: 0000000000000000
+[   48.666736] R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe0724c9c0
+[   48.667395] R13: 0000000000405a60 R14: 000000000000000f R15: 00007ffe0724cc00
+[   48.668051]  </TASK>
+[   48.668353] Modules linked in: pppoe ppp_async nft_fib_inet nf_flow_table_inet i915 batman_adv(O) video pppox ppp_generic nft_reject_ipv6 nft_reject_ipv4 nft_reject_inet nft_reject nft_redir nft_quota nft_numgen nft_nat nft_masq nft_log nft_limit nft_hash nft_flow_offload nft_fib_ipv6 nft_fib_ipv4 nft_fib nft_ct nft_chain_nat nf_tables nf_nat nf_flow_table nf_conntrack cfg80211(O) wmi slhc r8169 nfnetlink nf_reject_ipv6 nf_reject_ipv4 nf_log_syslog nf_defrag_ipv6 nf_defrag_ipv4 libcrc32c forcedeth e1000e drm_display_helper drm_buddy crc_ccitt compat(O) bnx2 i2c_dev dwmac_intel dwmac_generic stmmac_platform stmmac ixgbe e1000 amd_xgbe mdio_devres mdio nls_utf8 pcs_xpcs ena nls_iso8859_1 nls_cp437 igb igc vfat fat button_hotplug(O) tg3 realtek phylink mii libphy
+[   48.673848] CR2: 0000000000000000
+</pre>
+
+But it provides enough helper to get more information about the current state of the system
+
+<pre>
+>>> trace = prog.crashed_thread().stack_trace()
+>>> trace
+#0  batadv_netlink_set_mesh (./build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2024.3/net/batman-adv/netlink.c:447:17)
+#1  genl_family_rcv_msg_doit (net/netlink/genetlink.c:971:8)
+#2  genl_family_rcv_msg (net/netlink/genetlink.c:1051:10)
+#3  genl_rcv_msg (net/netlink/genetlink.c:1066:8)
+#4  netlink_rcv_skb (net/netlink/af_netlink.c:2537:9)
+#5  genl_rcv (net/netlink/genetlink.c:1075:2)
+#6  netlink_unicast_kernel (net/netlink/af_netlink.c:1323:3)
+#7  netlink_unicast (net/netlink/af_netlink.c:1349:10)
+#8  netlink_sendmsg (net/netlink/af_netlink.c:1891:8)
+#9  sock_sendmsg_nosec (net/socket.c:730:12)
+#10 __sock_sendmsg (net/socket.c:745:16)
+#11 ____sys_sendmsg (net/socket.c:2595:8)
+#12 ___sys_sendmsg (net/socket.c:2649:8)
+#13 __sys_sendmsg (net/socket.c:2678:8)
+#14 __do_sys_sendmsg (net/socket.c:2687:9)
+#15 __se_sys_sendmsg (net/socket.c:2685:1)
+#16 __x64_sys_sendmsg (net/socket.c:2685:1)
+#17 x64_sys_call (./arch/x86/include/generated/asm/syscalls_64.h:47:1)
+#18 do_syscall_x64 (arch/x86/entry/common.c:51:14)
+#19 do_syscall_64 (arch/x86/entry/common.c:81:7)
+#20 entry_SYSCALL_64+0xb0/0x1b3 (arch/x86/entry/entry_64.S:121)
+
+
+>>> trace[0]
+#0 at 0xffffffffa073efa2 (batadv_netlink_set_mesh+0x32/0x2ae) in batadv_netlink_set_mesh at ./build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2024.3/net/batman-adv/netlink.c:447:17
+>>> trace[0]["attr"]
+(struct nlattr *)0x0
+
+>>> trace[0]["info"].attrs[prog.constant('BATADV_ATTR_AGGREGATED_OGMS_ENABLED')]
+*(struct nlattr *)0xffff88800458dd5c = {
+        .nla_len = (__u16)5,
+        .nla_type = (__u16)41,
+}
 </pre>
