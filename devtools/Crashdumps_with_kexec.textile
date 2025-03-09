@@ -133,7 +133,7 @@ The setup under ath79 is significantly more complicated. It already starts with 
 
 Another problem is the <code>CONFIG_HARDENED_USERCOPY=y</code> which prevents kexec under MIPS at the moment. So just disable it in in the kernel configuration. Also make sure that the devicetree for the device already reserves some space for the crashkernel. In this example, it is a 128MB device and 32 MB are reserved at the 16MB boundary
 
-<pre>
+<pre><code class="diff">
 diff --git a/target/linux/generic/config-5.4 b/target/linux/generic/config-5.4
 index e922d23d2c..0d24b4c041 100644
 --- a/target/linux/generic/config-5.4
@@ -157,7 +157,7 @@ index e922d23d2c..0d24b4c041 100644
  	};
  
  	aliases {
-</pre>
+</code></pre>
 
 This should be visible when booting this device:
 
