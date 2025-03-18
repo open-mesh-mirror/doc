@@ -379,7 +379,7 @@ git format-patch --cover-letter --subject-prefix='PATCH net-next' base/net-next.
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
 git request-pull base/net-next git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
-git send-email --to=davem@davemloft.net --to=kuba@kernel.org --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
+git send-email --to=netdev@vger.kernel.org --cc='"David S. Miller" <davem@davemloft.net>' --cc='Eric Dumazet <edumazet@google.com>' --cc='Jakub Kicinski <kuba@kernel.org>' --cc='Paolo Abeni <pabeni@redhat.com>' --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
 
 or for net:
@@ -390,7 +390,7 @@ git format-patch --cover-letter --subject-prefix='PATCH net' base/net..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
 git request-pull base/net git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
-git send-email --to=davem@davemloft.net --to=kuba@kernel.org --cc=netdev@vger.kernel.org --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
+git send-email --to=netdev@vger.kernel.org --cc='"David S. Miller" <davem@davemloft.net>' --cc='Eric Dumazet <edumazet@google.com>' --cc='Jakub Kicinski <kuba@kernel.org>' --cc='Paolo Abeni <pabeni@redhat.com>' --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
 
 Now I will write something like
