@@ -1,86 +1,87 @@
-h1. DRAFT: Batman-adv 2025.0 released
+h1. DRAFT: Batman-adv 2025.1 released
 
-*February 7th, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the February 2025 update for batman-adv! This update introduces support for subsecond ping intervals in batctl. To optimize OGM size, VLAN 0 is now treated as an "untagged VLAN," and announced TT changes now include fewer redundant modifications. Additionally, the OGM translation table changes parser in batman-adv has received a critical fix for a regression introduced in version 2024.4. This release also includes various bug fixes and code cleanups.
+*April 15th, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the April 2025 update for batman-adv! This update introduces support for jumbo frames on top of batman-adv. This release also includes various bug fixes and code cleanups.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2025.0/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2025.1/
 
 h2. Thanks
 
 Many thanks to everyone who contributed patches:
 
-* Andy Strohman <andrew@andrewstrohman.com> 
-* Antonio Quartulli <antonio@mandelbit.com>
-* Marek Lindner <marek.lindner@mailbox.org>
-* Noah Peterson <noahbpeterson1997@gmail.com>
-* Remi Pommarel <repk@triplefau.lt>
+* Eric Dumazet <edumazet@google.com>
+* Nicolas Dichtel <nicolas.dichtel@6wind.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
 And a special thanks to those who supported us with valuable advice and thorough testing:
 
-* asdasd
+* TODO
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2024.4-15-gdfdce35d
-$ range=v2024.4..v2024.4-15-gdfdce35d
+v2025.0-15-g6f9e18b8
+$ range=v2025.0..v2025.0-15-g6f9e18b8
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
+
+Sven Eckelmann <sven@narfation.org> (10):
+
+Xiao Liang <shaw.leon@gmail.com> (1):
 
 
 features
 ========
 
+      batman-adv: Add support for jumbo frames
 
 
 new kernel version
 ==================
 
 
+      batman-adv: adopt netdev_hold() / netdev_put()
+      batman-adv: rename netns_local to netns_immutable
+      batman-adv: Pack newlink() params into struct
+      batman-adv: bat_iv: Add missing header for min_t
 
 coding style cleanup/refactoring
 ================================
 
-      MAINTAINERS: update email address Antonio Quartulli
-      batman-adv: netlink: reduce duplicate code by returning interfaces
-      MAINTAINERS: update email address of Marek Linder
-      batman-adv: Remove atomic usage for tt.local_changes
-      batman-adv: Reorder includes for distributed-arp-table.c
-      batman-adv: Ignore neighbor throughput metrics in error case
-      batman-adv: Use mailmap to fix old e-mail addresses
+      batman-adv: Drop batadv_priv_debug_log struct
+      batman-adv: Use consistent name for mesh interface
+      batman-adv: Switch to bitmap helper for aggregation handling
+      batman-adv: Limit number of aggregated packets directly
+      batman-adv: Use actual packet count for aggregated packets
+      batman-adv: add missing newlines for log macros
 
 various
 =======
 
-      batman-adv: Map VID 0 to untagged TT VLAN
-      batman-adv: Don't keep redundant TT change events
 
 bugfixes
 ========
 
-
-      batman-adv: fix panic during interface removal
-      batman-adv: Fix incorrect offset in batadv_tt_tvlv_ogm_handler_v1()
-      batman-adv: Drop unmanaged ELP metric worker
+      batman-adv: Ignore own maximum aggregation size during RX
+      batman-adv: Limit aggregation size to outgoing MTU
 
 
 
-2025.0 (2025-02-04)
+
+2025.1 (2025-04-15)
 ===================
 
-* support latest kernels (5.4 - 6.14)
-* handle VLAN 0 as untagged VLAN
-* TT changes in OGMs no longer contain redundant TT changes
+* support latest kernels (5.4 - 6.15)
+* added support for jumbo frames
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - fix incorrect offset in OGM handler for translation table TVLV
-  - force stop of throughput detection workers on interface removal
+  - don't limit size of aggregated incoming OGMs
+  - limit outgoing OGMs aggregates by MTU of outgoing interface
 
 </pre>
 
@@ -88,8 +89,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2024.4-6-g1e425f7
-$ range=v2024.4..v2024.4-6-g1e425f7
+v2025.0-2-g048e007
+$ range=v2025.0..v2025.0-2-g048e007
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -97,15 +98,11 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 features
 ========
 
-      batctl: ping: Add subsecond precision to ping interval
 
 coding style cleanup/refactoring
 ================================
 
-      batctl: update email address of Marek Lindner
-      batctl: Fix misaligned start of lines
-      batctl: Import newest version of list.h
-      batctl: Use mailmap to fix old e-mail addresses
+      batctl: Use consistent name for mesh interface
 
 bugfixes
 ========
@@ -115,10 +112,9 @@ bugfixes
 
 
 
-2025.0 (2025-02-04)
+2025.1 (2025-04-15)
 ===================
 
-* subsecond precision support for ping intervals
 * coding style cleanups and refactoring
 </pre>
 
@@ -126,8 +122,8 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2024.4-5-gd4b24b5
-$ range=v2024.4..v2024.4-5-gd4b24b5
+v2025.0-2-g726b609
+$ range=v2025.0..v2025.0-2-g726b609
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -140,10 +136,7 @@ features
 coding style cleanup/refactoring
 ================================
 
-      alfred: update email address of Marek Lindner
-      alfred: Use same list implementation as batctl
-      alfred: Fix misaligned start of lines
-      alfred: Use mailmap to fix old e-mail addresses
+      alfred: Use consistent name for mesh interface
 
 bugfixes
 ========
@@ -152,7 +145,7 @@ bugfixes
 
 
 
-2025.0 (2025-02-04)
+2025.1 (2025-04-15)
 ===================
 
 * coding style cleanups and refactoring
