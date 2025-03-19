@@ -1,14 +1,14 @@
 h1. DRAFT: Batman-adv 2025.0 released
 
-Feb 4th, 2025. Today the B.A.T.M.A.N. team publishes the February 2025 update to batman-adv! batctl got support for subsecond ping intervals. To reduce the size of OGMs, VLAN 0 is now handled as "untagged VLAN" and announced TT changes have less redundant modifications listed. batman-adv's OGM translation table changes parser also fixed a regression from 2024.4. Several bug fixes and code cleanups are included in this version.
+*February 7th, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the February 2025 update for batman-adv! This update introduces support for subsecond ping intervals in batctl. To optimize OGM size, VLAN 0 is now treated as an "untagged VLAN," and announced TT changes now include fewer redundant modifications. Additionally, the OGM translation table changes parser in batman-adv has received a critical fix for a regression introduced in version 2024.4. This release also includes various bug fixes and code cleanups.
 
-As the kernel module always depends on the Linux kernel it is compiled against, it does not make sense to provide binaries on our website. As usual, you will find the signed tarballs in our download section:
+Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
 https://downloads.open-mesh.org/batman/releases/batman-adv-2025.0/
 
 h2. Thanks
 
-Thanks to all people sending in patches:
+Many thanks to everyone who contributed patches:
 
 * Andy Strohman <andrew@andrewstrohman.com> 
 * Antonio Quartulli <antonio@mandelbit.com>
@@ -17,6 +17,10 @@ Thanks to all people sending in patches:
 * Remi Pommarel <repk@triplefau.lt>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
+
+And a special thanks to those who supported us with valuable advice and thorough testing:
+
+* asdasd
 
 h2. batman-adv
 
