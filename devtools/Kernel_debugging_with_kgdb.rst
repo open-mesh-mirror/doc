@@ -3,15 +3,16 @@
 OpenWrt KGDB
 ============
 
-As shown in the :doc:`Kernel_debugging_with_qemu's_GDB_server`documentation, it
-is easy to debug the Linux kernel in an :doc:`emulated system <OpenWrt_in_QEMU>`.
-But some problems might only be reproducible on actual hardware
+As shown in the :doc:`Kernel_debugging_with_qemu's_GDB_server`
+documentation, it is easy to debug the Linux kernel in an
+:doc:`emulated system <OpenWrt_in_QEMU>`. But some problems might only be
+reproducible on actual hardware
 (:doc:`connected to the emulation setup <Mixing_VM_with_gluon_hardware>`). It
 is therefore sometimes necessary to debug a whole system.
 
 In best case, the system can be :doc:`debugged using
-JTAG <Kernel_debugging_over_JTAG>`. But this
-is often not possible and an in-kernel gdb remote stub like
+JTAG <Kernel_debugging_over_JTAG>`. But this is often not possible and an in-kernel gdb remote
+stub like
 `KGDB <https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html>`__
 has to be used. The only requirement it has on the actual board is a
 simple serial console with poll_{get,put}_char() support.
@@ -61,88 +62,111 @@ OpenWrt must be modified slightly to expose the kernel gdbstub
   Date: Thu, 13 Oct 2022 16:40:21 +0200
   Subject: openwrt: Add support for easily selectable kernel debugger support
 
-  When enabling this KERNEL_KGDB, make sure to clean some packages to make
-  sure that they are compiled with the correct settings:
+  When enabling this KERNEL_KGDB (after disabling KERNEL_DEBUG_INFO_REDUCED),
+  make sure to clean some packages to make sure that they are compiled with
+  the correct settings:
 
-    make toolchain/gdb/clean
-    make toolchain/gdb/compile -j$(nproc || echo 1)
-    make target/linux/clean
-    make -j$(nproc || echo 1)
+      make toolchain/gdb/clean
+      make toolchain/gdb/compile -j$(nproc || echo 1)
+      make target/linux/clean
+      make -j$(nproc || echo 1)
 
-  The session can (after initializing agent-proxy) on serial via:
+  The serial console will be shared between normal serial output and (k)gdb,
+  it is necessary to have an agent installed on your host system which
+  extracts the part relevant for (k)gdb.
 
-    ubus call system watchdog '{"magicclose":true}'
-    ubus call system watchdog '{"stop":true}'
+      git clone https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git/
+      make -C agent-proxy
+      ./agent-proxy/agent-proxy '127.0.0.1:5550^127.0.0.1:5551' 0 /dev/ttyUSB1,115200
 
-    echo ttyMSM0,115200 > /sys/module/kgdboc/parameters/kgdboc
-    echo g > /proc/sysrq-trigger
+  It is then possible to see the full serial output in screen via:
 
-  The rest has then to be done with the gdb(-remote) instance on the host.
-  But the system must not be stopped too long because the external (GPIO)
-  will otherwise kill the system.
+      screen //telnet localhost 5550
 
-  Important here, is that OpenWrt 22.03 on some targets doesn't provide
-  the correctly mapped vmlinux in the source directory, So it is necessary to
-  run it like this:
+  On the target system, it is necessary to prepare the debugging session:
 
-    $ cd "{LINUX_DIR}"
-    $ cp -r vmlinux-gdb.py vmlinux.debug-gdb.py
-    $ cp ../vmlinux.debug vmlinux.debug
-    $ "${GDB}" -iex "set auto-load safe-path `pwd`/scripts/gdb/" -iex "target remote localhost:5551" vmlinux.debug
-    (gdb) lx-symbols ..
+      echo ttyS0,115200 > /sys/module/kgdboc/parameters/kgdboc
+      ubus call system watchdog '{"magicclose":true}'
+      ubus call system watchdog '{"stop":true}'
+
+  Sometimes it might be necessary to force Linux to switch to kgdb:
+
+      echo g > /proc/sysrq-trigger
+
+  The host can then connect to the kgdb using:
+
+      cd "{LINUX_DIR}"
+      cp ../vmlinux.debug vmlinux
+      "${GDB}" -iex "set auto-load safe-path `pwd`/scripts/gdb/" -iex "target remote localhost:5551" vmlinux
+      (gdb) lx-symbols ..
+      (gdb) continue
 
   Signed-off-by: Sven Eckelmann <sven@narfation.org>
 
   diff --git a/config/Config-kernel.in b/config/Config-kernel.in
-  index 21a56e864098b8f652f06e319ce795a9456d5dcb..d0bc5e5d8b45cf6a0c63d86f5a2140980605373b 100644
   --- a/config/Config-kernel.in
   +++ b/config/Config-kernel.in
-  @@ -11,6 +11,43 @@ config KERNEL_IPQ_MEM_PROFILE
-        This option select memory profile to be used,which defines
-        the reserved memory configuration used in device tree.
+  @@ -2,6 +2,50 @@
+   #
+   # Copyright (C) 2006-2014 OpenWrt.org
 
   +config KERNEL_VT
-  +   bool
+  +    bool
   +
   +config KERNEL_GDB_SCRIPTS
-  +   bool
+  +    select GDB_PYTHON
+  +    bool
   +
   +config KERNEL_HW_CONSOLE
-  +   bool
+  +    bool
   +
   +config KERNEL_CONSOLE_POLL
-  +   bool
+  +    bool
   +
   +config KERNEL_MAGIC_SYSRQ
-  +   bool
+  +    bool
   +
   +config KERNEL_MAGIC_SYSRQ_SERIAL
-  +   bool
+  +    bool
   +
   +config KERNEL_KGDB_SERIAL_CONSOLE
-  +   bool
+  +    bool
   +
   +config KERNEL_KGDB_HONOUR_BLOCKLIST
-  +   bool
+  +    bool
+  +
+  +config KERNEL_MIPS_FP_SUPPORT
+  +    depends on (mips || mipsel || mips64 || mips64el)
+  +    bool
   +
   +config KERNEL_KGDB
-  +   select KERNEL_VT
-  +   select KERNEL_GDB_SCRIPTS
-  +   select KERNEL_HW_CONSOLE
-  +   select KERNEL_CONSOLE_POLL
-  +   select KERNEL_MAGIC_SYSRQ
-  +   select KERNEL_MAGIC_SYSRQ_SERIAL
-  +   select KERNEL_KGDB_SERIAL_CONSOLE
-  +   select KERNEL_KGDB_HONOUR_BLOCKLIST
-  +   select GDB_PYTHON
-  +   bool "Enable kernel debugger over serial"
+  +    select KERNEL_VT
+  +    select KERNEL_GDB_SCRIPTS
+  +    select KERNEL_HW_CONSOLE
+  +    select KERNEL_CONSOLE_POLL
+  +    select KERNEL_MAGIC_SYSRQ
+  +    select KERNEL_MAGIC_SYSRQ_SERIAL
+  +    select KERNEL_KGDB_SERIAL_CONSOLE
+  +    select KERNEL_KGDB_HONOUR_BLOCKLIST
+  +    select KERNEL_MIPS_FP_SUPPORT if (mips || mipsel || mips64 || mips64el)
+  +    
+  +    depends on KERNEL_DEBUG_INFO && !KERNEL_DEBUG_INFO_REDUCED
+  +    bool "Enable kernel debugger over serial"
   +
   +
    config KERNEL_BUILD_USER
       string "Custom Kernel Build User Name"
       default "builder" if BUILDBOT
+  @@ -471,7 +515,7 @@ config KERNEL_MODULE_ALLOW_BTF_MISMATCH
+
+   config KERNEL_DEBUG_INFO_REDUCED
+      bool "Reduce debugging information"
+  -   default y
+  +   default n
+      depends on KERNEL_DEBUG_INFO
+      help
+        If you say Y here gcc is instructed to generate less debugging
   diff --git a/include/kernel-build.mk b/include/kernel-build.mk
-  index 80da4455bc04fccd1c7834fe8b94c29399289bd2..4cbb8a861ed01a48d65a28f2d0b6e34837284cf2 100644
   --- a/include/kernel-build.mk
   +++ b/include/kernel-build.mk
   @@ -143,6 +143,7 @@ define BuildKernel
@@ -153,14 +177,14 @@ OpenWrt must be modified slightly to expose the kernel gdbstub
       touch $$@
 
      mostlyclean: FORCE
-  diff --git a/target/linux/generic/config-5.10 b/target/linux/generic/config-5.10
-  index 4a6efc88012580691b52493685992a2af7fa1c65..00238982863b98c2f340c7e6a76a19652c26d2c1 100644
-  --- a/target/linux/generic/config-5.10
-  +++ b/target/linux/generic/config-5.10
-  @@ -7184,3 +7184,12 @@ CONFIG_ZONE_DMA=y
-   # CONFIG_ZRAM_MEMORY_TRACKING is not set
+  diff --git a/target/linux/generic/config-6.6 b/target/linux/generic/config-6.6
+  --- a/target/linux/generic/config-6.6
+  +++ b/target/linux/generic/config-6.6
+  @@ -7552,3 +7552,13 @@ CONFIG_ZONE_DMA=y
    # CONFIG_ZSMALLOC is not set
-   # CONFIG_ZX_TDM is not set
+   CONFIG_ZSMALLOC_CHAIN_SIZE=8
+   # CONFIG_ZSWAP is not set
+  +
   +
   +# KGDB specific "disabled" options
   +# CONFIG_CONSOLE_TRANSLATIONS is not set
@@ -192,7 +216,7 @@ with baudrate 115200:
 
 .. code-block:: sh
 
-   echo ttyS0,115200 > /sys/module/kgdboc/parameters/kgdboc
+  echo ttyS0,115200 > /sys/module/kgdboc/parameters/kgdboc
 
 Switch to kgdb
 ~~~~~~~~~~~~~~
@@ -204,7 +228,7 @@ using
 
 .. code-block:: sh
 
-   echo g > /proc/sysrq-trigger
+  echo g > /proc/sysrq-trigger
 
 Connecting gdb
 ~~~~~~~~~~~~~~
@@ -212,9 +236,9 @@ Connecting gdb
 I would use following folder in my x86-64 build environment but they
 will be different for other architectures or OpenWrt versions:
 
--  LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-5.10.146/
--  GDB=${OPENWRT_DIR}/staging_dir/staging_dir/toolchain-x86_64_gcc-11.2.0_musl/bin/x86_64-openwrt-linux-gdb
--  BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2022.0/
+-  LINUX_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/linux-6.6.73/
+-  GDB=${OPENWRT_DIR}/staging_dir/toolchain-x86_64_gcc-13.3.0_musl/bin/x86_64-openwrt-linux-gdb
+-  BATADV_DIR=${OPENWRT_DIR}/build_dir/target-x86_64_musl/linux-x86_64/batman-adv-2024.3/
 
 When kgdb is activated using sysrq, we can configure gdb. It has to
 connect via a serial adapter to the target device. We must change to the
@@ -243,7 +267,7 @@ or specify the folders with the unstripped kernel modules:
 
 ::
 
-  lx-symbols ../batman-adv-2022.0/.pkgdir/ ../backports-5.15.58-1/.pkgdir/ ../button-hotplug/.pkgdir/
+  lx-symbols ../batman-adv-2024.3/.pkgdir/ ../mac80211-regular/backports-6.12.6/.pkgdir/ ../button-hotplug/.pkgdir/
 
 The rest of the process works similar to debugging using gdbserver. Just
 set some additional breakpoints and let the kernel run again. kgdb will
@@ -252,22 +276,22 @@ it is not possible to interrupt the kernel from gdb (without a Oops or
 an already existing breakpoint) - use the sysrq mechanism again from
 Linux to switch back to kgdb.
 
-Some other ideas are documented in :doc:`GDB_Linux_snippets`.
+Some other ideas are documented in [[GDB Linux_snippets]].
 
 The kernel hacking debian image page should also be checked to
-:ref:`increase the chance of getting debugable modules <devtools-hacking-debian-image-building-the-batman-adv-module>` which didn't had all
+[[Kernel_hacking_Debian_image#Building-the-batman-adv-module|increase
+the chance of getting debugable modules]] which didn't had all
 information optimized away. The relevant flags could be set directly in
 the routing feed like this:
 
 .. code-block:: diff
 
   diff --git a/batman-adv/Makefile b/batman-adv/Makefile
-  index 967965e..0abd42f 100644
   --- a/batman-adv/Makefile
   +++ b/batman-adv/Makefile
-  @@ -17,6 +17,9 @@ PKG_LICENSE_FILES:=LICENSES/preferred/GPL-2.0 LICENSES/preferred/MIT
-
-   STAMP_CONFIGURED_DEPENDS := $(STAGING_DIR)/usr/include/mac80211-backport/backport/autoconf.h
+  @@ -28,6 +28,9 @@ PKG_CONFIG_DEPENDS += \
+      CONFIG_BATMAN_ADV_DEBUG \
+      CONFIG_BATMAN_ADV_TRACING
 
   +RSTRIP:=:
   +STRIP:=:
@@ -275,7 +299,7 @@ the routing feed like this:
    include $(INCLUDE_DIR)/kernel.mk
    include $(INCLUDE_DIR)/package.mk
 
-  @@ -77,7 +80,7 @@ define Build/Compile
+  @@ -89,7 +92,7 @@ define Build/Compile
           $(KERNEL_MAKE_FLAGS) \
           M="$(PKG_BUILD_DIR)/net/batman-adv" \
           $(PKG_EXTRA_KCONFIG) \
@@ -290,7 +314,7 @@ Agent-Proxy
 
 Instead of switching all the time between gdb and the terminal emulator
 (via UART/TTL), it can be rather helpful to use a splitter which can
-multiplex the kgdb and the normal terminal. So instead of using
+multiplex the kgdb and the normal terminal. So, instead of using
 screen/minicom/... + gdb against the tty device, the different sessions
 are just started against a TCP port.
 
