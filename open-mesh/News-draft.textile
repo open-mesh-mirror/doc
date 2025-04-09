@@ -14,6 +14,7 @@ Many thanks to everyone who contributed patches:
 * Nicolas Dichtel <nicolas.dichtel@6wind.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
+* Thomas Gleixner <tglx@linutronix.de>
 
 And a special thanks to those who supported us with valuable advice and thorough testing:
 
