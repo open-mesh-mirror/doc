@@ -37,4 +37,4 @@ Between two consecutive experiments at least two seconds must be waited, to ensu
 
 h2. Source code
 
-batman-adv featuring the Bandwidth meter can be found at the main batman-adv git repository in the "ordex/bw_meter branch":https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/ordex/bw_meter
+batman-adv featuring the Bandwidth meter can be found at the main batman-adv git repository as "tp_meter"
