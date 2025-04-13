@@ -104,7 +104,7 @@ h3. bridge loop avoidance
 Available since: batman-adv 2012.2.0 (if bridge loop avoidance has been compiled-in)
 
 In bridged LAN setups it is advisable to enable the bridge loop avoidance in order to avoid broadcast loops that can bring the entire LAN to a standstill. The [[Bridge-loop-avoidance|bridge loop avoidance page]] explains the bridge loop problematic in greater detail as well as the batman-adv approach to address it.
-It is necessary to activate the bridge loop avoidance at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external to learn how to set the compile option). 
+It is necessary to activate the bridge loop avoidance at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/tree/README.external.rst to learn how to set the compile option). 
 
 <pre>
 batctl meshif bat0 bridge_loop_avoidance
@@ -116,7 +116,7 @@ h3. distributed ARP table
 Available since: batman-adv 2013.0.0
 
 When enabled the distributed ARP table forms a mesh-wide ARP cache that helps non-mesh clients to get ARP responses much more reliably and without much delay. A comprehensive documentation has been made available in our wiki. One document focuses on the  [[batman-adv:DistributedARPTable|general DAT concept]] whereas the second document is about the [[DistributedArpTable-technical|technical details & implementation specifics]].
-It is necessary to activate the distributed ARP table at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external to learn how to set the compile option). 
+It is necessary to activate the distributed ARP table at compile time before you can use this feature (consult "the README.external file":hhttps://git.open-mesh.org/batman-adv.git/tree/README.external.rst to learn how to set the compile option). 
 
 <pre>
 batctl meshif bat0 distributed_arp_table
@@ -192,7 +192,7 @@ h3. log level
 
 Available since: batman-adv 2010.1.0
 
-The standard warning and error messages which help to setup & operate batman-adv are sent to the kernel log. However, batman-adv also offers extended logs that can be used to understand and/or debug the routing protocol. Keep in mind that it is necessary to activate debugging at compile time before you can use these facilities (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external to learn how to set the compile option). Per default, the logging is deactivated (log level: 0).
+The standard warning and error messages which help to setup & operate batman-adv are sent to the kernel log. However, batman-adv also offers extended logs that can be used to understand and/or debug the routing protocol. Keep in mind that it is necessary to activate debugging at compile time before you can use these facilities (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/tree/README.external.rst to learn how to set the compile option). Per default, the logging is deactivated (log level: 0).
 
 <pre>
 batctl meshif bat0 loglevel
@@ -224,7 +224,7 @@ h3. network coding
 Available since: batman-adv 2013.2.0
 
 When enabled network coding increases the WiFi throughput by combining multiple frames into a single frame, thus reducing the needed air time. A comprehensive documentation has been made available in our wiki. One document focuses on the  [[batman-adv:NetworkCoding|general network coding concept]] whereas the second document is about the [[NetworkCoding-technical|technical details & implementation specifics]]. Our download section also contains recorded network coding talks.
-It is necessary to activate network coding at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external to learn how to set the compile option). 
+It is necessary to activate network coding at compile time before you can use this feature (consult "the README.external file":https://git.open-mesh.org/batman-adv.git/tree/README.external.rst to learn how to set the compile option). 
 
 <pre>
 batctl meshif bat0 network_coding
