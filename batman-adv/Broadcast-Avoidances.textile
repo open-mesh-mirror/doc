@@ -1,6 +1,6 @@
 h1. Broadcast Avoidances
 
-_Status:_ Patches "available":https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/neighhash, not upstream yet
+_Status:_ Patches "available":https://git.open-mesh.org/batman-adv.git/log/?h=linus/neighhash, not upstream yet
 
 While the concept of rebroadcasting OGMs and broadcast packets is a simple, resilient way to spread information, there are certain scenarios where this approach can be suboptimal, leading to potential congestion.
 
