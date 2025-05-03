@@ -6,8 +6,8 @@ Multicast - IGMP/MLD Report Forwarding
 
 Patches:
 
-* `batman-adv <https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-mld-rtr-only>`__
-* `batctl <https://git.open-mesh.org/batctl.git/shortlog/refs/heads/linus/multicast-rtr-only>`__
+* `batman-adv <https://git.open-mesh.org/batman-adv.git/log/?h=linus/multicast-mld-rtr-only>`__
+* `batctl <https://git.open-mesh.org/batctl.git/log/?h=linus/multicast-rtr-only>`__
 
 WIP/Draft - not yet upstream
 

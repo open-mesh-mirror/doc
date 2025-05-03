@@ -461,7 +461,7 @@ Logging
 Batman-adv offers extended logging to understand & debug the routing
 protocol internals. After you activated debugging +tracing at compile
 time (instructions can be found in `the README
-file <https://git.open-mesh.org/batman-adv.git/blob/refs/heads/main:/README.external>`__
+file <https://git.open-mesh.org/batman-adv.git/tree/README.external.rst>`__
 ) and the appropriate log level has been set (read about the log levels
 :doc:`here <Tweaking>`) you can retrieve the logs by simply reading the 'log'
 file:

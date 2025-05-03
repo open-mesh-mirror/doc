@@ -12,7 +12,7 @@ information from gpsd. Alternatively, a static location can be passed on
 the command line, which is useful for static nodes without a GPS.
 
 For more information, please read the alfred-gpsd section of the
-`README <https://git.open-mesh.org/alfred.git/blob_plain/refs/heads/main:/README.rst>`__
+`README <https://git.open-mesh.org/alfred.git/tree/README.rst>`__
 or the
 `manpage <https://downloads.open-mesh.org/batman/manpages/alfred-gpsd.html>`__
 for usage.

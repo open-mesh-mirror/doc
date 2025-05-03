@@ -74,5 +74,4 @@ Source code
 -----------
 
 batman-adv featuring the Bandwidth meter can be found at the main
-batman-adv git repository in the `ordex/bw\_meter
-branch <https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/ordex/bw_meter>`__
+batman-adv git repository as "tp\_meter."

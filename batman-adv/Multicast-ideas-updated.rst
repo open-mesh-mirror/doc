@@ -588,7 +588,7 @@ Proposed Values for Constants
 Code
 ----
 
-https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase
+https://git.open-mesh.org/batman-adv.git/log/?h=linus/multicast-rebase  
 
 Roadmap
 -------
@@ -610,12 +610,6 @@ dependancies.
     5)          BAT-BR-INTEGR
 
 --
-
-1. BAT-BASIC - Basic Multicast Optimizations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-See
-https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-basic
 
 2.1 BAT-MRD - Multicast Router Discovery in batman-adv
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -681,7 +675,7 @@ multicast traffic having multiple listeners, too.
 
 This part is probably the largest part in terms of code size, but
 it has already been `implemented and tested on top of batman-adv
-2013.0.0 <https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase>`__
+2013.0.0 <https://git.open-mesh.org/batman-adv.git/log/?h=linus/multicast-rebase>`__
 
 Changelog
 ---------
@@ -694,7 +688,7 @@ Current status / Todo:
 
 * there is a working, "feature complete", but not much tested
   `patchset based on
-  v2013.0.0 <https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/multicast-rebase>`__
+  v2013.0.0 <https://git.open-mesh.org/batman-adv.git/log/?h=linus/multicast-rebase>`__
   which should work for any IP multicast data (no more code changes
   other than bug, comment or commit message fixes intended)
 * More issues with the Linux bridge got fixed upstream (recent kernel

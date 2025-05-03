@@ -5,7 +5,7 @@ Broadcast Avoidances
 ====================
 
 *Status:* Patches
-`available <https://git.open-mesh.org/batman-adv.git/shortlog/refs/heads/linus/neighhash>`__,
+`available <https://git.open-mesh.org/batman-adv.git/log/?h=linus/neighhash>`__,
 not upstream yet
 
 While the concept of rebroadcasting OGMs and broadcast packets is a
