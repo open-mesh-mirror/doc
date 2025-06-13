@@ -1,20 +1,20 @@
-h1. DRAFT: Batman-adv 2025.1 released
+h1. DRAFT: Batman-adv 2025.2 released
 
-*April 15th, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the April 2025 update for batman-adv! This update introduces support for jumbo frames on top of batman-adv. This release also includes various bug fixes and code cleanups.
+*June 14th, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the June 2025 update for batman-adv! This release includes various bug fixes and code cleanups.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2025.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2025.2/
 
 h2. Thanks
 
 Many thanks to everyone who contributed patches:
 
-* Eric Dumazet <edumazet@google.com>
-* Nicolas Dichtel <nicolas.dichtel@6wind.com>
+* Antonio Quartulli <antonio@mandelbit.com>
+* Ingo Molnar <mingo@kernel.org>
+* Matthias Schiffer <mschiffer@universe-factory.net>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
-* Thomas Gleixner <tglx@linutronix.de>
 
 And a special thanks to those who supported us with valuable advice and thorough testing:
 
@@ -24,41 +24,31 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2025.0-15-g6f9e18b8
-$ range=v2025.0..v2025.0-15-g6f9e18b8
+v2025.1-8-g55841394
+$ range=v2025.1..v2025.1-8-g55841394
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
-
-Sven Eckelmann <sven@narfation.org> (10):
-
-Xiao Liang <shaw.leon@gmail.com> (1):
 
 
 features
 ========
 
-      batman-adv: Add support for jumbo frames
 
 
 new kernel version
 ==================
 
+      batman-adv: Rename from_timer() to timer_container_of()
 
-      batman-adv: adopt netdev_hold() / netdev_put()
-      batman-adv: rename netns_local to netns_immutable
-      batman-adv: Pack newlink() params into struct
-      batman-adv: bat_iv: Add missing header for min_t
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Drop batadv_priv_debug_log struct
-      batman-adv: Use consistent name for mesh interface
-      batman-adv: Switch to bitmap helper for aggregation handling
-      batman-adv: Limit number of aggregated packets directly
-      batman-adv: Use actual packet count for aggregated packets
-      batman-adv: add missing newlines for log macros
+      batman-adv: no need to start/stop queue on mesh-iface
+      batman-adv: Switch to crc32 header for crc32c
+      batman-adv: Drop unused net_namespace.h include
+      batman-adv: constify and move broadcast addr definition
 
 various
 =======
@@ -67,22 +57,19 @@ various
 bugfixes
 ========
 
-      batman-adv: Ignore own maximum aggregation size during RX
-      batman-adv: Limit aggregation size to outgoing MTU
+      batman-adv: fix duplicate MAC address check
 
 
 
 
-2025.1 (2025-04-15)
+2025.2 (2025-06-14)
 ===================
 
-* support latest kernels (5.4 - 6.15)
-* added support for jumbo frames
+* support latest kernels (5.4 - 6.16)
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - don't limit size of aggregated incoming OGMs
-  - limit outgoing OGMs aggregates by MTU of outgoing interface
+  - fix duplicate MAC address check
 
 </pre>
 
@@ -90,8 +77,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2025.0-2-g048e007
-$ range=v2025.0..v2025.0-2-g048e007
+v2025.1-1-gd014566
+$ range=v2025.1..v2025.1-1-gd014566
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -113,18 +100,18 @@ bugfixes
 
 
 
-2025.1 (2025-04-15)
+2025.2 (2025-06-14)
 ===================
 
-* coding style cleanups and refactoring
+* (no changes)
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/main
-v2025.0-2-g726b609
-$ range=v2025.0..v2025.0-2-g726b609
+v2025.1-1-gc31d254
+$ range=v2025.1..v2025.1-1-gc31d254
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -137,7 +124,6 @@ features
 coding style cleanup/refactoring
 ================================
 
-      alfred: Use consistent name for mesh interface
 
 bugfixes
 ========
@@ -146,10 +132,10 @@ bugfixes
 
 
 
-2025.1 (2025-04-15)
+2025.2 (2025-06-14)
 ===================
 
-* coding style cleanups and refactoring
+* (no changes)
 </pre>
 
 
