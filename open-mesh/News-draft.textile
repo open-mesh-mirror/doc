@@ -1,17 +1,15 @@
-h1. DRAFT: Batman-adv 2025.2 released
+h1. DRAFT: Batman-adv 2025.3 released
 
-*June 14th, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the June 2025 update for batman-adv! This release includes various bug fixes and code cleanups.
+*September 2nd, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the September 2025 update for batman-adv! This release includes various bug fixes and code cleanups.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2025.2/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2025.3/
 
 h2. Thanks
 
 Many thanks to everyone who contributed patches:
 
-* Antonio Quartulli <antonio@mandelbit.com>
-* Ingo Molnar <mingo@kernel.org>
 * Matthias Schiffer <mschiffer@universe-factory.net>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
@@ -24,10 +22,11 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2025.1-8-g55841394
-$ range=v2025.1..v2025.1-8-g55841394
+v2025.2-2-g702c52a8
+$ range=v2025.2..v2025.2-2-g702c52a8
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
 
 
 
@@ -39,16 +38,12 @@ features
 new kernel version
 ==================
 
-      batman-adv: Rename from_timer() to timer_container_of()
 
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: no need to start/stop queue on mesh-iface
-      batman-adv: Switch to crc32 header for crc32c
-      batman-adv: Drop unused net_namespace.h include
-      batman-adv: constify and move broadcast addr definition
+      batman-adv: store hard_iface as iflink private data
 
 various
 =======
@@ -57,19 +52,18 @@ various
 bugfixes
 ========
 
-      batman-adv: fix duplicate MAC address check
 
 
 
 
-2025.2 (2025-06-14)
+2025.3 (2025-09-02)
 ===================
 
-* support latest kernels (5.4 - 6.16)
+* support latest kernels (5.4 - 6.17)
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - fix duplicate MAC address check
+  - TO DISCLOSE
 
 </pre>
 
@@ -77,10 +71,11 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2025.1-1-gd014566
-$ range=v2025.1..v2025.1-1-gd014566
+v2025.2-4-g6a4bd43
+$ range=v2025.2..v2025.2-4-g6a4bd43
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
 
 
 features
@@ -90,28 +85,32 @@ features
 coding style cleanup/refactoring
 ================================
 
-      batctl: Use consistent name for mesh interface
 
 bugfixes
 ========
 
+      batctl: event: Fix direct parsing on hardif for set_hardif
+      batctl: Avoid memory leak in print_routing_algos
 
 
 
 
 
-2025.2 (2025-06-14)
+2025.3 (2025-09-02)
 ===================
 
-* (no changes)
+* bugs squashed:
+
+  - fix potential memory leak in print_routing_algos
+  - fix event parsing of hard interface names
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/main
-v2025.1-1-gc31d254
-$ range=v2025.1..v2025.1-1-gc31d254
+v2025.2-1-g16a7397
+$ range=v2025.2..v2025.2-1-g16a7397
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -132,7 +131,7 @@ bugfixes
 
 
 
-2025.2 (2025-06-14)
+2025.3 (2025-09-02)
 ===================
 
 * (no changes)
