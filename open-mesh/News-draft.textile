@@ -12,6 +12,7 @@ Many thanks to everyone who contributed patches:
 
 * Matthias Schiffer <mschiffer@universe-factory.net>
 * Simon Wunderlich <sw@simonwunderlich.de>
+* Stanislav Fort <stanislav.fort@aisle.com>
 * Sven Eckelmann <sven@narfation.org>
 
 And a special thanks to those who supported us with valuable advice and thorough testing:
@@ -22,7 +23,7 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2025.2-2-g702c52a8
+v2025.2-4-g383aa6a8
 $ range=v2025.2..v2025.2-2-g702c52a8
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
@@ -52,7 +53,7 @@ various
 bugfixes
 ========
 
-
+batman-adv: fix OOB read/write in network-coding decode
 
 
 
@@ -63,7 +64,7 @@ bugfixes
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - TO DISCLOSE
+  - fix OOB read/write in network-coding decode
 
 </pre>
 
