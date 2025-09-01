@@ -5,7 +5,7 @@ Release tarballs as well as snapshots are available:
 
 * release tarballs: [[open-mesh:Download#Download-Released-Source-Code|Check the Download page]]
 * git web directory: https://git.open-mesh.org/alfred.git
-* git download: @git clone git://git.open-mesh.org/alfred.git@
+* git download: @git clone https://git.open-mesh.org/alfred.git@
 * snapshot: https://git.open-mesh.org/alfred.git/snapshot/refs/heads/main.tar.gz
 
 h3. OpenWRT installation from routing feed
@@ -27,7 +27,7 @@ There is also a development packet feed for OpenWRT available for alfred:
 1. add the alfred feed by adding the following line into your feeds.conf:
 
 <pre>
-src-git batman git://git.open-mesh.org/openwrt-feed-devel.git
+src-git batman https://git.open-mesh.org/openwrt-feed-devel.git
 </pre>
 
 2. Update and install the feed:
