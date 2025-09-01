@@ -61,8 +61,8 @@ First step is to actually get the repositories and create the branches. You may 
 
 <pre>
 git clone "${GIT_OM_SERVER}/linux-merge.git" linux-merge
-git -C linux-merge remote add net-next git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git
-git -C linux-merge remote add net git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git
+git -C linux-merge remote add net-next https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git
+git -C linux-merge remote add net https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git
 git -C linux-merge remote update --prune
 git -C linux-merge branch base/net --track origin/base/net
 git -C linux-merge branch base/net-next --track origin/base/net-next
@@ -377,7 +377,7 @@ The patches then have to be prepared and the cover letter has to be created for 
 TAG=batadv-next-for-netdev-20160701
 git format-patch --cover-letter --subject-prefix='PATCH net-next' base/net-next..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
-git request-pull base/net-next git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
+git request-pull base/net-next https://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
 git send-email --to=netdev@vger.kernel.org --cc='"David S. Miller" <davem@davemloft.net>' --cc='Eric Dumazet <edumazet@google.com>' --cc='Jakub Kicinski <kuba@kernel.org>' --cc='Paolo Abeni <pabeni@redhat.com>' --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
@@ -388,7 +388,7 @@ or for net:
 TAG=batadv-net-for-netdev-20160701
 git format-patch --cover-letter --subject-prefix='PATCH net' base/net..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
-git request-pull base/net git://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
+git request-pull base/net https://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
 git send-email --to=netdev@vger.kernel.org --cc='"David S. Miller" <davem@davemloft.net>' --cc='Eric Dumazet <edumazet@google.com>' --cc='Jakub Kicinski <kuba@kernel.org>' --cc='Paolo Abeni <pabeni@redhat.com>' --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
@@ -415,7 +415,7 @@ The following changes since commit 99860208bc62d8ebd5c57495b84856506fe075bc:
 
 are available in the git repository at:
 
-  git://git.open-mesh.org/linux-merge.git tags/batadv-next-for-netdev-20160701
+  https://git.open-mesh.org/linux-merge.git tags/batadv-next-for-netdev-20160701
 
 for you to fetch changes up to 4e3e823b5a503235630921287f130e1d8d22d200:
 
