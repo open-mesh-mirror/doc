@@ -54,7 +54,6 @@ The first step is to create the "batadv" mesh interface (in our case
   	option distributed_arp_table 1
   	option multicast_mode 1
   	option multicast_fanout 16
-  	option network_coding 0
   	option hop_penalty 30
   	option isolation_mark '0x00000000/0x00000000'
 

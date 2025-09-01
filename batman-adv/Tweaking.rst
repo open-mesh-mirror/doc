@@ -93,7 +93,6 @@ interfaces can be configured via batctl, e.g.
            isolation_mark|mark        [mark]               display or modify isolation_mark setting
            loglevel|ll                [level]              display or modify the log level
            multicast_forceflood|mff   [0|1]                display or modify multicast_forceflood setting
-           network_coding|nc          [0|1]                display or modify network_coding setting
            orig_interval|it           [interval]           display or modify orig_interval setting
 
 aggregate originator messages
@@ -340,7 +339,6 @@ deactivated (log level: 0).
    [ ] messages related to translation table operations (tt)
    [ ] messages related to bridge loop avoidance (bla)
    [ ] messages related to arp snooping and distributed arp table (dat)
-   [ ] messages related to network coding (nc)
    [ ] messages related to multicast (mcast)
    [ ] messages related to throughput meter (tp)
 
@@ -364,27 +362,6 @@ of these optimizations.
 ::
 
    batctl meshif bat0 multicast_mode
-   enabled
-
-network coding
-~~~~~~~~~~~~~~
-
-Available since: batman-adv 2013.2.0
-
-When enabled network coding increases the WiFi throughput by combining
-multiple frames into a single frame, thus reducing the needed air
-time. A comprehensive documentation has been made available in our
-wiki. One document focuses on the :doc:`general network coding concept </batman-adv/NetworkCoding>` whereas the second document is about the
-:doc:`technical details & implementation specifics <NetworkCoding-technical>`. Our download section also contains recorded network
-coding talks.
-It is necessary to activate network coding at compile time before you
-can use this feature (consult `the README.external
-file <https://git.open-mesh.org/batman-adv.git/tree/README.external.rst>`__
-to learn how to set the compile option).
-
-::
-
-   batctl meshif bat0 network_coding
    enabled
 
 originator interval

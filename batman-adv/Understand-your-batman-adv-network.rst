@@ -405,41 +405,6 @@ For example:
    *    10.204.36.48 8c:45:00:13:e2:ca   -1      3:49
    *   10.204.38.162 ac:cf:85:7e:1f:0e   -1      4:30
 
-Network coding - potential coding neighbor table
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This table is part of the :doc:`network coding <NetworkCoding>` code and
-contains all detected incoming and outgoing network coding
-possibilities. Each entry starts with the address of a one-hop neighbor
-(the "Node:" line), followed by a line for ingoing nodes and a line
-outgoing nodes.
-
-"Ingoing nodes" shows addresses of nodes that the one-hop neighbor can
-overhear packets from. "Outgoing nodes" shows addresses of nodes that
-can overhear packets from the one-hop neighbor. The table is used by the
-NC code to search for potential coding opportunities, where a relay
-determines if two receivers are likely to be able to decode a network
-coded transmission.
-
-::
-
-  <Node: originator mac address>
-     <Ingoing: mac address of nodes that this originator can overhear>
-     <Outgoing: mac address of nodes that can overhear this originator>
-
-This example shows the entry for the one-hop originator with address
-fe:fe:00:00:02:01. Since a originator can always overhear packets to and
-from itself, its own address is listed as the first. In this case, the
-originator is able to overhear packets from fe:fe:00:00:03:01, which can
-also overhear packets sent from the originator.
-
-::
-
-  cat /sys/kernel/debug/batman_adv/bat0/nc_nodes 
-  Node:      fe:fe:00:00:02:01
-   Ingoing:  fe:fe:00:00:02:01 fe:fe:00:00:03:01 
-   Outgoing: fe:fe:00:00:02:01 fe:fe:00:00:03:01 
-
 ICMP
 ----
 

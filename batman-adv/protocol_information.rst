@@ -20,7 +20,6 @@ Protocol Information
    DistributedArpTable-technical
    Fragmentation-technical
    Multicast-optimizations-tech
-   NetworkCoding-technical
 
 .. only::  subproject
 

@@ -184,26 +184,6 @@ DAT (Distributed ARP Table)
      |   TVLV 0x02   |    Version    |             Length            | 
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-Network coding (also known as catwoman)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* tvlv type: 0x03
-* function: Save packet transmissions & air time by combining
-  packets.
-* purpose: Network coding only works with other network coding
-  enabled nodes.
-* length: 0 byte (This is a boolean telling that this node knows how
-  to decode nc-packets.)
-* definition:
-
-::
-
-     0                   1                   2                   3
-     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |   TVLV 0x03   |    Version    |             Length            | 
-     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
 .. _batman-adv-tvlv-translation-table-messages:
 
 Translation table messages

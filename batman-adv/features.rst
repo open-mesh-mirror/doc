@@ -14,7 +14,6 @@ Features
    Ap-isolation
    DistributedArpTable
    Multicast-optimizations
-   NetworkCoding
 
 .. only::  subproject
 

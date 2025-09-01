@@ -15,13 +15,13 @@ understanding the new content is left to other mechanisms.
 To allow that, numbers for packet types are assigned in ranges as shown
 in the table below:
 
-+---------------+-------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 0x00 - 0x3f   | special packets   | These packets have their own rules to be (re)forwarded and can not be handled in general. Examples: BATMAN IV OGMs, BATMAN V packets, Broadcasts, Network coding packets   |
-+---------------+-------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 0x40 - 0x7f   | unicast packets   | Unicast packets are sent via the routes established by batman-adv. Examples: unicast, unicast\_frag, unicast 4addr, tvlv unicast, icmp                                     |
-+---------------+-------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 0x80 - 0xff   | reserved          |                                                                                                                                                                            |
-+---------------+-------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++---------------+---+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 0x00 - 0x3f   | special packets   | These packets have their own rules to be (re)forwarded and can not be handled in general. Examples: BATMAN IV OGMs, BATMAN V packets, Broadcasts packets   |
++---------------+-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 0x40 - 0x7f   | unicast packets   | Unicast packets are sent via the routes established by batman-adv. Examples: unicast, unicast\_frag, unicast 4addr, tvlv unicast, icmp                     |
++---------------+-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 0x80 - 0xff   | reserved          |                                                                                                                                                            |
++---------------+-------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 All packets within the unicast class share a common header: This
 includes packet type, version, TTL, destination.

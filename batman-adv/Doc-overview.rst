@@ -50,8 +50,6 @@ Link-Forwarding Optimizations
 
 -  :doc:`Multi-Link Optimizations <Multi-link-optimize>` - how to optimize
    traffic by using multiple links
--  :doc:`Network Coding <NetworkCoding>` - Combine two packets into a single
-   transmission to save air time.
 
 Broadcast & Multicast
 ~~~~~~~~~~~~~~~~~~~~~
