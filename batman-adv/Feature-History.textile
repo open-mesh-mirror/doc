@@ -34,7 +34,7 @@ h1. Feature History
 ** Full, MRD based routable IPv4/IPv6 multicast address support: v2021.2
 ** Stateless batman-adv multicast packet type support: v2024.0
 * *Network Coding*
-** v2013.2.0
+** v2013.2.0 - v2025.3
 * *BATMAN IV*
 ** v0.1
 * *BATMAN V*
