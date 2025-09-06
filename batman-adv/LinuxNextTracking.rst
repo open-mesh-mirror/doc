@@ -29,7 +29,7 @@ Initial setup
 
   su batman -
   cd $HOME
-  git clone --mirror git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+  git clone --mirror https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
   echo "LinuxNextTracking" >  linux-next.git/description
   cp /srv/git/batman-adv/hooks/post-receive linux-next.git/hooks/manual-hook
   chmod +x linux-next.git/hooks/manual-hook

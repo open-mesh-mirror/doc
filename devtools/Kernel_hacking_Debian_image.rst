@@ -150,7 +150,7 @@ experience. It is configured with:
 
   # make sure that libelf-dev is installed or module build will fail with something like "No rule to make target 'net/batman-adv/bat_algo.o'"
 
-  git clone git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+  git clone https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
   cd linux-next
 
   cat > ./kernel/configs/debug_kernel.config << EOF
