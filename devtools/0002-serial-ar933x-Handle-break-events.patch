@@ -1,0 +1,120 @@
+From: Sven Eckelmann <se@simonwunderlich.de>
+Date: Mon, 15 Sep 2025 16:41:23 +0200
+Subject: serial: ar933x: Handle break events
+
+diff --git a/target/linux/ath79/patches-5.10/942-serial-ar933x-Handle-break-events.patch b/target/linux/ath79/patches-5.10/942-serial-ar933x-Handle-break-events.patch
+new file mode 100644
+index 0000000000000000000000000000000000000000..16b8835dfe1902c24136fc4008f5cc6ce4d324ca
+--- /dev/null
++++ b/target/linux/ath79/patches-5.10/942-serial-ar933x-Handle-break-events.patch
+@@ -0,0 +1,110 @@
++From: Sven Eckelmann <sven@narfation.org>
++Date: Mon, 15 Sep 2025 15:35:14 +0200
++Subject: serial: ar933x: Handle break events
++
++Signed-off-by: Sven Eckelmann <sven@narfation.org>
++
++diff --git a/drivers/tty/serial/ar933x_uart.c b/drivers/tty/serial/ar933x_uart.c
++index acf891b50524760c5a648c8e119704182ec94de8..a6ca1355cdf051659079794f079706b7f8f6e33a 100644
++--- a/drivers/tty/serial/ar933x_uart.c
+++++ b/drivers/tty/serial/ar933x_uart.c
++@@ -105,6 +105,30 @@ static inline void ar933x_uart_stop_tx_interrupt(struct ar933x_uart_port *up)
++ 	ar933x_uart_write(up, AR933X_UART_INT_EN_REG, up->ier);
++ }
++ 
+++static inline void ar933x_uart_start_rxbreak_on_interrupt(struct ar933x_uart_port *up)
+++{
+++	up->ier |= AR933X_UART_INT_RX_BREAK_ON;
+++	ar933x_uart_write(up, AR933X_UART_INT_EN_REG, up->ier);
+++}
+++
+++static inline void ar933x_uart_stop_rxbreak_on_interrupt(struct ar933x_uart_port *up)
+++{
+++	up->ier &= ~AR933X_UART_INT_RX_BREAK_ON;
+++	ar933x_uart_write(up, AR933X_UART_INT_EN_REG, up->ier);
+++}
+++
+++static inline void ar933x_uart_start_rxbreak_off_interrupt(struct ar933x_uart_port *up)
+++{
+++	up->ier |= AR933X_UART_INT_RX_BREAK_OFF;
+++	ar933x_uart_write(up, AR933X_UART_INT_EN_REG, up->ier);
+++}
+++
+++static inline void ar933x_uart_stop_rxbreak_off_interrupt(struct ar933x_uart_port *up)
+++{
+++	up->ier &= ~AR933X_UART_INT_RX_BREAK_OFF;
+++	ar933x_uart_write(up, AR933X_UART_INT_EN_REG, up->ier);
+++}
+++
++ static inline void ar933x_uart_start_rx_interrupt(struct ar933x_uart_port *up)
++ {
++ 	up->ier |= AR933X_UART_INT_RX_VALID;
++@@ -212,6 +236,7 @@ static void ar933x_uart_stop_rx(struct uart_port *port)
++ 		container_of(port, struct ar933x_uart_port, port);
++ 
++ 	ar933x_uart_stop_rx_interrupt(up);
+++	ar933x_uart_stop_rxbreak_on_interrupt(up);
++ }
++ 
++ static void ar933x_uart_break_ctl(struct uart_port *port, int break_state)
++@@ -448,11 +473,14 @@ static irqreturn_t ar933x_uart_interrupt(int irq, void *dev_id)
++ {
++ 	struct ar933x_uart_port *up = dev_id;
++ 	unsigned int status;
+++	bool is_break;
++ 
++ 	status = ar933x_uart_read(up, AR933X_UART_CS_REG);
++ 	if ((status & AR933X_UART_CS_HOST_INT) == 0)
++ 		return IRQ_NONE;
++ 
+++	is_break = status & AR933X_UART_CS_RX_BREAK;
+++
++ 	spin_lock(&up->port.lock);
++ 
++ 	status = ar933x_uart_read(up, AR933X_UART_INT_REG);
++@@ -471,6 +499,29 @@ static irqreturn_t ar933x_uart_interrupt(int irq, void *dev_id)
++ 		ar933x_uart_tx_chars(up);
++ 	}
++ 
+++	if (status & AR933X_UART_INT_RX_BREAK_ON)
+++		ar933x_uart_write(up, AR933X_UART_INT_REG,
+++				  AR933X_UART_INT_RX_BREAK_ON);
+++
+++	if (status & AR933X_UART_INT_RX_BREAK_OFF)
+++		ar933x_uart_write(up, AR933X_UART_INT_REG,
+++				  AR933X_UART_INT_RX_BREAK_OFF);
+++
+++	if (is_break) {
+++		/* disable "active break" interrupt */
+++		ar933x_uart_stop_rxbreak_on_interrupt(up);
+++		ar933x_uart_start_rxbreak_off_interrupt(up);
+++
+++		/* inform serial core about break */
+++		up->port.icount.brk++;
+++		if (!up->port.sysrq)
+++			uart_handle_break(&up->port);
+++	} else if (!(up->ier & AR933X_UART_INT_RX_BREAK_ON)) {
+++		/* enable "active break" interrupt */
+++		ar933x_uart_start_rxbreak_on_interrupt(up);
+++		ar933x_uart_stop_rxbreak_off_interrupt(up);
+++	}
+++
++ 	spin_unlock(&up->port.lock);
++ 
++ 	return IRQ_HANDLED;
++@@ -500,6 +551,7 @@ static int ar933x_uart_startup(struct uart_port *port)
++ 
++ 	/* Enable RX interrupts */
++ 	ar933x_uart_start_rx_interrupt(up);
+++	ar933x_uart_start_rxbreak_on_interrupt(up);
++ 
++ 	spin_unlock_irqrestore(&up->port.lock, flags);
++ 
++@@ -845,6 +897,7 @@ static int ar933x_uart_probe(struct platform_device *pdev)
++ 	port->fifosize = AR933X_UART_FIFO_SIZE;
++ 	port->ops = &ar933x_uart_ops;
++ 	port->rs485_config = ar933x_config_rs485;
+++	port->has_sysrq = IS_ENABLED(CONFIG_SERIAL_AR933X_CONSOLE);
++ 
++ 	baud = ar933x_uart_get_baud(port->uartclk, AR933X_UART_MAX_SCALE, 1);
++ 	up->min_baud = max_t(unsigned int, baud, AR933X_UART_MIN_BAUD);
