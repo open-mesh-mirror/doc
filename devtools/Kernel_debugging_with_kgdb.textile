@@ -154,7 +154,7 @@ diff --git a/include/kernel-build.mk b/include/kernel-build.mk
 diff --git a/target/linux/generic/config-6.6 b/target/linux/generic/config-6.6
 --- a/target/linux/generic/config-6.6
 +++ b/target/linux/generic/config-6.6
-@@ -7552,3 +7552,13 @@ CONFIG_ZONE_DMA=y
+@@ -7552,3 +7552,14 @@ CONFIG_ZONE_DMA=y
  # CONFIG_ZSMALLOC is not set
  CONFIG_ZSMALLOC_CHAIN_SIZE=8
  # CONFIG_ZSWAP is not set
@@ -168,6 +168,7 @@ diff --git a/target/linux/generic/config-6.6 b/target/linux/generic/config-6.6
 +# CONFIG_KGDB_TESTS is not set
 +# CONFIG_KGDB_KDB is not set
 +# CONFIG_KGDB_LOW_LEVEL_TRAP is not set
++CONFIG_MAGIC_SYSRQ_SERIAL_SEQUENCE="g"
 </code></pre>
 
 h2. Start debugging session
