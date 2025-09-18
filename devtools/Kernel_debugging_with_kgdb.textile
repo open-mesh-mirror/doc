@@ -6,6 +6,8 @@ As shown in the [[Kernel debugging with_qemu's GDB server]] documentation, it is
 
 In best case, the system can be [[Kernel debugging over JTAG|debugged using JTAG]]. But this is often not possible and an in-kernel gdb remote stub like "KGDB":https://www.kernel.org/doc/html/latest/dev-tools/kgdb.html has to be used. The only requirement it has on the actual board is a simple serial console with <code>poll_{get,put}_char()</code> support.
 
+!kgdb-setup.png!
+
 h2. Preparing OpenWrt
 
 h3. Turning off watchdog
