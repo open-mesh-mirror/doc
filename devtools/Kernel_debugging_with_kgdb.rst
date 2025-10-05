@@ -17,6 +17,8 @@ stub like
 has to be used. The only requirement it has on the actual board is a
 simple serial console with poll_{get,put}_char() support.
 
+.. image:: kgdb-setup.svg
+
 Preparing OpenWrt
 -----------------
 
@@ -180,7 +182,7 @@ OpenWrt must be modified slightly to expose the kernel gdbstub
   diff --git a/target/linux/generic/config-6.6 b/target/linux/generic/config-6.6
   --- a/target/linux/generic/config-6.6
   +++ b/target/linux/generic/config-6.6
-  @@ -7552,3 +7552,13 @@ CONFIG_ZONE_DMA=y
+  @@ -7552,3 +7552,14 @@ CONFIG_ZONE_DMA=y
    # CONFIG_ZSMALLOC is not set
    CONFIG_ZSMALLOC_CHAIN_SIZE=8
    # CONFIG_ZSWAP is not set
@@ -194,6 +196,41 @@ OpenWrt must be modified slightly to expose the kernel gdbstub
   +# CONFIG_KGDB_TESTS is not set
   +# CONFIG_KGDB_KDB is not set
   +# CONFIG_KGDB_LOW_LEVEL_TRAP is not set
+  +CONFIG_MAGIC_SYSRQ_SERIAL_SEQUENCE="g"
+
+Agent-Proxy
+-----------
+
+KGDB(OC) is using the serial console - which is often already used as console
+output. Instead of us switching all the time between gdb and the terminal
+emulator (via UART/TTL), it can be rather helpful to use a splitter which can
+multiplex the kgdb and the normal terminal. So, instead of using 
+screen/minicom/... + gdb against the tty device, the different sessions are
+just started against a TCP port.
+
+Installation
+~~~~~~~~~~~~
+
+.. code-block:: sh
+
+  $ git clone https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git/
+  $ make -C agent-proxy
+
+Starting up session
+~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: sh
+
+  $ ./agent-proxy/agent-proxy '127.0.0.1:5550^127.0.0.1:5551' 0 /dev/ttyUSB0,115200
+
+To connect to the console of the device, a simple telnet or telnet-like tool is
+enough:
+
+.. code-block:: sh
+
+  $ screen //telnet localhost 5550
+
+The gdb session will then later be started against the second port (5551)
 
 Start debugging session
 -----------------------
@@ -230,6 +267,10 @@ using
 
   echo g > /proc/sysrq-trigger
 
+If your serial driver support ``CONFIG_MAGIC_SYSRQ_SERIAL_SEQUENCE`` then gdb
+can also trigger this automatically when using agent-proxy
+
+
 Connecting gdb
 ~~~~~~~~~~~~~~
 
@@ -249,10 +290,12 @@ uncompressed kernel image before we will connect to the remote device.
 
   cd "${LINUX_DIR}"
   cp ../vmlinux.debug vmlinux
-  "${GDB}" -iex "set auto-load safe-path scripts/gdb/" -iex "set serial baud 115200" -iex "target remote /dev/ttyUSB0" ./vmlinux
+  "${GDB}" -iex "set auto-load safe-path scripts/gdb/" -iex "target remote localhost:5551" ./vmlinux
 
-In this example, we are using an USB TTL converter (/dev/ttyUSB0). It
-has to be configured in gdb
+If the connection was established, gdb will be able to communicate to kgdb on
+the target device. This is the right moment to load also the debug symbols from
+kernel modules - and then of course tell kgdb to switch back to Linux (via
+``continue``)
 
 ::
 
@@ -308,47 +351,6 @@ the routing feed like this:
           NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
           modules
    endef
-
-Agent-Proxy
------------
-
-Instead of switching all the time between gdb and the terminal emulator
-(via UART/TTL), it can be rather helpful to use a splitter which can
-multiplex the kgdb and the normal terminal. So, instead of using
-screen/minicom/... + gdb against the tty device, the different sessions
-are just started against a TCP port.
-
-Installation
-~~~~~~~~~~~~
-
-.. code-block:: sh
-
-  $ git clone https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git/
-  $ make -C agent-proxy
-
-Starting up session
-~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: sh
-
-  $ ./agent-proxy/agent-proxy '127.0.0.1:5550^127.0.0.1:5551' 0 /dev/ttyUSB0,115200
-
-To connect to the terminal session, a simple telnet or telnet-like tool
-is enough:
-
-.. code-block:: sh
-
-  $ screen //telnet localhost 5550
-
-The setup of the kgdboc must happen exactly as described before.
-Including the switch to the debugging mode via sysrq.
-
-The gdb has to be attached like to a remote gdb session
-
-.. code-block:: sh
-
-  $ cd "${LINUX_DIR}"
-  $ "${GDB}" -iex "set auto-load safe-path scripts/gdb/" -iex "target remote localhost:5551" ./vmlinux
 
 Enable KGDB on panic
 --------------------

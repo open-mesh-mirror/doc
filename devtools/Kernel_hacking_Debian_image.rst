@@ -50,7 +50,7 @@ storage space
   sudo systemd-nspawn -D debian systemctl enable fstrim.timer
   sudo rm -f debian/etc/machine-id debian/var/lib/dbus/machine-id debian/run/machine-id
 
-  sudo mkdir debian/root/.ssh/
+  sudo mkdir -p debian/root/.ssh/
   ssh-add -L | sudo tee debian/root/.ssh/authorized_keys
 
   sudo mkdir debian/host
@@ -117,8 +117,8 @@ storage space
   #EOF
 
   sudo sh -c 'echo '\''PATH="/host/batctl/:$PATH"'\'' >> debian/etc/profile'
-  sudo rm debian/var/cache/apt/archives/*.deb
-  sudo rm debian/var/lib/apt/lists/*
+  sudo rm -f debian/var/cache/apt/archives/*.deb || true
+  sudo rm -f debian/var/lib/apt/lists/* || true
   sudo e4defrag -v debian/
   sudo umount debian
   sudo fsck.ext4 -fD debian.img

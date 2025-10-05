@@ -1,0 +1,141 @@
+From: Sven Eckelmann <sven@narfation.org>
+Date: Thu, 13 Oct 2022 16:40:21 +0200
+Subject: openwrt: Add support for easily selectable kernel debugger support
+
+When enabling this KERNEL_KGDB (after disabling KERNEL_DEBUG_INFO_REDUCED),
+make sure to clean some packages to make sure that they are compiled with
+the correct settings:
+
+    make toolchain/gdb/clean
+    make toolchain/gdb/compile -j$(nproc || echo 1)
+    make target/linux/clean
+    make -j$(nproc || echo 1)
+
+The serial console will be shared between normal serial output and (k)gdb,
+it is necessary to have an agent installed on your host system which
+extracts the part relevant for (k)gdb.
+
+    git clone https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git/
+    make -C agent-proxy
+    ./agent-proxy/agent-proxy '127.0.0.1:5550^127.0.0.1:5551' 0 /dev/ttyUSB1,115200
+
+It is then possible to see the full serial output in screen via:
+
+    screen //telnet localhost 5550
+
+On the target system, it is necessary to prepare the debugging session:
+
+    echo ttyS0,115200 > /sys/module/kgdboc/parameters/kgdboc
+    ubus call system watchdog '{"magicclose":true}'
+    ubus call system watchdog '{"stop":true}'
+
+Sometimes it might be necessary to force Linux to switch to kgdb:
+
+    echo g > /proc/sysrq-trigger
+
+The host can then connect to the kgdb using:
+
+    cd "{LINUX_DIR}"
+    cp ../vmlinux.debug vmlinux
+    "${GDB}" -iex "set auto-load safe-path `pwd`/scripts/gdb/" -iex "target remote localhost:5551" vmlinux
+    (gdb) lx-symbols ..
+    (gdb) continue
+
+Signed-off-by: Sven Eckelmann <sven@narfation.org>
+
+diff --git a/config/Config-kernel.in b/config/Config-kernel.in
+index ab827d6a71eb47ed0f6b71354b3372532d3656a5..817621ac9f37c365157470c7fc00c4f24e38f7f6 100644
+--- a/config/Config-kernel.in
++++ b/config/Config-kernel.in
+@@ -2,6 +2,50 @@
+ #
+ # Copyright (C) 2006-2014 OpenWrt.org
+ 
++config KERNEL_VT
++    bool
++
++config KERNEL_GDB_SCRIPTS
++    select GDB_PYTHON
++    bool
++
++config KERNEL_HW_CONSOLE
++    bool
++
++config KERNEL_CONSOLE_POLL
++    bool
++
++config KERNEL_MAGIC_SYSRQ
++    bool
++
++config KERNEL_MAGIC_SYSRQ_SERIAL
++    bool
++
++config KERNEL_KGDB_SERIAL_CONSOLE
++    bool
++
++config KERNEL_KGDB_HONOUR_BLOCKLIST
++    bool
++
++config KERNEL_MIPS_FP_SUPPORT
++    depends on (mips || mipsel || mips64 || mips64el)
++    bool
++
++config KERNEL_KGDB
++    select KERNEL_VT
++    select KERNEL_GDB_SCRIPTS
++    select KERNEL_HW_CONSOLE
++    select KERNEL_CONSOLE_POLL
++    select KERNEL_MAGIC_SYSRQ
++    select KERNEL_MAGIC_SYSRQ_SERIAL
++    select KERNEL_KGDB_SERIAL_CONSOLE
++    select KERNEL_KGDB_HONOUR_BLOCKLIST
++    select KERNEL_MIPS_FP_SUPPORT if (mips || mipsel || mips64 || mips64el)
++    
++    depends on KERNEL_DEBUG_INFO
++    bool "Enable kernel debugger over serial"
++
++
+ config KERNEL_BUILD_USER
+ 	string "Custom Kernel Build User Name"
+ 	default "builder" if BUILDBOT
+diff --git a/include/kernel-build.mk b/include/kernel-build.mk
+index 5dd033cda6c89b4c302e678a3cd7dc1be6e661a1..37a859826c242d99c7451af3075bf3dda5fd7ac0 100644
+--- a/include/kernel-build.mk
++++ b/include/kernel-build.mk
+@@ -143,6 +143,7 @@ define BuildKernel
+   $(LINUX_DIR)/.image: $(STAMP_CONFIGURED) $(if $(CONFIG_STRIP_KERNEL_EXPORTS),$(KERNEL_BUILD_DIR)/symtab.h) FORCE
+ 	$(Kernel/CompileImage)
+ 	$(Kernel/CollectDebug)
++	+[ -z "$(CONFIG_KERNEL_GDB_SCRIPTS)" ] || $(KERNEL_MAKE) scripts_gdb
+ 	touch $$@
+ 	
+   mostlyclean: FORCE
+diff --git a/target/linux/generic/config-5.10 b/target/linux/generic/config-5.10
+index ffd29503ea78963d509b2a9eb63cdd2f03ff87d0..75fda4c9e0a29e79521f958620190416af18e4a9 100644
+--- a/target/linux/generic/config-5.10
++++ b/target/linux/generic/config-5.10
+@@ -1279,7 +1279,7 @@ CONFIG_DEBUG_FS_ALLOW_ALL=y
+ # CONFIG_DEBUG_INFO_BTF is not set
+ # CONFIG_DEBUG_INFO_COMPRESSED is not set
+ # CONFIG_DEBUG_INFO_DWARF4 is not set
+-CONFIG_DEBUG_INFO_REDUCED=y
++# CONFIG_DEBUG_INFO_REDUCED is not set
+ # CONFIG_DEBUG_INFO_SPLIT is not set
+ CONFIG_DEBUG_KERNEL=y
+ # CONFIG_DEBUG_KMEMLEAK is not set
+@@ -7181,3 +7181,15 @@ CONFIG_ZONE_DMA=y
+ # CONFIG_ZRAM_MEMORY_TRACKING is not set
+ # CONFIG_ZSMALLOC is not set
+ # CONFIG_ZX_TDM is not set
++
++
++# KGDB specific "disabled" options
++# CONFIG_CONSOLE_TRANSLATIONS is not set
++# CONFIG_VT_CONSOLE is not set
++# CONFIG_VT_HW_CONSOLE_BINDING is not set
++# CONFIG_SERIAL_KGDB_NMI is not set
++# CONFIG_KGDB_TESTS is not set
++# CONFIG_KGDB_KDB is not set
++# CONFIG_KGDB_LOW_LEVEL_TRAP is not set
++# CONFIG_VGA_CONSOLE is not set
++CONFIG_MAGIC_SYSRQ_SERIAL_SEQUENCE="g"
