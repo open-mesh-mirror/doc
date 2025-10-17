@@ -1,33 +1,32 @@
-h1. DRAFT: Batman-adv 2025.3 released
+h1. DRAFT: Batman-adv 2025.4 released
 
-*September 2nd, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the September 2025 update for batman-adv! This release includes various bug fixes and code cleanups.
+*October 21nd, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the October 2025 update for batman-adv! The network coding support was dropped due to its limited usefulness in todays Wi-Fi landscape and the neglected development in the related code portions. This release also includes various bug fixes and code cleanups.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2025.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2025.4/
 
 h2. Thanks
 
 Many thanks to everyone who contributed patches:
 
-* Matthias Schiffer <mschiffer@universe-factory.net>
-* Simon Wunderlich <sw@simonwunderlich.de>
-* Stanislav Fort <stanislav.fort@aisle.com>
 * Sven Eckelmann <sven@narfation.org>
+* Simon Wunderlich <sw@simonwunderlich.de>
 
 And a special thanks to those who supported us with valuable advice and thorough testing:
 
-* TODO
+* Marek Lindner <marek.lindner@mailbox.org>
+* Martin Hundebøll <martin@hundeboll.net>
+* Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2025.2-4-g383aa6a8
-$ range=v2025.2..v2025.2-2-g702c52a8
+v2025.3-6-gc67513c6
+$ range=v2025.3..v2025.3-6-gc67513c6
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
 
 
 
@@ -44,7 +43,9 @@ new kernel version
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: store hard_iface as iflink private data
+      batman-adv: remove network coding support
+      batman-adv: keep skb crc32 helper local in BLA
+      batman-adv: remove includes for extern declarations
 
 various
 =======
@@ -53,18 +54,19 @@ various
 bugfixes
 ========
 
-batman-adv: fix OOB read/write in network-coding decode
+      batman-adv: Release references to inactive interfaces
 
 
 
-2025.3 (2025-09-02)
+2025.4 (2025-10-21)
 ===================
 
-* support latest kernels (5.4 - 6.17)
+* support latest kernels (5.4 - 6.18)
+* removed network coding (C.A.T.W.O.M.A.N.) support
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - fix OOB read/write in network-coding decode
+  - release references to inactive interfaces on netlink queries
 
 </pre>
 
@@ -72,11 +74,10 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2025.2-4-g6a4bd43
-$ range=v2025.2..v2025.2-4-g6a4bd43
+v2025.3-2-g882ab0d
+$ range=v2025.3..v2025.3-2-g882ab0d
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
 
 
 features
@@ -86,32 +87,28 @@ features
 coding style cleanup/refactoring
 ================================
 
+      batctl: remove support for network coding
+
 
 bugfixes
 ========
 
-      batctl: event: Fix direct parsing on hardif for set_hardif
-      batctl: Avoid memory leak in print_routing_algos
 
 
 
-
-
-2025.3 (2025-09-02)
+2025.4 (2025-10-21)
 ===================
 
-* bugs squashed:
+* removed network coding (C.A.T.W.O.M.A.N.) support
 
-  - fix potential memory leak in print_routing_algos
-  - fix event parsing of hard interface names
 </pre>
 
 h2. alfred
 
 <pre>
 $ git describe origin/main
-v2025.2-1-g16a7397
-$ range=v2025.2..v2025.2-1-g16a7397
+v2025.3-1-g6fe6480
+$ range=v2025.3..v2025.3-1-g6fe6480
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -132,7 +129,7 @@ bugfixes
 
 
 
-2025.3 (2025-09-02)
+2025.4 (2025-10-21)
 ===================
 
 * (no changes)
