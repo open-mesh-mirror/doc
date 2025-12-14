@@ -1,10 +1,10 @@
-h1. DRAFT: Batman-adv 2025.4 released
+h1. DRAFT: Batman-adv 2025.5 released
 
-*October 21nd, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the October 2025 update for batman-adv! The network coding support was dropped due to its limited usefulness in todays Wi-Fi landscape and the neglected development in the related code portions. This release also includes various bug fixes and code cleanups.
+*December 16nd, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the December 2025 update for batman-adv! This release includes various code cleanups and drops support for EOL kernels.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2025.4/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2025.5/
 
 h2. Thanks
 
@@ -13,21 +13,17 @@ Many thanks to everyone who contributed patches:
 * Sven Eckelmann <sven@narfation.org>
 * Simon Wunderlich <sw@simonwunderlich.de>
 
-And a special thanks to those who supported us with valuable advice and thorough testing:
-
-* Marek Lindner <marek.lindner@mailbox.org>
-* Martin Hundebøll <martin@hundeboll.net>
-* Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
-
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2025.3-6-gc67513c6
-$ range=v2025.3..v2025.3-6-gc67513c6
+v2025.4-4-g01e695ce
+$ range=v2025.4..v2025.4-4-g01e695ce
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
+
+Sven Eckelmann <sven@narfation.org> (3):
 
 
 features
@@ -43,9 +39,9 @@ new kernel version
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: remove network coding support
-      batman-adv: keep skb crc32 helper local in BLA
-      batman-adv: remove includes for extern declarations
+      batman-adv: use skb_crc32c() instead of skb_seq_read()
+      batman-adv: Drop support for Linux < 5.10
+      batman-adv: Fix build against newest stable kernels
 
 various
 =======
@@ -58,15 +54,11 @@ bugfixes
 
 
 
-2025.4 (2025-10-21)
+2025.5 (2025-12-16)
 ===================
 
-* support latest kernels (5.4 - 6.18)
-* removed network coding (C.A.T.W.O.M.A.N.) support
+* support latest kernels (5.10 - 6.18)
 * coding style cleanups and refactoring
-* bugs squashed:
-
-  - release references to inactive interfaces on netlink queries
 
 </pre>
 
@@ -74,8 +66,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2025.3-2-g882ab0d
-$ range=v2025.3..v2025.3-2-g882ab0d
+v2025.4-1-ga7e55d7
+$ range=v2025.4..v2025.4-1-ga7e55d7
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -96,7 +88,7 @@ bugfixes
 
 
 
-2025.4 (2025-10-21)
+2025.5 (2025-12-16)
 ===================
 
 * removed network coding (C.A.T.W.O.M.A.N.) support
@@ -107,8 +99,8 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2025.3-1-g6fe6480
-$ range=v2025.3..v2025.3-1-g6fe6480
+v2025.4-1-g20bfe52
+$ range=v2025.4..v2025.4-1-g20bfe52
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -129,7 +121,7 @@ bugfixes
 
 
 
-2025.4 (2025-10-21)
+2025.5 (2025-12-16)
 ===================
 
 * (no changes)
