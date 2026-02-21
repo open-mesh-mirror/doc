@@ -1,10 +1,10 @@
-h1. DRAFT: Batman-adv 2025.5 released
+h1. DRAFT: Batman-adv 2026.0 released
 
-*December 16nd, 2025*: The B.A.T.M.A.N. team is excited to announce the release of the December 2025 update for batman-adv! This release includes various code cleanups and drops support for EOL kernels.
+*February 24nd, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the February 2026 update for batman-adv! This includes only bug fixes.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2025.5/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2026.0/
 
 h2. Thanks
 
@@ -13,12 +13,17 @@ Many thanks to everyone who contributed patches:
 * Sven Eckelmann <sven@narfation.org>
 * Simon Wunderlich <sw@simonwunderlich.de>
 
+And a special thanks to those who supported us with valuable advice and thorough testing:
+
+* Christian Schmidbauer <github@grische.xyz>
+* Sören Skaarup <freifunk_nordm4nn@gmx.de>
+
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2025.4-4-g01e695ce
-$ range=v2025.4..v2025.4-4-g01e695ce
+v2025.5-4-gffa2cb88
+$ range=v2025.5..v2025.5-4-gffa2cb88
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -39,9 +44,6 @@ new kernel version
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: use skb_crc32c() instead of skb_seq_read()
-      batman-adv: Drop support for Linux < 5.10
-      batman-adv: Fix build against newest stable kernels
 
 various
 =======
@@ -50,15 +52,17 @@ various
 bugfixes
 ========
 
-      batman-adv: Release references to inactive interfaces
+      batman-adv: Avoid double-rtnl_lock ELP metric worker
 
 
 
-2025.5 (2025-12-16)
+2026.0 (2026-02-24)
 ===================
 
-* support latest kernels (5.10 - 6.19)
-* coding style cleanups and refactoring
+* support latest kernels (5.10 - 7.0)
+* bugs squashed:
+
+  - fix double-rtnl_lock ELP metric worker
 
 </pre>
 
@@ -66,8 +70,8 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2025.4-1-ga7e55d7
-$ range=v2025.4..v2025.4-1-ga7e55d7
+v2025.5-2-g04c1ade
+$ range=v2025.5..v2025.5-2-g04c1ade
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -87,7 +91,7 @@ bugfixes
 
 
 
-2025.5 (2025-12-16)
+2026.0 (2026-02-24)
 ===================
 
 * (no changes)
@@ -98,8 +102,8 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2025.4-1-g20bfe52
-$ range=v2025.4..v2025.4-1-g20bfe52
+v2025.5-3-g81a8e38
+$ range=v2025.5..v2025.5-3-g81a8e38
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -120,7 +124,7 @@ bugfixes
 
 
 
-2025.5 (2025-12-16)
+2026.0 (2026-02-24)
 ===================
 
 * (no changes)
