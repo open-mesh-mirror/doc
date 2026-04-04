@@ -1,34 +1,36 @@
-h1. DRAFT: Batman-adv 2026.0 released
+h1. DRAFT: Batman-adv 2026.1 released
 
-*February 24nd, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the February 2026 update for batman-adv! This includes only bug fixes.
+*April 7th, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the April 2026 update for batman-adv! Several bug fixes and code cleanups are included in this version.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2026.0/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2026.1/
 
 h2. Thanks
 
 Many thanks to everyone who contributed patches:
 
-* Sven Eckelmann <sven@narfation.org>
+* Ruide Cao <caoruide123@gmail.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
+* Sven Eckelmann <sven@narfation.org>
+* Thomas Huth <thuth@redhat.com>
+* Yuan Tan <yuantan098@gmail.com>
+* Yang Yang <n05ec@lzu.edu.cn>
 
 And a special thanks to those who supported us with valuable advice and thorough testing:
 
-* Christian Schmidbauer <github@grische.xyz>
-* Sören Skaarup <freifunk_nordm4nn@gmx.de>
+* Juefei Pu <tomapufckgml@gmail.com>
+* Ren Wei <enjou1224z@gmail.com>
+* Yifan Wu <yifanwucs@gmail.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2025.5-4-gffa2cb88
-$ range=v2025.5..v2025.5-4-gffa2cb88
+v2026.0-10-g5004d2bc
+$ range=v2026.0..v2026.0-10-g5004d2bc
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
-
-Sven Eckelmann <sven@narfation.org> (3):
 
 
 features
@@ -44,6 +46,9 @@ new kernel version
 coding style cleanup/refactoring
 ================================
 
+      batman-adv: Replace the obsolete address of the FSF in the GPL-2.0
+      batman-adv: Activate type-aware kmalloc for 7.0
+      batman-adv: Switch to type-aware kmalloc-family helpers
 
 various
 =======
@@ -52,17 +57,20 @@ various
 bugfixes
 ========
 
-      batman-adv: Avoid double-rtnl_lock ELP metric worker
+      batman-adv: reject oversized global TT response buffers
+      batman-adv: avoid OGM aggregation when skb tailroom is insufficient
 
 
 
-2026.0 (2026-02-24)
+2026.1 (2026-04-07)
 ===================
 
-* support latest kernels (5.10 - 7.0)
+* support latest kernels (5.10 - 7.1)
+* coding style cleanups and refactoring
 * bugs squashed:
 
-  - fix double-rtnl_lock ELP metric worker
+  - reject oversized global TT response buffers
+  - avoid OGM aggregation when skb tailroom is insufficient
 
 </pre>
 
@@ -70,11 +78,22 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2025.5-2-g04c1ade
-$ range=v2025.5..v2025.5-2-g04c1ade
+v2026.0-5-g419031f
+$ range=v2026.0..v2026.0-5-g419031f
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
+
+
+Simon Wunderlich <sw@simonwunderlich.de> (1):
+      batctl: Start new development cycle
+
+Sven Eckelmann <sven@narfation.org> (2):
+      batctl: tcpdump: Fix printing of usecs
+      batctl: Run manpage through tbl preprocessor
+
+Thomas Huth <thuth@redhat.com> (1):
+      batctl: Replace the obsolete address of the FSF in the GPL-2.0
 
 features
 ========
@@ -91,10 +110,14 @@ bugfixes
 
 
 
-2026.0 (2026-02-24)
+2026.1 (2026-04-07)
 ===================
 
-* (no changes)
+* coding style cleanups and refactoring
+* bugs squashed:
+
+  - tcpdump: Fix printing of usecs
+  - fix tbl preprocessing of manpage
 
 </pre>
 
@@ -102,11 +125,20 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2025.5-3-g81a8e38
-$ range=v2025.5..v2025.5-3-g81a8e38
+v2026.0-3-gb35a330
+$ range=v2026.0..v2026.0-3-gb35a330
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
+
+Simon Wunderlich <sw@simonwunderlich.de> (1):
+      alfred: Start new development cycle
+
+Sven Eckelmann <sven@narfation.org> (1):
+      alfred: Fix printing of timespec
+
+Thomas Huth <thuth@redhat.com> (1):
+      alfred: Replace the obsolete address of the FSF in the GPL-2.0
 
 
 features
@@ -124,10 +156,13 @@ bugfixes
 
 
 
-2026.0 (2026-02-24)
+2026.1 (2026-04-07)
 ===================
 
-* (no changes)
+* coding style cleanups and refactoring
+* bugs squashed:
+
+  - fix printing of timespec
 </pre>
 
 
