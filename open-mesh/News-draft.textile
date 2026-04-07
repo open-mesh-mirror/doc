@@ -10,6 +10,7 @@ h2. Thanks
 
 Many thanks to everyone who contributed patches:
 
+* Haoze Xie <royenheart@gmail.com>
 * Ruide Cao <caoruide123@gmail.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
