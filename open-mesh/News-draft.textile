@@ -21,6 +21,7 @@ And a special thanks to those who supported us with valuable advice and thorough
 
 * Juefei Pu <tomapufckgml@gmail.com>
 * Ren Wei <enjou1224z@gmail.com>
+* Xin Liu <bird@lzu.edu.cn>
 * Yifan Wu <yifanwucs@gmail.com>
 
 h2. batman-adv
