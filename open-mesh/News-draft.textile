@@ -71,6 +71,7 @@ bugfixes
 
   - reject oversized global TT response buffers
   - avoid OGM aggregation when skb tailroom is insufficient
+  - prevent freed backbones when dumping BLA claims
 
 </pre>
 
