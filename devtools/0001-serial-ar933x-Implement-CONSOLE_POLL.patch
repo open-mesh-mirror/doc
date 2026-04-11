@@ -4,23 +4,20 @@ Subject: serial: ar933x: Implement CONSOLE_POLL
 
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 
-diff --git a/target/linux/ath79/patches-5.10/941-serial-ar933x-Implement-CONSOLE_POLL.patch b/target/linux/ath79/patches-5.10/941-serial-ar933x-Implement-CONSOLE_POLL.patch
+diff --git a/target/linux/ath79/patches-6.12/941-serial-ar933x-Implement-CONSOLE_POLL.patch b/target/linux/ath79/patches-6.12/941-serial-ar933x-Implement-CONSOLE_POLL.patch
 new file mode 100644
-index 0000000000000000000000000000000000000000..48e241f0d8b09b97c473487256b62cf33383a7df
 --- /dev/null
-+++ b/target/linux/ath79/patches-5.10/941-serial-ar933x-Implement-CONSOLE_POLL.patch
-@@ -0,0 +1,87 @@
++++ b/target/linux/ath79/patches-6.12/941-serial-ar933x-Implement-CONSOLE_POLL.patch
+@@ -0,0 +1,85 @@
 +From: Sven Eckelmann <sven@narfation.org>
 +Date: Mon, 15 Sep 2025 15:35:14 +0200
 +Subject: serial: ar933x: Implement CONSOLE_POLL
 +
 +Signed-off-by: Sven Eckelmann <sven@narfation.org>
 +
-+diff --git a/drivers/tty/serial/ar933x_uart.c b/drivers/tty/serial/ar933x_uart.c
-+index fcbaff8941930a7700c00adf18412294956fad5e..acf891b50524760c5a648c8e119704182ec94de8 100644
 +--- a/drivers/tty/serial/ar933x_uart.c
 ++++ b/drivers/tty/serial/ar933x_uart.c
-+@@ -564,6 +564,65 @@ static int ar933x_uart_verify_port(struct uart_port *port,
++@@ -560,6 +560,65 @@ static int ar933x_uart_verify_port(struc
 + 	return 0;
 + }
 + 
@@ -86,7 +83,7 @@ index 0000000000000000000000000000000000000000..48e241f0d8b09b97c473487256b62cf3
 + static const struct uart_ops ar933x_uart_ops = {
 + 	.tx_empty	= ar933x_uart_tx_empty,
 + 	.set_mctrl	= ar933x_uart_set_mctrl,
-+@@ -580,6 +639,10 @@ static const struct uart_ops ar933x_uart_ops = {
++@@ -576,6 +635,10 @@ static const struct uart_ops ar933x_uart
 + 	.request_port	= ar933x_uart_request_port,
 + 	.config_port	= ar933x_uart_config_port,
 + 	.verify_port	= ar933x_uart_verify_port,
@@ -96,4 +93,4 @@ index 0000000000000000000000000000000000000000..48e241f0d8b09b97c473487256b62cf3
 ++#endif
 + };
 + 
-+ static int ar933x_config_rs485(struct uart_port *port,
++ static int ar933x_config_rs485(struct uart_port *port, struct ktermios *termios,
