@@ -214,6 +214,8 @@ $ screen //telnet localhost 5550
 
 The gdb session will then later be started against the second port (5551)
 
+Also alternative TTY multiplexers like "tty2pty-mux":https://github.com/ecsv/tty2pty-mux can be used to achieve the same.
+
 h2. Start debugging session
 
 h3. Turning off kASLR
