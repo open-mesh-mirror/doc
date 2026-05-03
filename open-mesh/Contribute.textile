@@ -69,7 +69,8 @@ If you intend to send us patches, please consider the following guidelines:
 
 * Prefer small & digestible over long "all in one" patches.
 * No MIME, no links, no compression, no attachments.  Just plain text (patches are to be sent inline).
-* Patches sent to the mailing list should include "PATCH" in the subject to make it easier to distinguish between patches and discussions.
+* Patches sent to the mailing list should include "[PATCH]" in the subject to make it easier to distinguish between patches and discussions.
+** batman-adv patches must also include the target (branch) information as part of the prefix in such a way that netdev/LKML can understand it. <code>[PATCH batadv]</code> for patches targetting the stable branch and <code>[PATCH batadv-next]</code> for the main branch.
 * The mail's subject will become the first line in the commit message. The body contains the longer patch description and the patch (unified format) itself. Please also specify the target branch (e.g. batctl, batman-adv, etc) at the beginning of the subject line.
 * Add a "Signed-off-by: Your Name <you@example.com>" line to the patch message to make the ownership of the patch clear.
 * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style closely (use checkpatch.pl to verify your patch) as well as the linux "how to submit patches" guidelines (search for the term SubmitPatches to find thorough documentation).
@@ -77,8 +78,8 @@ If you intend to send us patches, please consider the following guidelines:
 * Patches against the batman-adv main branch must be formatted using <pre>
 git format-patch $BASECOMMIT
 </pre> or an equivalent tool (like <code>b4</code>)
-* README, manpage and sysfs-class-net-* must be updated together with the related source change
+* README and manpage must be updated together with the related source change
 * Add or update kerneldoc to functions and structures you add or modify.
-* batman-adv changes affecting batctl have to be send with the batctl patches in the same patchset
+* batman-adv changes affecting batctl have to be send with the batctl at the same time
 * it is recommended to use "b4":https://b4.docs.kernel.org/ to send the patch mails to the mailinglist - but plain `git send-email` is also fine.
 * An exemplary good submission you may want to look at can be found here: https://patchwork.open-mesh.org/project/b.a.t.m.a.n./patch/1261051915-13960-1-git-send-email-sven.eckelmann@gmx.de/
