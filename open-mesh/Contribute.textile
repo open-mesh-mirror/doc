@@ -76,7 +76,7 @@ If you intend to send us patches, please consider the following guidelines:
 * Patches for B.A.T.M.A.N. Advanced need to follow the linux kernel coding style closely (use checkpatch.pl to verify your patch) as well as the linux "how to submit patches" guidelines (search for the term SubmitPatches to find thorough documentation).
 * Check it using static analysis tools like "sparse":https://sparse.wiki.kernel.org/ (cgcc) and "cppcheck":http://cppcheck.sourceforge.net/
 * Patches against the batman-adv main branch must be formatted using <pre>
-git format-patch $BASECOMMIT
+git format-patch --subject-prefix 'PATCH batadv-next' $BASECOMMIT
 </pre> or an equivalent tool (like <code>b4</code>)
 * README and manpage must be updated together with the related source change
 * Add or update kerneldoc to functions and structures you add or modify.
