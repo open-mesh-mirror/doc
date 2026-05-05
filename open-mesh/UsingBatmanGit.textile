@@ -13,7 +13,7 @@ git clone https://git.open-mesh.org/batman-adv.git batman-adv
 There is also a repository for kernel integration. You are about to download 2GB of sources - that may take a while!
 
 <pre>
-git clone https://git.open-mesh.org/linux-merge.git -b batadv/net-next
+git clone https://git.open-mesh.org/batadv.git -b batadv/net-next
 </pre>
 
 h2. Branches
@@ -44,4 +44,4 @@ git cherry-pick $SHA1
 
 h3. Linux integration
 
-The linux-merge repository is a clone of netdev's net-next tree. With the help of some git voodoo the main branch is merged with this branch in the folder: net/batman-adv/. If you wish to merge the latest main branch changes into the linux branch you need to [[batman-adv:SubmittingLinux|pull the newest changes in main from the batman-adv.git]] repository.
+The batadv repository is a clone of netdev's net-next tree. With the help of some git voodoo the main branch is merged with this branch in the folder: net/batman-adv/. If you wish to merge the latest main branch changes into the linux branch you need to [[batman-adv:SubmittingLinux|pull the newest changes in main from the batman-adv.git]] repository.
