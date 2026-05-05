@@ -39,9 +39,9 @@ There are different basepoints/references used when preparing the
 * GIT_OM_SERVER
 ** server from which the open-mesh.org repositories are retrieved
 * LM_MAIN
-** name of branch in batman-adv.git which points to the latest patch already ported to linux-merge.git:batadv/net-next
+** name of branch in batman-adv.git which points to the latest patch already ported to batadv.git:batadv/net-next
 * LM_STABLE
-** name of branch in batman-adv.git which points to the latest patch already ported to linux-merge.git:batadv/net
+** name of branch in batman-adv.git which points to the latest patch already ported to batadv.git:batadv/net
 * BASE_NETNEXT
 ** some recent commit in net-next.git which should be used as base commit for the patches which will be applied (chose wisely)
 * BASE_NET
@@ -57,38 +57,38 @@ BASE_NET=v4.16-rc1
 
 h2. get the linux-integration + batman-adv repository
 
-First step is to actually get the repositories and create the branches. You may also use the --reference option for linux-merge to speedup the download when you already have some linux repository on you system
+First step is to actually get the repositories and create the branches. You may also use the --reference option for batadv to speedup the download when you already have some linux repository on you system
 
 <pre>
-git clone "${GIT_OM_SERVER}/linux-merge.git" linux-merge
-git -C linux-merge remote add net-next https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git
-git -C linux-merge remote add net https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git
-git -C linux-merge remote update --prune
-git -C linux-merge branch base/net --track origin/base/net
-git -C linux-merge branch base/net-next --track origin/base/net-next
-git -C linux-merge branch batadv/net --track origin/batadv/net
-git -C linux-merge branch batadv/net-next --track origin/batadv/net-next
+git clone "${GIT_OM_SERVER}/batadv.git" batadv
+git -C batadv remote add net-next https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git
+git -C batadv remote add net https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git
+git -C batadv remote update --prune
+git -C batadv branch base/net --track origin/base/net
+git -C batadv branch base/net-next --track origin/base/net-next
+git -C batadv branch batadv/net --track origin/batadv/net
+git -C batadv branch batadv/net-next --track origin/batadv/net-next
 git clone "${GIT_OM_SERVER}/batman-adv.git" batman-adv
 git -C batman-adv branch "${LM_MAIN}" --track "origin/${LM_MAIN}"
 git -C batman-adv branch "${LM_STABLE}" --track "origin/${LM_STABLE}"
 </pre>
 
-The next step is to make sure that out linux-merge.git branches are either on top or equal the chosen. It should also be checked first that it is really a basepoint in the chosen branches
+The next step is to make sure that out batadv.git branches are either on top or equal the chosen. It should also be checked first that it is really a basepoint in the chosen branches
 
 <pre>
-git -C linux-merge remote update --prune
-git -C linux-merge branch -r --contains="${BASE_NET}" net/main
-git -C linux-merge branch -r --contains="${BASE_NETNEXT}" net-next/main
+git -C batadv remote update --prune
+git -C batadv branch -r --contains="${BASE_NET}" net/main
+git -C batadv branch -r --contains="${BASE_NETNEXT}" net-next/main
 
-git -C linux-merge switch base/net
-git -C linux-merge merge --ff-only "origin/base/net"
-git -C linux-merge merge --ff-only "${BASE_NET}"
+git -C batadv switch base/net
+git -C batadv merge --ff-only "origin/base/net"
+git -C batadv merge --ff-only "${BASE_NET}"
 
-git -C linux-merge switch base/net-next
-git -C linux-merge merge --ff-only "origin/base/net-next"
-git -C linux-merge merge --ff-only "${BASE_NETNEXT}"
+git -C batadv switch base/net-next
+git -C batadv merge --ff-only "origin/base/net-next"
+git -C batadv merge --ff-only "${BASE_NETNEXT}"
 
-git -C linux-merge push origin base/net base/net-next
+git -C batadv push origin base/net base/net-next
 </pre>
 
 Problems during this have to either be fixed by using a correct base commit, fixing the local branches or by rebasing the remaining patches on the batadv/* branches on top of the base commits (think twice before rebasing).
@@ -136,7 +136,7 @@ This can all be cleaned up by using git-rebase and then marking the relevant com
 <pre>
 git rebase -i "${LM_MAIN}"
 
-# edit the commit message to point to the correct upstream commit -- just search in linux-merge for the commit name
+# edit the commit message to point to the correct upstream commit -- just search in batadv for the commit name
 git commit --amend
 
 # remove changes either reverting to previous versions (new files have to be deleted)
@@ -198,7 +198,7 @@ This can all be cleaned up by using git-rebase and then marking the relevant com
 <pre>
 git rebase -i "${LM_STABLE}"
 
-# edit the commit message to point to the correct upstream commit -- just search in linux-merge for the commit name
+# edit the commit message to point to the correct upstream commit -- just search in batadv for the commit name
 git commit --amend
 
 # remove changes either reverting to previous versions (new files have to be deleted)
@@ -228,14 +228,14 @@ git push origin "${LM_STABLE}"
 
 Save the generated patches to a save place. Lets call this place $EXPORTED_PATCHES_STABLE
 
-h2. Apply patches on linux-merge
+h2. Apply patches on batadv
 
 h3. from main
 
 The patches were already exported. So they only have to be applied in the correct branch
 
 <pre>
-cd linux-merge
+cd batadv
 git switch batadv/net-next
 git merge --ff-only origin/batadv/net-next
 ./scripts/checkpatch --strict "${EXPORTED_PATCHES_MAIN}"/*.patch
@@ -248,7 +248,7 @@ h3. from stable
 The patches were already exported. So they only have to be applied in the correct branch
 
 <pre>
-cd linux-merge
+cd batadv
 git switch batadv/net
 git merge --ff-only origin/batadv/net
 ./scripts/checkpatch --strict "${EXPORTED_PATCHES_STABLE}"/*.patch
@@ -264,7 +264,7 @@ make coccicheck KBUILD_EXTMOD=net/batman-adv/
 
 h2. check if all versions compile cleanly using sparse (cgcc)
 
-First the linux-merge build environment has to be prepared
+First the batadv build environment has to be prepared
 
 <pre>
 make allnoconfig
@@ -352,7 +352,7 @@ git switch batadv/net-next
 git rebase -i base/net-next -x 'make C=1'
 </pre>
 
-h2. check if all patches are in linux-merge
+h2. check if all patches are in batadv
 
 TODO
 
@@ -377,7 +377,7 @@ The patches then have to be prepared and the cover letter has to be created for 
 TAG=batadv-next-for-netdev-20160701
 git format-patch -s --cover-letter --subject-prefix='PATCH net-next' base/net-next..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
-git request-pull base/net-next https://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
+git request-pull base/net-next https://git.open-mesh.org/batadv.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
 git send-email --to=netdev@vger.kernel.org --cc='"David S. Miller" <davem@davemloft.net>' --cc='Eric Dumazet <edumazet@google.com>' --cc='Jakub Kicinski <kuba@kernel.org>' --cc='Paolo Abeni <pabeni@redhat.com>' --cc 'Simon Horman <horms@kernel.org>' --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
@@ -388,7 +388,7 @@ or for net:
 TAG=batadv-net-for-netdev-20160701
 git format-patch -s --cover-letter --subject-prefix='PATCH net' base/net..${TAG}
 sed -i '/\*\*\* BLURB HERE \*\*\*/q' 0000-cover-letter.patch
-git request-pull base/net https://git.open-mesh.org/linux-merge.git ${TAG} >> 0000-cover-letter.patch
+git request-pull base/net https://git.open-mesh.org/batadv.git ${TAG} >> 0000-cover-letter.patch
 # write cover letter
 git send-email --to=netdev@vger.kernel.org --cc='"David S. Miller" <davem@davemloft.net>' --cc='Eric Dumazet <edumazet@google.com>' --cc='Jakub Kicinski <kuba@kernel.org>' --cc='Paolo Abeni <pabeni@redhat.com>' --cc 'Simon Horman <horms@kernel.org>' --cc=b.a.t.m.a.n@lists.open-mesh.org 00*.patch
 </pre>
@@ -415,7 +415,7 @@ The following changes since commit 99860208bc62d8ebd5c57495b84856506fe075bc:
 
 are available in the git repository at:
 
-  https://git.open-mesh.org/linux-merge.git tags/batadv-next-for-netdev-20160701
+  https://git.open-mesh.org/batadv.git tags/batadv-next-for-netdev-20160701
 
 for you to fetch changes up to 4e3e823b5a503235630921287f130e1d8d22d200:
 
