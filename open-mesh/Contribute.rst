@@ -89,9 +89,14 @@ guidelines:
 * Prefer small & digestible over long "all in one" patches.
 * No MIME, no links, no compression, no attachments. Just plain text
   (patches are to be sent inline).
-* Patches sent to the mailing list should include "PATCH" in the
+* Patches sent to the mailing list should include ``[PATCH]`` in the
   subject to make it easier to distinguish between patches and
   discussions.
+
+  - batman-adv patches must also include the target (tree) information
+    as part of the prefix in such a way that netdev/LKML can understand
+    it (``[PATCH batadv]``).
+
 * The mail's subject will become the first line in the commit message.
   The body contains the longer patch description and the patch (unified
   format) itself. Please also specify the target branch (e.g. batctl,
@@ -109,17 +114,17 @@ guidelines:
 
   ::
 
-    git format-patch $BASECOMMIT
+    git format-patch --subject-prefix 'PATCH batadv' $BASECOMMIT
 
   or an equivalent tool (like ``b4``)
 
--  README, manpage and sysfs-class-net-\* must be updated together with
-   the related source change
--  Add or update kerneldoc to functions and structures you add or
+*  README and manpage must be updated together with the related source
+   change
+*  Add or update kerneldoc to functions and structures you add or
    modify.
--  batman-adv changes affecting batctl have to be send with the batctl
-   patches in the same patchset
--  it is recommended to use `b4 <https://b4.docs.kernel.org/>`__ to send the patch mails to the mailinglist - but plain ``git send-email`` is also fine.
--  An exemplary good submission you may want to look at can be found
+*  batman-adv changes affecting batctl have to be send with the batctl
+   patches at the same time
+*  it is recommended to use `b4 <https://b4.docs.kernel.org/>`__ to send the patch mails to the mailinglist - but plain ``git send-email`` is also fine.
+*  An exemplary good submission you may want to look at can be found
    here:
    https://patchwork.open-mesh.org/project/b.a.t.m.a.n./patch/1261051915-13960-1-git-send-email-sven.eckelmann@gmx.de/

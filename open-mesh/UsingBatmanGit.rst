@@ -21,7 +21,7 @@ download 2GB of sources - that may take a while!
 
 ::
 
-  git clone https://git.open-mesh.org/linux-merge.git -b batadv/net-next
+  git clone https://git.open-mesh.org/batadv.git -b batadv/net-next
 
 Branches
 --------
@@ -57,7 +57,7 @@ Cherry-picking a commit from main branch
 Linux integration
 ~~~~~~~~~~~~~~~~~
 
-The linux-merge repository is a clone of netdev's net-next tree.
+The batadv repository is a clone of netdev's net-next tree.
 With the help of some git voodoo the main branch is merged with this
 branch in the folder: net/batman-adv/. If you wish to merge the latest
 main branch changes into the linux branch you need to

@@ -55,6 +55,9 @@ SoCs:
 Enabling KGDB in kernel
 ~~~~~~~~~~~~~~~~~~~~~~~
 
+OpenWrt must be modified slightly (:download:`0003-openwrt-Add-support-for-easily-selectable-kernel-deb.patch`)
+to expose the kernel gdbstub (``CONFIG_KERNEL_KGDB``):
+
 OpenWrt must be modified slightly to expose the kernel gdbstub
 (``CONFIG_KERNEL_KGDB``):
 
@@ -63,130 +66,146 @@ OpenWrt must be modified slightly to expose the kernel gdbstub
   From: Sven Eckelmann <sven@narfation.org>
   Date: Thu, 13 Oct 2022 16:40:21 +0200
   Subject: openwrt: Add support for easily selectable kernel debugger support
-
+  
   When enabling this KERNEL_KGDB (after disabling KERNEL_DEBUG_INFO_REDUCED),
   make sure to clean some packages to make sure that they are compiled with
   the correct settings:
-
+  
       make toolchain/gdb/clean
       make toolchain/gdb/compile -j$(nproc || echo 1)
       make target/linux/clean
       make -j$(nproc || echo 1)
-
+  
   The serial console will be shared between normal serial output and (k)gdb,
   it is necessary to have an agent installed on your host system which
   extracts the part relevant for (k)gdb.
-
+  
       git clone https://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git/
       make -C agent-proxy
       ./agent-proxy/agent-proxy '127.0.0.1:5550^127.0.0.1:5551' 0 /dev/ttyUSB1,115200
-
+  
   It is then possible to see the full serial output in screen via:
-
+  
       screen //telnet localhost 5550
-
+  
   On the target system, it is necessary to prepare the debugging session:
-
+  
       echo ttyS0,115200 > /sys/module/kgdboc/parameters/kgdboc
       ubus call system watchdog '{"magicclose":true}'
       ubus call system watchdog '{"stop":true}'
-
+  
   Sometimes it might be necessary to force Linux to switch to kgdb:
-
+  
       echo g > /proc/sysrq-trigger
-
+  
   The host can then connect to the kgdb using:
-
+  
       cd "{LINUX_DIR}"
       cp ../vmlinux.debug vmlinux
       "${GDB}" -iex "set auto-load safe-path `pwd`/scripts/gdb/" -iex "target remote localhost:5551" vmlinux
       (gdb) lx-symbols ..
       (gdb) continue
-
+  
   Signed-off-by: Sven Eckelmann <sven@narfation.org>
-
+  
   diff --git a/config/Config-kernel.in b/config/Config-kernel.in
   --- a/config/Config-kernel.in
   +++ b/config/Config-kernel.in
   @@ -2,6 +2,50 @@
    #
    # Copyright (C) 2006-2014 OpenWrt.org
-
+   
   +config KERNEL_VT
-  +    bool
+  +	bool
   +
   +config KERNEL_GDB_SCRIPTS
-  +    select GDB_PYTHON
-  +    bool
+  +	select GDB_PYTHON
+  +	bool
   +
   +config KERNEL_HW_CONSOLE
-  +    bool
+  +	bool
   +
   +config KERNEL_CONSOLE_POLL
-  +    bool
+  +	bool
   +
   +config KERNEL_MAGIC_SYSRQ
-  +    bool
+  +	bool
   +
   +config KERNEL_MAGIC_SYSRQ_SERIAL
-  +    bool
+  +	bool
   +
   +config KERNEL_KGDB_SERIAL_CONSOLE
-  +    bool
+  +	bool
   +
   +config KERNEL_KGDB_HONOUR_BLOCKLIST
-  +    bool
+  +	bool
   +
   +config KERNEL_MIPS_FP_SUPPORT
-  +    depends on (mips || mipsel || mips64 || mips64el)
-  +    bool
+  +	depends on (mips || mipsel || mips64 || mips64el)
+  +	bool
   +
   +config KERNEL_KGDB
-  +    select KERNEL_VT
-  +    select KERNEL_GDB_SCRIPTS
-  +    select KERNEL_HW_CONSOLE
-  +    select KERNEL_CONSOLE_POLL
-  +    select KERNEL_MAGIC_SYSRQ
-  +    select KERNEL_MAGIC_SYSRQ_SERIAL
-  +    select KERNEL_KGDB_SERIAL_CONSOLE
-  +    select KERNEL_KGDB_HONOUR_BLOCKLIST
-  +    select KERNEL_MIPS_FP_SUPPORT if (mips || mipsel || mips64 || mips64el)
-  +    
-  +    depends on KERNEL_DEBUG_INFO && !KERNEL_DEBUG_INFO_REDUCED
-  +    bool "Enable kernel debugger over serial"
+  +	select KERNEL_VT
+  +	select KERNEL_GDB_SCRIPTS
+  +	select KERNEL_HW_CONSOLE
+  +	select KERNEL_CONSOLE_POLL
+  +	select KERNEL_MAGIC_SYSRQ
+  +	select KERNEL_MAGIC_SYSRQ_SERIAL
+  +	select KERNEL_KGDB_SERIAL_CONSOLE
+  +	select KERNEL_KGDB_HONOUR_BLOCKLIST
+  +	select KERNEL_MIPS_FP_SUPPORT if (mips || mipsel || mips64 || mips64el)
+  +
+  +	depends on KERNEL_DEBUG_INFO && !KERNEL_DEBUG_INFO_REDUCED
+  +	bool "Enable kernel debugger over serial"
   +
   +
    config KERNEL_BUILD_USER
-      string "Custom Kernel Build User Name"
-      default "builder" if BUILDBOT
-  @@ -471,7 +515,7 @@ config KERNEL_MODULE_ALLOW_BTF_MISMATCH
-
+   	string "Custom Kernel Build User Name"
+   	default "builder" if BUILDBOT
+  @@ -464,7 +508,7 @@ config KERNEL_MODULE_ALLOW_BTF_MISMATCH
+   
    config KERNEL_DEBUG_INFO_REDUCED
-      bool "Reduce debugging information"
-  -   default y
-  +   default n
-      depends on KERNEL_DEBUG_INFO
-      help
-        If you say Y here gcc is instructed to generate less debugging
+   	bool "Reduce debugging information"
+  -	default y
+  +	default n
+   	depends on KERNEL_DEBUG_INFO
+   	help
+   	  If you say Y here gcc is instructed to generate less debugging
   diff --git a/include/kernel-build.mk b/include/kernel-build.mk
   --- a/include/kernel-build.mk
   +++ b/include/kernel-build.mk
   @@ -143,6 +143,7 @@ define BuildKernel
      $(LINUX_DIR)/.image: $(STAMP_CONFIGURED) $(if $(CONFIG_STRIP_KERNEL_EXPORTS),$(KERNEL_BUILD_DIR)/symtab.h) FORCE
-      $(Kernel/CompileImage)
-      $(Kernel/CollectDebug)
-  +   +[ -z "$(CONFIG_KERNEL_GDB_SCRIPTS)" ] || $(KERNEL_MAKE) scripts_gdb
-      touch $$@
-
+   	$(Kernel/CompileImage)
+   	$(Kernel/CollectDebug)
+  +	+[ -z "$(CONFIG_KERNEL_GDB_SCRIPTS)" ] || $(KERNEL_MAKE) scripts_gdb
+   	touch $$@
+   	
      mostlyclean: FORCE
-  diff --git a/target/linux/generic/config-6.6 b/target/linux/generic/config-6.6
-  --- a/target/linux/generic/config-6.6
-  +++ b/target/linux/generic/config-6.6
-  @@ -7552,3 +7552,14 @@ CONFIG_ZONE_DMA=y
+  diff --git a/target/linux/generic/config-6.12 b/target/linux/generic/config-6.12
+  --- a/target/linux/generic/config-6.12
+  +++ b/target/linux/generic/config-6.12
+  @@ -2114,7 +2114,7 @@ CONFIG_FORTIFY_SOURCE=y
+   # CONFIG_FRAMEBUFFER_CONSOLE is not set
+   # CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER is not set
+   # CONFIG_FRAMEBUFFER_CONSOLE_LEGACY_ACCELERATION is not set
+  -# CONFIG_FRAME_POINTER is not set
+  +CONFIG_FRAME_POINTER=y
+   # CONFIG_FREEZER is not set
+   # CONFIG_FSCACHE is not set
+   # CONFIG_FSI is not set
+  @@ -3082,7 +3082,6 @@ CONFIG_KERNFS=y
+   # CONFIG_KEYS_REQUEST_CACHE is not set
+   # CONFIG_KEY_DH_OPERATIONS is not set
+   # CONFIG_KFENCE is not set
+  -# CONFIG_KGDB is not set
+   # CONFIG_KMX61 is not set
+   # CONFIG_KPROBES is not set
+   # CONFIG_KPROBES_SANITY_TEST is not set
+  @@ -7807,3 +7806,12 @@ CONFIG_ZRAM_DEF_COMP="unset-value"
    # CONFIG_ZSMALLOC is not set
    CONFIG_ZSMALLOC_CHAIN_SIZE=8
    # CONFIG_ZSWAP is not set
-  +
   +
   +# KGDB specific "disabled" options
   +# CONFIG_CONSOLE_TRANSLATIONS is not set
@@ -196,7 +215,6 @@ OpenWrt must be modified slightly to expose the kernel gdbstub
   +# CONFIG_KGDB_TESTS is not set
   +# CONFIG_KGDB_KDB is not set
   +# CONFIG_KGDB_LOW_LEVEL_TRAP is not set
-  +CONFIG_MAGIC_SYSRQ_SERIAL_SEQUENCE="g"
 
 Agent-Proxy
 -----------
@@ -231,6 +249,11 @@ enough:
   $ screen //telnet localhost 5550
 
 The gdb session will then later be started against the second port (5551)
+
+Also alternative TTY multiplexers like
+`tty2pty-mux <https://github.com/ecsv/tty2pty-mux>`__ can be used to achieve
+the same.
+
 
 Start debugging session
 -----------------------
@@ -329,28 +352,27 @@ the routing feed like this:
 
 .. code-block:: diff
 
-  diff --git a/batman-adv/Makefile b/batman-adv/Makefile
-  --- a/batman-adv/Makefile
-  +++ b/batman-adv/Makefile
-  @@ -28,6 +28,9 @@ PKG_CONFIG_DEPENDS += \
-      CONFIG_BATMAN_ADV_DEBUG \
-      CONFIG_BATMAN_ADV_TRACING
-
+  diff --git i/batman-adv/Makefile w/batman-adv/Makefile
+  --- i/batman-adv/Makefile
+  +++ w/batman-adv/Makefile
+  @@ -27,6 +27,9 @@ PKG_CONFIG_DEPENDS += \
+   	CONFIG_BATMAN_ADV_DEBUG \
+   	CONFIG_BATMAN_ADV_TRACING
+   
   +RSTRIP:=:
   +STRIP:=:
   +
    include $(INCLUDE_DIR)/kernel.mk
    include $(INCLUDE_DIR)/package.mk
-
-  @@ -89,7 +92,7 @@ define Build/Compile
-          $(KERNEL_MAKE_FLAGS) \
-          M="$(PKG_BUILD_DIR)/net/batman-adv" \
-          $(PKG_EXTRA_KCONFIG) \
-  -       EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS)" \
-  +       EXTRA_CFLAGS="$(PKG_EXTRA_CFLAGS) -fno-inline -Og -fno-optimize-sibling-calls -fno-reorder-blocks -fno-ipa-cp-clone -fno-partial-inlining" \
-          NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
-          modules
-   endef
+   
+  @@ -80,6 +83,7 @@ NOSTDINC_FLAGS = \
+   	-include backport/autoconf.h \
+   	-include backport/backport.h \
+   	-include $(PKG_BUILD_DIR)/compat-hacks.h \
+  +	-fno-inline -Og -fno-optimize-sibling-calls -fno-reorder-blocks -fno-ipa-cp-clone -fno-partial-inlining \
+   	-DBATADV_SOURCE_VERSION=\\\"$(PKG_VERSION)-openwrt-$(PKG_RELEASE)\\\"
+ 
+ define Build/Compile
 
 Enable KGDB on panic
 --------------------

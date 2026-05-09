@@ -15,7 +15,7 @@ the necessary helpers for in-kernel development.
 
 An interested reader might even extend this further to only provide a
 modified kernel and use the currently running rootfs also in the virtual
-environment. Such an approach is used in `hostap’s test
+environment. Such an approach is used in `hostap's test
 vm <https://w1.fi/cgit/hostap/tree/tests/hwsim/vm>`__ but it is out of
 scope for this document.
 
@@ -149,12 +149,12 @@ experience. It is configured with:
 .. code-block:: sh
 
   # make sure that libelf-dev is installed or module build will fail with something like "No rule to make target 'net/batman-adv/bat_algo.o'"
-
+  
   git clone https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
   cd linux-next
-
+  
   cat > ./kernel/configs/debug_kernel.config << EOF
-
+  
   # small configuration
   CONFIG_SMP=y
   CONFIG_MODULES=y
@@ -213,11 +213,17 @@ experience. It is configured with:
   CONFIG_NO_HZ_IDLE=y
   CONFIG_CPU_IDLE_GOV_HALTPOLL=y
   CONFIG_PVPANIC=y
-
+  
+  # to select CONFIG_NET_CRC32C for skb_crc32c
+  CONFIG_NVME_TCP=y
+  
   # makes boot a lot slower but required for shutdown
   CONFIG_ACPI=y
-
-
+  
+  # avoid that boot is delayed much by the delayed kobject release code
+  CONFIG_DEBUG_KOBJECT_RELEASE=n
+  
+  
   #debug stuff
   CONFIG_STACKPROTECTOR=y
   CONFIG_STACKPROTECTOR_STRONG=y
@@ -278,23 +284,34 @@ experience. It is configured with:
   CONFIG_PRINTK_CALLER=y
   CONFIG_DEBUG_MISC=y
   CONFIG_SLUB_DEBUG=y
-
+  CONFIG_NET_DEV_REFCNT_TRACKER=y
+  CONFIG_NET_NS_REFCNT_TRACKER=y
+  CONFIG_DEBUG_NET=y
+  CONFIG_WQ_CPU_INTENSIVE_REPORT=y
+  CONFIG_RCU_CPU_STALL_CPUTIME=y
+  CONFIG_DEBUG_BUGVERBOSE_DETAILED=y
+  
+  # security hardening
+  CONFIG_FORTIFY_SOURCE=y
+  CONFIG_HARDENED_USERCOPY=y
+  CONFIG_HARDENED_USERCOPY_DEFAULT_ON=y
+  
   # for GCC 5+
   CONFIG_KASAN=y
   CONFIG_KASAN_INLINE=y
+  CONFIG_KASAN_EXTRA_INFO=y
   CONFIG_UBSAN_SANITIZE_ALL=y
+  CONFIG_UBSAN_SHIFT=y
+  CONFIG_UBSAN_DIV_ZERO=y
   CONFIG_UBSAN=y
   CONFIG_KCSAN=y
   CONFIG_KFENCE=y
-
-  # avoid that boot is delayed much by the delayed kobject release code
-  CONFIG_DEBUG_KOBJECT_RELEASE=n
   EOF
-
+  
   make allnoconfig
   make kvm_guest.config
   make debug_kernel.config
-
+  
   make all -j$(nproc || echo 1)
 
 Build the BIOS
