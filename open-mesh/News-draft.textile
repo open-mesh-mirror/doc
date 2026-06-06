@@ -1,38 +1,145 @@
-h1. DRAFT: Batman-adv 2026.1 released
+h1. DRAFT: Batman-adv 2026.2 released
 
-*April 7th, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the April 2026 update for batman-adv! Several bug fixes and code cleanups are included in this version.
+*July 1st, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the July 2026 update for batman-adv! Several bug fixes and code cleanups are included in this version.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2026.1/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2026.2/
 
 h2. Thanks
 
 Many thanks to everyone who contributed patches:
 
-* Haoze Xie <royenheart@gmail.com>
+* Jiexun Wang <wangjiexun2025@gmail.com>
+* Luxiao Xu <rakukuip@gmail.com>
+* Lyes Bourennani <lbourennani@fuzzinglabs.com>
 * Ruide Cao <caoruide123@gmail.com>
+* Ruijie Li <ruijieli51@gmail.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
-* Thomas Huth <thuth@redhat.com>
-* Yuan Tan <yuantan098@gmail.com>
-* Yang Yang <n05ec@lzu.edu.cn>
 
 And a special thanks to those who supported us with valuable advice and thorough testing:
 
+* Antonio Quartulli <antonio@mandelbit.com>
+* Ido Schimmel <idosch@nvidia.com>
 * Juefei Pu <tomapufckgml@gmail.com>
+* Linus Lüssing <linus.luessing@c0d3.blue>
 * Ren Wei <enjou1224z@gmail.com>
 * Xin Liu <bird@lzu.edu.cn>
 * Yifan Wu <yifanwucs@gmail.com>
+* Yuan Tan <yuantan098@gmail.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2026.0-10-g5004d2bc
-$ range=v2026.0..v2026.0-10-g5004d2bc
+v2026.1-102-g385b248d
+$ range=v2026.1..v2026.1-102-g385b248d
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+
+
+Jiexun Wang <wangjiexun2025@gmail.com> (3):
+      batman-adv: reject new tp_meter sessions during teardown
+      batman-adv: stop tp_meter sessions during mesh teardown
+      batman-adv: stop caching unowned originator pointers in BAT IV
+
+Luxiao Xu <rakukuip@gmail.com> (1):
+      batman-adv: fix tp_meter counter underflow during shutdown
+
+Lyes Bourennani <lbourennani@fuzzinglabs.com> (1):
+      batman-adv: fix integer overflow on buff_pos
+
+Ruide Cao <caoruide123@gmail.com> (1):
+      batman-adv: fix fragment reassembly length accounting
+
+Ruijie Li <ruijieli51@gmail.com> (1):
+      batman-adv: clear current gateway during teardown
+
+Simon Wunderlich <sw@simonwunderlich.de> (1):
+      batman-adv: Start new development cycle
+
+Sven Eckelmann <sven@narfation.org> (79):
+      batman-adv: Disable time compat for kernels with native support
+      batman-adv: tp_meter: add missing completion header
+      batman-adv: compat: use more flexible check_sub_overflow
+      batman-adv: compat: drop misleading copyright holder info
+      batman-adv: add missing includes
+      batman-adv: tt: replace open-coded overflow check with helper
+      batman-adv: Add b4 configuration with recommended settings
+      MAINTAINERS: Rename batman-adv T(ree)
+      batman-adv: b4: Define commit URL
+      batman-adv: iv: avoid bonding logic for outgoing OGM
+      batman-adv: tp_meter: fix tp_num leak on kmalloc failure
+      batman-adv: bla: prevent use-after-free when deleting claims
+      batman-adv: bla: only purge non-released claims
+      batman-adv: bla: put backbone reference on failed claim hash insert
+      batman-adv: tt: reject oversized local TVLV buffers
+      batman-adv: tt: fix negative tt_buff_len
+      batman-adv: tt: fix negative last_changeset_len
+      batman-adv: tt: fix TOCTOU race for reported vlans
+      batman-adv: tt: avoid empty VLAN responses
+      batman-adv: tt: prevent TVLV entry number overflow
+      batman-adv: tp_meter: fix tp_vars reference leak in receiver shutdown
+      batman-adv: dat: handle forward allocation error
+      batman-adv: tp_meter: avoid use of uninit sender vars
+      batman-adv: frag: disallow unicast fragment in fragment
+      batman-adv: tp_meter: directly shut down timer on cleanup
+      batman-adv: use atomic_xchg() for gw.reselect check
+      batman-adv: extract netdev wifi detection information object
+      batman-adv: fix batadv_skb_is_frag() kernel-doc
+      batman-adv: v: stop OGMv2 on disabled interface
+      batman-adv: tvlv: abort OGM send on tvlv append failure
+      batman-adv: tvlv: reject oversized TVLV packets
+      batman-adv: tp_meter: fix race condition in send error reporting
+      batman-adv: tp_meter: avoid role confusion in tp_list
+      batman-adv: mcast: fix use-after-free in orig_node RCU release
+      batman-adv: iv: recover OGM scheduling after forward packet error
+      batman-adv: bla: fix report_work leak on backbone_gw purge
+      batman-adv: bla: avoid double decrement of bla.num_requests
+      batman-adv: bla: avoid NULL-ptr deref for claim via dropped interface
+      batman-adv: drop batman-adv specific version for in-tree module
+      batman-adv: add missing includes
+      batman-adv: replace non-atomic meshif config fields with (READ|WRITE)_ONCE
+      batman-adv: replace non-atomic hardif config fields with (READ|WRITE)_ONCE
+      batman-adv: replace non-atomic vlan config fields with (READ|WRITE)_ONCE
+      batman-adv: replace non-atomic mesh state with (READ|WRITE)_ONCE
+      batman-adv: replace non-atomic packet_size_max with (READ|WRITE)_ONCE
+      batman-adv: replace non-atomic last_ttvn with (READ|WRITE)_ONCE
+      batman-adv: tvlv: avoid unnecessary OGM buffer reallocations
+      batman-adv: use neigh_node's orig_node only as id
+      batman-adv: compat: disable k*alloc_obj for 6.18.33-6.19
+      batman-adv: switch to upstream compatible version retrieval
+      batman-adv: Keep packet_size_max as signed integer
+      batman-adv: document batadv_wifi_net_devices_init return values
+      batman-adv: tp_meter: keep unacked list in ascending ordered
+      batman-adv: tp_meter: initialize dup_acks explicitly
+      batman-adv: tp_meter: initialize dec_cwnd explicitly
+      batman-adv: tp_meter: avoid window underflow
+      batman-adv: tp_meter: avoid divide-by-zero for dec_cwnd
+      batman-adv: tp_meter: fix fast recovery precondition
+      batman-adv: tp_meter: handle seqno wrap-around for fast recovery detection
+      batman-adv: tp_meter: add only finished tp_vars to lists
+      batman-adv: tp_meter: split vars into sender and receiver types
+      batman-adv: tp_meter: use locking for all congestion control variables
+      batman-adv: tp_meter: consolidate congestion control variables
+      batman-adv: bla: annotate lasttime access with READ/WRITE_ONCE
+      batman-adv: prevent ELP transmission interval underflow
+      batman-adv: tt: sync local and global tvlv preparation return values
+      batman-adv: tt: directly retrieve wifi flags of net_device
+      batman-adv: correct batadv_wifi_* kernel-doc
+      batman-adv: document cleanup of batadv_wifi_net_devices entries
+      batman-adv: drop duplicated wifi_flags assignments
+      batman-adv: use GFP_KERNEL allocations for the wifi detection cache
+      batman-adv: tp_meter: update stale kernel-doc after refactoring
+      batman-adv: bla: update stale kernel-doc
+      batman-adv: uapi: keep kernel-doc in struct member order
+      batman-adv: fix batadv_v_ogm_packet_recv error handling kernel-doc
+      batman-adv: fix kernel-doc typos and grammar errors
+      batman-adv: convert cancellation of work items to disable helper
+      batman-adv: tp_meter: initialize last_recv_time during init
+      batman-adv: compat: provide placeholder for disable_.*work function
+
 
 
 features
@@ -48,9 +155,6 @@ new kernel version
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: Replace the obsolete address of the FSF in the GPL-2.0
-      batman-adv: Activate type-aware kmalloc for 7.0
-      batman-adv: Switch to type-aware kmalloc-family helpers
 
 various
 =======
@@ -59,21 +163,16 @@ various
 bugfixes
 ========
 
-      batman-adv: reject oversized global TT response buffers
-      batman-adv: avoid OGM aggregation when skb tailroom is insufficient
 
 
-
-2026.1 (2026-04-07)
+2026.2 (2026-07-01)
 ===================
 
-* support latest kernels (5.10 - 7.1)
+* support latest kernels (5.10 - 7.2)
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - reject oversized global TT response buffers
-  - avoid OGM aggregation when skb tailroom is insufficient
-  - prevent freed backbones when dumping BLA claims
+  - 
 
 </pre>
 
@@ -81,22 +180,21 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2026.0-5-g419031f
-$ range=v2026.0..v2026.0-5-g419031f
+v2026.1-6-g8e67af3
+$ range=v2026.1..v2026.1-6-g8e67af3
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
-
 
 
 Simon Wunderlich <sw@simonwunderlich.de> (1):
       batctl: Start new development cycle
 
-Sven Eckelmann <sven@narfation.org> (2):
-      batctl: tcpdump: Fix printing of usecs
-      batctl: Run manpage through tbl preprocessor
+Sven Eckelmann <sven@narfation.org> (4):
+      batctl: Add b4 configuration with recommended settings
+      batctl: b4: Define commit URL
+      batctl: don't stop on missing batman-adv version file
+      batctl: keep kernel-doc in packet struct member order
 
-Thomas Huth <thuth@redhat.com> (1):
-      batctl: Replace the obsolete address of the FSF in the GPL-2.0
 
 features
 ========
@@ -113,7 +211,7 @@ bugfixes
 
 
 
-2026.1 (2026-04-07)
+2026.2 (2026-07-01)
 ===================
 
 * coding style cleanups and refactoring
@@ -128,8 +226,8 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2026.0-3-gb35a330
-$ range=v2026.0..v2026.0-3-gb35a330
+v2026.1-3-g88db36d
+$ range=v2026.1..v2026.1-3-g88db36d
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -137,12 +235,9 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by
 Simon Wunderlich <sw@simonwunderlich.de> (1):
       alfred: Start new development cycle
 
-Sven Eckelmann <sven@narfation.org> (1):
-      alfred: Fix printing of timespec
-
-Thomas Huth <thuth@redhat.com> (1):
-      alfred: Replace the obsolete address of the FSF in the GPL-2.0
-
+Sven Eckelmann <sven@narfation.org> (2):
+      alfred: Add b4 configuration with recommended settings
+      alfred: b4: Define commit URL
 
 features
 ========
@@ -159,13 +254,13 @@ bugfixes
 
 
 
-2026.1 (2026-04-07)
+2026.2 (2026-07-01)
 ===================
 
 * coding style cleanups and refactoring
 * bugs squashed:
 
-  - fix printing of timespec
+  - 
 </pre>
 
 
