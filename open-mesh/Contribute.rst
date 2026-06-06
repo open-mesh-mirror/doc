@@ -87,6 +87,7 @@ If you intend to send us patches, please consider the following
 guidelines:
 
 * Prefer small & digestible over long "all in one" patches.
+* Keep your patchset in a `sensible size (<= 15 patches) <https://www.kernel.org/doc/html/latest/process/submitting-patches.html#separate-your-changes>`__
 * No MIME, no links, no compression, no attachments. Just plain text
   (patches are to be sent inline).
 * Patches sent to the mailing list should include ``[PATCH]`` in the
