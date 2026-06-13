@@ -24,6 +24,7 @@ And a special thanks to those who supported us with valuable advice and thorough
 * Ido Schimmel <idosch@nvidia.com>
 * Juefei Pu <tomapufckgml@gmail.com>
 * Linus Lüssing <linus.luessing@c0d3.blue>
+* Nora Schiffer <neocturne@universe-factory.net>
 * Ren Wei <enjou1224z@gmail.com>
 * Xin Liu <bird@lzu.edu.cn>
 * Yifan Wu <yifanwucs@gmail.com>
@@ -33,10 +34,10 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2026.1-102-g385b248d
+v2026.1-113-gc7518adb
 $ range=v2026.1..v2026.1-102-g385b248d
 $ git shortlog --email --no-merges "${range}"
-$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
@@ -149,6 +150,16 @@ bugfixes
       batman-adv: bla: annotate lasttime access with READ/WRITE_ONCE
       batman-adv: prevent ELP transmission interval underflow
       batman-adv: tp_meter: initialize last_recv_time during init
+      batman-adv: gw: don't deselect gateway with active hardif
+      batman-adv: ensure bcast is writable before modifying TTL
+      batman-adv: fix (m|b)cast csum after decrementing TTL
+      batman-adv: tp_meter: restrict number of unacked list entries
+      batman-adv: tp_meter: annotate last_recv_time access with READ/WRITE_ONCE
+      batman-adv: tp_meter: prevent parallel modifications of last_recv
+      batman-adv: tp_meter: handle overlapping packets
+      batman-adv: v: prevent OGM aggregation on disabled hardif
+      batman-adv: frag: ensure fragment is writable before modifying TTL
+      batman-adv: frag: avoid underflow of TTL
 
 
 2026.2 (2026-07-01)
@@ -166,6 +177,7 @@ bugfixes
   - batman_iv: recover OGM scheduling after forward packet error
   - batman_v: stop OGMv2 on disabled interface
   - batman_v: prevent ELP transmission interval underflow
+  - batman_v: prevent OGM aggregation on disabled hardif
   - bla: prevent use-after-free when deleting claims
   - bla: only purge non-released claims
   - bla: put backbone reference on failed claim hash insert
@@ -176,8 +188,13 @@ bugfixes
   - dat: handle forward allocation error
   - frag: fix reassembly length accounting
   - frag: disallow unicast fragment in fragment
+  - frag: ensure fragment is writable before modifying TTL
+  - frag: avoid underflow of TTL
   - gw: clear current gateway during teardown
+  - gw: don't deselect gateway with active hardif
   - mcast: fix use-after-free in orig_node RCU release
+  - ensure bcast is writable before modifying TTL
+  - fix (m|b)cast csum after decrementing TTL
   - tp_meter: reject new sessions during teardown
   - tp_meter: stop sessions during mesh teardown
   - tp_meter: fix counter underflow during shutdown
@@ -197,6 +214,10 @@ bugfixes
   - tp_meter: add only finished tp_vars to lists
   - tp_meter: use locking for all congestion control variables
   - tp_meter: initialize last_recv_time during init
+  - tp_meter: restrict number of unacked list entries
+  - tp_meter: annotate last_recv_time access with READ/WRITE_ONCE
+  - tp_meter: prevent parallel modifications of last_recv
+  - tp_meter: handle overlapping packets
   - tt: reject oversized local TVLV buffers
   - tt: fix negative tt_buff_len
   - tt: fix negative last_changeset_len
@@ -212,10 +233,10 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2026.1-6-g8e67af3
-$ range=v2026.1..v2026.1-6-g8e67af3
+v2026.1-7-gea57436
+$ range=v2026.1..v2026.1-7-gea57436
 $ git shortlog --email --no-merges "${range}"
-$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 
@@ -230,6 +251,7 @@ coding style cleanup/refactoring
       batctl: b4: Define commit URL
       batctl: don't stop on missing batman-adv version file
       batctl: keep kernel-doc in packet struct member order
+      batctl: use reverse xmas tree declaration order
 
 
 bugfixes
@@ -252,10 +274,10 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2026.1-3-g88db36d
-$ range=v2026.1..v2026.1-3-g88db36d
+v2026.1-4-g79c9a7e
+$ range=v2026.1..v2026.1-4-g79c9a7e
 $ git shortlog --email --no-merges "${range}"
-$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed-by\|Co-authored-by\)-by'|sed 's/.*:/*/'|sort|uniq
+$ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
 features
@@ -267,6 +289,7 @@ coding style cleanup/refactoring
 
       alfred: Add b4 configuration with recommended settings
       alfred: b4: Define commit URL
+      alfred: use reverse xmas tree declaration order
 
 bugfixes
 ========
