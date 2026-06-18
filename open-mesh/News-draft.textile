@@ -34,8 +34,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2026.1-113-gc7518adb
-$ range=v2026.1..v2026.1-102-g385b248d
+v2026.1-119-gd6d0d4b6
+$ range=v2026.1..v2026.1-119-gd6d0d4b6
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -160,7 +160,11 @@ bugfixes
       batman-adv: v: prevent OGM aggregation on disabled hardif
       batman-adv: frag: ensure fragment is writable before modifying TTL
       batman-adv: frag: avoid underflow of TTL
-
+      batman-adv: tt: don't merge change entries with different VIDs
+      batman-adv: tt: track roam count per VID
+      batman-adv: dat: prevent false sharing between VLANs
+      batman-adv: tvlv: avoid race of cifsnotfound handler state
+      batman-adv: tvlv: enforce 2-byte alignment
 
 2026.2 (2026-07-01)
 ===================
@@ -186,6 +190,7 @@ bugfixes
   - bla: avoid NULL-ptr deref for claim via dropped interface
   - bla: annotate lasttime access with READ/WRITE_ONCE
   - dat: handle forward allocation error
+  - dat: prevent false sharing between VLANs
   - frag: fix reassembly length accounting
   - frag: disallow unicast fragment in fragment
   - frag: ensure fragment is writable before modifying TTL
@@ -224,8 +229,12 @@ bugfixes
   - tt: fix TOCTOU race for reported vlans
   - tt: avoid empty VLAN responses
   - tt: prevent TVLV entry number overflow
+  - tt: don't merge change entries with different VIDs
+  - tt: track roam count per VID
   - tvlv: abort OGM send on tvlv append failure
   - tvlv: reject oversized TVLV packets
+  - tvlv: avoid race of cifsnotfound handler state
+  - tvlv: enforce 2-byte alignment
 
 </pre>
 
