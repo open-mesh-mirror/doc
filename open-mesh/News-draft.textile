@@ -34,8 +34,8 @@ h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2026.1-119-gd6d0d4b6
-$ range=v2026.1..v2026.1-119-gd6d0d4b6
+v2026.1-128-gafa2ad61
+$ range=v2026.1..v2026.1-128-gafa2ad61
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -94,7 +94,7 @@ coding style cleanup/refactoring
       batman-adv: uapi: keep kernel-doc in struct member order
       batman-adv: fix batadv_v_ogm_packet_recv error handling kernel-doc
       batman-adv: fix kernel-doc typos and grammar errors
-
+      batman-adv: document out-of-tree compat functions
 various
 =======
 
@@ -165,6 +165,12 @@ bugfixes
       batman-adv: dat: prevent false sharing between VLANs
       batman-adv: tvlv: avoid race of cifsnotfound handler state
       batman-adv: tvlv: enforce 2-byte alignment
+      batman-adv: retrieve ethhdr after potential skb realloc on RX
+      batman-adv: access unicast_ttvn skb->data only after skb realloc
+      batman-adv: gw: acquire ethernet header only after skb realloc
+      batman-adv: dat: acquire ARP hw source only after skb realloc
+      batman-adv: bla: reacquire gw address after skb realloc
+      batman-adv: dat: ensure accessible eth_hdr proto field
 
 2026.2 (2026-07-01)
 ===================
@@ -189,17 +195,23 @@ bugfixes
   - bla: avoid double decrement of bla.num_requests
   - bla: avoid NULL-ptr deref for claim via dropped interface
   - bla: annotate lasttime access with READ/WRITE_ONCE
+  - bla: reacquire gw address after skb realloc
+  - dat: acquire ARP hw source only after skb realloc
+  - dat: ensure accessible eth_hdr proto field
   - dat: handle forward allocation error
   - dat: prevent false sharing between VLANs
   - frag: fix reassembly length accounting
   - frag: disallow unicast fragment in fragment
   - frag: ensure fragment is writable before modifying TTL
   - frag: avoid underflow of TTL
+  - gw: acquire ethernet header only after skb realloc
   - gw: clear current gateway during teardown
   - gw: don't deselect gateway with active hardif
   - mcast: fix use-after-free in orig_node RCU release
   - ensure bcast is writable before modifying TTL
   - fix (m|b)cast csum after decrementing TTL
+  - routing: access unicast_ttvn skb->data only after skb realloc
+  - routing: retrieve ethhdr after potential skb realloc on RX
   - tp_meter: reject new sessions during teardown
   - tp_meter: stop sessions during mesh teardown
   - tp_meter: fix counter underflow during shutdown
