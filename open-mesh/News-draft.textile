@@ -208,9 +208,9 @@ bugfixes
   - gw: clear current gateway during teardown
   - gw: don't deselect gateway with active hardif
   - mcast: fix use-after-free in orig_node RCU release
-  - ensure bcast is writable before modifying TTL
-  - fix (m|b)cast csum after decrementing TTL
   - routing: access unicast_ttvn skb->data only after skb realloc
+  - routing: ensure bcast is writable before modifying TTL
+  - routing: fix (m|b)cast csum after decrementing TTL
   - routing: retrieve ethhdr after potential skb realloc on RX
   - tp_meter: reject new sessions during teardown
   - tp_meter: stop sessions during mesh teardown
