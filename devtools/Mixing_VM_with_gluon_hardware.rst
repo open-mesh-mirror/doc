@@ -63,7 +63,9 @@ IPv6 link local address and insert the new interface in our bridge
           echo "fe80::$(xor2 "$1")$2:$3ff:fe$4:$5$6"
   }
 
+  sysctl -w net.ipv6.conf."$ETH".addr_gen_mode=0
   ip addr add "$(interface_linklocal)"/64 dev "$ETH"
+  
   ip link del "${VXLAN}"
   ip -6 link add "${VXLAN}" type vxlan \
      id "${VXLAN_ID}" \
