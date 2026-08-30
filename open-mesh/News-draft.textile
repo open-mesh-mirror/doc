@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2026.3 released
 
-*September 1st, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the September 2026 update for batman-adv! A new wifi flags hashtables was introduced to reduce the per-packet overhead in the translation table wifi flags handling. It will also be used in a future release to get rid of the batman-adv induced overhead of each Ethernet-like interface on the system. The TVLV serialization code was optimized to avoid unnecessary allocations for the output buffer. Several bug fixes and code cleanups are included in this version.
+*September 1st, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the September 2026 update for batman-adv! batman-adv got rid of the induced overhead of each Ethernet-like interface on the system by only handling interfaces which are attached to a mesh interfaces. The unacked packet queue of throughput meter receivers will now be defragmented to keep it much shorter in many scenarios with packet loss or packet reordering. Several bug fixes and code cleanups are included in this version.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
