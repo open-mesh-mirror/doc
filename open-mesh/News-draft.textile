@@ -1,44 +1,38 @@
-h1. DRAFT: Batman-adv 2026.2 released
+h1. DRAFT: Batman-adv 2026.3 released
 
-*July 1st, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the July 2026 update for batman-adv! A new wifi flags hashtables was introduced to reduce the per-packet overhead in the translation table wifi flags handling. It will also be used in a future release to get rid of the batman-adv induced overhead of each Ethernet-like interface on the system. The TVLV serialization code was optimized to avoid unnecessary allocations for the output buffer. Several bug fixes and code cleanups are included in this version.
+*September 1st, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the September 2026 update for batman-adv! A new wifi flags hashtables was introduced to reduce the per-packet overhead in the translation table wifi flags handling. It will also be used in a future release to get rid of the batman-adv induced overhead of each Ethernet-like interface on the system. The TVLV serialization code was optimized to avoid unnecessary allocations for the output buffer. Several bug fixes and code cleanups are included in this version.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2026.2/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2026.3/
 
 h2. Thanks
 
 Many thanks to everyone who contributed patches:
 
-* Jiexun Wang <wangjiexun2025@gmail.com>
-* Luxiao Xu <rakukuip@gmail.com>
-* Lyes Bourennani <lbourennani@fuzzinglabs.com>
-* Ruide Cao <caoruide123@gmail.com>
-* Ruijie Li <ruijieli51@gmail.com>
+* Josef Schlehofer <pepe.schlehofer@gmail.com>
+* Kyle Zeng <kylebot@openai.com>
+* Minhong He <heminhong@kylinos.cn>
+* Nora Schiffer <neocturne@universe-factory.net>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
+* Zhiling Zou <zhilinz@nebusec.ai>
 
 And a special thanks to those who supported us with valuable advice and thorough testing:
 
 * Antonio Quartulli <antonio@mandelbit.com>
-* Ido Schimmel <idosch@nvidia.com>
-* Juefei Pu <tomapufckgml@gmail.com>
-* Linus Lüssing <linus.luessing@c0d3.blue>
-* Nora Schiffer <neocturne@universe-factory.net>
-* Ren Wei <enjou1224z@gmail.com>
-* Xin Liu <bird@lzu.edu.cn>
-* Yifan Wu <yifanwucs@gmail.com>
-* Yuan Tan <yuantan098@gmail.com>
 
 h2. batman-adv
 
 <pre>
 $ git describe origin/main
-v2026.1-128-gafa2ad61
-$ range=v2026.1..v2026.1-128-gafa2ad61
+v2026.2-69-gf3c33e7f
+$ range=v2026.2..v2026.2-69-gf3c33e7f
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
+
+Sven Eckelmann <sven@narfation.org> (49):
 
 
 
@@ -46,133 +40,80 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|C
 features
 ========
 
-      batman-adv: extract netdev wifi detection information object
-      batman-adv: tt: directly retrieve wifi flags of net_device
-      batman-adv: tvlv: avoid unnecessary OGM buffer reallocations
+      batman-adv: create hardif only for netdevs that are part of a mesh
+      batman-adv: remove global hardif list
+      batman-adv: tp_meter: combine adjacent/overlapping unacked entries
+      batman-adv: tp_meter: delay allocation of unacked entry
 
 
 new kernel version
 ==================
 
-      batman-adv: compat: provide placeholder for disable_.*work function
-      batman-adv: compat: disable k*alloc_obj for 6.18.33-6.19
-      batman-adv: Disable time compat for kernels with native support
-      batman-adv: compat: use more flexible check_sub_overflow
-      batman-adv: compat: drop misleading copyright holder info
-      batman-adv: convert cancellation of work items to disable helper
+      batman-adv: compat: disable k*alloc_obj for 6.12.37-6.13
+      batman-adv: compat: disable k*alloc_obj only after 6.12.97
+      batman-adv: compat: drop support for Linux < 5.15
 
 
 coding style cleanup/refactoring
 ================================
 
-      batman-adv: add missing includes
-      batman-adv: use atomic_xchg() for gw.reselect check
-      batman-adv: tp_meter: add missing completion header
-      batman-adv: tt: replace open-coded overflow check with helper
-      batman-adv: fix batadv_skb_is_frag() kernel-doc
-      batman-adv: drop batman-adv specific version for in-tree module
-      batman-adv: switch to upstream compatible version retrieval
-      batman-adv: add missing includes
-      batman-adv: replace non-atomic meshif config fields with (READ|WRITE)_ONCE
-      batman-adv: replace non-atomic hardif config fields with (READ|WRITE)_ONCE
-      batman-adv: replace non-atomic vlan config fields with (READ|WRITE)_ONCE
-      batman-adv: replace non-atomic mesh state with (READ|WRITE)_ONCE
-      batman-adv: replace non-atomic packet_size_max with (READ|WRITE)_ONCE
-      batman-adv: Keep packet_size_max as signed integer
-      batman-adv: replace non-atomic last_ttvn with (READ|WRITE)_ONCE
-      batman-adv: use neigh_node's orig_node only as id
-      batman-adv: document batadv_wifi_net_devices_init return values
-      batman-adv: tp_meter: split vars into sender and receiver types
-      batman-adv: tp_meter: consolidate congestion control variables
-      batman-adv: tt: sync local and global tvlv preparation return values
-      batman-adv: correct batadv_wifi_* kernel-doc
-      batman-adv: document cleanup of batadv_wifi_net_devices entries
-      batman-adv: drop duplicated wifi_flags assignments
-      batman-adv: use GFP_KERNEL allocations for the wifi detection cache
-      batman-adv: tp_meter: update stale kernel-doc after refactoring
-      batman-adv: bla: update stale kernel-doc
-      batman-adv: uapi: keep kernel-doc in struct member order
-      batman-adv: fix batadv_v_ogm_packet_recv error handling kernel-doc
-      batman-adv: fix kernel-doc typos and grammar errors
-      batman-adv: document out-of-tree compat functions
+      batman-adv: remove BATADV_IF_NOT_IN_USE hardif state
+      batman-adv: move hardif generation counter into batadv_priv
+      batman-adv: drop unneeded goto and initialization from batadv_hardif_disable_interface()
+      batman-adv: handle errors in batadv_init()
+      batman-adv: make hard_iface->mesh_iface immutable
+      batman-adv: drop NULL check for immutable hardif->mesh_iface
+      Revert "batman-adv: v: stop OGMv2 on disabled interface"
+      batman-adv: iv: drop migration check for batadv_hard_iface
+      batman-adv: tvlv: extract tvlv header iterator
+      batman-adv: tp_meter: keep unacked list for receivers
+      batman-adv: tp_meter: adjust name of receiver lock
+      batman-adv: tp_meter: simplify unordered ack calculation
+      batman-adv: add missing kernel-doc comments
+      batman-adv: correct batadv_recv_frag_packet() return kernel-doc
+      batman-adv: annotate functions which may reallocate the skbuff
+      batman-adv: split multiple declarations per line
+      batman-adv: switch var declarations to reverse x-mas tree order
+      batman-adv: tt: simplify NEW flag transition code
+      batman-adv: fix batadv_bla_claim inline kernel doc order
+      batman-adv: dat: drop non-4addr backwards compatibility
+      batman-adv: annotate functions which may cow reallocate the skbuff
+      batman-adv: fix kernel-doc for functions holding skb ownership
+      batman-adv: bla: only update backbone lasttime on changed claim backbone
+      batman-adv: Fix minor kernel-doc problems
+      batman-adv: clean up reallocation kernel docs
+      batman-adv: keep extracted declaration assignments at start
+      batman-adv: correct NET_RX_* NET_XMIT_* confusion
+      batman-adv: remove negative returns for batadv_send_skb_unicast
+
 various
 =======
-
-      MAINTAINERS: Rename batman-adv T(ree)
-      batman-adv: b4: Define commit URL
-      batman-adv: Add b4 configuration with recommended settings
 
 bugfixes
 ========
 
-      batman-adv: reject new tp_meter sessions during teardown
-      batman-adv: stop tp_meter sessions during mesh teardown
-      batman-adv: stop caching unowned originator pointers in BAT IV
-      batman-adv: fix tp_meter counter underflow during shutdown
-      batman-adv: fix integer overflow on buff_pos
-      batman-adv: fix fragment reassembly length accounting
-      batman-adv: clear current gateway during teardown
-      batman-adv: iv: avoid bonding logic for outgoing OGM
-      batman-adv: tp_meter: fix tp_num leak on kmalloc failure
-      batman-adv: bla: prevent use-after-free when deleting claims
-      batman-adv: bla: only purge non-released claims
-      batman-adv: bla: put backbone reference on failed claim hash insert
-      batman-adv: tt: reject oversized local TVLV buffers
-      batman-adv: tt: fix negative tt_buff_len
-      batman-adv: tt: fix negative last_changeset_len
-      batman-adv: tt: fix TOCTOU race for reported vlans
-      batman-adv: tt: avoid empty VLAN responses
-      batman-adv: tt: prevent TVLV entry number overflow
-      batman-adv: tp_meter: fix tp_vars reference leak in receiver shutdown
-      batman-adv: dat: handle forward allocation error
-      batman-adv: tp_meter: avoid use of uninit sender vars
-      batman-adv: frag: disallow unicast fragment in fragment
-      batman-adv: tp_meter: directly shut down timer on cleanup
-      batman-adv: v: stop OGMv2 on disabled interface
-      batman-adv: tvlv: abort OGM send on tvlv append failure
-      batman-adv: tvlv: reject oversized TVLV packets
-      batman-adv: tp_meter: fix race condition in send error reporting
-      batman-adv: tp_meter: avoid role confusion in tp_list
-      batman-adv: mcast: fix use-after-free in orig_node RCU release
-      batman-adv: iv: recover OGM scheduling after forward packet error
-      batman-adv: bla: fix report_work leak on backbone_gw purge
-      batman-adv: bla: avoid double decrement of bla.num_requests
-      batman-adv: bla: avoid NULL-ptr deref for claim via dropped interface
-      batman-adv: tp_meter: keep unacked list in ascending ordered
-      batman-adv: tp_meter: initialize dup_acks explicitly
-      batman-adv: tp_meter: initialize dec_cwnd explicitly
-      batman-adv: tp_meter: avoid window underflow
-      batman-adv: tp_meter: avoid divide-by-zero for dec_cwnd
-      batman-adv: tp_meter: fix fast recovery precondition
-      batman-adv: tp_meter: handle seqno wrap-around for fast recovery detection
-      batman-adv: tp_meter: add only finished tp_vars to lists
-      batman-adv: tp_meter: use locking for all congestion control variables
-      batman-adv: bla: annotate lasttime access with READ/WRITE_ONCE
-      batman-adv: prevent ELP transmission interval underflow
-      batman-adv: tp_meter: initialize last_recv_time during init
-      batman-adv: gw: don't deselect gateway with active hardif
-      batman-adv: ensure bcast is writable before modifying TTL
-      batman-adv: fix (m|b)cast csum after decrementing TTL
-      batman-adv: tp_meter: restrict number of unacked list entries
-      batman-adv: tp_meter: annotate last_recv_time access with READ/WRITE_ONCE
-      batman-adv: tp_meter: prevent parallel modifications of last_recv
-      batman-adv: tp_meter: handle overlapping packets
-      batman-adv: v: prevent OGM aggregation on disabled hardif
-      batman-adv: frag: ensure fragment is writable before modifying TTL
-      batman-adv: frag: avoid underflow of TTL
-      batman-adv: tt: don't merge change entries with different VIDs
-      batman-adv: tt: track roam count per VID
-      batman-adv: dat: prevent false sharing between VLANs
-      batman-adv: tvlv: avoid race of cifsnotfound handler state
-      batman-adv: tvlv: enforce 2-byte alignment
-      batman-adv: retrieve ethhdr after potential skb realloc on RX
-      batman-adv: access unicast_ttvn skb->data only after skb realloc
-      batman-adv: gw: acquire ethernet header only after skb realloc
-      batman-adv: dat: acquire ARP hw source only after skb realloc
-      batman-adv: bla: reacquire gw address after skb realloc
-      batman-adv: dat: ensure accessible eth_hdr proto field
+      batman-adv: reject unrepresentable multicast TVLV offsets
+      batman-adv: fix stale receive device on merged fragments
+      batman-adv: bla: fix freeing of claims on meshif deletion
+      batman-adv: ensure minimal ethernet header on TX
+      batman-adv: fix VLAN priority offset
+      batman-adv: tt: avoid request storms during pending request
+      batman-adv: frag: fix primary_if leak on failed linearization
+      batman-adv: frag: free unfragmentable packet
+      batman-adv: mcast: avoid OOB read of num_dests header
+      batman-adv: tt: prevent TVLV OOB check overflow
+      batman-adv: clean untagged VLAN on netdev registration failure
+      batman-adv: dat: fix tie-break for candidate selection
+      batman-adv: bla: avoid CRC corruption due to parallel claim add
+      batman-adv: bla: prevent CRC corruptions after claim flush
+      batman-adv: dat: avoid unaligned fault in IP extraction
+      batman-adv: dat: atomically update mac addresses
+      batman-adv: fix TX priority extraction for BATADV_FORW_MCAST
+      batman-adv: mcast: ensure unshared skb for multicast packets
+      batman-adv: mcast: linearize skbuff for packet generation
+      batman-adv: tvlv: handle negative tvlv processing return codes
 
-2026.2 (2026-07-01)
+2026.3 (2026-09-01)
 ===================
 
 * support latest kernels (5.10 - 7.2)
@@ -181,72 +122,7 @@ bugfixes
 * skip unnecessary TVLV buffer allocation of each OGM(v2) transmission
 * bugs squashed:
 
-  - batman_iv: stop caching unowned originator pointers
-  - batman_iv: fix integer overflow on buff_pos
-  - batman_iv: avoid bonding logic for outgoing OGM
-  - batman_iv: recover OGM scheduling after forward packet error
-  - batman_v: stop OGMv2 on disabled interface
-  - batman_v: prevent ELP transmission interval underflow
-  - batman_v: prevent OGM aggregation on disabled hardif
-  - bla: prevent use-after-free when deleting claims
-  - bla: only purge non-released claims
-  - bla: put backbone reference on failed claim hash insert
-  - bla: fix report_work leak on backbone_gw purge
-  - bla: avoid double decrement of bla.num_requests
-  - bla: avoid NULL-ptr deref for claim via dropped interface
-  - bla: annotate lasttime access with READ/WRITE_ONCE
-  - bla: reacquire gw address after skb realloc
-  - dat: acquire ARP hw source only after skb realloc
-  - dat: ensure accessible eth_hdr proto field
-  - dat: handle forward allocation error
-  - dat: prevent false sharing between VLANs
-  - frag: fix reassembly length accounting
-  - frag: disallow unicast fragment in fragment
-  - frag: ensure fragment is writable before modifying TTL
-  - frag: avoid underflow of TTL
-  - gw: acquire ethernet header only after skb realloc
-  - gw: clear current gateway during teardown
-  - gw: don't deselect gateway with active hardif
-  - mcast: fix use-after-free in orig_node RCU release
-  - routing: access unicast_ttvn skb->data only after skb realloc
-  - routing: ensure bcast is writable before modifying TTL
-  - routing: fix (m|b)cast csum after decrementing TTL
-  - routing: retrieve ethhdr after potential skb realloc on RX
-  - tp_meter: reject new sessions during teardown
-  - tp_meter: stop sessions during mesh teardown
-  - tp_meter: fix counter underflow during shutdown
-  - tp_meter: fix tp_num leak on kmalloc failure
-  - tp_meter: fix tp_vars reference leak in receiver shutdown
-  - tp_meter: avoid use of uninit sender vars
-  - tp_meter: directly shut down timer on cleanup
-  - tp_meter: fix race condition in send error reporting
-  - tp_meter: avoid role confusion in tp_list
-  - tp_meter: keep unacked list in ascending ordered
-  - tp_meter: initialize dup_acks explicitly
-  - tp_meter: initialize dec_cwnd explicitly
-  - tp_meter: avoid window underflow
-  - tp_meter: avoid divide-by-zero for dec_cwnd
-  - tp_meter: fix fast recovery precondition
-  - tp_meter: handle seqno wrap-around for fast recovery detection
-  - tp_meter: add only finished tp_vars to lists
-  - tp_meter: use locking for all congestion control variables
-  - tp_meter: initialize last_recv_time during init
-  - tp_meter: restrict number of unacked list entries
-  - tp_meter: annotate last_recv_time access with READ/WRITE_ONCE
-  - tp_meter: prevent parallel modifications of last_recv
-  - tp_meter: handle overlapping packets
-  - tt: reject oversized local TVLV buffers
-  - tt: fix negative tt_buff_len
-  - tt: fix negative last_changeset_len
-  - tt: fix TOCTOU race for reported vlans
-  - tt: avoid empty VLAN responses
-  - tt: prevent TVLV entry number overflow
-  - tt: don't merge change entries with different VIDs
-  - tt: track roam count per VID
-  - tvlv: abort OGM send on tvlv append failure
-  - tvlv: reject oversized TVLV packets
-  - tvlv: avoid race of cifsnotfound handler state
-  - tvlv: enforce 2-byte alignment
+  - 
 
 </pre>
 
@@ -254,10 +130,97 @@ h2. batctl
 
 <pre>
 $ git describe origin/main
-v2026.1-7-gea57436
-$ range=v2026.1..v2026.1-7-gea57436
+v2026.2-88-gc8782f5
+$ range=v2026.2..v2026.2-88-gc8782f5
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
+
+
+Simon Wunderlich <sw@simonwunderlich.de> (1):
+      batctl: Start new development cycle
+
+Sven Eckelmann <sven@narfation.org> (81):
+      batctl: add missing packet kernel-doc comments
+      batctl: switch to native getrandom
+      batctl: fix parsing of parameters with arguments
+      batctl: originators: fix throughput lines with bat_hosts
+      batctl: free header lines after error
+      batctl: traceroute: handle fast replies
+      batctl: return only initialized icmp destination unreached bytes
+      batctl: tcpdump: fix coded packet mac dest mac addresses
+      batctl: tcpdump: fix endianness of fragmentation sequence number
+      batctl: tcpdump: correct output of VLAN IDs
+      batctl: tcpdump: drop hardcoded IPv6 buffer sizes
+      batctl: tcpdump: fix reported length for ICMP6_TIME_EXCEEDED
+      batctl: tcpdump: handle TCP packet with bogus data offset
+      batctl: tpmeter: fix Gbps output
+      batctl: tpmeter: label sub-kByte/s rate in bits per second
+      batctl: netlink: check for BATADV_ATTR_MESH_ADDRESS before accessing it
+      batctl: netlink: always 0-terminate hardif name
+      batctl: bat-hosts: compare full path for deduplication
+      batctl: improve number parsing error handling
+      batctl: bat-hosts: free bat_host when hash_add fails
+      batctl: dat_cache: fix multicast/unicast filter for MAC address
+      batctl: isolation_mark: fix error message for invalid mark/mask values
+      batctl: event: don't print timestamp prefix for skipped events
+      batctl: debug: avoid endless getopt loop for attached '-w' argument
+      batctl: debug: use strict interval/timeout parsing
+      batctl: debug: reject trailing garbage for intervals
+      batctl: debug: reject non-finite/negative interval/timeout values
+      batctl: debug: don't return negative error codes from handle_debug_table
+      batctl: only mark file read successful on read line
+      batctl: version: avoid use of uninitialized read buffer
+      batctl: version: don't strip newline for empty buffer
+      batctl: interface: report rtnl query failures
+      batctl: interface: return fail for non-existing interface
+      batctl: translate: don't overwrite the search key
+      batctl: genl_json: avoid negative chars in sanitize_string
+      batctl: genl_json: reject unknown options in handle_json_query
+      batctl: genl_json: don't return negative error codes to main
+      batctl: genl_json: escape non-printable characters as valid JSON
+      batctl: genl_json: drop leftover network coding log level
+      batctl: tcpdump: fix "subtybe" typo in 4ADDR output
+      batctl: tcpdump: return EXIT_SUCCESS on normal termination
+      batctl: tcpdump: check frame length before reading the ethernet header
+      batctl: tcpdump: resolve bat-host name for ROAMv1 client
+      batctl: tcpdump: print the unreachable host for ICMP port unreachable
+      batctl: tcpdump: skip partial line for oversized ICMPv6 errors
+      batctl: tcpdump: don't label unknown ICMPv6 types as unreachable
+      batctl: tcpdump: reject invalid packet type arguments
+      batctl: tcpdump: fix source address selection for 802.11 data frames
+      batctl: traceroute: return EXIT_NOSUCCESS when destination not reached
+      batctl: icmp_helper: return proper errno on syscall failures
+      batctl: ping: count sent and not received pings
+      batctl: ping/traceroute: don't restart RTT timer on stray replies
+      batctl: traceroute: probe the advertised maximum number of hops
+      batctl: ping: keep huge '-i' intervals from turning into a flood ping
+      batctl: ping: reject invalid packet count argument
+      batctl: ping: reject invalid timeout argument
+      batctl: ping: fix rtt minimum tracking when a sample is 0.0
+      batctl: icmp_helper: fail send when the primary mac is unknown
+      batctl: icmp_helper: attach socket filter before packets can arrive
+      batctl: tpmeter: don't use negative errno as exit status
+      batctl: tpmeter: abort result wait on receive errors
+      batctl: tpmeter: reject invalid test duration argument
+      batctl: tpmeter: report kernel errors via strerror
+      batctl: tpmeter: don't cancel test from the signal handler
+      batctl: handle netlink callback object on error
+      batctl: netlink: abort netlink_print_common when message allocation fails
+      batctl: netlink: don't format NULL extra_info in info_callback
+      batctl: netlink: report dump errors signalled in the NLMSG_DONE message
+      batctl: netlink: detect receive errors in netlink_print_common
+      batctl: netlink: report kernel errors when writing settings
+      batctl: netlink: report send errors in netlink_simple_request
+      batctl: netlink: detect receive errors in query_rtnl_link
+      batctl: netlink: detect receive errors in netlink_simple_request
+      batctl: netlink: detect receive errors in query_rtnl_link_single
+      batctl: netlink: report error on query_rtnl_link send failure
+      batctl: netlink: use kernel-style error codes for nl_recvmsgs
+      debug: drop stray debug printf line
+      batctl: mark local-only functions static
+      batctl: genl: include own header
+      batctl: fix "plain 0 used as NULL" warning
+      batctl: separate commands from helper functions
 
 
 
@@ -268,11 +231,6 @@ features
 coding style cleanup/refactoring
 ================================
 
-      batctl: Add b4 configuration with recommended settings
-      batctl: b4: Define commit URL
-      batctl: don't stop on missing batman-adv version file
-      batctl: keep kernel-doc in packet struct member order
-      batctl: use reverse xmas tree declaration order
 
 
 bugfixes
@@ -281,7 +239,7 @@ bugfixes
 
 
 
-2026.2 (2026-07-01)
+2026.3 (2026-09-01)
 ===================
 
 * coding style cleanups and refactoring
@@ -295,11 +253,17 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2026.1-4-g79c9a7e
-$ range=v2026.1..v2026.1-4-g79c9a7e
+v2026.2-2-gb175725
+$ range=v2026.2..v2026.2-2-gb175725
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
+
+Simon Wunderlich <sw@simonwunderlich.de> (1):
+      alfred: Start new development cycle
+
+Sven Eckelmann <sven@narfation.org> (1):
+      alfred: seed the random() generator for transaction IDs
 
 features
 ========
@@ -308,10 +272,6 @@ features
 coding style cleanup/refactoring
 ================================
 
-      alfred: Add b4 configuration with recommended settings
-      alfred: b4: Define commit URL
-      alfred: use reverse xmas tree declaration order
-
 bugfixes
 ========
 
@@ -319,7 +279,7 @@ bugfixes
 
 
 
-2026.2 (2026-07-01)
+2026.3 (2026-09-01)
 ===================
 
 * coding style cleanups and refactoring
