@@ -351,7 +351,10 @@ stack traces and increases the usability with (k)gdb:
 Start of the environment
 ------------------------
 
-virtual network initialization
+The start scripts of the :doc:`OpenWrt environment <OpenWrt_in_QEMU>` are
+reused with small modifications.
+
+Virtual network initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The
@@ -377,7 +380,7 @@ supplied manually to qemu.
   BASE_IMG_FMT=qcow2
   BOOTARGS+=("-bios" "qboot/build/bios.bin")
   BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-  BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
+  BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
   BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 
 It is also recommended to use linux-next/vmlinux instead of bzImage with
@@ -419,7 +422,7 @@ functionality is still the same as before. A simple example would be:
   chmod +x test-init.sh
 
 Start
------
+~~~~~
 
 The startup method
 :ref:`from the OpenWrt environment <devtools-openwrt-in-qemu-start>`

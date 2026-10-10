@@ -50,7 +50,7 @@ more reproducible.
 
 .. _devtools-openwrt-in-qemu-virtual-network-initialization:
 
-virtual network initialization
+Virtual network initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The virtual network (bridge br-qemu with 3 tap devices) has to be

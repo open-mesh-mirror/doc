@@ -24,45 +24,8 @@ The test stack consists of the following components:
   `wirefilter <http://wiki.virtualsquare.org/wiki/index.php/VDE#wirefilter>`__
   per link between hosts.
 
-vde setup
----------
-
-Download `vde2.3.1 <https://sourceforge.net/projects/vde/files/vde2/>`__
-and the vde colour patch :download:`vde2-2.3.1_colour.patch`
-
-apply “vde2-2.3.1_colour.patch” for vde.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: sh
-
-  cd vde-2.3.1
-  cp vde2-2.3.1_colour.patch .
-  patch -p1 < vde2-2.3.1_colour.patch
-
-compile and install vde
-~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: sh
-
-  cd vde-2.3.1
-  ./configure
-  make
-  sudo make install
-
-Create colourful.rc
-~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: sh
-
-  cat > colourful.rc << "EOF"
-  port/setcolourful 1
-  port/create 1
-  port/create 2
-  port/create 3
-  port/create 4
-  port/create 5
-  port/setcolour 1 1
-  EOF
+Concept
+-------
 
 vde_switch
 ~~~~~~~~~~
@@ -100,16 +63,11 @@ concept is illustrated below:
 
 |image0|
 
-You can find the patch against vde2-2.3.1 (current latest stable
-version) to add this colour patch here:
-
-* :download:`vde2-2.3.1_colour.patch`
-
 wirefilter
 ~~~~~~~~~~
 
-Wirefilter manpage: http://manpages.ubuntu.com/manpages/trusty/man1/wirefilter.1.html
-wirefilter is a tool where you can simulate various link defects and
+The `wirefilter <http://manpages.ubuntu.com/manpages/trusty/man1/wirefilter.1.html>`__
+tool where you can simulate various link defects and
 limits:
 
 * packet loss
@@ -142,15 +100,52 @@ packet loss of 50% to all packets except batman-adv ICMP packets, run:
 
    wirefilter --ether 0x4305:02 -l 50
 
-You can specify up to 10 packet types (separated by colon). The patch
-against vde2-2.3.1 (current latest stable version) can be found here:
+You can specify up to 10 packet types (separated by colon).
 
-* :download:`vde2-2.3.1-wirefilter-ethertype.patch`
+Installation
+------------
+
+Download `vde2.3.1 <https://sourceforge.net/projects/vde/files/vde2/>`__
+and the patches from the `Resources`_ section.
+
+Apply patches
+~~~~~~~~~~~~~
+
+.. code-block:: sh
+
+  cd vde-2.3.1
+  patch -p1 < ../vde2-2.3.1_colour.patch
+  # optional: ethertype filter for wirefilter
+  patch -p1 < ../vde2-2.3.1-wirefilter-ethertype.patch
+
+Compile and install vde
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: sh
+
+  ./configure
+  make
+  sudo make install
+
+Create colourful.rc
+~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: sh
+
+  cat > colourful.rc << "EOF"
+  port/setcolourful 1
+  port/create 1
+  port/create 2
+  port/create 3
+  port/create 4
+  port/create 5
+  port/setcolour 1 1
+  EOF
 
 Start of the environment
 ------------------------
 
-virtual network initialization
+Virtual network initialization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The script does:
@@ -185,7 +180,7 @@ The script does:
   done
   EOF
 
-  chmod + virtual-network.sh
+  chmod +x virtual-network.sh
 
 VM instances bringup
 ~~~~~~~~~~~~~~~~~~~~
@@ -197,8 +192,8 @@ with a vde NIC.
 
 .. code-block:: diff
 
-  -        -nic tap,ifname=tap$i,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
-  +        -nic vde,sock=num${i}.ctl,port=1,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
+  -          -nic tap,ifname=tap$i,script=no,downscript=no,model=virtio,mac=02:ba:de:af:fe:"${twodigit_id}" \
+  +          -nic vde,sock=num${i}.ctl,port=1,model=virtio,mac=02:ba:de:af:fe:"${twodigit_id}" \
 
 It is also possible to have both (just with different mac addresses) to
 allow SSH access to the virtual instance over the tap interface.
@@ -210,9 +205,6 @@ The :ref:`test-init.sh from the OpenWrt environment <devtools-openwrt-in-qemu-au
 is always test specific. But it can just
 be reused again with this virtual network.
 
-.. |image0| image:: vde_switch.png
-.. |image1| image:: mesh.gif
-
 Resources
 ---------
 
@@ -222,3 +214,6 @@ Resources
 * :download:`vde2-2.3.2-wirefilter-ethertype.patch`
 * :download:`vde2-2.3.2_colour.patch`
 * :download:`vde2-2.3.2_frame_size.patch`
+
+.. |image0| image:: vde_switch.png
+.. |image1| image:: mesh.gif

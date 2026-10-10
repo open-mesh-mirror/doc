@@ -3,8 +3,8 @@
 Analyzing virtual network packets
 =================================
 
-Wireshark
----------
+Capturing on the host
+---------------------
 
 The easiest way to get the traffic of a virtual machine is via the tap
 interfaces. It is recommended to use the newest wireshark version (git
@@ -15,8 +15,8 @@ can then be started manually on a specific tap interface:
 
   wireshark -k -i tap1
 
-View traffic via wireshark from virtual machine
------------------------------------------------
+Capturing inside the virtual machine
+------------------------------------
 
 It is not always possible to use the tap interface because either the
 packets are filtered somewhere in the path from/to the virtual machine.

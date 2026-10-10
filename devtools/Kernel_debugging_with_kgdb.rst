@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-OpenWrt KGDB
-============
+Kernel debugging with KGDB
+==========================
 
 As shown in the :doc:`Kernel_debugging_with_qemu's_GDB_server`
 documentation, it is easy to debug the Linux kernel in an
@@ -57,9 +57,6 @@ Enabling KGDB in kernel
 
 OpenWrt must be modified slightly (:download:`0003-openwrt-Add-support-for-easily-selectable-kernel-deb.patch`)
 to expose the kernel gdbstub (``CONFIG_KERNEL_KGDB``):
-
-OpenWrt must be modified slightly to expose the kernel gdbstub
-(``CONFIG_KERNEL_KGDB``):
 
 .. code-block:: diff
 
@@ -342,11 +339,10 @@ it is not possible to interrupt the kernel from gdb (without a Oops or
 an already existing breakpoint) - use the sysrq mechanism again from
 Linux to switch back to kgdb.
 
-Some other ideas are documented in [[GDB Linux_snippets]].
+Some other ideas are documented in :doc:`GDB_Linux_snippets`.
 
 The kernel hacking debian image page should also be checked to
-[[Kernel_hacking_Debian_image#Building-the-batman-adv-module|increase
-the chance of getting debugable modules]] which didn't had all
+:ref:`increase the chance of getting debugable modules <devtools-hacking-debian-image-building-the-batman-adv-module>` which didn't had all
 information optimized away. The relevant flags could be set directly in
 the routing feed like this:
 
