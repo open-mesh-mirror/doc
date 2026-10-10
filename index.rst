@@ -10,10 +10,20 @@ Welcome to open-mesh.org's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: open-mesh
+
+   open-mesh/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Projects
 
    batman-adv/index
    alfred/index
    batmand/index
-   open-mesh/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Development
+
    devtools/index

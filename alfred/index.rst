@@ -1,8 +1,10 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-==============================================================
-A.L.F.R.E.D - Almighty Lightweight Fact Remote Exchange Daemon
-==============================================================
+======
+alfred
+======
+
+**A.L.F.R.E.D** - Almighty Lightweight Fact Remote Exchange Daemon
 
     "alfred is a user space daemon to efficiently[tm] flood the network with
     useless data - like vis, weather data, network notes, etc"

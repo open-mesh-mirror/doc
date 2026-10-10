@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-batmand
-=======
+batmand (legacy)
+================
 
 .. toctree::
    :maxdepth: 2
