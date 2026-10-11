@@ -49,6 +49,13 @@ user must tell the kernel module which is the value to match in the
 
     # batctl isolation_mark 0x06/0xFFFFFFFF # VALUE/MASK
 
+The isolation mark is only evaluated when the AP isolation is enabled
+(for untagged traffic or for the respective VLAN):
+
+::
+
+    # batctl ap_isolation 1
+
 As reported in the example above, the isolation mark needs to be
 configured in batman-adv in the form *VALUE/MASK* in order to keep the
 mechanism as flexible as possible.
@@ -81,7 +88,7 @@ are two possible scenarios:
 
 #. a unicast packet has to travel over the mesh from an isolated client
    to another isolated client => the packet is dropped at the source
-   node
+   node (and, if it still reaches the destination node, also there)
 #. a broadcast packet is sent by an isolated client => every receiving
    node marks the locally generated copy of the packet with the
    configured isolation mark. This way any firewall rule on the

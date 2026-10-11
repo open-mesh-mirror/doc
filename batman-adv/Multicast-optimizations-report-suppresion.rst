@@ -133,10 +133,6 @@ IGMPv1/IGMPv2/MLDv1 Listener Reports, the solution described above will
 ensure despite suppression mechanisms that all multicast listeners will
 receive the multicast packets they signed up for.
 
-Although we are not supporting bridges yet, the recognition of this flag
-on the sender side was implemented already to avoid a future
-compatibility break.
-
 .. |image0| image:: basic-multicast-snoopables-shadowing-querier.svg
 .. |image1| image:: basic-multicast-switch.svg
 .. |image2| image:: basic-multicast-switch-uncertain.svg

@@ -73,9 +73,9 @@ page :doc:`Bridge-loop-avoidance-II <Bridge-loop-avoidance-II>`.
 How to activate the bridge loop avoidance ?
 -------------------------------------------
 
-As the bridge loop avoidance feature sends some own frames (the claim
-frames, see :doc:`Bridge-loop-avoidance-Protocol <Bridge-loop-avoidance-Protocol>`), it must be explicitly
-turned on. The feature is also a compile-time option, and might not be
+The bridge loop avoidance feature sends some own frames (the claim
+frames, see :doc:`Bridge-loop-avoidance-Protocol <Bridge-loop-avoidance-Protocol>`). It is enabled by
+default at runtime, but it is also a compile-time option, and might not be
 compiled in.
 
 Simple steps to see it in action:
@@ -91,12 +91,13 @@ Simple steps to see it in action:
     ip link set dev bat0 master br-lan
     ip link set up dev br-lan
 
-* activate bridge loop avoidance::
+* make sure bridge loop avoidance is active (it is enabled by default)::
 
     batctl bl 1
 
 Batman-adv can also deal with vlans on top of batX. The list of claimed
-clients is available as well (batctl cl).
+clients is available as well (batctl cl), as is the list of known
+backbone gateways (batctl bbt).
 
 .. |image0| image:: lanloop1.png
 .. |image1| image:: lanloop2.png

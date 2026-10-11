@@ -42,10 +42,12 @@ request.
 
 |image0|
 
-DAT will not use any broadcast packet. Node A gets the ARP request,
+DAT does not rely on the broadcast packet. Node A gets the ARP request,
 computes the group of nodes related to the requested IP (in the
 following picture we assume only node D to be in this group of nodes)
-and sends the ARP request as unicast (green arrows). Node D will reply
+and sends the ARP request as unicast (green arrows). The original
+broadcast is only sent afterwards with a delay of 250ms as fallback (not
+shown in the picture). Node D will reply
 to node A (blue arrows), the latter will first forward the packet to the
 non-mesh client that originated the ARP request and then it will store
 the received entry in its local storage for further caching.

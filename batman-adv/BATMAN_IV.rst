@@ -32,7 +32,8 @@ specific B.A.T.M.A.N. forwarding rules. The B.A.T.M.A.N. mesh network is
 therefore flooded with Originator messages. This flooding process will
 be performed by single-hop neighbors in the second step, by two-hop
 neighbors in the third step, and so forth. OGMs are send and repeated as
-UDP broadcasts, therefore OGMs are flooded until every node has received
+broadcasts (UDP broadcasts in the layer 3 batmand, Ethernet broadcast
+frames in batman-adv), therefore OGMs are flooded until every node has received
 it at least once, or until they got lost due to packet loss of
 communication links, or until their TTL (time to live) value has
 expired. In practise OGM packet loss caused by interference, collision
@@ -81,23 +82,34 @@ capabilities in asymetric environments.
 The B.A.T.M.A.N. IV Originator Message Format
 ---------------------------------------------
 
-+----------------+----------------+----------------+----------------+----------------+
-|                | 00             | 01             | 02             | 03             |
-+================+================+================+================+================+
-| 00-03          | Version        | Flags          | TTL            | GW Flags       |
-+----------------+----------------+----------------+----------------+----------------+
-| 04-07          | Seqence Number                  | GW Port                         |
-+----------------+----------------+----------------+----------------+----------------+
-| 08-11          | Originator                                                        |
-|                | Address                                                           |
-+----------------+----------------+----------------+----------------+----------------+
-| 11-15          | Previous                                                          |
-|                | Sender Address                                                    |
-+----------------+----------------+----------------+----------------+----------------+
-| 16-19          | TQ             | HNA length     | (...)                           |
-+----------------+----------------+----------------+----------------+----------------+
+batman-adv uses the following OGM header (struct batadv\_ogm\_packet,
+24 bytes):
 
-Table: B.A.T.M.A.N. IV (Layer 3) Packet Format
+::
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     | Packet Type   |    Version    |      TTL      |     Flags     |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                       Sequence Number                         |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                     Originator Address                        |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |  (cont'd) Originator Address  |    Previous Sender Address    |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |             (cont'd) Previous Sender Address                  |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |   Reserved    |      TQ       |          TVLV length          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                        TVLV data ...                          |
+
+-  Packet type: BATADV\_IV\_OGM (0x00)
+-  Flags: NOT\_BEST\_NEXT\_HOP (0x01), PRIMARIES\_FIRST\_HOP (0x02,
+   unused), DIRECTLINK (0x04)
+-  TVLV data: additional information like gateway and translation table
+   (client announcement) data, see :doc:`TVLV <TVLV>`. They replace the
+   HNA messages and gateway fields of the layer 3 batmand.
 
 The Transmit Quality
 --------------------
@@ -272,14 +284,14 @@ detect that it broadcasted the message before.
 
 To detect echos (messages that already passed through a node)
 B.A.T.M.A.N. IV introduces a new protocol field called "previous
-sender" which contains the IP address of the node rebroadcasting
+sender" which contains the (MAC) address of the node rebroadcasting
 the OGM. Whenever a node receives a message from a neighbor it will fill
 the "previous sender" field with the address of the sending
-neighbor before rebroadcasting it. If a node detects its own IP address
+neighbor before rebroadcasting it. If a node detects its own address
 in the "previous sender" field the packet will be ignored.
 
 Back to the example: Node B will ignore (drop) the packet coming back
-from node C as node C wrote the IP address of node B in the "previous
+from node C as node C wrote the address of node B in the "previous
 sender" field.
 
 |communication with echo cancellation|
@@ -312,9 +324,12 @@ towards node A via node B.
 |switched setup without applied hop penalty|
 
 To overcome this issue B.A.T.M.A.N. IV introduces a hop penalty: Every
-time an OGM passes a node the TQ value will be decreased by a fixed
-value regardless of the asymetric link penalty before rebroadcasting the
-packet. In the given example it decrease the value of the route via node
+time an OGM passes a node the TQ value will be reduced by a configurable
+hop penalty (TQ = TQ * (255 - hop penalty) / 255, default hop penalty: 30)
+regardless of the asymetric link penalty before rebroadcasting the
+packet. An additional hop penalty is applied when the OGM is
+rebroadcasted on the same WiFi interface it was received on, and a
+per-interface hop penalty (default: 0) can be configured. In the given example it decrease the value of the route via node
 B and favors the direct connection. [penalty2 bild]
 
 |switched setup with applied hop penalty|
@@ -324,56 +339,36 @@ Packet Aggregation
 
 In dense node areas with low packet loss B.A.T.M.A.N. III generates
 quite some packets which increases the probability of collisions, wastes
-air time and causes more CPU load. Each OGM being 20 Bytes small,
-B.A.T.M.A.N. IV introduces a packet aggregation that combines several
+air time and causes more CPU load. As each OGM is small (24 Bytes
+header plus TVLV data in batman-adv), B.A.T.M.A.N. IV introduces a packet aggregation that combines several
 distinct OGMs into one packet. To achieve this B.A.T.M.A.N. IV holds
 back packets that are to be sent and waits for incoming packets to
 append them before broadcasting the single aggregated packet.
 
 Every OGM consists of the static B.A.T.M.A.N. IV header (see: originator
-message format) plus the dynamic HNA message part.
+message format) plus the dynamic TVLV data part, whose length is stored
+in the TVLV length field. An aggregated packet is a sequence of such
+OGMs:
 
-+----------------+----------------+----------------+----------------+----------------+
-|                | 00             | 01             | 02             | 03             |
-+================+================+================+================+================+
-| 00-03          | HNA address                                                       |
-+----------------+----------------+----------------+----------------+----------------+
-| 04-07          | Subnetmask                      |                |                |
-+----------------+----------------+----------------+----------------+----------------+
+::
 
-Table: HNA (Layer 3) Message Format
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |              OGM header #1 (TVLV length = n1)                 |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |              TVLV data #1 (n1 bytes)                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |              OGM header #2 (TVLV length = n2)                 |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |              TVLV data #2 (n2 bytes)                          |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |              ...                                              |
 
-B.A.T.M.A.N. IV allows to append none, one or multiple HNA messages. As
-each OGM may carry multiple HNA information it is necessary to store the
-number of HNA messages in the newly created HNA length field.
+batman-adv aggregates at most 32 OGMs and 512 bytes (or less if the
+interface MTU is smaller) into one packet and holds back an OGM for at
+most 100 ms for this purpose.
 
-+----------------+----------------+----------------+----------------+----------------+
-|                | 00             | 01             | 02             | 03             |
-+================+================+================+================+================+
-| 00-03          | Version        | Flags          | TTL            | GW Flags       |
-+----------------+----------------+----------------+----------------+----------------+
-| 04-07          | Seqence Number                  | GW Port                         |
-+----------------+----------------+----------------+----------------+----------------+
-| 08-11          | Originator                                                        |
-|                | Address                                                           |
-+----------------+----------------+----------------+----------------+----------------+
-| 11-15          | Previous                                                          |
-|                | Sender Address                                                    |
-+----------------+----------------+----------------+----------------+----------------+
-| 16-19          | TQ             | HNA length = 2 | HNA address #1                  |
-+----------------+----------------+----------------+----------------+----------------+
-| 20-23          | HNA address #1                  | Subnetmask #1  | HNA address #2 |
-|                | (continued)                     |                |                |
-+----------------+----------------+----------------+----------------+----------------+
-| 24-27          | HNA address #2                                   | Subnetmask #2  |
-|                | (continued)                                      |                |
-+----------------+----------------+----------------+----------------+----------------+
-| 28-31          | next                                                              |
-|                | B.A.T.M.A.N.                                                      |
-|                | IV header                                                         |
-+----------------+----------------+----------------+----------------+----------------+
-
-Table: Example B.A.T.M.A.N. IV (Layer 3) Aggregated Packet
+(The layer 3 batmand used HNA messages instead of TVLV data, with an
+"HNA length" field in the OGM header.)
 
 Multiple Interfaces
 -------------------
@@ -385,10 +380,10 @@ needs to use a flag (direct link flag) to distinguish between real
 connections and rebroadcasts.
 
 The detection process: Node A emits an OGM without any enabled flags.
-The neighbor B receives the message and checks whether the UDP sender
-address and the originator address are equal. If so it will
-rebroadcasting the OGM with the direct link flag enabled otherwise the
-flags are not changed. Once node A receives this rebroadcast of its own
+The neighbor B receives the message and checks whether the sender
+(Ethernet source) address and the originator address are equal. If so it
+will rebroadcast the OGM with the direct link flag enabled, otherwise the
+direct link flag is cleared. Once node A receives this rebroadcast of its own
 OGM it recognizes this neighbor as single-hop neighbor due to the
 existing direct link flag. If node A received this package via the same
 interface it was sent out (incoming interface address equals originator

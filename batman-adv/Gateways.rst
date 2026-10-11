@@ -65,7 +65,8 @@ To inform clients possessing a valid DHCP release about a gateway change
 (the link quality to the gateway could have dropped or the client is
 roaming around) batman-adv will also inspect incoming DHCP renewal
 packets. If their destination is not the currently selected gateway and
-below a certain TQ threshold (currently defaulting to a TQ of 50), the
+the TQ towards it is more than a certain threshold (currently 50 TQ
+points) worse than the TQ towards the currently selected gateway, the
 DHCP renewal packet is not forwarded, thereby forcing the client to
 request a new DHCP lease from a better-connected gateway.
 
@@ -121,7 +122,8 @@ All available gateway selection classes are thoroughly explained in the
 manpage <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__.
 
 With B.A.T.M.A.N. V this behavior changed: the value is measured in
-kbit/s, for example, if gw_sel_class is set to 1500 the gateway will be
+kbit/s (default: 5000 kbit/s; the kernel module stores it with a
+granularity of 100 kbit/s), for example, if gw_sel_class is set to 1500 the gateway will be
 selected if the throughput is at least 1500 kbit/s faster than the
 throughput of the currently selected gateway. Throughput is determined
 by evaluating which is lower: the advertised throughput by the gateway
@@ -153,7 +155,7 @@ mess with other layers but instead collaborate with tools made for
 higher layers. The latter group has pointed out that the rule of network
 layer separation can be bent in real-world applications to improve
 usability. To achieve a compromise the gateway mechanism is turned off
-per default and only operates on top of DHCP (details below). Feel free
+per default and only operates on top of DHCP (details above). Feel free
 to contact us in case you want to propose alternative ideas.
 
 .. |image0| image:: gateway1.png

@@ -5,6 +5,10 @@ Prior Readings:
 Noflood mark
 ============
 
+*Status:* Proposal, rejected upstream (see
+:doc:`DAT DHCP Snooping <DAT_DHCP_Snooping>`). This feature is not
+available in batman-adv or batctl.
+
 |image0|
 
 B.A.T.M.A.N. Advanced tries to forward a multicast frame via one of its
@@ -16,8 +20,9 @@ desirable than flooding. For instance if flooding a frame would lead to
 a high burden for disinterested nodes in the mesh, up to congestion in
 the worst case.
 
-The noflood mark feature allows a user to tag frames via netfilter by
-custom criteria. batman-adv will then avoid flooding such frames.
+The proposed noflood mark feature would allow a user to tag frames via
+netfilter by custom criteria. batman-adv would then avoid flooding such
+frames.
 
 Example Application
 -------------------

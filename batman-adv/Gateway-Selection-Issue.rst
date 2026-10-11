@@ -38,7 +38,7 @@ On N1, the gateway table looks as follows:
    </code>
 
 Node N1 correctly selects GW1 as its best gateway thanks to the hop
-penalty which reduces the throughput by 230/255 = 5.9%. The difference
+penalty which reduces the throughput by 15/255 = 5.9%. The difference
 is larger than the configured 5.0 MBit selection class, so node N1 will
 always select GW1 as its gateway for the unicasted DHCP packets.
 

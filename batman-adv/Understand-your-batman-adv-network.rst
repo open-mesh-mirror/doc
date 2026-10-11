@@ -59,7 +59,7 @@ Sample output:
 
   root@node01:~# batctl meshif bat0 n
   [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/6a:e3:de:40:22:88 BATMAN_V)]
-  IF             Neighbor              last-seen
+           Neighbor   last-seen      speed           IF
   02:ba:de:af:fe:05    0.472s (        5.0) [    enp0s3]
   02:ba:de:af:fe:03    0.376s (       11.5) [    enp0s3]
   02:ba:de:af:fe:04    0.452s (        7.1) [    enp0s3]
@@ -72,10 +72,11 @@ Each batman node maintains a list of all other nodes in the network and
 remembers in which direction to send the packets if data should be
 transmitted. The direction manifests itself in the form of the "best
 next neighbor" which basically is the next step towards the destination.
-You can retrieve batman's internal originator table by reading the
-originators file. The printed table begins with a header line with some
-more or less useful status data, followed by the originator table. Each
-line contains information regarding a specific originator:
+You can retrieve batman's internal originator table by using the
+``batctl originators`` (``batctl o``) command. The printed table begins
+with a header line with some more or less useful status data, followed
+by the originator table. Each line contains information regarding a
+specific originator:
 
 *B.A.T.M.A.N. IV*:
 
@@ -130,22 +131,22 @@ Sample output:
   root@node01:~# batctl o
   [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/6a:e3:de:40:22:88 BATMAN_V)]
      Originator        last-seen ( throughput)  Nexthop           [outgoingIF]
-     02:ba:de:af:fe:03    0.364s (        9.9)  02:ba:de:af:fe:05 [    enp0s3]
-     02:ba:de:af:fe:03    0.364s (        4.6)  02:ba:de:af:fe:04 [    enp0s3]
-     02:ba:de:af:fe:03    0.364s (        4.9)  02:ba:de:af:fe:02 [    enp0s3]
-   * 02:ba:de:af:fe:03    0.364s (        9.9)  02:ba:de:af:fe:03 [    enp0s3]
-     02:ba:de:af:fe:04    0.376s (        9.9)  02:ba:de:af:fe:05 [    enp0s3]
-     02:ba:de:af:fe:04    0.376s (        6.0)  02:ba:de:af:fe:03 [    enp0s3]
-     02:ba:de:af:fe:04    0.376s (        4.9)  02:ba:de:af:fe:02 [    enp0s3]
-   * 02:ba:de:af:fe:04    0.376s (        9.9)  02:ba:de:af:fe:04 [    enp0s3]
-     02:ba:de:af:fe:02    0.424s (        9.9)  02:ba:de:af:fe:05 [    enp0s3]
-     02:ba:de:af:fe:02    0.424s (        6.0)  02:ba:de:af:fe:03 [    enp0s3]
-     02:ba:de:af:fe:02    0.424s (        4.6)  02:ba:de:af:fe:04 [    enp0s3]
-   * 02:ba:de:af:fe:02    0.424s (        9.9)  02:ba:de:af:fe:02 [    enp0s3]
-     02:ba:de:af:fe:05    0.524s (        4.6)  02:ba:de:af:fe:04 [    enp0s3]
-     02:ba:de:af:fe:05    0.524s (        4.9)  02:ba:de:af:fe:02 [    enp0s3]
-     02:ba:de:af:fe:05    0.524s (        6.0)  02:ba:de:af:fe:03 [    enp0s3]
-   * 02:ba:de:af:fe:05    0.524s (        9.9)  02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:03    0.364s (        9.9) 02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:03    0.364s (        4.6) 02:ba:de:af:fe:04 [    enp0s3]
+     02:ba:de:af:fe:03    0.364s (        4.9) 02:ba:de:af:fe:02 [    enp0s3]
+   * 02:ba:de:af:fe:03    0.364s (        9.9) 02:ba:de:af:fe:03 [    enp0s3]
+     02:ba:de:af:fe:04    0.376s (        9.9) 02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:04    0.376s (        6.0) 02:ba:de:af:fe:03 [    enp0s3]
+     02:ba:de:af:fe:04    0.376s (        4.9) 02:ba:de:af:fe:02 [    enp0s3]
+   * 02:ba:de:af:fe:04    0.376s (        9.9) 02:ba:de:af:fe:04 [    enp0s3]
+     02:ba:de:af:fe:02    0.424s (        9.9) 02:ba:de:af:fe:05 [    enp0s3]
+     02:ba:de:af:fe:02    0.424s (        6.0) 02:ba:de:af:fe:03 [    enp0s3]
+     02:ba:de:af:fe:02    0.424s (        4.6) 02:ba:de:af:fe:04 [    enp0s3]
+   * 02:ba:de:af:fe:02    0.424s (        9.9) 02:ba:de:af:fe:02 [    enp0s3]
+     02:ba:de:af:fe:05    0.524s (        4.6) 02:ba:de:af:fe:04 [    enp0s3]
+     02:ba:de:af:fe:05    0.524s (        4.9) 02:ba:de:af:fe:02 [    enp0s3]
+     02:ba:de:af:fe:05    0.524s (        6.0) 02:ba:de:af:fe:03 [    enp0s3]
+   * 02:ba:de:af:fe:05    0.524s (        9.9) 02:ba:de:af:fe:05 [    enp0s3]
 
 With batman 2014.1.0 the concept of a routing table per interface was
 introduced. As a result each interface will expose its routing table:
@@ -170,7 +171,7 @@ table, to find the corresponding batman-adv node. Then the data gets
 transmitted to the batman node first which then relays it to the client.
 
 The local translation table (mac addresses announced by this host) can
-be found in the transtable\_local file:
+be retrieved using the ``batctl translocal`` (``batctl tl``) command:
 
 ::
 
@@ -195,7 +196,7 @@ Sample output:
 
 The current translation table state is represented by the tt version
 number and the local tt crc that are propagated in the mesh.
-In particular, RPNXW are flags which bear the following meanings:
+In particular, RPNXWI are flags which bear the following meanings:
 
 -  R/Roaming: this client moved to another node but it is still kept for
    consistency reasons until the next OGM is sent.
@@ -207,13 +208,15 @@ In particular, RPNXW are flags which bear the following meanings:
    still kept for consistency reasons until the next OGM is sent.
 -  W/Wireless: this client is connected to the node through a wireless
    device.
+-  I/Isolated: this client is considered "isolated" (Extended Isolation
+   feature).
 
 If any of the flags is not enabled, a '.' will substitute its symbol.
 Note: Every batman node announces at least one mac address - the mac
 of the batX interface.
 
 The global translation table (mac addresses announced by other hosts)
-can be found in the transtable\_global file:
+can be retrieved using the ``batctl transglobal`` (``batctl tg``) command:
 
 ::
 
@@ -221,9 +224,9 @@ can be found in the transtable\_global file:
      <non-mesh client mac address>
         <VLAN tag>
            <flags>
-              <originator's current TTVN>
+              <TTVN adding the entry>
                  <originator announcing non-mesh client mac address>
-                    <TTVN adding the entry> 
+                    <originator's current TTVN>
                        <CRC>
 
 Sample output:
@@ -254,14 +257,17 @@ Sample output:
      33:33:00:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:04 (  2) (0xb5fd9b02)
      33:33:00:00:00:01   -1 [....] (  2) 02:ba:de:af:fe:03 (  2) (0x2d4b7679)
 
-The meaning of flags are similar to those above:
+In particular, RWIT are flags which bear the following meanings
+(similar to those above):
 
 -  R/Roaming: this client moved to another node but it is still kept for
    consistency reasons until the next OGM is sent.
--  X/delete: this client has to be removed for some reason, but it is
-   still kept for consistency reasons until the next OGM is sent.
 -  W/Wireless: this client is connected to the node through a wireless
    device.
+-  I/Isolated: this client is considered "isolated" (Extended Isolation
+   feature).
+-  T/Temporary: this client has been detected to be part of the network
+   but no node has announced it yet.
 
 If any of the flags is not enabled, a '.' will substitute its symbol.
 
@@ -317,7 +323,7 @@ the mesh:
 
 Note:
 
-* Clients claimed by the node itself are marked with an '[x]'.
+* Clients claimed by the node itself are marked with ``[*]``.
 * If no VLAN was found a VID of '–1' is printed.
 
 ::
@@ -356,8 +362,8 @@ Note:
   root@node01:~# batctl meshif bat0 bbt
   [B.A.T.M.A.N. adv 2019.1, MainIF/MAC: enp0s3/02:ba:de:af:fe:01 (bat0/06:23:9d:ef:ec:90 BATMAN_IV), group id: 0x9053]
   Originator           VID   last seen (CRC   )
-  fe:f0:00:00:02:01 on    -1    4.000s (0bab)
-  fe:f0:00:00:03:01 on    -1    3.000s (3ba9)
+  fe:f0:00:00:02:01 on    -1    4.000s (0x0bab)
+  fe:f0:00:00:03:01 on    -1    3.000s (0x3ba9)
 
 Distributed ARP Table - local cache table
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -428,8 +434,8 @@ protocol internals. After you activated debugging +tracing at compile
 time (instructions can be found in `the README
 file <https://git.open-mesh.org/batman-adv.git/tree/README.external.rst>`__
 ) and the appropriate log level has been set (read about the log levels
-:doc:`here <Tweaking>`) you can retrieve the logs by simply reading the 'log'
-file:
+:doc:`here <Tweaking>`) you can retrieve the logs from the kernel's trace
+buffer:
 
 ::
 
@@ -448,7 +454,10 @@ Routing algorithm
 -----------------
 
 Batman-adv allows :doc:`changing the routing algorithm <Tweaking>` at
-runtime. It also exports the list of available routing protocols:
+runtime. The selected routing algorithm is only used for batX interfaces
+which are created afterwards - the routing algorithm of an existing batX
+interface cannot be changed. It also exports the list of available routing
+protocols:
 
 ::
 

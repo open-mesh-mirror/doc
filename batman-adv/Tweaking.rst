@@ -92,6 +92,7 @@ interfaces can be configured via batctl, e.g.
            hop_penalty|hp             [penalty]            display or modify hop_penalty setting
            isolation_mark|mark        [mark]               display or modify isolation_mark setting
            loglevel|ll                [level]              display or modify the log level
+           multicast_fanout|mo        [fanout]             display or modify multicast_fanout setting
            multicast_forceflood|mff   [0|1]                display or modify multicast_forceflood setting
            orig_interval|it           [interval]           display or modify orig_interval setting
 
@@ -147,7 +148,7 @@ hop to avoid store & forward. Alternatively, batman-adv can be switched
 into "bonding mode" in which batman-adv is using all interfaces at the
 same time to send & receive data. However, this mode is only recommended
 in special one-hop cases. You can read about our
-`alternatebonding test results <https://www.open-mesh.org/news/14>__`
+`alternatebonding test results <https://www.open-mesh.org/news/14>`__
 to see what suits you best.
 
 ::
@@ -173,7 +174,7 @@ to learn how to set the compile option).
 ::
 
    batctl meshif bat0 bridge_loop_avoidance
-   disabled
+   enabled
 
 distributed ARP table
 ~~~~~~~~~~~~~~~~~~~~~
@@ -247,8 +248,9 @@ manner in which batman-adv chooses its gateway.
 If multiple batman-adv gateways are available a batman-adv client node
 selects its best gateway based on certain criteria such as link quality
 / announced bandwidth / etc. The selection algorithm can be modified to
-best serve the requirements. The gateway selection class of '20' is the
-default value. All available gateway selection classes are thoroughly
+best serve the requirements. The default gateway selection class is
+'20' (TQ points) for B.A.T.M.A.N. IV and '5000' (kbit/s throughput
+difference) for B.A.T.M.A.N. V. All available gateway selection classes are thoroughly
 explained in the `batctl
 manpage <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__.
 
@@ -260,7 +262,7 @@ understand its interaction with DHCP.
    # switch to server and announce 10Mbit/s download + 2Mbit/s upload
    batctl meshif bat0 gw_mode server 10Mbit/2Mbit
 
-   # switch to client and and use selection class 20
+   # switch to client and and use selection class 20 (B.A.T.M.A.N. IV)
    batctl meshif bat0 gw_mode client 20
 
    # turn off gateway mode
@@ -276,7 +278,7 @@ multihop routes vs. short routes. The value is applied to the TQ of each
 forwarded OGM, thereby propagating the cost of an extra hop (the packet
 has to be received and retransmitted which costs airtime). A higher hop
 penalty will make it more unlikely that other nodes will choose this
-node as intermediate hop towards any given destination. On the hand, a
+node as intermediate hop towards any given destination. On the other hand, a
 lower hop penalty will result in longer routes because retransmissions
 are not penalized.
 
@@ -285,10 +287,18 @@ it is applied once for OGMs leaving on a different interfaces it has
 been received, and applied twice if its leaving on the same interface if
 that is a WiFi interface. This is done to penalize half-duplex routes,
 and prefer routes with changing interfaces if there is a path with
-similar quality available. The default hop penalty of '15' is a
-reasonable value for most setups and probably does not need to be
-changed. However, mobile nodes could choose a value of 255 (maximum
-value) to avoid being chosen as a router by other nodes.
+similar quality available. Since 2014.4.0, the default hop penalty is
+'30', which is a reasonable value for most setups and probably does not
+need to be changed. However, mobile nodes could choose a value of 255
+(maximum value) to avoid being chosen as a router by other nodes.
+
+B.A.T.M.A.N. V applies the hop penalty to the throughput metric of each
+forwarded OGM instead (a penalty of 255 equals 100%). When an OGM is
+forwarded on the same half-duplex interface it was received on, the
+throughput is halved instead of applying the hop penalty.
+
+Since 2020.3, an additional hop penalty can be configured per hard
+interface (see `hard interface hop penalty`_ below).
 
 ::
 
@@ -345,7 +355,8 @@ deactivated (log level: 0).
 multicast mode
 ~~~~~~~~~~~~~~
 
-Available since: batman-adv 2014.2.0
+Available since: batman-adv 2014.2.0 (batctl command multicast_forceflood
+since 2019.1)
 
 Enables more efficient, group aware multicast forwarding
 infrastructure in batman-adv. Aiming to reduce unnecessary packet
@@ -353,16 +364,31 @@ transmissions, this optimization announces multicast listeners via the
 translation table mechanism, thereby signaling interest in certain
 multicast traffic. Based on this information, batman-adv can make a
 decision how to forward the traffic with the least negative impact on
-the network. If disabled multicast traffic is forwarded to the every
-node in the network (broadcast).
+the network. The optimizations are enabled by default. If multicast
+forceflood is enabled, the optimizations are disabled and multicast
+traffic is forwarded to every node in the network (broadcast).
 The :doc:`multicast optimization documentation <Multicast-optimizations>`
 provides an excellent starting point to learn about the general ideas
 of these optimizations.
 
 ::
 
-   batctl meshif bat0 multicast_mode
-   enabled
+   batctl meshif bat0 multicast_forceflood
+   disabled
+
+multicast fanout
+~~~~~~~~~~~~~~~~
+
+Available since: batman-adv 2019.2
+
+Defines the maximum number of packet copies that may be generated for a
+multicast-to-unicast conversion. Once this limit is exceeded, the
+distribution falls back to broadcast. The default value is 16.
+
+::
+
+   batctl meshif bat0 multicast_fanout
+   16
 
 originator interval
 ~~~~~~~~~~~~~~~~~~~
@@ -396,7 +422,15 @@ Retrieve the configured routing algorithm of the bat0 interface:
 ::
 
    batctl ra
-   BATMAN_IV
+   Active routing protocol configuration:
+    * bat0: BATMAN_IV
+
+   Selected routing algorithm (used when next batX interface is created):
+    => BATMAN_IV
+
+   Available routing algorithms:
+    * BATMAN_IV
+    * BATMAN_V
 
 Note: The routing algorithm configuration has an effect upon creation of
 a new batX interface only. The newly created mesh cloud uses the the
@@ -411,6 +445,13 @@ option:
 ::
 
    batctl ra BATMAN_IV
+
+Since 2021.0, the routing algorithm can also be selected directly when
+the batX interface is created:
+
+::
+
+   batctl meshif bat0 interface create routing_algo BATMAN_V
 
 How to retrieve the list of available routing algorithms is explained
 :doc:`on this page <Understand-your-batman-adv-network>`.
@@ -472,44 +513,37 @@ by default).
 Hard/slave interface handling
 -----------------------------
 
-The B.A.T.M.A.N. V routing algorithm also uses settings for the enslaved
-interfaces. For example, after adding eth0 and wlan as interface to
-bat0, the commands can be accessed via the hardif name:
+Some settings are configured per enslaved (hard) interface. For example,
+after adding eth0 and eth1 as interface to bat0, the commands can be
+accessed via the hardif name:
 
 ::
 
    # eth0
    batctl hardif eth0 elp_interval
-   disabled
+   500
 
    # eth1
-   batctl meshif bat0 hardif eth1 elp_interval
-   disabled
+   batctl hardif eth1 elp_interval
+   500
 
-elp_interval
-~~~~~~~~~~~~
+The B.A.T.M.A.N. V specific hard interface settings elp_interval and
+throughput_override are described in the `ELP interval`_ and
+`Throughput override`_ sections above.
 
-Available since: batman-adv 2019.3
+.. _hard interface hop penalty:
 
-Defines the interval in milliseconds in which batman-adv emits probing
-packets for neighbor sensing (ELP) in B.A.T.M.A.N. V.
+hop_penalty
+~~~~~~~~~~~
 
-::
+Available since: batman-adv 2020.3
 
-   batctl hardif eth0 elp_interval
-   disabled
-
-throughput_override
-~~~~~~~~~~~~~~~~~~~
-
-Available since: batman-adv 2019.3
-
-Defines the throughput value to be used by B.A.T.M.A.N. V when
-estimating the link throughput using this interface. If the value is set
-to 0 then batman-adv will try to retrieve the expected throughput from
-the hardif (driver).
+Defines an additional hop penalty which is applied to OGMs received on
+this interface (B.A.T.M.A.N. IV: TQ, B.A.T.M.A.N. V: throughput). It can
+be used to make paths over this interface less attractive. The default
+value is 0 and the maximum value is 255.
 
 ::
 
-   batctl hardif eth0 throughput_override
+   batctl hardif eth0 hop_penalty
    0

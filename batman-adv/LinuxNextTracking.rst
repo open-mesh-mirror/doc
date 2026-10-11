@@ -3,11 +3,14 @@
 Tracking linux-next
 ===================
 
+*Note:* This page describes the historical server-side setup used to
+track batman-adv related changes in linux-next.
+
 We have currently our own branch to create patches for linux. These
 patches are send to a sub-system maintainer which integrates them into
 his own git repository. New patches from other people usually went to
 linux-next. We have to create patches on top of linux-next unless they
-are only small bug fixes directly for 2.6.
+are only small bug fixes directly for the current mainline release.
 
 Other people will also create patches which may affect our code and thus
 we have to import them too in our codebase. In a perfect world these
@@ -39,9 +42,9 @@ Initial setup
   export GIT_DIR=/home/batman/linux-next.git
   cd "$GIT_DIR"
   cd /home/batman/linux-next.git
-  oldrev="@git rev-parse $MY_REV@"
+  oldrev="$(git rev-parse $MY_REV)"
   git fetch
-  newref="@git rev-parse main@"
+  newref="$(git rev-parse main)"
   if [ "$oldrev" != "$newref" ]; then
       echo "$oldrev" "$newref" "$MY_REV" | ./hooks/manual-hook
   fi

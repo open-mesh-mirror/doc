@@ -131,13 +131,16 @@ multi-path routing.
 Debug information
 -----------------
 
-There is an implementation based on the description above currently
-pending for review. It offers some debugging facilities:
+The mechanism described above is part of batman-adv. It offers some
+debugging facilities:
 
-The default originator table can be found at its original place, using 
-''batctl o''. The following examples represents the topology shown in the top
-of the page, debug information obtained on node B, using OpenWRT and 
-virtual machines:
+The default originator table can be found at its original place, using
+``batctl o``. The originator table of a specific interface can be shown
+using ``batctl o -i <iface>``. The following example represents the
+topology shown in the top of the page, debug information obtained on
+node B, using OpenWRT and virtual machines. It was created with an older
+version of batman-adv and batctl, so the output format of current
+versions differs:
 
 ::
 
@@ -151,14 +154,17 @@ virtual machines:
     fe:f0:00:00:04:01    0.520s   (234) fe:f1:00:00:03:01 [      eth1]: fe:f1:00:00:03:01 (234) fe:f0:00:00:03:01 (222)
     fe:f0:00:00:01:01    0.920s   (255) fe:f1:00:00:01:01 [      eth1]: fe:f1:00:00:01:01 (255) fe:f0:00:00:01:01 (254)
 
-Comparing to the original topology, it shows that for destination E
-(fe:f0:00:00:05:01) when packets come in on 2.4 GHz (eth0, first table),
-they are preferably forwarded to C (fe:f1:00:00:03:01 ) on 5 GHz (eth1).
+Comparing to the original topology, it shows that in the default
+originator table (used for locally generated traffic) the packets for
+destination E (fe:f0:00:00:05:01) are preferably forwarded to C
+(fe:f1:00:00:03:01) on 5 GHz (eth1) with a TQ value of 225, while the
+alternative via C on 2.4 GHz (fe:f0:00:00:03:01) only has a TQ value of
+211.
 
-When packets are received on 5 GHz (eth1), there is not much difference
-because at node B or at node C, the same interface must be used.
-Therefore in the second table for node E (fe:f0:00:00:05:01) the two
-choices have pretty much the same TQ values (210 and 211).
+The per-interface originator tables (``batctl o -i eth0`` and
+``batctl o -i eth1``) are not shown in this example. They show the
+decisions for packets received on 2.4 GHz (eth0) and 5 GHz (eth1)
+respectively.
 
 Ideas for the future
 --------------------

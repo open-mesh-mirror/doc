@@ -66,10 +66,12 @@ Interface bonding
 When multiple paths on different interfaces with similar quality are
 available, batman-adv may distribute the frames to be sent over these
 available paths. The individual frames are sent over the paths in a
-round robin fashion as illustrated below. Using this technique, the
+round robin fashion as illustrated below. Bonding is only performed by
+the node which sends the frames into the mesh (first hop), nodes which
+forward frames always use the best path of the incoming interface. Using this technique, the
 throughput may be increased by the number of interfaces involved in the
 bonding. In practical tests over two WiFi links, we have seen more than
-50%25 of throughput gain.
+50% of throughput gain.
 
 |image3|
 

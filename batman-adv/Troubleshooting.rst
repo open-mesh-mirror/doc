@@ -16,7 +16,7 @@ try to build a simple mesh network between two devices (using LAN).
 Usually just following the :doc:`quick-start-guide <Quick-start-guide>` is
 a good way to start with.
 Check also the `Batman
-Documentation <https://www.kernel.org/doc/Documentation/networking/batman-adv.txt>`__
+Documentation <https://docs.kernel.org/networking/batman-adv.html>`__
 at kernel.org.
 
 If you still can't get any setup working at all, go through this
@@ -104,22 +104,25 @@ Does a ping to the other node via the mesh work?
 Set static ipv4-addresses (or (autoconfigured) ipv6 addresses) not being
 used on any other interfaces on bat0 and check if those two nodes can
 ping each other. If this works, but large pings do not (i.e. ping -s
-1700), then check the MTU settings. All mesh hosts need an MTU of 24
-Bytes less (i.e. on bat0 or any host bridged into the mesh) than on
-their mesh-port interfaces' MTU (the interfaces you've added via 'batctl
-if'). For instance you could chose to increase the MTU on all mesh-port
-interfaces to 1524 (or decrease it on all hosts, bat0 or any host
-interface being bridged into the mesh, to 1476 which is usually harder
-to maintain when having 'foreign' hosts).
+1700), then check the MTU settings. To avoid fragmentation, all mesh
+hosts need an MTU of 32 Bytes less (i.e. on bat0 or any host bridged
+into the mesh) than on their mesh-port interfaces' MTU (the interfaces
+you've added via 'batctl if'). For instance you could chose to increase
+the MTU on all mesh-port interfaces to 1532 (or decrease it on all
+hosts, bat0 or any host interface being bridged into the mesh, to 1468
+which is usually harder to maintain when having 'foreign' hosts). With
+fragmentation enabled (the default), batman-adv keeps an MTU of 1500 on
+bat0 and fragments larger packets; the MTU settings then mainly affect
+the performance.
 
 Does 'batctl ping' to the other node work?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you can see the other node but can't send any packets through the
 mesh network, check whether you can ping it with batman-adv's internal
-echoing packets (see 'batctl ping [STRIKEOUT:h' for usage info). If this
+echoing packets (see 'batctl ping -h' for usage info). If this
 works, check your layer 3 settings, in general your routes and IP
-adresses] don't use the same routes/addresses on different interfaces,
+adresses - don't use the same routes/addresses on different interfaces,
 don't set any ip-addresses on the mesh-port interfaces. Just use bat0 or
 the bridge you might have created on top of it.
 

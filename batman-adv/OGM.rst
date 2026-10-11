@@ -4,8 +4,14 @@
 Originator message (OGM)
 ========================
 
-This page is work-in-progress and will state the BATMAN V algorithm
-later.
+.. note::
+
+   This page is a historical design draft for a TQ based B.A.T.M.A.N. V.
+   It differs from the actual implementation in batman-adv: B.A.T.M.A.N.
+   V uses a throughput based metric, a different packet format and no
+   router list with buffered OGMs. See :doc:`OGMv2 <OGMv2>` and
+   :doc:`ELP <ELP>` for the implemented protocol and
+   :doc:`B.A.T.M.A.N. IV <BATMAN_IV>` for the TQ based protocol.
 
 1. Introduction
 ===============
@@ -172,6 +178,12 @@ collisions.
 
 As well as a possible TT change entry. See :doc:`Client-announcement <Client-announcement>` for
 details.
+
+Note: This draft packet format was never implemented. See
+:doc:`OGMv2 <OGMv2>` for the packet format used by B.A.T.M.A.N. V and
+:doc:`B.A.T.M.A.N. IV <BATMAN_IV>` for the B.A.T.M.A.N. IV OGM format.
+TT and gateway information are transported in :doc:`TVLV <TVLV>`
+containers.
 
 4.2. Receiving Originator Messages
 ----------------------------------

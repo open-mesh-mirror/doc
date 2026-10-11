@@ -146,8 +146,14 @@ details).
 
 The checksum values which are sent along with the ttvn field in the OGM
 (or TT request/responde messages) are computed for a generic originator
-O as the XOR of the CRC32 values of the tuple { MAC address, VID, sync
-flags } of each local translation table entry.
+O as the XOR of the CRC32C (Castagnoli) values of the tuple { VID, sync
+flags, MAC address } of each local translation table entry. The VID is
+fed into the CRC in network byte order and the sync flags are the
+flags which have to be kept in sync among the nodes (bits 4 to 7, e.g.
+TT\_CLIENT\_WIFI and TT\_CLIENT\_ISOLA). Local entries which were not
+yet announced (TT\_CLIENT\_NEW) are not part of the local checksum and
+global entries marked with TT\_CLIENT\_ROAM or TT\_CLIENT\_TEMP are
+not part of the checksum computed for the global table.
 
 **Pseudocode**:
 
@@ -156,9 +162,12 @@ flags } of each local translation table entry.
     tt_local_crc(orig_node O, vlan_id ID) {
     res = 0;
     for each tt_local_entry in vlan ID:
-         tmp = crc32(0, tt_local_entry->vid)
-         tmp = crc32(tmp, tt_local_entry->addr)
-         tmp = crc32(tmp, tt_local_entry->sync_flags)
+         if tt_local_entry->flags & TT_CLIENT_NEW:
+              continue
+
+         tmp = crc32c(0, htons(tt_local_entry->vid))
+         tmp = crc32c(tmp, tt_local_entry->sync_flags)
+         tmp = crc32c(tmp, tt_local_entry->addr)
 
          res = res XOR tmp
     endfor
@@ -215,11 +224,12 @@ Limitations
    depends on the number served clients. This size cannot exceed the
    maximum **fragmented** packet size and if the limit is reached, new
    clients are ignored. This is a virtual value given by the smallest
-   MTU among all the hard-interfaces in use multiplied by the maximum
-   number of allowed fragments (default to 16). This means that at
-   compile time the user could potentially increase the number of
-   fragments a node can send, thus increasing the local translation
-   table maximum size.
+   MTU among all the hard-interfaces in use (capped at 1280 bytes per
+   fragment), reduced by the size of the fragment header and multiplied
+   by the maximum number of fragments (16). The number of fragments
+   cannot be increased because the fragment number field in the
+   fragment header is only 4 bits wide. If fragmentation is disabled,
+   the limit is the smallest MTU among all the hard-interfaces in use.
 
 Notes
 -----

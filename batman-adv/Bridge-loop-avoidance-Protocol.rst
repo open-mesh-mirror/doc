@@ -14,7 +14,11 @@ Claim frames
 
 |image0|
 
-All claim operations are sent using "special" gratuitous ARP frames. 4
+*Note:* The illustration above shows the LOOP DETECT type as
+FF:43:05:05:XX:XX. The correct type value is 0x04, i.e. the Target HW
+address is FF:43:05:04:XX:XX (see below).
+
+All claim operations are sent using "special" gratuitous ARP frames. 5
 types are used which are illustrated above:
 
 * CLAIM frames are used to tell others that a backbone gateway feels
@@ -26,9 +30,12 @@ types are used which are illustrated above:
 * REQUEST frames are used to ask for a full table update when the
   information is out of sync (i.e. the announced CRC does not match with
   the local CRC)
+* LOOP DETECT frames are used to detect loops which can't be avoided by
+  the claiming mechanism
 
 The claim type is announced within the 4th byte of the Target HW
-address.
+address: 0x00 = CLAIM, 0x01 = UNCLAIM, 0x02 = ANNOUNCE, 0x03 = REQUEST,
+0x04 = LOOP DETECT.
 
 *Note:* Although this is a misuse of ARP packets, the "normal" ARP
 process should not be disturbed as the IP addresses (0.0.0.0) should not
@@ -221,9 +228,9 @@ LOOP DETECT frame
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |    Ethernet DST: FF:FF:FF:FF:FF:FF                            |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |    Ethernet DST (cont)        |  Ethernet Source: orig addr   |
+     |    Ethernet DST (cont)        |  Ethernet Source: BA:BE       |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |    Ethernet SRC (originator addr, cont)                       |
+     |    Ethernet SRC (random, cont): RR:RR:RR:RR                   |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |    Ethernet type: 08 06       |  HW type: 00 01               |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -235,7 +242,7 @@ LOOP DETECT frame
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |    Sender IP: 0.0.0.0                                         |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-     |    Target HW addr: FF:43:05:05:XX:XX                          |
+     |    Target HW addr: FF:43:05:04:XX:XX                          |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |    Target HW addr (cont)      | Target IP: 0.0.0.0            |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -254,7 +261,8 @@ DETECT packet is received from the mesh (which is only processed if the
 sending originator is not in the same BLA group), and the randomized
 Ethernet Source MAC matches the own one, an event is thrown. This can be
 handled by userspace to react to the loop scenario, e.g. by disabling
-interfaces.
+interfaces. A LOOP DETECT frame which comes back more than 3 seconds
+after it was sent is dropped but not reported as loop.
 
 group forming
 ~~~~~~~~~~~~~

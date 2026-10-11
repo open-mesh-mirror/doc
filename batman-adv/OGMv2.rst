@@ -24,10 +24,9 @@ Networks <https://downloads.open-mesh.org/batman/papers/batman-adv_network_codin
    forwarding data packets towards a specific originator.
 -  link throughput: link throughput from one interface to a neighbor's
    interface (see :doc:`ELP <ELP>` for details).
--  best link throughput: The best of all link throughput values towards
-   a neighbor (see :doc:`ELP <ELP>` for details).
--  path throughput: The incoming OGM's throughput combined with the best
-   link throughput of the according neighbor.
+-  path throughput: The incoming OGM's throughput combined with the
+   link throughput towards the neighbor the OGM was received from (on
+   the interface the OGM was received on).
 -  Originator entry: Local data structure in the originator list (see
    'Conceptual Data Structures' for details).
 
@@ -60,9 +59,15 @@ Each node periodically (OGM interval) generates a single OGM which is
 broadcasted on all hard interfaces. A jitter may be applied to avoid
 collisions. The default interval in batman-adv is 1 second.
 
+Interfaces on which no other node can receive the OGM (no neighbor or
+the only neighbor is the source of the OGM) are skipped. By default, OGMv2s
+(own and forwarded ones) which are queued for the same interface are
+aggregated into a single frame.
+
 *The Originator Message 2 (OGMv2) Format:*
 
-* Packet type: Initialize this field with the ELP packet type.
+* Packet type: Initialize this field with the OGMv2 packet type
+  (BATADV\_OGM2, 0x04).
 * Version: Set your internal compatibility version.
 * TTL: Initialize with BATADV\_TTL
 * Flags: not used
@@ -112,12 +117,16 @@ routing logic:
 -  **Source Check:** If the sender address of the OGM is an ethernet
    multicast (including broadcast) address the message must be silently
    dropped.
--  **Destination Check** If the destination address of the OGM is a
-   unicast address which does not match the received interface MAC
-   address, the message must be silently dropped.
+-  **Destination Check** If the destination address of the OGM is not
+   the broadcast address, the message must be silently dropped.
 -  **Own Message Check:** If the originator address of the OGM is our
    own the message must be silently dropped as this OGM originated from
    this node.
+-  **Zero Throughput Check:** If the throughput of the OGM is zero, the
+   message must be silently dropped.
+-  **Neighbor Check:** If no ELP message was received from the sender of
+   the OGM on the incoming interface yet (unknown neighbor), the message
+   must be silently dropped.
 
 3.2.2. Metric Update
 ^^^^^^^^^^^^^^^^^^^^
@@ -154,13 +163,16 @@ If the initial checks above have passed, the internal stats are updated:
   link throughput is adopted
 * Forward penalties are applied:
 
+* the hop penalty of the incoming hard interface (default 0) is applied
+  first, on all considered interfaces (including the **default**
+  interface)
 * if the considered interface is the **default** interface, no
-  penalty is applied
+  further penalty is applied
 * if the incoming and considered outgoing interface is the same
   **half duplex** interface and the reported throughput is larger than 1
   MBit/s, the throughput is reduced by 50%
 * Otherwise, a hop penalty is applied and the throughput is reduced
-  by the according value (default 5.8% or 15/255). This is especially
+  by the according value (default 11.8% or 30/255). This is especially
   useful for "perfect" networks to create a decreasing metric over
   multiple hops.
 * The throughput value with the penalties applied is stored for the
@@ -184,7 +196,7 @@ The passing OGMv2 will be considered for a router update:
 * If the throughput from the received router is higher than the
   throughput via the selected router, the received router becomes the
   selected router
-* Also, if the sequence number is by at least OGM\_MAX\_ORIG\_DIFF
+* Also, if the sequence number is by at least BATADV\_OGM\_MAX\_ORIGDIFF
   higher than the last received sequence number from the selected
   router, the received router becomes the selected router.
 
@@ -215,7 +227,7 @@ The OGMv2 is then rebroadcasted on the specific outgoing interface.
 
 BATADV\_THROUGHPUT\_MAX\_VALUE: 0xFFFFFFFF
 BATADV\_TTL: 50
-OGM\_MAX\_ORIG\_DIFF: 5
+BATADV\_OGM\_MAX\_ORIGDIFF: 5
 BATADV\_OGM\_MAX\_AGE: 64
 BATADV\_EXPECTED\_SEQNO\_RANGE: 65536
 

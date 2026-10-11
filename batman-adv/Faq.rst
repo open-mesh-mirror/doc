@@ -277,7 +277,7 @@ this mean that with current blaII, two meshes connected solely by
 ethernet backbone (which can't overhear each other OGMs through wifi)
 only know which macs are "on the other side of the ethernet backbone" so
 as to keep the single broadcast domain united, but are fragmented in
-terms of VIS data, gw, TT, and orig table?
+terms of gw, TT, and orig table?
 
 **A:** Yes, there are two separate meshes, and the only stuff which is
 supposed to be shared is the users payload traffic.

@@ -7,9 +7,9 @@ To transport packets through the mesh network, batman-adv prepends its
 own header to packets entering the mesh. Since clients and other sources
 of packet don't know about this additional header, packets are often
 optimized for the usual MTU of 1500 bytes, meaning that the additional
-header increases the size to e.g. 1528 bytes. To handle this, batman-adv
+header increases the size to e.g. 1532 bytes. To handle this, batman-adv
 recommends users to increase the MTU of the wireless interface to at
-least 1528 bytes. However, some drivers/hardware don't support an MTU
+least 1532 bytes. However, some drivers/hardware don't support an MTU
 larger than 1500 bytes, or batman-adv might need to transmit big
 protocol packets, and for this we need fragmentation.
 
@@ -20,6 +20,11 @@ The fragment header contains several fields:
 
 -  **Batman-adv common header**
    Compatibility version, packet type, and time-to-live
+-  **Fragment number** (4 bits)
+   Used to sort the fragments before merging them. This limits the
+   number of fragments to 16.
+-  **Priority** (3 bits)
+   Priority of the frame, taken from the ToS IP precedence or 802.1p
 -  **Destination**
    Used to route fragments if it wouldn't make sense to merge them.
    (E.g. when the merged packet larger than the intermediate MTU and
@@ -27,8 +32,6 @@ The fragment header contains several fields:
 -  **Originator**
    Used to group fragments in the buffer. This and the sequence number
    makes the original packet identifiable.
--  **Fragment number**
-   Used to sort the fragments before merging them.
 -  **Sequence number**
    Used to identify the group of fragments.
 -  **Total size**
@@ -38,21 +41,25 @@ The fragment header contains several fields:
 Creating Fragments
 ------------------
 
-Any type of unicast packet (e.g. ``struct unicast_packet``,
-``struct tt_response``, ``struct vis_packet``, etc) can be fragmented.
+Any type of unicast packet (e.g. ``struct batadv_unicast_packet``,
+``struct batadv_unicast_4addr_packet``, ``struct batadv_unicast_tvlv_packet``,
+etc) can be fragmented.
 
 |image0|
 
-The size is checked in ``send_skb_to_orig()`` and if larger than the MTU
-of the selected outgoing interface (selected by
+The size is checked in ``batadv_send_skb_to_orig()`` and if larger than
+the MTU of the selected outgoing interface (selected by
 :doc:`bonding </batman-adv/Multi-link-optimize>`) the packet is
-passed to ``frag_send_packet()``. Here, fragments are created and sent
-from the tail of the original packet, so that the first fragment
-contains the end of the original packet:
+passed to ``batadv_frag_send_packet()``. Here, fragments are created and
+sent from the tail of the original packet, so that the first fragment
+contains the end of the original packet. A single fragment is never
+larger than 1280 bytes (including the fragment header), even if the MTU
+of the outgoing interface is larger, and at most 16 fragments are
+created. Larger packets are not sent:
 
 |image1|
 
-The first fragment is passed to ``send_skb_packet()`` to be transmitted
+The first fragment is passed to ``batadv_send_unicast_skb()`` to be transmitted
 and if the size of the remaining part of the original packet is also
 larger than the MTU, another fragment is created:
 
@@ -60,7 +67,7 @@ larger than the MTU, another fragment is created:
 
 Now the remaining part is small enough to transmit in one piece, so the
 fragment header is added and the packet is passed to
-``send_skb_packet()``:
+``batadv_send_unicast_skb()``:
 
 |image3|
 
@@ -74,18 +81,21 @@ header.
 
 |image4|
 
-When receiving a fragment, it is passed to ``recv_frag_packet()`` in
+When receiving a fragment, it is passed to ``batadv_recv_frag_packet()`` in
 ``routing.c``, where it is either forwarded, buffered, or merged. Merged
 packets are passed to the primary receive function again and processed
 by its original handler.
 
 #. **Check total size**
    If destination fields contains another originator and the size of the
-   original packet is greater than the MTU, the fragment is forwarded
-   without merging.
+   original packet is greater than the MTU of the outgoing interface
+   towards the next hop, the fragment is forwarded without merging.
 #. **Buffer fragment**
    The fragment is buffered (in reverse order) in a list of fragments
-   with equal sequence numbers from the same originator.
+   with equal sequence numbers from the same originator. Each originator
+   has 8 such lists (selected by the sequence number modulo 8). Fragments
+   with an older sequence number in the selected list are dropped, and
+   incomplete lists are purged after 10 seconds.
 #. **Check for complete fragments**
    If the accumulated size of the received fragments equals the total
    size given in the fragment header, the list moved out of the buffer
@@ -95,7 +105,7 @@ by its original handler.
    no. 2) is expanded to contain the payload of the rest of the
    fragments, which are then copied into the first fragment.
 #. **Handle original packet**
-   The merged packet is passed to ``batman_skb_recv()`` where it is
+   The merged packet is passed to ``batadv_batman_skb_recv()`` where it is
    processed as usual.
 
 Configuration
@@ -103,7 +113,7 @@ Configuration
 
 First of all, fragmentation shouldn't be needed (except for tt-tables,
 see below). It is a fix for drivers/hardware that is unable to handle
-MTU's greater than 1528 bytes, it is slow (due to increase is packets),
+MTU's greater than 1532 bytes, it is slow (due to increase is packets),
 and is susceptible to packet loss.
 
 It can be turned on and off via batctl:
@@ -125,9 +135,6 @@ forwards the requests and hopes for the best.
 Future Improvements
 -------------------
 
--  Checking total size of original packet uses the MTU of the incoming
-   interface. In case of bonding, the fragment might be transmitted on
-   another interface.
 -  The fragment buffer in ``struct orig_node`` should only be allocated
    on demand, as most networks don't need fragmentation.
 

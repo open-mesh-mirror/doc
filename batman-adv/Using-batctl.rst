@@ -12,8 +12,11 @@ version <https://downloads.open-mesh.org/batman/manpages/batctl.8.html>`__
 Using batctl for configuration
 ------------------------------
 
-All configuration of batman-adv is done with the generic netlink family
-"batadv" and batctl provides a commandline interface for it.
+The configuration of batman-adv is done with the generic netlink family
+"batadv" (settings), rtnetlink (creating/destroying batman-adv interfaces and
+adding/removing interfaces) and the module parameter "routing_algo" (default
+routing algorithm for new batman-adv interfaces). batctl provides a
+commandline interface for all of them.
 
 A quick overview of the config options available with batctl:
 
@@ -29,18 +32,17 @@ batctl offers a great deal of tools for monitoring the state of your
 mesh node/network:
 
 -  Ping and traceroute nodes based on their MAC-addresses.
--  Parse logfiles to discover routing loops.
 -  Retrieve live information from the batman-adv module.
 
-To retrieve information, you must compile your kernel with debugfs (it
-usually is by default)
-
-With debugfs compiled in, you can use batctl to, among others, seeing
-the following:
+The information is retrieved via the generic netlink family "batadv". You
+can use batctl to, among others, see the following:
 
 -  A list of other mesh nodes in the network (originators).
 -  Lists of none-mesh nodes connected to the network (clients or
    neighbors).
 -  A list of available gateways in the network.
--  Log messages from the batman-adv module (if debug is compiled into
-   the module).
+
+batctl can also set the log level of the batman-adv module (if debug is
+compiled into the module). The log messages themselves are sent to the
+kernel's trace buffer and can be read with
+``trace-cmd stream -e batadv:batadv_dbg``.

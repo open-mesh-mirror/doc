@@ -52,8 +52,8 @@ TVLV type + version container.
 ::
 
     void batadv_tvlv_container_register(struct batadv_priv *bat_priv,
-                                        uint8_t type, uint8_t version,
-                                        void *tvlv_value, uint16_t tvlv_value_len);
+                                        u8 type, u8 version,
+                                        void *tvlv_value, u16 tvlv_value_len);
 
 To stop transmitting a TVLV type + version container the
 container\_unregister() function has to be invoked.
@@ -61,7 +61,7 @@ container\_unregister() function has to be invoked.
 ::
 
     void batadv_tvlv_container_unregister(struct batadv_priv *bat_priv,
-                                          uint8_t type, uint8_t version);
+                                          u8 type, u8 version);
 
 Unicast TVLV transmission
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,9 +73,9 @@ destination mac address:
 
 ::
 
-    void batadv_tvlv_unicast_send(struct batadv_priv *bat_priv, uint8_t *src,
-                                  uint8_t *dst, uint8_t type, uint8_t version,
-                                  void *tvlv_value, uint16_t tvlv_value_len);
+    void batadv_tvlv_unicast_send(struct batadv_priv *bat_priv, const u8 *src,
+                                  const u8 *dst, u8 type, u8 version,
+                                  void *tvlv_value, u16 tvlv_value_len);
 
 Handle incoming TVLVs
 ~~~~~~~~~~~~~~~~~~~~~
@@ -92,24 +92,27 @@ called:
     void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
                                       void (*optr)(struct batadv_priv *bat_priv,
                                                    struct batadv_orig_node *orig,
-                                                   uint8_t flags,
+                                                   u8 flags,
                                                    void *tvlv_value,
-                                                   uint16_t tvlv_value_len),
+                                                   u16 tvlv_value_len),
                                       int (*uptr)(struct batadv_priv *bat_priv,
-                                                  uint8_t *src, uint8_t *dst,
+                                                  u8 *src, u8 *dst,
                                                   void *tvlv_value,
-                                                  uint16_t tvlv_value_len),
-                                      uint8_t type, uint8_t version, uint8_t flags);
+                                                  u16 tvlv_value_len),
+                                      int (*mptr)(struct batadv_priv *bat_priv,
+                                                  struct sk_buff *skb),
+                                      u8 type, u8 version, u8 flags);
 
-TVLVs can be received through OGM packets and/or unicast TVLV packets. A
-callback handler for both TVLV types can be registered.
+TVLVs can be received through OGM packets, unicast TVLV packets and/or
+multicast packets. A callback handler for each of these packet types can
+be registered (NULL if not used).
 
 To remove a handler a handler\_unregister() is provided:
 
 ::
 
     void batadv_tvlv_handler_unregister(struct batadv_priv *bat_priv,
-                                        uint8_t type, uint8_t version);
+                                        u8 type, u8 version);
 
 Upon registering a handler it is possible to pass a couple of flags to
 tweak the handler API behavior. For instance, some features need to be
@@ -139,6 +142,7 @@ Gateway announcement
 ~~~~~~~~~~~~~~~~~~~~
 
 * tvlv type: 0x01
+* tvlv version: 1
 * function: Each batman-adv gateway server announces it's available
   internet connection speed, so that batman-adv gateway clients can
   select their preferable server.
@@ -170,6 +174,7 @@ DAT (Distributed ARP Table)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * tvlv type: 0x02
+* tvlv version: 1
 * function: D.A.T. is a DHT based global ARP cache.
 * purpose: the DAT component will only query other DAT-enabled nodes
 * length: 0 (This is a boolean telling that this node caches ARP
@@ -184,12 +189,20 @@ DAT (Distributed ARP Table)
      |   TVLV 0x02   |    Version    |             Length            | 
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
+Network coding
+~~~~~~~~~~~~~~
+
+* tvlv type: 0x03
+* This type was used by the network coding feature, which has been
+  removed from batman-adv. It is no longer sent or processed.
+
 .. _batman-adv-tvlv-translation-table-messages:
 
 Translation table messages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * tvlv type: 0x04
+* tvlv version: 1
 * function: Local non-mesh clients advertisement mechanism. This
   particular component needs some parameters that are propagated by the
   OGM.
@@ -276,6 +289,7 @@ Roaming Advertisement message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * tvlv type: 0x05
+* tvlv version: 1
 * function: Reduce a non-mesh client's packet loss when it roams from
   one AP to the next.
 * purpose: Inform the old AP about the new location of the non-mesh
@@ -305,6 +319,7 @@ Multicast capability
 ~~~~~~~~~~~~~~~~~~~~
 
 * tvlv type: 0x06
+* tvlv version: 2
 * function: Reduces the airtime consumed by multicast packets, e.g.
   by using multicast awareness to decide whether a frame can be sent via
   unicast or dropped.
@@ -330,4 +345,37 @@ Multicast capability
      |   TVLV 0x06   |    Version    |             Length            | 
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
      |     flags     |                    reserved                   |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Multicast tracker
+~~~~~~~~~~~~~~~~~
+
+* tvlv type: 0x07
+* tvlv version: 1
+* function: Forwards a batman-adv multicast packet to multiple
+  destination originators.
+* purpose: Carried in batman-adv multicast packets (not in OGMs) to list
+  the destination originators which still need to receive the packet.
+* length: variable. 2 bytes for the number of destinations + 6 bytes per
+  destination originator address + 2 bytes of padding if the number of
+  destinations is even.
+* Fixed TVLV fields:
+
+  - num\_dests: number of subsequent destination originator MAC
+    addresses (2 bytes)
+
+* definition:
+
+::
+
+     0                   1                   2                   3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |   TVLV 0x07   |    Version    |             Length            |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |    Number of destinations     |   Destination address 1 ...   |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                ... Destination address 1                      |
+     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+     |                       ...................                     |
      +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

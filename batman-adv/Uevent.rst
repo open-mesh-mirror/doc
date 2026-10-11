@@ -48,19 +48,37 @@ explanations) it will inform the user space about its gateway mode state
 changes: Sending an "add message" when the first gateway is chosen, a
 "change message" when a better gateway was found and a "delete message"
 when the currently selected gateway vanished and no alternative was
-available.
+available. A "delete message" is also sent when the gateway client mode
+is switched off while a gateway was selected.
 
 In detail:
 
--  BATTYPE: Always set to "GW" for gateway related messages.
--  BATACTION: Set to "ADD", "CHANGE" or "DEL".
--  BATDATA: When BATACTION is set to ADD or CHANGE it contains the mac
+-  BATTYPE: Always set to "gw" for gateway related messages.
+-  BATACTION: Set to "add", "change" or "del".
+-  BATDATA: When BATACTION is set to add or change it contains the mac
    address of the selected gateway otherwise the parameter is not sent.
 
 A script running in user space could start a dhcp client as soon as an
 "add message" comes in and make the dhcp client request a new IP address
 when a "change message" is received to ensure it always uses the
 currently selected batman-adv gateway.
+
+Bridge loop avoidance uevents
+-----------------------------
+
+Available since: batman-adv 2016.2
+
+When the :doc:`bridge loop avoidance <Bridge-loop-avoidance>` detects a
+loop which it cannot handle by itself (e.g. caused by a complex network
+setup), it informs the user space about it.
+
+In detail:
+
+-  BATTYPE: Always set to "bla" for bridge loop avoidance related
+   messages.
+-  BATACTION: Always set to "loopdetect".
+-  BATDATA: The VLAN id on which the loop was detected (-1 for untagged
+   traffic).
 
 How to add my own uevents to batman-adv ?
 -----------------------------------------
@@ -72,8 +90,10 @@ Function prototype:
 
 ::
 
-    int throw_uevent(struct bat_priv *bat_priv, enum uev_type type, 
-                     enum uev_action action, const char *data);
+    int batadv_throw_uevent(struct batadv_priv *bat_priv,
+                            enum batadv_uev_type type,
+                            enum batadv_uev_action action,
+                            const char *data);
 
 Arguments explained:
 
@@ -86,6 +106,6 @@ Arguments explained:
 
 Example:
 
--  type: GW
--  action: ADD/CHANGE/DEL
+-  type: BATADV_UEV_GW
+-  action: BATADV_UEV_ADD/BATADV_UEV_CHANGE/BATADV_UEV_DEL
 -  data: the gateway MAC address

@@ -96,7 +96,8 @@ Additionally, in *bridged* scenarios multicast packets are still flooded
 in the following cases:
 
 * If there is no IGMP/MLD querier.
-* If the packet has an IPv4 multicast destination.
+* If the packet has a link-local IPv4 multicast destination
+  (224.0.0.0/24).
 * If the IPv6 multicast destination is ff02::1.
 
 How to deactivate the multicast optimizations?

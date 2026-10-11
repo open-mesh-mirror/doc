@@ -72,9 +72,10 @@ automatically:
 -  unknown/override: B.A.T.M.A.N. V allows to specify a throughput value
    per interface via generic netlink. Consequently. B.A.T.M.A.N. V will assume the
    specified throughput for any neighbor discovered over that interface.
--  throughput meter (upcoming): If the throughput can not be queried via
-   some API and is not manually configured, B.A.T.M.A.N. V will run a
-   periodic throughput test with its built-in throughput test protocol.
+-  fallback: If the throughput can not be queried via some API and is
+   not manually configured, B.A.T.M.A.N. V assumes a default throughput
+   of 1 Mbit/s and prints a warning. (The built-in throughput meter is
+   not used to determine the link throughput.)
 
 Note: The WiFi neighbor throughput estimation relies on the WiFi driver
 being able to estimate the throughput. Commonly, the WiFi driver needs

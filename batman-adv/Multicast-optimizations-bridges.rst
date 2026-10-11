@@ -26,17 +26,15 @@ kernel:
 
 |image0|
 
-So far, the batman-adv multicast optimizations were only enabled if no
-bridges were involved in the whole mesh network. This is because until
-now batman-adv was not able to detect multicast listeners on foreign
-kernels somewhere behind its bridge.
+However, multicast listeners on foreign kernels somewhere behind a
+bridge cannot be detected this way.
 
 Bridged-in Multicast Listeners
 ------------------------------
 
-Now it is also possible to use this feature with bridges (on kernels >
-3.15). A batman-adv node is able to detect any multicast listener on a
-foreign, non-mesh device behind a bridge, too:
+Since batman-adv 2016.3 the multicast optimizations can be used with
+bridges, too. A batman-adv node is able to detect any multicast listener
+on a foreign, non-mesh device behind a bridge:
 
 |image1|
 
@@ -47,10 +45,7 @@ bridge already detects multicast listeners through snooping IGMP and MLD
 messages, which a multicast listener regularly sends on the according
 link.
 
-batman-adv is capable of fetching that information from a Linux bridge
-in kernels newer or equal to 3.16. With older kernels a batman-adv node
-will inform other nodes that it needs any multicast data and will
-receive such packets.
+batman-adv fetches that information from the Linux bridge.
 
 Note that as pictured in the diagrams above you should run your local
 multicast receiving applications on the bridge instead of the bat0

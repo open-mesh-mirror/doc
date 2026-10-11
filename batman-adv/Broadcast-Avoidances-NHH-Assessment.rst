@@ -3,6 +3,10 @@
 Neighborhood hash assessment
 ============================
 
+*Status:* The implementation assessed here refers to out-of-tree
+patches, not upstream yet (see
+:doc:`Broadcast avoidances <Broadcast-Avoidances>`).
+
 First follow evaluations of the two scenarios described before to check
 if or when the neighborhood hashing approach successfully reduces
 broadcast overhead in these targeted cases (section 1).

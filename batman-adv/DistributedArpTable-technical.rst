@@ -13,7 +13,7 @@ Table <https://en.wikipedia.org/wiki/Distributed_hash_table>`__ aimed to
 store ARP entries and to allow nodes to perform fast lookup operations.
 All the operations in the DHT (get and store) are performed on a set of
 nodes computed by means of a distributed hash function which input value
-is an **IPv4 address**.
+is an **IPv4 address** together with the **VLAN identifier** of the entry.
 
 Snooping mechanism
 ------------------
@@ -23,9 +23,9 @@ analyze ARP messages going to and coming from the mesh network,
 therefore a snooping mechanism has been provided.
 A node uses ARP **replies** issued by the clients it is serving to
 populate its local cache and the distributed table. Any ARP
-**request** going to the mesh network, instead, is blocked in order to
-ask DAT for the reply. If DAT is not able to provide an answer then
-the messages is delivered to the clients.
+**request** going to the mesh network, instead, is delayed in order to
+ask DAT for the reply first. Afterwards, the request is broadcasted as
+usual.
 
 The snooping mechanism is actually made up of 4 events, which trigger
 different actions.
@@ -36,12 +36,16 @@ The 4 possibilities are the following:
    purposes, then the node checks if the requested IP is in the local
    cache:
 
-   #. if yes: the node drops the request and immediately generates a
-      reply that is delivered to the client
+   #. if yes: the node immediately generates a reply that is delivered
+      to the client (unless the requested address belongs to one of its
+      own clients, which will answer by itself)
    #. if no: the node queries the DHT table using the requested IP as
-      search key. If no answer is received within a fixed amount of time
-      (currently is 250ms) the ARP request is broadcasted like it is
-      usually done.
+      search key.
+
+   In both cases the original ARP request is not dropped: it is still
+   broadcasted like it is usually done, but delayed by a fixed amount of
+   time (currently 250ms) to give DAT the chance to provide the answer
+   first.
 
 #. *Incoming ARP Request*: The packet is intercepted and the source
    entry [MAC,IP] (contained in the packet) is stored for caching
@@ -62,6 +66,11 @@ The 4 possibilities are the following:
    then the message is sent to the DHT in order to populate it following
    the storing schema.
 
+In addition to ARP messages, DHCP ACK messages are snooped as well: the
+[MAC,IP] pairs of the DHCP server and of the client the address was
+assigned to are stored in the local cache and (for outgoing DHCP ACKs)
+sent to the DHT.
+
 Fallback mechanism
 ------------------
 
@@ -69,9 +78,10 @@ It is also possible that DAT does not have the entry for a particular IP
 (like described in the previous section), e.g. the first time this IP is
 asked or because the entry has been purged out due to missing activity.
 In this case DAT will not be able to provide any answer for the
-requested IP address. The "blocked ARP request" is therefore sent as
-broadcast packet (like a normal ARP request) after a timeout of 250ms is
-hit (during this period the node will wait for the answer from the DHT).
+requested IP address. The delayed ARP request is therefore sent as
+broadcast packet (like a normal ARP request) after a delay of 250ms
+(during this period the node will wait for the answer from the DHT). The
+broadcast is sent even if an answer was received in the meantime.
 This way the client can get the reply it was looking for through the
 normal ARP mechanism and DAT can learn the new entry by inspecting the
 incoming messages.
@@ -89,15 +99,10 @@ packets and to provide appropriate debugging information if needed.
 Backward compatibility
 ----------------------
 
-In order to prevent backward compatibility breakage, several measures
-have been taken:
-
--  the fallback mechanism prevent a DAT-enabled node to get stuck in
-   case of no DAT nodes at the location where it was expecting them;
--  if an ARP request is coming through as a normal unicast packet, it
-   means that the node sending it is not DAT-enabled, therefore also the
-   reply will be sent by means of a standard unicast packet instead of
-   using the unicast\_4address packet type.
+In order to prevent backward compatibility breakage, the fallback
+mechanism prevent a DAT-enabled node to get stuck in case of no DAT
+nodes at the location where it was expecting them. Replies generated
+from the DAT cache are always sent using the UNICAST\_4ADDR packet type.
 
 Debug
 ~~~~~
@@ -163,8 +168,8 @@ next step is to merge the ARP protocol and let D.A.T. born.
 
 D.A.T. actually exploits the DHT mechanism to store ARP entries of the
 form **[IP, MAC]** (this object is shaped like a normal ARP entry). The
-IP is used as input for the hash function as it is the always known part
-of the entry. In particular, whenever a node detects an ARP entry in the
+IP (together with the VLAN identifier) is used as input for the hash
+function as it is the always known part of the entry. In particular, whenever a node detects an ARP entry in the
 network (because of an ARP request/reply being sent/received by one of
 its clients) it simply activates the previously explained mechanisn and
 stores such entry into the DHT.

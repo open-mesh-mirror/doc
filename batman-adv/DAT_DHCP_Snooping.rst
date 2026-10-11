@@ -194,6 +194,8 @@ Solution 2)
 
 (*Update 2024-09-11*)
 
+Status: *not part of a batman-adv release* (as of v2026.3)
+
 Patches:
 
 * https://patchwork.open-mesh.org/project/b.a.t.m.a.n./cover/20240911051259.23384-1-linus.luessing@c0d3.blue/

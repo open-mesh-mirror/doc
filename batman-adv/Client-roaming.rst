@@ -70,9 +70,6 @@ roaming procedure will react:
 #. C sends a ROAM\_ADV to node A (same mechanism of point 2)
 #. A updates its global table in order to reroute the packets to the
    correct (new) destination
-#. A sends a ROAM\_ADV to B to tell it that the roaming phase is over and
-   that the client "came back" (new feature to avoid B to do not
-   re-route packets correctly)
 
 In this way data will be still sent to A first and then rerouted to the
 correct location with no loss.
@@ -120,7 +117,7 @@ with "delete event" is coming in, the delete event is silently
 discarded. But if a node receives the "delete event" first, it has no
 working route towards the client until the "add event" shows up. To
 solve this problem the "delete event" comes with a roaming flag
-(TT\_GLOBAL\_ROAM) which tells neighboring nodes to use this route until
+(TT\_CLIENT\_ROAM) which tells neighboring nodes to use this route until
 the "add event" arrives. It also excludes this entry from the CRC32
 checksum computation.
 

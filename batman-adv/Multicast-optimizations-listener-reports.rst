@@ -3,6 +3,10 @@
 Multicast listener reports
 ==========================
 
+*Status:* Historical design notes, written before multicast optimizations
+supported bridges (added in batman-adv 2016.3). Current batman-adv floods
+IGMP/MLD reports to all nodes and only uses multicast TVLV version 2.
+
 Scenario
 --------
 
@@ -18,8 +22,7 @@ wanted.
 Goals
 ~~~~~
 
--  Preventing packetloss on bridges (once multicast-bridge-support is
-   implemented)
+-  Preventing packetloss on bridges
 
 The Problem
 ~~~~~~~~~~~
@@ -97,7 +100,7 @@ There are usually two parties interested in multicast listener reports.
 For one thing, bridges ("software switches") and snooping switches
 (enterprise hardware switches). For another thing, multicast routers
 want IGMP/MLD reports. If the former, a bridge, exists then multicast
-optimizations are turned off at the moment, so the issue can't occure.
+optimizations were turned off at that time, so the issue couldn't occur.
 For the latter, reports to multicast routers, let's consider the
 following two cases:
 
@@ -107,9 +110,10 @@ b) Multicast listeners joining a non-link-local address
 Multicast routers need reports to learn and tell other routers about
 multicast traffic their part of the network is interested in. Link-local
 multicast is not routed, so multicast routers aren't actually interested
-in reports of case a). For b), the current implementation in batman-adv
-is flooding multicast packets with a routable destination everywhere
-unconditionally. IGMPv2/MLDv1 reports for routable traffic have a
+in reports of case a). For b), the implementation in batman-adv at that
+time was flooding multicast packets with a routable destination
+everywhere unconditionally (routable multicast optimizations were only
+added in batman-adv 2019.3). IGMPv2/MLDv1 reports for routable traffic have a
 routable multicast destination, so every node and therefore any
 potential multicast router will receive them.
 
@@ -146,10 +150,11 @@ multicast packet, including reports:
 
 *An old node flooding its reports*
 
-To avoid regressions for non-bridged setups currently relying on
-multicast optimizations, the following is done: Any node *without* a
-bridge but capable of proper report handling will register both a
-multicast tvlv version one and two:
+To avoid regressions for non-bridged setups relying on multicast
+optimizations, the following was proposed: Any node *without* a bridge
+but capable of proper report handling would register both a multicast
+tvlv version one and two (note: current batman-adv only registers
+multicast tvlv version two):
 
 |image6|
 

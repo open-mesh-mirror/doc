@@ -78,7 +78,7 @@ This design bears some interesting characteristics:
    required)
 -  roaming of non-mesh clients
 -  optimizing the data flow through the mesh (e.g. interface
-   alternating, multicast, forward error correction, etc)
+   alternating, multicast, etc)
 -  running protocols relying on broadcast/multicast over the mesh and
    non-mesh clients (Windows neighborhood, mDNS, streaming, etc)
 

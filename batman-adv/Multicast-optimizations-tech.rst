@@ -163,14 +163,13 @@ are not snoopable. See
 details.
 
 ²: In bridged scenarios, an IGMP/MLD querier needs to be present in the
-mesh. Also, a 3.17 kernel or newer is required.
+mesh.
 
-³: Routable IPv4 multicast addresses in bridged scenarios require a 5.14
-kernel or newer and `batman-adv
-2021.2 <https://www.open-mesh.org/news/104>`__ or newer. Before that
-only supported without bridges.
+³: Routable IPv4 multicast addresses in bridged scenarios require
+`batman-adv 2021.2 <https://www.open-mesh.org/news/104>`__ or newer.
+Before that only supported without bridges.
 
-⁴: With a 5.14 kernel or newer and `batman-adv
+⁴: With `batman-adv
 2021.2 <https://www.open-mesh.org/news/104>`__ or newer proper
 `MRD <https://www.rfc-editor.org/rfc/rfc4286.html>`__ support is used to
 detect multicast routers. Otherwise with `batman-adv
@@ -191,7 +190,8 @@ multicast listener on the local link, but to any multicast router, too.
 Otherwise off-link listeners, which are only reachable via a layer 3
 multicast router, would not receive these multicast packets anymore.
 batman-adv detects node local multicast routers through
-```/proc/sys/net/<ipv4|ipv6>/conf//mc_forwarding`` and uses a bridge’s
+``/proc/sys/net/<ipv4|ipv6>/conf/<dev>/mc_forwarding`` (of the bridge
+or, without a bridge, of the batman-adv interface) and uses a bridge’s
 `Multicast Router Discovery <https://tools.ietf.org/search/rfc4286>`__
 capabilities for bridged-in hosts.
 

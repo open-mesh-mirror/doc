@@ -3,6 +3,8 @@
 Interconnecting batman-adv clouds
 =================================
 
+*Status:* Concept only, not implemented in batman-adv.
+
 Overview
 --------
 

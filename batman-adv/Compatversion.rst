@@ -3,7 +3,7 @@
 Compat version
 ==============
 
-COMPAT\_VERSION in packet.h is used to identify an incoming packet and
+BATADV\_COMPAT\_VERSION in include/uapi/linux/batadv\_packet.h is used to identify an incoming packet and
 check if it can processed by the current version. The packet structure
 should be identified by this version. The stuff which appears in a
 packet jumps a little bit with each version because we change stuff in
@@ -31,7 +31,7 @@ Following changes were identified and documented.
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 11        | v2010.1.0                                   | gateway flags were removed                                                                                                                                               |
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 12        | v2011.0.0, v2011.1.0, v2012.2.0             | unicast fragmentation added, gateway flags were readded                                                                                                                  |
+| 12        | v2011.0.0, v2011.1.0, v2011.2.0             | unicast fragmentation added, gateway flags were readded                                                                                                                  |
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 13        | v2010.2.0                                   | gateway flags were removed                                                                                                                                               |
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -39,8 +39,6 @@ Following changes were identified and documented.
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 15        | v2014.0.0 and later                         | TVLV (backward compatibility), packet alignment (\_\_packed), vlan aware tt, crc32 checksums for tt, fragmentation v2, packet type prefix and BATADV\_TT\_CLIENT\_TEMP   |
 +-----------+---------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-(\* means future version with already defined feature set)
 
 There is a special COMPAT\_VERSION 200 which is only used by saxnet.
 This version is v6 with bcast seqno protection added.
