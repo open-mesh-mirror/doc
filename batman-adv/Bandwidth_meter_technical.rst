@@ -1,6 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Bandwidth meter technical
+Throughput meter protocol
 =========================
 
 The Protocol

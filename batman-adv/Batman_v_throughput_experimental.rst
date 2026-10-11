@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-B.A.T.M.A.N. V (DRAFT)
-======================
+B.A.T.M.A.N. V draft
+====================
 
 **Metric:** Estimated throughput (from RC algorithm for wireless
 devices)

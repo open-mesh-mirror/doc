@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-B.A.T.M.A.N. Advanced quick start guide
-=======================================
+Quick start guide
+=================
 
 This page shall show a couple of easy examples of how to use and setup a
 mesh network with B.A.T.M.A.N.-Advanced (further referenced as

@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Originator Message version 2 (OGMv2)
-====================================
+Originator message v2 (OGMv2)
+=============================
 
 |image0|
 *Image Source*: `Martin Hundebøll, Jeppe Ledet-Pedersen, Network

@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Broadcast Avoidances - Neighborhood Hash Assessment
-===================================================
+Neighborhood hash assessment
+============================
 
 First follow evaluations of the two scenarios described before to check
 if or when the neighborhood hashing approach successfully reduces

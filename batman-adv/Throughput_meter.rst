@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Bandwidth meter
-===============
+Throughput meter
+================
 
 This page is about a general overview of the Bandwith Meter tool in
 B.A.T.M.A.N.-Advanced.

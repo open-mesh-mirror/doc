@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Building B.A.T.M.A.N. Advanced with Openwrt
-===========================================
+Building with OpenWrt
+=====================
 
 Many tutorials assume that you have batman-adv running on an Openwrt
 system without going into detail how to get the system built and

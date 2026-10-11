@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Roaming-improvements
-====================
+Client roaming
+==============
 
 Speeding up the roaming
 -----------------------

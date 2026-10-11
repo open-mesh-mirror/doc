@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-B.A.T.M.A.N. OpenWrt configuration
-==================================
+OpenWrt configuration
+=====================
 
 This page showcases some basic batman-adv configurations on OpenWrt
 including wireless & network setups. However, the goal is to provide not

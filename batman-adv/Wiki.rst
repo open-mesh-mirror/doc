@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-B.A.T.M.A.N. advanced
-=====================
+Introduction
+============
 
 B.A.T.M.A.N. advanced (often referenced as batman-adv) is an
 implementation of the B.A.T.M.A.N. routing protocol in form of a linux

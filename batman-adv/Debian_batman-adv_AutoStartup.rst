@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Debian batman-adv AutoStartup
-=============================
+Debian autostart
+================
 
 This Page describes how to configure a Debian (or Derived Distribution
 like Ubuntu, Mint, etc) so that batman-adv starts automatically on boot

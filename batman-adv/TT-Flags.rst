@@ -1,6 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-TT-Flags
+TT flags
 ========
 
 *Note: This page documents internal stuff of batman-adv. It describes

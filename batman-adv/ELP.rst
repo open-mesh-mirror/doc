@@ -23,7 +23,7 @@ Commons <https://en.wikipedia.org/wiki/File:Animal_echolocation.svg>`__
 -  originator - A node broadcasting its own OGMs (see :doc:`OGM <OGM>` for
    details) that is therefore addressable within the mesh network
    routing layer. It is uniquely identifiable by its originator address.
-   :doc:`B.A.T.M.A.N.-Advanced </batman-adv/Doc-overview>` uses the MAC
+   :doc:`B.A.T.M.A.N.-Advanced </batman-adv/index>` uses the MAC
    address of its primary hard interface.
 -  hard-interface - Network interface utilized by B.A.T.M.A.N. for its
    own Ethernet frames.

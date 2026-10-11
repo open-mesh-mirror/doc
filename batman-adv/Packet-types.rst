@@ -1,6 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Packet-types
+Packet types
 ============
 
 Many packet types in batman-adv are sent as unicast packets and rely on

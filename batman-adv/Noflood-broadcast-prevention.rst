@@ -2,8 +2,8 @@ Prior Readings:
 
 * :doc:`Broadcasts in B.A.T.M.A.N. Advanced <Broadcast>`
 
-“Noflood”-mark: Broadcast Flood Prevention
-==========================================
+Noflood mark
+============
 
 |image0|
 

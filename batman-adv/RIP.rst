@@ -1,6 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-RIP Protocol (Rest in Peace)
+RIP protocol (Rest in Peace)
 ============================
 
 *The original idea from Linus has been discussed and enhanced by an

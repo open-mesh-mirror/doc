@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Network Wide Multi Link Optimization (technical documentation)
-==============================================================
+Network wide multi-link optimization
+====================================
 
 The original batman-adv multi link optimization worked on a local level - which
 is fairly easy to implement and works well as long as as all nodes are

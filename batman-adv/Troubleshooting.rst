@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-B.A.T.M.A.N.-Adv Troubleshooting
-================================
+Troubleshooting
+===============
 
 Below you can find some problem/solution stories. If you got other
 (common) questions about batman-adv, please check the :doc:`Frequently asked question <Faq>` page.

@@ -1,6 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-DHCP Gateway Optimization
+DHCP gateway optimization
 =========================
 
 Often batman-adv is used to cover a bigger area with wireless access to

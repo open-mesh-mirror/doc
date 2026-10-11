@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Client announcements
-====================
+Client announcement
+===================
 
 Each mesh protocol offering network access to non-mesh clients needs a
 'client announcement' system. The task of such a system is to inform

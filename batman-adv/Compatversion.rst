@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-batman-adv COMPAT\_VERSION
-==========================
+Compat version
+==============
 
 COMPAT\_VERSION in packet.h is used to identify an incoming packet and
 check if it can processed by the current version. The packet structure

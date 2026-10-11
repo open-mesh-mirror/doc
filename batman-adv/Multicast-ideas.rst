@@ -26,8 +26,8 @@ More Info:
 
 --------------
 
-B.A.T.M.A.N.-Adv Multicast Awareness
-====================================
+Multicast awareness
+===================
 
 As batman-adv has full control over all data traffic flowing through the
 mesh network multicast traffic also falls under its jurisdiction. At the

@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
 ===================
-Hidden Node Problem
+Hidden node problem
 ===================
 
 See `here <https://en.wikipedia.org/wiki/Hidden_node_problem>`__ for a

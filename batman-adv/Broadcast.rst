@@ -1,5 +1,5 @@
-Broadcasts in B.A.T.M.A.N. Advanced
-===================================
+Broadcasts
+==========
 
 | *A node broadcasting through the mesh*
 | |image0|

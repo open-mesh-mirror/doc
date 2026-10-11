@@ -2,7 +2,7 @@
 
 **WIP - WIP - WIP**
 
-OGMv2 Permeability
+OGMv2 permeability
 ==================
 
 Goal

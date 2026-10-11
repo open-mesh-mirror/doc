@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-DistributedArpTable: technical documentation
-============================================
+Distributed ARP Table internals
+===============================
 
 The target of this page is to explain the inner details of the
 implementation of :doc:`DAT (Distributed ARP Table) <DistributedArpTable>`.

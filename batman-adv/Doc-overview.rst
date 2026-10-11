@@ -1,5 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
+:orphan:
+
 B.A.T.M.A.N. Advanced Documentation Overview
 ============================================
 

@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Bridge-loop-avoidance-Testcases
-===============================
+Bridge loop avoidance test cases
+================================
 
 This page describes test cases for the bridge loop avoidance. For more
 technical information and reference, please

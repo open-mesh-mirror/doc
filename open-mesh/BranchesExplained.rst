@@ -80,7 +80,7 @@ is part of the official Linux kernel since 2.6.38.
 To understand the implications of routing on layer 2, the
 :doc:`batman-adv page </batman-adv/Wiki>` should be a good starting point
 Further documentation is available in our
-:doc:`batman-adv doc </batman-adv/Doc-overview>` section.
+:doc:`batman-adv doc </batman-adv/index>` section.
 
 batctl
 ------

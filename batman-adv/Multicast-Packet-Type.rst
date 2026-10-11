@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
 =====================
-Multicast Packet Type
+Multicast packet type
 =====================
 
 Prior Readings:

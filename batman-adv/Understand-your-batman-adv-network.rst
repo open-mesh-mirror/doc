@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Understand your B.A.T.M.A.N. Advanced network
-=============================================
+Understand your network
+=======================
 
 This document assumes you have created a batman-adv network and are
 interested in finding out how batman routes the traffic from node to

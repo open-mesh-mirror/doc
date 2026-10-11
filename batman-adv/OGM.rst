@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
 ========================
-Originator Message (OGM)
+Originator message (OGM)
 ========================
 
 This page is work-in-progress and will state the BATMAN V algorithm

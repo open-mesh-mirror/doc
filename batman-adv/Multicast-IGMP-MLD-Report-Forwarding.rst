@@ -1,8 +1,8 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-======================================
-Multicast - IGMP/MLD Report Forwarding
-======================================
+==========================
+IGMP/MLD report forwarding
+==========================
 
 Patches:
 

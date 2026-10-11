@@ -1,6 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Multi-link Optimizations
+Multi-link optimizations
 ========================
 
 batman-adv is able to work on different interfaces - multiple WiFi

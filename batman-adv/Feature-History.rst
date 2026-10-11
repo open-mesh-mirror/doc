@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
 ===============
-Feature History
+Feature history
 ===============
 
 

@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Tweaking B.A.T.M.A.N. Advanced
-==============================
+Tweaking
+========
 
 This document aims to provide a high level overview about the individual
 settings batman-adv allows you to make, in order to tweak its behaviour.

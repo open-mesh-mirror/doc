@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Batman-adv bridge loop avoidance
-================================
+Bridge loop avoidance
+=====================
 
 This document explains how batman-adv is able to detect & avoid loops
 that are created by bridging multiple batX interfaces on different hosts

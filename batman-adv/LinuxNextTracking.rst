@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Tracking the linux-next branch
-==============================
+Tracking linux-next
+===================
 
 We have currently our own branch to create patches for linux. These
 patches are send to a sub-system maintainer which integrates them into

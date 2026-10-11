@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-How to Interconnect different Batman-adv clouds (DRAFT)
-=======================================================
+Interconnecting batman-adv clouds
+=================================
 
 Overview
 --------

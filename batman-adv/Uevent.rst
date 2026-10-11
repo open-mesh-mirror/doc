@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Uevent
-======
+Uevents
+=======
 
 B.A.T.M.A.N.-Advanced can throw uevents (asynchronous signals sent by
 the kernel to the user space) to inform the user space about certain

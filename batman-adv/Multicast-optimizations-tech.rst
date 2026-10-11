@@ -1,8 +1,8 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-===============================================
-Multicast Optimizations – Technical Description
-===============================================
+=================================
+Multicast optimizations internals
+=================================
 
 Prior Readings:
 
