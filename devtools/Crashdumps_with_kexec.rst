@@ -391,6 +391,206 @@ panic handler can boot it on demand.
 After the boot (without going through u-boot), a file ``/proc/vmcore``
 should be available which can be saved for further analysis.
 
+ipq40xx
+~~~~~~~
+
+The ARM setup is demonstrated on an OpenMesh A42 (IPQ4018, 256 MB RAM)
+with OpenWrt and Linux 6.18. In contrast to ath79, the normal OpenWrt
+kernel can also be used as crashkernel: the ARM zImage is position
+independent (``CONFIG_AUTO_ZRELADDR``, ``CONFIG_ARM_PATCH_PHYS_VIRT``) and
+the decompressor uses the ``linux,usable-memory-range`` which kexec adds
+to the devicetree. The initramfs variant of the kernel is used as
+crashkernel because it brings its own root filesystem and doesn't have
+to touch the flash of the crashed system.
+
+The kexec specific options must be enabled in OpenWrt's .config together
+with the initramfs image and the full debug information:
+
+.. code-block:: none
+
+  CONFIG_TARGET_ROOTFS_INITRAMFS=y
+  CONFIG_KERNEL_DEBUG_INFO=y
+  # CONFIG_KERNEL_DEBUG_INFO_REDUCED is not set
+  CONFIG_KERNEL_KEXEC=y
+  CONFIG_KERNEL_PROC_VMCORE=y
+  CONFIG_KERNEL_CRASH_DUMP=y
+  CONFIG_PACKAGE_kexec=y
+  CONFIG_PACKAGE_uboot-envtools=y
+
+But this alone doesn't enable ``CONFIG_KEXEC`` in the kernel. On SMP
+systems, ARM only allows kexec when the secondary CPUs can be disabled
+(``CONFIG_PM_SLEEP_SMP``, which selects ``CONFIG_HOTPLUG_CPU``). This
+requires the suspend support in the target kernel configuration:
+
+.. code-block:: diff
+
+  diff --git a/target/linux/ipq40xx/config-6.18 b/target/linux/ipq40xx/config-6.18
+  --- a/target/linux/ipq40xx/config-6.18
+  +++ b/target/linux/ipq40xx/config-6.18
+  @@ -536,3 +536,9 @@ CONFIG_ZLIB_INFLATE=y
+   CONFIG_ZSTD_COMMON=y
+   CONFIG_ZSTD_COMPRESS=y
+   CONFIG_ZSTD_DECOMPRESS=y
+  +CONFIG_HOTPLUG_CPU=y
+  +CONFIG_PM=y
+  +CONFIG_PM_SLEEP=y
+  +CONFIG_PM_SLEEP_SMP=y
+  +CONFIG_SUSPEND=y
+  +CONFIG_FW_CACHE=y
+
+Even with CPU hotplug enabled, ``machine_kexec_prepare()`` refuses to
+load any kernel (``Invalid argument``) because the Qualcomm SMP code
+doesn't implement ``cpu_kill``. The secondary CPUs are only parked in a
+``wfi`` loop by ``qcom_cpu_die()``. This is good enough for a crashkernel
+which only uses a single CPU - but it is a debugging hack and not
+something for a production system. It can be stored as
+``target/linux/ipq40xx/patches-6.18/990-ARM-qcom-add-dummy-cpu_kill-for-kexec.patch``:
+
+.. code-block:: diff
+
+  --- a/arch/arm/mach-qcom/platsmp.c
+  +++ b/arch/arm/mach-qcom/platsmp.c
+  @@ -49,6 +49,11 @@ static void qcom_cpu_die(unsigned int cp
+   {
+   	wfi();
+   }
+  +
+  +static int qcom_cpu_kill(unsigned int cpu)
+  +{
+  +	return 1;
+  +}
+   #endif
+   
+   static int scss_release_secondary(unsigned int cpu)
+  @@ -401,6 +406,7 @@ static const struct smp_operations qcom_
+   	.smp_boot_secondary	= kpssv2_boot_secondary,
+   #ifdef CONFIG_HOTPLUG_CPU
+   	.cpu_die		= qcom_cpu_die,
+  +	.cpu_kill		= qcom_cpu_kill,
+   #endif
+   };
+   CPU_METHOD_OF_DECLARE(qcom_smp_kpssv2, "qcom,kpss-acc-v2", &qcom_smp_kpssv2_ops);
+
+The kernel commandline of the A42 is not taken from the devicetree but
+from the ``bootargs`` u-boot environment variable. It can be modified from
+the running OpenWrt to reserve 64 MB for the crashkernel:
+
+.. code-block:: sh
+
+  root@OpenWrt:/# fw_setenv bootargs "console=ttyMSM0,115200 rootfstype=squashfs,jffs2 board=A42 crashkernel=64M"
+
+The reserved memory should be visible after the next boot:
+
+.. code-block:: sh
+
+  root@OpenWrt:/# grep -e 'System RAM' -e 'Crash kernel' /proc/iomem
+  80000000-87dfffff : System RAM
+  88000000-8fffffff : System RAM
+    88000000-8bffffff : Crash kernel
+
+The initramfs kernel must now be copied to the device and loaded in the
+"Crash kernel" region:
+
+.. code-block:: sh
+
+  $ LXBASE=./build_dir/target-arm_cortex-a7+neon-vfpv4_musl_eabi/linux-ipq40xx_generic
+  $ ssh root@192.168.2.128 'cat > /tmp/zImage-initramfs' < "$LXBASE"/zImage-initramfs
+
+  root@OpenWrt:/# kexec -p /tmp/zImage-initramfs --image-size=$((40 * 1024 * 1024)) \
+    --command-line="$(sed 's/crashkernel=[^ ]*//' /proc/cmdline) nr_cpus=1 reset_devices module_blacklist=ath10k_core"
+  root@OpenWrt:/# cat /sys/kernel/kexec_crash_loaded
+  1
+
+Each of these parameters avoids a problem which would otherwise prevent
+the crashkernel from booting or from being useful:
+
+``--image-size``
+  kexec-tools reserves only the size of the decompressed kernel
+  (including bss) and places the devicetree directly behind it. But the
+  decompressor first moves itself behind the decompressed kernel and
+  overwrites the devicetree. The crashkernel then dies with
+  ``no ATAGS support: can't continue`` - which is only visible when the
+  decompressor debug output is enabled. 40 MB are enough for the
+  initramfs kernel of this build. The value should be at least the size
+  of the decompressed kernel (``Image-initramfs`` + bss) plus the size
+  of ``zImage-initramfs``.
+
+``$(sed ... /proc/cmdline)``
+  the partitions of the A42 are defined by ``mtdparts`` on the
+  commandline. Without them, the ``0:ART`` partition with the MAC
+  addresses and the wifi calibration data is missing. The ethernet
+  driver then never finishes its (deferred) probe and the crashkernel is
+  not reachable over the network. The ``crashkernel`` parameter itself
+  is removed because the crashkernel must not reserve memory again.
+
+``nr_cpus=1``
+  the other CPUs are still parked in the crashed kernel and must not be
+  started again.
+
+``module_blacklist=ath10k_core``
+  the wifi chips are still in the state of the crashed kernel. In the
+  tests, ath10k failed to initialize them (``failed to receive
+  initialized event from target``) and the crashkernel hung afterwards.
+  They are also not needed to retrieve the dump and would only waste the
+  little memory of the crashkernel.
+
+The crash can now be simulated:
+
+.. code-block:: sh
+
+  root@OpenWrt:/# echo c > /proc/sysrq-trigger
+
+The serial console shows how the crashed kernel directly starts the
+crashkernel (without going through u-boot):
+
+.. code-block:: none
+
+  [   34.259265] sysrq: Trigger a crash
+  [   34.259344] Kernel panic - not syncing: sysrq triggered crash
+  [   34.262721] Loading crashdump kernel...
+  [   34.267423] Bye!
+  [    0.000000] Booting Linux on physical CPU 0x1
+  [...]
+  [    0.000000] Kernel command line: console=ttyMSM0,115200 rootfstype=squashfs,jffs2 board=A42  root=31:09 mtdparts=spi0.0:256k(0:SBL1),128k(0:MIBIB),384k(0:QSEE),64k(0:CDT),64k(0:DDRPARAMS),64k(u-boot-env),512k(u-boot),64k(0:ART),0x003d0000(kernel),0x00b70000(rootfs),15616k(inactive) rootfsname=rootfs rootwait nr_cpus=1 reset_devices module_blacklist=ath10k_core elfcorehdr=0x8bf00000 mem=64512K
+
+The crashkernel gets its address via DHCP (just like the normal system)
+and ``/proc/vmcore`` can be downloaded directly over SSH. There is not
+enough memory in the crashkernel to store it in a tmpfs first:
+
+.. code-block:: sh
+
+  $ ssh root@192.168.2.128 'cat /proc/vmcore' > vmcore
+  $ readelf -l vmcore
+
+  Elf file type is CORE (Core file)
+  Entry point 0x0
+  There are 3 program headers, starting at offset 52
+
+  Program Headers:
+    Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+    NOTE           0x001000 0x00000000 0x00000000 0x00d3c 0x00d3c     0x4
+    LOAD           0x002000 0xc0000000 0x80000000 0x7e00000 0x7e00000 RWE 0
+    LOAD           0x7e02000 0xcc000000 0x8c000000 0x4000000 0x4000000 RWE 0
+
+The system can afterwards be restarted by power cycling it.
+
+If the crashkernel doesn't print anything after ``Bye!``, it is hard to
+tell whether the decompressor or the kernel failed. The decompressor
+output can be enabled with ``CONFIG_DEBUG_LL=y``,
+``CONFIG_DEBUG_QCOM_UARTDM=y`` (``CONFIG_DEBUG_UART_PHYS=0x078af000``,
+``CONFIG_DEBUG_UART_VIRT=0xf78af000``) and ``CONFIG_DEBUG_UNCOMPRESS=y``.
+The latter depends on ``!ARCH_MULTIPLATFORM`` and this dependency must
+be removed from ``arch/arm/Kconfig.debug`` for such a test kernel. The
+decompressor then shows where it relocates itself to:
+
+.. code-block:: none
+
+  Loading crashdump kernel...
+  Bye!
+  C:0x880080E0-0x8875BD40->0x89C9F300-0x8A3F2F60
+  Uncompressing Linux... done, booting the kernel.
+  no ATAGS support: can't continue
+
 Analyzing vmcore
 ----------------
 
@@ -444,6 +644,12 @@ available:
 
 Other tools like `crash <https://github.com/crash-utility/crash>`__ or
 `drgn <https://drgn.readthedocs.io/>`__ are better suited for this task.
+
+The crash packages of distributions can usually only handle dumps of
+their own architecture. An ARM dump (like the one from the ipq40xx
+example) is rejected by an x86-64 crash with ``machine type mismatch``
+and crash would have to be built for this target (``make target=ARM``).
+drgn can analyze such dumps directly.
 
 crash
 ~~~~~
