@@ -145,7 +145,7 @@ collisions.
 -  Originator Address: Set this field to the primary MAC address of this
    B.A.T.M.A.N. node.
 -  Flags: Indicates certain attributes of this originator. So far 0x01
-   is reserved for VIS\_SERVER (see :doc:`VisAdv <VisAdv>`)
+   is reserved for VIS\_SERVER (of the removed in-kernel vis)
 -  Gateway Flags:
 -  TQ: Is initially set to TQ\_MAX by the originator.
 -  TT Num Changes: see :doc:`Client-announcement <Client-announcement>`

@@ -33,7 +33,7 @@ Currently has the following two issues:
    Secondary Liability law in Germany:
    `‘’Störerhaftung’’ <https://de.wikipedia.org/wiki/St%C3%B6rerhaftung)>`__
 
-.. image:: OpenHarbors-diagram-freifunk-unencrypted.png
+.. image:: OpenHarbors-diagram-freifunk-unencrypted.svg
    :alt: 
 
 Gluon also supports adding the following three types of WLAN encryption:
@@ -118,8 +118,6 @@ initiative like Freifunk.
 
 Solution
 --------
-
---------------
 
 #. Determine the tunnel destination from a domain suffix in the
    unencrypted login name (ak. “identity”) the user provided
@@ -381,13 +379,15 @@ Optional/additional/future Milestones/Ideas
    headers and
    uses a smaller, custom ethernet frame header
 
-   -  allows login via: \ ``<mac-address-destination>
-          -> useful to tunnel from one mesh node to another,
-             within this layer 2 domain, without layer 3 routing involved
-      * allow using node names for login:
-      ** Gluon nodes only have an IPv6 address to be accesed.
-          And (typically) no public DNS entry for this IPv6 address.
-          Having a user to enter <login-name>``\ <mesh-node’s-IPv6-address>
+   -  allows login via: ``<username>@<mac-address-destination>``
+      -> useful to tunnel from one mesh node to another,
+      within this layer 2 domain, without layer 3 routing involved
+
+-  allow using node names for login:
+
+   -  Gluon nodes only have an IPv6 address to be accesed.
+      And (typically) no public DNS entry for this IPv6 address.
+      Having a user to enter ``<login-name>@<mesh-node’s-IPv6-address>``
       won’t be usable in practice for the gluon-openharbor-server
       package. Instead the hostname, which a Gluon mesh node owner
       can set in the Gluon config-mode and is then visible on
@@ -395,7 +395,7 @@ Optional/additional/future Milestones/Ideas
    -  option A) integrate mDNS? -> nicely decentral, but likely has too
       high protocol overhead
    -  option B) a small nsswitch module on the openharbor AP side
-      which resolves a given @.local (or similar TLD)
+      which resolves a given ``@<node>.local`` (or similar TLD)
       via the nodes.json fetched from the map server
    -  option C) a cronjob which fetches node names from
       the map server and populates /etc/hosts on the AP

@@ -61,4 +61,4 @@ The batadv repository is a clone of netdev's net-next tree.
 With the help of some git voodoo the main branch is merged with this
 branch in the folder: net/batman-adv/. If you wish to merge the latest
 main branch changes into the linux branch you need to
-:doc:`pull the newest changes in main from the batman-adv.git </batman-adv/SubmittingLinux>` repository.
+pull the newest changes in main from the batman-adv.git repository.

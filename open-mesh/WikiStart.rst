@@ -20,9 +20,7 @@ and further information available:
 News
 ----
 
-{{recent\_news}}
-
--  :doc:`news archive <News-archive>`
+-  `news <https://www.open-mesh.org/news>`__
 
 Getting Started
 ---------------

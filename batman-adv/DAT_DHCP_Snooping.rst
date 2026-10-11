@@ -4,7 +4,7 @@ DAT DHCP snooping
 Problem Scenario
 ----------------
 
-.. image:: bcast-arp-req-gw.png
+.. image:: bcast-arp-req-gw.svg
    :alt: 
 
 *Many ARP Requests from a batman-adv gateway server*

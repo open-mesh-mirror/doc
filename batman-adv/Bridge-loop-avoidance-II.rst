@@ -201,7 +201,7 @@ All backbone gateways send the broadcasts from backbone clients into the
 mesh. We have to make sure that the duplicates are recognized and
 ignored to deliver the broadcast packets only once within the mesh.
 
-To do this, we use a `mesh duplicate list <>`__ This list is kept for
+To do this, we use a mesh duplicate list. This list is kept for
 every backbone gateway mesh node which is connected to a backbone with
 multiple backbone gateways. It checks broadcast packets which are sent
 from the backbone into the mesh through multiple backbone gateways (and
@@ -211,7 +211,7 @@ If the client is not claimed by any backbone gateway, every backbone
 gateway shall forward the packet into the mesh. This will lead to
 duplicates of the broadcast with different meta information (different
 originators, different sequence numbers). To avoid duplicates within the
-mesh, every mesh node will use the `mesh duplicate list <>`__
+mesh, every mesh node will use the mesh duplicate list:
 
 * after the (old) seqno window check: match the frame to the "mesh
   duplicate list" of other backbone gateways to see if another backbone

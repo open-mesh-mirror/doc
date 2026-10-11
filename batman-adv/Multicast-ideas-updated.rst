@@ -680,8 +680,6 @@ it has already been `implemented and tested on top of batman-adv
 Changelog
 ---------
 
---------------
-
 Update (2012-12-xx):
 
 Current status / Todo:

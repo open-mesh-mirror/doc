@@ -82,11 +82,15 @@ Research
 :doc:`ResearchProposals`
   open topics for (student) research on batman-adv
 
+:doc:`OpenHarbors`
+  draft: tunnel WPA over IP to a gateway of the user's choice
+
 .. toctree::
    :hidden:
 
    New_papers
    ResearchProposals
+   OpenHarbors
 
 Development
 -----------

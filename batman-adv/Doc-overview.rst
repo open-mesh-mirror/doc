@@ -114,8 +114,6 @@ Protocol Documentation
    explaining the layer2 fragmentation
 -  :doc:`Multicast optimizations <Multicast-optimizations-tech>` - technical
    details concerning the multicast optimizations
--  :doc:`Network Coding <NetworkCoding-technical>` - technical details
-   regarding the network coding implementation
 -  `Batman-adv multicast optimization
    (video) <https://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi>`__
    - how batman-adv optimizes multicast traffic by Linus and Simon
