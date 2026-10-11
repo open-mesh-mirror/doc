@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Batman-adv boot logo
-====================
+Boot logo
+=========
 
 If you are a very batman-advanced addicted and enthusiastic fan, you
 will surely want to give the B.A.T.M.A.N.-Advanced boot logo a try! This

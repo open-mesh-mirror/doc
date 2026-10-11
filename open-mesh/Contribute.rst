@@ -1,6 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-How to Contribute
+How to contribute
 =================
 
 Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want

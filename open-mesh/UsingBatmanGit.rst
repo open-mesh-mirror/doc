@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Using the batman git repositories
-=================================
+Git repositories
+================
 
 If you want to find out why we also have a git repository now, please
 read `here <https://www.open-mesh.org/news/6>`__.

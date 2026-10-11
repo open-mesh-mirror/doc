@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Download B.A.T.M.A.N.
-=====================
+Download
+========
 
 We are currently working on different branches. To get the details about
 the differences of these branches, see our :doc:`Branches Explained page <BranchesExplained>`.

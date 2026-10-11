@@ -1,6 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Branches Explained
+Branches explained
 ==================
 
 The batman project that started with a basic protocol and a single

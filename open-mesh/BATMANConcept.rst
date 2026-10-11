@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-B.A.T.M.A.N. protocol concept
-=============================
+Protocol concept
+================
 
 The problem with classical routing protocols is that they are typically
 not well suited for wireless ad-hoc networks. This is because such

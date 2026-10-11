@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Contact us on IRC
-=================
+IRC
+===
 
 We are waiting for you on IRC. :)
 

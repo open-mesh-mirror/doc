@@ -1,6 +1,6 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Mailing List
+Mailing list
 ============
 
 You can subscribe to our Mailing Lists

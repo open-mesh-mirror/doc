@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-The OLSR.ORG story
-==================
+The OLSR story
+==============
 
 Proactive protocols (Link State Routing Protocols) generate a lot of
 overhead because they have to keep topoloy information and routing
