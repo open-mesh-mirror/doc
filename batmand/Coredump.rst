@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-What is a coredump ?
-====================
+Coredumps
+=========
 
 A coredump is the state of the programs memory when it crashed. It
 allows programmers to exactly nail down the line in the code which

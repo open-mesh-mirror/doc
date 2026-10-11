@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Getting behind the routing vodoo
-================================
+Routing table manipulation
+==========================
 
 With version 0.3 batman became "policy routing" support and thus can use
 special routing functions provided by the Linux kernel.

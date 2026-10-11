@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Why starting B.A.T.M.A.N. ?
-===========================
+Why B.A.T.M.A.N. was started
+============================
 
 Often, we are asked why we dropped OLSR in favor of B.A.T.M.A.N. To
 explain the initial motivation in those days to start developing a new

@@ -38,7 +38,7 @@ layer 3 (IP layer) of the OSI model by altering the routing table and
 offers everything you would expect from a standard routing daemon.
 Almost all real-world implementations of mesh routing algorithms have
 started on layer 3 - and most of them still work exclusively on layer 3
-today. Check our :doc:`batmand doc </batmand/Doc-overview>` section if you
+today. Check our :doc:`batmand doc </batmand/index>` section if you
 want to learn more about is capabilities.
 
 Note: batmand has not been developed further for a couple of years, but

@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Understanding the debug output
-==============================
+Debug output
+============
 
 Level 1:
 --------

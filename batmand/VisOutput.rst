@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-Working with the vis server output
-==================================
+Vis server output
+=================
 
 This artcile is for those that intend to write their own visualization
 tool, combine the vis output with a map or want to understand the vis
