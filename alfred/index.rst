@@ -26,7 +26,7 @@ through unix sockets. Once the local data is received, the alfred daemon
 takes care of distributing this information to other alfred servers on
 other nodes somewhere in the network. As addressing scheme IPv6
 link-local multicast addresses are used which do not require any manual
-configuration. A user can request data from alfred, and will receive the
+configuration (an IPv4 multicast mode is available as alternative). A user can request data from alfred, and will receive the
 information available from all alfred servers in the network.
 
 The `README <https://git.open-mesh.org/alfred.git/tree/README.rst>`__

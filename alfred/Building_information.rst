@@ -12,6 +12,32 @@ Release tarballs as well as snapshots are available:
 * git download: ``git clone https://git.open-mesh.org/alfred.git``
 * `snapshot <https://git.open-mesh.org/alfred.git/snapshot/refs/heads/main.tar.gz>`__
 
+Compilation
+===========
+
+alfred depends on:
+
+* librt (usually part of libc)
+* IPv6 support in the kernel/host system
+* libnl-3 and libnl-3-genl
+
+and optionally:
+
+* libgps - required by alfred-gpsd
+* libcap - to drop unneeded privileges
+
+alfred, batadv-vis and alfred-gpsd are compiled and installed with::
+
+  make
+  make install
+
+The optional parts can be disabled via ``CONFIG_ALFRED_VIS=n``,
+``CONFIG_ALFRED_GPSD=n`` and ``CONFIG_ALFRED_CAPABILITIES=n``. They must
+be given to both ``make`` and ``make install``::
+
+  make CONFIG_ALFRED_GPSD=n
+  make CONFIG_ALFRED_GPSD=n install
+
 OpenWRT installation from routing feed
 ======================================
 

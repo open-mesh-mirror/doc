@@ -71,6 +71,13 @@ IPv6 link-local UDP messages. This only allows communication in the
 current subnet but messages will not be routed between different
 subnets.
 
+Alternatively, alfred can operate in IPv4 mode (``-4 <group-address>``).
+The IPv6 link-local multicast messages are then replaced by IPv4
+multicast messages to the given group address.
+
+A server can listen on multiple interfaces at the same time. They are
+given as comma separated list (for example ``-i br0,eth1``).
+
 The underlying layer can for example be batman-adv which makes all nodes
 in a mesh look like being connected to a big switch. This makes it
 possible to reach all nodes even in situations where they would not be
@@ -92,24 +99,28 @@ message unless it is dropped while being forwarded/transmitted.
 
 |image1|
 
-The periodically (10s) transmitted announcement multicast messages will
-be received by the other alfred servers and be store for later. Primary
+The periodically transmitted announcement multicast messages will
+be received by the other alfred servers and be stored for later. The
+announcement interval is the synchronization period (default: 10s, can
+be changed with ``-p``/``--sync-period``). Primary
 servers use this information to synchronize data and secondary servers
 use it to have access to the global data.
 
 |image2|
 
 The secondary servers need therefore a way to find their best primary
-server. The current strategy for non-batman-adv server is to choose one
-server randomly and and don't use an extra metric. But batman-adv
-networks already provide the TQ value to quantify the quality to a
-primary server. The best primary server is the server with the best TQ
-for a secondary node.
+server. batman-adv networks already provide the TQ value to quantify the
+quality to a primary server. The best primary server is the server with
+the best TQ for a secondary node. When batman-adv is not used
+(``-b none``), all primary servers are considered equal and an arbitrary
+one is chosen.
 
 The mac address is used by alfred to associate the messages with an
-unique data source. It is calculated by evaluating the received UDP/IPv6
-packet source address. This mac address can then be used to retrieve the
-primary server TQ from the batman-adv debug tables.
+unique data source. In IPv6 mode, it is calculated by evaluating the
+received UDP/IPv6 packet source address. In IPv4 mode, it is retrieved
+via ARP. The mac address is mapped to the originator of the primary
+server using batman-adv's translation table. The TQ of this originator
+is then retrieved from batman-adv via netlink.
 
 Detected neighbor servers are automatically dropped after a timeout of
 60s since the last announcement was received.
@@ -118,7 +129,8 @@ Client data exchange
 --------------------
 
 The client communication to the alfred server is done through unix
-sockets on the same node. The path is defined as /var/run/alfred.sock
+sockets on the same node. The default path is ``/var/run/alfred.sock``
+and can be changed with ``-u``/``--unix-path``.
 
 The used packet format is shared between the server2server and the
 client2server communication. There are some minor differences which will
@@ -129,6 +141,11 @@ has to create a alfred\_push\_data packet with the attached data at the
 end. The server receives it, stores it, closes the client connection and
 handles the forwarding of the data to the other servers in the alfred
 network.
+
+The client should set the source mac address of the data block to
+00:00:00:00:00:00. The server will then replace it with the mac address
+of its (first) interface. Only servers in primary mode accept data with a
+different source mac address from clients.
 
 Slightly more complicated is the request of data from a primary server.
 The client has to send an alfred\_request packet to the primary server
@@ -161,6 +178,16 @@ way as a primary server.
 The best practice for a client is to implement the handling of error
 messages even when it is only used together with primary servers.
 
+Clients can also be informed about changes of the stored data:
+
+* a client can register for events with an alfred\_event\_register
+  packet (``alfred -E``). The server keeps the connection open and sends
+  an alfred\_event\_notify packet with the data type and source mac
+  address whenever a data record was added or changed.
+* the server can execute a command when data changed
+  (``-c``/``--update-command``). The numbers of the changed data types
+  are appended as arguments to the command.
+
 Synchronization
 ---------------
 
@@ -173,7 +200,7 @@ pushed from secondary server.
 |image5|
 
 The synchronization is started pro-actively by the secondary or primary
-server every 10s. It is initiated by an alfred\_push\_data packet with a
+server every synchronization period (default: 10s). It is initiated by an alfred\_push\_data packet with a
 transaction id and the first data blocks. This transaction id should be
 unique for the time of the synchronization but the same for all packets
 of a synchronization transaction.
@@ -196,10 +223,50 @@ General format
 The data stored in the packet headers is always stored in network byte
 order (big endian). The packet format is TLV based (type, value, length)
 which appears in different headers. The type is only defined by alfred
-for the outer TLV and can be PUSH\_DATA(0), ANNOUNCE\_PRIMARY(1),
-REQUEST (2), STATUS\_TXEND(3), STATUS\_ERROR(4). The only special type is
-MODESWITCH (5) which is used internally to switch a server between
-primary and secondary mode.
+for the outer TLV and can be:
+
+.. list-table::
+   :header-rows: 1
+
+   * - Type
+     - Name
+     - Used for
+   * - 0
+     - PUSH\_DATA
+     - network + unix socket
+   * - 1
+     - ANNOUNCE\_PRIMARY
+     - network
+   * - 2
+     - REQUEST
+     - network + unix socket
+   * - 3
+     - STATUS\_TXEND
+     - network
+   * - 4
+     - STATUS\_ERROR
+     - unix socket
+   * - 5
+     - MODESWITCH
+     - unix socket
+   * - 6
+     - CHANGE\_INTERFACE
+     - unix socket
+   * - 7
+     - CHANGE\_BAT\_IFACE
+     - unix socket
+   * - 8
+     - SERVER\_STATUS
+     - unix socket
+   * - 9
+     - EVENT\_REGISTER
+     - unix socket
+   * - 10
+     - EVENT\_NOTIFY
+     - unix socket
+
+The types 5 to 10 are only used to control the local server and are
+described in `Unix socket control messages`_.
 
 The length value is always the length of the payload following the TLV.
 This is especially important when multiple TLV + payload blocks appear
@@ -286,13 +353,45 @@ The number of alfred\_data blocks in a single alfred\_push\_data has always
 to be **1** for communication via unix sockets. The aggregation of
 multiple data blocks is only allowed for communication via UDP/IPv6.
 
-Alfred allows type from 65 up to 255 as general types for client data. 0
-- 64 are reserved (e. g. batadv-vis(1) and alfred-gpsd(2)). The version
+Alfred allows type from 64 up to 255 as general types for client data.
+0 - 63 are reserved (e. g. batadv-vis(1) and alfred-gpsd(2)). The version
 information has to be evaluated by a client to make sure that it can
 correctly interpret the data.
 
-One push data packet can be up to 65535 bytes in size. This limits the
-number of bytes per data block to 65517 bytes.
+One alfred packet can be up to 65527 bytes in size (the maximum UDP
+payload). This limits the number of bytes per data block to 65509 bytes.
+
+Unix socket control messages
+----------------------------
+
+The following messages are only exchanged between a client and the
+server on the same node via the unix socket:
+
+MODESWITCH (5)
+  switch the server between secondary (0) and primary (1) mode
+  (``alfred -M``)
+
+CHANGE\_INTERFACE (6)
+  replace the list of interfaces the server is using. The interfaces are
+  given as comma separated string (``alfred -I``)
+
+CHANGE\_BAT\_IFACE (7)
+  change the batman-adv interface used for the best server selection
+  (``alfred -B``)
+
+SERVER\_STATUS (8)
+  request the status of the server (``alfred -S``). The reply is a
+  SERVER\_STATUS packet which contains TLVs for the operation mode, each
+  network interface (including whether it is active) and the batman-adv
+  interface
+
+EVENT\_REGISTER (9)
+  register the client for event notifications (``alfred -E``)
+
+EVENT\_NOTIFY (10)
+  sent by the server to registered clients when a data record was added
+  or changed. It contains the data type and the source mac address of
+  the record
 
 .. |image0| image:: general_structure.svg
 .. |image1| image:: announce_primary.svg

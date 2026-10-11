@@ -9,7 +9,8 @@ read the neighbor information and local client table and distributes
 this information via alfred in the network. By gathering this local
 information, any vis node can get the whole picture of the network.
 
-It allows output of different formats (json, graphviz) and replaces the
+It allows output of different formats (json, a single json document
+or graphviz dot) and replaces the
 in-kernel vis functionality found in older batman-adv kernel modules
 (<2014). See the sample picture below. For more information, please read
 the vis section of the
