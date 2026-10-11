@@ -1,8 +1,8 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-====================
-Building information
-====================
+============
+Installation
+============
 
 Release tarballs as well as snapshots are available:
 

@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
 ==========
-Batadv-vis
+batadv-vis
 ==========
 
 batadv-vis can be used to visualize your batman-adv mesh network. It

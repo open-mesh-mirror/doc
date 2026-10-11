@@ -1,7 +1,7 @@
 .. SPDX-License-Identifier: GPL-2.0
 
 ===========
-Alfred-gpsd
+alfred-gpsd
 ===========
 
 Alfred-gpsd can be used to distibute GPS location information about your

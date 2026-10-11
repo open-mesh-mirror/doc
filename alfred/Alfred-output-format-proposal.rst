@@ -1,8 +1,8 @@
 .. SPDX-License-Identifier: GPL-2.0
 
-=========================================
-Alfred output format enhancement proposal
-=========================================
+======================
+Output format proposal
+======================
 
 Alfred's current output format is a custom one which makes it a little
 more difficult to use by a program because it needs to do some manual

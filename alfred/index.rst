@@ -29,25 +29,53 @@ link-local multicast addresses are used which do not require any manual
 configuration. A user can request data from alfred, and will receive the
 information available from all alfred servers in the network.
 
-See the
-`README <https://git.open-mesh.org/alfred.git/tree/README.rst>`__
-for more information or the
-`manpage <https://downloads.open-mesh.org/batman/manpages/alfred.8.html>`__
-for usage.
+The `README <https://git.open-mesh.org/alfred.git/tree/README.rst>`__
+and the `manpage <https://downloads.open-mesh.org/batman/manpages/alfred.8.html>`__
+describe the usage of alfred in detail.
+
+Getting started
+===============
+
+:doc:`Building_information`
+  download the sources, build alfred or install it on OpenWrt
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :hidden:
 
-   gettingstarted
-   developerinformation
+   Building_information
 
-.. only::  subproject
+Tools
+=====
 
-   Indices
-   =======
+alfred comes with tools which use it to distribute information about the
+mesh network:
 
-   * :ref:`genindex`
+:doc:`Batadv-vis`
+  collect the topology of a batman-adv mesh network for visualization
+
+:doc:`Alfred-gpsd`
+  distribute the GPS location of the nodes
+
+.. toctree::
+   :hidden:
+
+   Batadv-vis
+   Alfred-gpsd
+
+Development
+===========
+
+:doc:`Alfred_architecture`
+  terminology, network layer, synchronization and packet formats
+
+:doc:`Alfred-output-format-proposal`
+  proposal for a machine readable output format
+
+.. toctree::
+   :hidden:
+
+   Alfred_architecture
+   Alfred-output-format-proposal
 
 Further resources
 =================
@@ -55,3 +83,10 @@ Further resources
 * alfred secondary server on android: https://github.com/basros/alfreda
 * Wireshark dissector for alfred:
   https://github.com/basros/alfred-dissector
+
+.. only::  subproject
+
+   Indices
+   =======
+
+   * :ref:`genindex`
