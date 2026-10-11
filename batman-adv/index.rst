@@ -227,9 +227,6 @@ Broadcast and multicast
 :doc:`Multicast-Packet-Type`
   packet type to forward multicast packets to multiple destinations
 
-:doc:`Noflood-broadcast-prevention`
-  avoid flooding of frames marked via netfilter
-
 .. toctree::
    :hidden:
 
@@ -239,7 +236,6 @@ Broadcast and multicast
    Multicast-optimizations-listener-reports
    Multicast-optimizations-report-suppresion
    Multicast-Packet-Type
-   Noflood-broadcast-prevention
 
 Development
 -----------
@@ -285,6 +281,9 @@ were never (completely) implemented.
 :doc:`Multicast-ideas`, :doc:`Multicast-ideas-updated` and :doc:`Multicast-IGMP-MLD-Report-Forwarding`
   early multicast concepts and extensions
 
+:doc:`Noflood-broadcast-prevention`
+  avoid flooding of frames marked via netfilter (rejected)
+
 :doc:`RIP`
   ideas for a new routing protocol (Rest in Peace)
 
@@ -302,6 +301,7 @@ were never (completely) implemented.
    Multicast-ideas
    Multicast-ideas-updated
    Multicast-IGMP-MLD-Report-Forwarding
+   Noflood-broadcast-prevention
    RIP
 
 Talks and further resources
