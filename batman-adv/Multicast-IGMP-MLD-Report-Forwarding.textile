@@ -1,4 +1,4 @@
-h1. Multicast - IGMP/MLD Report Forwarding
+h1. IGMP/MLD report forwarding
 
 Patches:
 
