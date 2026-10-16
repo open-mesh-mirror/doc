@@ -1,5 +1,4 @@
-
-h1. Contact us on IRC
+h1. IRC
 
 We are waiting for you on IRC. :)
 
