@@ -1,4 +1,4 @@
-h1. Uevent
+h1. Uevents
 
 B.A.T.M.A.N.-Advanced can throw uevents (asynchronous signals sent by the kernel to the user space) to inform the user space about certain events happening in the mesh. User space applications can listen to these messages and take action depending on the event, thus allowing a tight interaction between the kernel mesh and all sorts of applications.
 
