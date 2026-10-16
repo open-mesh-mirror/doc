@@ -29,7 +29,7 @@ h2. Start scripts for the simple environment
 
 The virtual instances and the virtual network will be started using a set of simple scripts. This simplifies everything and makes the setup more reproducible.
 
-h3. virtual network initialization
+h3. Virtual network initialization
 
 The virtual network (bridge br-qemu with 3 tap devices) has to be started first to have a simple network. All devices in this virtual network can talk to each other - which is not optimal for tests but enough for a start. More complex network setups can be on the pages [[vde switch virtual network]] and [[Advanced Bridge virtual network]].
 
