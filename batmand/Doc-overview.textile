@@ -4,7 +4,7 @@ batmand was the first implementation of the B.A.T.M.A.N. routing protocol. It is
 
 bq. batmand has not been developed further for a couple of years, but is still actively used by a few projects. Most of the active developmenttoday is performed on [[batman-adv:]]
 
-The "manpage"https://downloads.open-mesh.org/batman/manpages/batmand.8.html describes all options of batmand.
+The "manpage":https://downloads.open-mesh.org/batman/manpages/batmand.8.html describes all options of batmand.
 
 {{include(gettingstarted)}}
 {{include(developerinformation)}}
