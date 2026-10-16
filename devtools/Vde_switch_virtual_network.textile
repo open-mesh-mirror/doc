@@ -9,41 +9,7 @@ The test stack consists of the following components:
 * one (modified, see below) "vde_switch":http://wiki.virtualsquare.org/wiki/index.php/VDE_Basic_Networking per instance. You need multiple instances to allow interconnection with wirefilter.
 * one (unmodified) "wirefilter":http://wiki.virtualsquare.org/wiki/index.php/VDE#wirefilter per link between hosts.
 
-h2. vde setup
-
-Download "vde2.3.1":https://sourceforge.net/projects/vde/files/vde2/ and the vde colour patch attachment:vde2-2.3.1_colour.patch
-
-h3. apply "vde2-2.3.1_colour.patch" for vde.
-
-<pre><code class="shell">
-cd vde-2.3.1
-cp vde2-2.3.1_colour.patch .
-patch -p1 < vde2-2.3.1_colour.patch
-</code></pre>
-
-h3. compile and install vde
-
-<pre><code class="shell">
-cd vde-2.3.1
-./configure
-make
-sudo make install
-</code></pre>
-
-h3. Create colourful.rc
-
-<pre><code class="shell">
-cat > colourful.rc << "EOF"
-port/setcolourful 1
-port/create 1
-port/create 2
-port/create 3
-port/create 4
-port/create 5
-port/setcolour 1 1
-EOF
-</code></pre>
-
+h2. Concept
 
 h3. vde_switch
 
@@ -67,8 +33,7 @@ You can find the patch against vde2-2.3.1 (current latest stable version) to add
 
 h3. wirefilter
 
-Wirefilter manpage: http://manpages.ubuntu.com/manpages/trusty/man1/wirefilter.1.html
-wirefilter is a tool where you can simulate various link defects and limits: 
+The "wirefilter":http://manpages.ubuntu.com/manpages/trusty/man1/wirefilter.1.html tool where you can simulate various link defects and limits:
 
 * packet loss
 * burst loss
@@ -93,12 +58,46 @@ This patch also allows to filter batman-adv packet types. To apply a packet loss
 wirefilter --ether 0x4305:02 -l 50
 </pre>
 
-You can specify up to 10 packet types (separated by colon). The patch against vde2-2.3.1 (current latest stable version) can be found here:
-* attachment:vde2-2.3.1-wirefilter-ethertype.patch
+You can specify up to 10 packet types (separated by colon).
+
+h2 Installation
+
+Download "vde2.3.1":https://sourceforge.net/projects/vde/files/vde2/ and the vde colour patch attachment:vde2-2.3.1_colour.patch
+
+h3. Apply patches
+
+<pre><code class="shell">
+cd vde-2.3.1
+cp vde2-2.3.1_colour.patch .
+patch -p1 < vde2-2.3.1_colour.patch
+</code></pre>
+
+h3. Compile and install vde
+
+<pre><code class="shell">
+cd vde-2.3.1
+./configure
+make
+sudo make install
+</code></pre>
+
+h3. Create colourful.rc
+
+<pre><code class="shell">
+cat > colourful.rc << "EOF"
+port/setcolourful 1
+port/create 1
+port/create 2
+port/create 3
+port/create 4
+port/create 5
+port/setcolour 1 1
+EOF
+</code></pre>
 
 h2. Start of the environment
 
-h3. virtual network initialization
+h3. Virtual network initialization
 
 The script does:
 * kill old instances
@@ -129,7 +128,7 @@ for i in $(seq 1 $((${NUM_SESSIONS} - 2))); do
 done
 EOF
 
-chmod + virtual-network.sh
+chmod +x virtual-network.sh
 </code></pre>
 
 h3. VM instances bringup
@@ -137,8 +136,8 @@ h3. VM instances bringup
 The [[OpenWrt_in_QEMU#VM-instances-bringup|run.sh from the OpenWrt environment]] can mostly be reused. There are only minimal adjustments required. The virtual network tap NIC has to be replaced with a vde NIC.
 
 <pre><code class="diff">
--        -nic tap,ifname=tap$i,script=no,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
-+        -nic vde,sock=num${i}.ctl,port=1,model=virtio-net-pci,mac=02:ba:de:af:fe:"${twodigit_id}" \
+-          -nic tap,ifname=tap$i,script=no,downscript=no,model=virtio,mac=02:ba:de:af:fe:"${twodigit_id}" \
++          -nic vde,sock=num${i}.ctl,port=1,model=virtio,mac=02:ba:de:af:fe:"${twodigit_id}" \
 </code></pre>
 
 It is also possible to have both (just with different mac addresses) to allow SSH access to the virtual instance over the tap interface.
