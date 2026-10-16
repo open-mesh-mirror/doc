@@ -1,0 +1,8 @@
+h1. Protocol background
+
+* [[BATMANConcept|Protocol concept]]
+** the basic idea behind the B.A.T.M.A.N. routing algorithm
+* [[Routing_scenarios|Routing scenarios]]
+** scenarios which every routing protocol change has to handle
+* [[The-olsr-story|The OLSR story]]
+** the history of OLSR and why B.A.T.M.A.N. was started
