@@ -1,4 +1,4 @@
-h1. Debian batman-adv AutoStartup
+h1. Debian autostart
 
 {{>toc}}
 
