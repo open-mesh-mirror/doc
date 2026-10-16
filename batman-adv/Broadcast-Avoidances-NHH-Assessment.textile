@@ -1,4 +1,4 @@
-h1. Broadcast Avoidances - Neighborhood Hash Assessment
+h1. Neighborhood hash assessment
 
 First follow evaluations of the two scenarios described before to check if or when the neighborhood hashing approach successfully reduces broadcast overhead in these targeted cases (section 1).
 
