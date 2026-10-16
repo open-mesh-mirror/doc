@@ -1,5 +1,4 @@
-
-h1. Tracking the linux-next branch
+h1. Tracking linux-next
 
 
 We have currently our own branch to create patches for linux. These patches are send to a sub-system maintainer which integrates them into his own git repository. New patches from other people usually went to linux-next. We have to create patches on top of linux-next unless they are only small bug fixes directly for 2.6.
