@@ -1,4 +1,4 @@
-h1. Multicast Optimizations – Flags Explained
+h1. Multicast flags
 
 Prior Readings:
 
