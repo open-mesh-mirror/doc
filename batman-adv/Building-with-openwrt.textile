@@ -1,4 +1,4 @@
-h1. Building B.A.T.M.A.N. Advanced with Openwrt
+h1. Building with OpenWrt
 
 Many tutorials assume that you have batman-adv running on an Openwrt system without going into detail how to get the system built and configured. This documents aims to fill the gap by providing a step-by-step explanation how to get your Openwrt system up & running.
 
