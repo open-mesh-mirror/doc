@@ -1,4 +1,4 @@
-h1. Download B.A.T.M.A.N.
+h1. Download
 
 We are currently working on different branches. To get the details about the differences of these branches, see our [[BranchesExplained|Branches Explained page]].
 
