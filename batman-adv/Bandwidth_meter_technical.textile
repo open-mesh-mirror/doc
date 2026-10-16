@@ -1,4 +1,4 @@
-h1. Bandwidth meter technical
+h1. Throughput meter protocol
 
 h2. The Protocol
 
