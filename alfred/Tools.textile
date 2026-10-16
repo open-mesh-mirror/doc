@@ -1,0 +1,8 @@
+h1. Tools
+
+alfred comes with tools which use it to distribute information about the mesh network:
+
+* [[batadv-vis]]
+** collect the topology of a batman-adv mesh network for visualization
+* [[alfred-gpsd]]
+** distribute the GPS location of the nodes
