@@ -1,4 +1,4 @@
-h1. How to Contribute
+h1. How to contribute
 
 
 Thanks for using B.A.T.M.A.N.! If you have suggestions, comments, want to tell us about your experiences or discuss problems the best thing is always to use the [[MailingList|Mailing List]] You can always contact us via [[IRC|IRC]].
