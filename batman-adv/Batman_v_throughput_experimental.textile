@@ -1,4 +1,4 @@
-h1. B.A.T.M.A.N. V (DRAFT)
+h1. B.A.T.M.A.N. V draft
 
 *Metric:* Estimated throughput (from RC algorithm for wireless devices)
 *Neighbour Discovery:* [[ELP|ELP (Echo Locating Protocol)]]
