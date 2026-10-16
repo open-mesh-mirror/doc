@@ -1,4 +1,4 @@
-h1. B.A.T.M.A.N.-Adv Troubleshooting
+h1. Troubleshooting
 
 Below you can find some problem/solution stories. If you got other (common) questions about batman-adv, please check the [[FAQ|Frequently asked question]] page.
 
