@@ -1,4 +1,4 @@
-h1.  B.A.T.M.A.N. protocol concept
+h1. Protocol concept
 
 The problem with classical routing protocols is that they are typically not well suited for wireless ad-hoc networks. This is because such networks are unstructured, dynamically change their topology, and are based on an inherently unreliable medium.
 
