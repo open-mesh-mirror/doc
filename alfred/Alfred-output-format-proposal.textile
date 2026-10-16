@@ -1,4 +1,4 @@
-h1. Alfred output format enhancement proposal
+h1. Output format proposal
 
 Alfred's current output format is a custom one which makes it a little more difficult to use by a program because it needs to do some manual parsing. E.g. you cannot simply plug in your favourite json library to load and parse the information into your code.
 
