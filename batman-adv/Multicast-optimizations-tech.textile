@@ -1,4 +1,4 @@
-h1. Multicast Optimizations – Technical Description
+h1. Multicast optimizations internals
 
 Prior Readings:
 
