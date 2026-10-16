@@ -14,4 +14,7 @@ h2. News
 
 {{include(gettingstarted)}}
 {{include(documentation)}}
-{{include(random)}}
+{{include(community)}}
+{{include(protocolbackground)}}
+{{include(research)}}
+{{include(development)}}
