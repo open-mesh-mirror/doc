@@ -1,4 +1,4 @@
-h1. Broadcast Avoidances
+h1. Broadcast avoidances
 
 _Status:_ Patches "available":https://git.open-mesh.org/batman-adv.git/log/?h=linus/neighhash, not upstream yet
 
