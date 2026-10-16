@@ -1,4 +1,4 @@
-h1. New papers
+h1. Papers
 
 h2. "free" papers
 
