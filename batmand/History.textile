@@ -1,4 +1,6 @@
 h2. History
 
-* [[BerlinExperience]]
-* [[Why-starting-batman]]
+* [[Why-starting-batman|Why B.A.T.M.A.N. was started]]
+** why OLSR was dropped in favor of a new routing protocol
+* [[BerlinExperience|B.A.T.M.A.N. in Berlin]]
+** the first B.A.T.M.A.N. deployments in Berlin
