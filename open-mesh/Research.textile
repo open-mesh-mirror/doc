@@ -1,0 +1,6 @@
+h1. Research
+
+* [[New_papers|Papers]]
+** scientific papers about B.A.T.M.A.N.
+* [[ResearchProposals|Research proposals]]
+** open topics for (student) research on batman-adv
