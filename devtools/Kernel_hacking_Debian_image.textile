@@ -318,7 +318,9 @@ make EXTRA_CFLAGS="-fno-inline -Og -fno-optimize-sibling-calls -fno-reorder-bloc
 
 h2. Start of the environment
 
-h3. virtual network initialization
+The start scripts of the [[OpenWrt_in_QEMU|OpenWrt environment]] are reused with small modifications.
+
+h3. Virtual network initialization
 
 The [[OpenWrt_in_QEMU#virtual-network-initialization|virtual-network.sh from the OpenWrt environment]] can be reused again.
 
@@ -333,7 +335,7 @@ BASE_IMG=debian.qcow2
 BASE_IMG_FMT=qcow2
 BOOTARGS+=("-bios" "qboot/build/bios.bin")
 BOOTARGS+=("-kernel" "linux-next/arch/x86/boot/bzImage")
-BOOTARGS+=("-append" "root=/dev/vda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
+BOOTARGS+=("-append" "root=/dev/sda rw console=hvc0 nokaslr tsc=reliable no_timer_check noreplace-smp rootfstype=ext4 rcupdate.rcu_expedited=1 reboot=t pci=lastbus=0 i8042.direct=1 i8042.dumbkbd=1 i8042.nopnp=1 i8042.noaux=1 no_hash_pointers")
 BOOTARGS+=("-device" "virtconsole,chardev=charconsole0,id=console0")
 </code></pre>
 
@@ -370,6 +372,6 @@ EOF
 chmod +x test-init.sh
 </code></pre>
 
-h2. Start
+h3. Start
 
 The startup method [[OpenWrt_in_QEMU#Start|from the OpenWrt environment]] should be used here.
