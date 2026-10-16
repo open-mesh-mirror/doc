@@ -1,15 +1,25 @@
 h1. Kernel Debugging
 
-The [[Emulation Environment]] documentation explains how to start multiple virtual Linux kernels+userspace, connect them and use various helpers to test a whole linux system. But some problems can be debugged easier with the help of an actual debugger like GDB. Information about 
+The [[Emulation Environment]] documentation explains how to start multiple virtual Linux kernels+userspace, connect them and use various helpers to test a whole linux system. But some problems can be debugged easier with the help of an actual debugger like GDB or by analyzing the state of the kernel after a crash. 
 
-h2. GDB remote stubs
+h2. Live debugging with GDB
 
-* [[Kernel debugging with qemu's GDB server]]
-* [[Kernel debugging with kgdb]]
-* [[Kernel debugging over JTAG]]
+GDB can be attached to a running kernel using different remote stubs. The right one depends on where the problem can be reproduced:
 
-h2. Various
+|_. Method |_. Target |_. Requirements |
+| [[Kernel debugging with qemu's GDB server]] | virtual instance | none (built into QEMU) |
+| [[Kernel debugging over JTAG]] | real hardware | board exposing JTAG/SWD, debug adapter, OpenOCD |
+| [[Kernel debugging with kgdb]] | real hardware | serial console with polling support |
 
-* [[GDB Linux snippets]]
+Useful commands and scripts for all of these methods are collected in [[GDB Linux snippets]].
+
+h2. Post-mortem analysis
+
+When a kernel already crashed, the following methods help to collect information for the analysis:
+
 * [[Crashlog with pstore]]
+** store the kernel log (including the stack trace) of a crash in memory which survives a reboot
 * [[Crashdumps with kexec]]
+** boot a crash kernel to save the complete memory of the crashed kernel for offline analysis
+
+
