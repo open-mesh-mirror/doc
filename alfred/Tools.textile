@@ -1,4 +1,4 @@
-h1. Tools
+h2. Tools
 
 alfred comes with tools which use it to distribute information about the mesh network:
 
