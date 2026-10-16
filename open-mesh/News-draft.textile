@@ -17,10 +17,6 @@ Many thanks to everyone who contributed patches:
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
 
-And a special thanks to those who supported us with valuable advice and thorough testing:
-
-* Antonio Quartulli <antonio@mandelbit.com>
-
 h2. batman-adv
 
 <pre>
