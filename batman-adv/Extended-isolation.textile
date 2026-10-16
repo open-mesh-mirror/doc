@@ -1,4 +1,4 @@
-h1. Extended-isolation
+h1. Extended isolation
 
 This feature is an extension of the existing [[AP-isolation]] that aims to improve the old mechanism while keeping a backward compatible behaviour.
 
