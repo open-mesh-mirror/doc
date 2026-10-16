@@ -1,6 +1,6 @@
 h2. Development
 
 * [[Alfred architecture]]
-** information about topologies, internal architecture and packet format
+** terminology, network layer, synchronization and packet formats
 * [[Alfred-output-format-proposal|Output format proposal]]
 ** proposal for a machine readable output format
