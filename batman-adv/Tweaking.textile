@@ -1,4 +1,4 @@
-h1. Tweaking B.A.T.M.A.N. Advanced
+h1. Tweaking
 
 {{>toc}}
 
