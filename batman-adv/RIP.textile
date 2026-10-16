@@ -1,4 +1,4 @@
-h1. RIP Protocol (Rest in Peace)
+h1. RIP protocol (Rest in Peace)
 
 _The original idea from Linus has been discussed and enhanced by an international committee in December 2011 ... in a pub in Berlin while drinking some nice beer :) The draft presented here may therefore be incomplete, ideas and volunteers for implementation welcome!_
 
