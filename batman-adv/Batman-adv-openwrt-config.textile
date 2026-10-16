@@ -1,4 +1,4 @@
-h1. B.A.T.M.A.N. OpenWrt configuration
+h1. OpenWrt configuration
 
 {{>toc}}
 
