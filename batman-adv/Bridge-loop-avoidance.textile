@@ -1,4 +1,4 @@
-h1. Batman-adv bridge loop avoidance
+h1. Bridge loop avoidance
 
 This document explains how batman-adv is able to detect & avoid loops that are created by bridging multiple batX interfaces on different hosts into the same ethernet segment (e.g. LAN) that are outside of batman's realm. If you don't intend to connect multiple batman-adv hosts to the same ethernet segment or don't use bridging you can safely skip this page.
 
