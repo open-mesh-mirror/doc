@@ -1,4 +1,4 @@
-h1. B.A.T.M.A.N.-Adv Multicast Awareness
+h1. Multicast awareness (updated)
 
 WIP --- WIP --- WIP -- updated version of [[Multicast-ideas]]
 
