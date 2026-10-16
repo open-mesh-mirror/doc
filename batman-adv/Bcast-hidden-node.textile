@@ -1,4 +1,4 @@
-h1. Hidden Node Problem
+h1. Hidden node problem
 
 See "here":https://en.wikipedia.org/wiki/Hidden_node_problem for a general description of the problem.
 
