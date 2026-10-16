@@ -1,4 +1,4 @@
-h1. Broadcasts in B.A.T.M.A.N. Advanced
+h1. Broadcasts
 
 __A node broadcasting through the mesh__
 !broadcast.png!
