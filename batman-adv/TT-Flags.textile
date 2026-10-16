@@ -1,4 +1,4 @@
-h1. TT-Flags
+h1. TT flags
 
 _Note: This page documents internal stuff of batman-adv. It describes the internal state representation of client entries in translation tables. Read with care_
 
