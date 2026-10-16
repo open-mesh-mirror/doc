@@ -1,5 +1,4 @@
-h1. Understanding the debug output
-
+h1. Debug output
 
 h2. Level 1:
 
