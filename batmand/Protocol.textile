@@ -1,0 +1,8 @@
+h2. Protocol Documentation
+
+* [[open-mesh:BATMANConcept|B.A.T.M.A.N. Concept]] - get an overview about B.A.T.M.A.N.'s main concepts
+* [[open-mesh:routing_scenarios|Routing scenarios]] - a collection of routing scenarios a routing protocol should be able to handle
+* [[open-mesh:the-olsr-story|The OLSR story]] - this text explains the roots of B.A.T.M.A.N. (Dec 2006)
+* "CCCamp 2007 talk (video)":https://downloads.open-mesh.org/batman/misc/cccamp07-B.A.T.M.A.N._-_Better_Approach_to_Mobile_Ad-Hoc_Networking.m4v - Elektra and Marek explain the batman routing algorithm and features of batmand [August 2007]
+* "B.A.T.M.A.N. RFC Draft":https://tools.ietf.org/html/draft-wunderlich-openmesh-manet-routing-00 - a draft explaining the routing algorithm used in batman 0.2
+* "B.A.T.M.A.N. Status":https://downloads.open-mesh.org/batman/papers/batman-status.pdf - read about the B.A.T.M.A.N. (June 2007)
