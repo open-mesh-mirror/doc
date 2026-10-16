@@ -1,4 +1,4 @@
-h1. Multicast Optimizations - Bridges
+h1. Multicast with bridges
 
 Prior Readings:
 
