@@ -1,4 +1,4 @@
-h1. Packet-types
+h1. Packet types
 
 Many packet types in batman-adv are sent as unicast packets and rely on the routes chosen by the underlying routing capabilities of batman-adv. As many packet types added later still use the same basic routing (e.g. an ICMP packet is using unicast transport), they can be handled by older, non-compatible nodes. These old nodes do not need to know how to handle the content, it is enough that they can forward the packets. However, making sure that the destination finally is capable of understanding the new content is left to other mechanisms.
 
