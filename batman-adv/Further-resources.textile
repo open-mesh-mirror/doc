@@ -1,0 +1,10 @@
+h2. Talks and further resources
+
+* "Wireless Kernel Tweaking (video)":https://downloads.open-mesh.org/batman/misc/24c3-2292-en-wireless_kernel_tweaking.webm - introduction to batman-adv by Marek and Simon (December 2007, also available at media.ccc.de)
+* "Batman-adv multicast optimization (video)":https://downloads.open-mesh.org/batman/misc/wbmv4-multicast.avi - how batman-adv optimizes multicast traffic by Linus and Simon (March 2011)
+* "Bisect the batman-adv routing protocol (video)":https://downloads.open-mesh.org/batman/misc/wbmv4-bisect.avi - the bisect tool explained & demonstrated by Marek (March 2011)
+* "Project CATWOMAN":https://downloads.open-mesh.org/batman/misc/wbmv4-network_coding.avi - network coding with batman-adv (video) - introduction into network coding with batman-adv by Martin and Jeppe (March 2011)
+* "Random Linear Coding (video)":https://downloads.open-mesh.org/batman/misc/wbmv6-random-linear-network-coding.mp4 - presentation on network coding by Martin (April 2013)
+* "Translation table in a nutshell":https://www.open-mesh.org/news/38 - the inner workings of the non-mesh client integration
+* "Layer 2 fragmentation":https://www.open-mesh.org/news/43 - basic concept behind the layer 2 fragmentation (GSoC final report)
+* [[open-mesh:Experience]] - who uses batman-adv
