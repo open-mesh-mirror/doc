@@ -2,7 +2,7 @@ h2. Development
 
 * [[LinuxNextTracking|Tracking linux-next]]
 ** how patches get from batman-adv into the Linux kernel
-* [[UsingBatmanGit|Git repositories]]
+* [[open-mesh:UsingBatmanGit|Git repositories]]
 ** structure and usage of the git repositories
 
 The [[devtools:|development tools]] describe how to test and debug batman-adv.
