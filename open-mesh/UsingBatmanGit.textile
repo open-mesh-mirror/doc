@@ -1,4 +1,4 @@
-h1. Using the batman git repositories
+h1. Git repositories
 
 If you want to find out why we also have a git repository now, please read news#6.
 
