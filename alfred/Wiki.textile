@@ -13,6 +13,7 @@ Typically, alfred runs as unix daemon in the background of the system. A user ma
 See the "README":https://git.open-mesh.org/alfred.git/tree/README.rst for more information or the "manpage":https://downloads.open-mesh.org/batman/manpages/alfred.8.html for usage.
 
 {{include(gettingstarted)}}
+{{include(tools)}}
 {{include(developerinformation)}}
 
 h2. Further resources
