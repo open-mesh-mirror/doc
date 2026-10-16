@@ -1,4 +1,4 @@
-h1. How to Interconnect different Batman-adv clouds (DRAFT)
+h1. Interconnecting batman-adv clouds
 
 h2. Overview
 
