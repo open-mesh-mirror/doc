@@ -1,4 +1,4 @@
-h1. B.A.T.M.A.N. Advanced quick start guide
+h1. Quick start guide
 
 {{>toc}}
 
