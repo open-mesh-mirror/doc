@@ -1,4 +1,4 @@
-h1. Originator Message (OGM)
+h1. Originator message (OGM)
 
 ??This page is work-in-progress and will state the BATMAN V algorithm later.??
 
