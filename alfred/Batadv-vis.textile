@@ -1,4 +1,4 @@
-h1. Batadv-vis
+h1. batadv-vis
 
 batadv-vis can be used to visualize your batman-adv mesh network. It read the neighbor information and local client table and distributes this information via alfred in the network. By gathering this local information, any vis node can get the whole picture of the network. 
 
