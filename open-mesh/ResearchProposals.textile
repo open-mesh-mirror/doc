@@ -1,4 +1,4 @@
-h1. Research Proposals on B.A.T.M.A.N.-Advanced
+h1. Research proposals
 
 
 h2. Documentation & Performance evaluation
