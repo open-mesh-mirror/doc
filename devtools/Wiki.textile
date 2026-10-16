@@ -1,3 +1,8 @@
-h1. Wiki
+h1. Development tools
 
-{{child_pages}}
+This section collects tools and procedures which help to develop, test and debug batman-adv (and other mesh protocols or kernel code in general).
+
+* [[Emulation Environment]]
+** Run multiple virtual nodes with unmodified Linux kernels and connect them  through configurable virtual networks. This is the recommended starting point for testing.
+* [[Kernel Debugging]]
+** Inspect a running kernel with GDB (in a VM or on real hardware) or analyze crashes after they happened.
