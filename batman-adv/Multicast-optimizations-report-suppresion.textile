@@ -1,4 +1,4 @@
-h1. Multicast Optimizations – IGMP/MLD Report Suppresion
+h1. Multicast report suppression
 
 Prior Readings:
 
