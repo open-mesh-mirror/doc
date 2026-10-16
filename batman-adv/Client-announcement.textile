@@ -1,4 +1,4 @@
-h1. Client announcements
+h1. Client announcement
 
 Each mesh protocol offering network access to non-mesh clients needs a 'client announcement' system. The task of such a system is to inform every mesh node in the network of any connected non-mesh client, in order to find the path towards that client from any given point in the mesh. A client has an identifier (usually its IP address for layer 3 routing and MAC address for layer 2 routing) that is flooded through the mesh. As B.A.T.M.A.N.-Advanced is a Layer2 mesh routing protocol clients are represented by their MAC address.
 
