@@ -1,5 +1,4 @@
-h1. Building information
-
+h1. Installation
 
 Release tarballs as well as snapshots are available:
 
