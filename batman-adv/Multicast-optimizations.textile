@@ -1,4 +1,4 @@
-h1. Multicast Optimizations
+h1. Multicast optimizations
 
 !{width:33%;}Multicast.png!
 
