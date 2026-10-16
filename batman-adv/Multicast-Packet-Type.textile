@@ -1,4 +1,4 @@
-h1. Multicast Packet Type
+h1. Multicast packet type
 
 Prior Readings:
 
