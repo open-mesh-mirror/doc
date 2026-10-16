@@ -16,5 +16,7 @@ These pages document ideas, drafts and analyses. They may be outdated or were ne
 ** reduce the overhead of broadcasts
 * [[Multicast-ideas|Multicast awareness]], [[Multicast-ideas-updated|Multicast awareness (updated)]] and [[Multicast-IGMP-MLD-Report-Forwarding|IGMP/MLD report forwarding]]
 ** early multicast concepts and extensions
+* [[Noflood-broadcast-prevention|Noflood mark]]
+** avoid flooding of frames marked via netfilter
 * [[RIP|RIP protocol (Rest in Peace)]]
 ** ideas for a new routing protocol (Rest in Peace)
