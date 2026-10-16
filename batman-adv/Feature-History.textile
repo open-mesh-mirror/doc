@@ -1,4 +1,4 @@
-h1. Feature History
+h1. Feature history
 
 h3. AP Isolation
 
