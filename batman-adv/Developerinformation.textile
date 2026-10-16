@@ -1,6 +1,8 @@
-h2. Developer Information / Advanced Features
+h2. Development
 
-* [[tweaking|Tweaking the B.A.T.M.A.N. Advanced behaviour]] - get an overview about the various settings batman-adv offers
-* [[uevent|B.A.T.M.A.N. user space events]] - batman-adv's uevent documentation
-* [[open-mesh:UsingBatmanGit|Using the batman git repos]] - this page explains how the git repository is structured and how to use it
-* [[TVLV|TVLV]] - details regarding the TVLV (type-version-length-value) API and defined TVLV containers
+* [[LinuxNextTracking|Tracking linux-next]]
+** how patches get from batman-adv into the Linux kernel
+* [[UsingBatmanGit|Git repositories]]
+** structure and usage of the git repositories
+
+The [[devtools:|development tools]] describe how to test and debug batman-adv.
