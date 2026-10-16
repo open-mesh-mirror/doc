@@ -1,8 +1,12 @@
 h2. Getting started
 
-* [[B.A.T.M.A.N. Daemon HowTo]] - B.A.T.M.A.N. Layer 3 meshing guide
-* [[InternetTuning|InternetTuning]] - get information how B.A.T.M.A.N. handles internet access and what features it offers
-* [[VisualizeMesh|Visualizing the network]] - this document explains how to get fancy graphics of the batman mesh
-* [[AnnouncingNetworks|Announcing networks]] - learn how to announce and / or revoke HNA on the fly
-* "B.A.T.M.A.N. online man page":https://downloads.open-mesh.org/batman/manpages/batmand.8.html - read the current batman man page online
-* [[Faq|Frequently Asked Questions]] - list of questions and answers of batmand.
+* [[B.A.T.M.A.N. Daemon HowTo|Installation and usage]]
+** build, install and run batmand
+* [[InternetTuning|Internet tuning]]
+** how batmand handles internet access and what features it offers
+* [[AnnouncingNetworks|Announcing networks]]
+** announce and revoke networks (HNA) on the fly
+* [[VisualizeMesh|Visualize the mesh]]
+** get graphics of the mesh network
+* [[Faq|FAQ]]
+** frequently asked questions about batmand
