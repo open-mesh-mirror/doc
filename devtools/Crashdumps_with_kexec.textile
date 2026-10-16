@@ -403,10 +403,6 @@ Even with CPU hotplug enabled, <code>machine_kexec_prepare()</code> refuses to l
  CPU_METHOD_OF_DECLARE(qcom_smp_kpssv2, "qcom,kpss-acc-v2", &qcom_smp_kpssv2_ops);
 </pre>
 
-The resulting factory image can be flashed via the bootloader, for example using `ap51-flash <https://github.com/ap51-flash/ap51-flash>`__ (the device must be power cycled to start the flash process):
-
-<pre>$ ap51-flash eth0 bin/targets/ipq40xx/generic/openwrt-ipq40xx-generic-openmesh_a42-squashfs-factory.bin</pre>
-
 The kernel commandline of the A42 is not taken from the devicetree but from the <code>bootargs</code> u-boot environment variable. It can be modified from the running OpenWrt to reserve 64 MB for the crashkernel:
 
 <pre>root@OpenWrt:/# fw_setenv bootargs "console=ttyMSM0,115200 rootfstype=squashfs,jffs2 board=A42 crashkernel=64M"</pre>
