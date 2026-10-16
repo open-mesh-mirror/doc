@@ -1,4 +1,4 @@
-h1. Batman-adv boot logo
+h1. Boot logo
 
 If you are a very batman-advanced addicted and enthusiastic fan, you will surely want to give the B.A.T.M.A.N.-Advanced boot logo a try! This little howto will drive you through the few necessary steps that will enable you to select a new custom logo from the kernel menuconfig.
 
