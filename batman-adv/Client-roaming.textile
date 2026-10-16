@@ -1,4 +1,4 @@
-h1. Roaming-improvements
+h1. Client roaming
 
 h2. Speeding up the roaming
 
