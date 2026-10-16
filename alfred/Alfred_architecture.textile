@@ -1,4 +1,4 @@
-h1. alfred architecture
+h1. Architecture
 
 {{>toc}}
 
