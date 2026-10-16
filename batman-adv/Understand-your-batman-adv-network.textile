@@ -1,4 +1,4 @@
-h1. Understand your B.A.T.M.A.N. Advanced network
+h1. Understand your network
 
 This document assumes you have created a batman-adv network and are interested in finding out how batman routes the traffic from node to node, getting an access to the whole network topology and/or wish understand why batman is doing what it is doing. Batman provides a set of debug tools and debug tables which aim to facilitate this task. Explaining the routing decisions / various routing optimizations are not in the scope of this document. Links to complementary documents will be provided if available.
 
