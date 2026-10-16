@@ -1,4 +1,4 @@
-h1. B.A.T.M.A.N. Layer 3 meshing guide
+h1. Installation and usage
 
 h2(#installing-from-source). Installing from source
 
