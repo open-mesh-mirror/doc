@@ -1,0 +1,20 @@
+h2. Ideas and drafts
+
+These pages document ideas, drafts and analyses. They may be outdated or were never (completely) implemented.
+
+* [[Batman_v_throughput_experimental|B.A.T.M.A.N. V draft]]
+** early draft of B.A.T.M.A.N. V
+* [[OGM_Permeability|OGMv2 permeability]]
+** reduce OGMv2 overhead in VPN connected networks
+* [[Gateway-Selection-Issue|Gateway selection issue]]
+** analysis of a suboptimal gateway selection
+* [[Connecting-Batman-adv-clouds|Interconnecting batman-adv clouds]]
+** interconnect multiple batman-adv clouds
+* [[DAT_DHCP_Snooping|DAT DHCP snooping]]
+** fill the distributed ARP table from DHCP messages
+* [[Bcast-hidden-node|Hidden node problem]], [[Broadcast-Avoidances|Broadcast avoidances]] and [[Broadcast-Avoidances-NHH-Assessment|Neighborhood hash assessment]]
+** reduce the overhead of broadcasts
+* [[Multicast-ideas|Multicast awareness]], [[Multicast-ideas-updated|Multicast awareness (updated)]] and [[Multicast-IGMP-MLD-Report-Forwarding|IGMP/MLD report forwarding]]
+** early multicast concepts and extensions
+* [[RIP|RIP protocol (Rest in Peace)]]
+** ideas for a new routing protocol (Rest in Peace)
