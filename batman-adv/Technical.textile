@@ -54,5 +54,3 @@ h3. Broadcast and multicast
 ** handling of IGMP/MLD reports
 * [[Multicast-Packet-Type|Multicast packet type]]
 ** packet type to forward multicast packets to multiple destinations
-* [[Noflood-broadcast-prevention|Noflood mark]]
-** avoid flooding of frames marked via netfilter
