@@ -1,0 +1,16 @@
+h2. Installation and configuration
+
+* [[Building-with-openwrt|Building with OpenWrt]]
+** set up an OpenWrt build environment to compile batman-adv
+* [[Batman-adv-openwrt-config|OpenWrt configuration]]
+** example network and wireless configurations for OpenWrt
+* [[Debian_batman-adv_AutoStartup|Debian autostart]]
+** start batman-adv automatically on Debian and derived distributions
+* [[Tweaking]]
+** overview of all settings to tweak the behavior of batman-adv
+* [[Uevent|Uevents]]
+** events sent by batman-adv to user space
+* [[Understand-your-batman-adv-network|Understand your network]]
+** information exported by batman-adv about the mesh network
+* [[Troubleshooting]]
+** what to do if the setup does not behave as expected
