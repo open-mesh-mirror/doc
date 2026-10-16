@@ -1,4 +1,4 @@
-h1. Ap-isolation
+h1. AP isolation
 
 h3. What is it?
 
