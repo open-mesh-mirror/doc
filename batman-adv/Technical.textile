@@ -1,0 +1,58 @@
+h2. Technical documentation
+
+The protocol concept shared by all B.A.T.M.A.N. implementations is described in [[open-mesh:BATMANConcept|Protocol concept]] and [[open-mesh:Routing_scenarios|Routing scenarios]].
+
+h3. Routing algorithms
+
+* [[BATMAN_IV|B.A.T.M.A.N. IV]]
+** the TQ based routing algorithm
+* [[BATMAN_V|B.A.T.M.A.N. V]]
+** throughput based routing algorithm and its differences to B.A.T.M.A.N. IV
+* [[OGM|Originator message (OGM)]], [[OGMv2|Originator message v2 (OGMv2)]] and [[ELP|Echo Location Protocol (ELP)]]
+** the messages used by the routing algorithms
+
+h3. Non-mesh clients
+
+* [[Client-announcement|Client announcement]]
+** how non-mesh clients bridged into the mesh are announced
+* [[Client-roaming|Client roaming]]
+** non-mesh clients moving from one mesh node to the next
+* [[TT-Flags|TT Flags]]
+** internal flags used by the translation table
+
+h3. Packet format
+
+* [[Packet-types|Packet types]]
+** backward compatibility of unicast packet types
+* [[Compatversion|Compat version]]
+** packet versions and formats used by batman-adv
+* [[TVLV]]
+** the type-version-length-value API and its containers
+
+h3. Feature internals
+
+* [[Network-wide-multi-link-optimization|Network wide multi-link optimization]]
+** using multiple links in the whole mesh
+* [[Bridge-loop-avoidance-II|Bridge loop avoidance II]], [[Bridge-loop-avoidance-Protocol|Bridge loop avoidance protocol]] and [[Bridge-loop-avoidance-Testcases|Bridge loop avoidance test cases]]
+** design, protocol and test cases of the bridge loop avoidance
+* [[DistributedArpTable-technical|Distributed ARP Table internals]]
+** inner workings of the distributed ARP table
+* [[Fragmentation-technical|Fragmentation]]
+** layer 2 fragmentation of packets larger than the MTU
+* [[Bandwidth_meter_technical|Throughput meter protocol]]
+** protocol used by the throughput meter
+
+h3. Broadcast and multicast
+
+* [[Multicast-optimizations-tech|Multicast optimizations internals]]
+** technical description of the multicast optimizations
+* [[Multicast-optimizations-flags|Multicast flags]]
+** the multicast flags announced by each node
+* [[Multicast-optimizations-bridges|Multicast with bridges]]
+** multicast optimizations with bridged clients
+* [[Multicast-optimizations-listener-reports|Multicast listener reports]] and [[Multicast-optimizations-report-suppresion|Multicast report suppression]]
+** handling of IGMP/MLD reports
+* [[Multicast-Packet-Type|Multicast packet type]]
+** packet type to forward multicast packets to multiple destinations
+* [[Noflood-broadcast-prevention|Noflood mark]]
+** avoid flooding of frames marked via netfilter
