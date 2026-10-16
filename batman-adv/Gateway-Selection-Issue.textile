@@ -1,4 +1,4 @@
-h1. Gateway Selection Issue
+h1. Gateway selection issue
 
 h2. Scenario
 
