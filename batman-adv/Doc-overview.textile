@@ -2,19 +2,12 @@ h1. B.A.T.M.A.N. Advanced Documentation Overview
 
 {{TOC}}
 
-How to get a mesh network up and running, how to configure the many features of B.A.T.M.A.N. Advanced, and how to shoot down your troubles. 
+B.A.T.M.A.N. advanced (often referenced as batman-adv) is an implementation of the B.A.T.M.A.N. routing protocol in form of a Linux kernel module operating on layer 2. It is configured with the tool batctl, which is described in its "manpage":https://downloads.open-mesh.org/batman/manpages/batctl.8.html
 
 {{include(gettingstarted)}}
+{{include(installation)}}
 {{include(features)}}
-
-h2. Troubleshooting
-
-* [[Understand-your-batman-adv-network|Available Information]] - Read about the information exported by the module.
-* [[troubleshooting|Troubleshooting FAQ]] - What if my batman-adv setup does not behave as expected ?
-
+{{include(technical)}}
 {{include(developerinformation)}}
-{{include(protocol_information)}}
-
-h2. Who uses B.A.T.M.A.N. Advanced?
-
-* [[open-mesh:Experience|Find out who uses B.A.T.M.A.N. Advanced]]
+{{include(ideas)}}
+{{include(further-resources)}}
