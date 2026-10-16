@@ -1,4 +1,4 @@
-h1. OpenWrt KGDB
+h1. Kernel debugging with KGDB
 
 {{>toc}}
 
