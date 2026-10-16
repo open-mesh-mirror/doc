@@ -1,4 +1,13 @@
-h2. Merchandise
+h2. Community
 
-* [[Logos|Logos]] - download logos
-* "T-Shirts":https://www.freewear.org/?org=B.A.T.M.A.N%2e - get T-Shirts
+* [[MailingList|Mailing List]] and [[IRC|IRC]]
+** get in contact with users and developers
+* {{mastodon_link}}
+* [[Contribute|How to contribute]]
+** report bugs, send feedback, documentation or patches
+* [[Experience|Experience]]
+** projects, press reviews and papers about B.A.T.M.A.N.
+* [[Logos|Logos]]
+** B.A.T.M.A.N. logos and a [[BatmanAdvBootLogo|boot logo]] for the Linux kernel
+* "T-Shirts":https://www.freewear.org/?org=B.A.T.M.A.N%2e
+** get T-Shirts
