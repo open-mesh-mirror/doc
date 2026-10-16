@@ -528,11 +528,122 @@ the crashkernel from booting or from being useful:
   started again.
 
 ``module_blacklist=ath10k_core``
-  the wifi chips are still in the state of the crashed kernel. In the
-  tests, ath10k failed to initialize them (``failed to receive
-  initialized event from target``) and the crashkernel hung afterwards.
-  They are also not needed to retrieve the dump and would only waste the
-  little memory of the crashkernel.
+  the wifi chips are not needed to retrieve the dump. With ath10k, the
+  crashkernel runs out of memory and the OOM killer starts to kill
+  processes (hostapd, wpa_supplicant, ...).
+
+  The wifi cores are also still running the firmware of the crashed
+  kernel. Without a fix for ath10k (see below), the probe fails with
+  ``failed to receive initialized event from target`` and the
+  crashkernel hangs afterwards.
+
+The hang has two causes in the probe of the ath10k AHB driver
+(``ath10k_ahb_probe()``):
+
+* the driver only releases the resets of the wifi core and waits for the
+  firmware to signal that it is initialized. After a cold boot, the core
+  is still held in reset by the bootloader. But after kexec, the core is
+  still running the old firmware and never sends this event.
+* the error path disables the clocks of the wifi core before
+  ``ath10k_pci_release_resource()`` writes to the copy engine registers.
+  Accessing these unclocked registers stalls the bus and freezes the whole
+  system - even the serial console stops responding.
+
+Both problems can be fixed in ath10k-ct by halting the chip before it is
+prepared and by releasing the resources before the clocks are disabled -
+like ``ath10k_ahb_remove()`` already does it. With this patch
+(``package/kernel/ath10k-ct/patches/990-ath10k-ahb-halt-running-chip-on-probe.patch``),
+the wifi cores are initialized correctly in the crashkernel and
+``module_blacklist`` is only needed to save memory:
+
+.. code-block:: diff
+
+  --- a/ath10k-7.2/ahb.c
+  +++ b/ath10k-7.2/ahb.c
+  @@ -568,25 +568,17 @@
+
+   	ret = ath10k_ahb_release_reset(ar);
+   	if (ret)
+  -		goto err_clk_disable;
+  +		return ret;
+
+   	ath10k_ahb_irq_disable(ar);
+
+   	ath10k_ahb_write32(ar, FW_INDICATOR_ADDRESS, FW_IND_HOST_READY);
+
+  -	ret = ath10k_pci_wait_for_target_init(ar);
+  -	if (ret)
+  -		goto err_halt_chip;
+  -
+  -	return 0;
+  -
+  -err_halt_chip:
+  -	ath10k_ahb_halt_chip(ar);
+  -
+  -err_clk_disable:
+  -	ath10k_ahb_clock_disable(ar);
+  -
+  -	return ret;
+  +	/* The clocks are kept enabled on errors. The caller must halt the
+  +	 * chip and disable the clocks after it no longer accesses any
+  +	 * register.
+  +	 */
+  +	return ath10k_pci_wait_for_target_init(ar);
+   }
+
+   static int ath10k_ahb_chip_reset(struct ath10k *ar)
+  @@ -597,8 +589,11 @@
+   	ath10k_ahb_clock_disable(ar);
+
+   	ret = ath10k_ahb_prepare_device(ar);
+  -	if (ret)
+  +	if (ret) {
+  +		ath10k_ahb_halt_chip(ar);
+  +		ath10k_ahb_clock_disable(ar);
+   		return ret;
+  +	}
+
+   	return 0;
+   }
+  @@ -779,10 +774,21 @@
+   	if (ret)
+   		goto err_free_pipes;
+
+  -	ret = ath10k_ahb_prepare_device(ar);
+  +	/* The chip might still be running when the kernel was started via
+  +	 * kexec (for example a kdump crash kernel). It would then never send
+  +	 * the initialized event. Halt it before it is prepared.
+  +	 */
+  +	ret = ath10k_ahb_clock_enable(ar);
+   	if (ret)
+   		goto err_free_irq;
+
+  +	ath10k_ahb_halt_chip(ar);
+  +	ath10k_ahb_clock_disable(ar);
+  +
+  +	ret = ath10k_ahb_prepare_device(ar);
+  +	if (ret)
+  +		goto err_halt_device;
+  +
+   	ath10k_pci_ce_deinit(ar);
+
+   	bus_params.dev_type = ATH10K_DEV_TYPE_LL;
+  @@ -802,8 +808,15 @@
+   	return 0;
+
+   err_halt_device:
+  +	/* the copy engine registers are accessed by
+  +	 * ath10k_pci_release_resource(). The chip must therefore only be
+  +	 * halted (and its clocks disabled) afterwards
+  +	 */
+  +	ath10k_ahb_release_irq_intx(ar);
+  +	ath10k_pci_release_resource(ar);
+   	ath10k_ahb_halt_chip(ar);
+   	ath10k_ahb_clock_disable(ar);
+  +	goto err_resource_deinit;
+
+   err_free_irq:
+   	ath10k_ahb_release_irq_intx(ar);
 
 The crash can now be simulated:
 
