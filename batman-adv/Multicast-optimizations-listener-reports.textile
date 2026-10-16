@@ -1,4 +1,4 @@
-h1. Multicast Optimizations - Considerations for IGMP/MLD Reports
+h1. Multicast listener reports
 
 h2. Scenario
 
