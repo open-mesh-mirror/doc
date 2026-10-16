@@ -1,4 +1,4 @@
-h1. DAT DHCP Snooping
+h1. DAT DHCP snooping
 
 h2. Problem Scenario
 
