@@ -1,4 +1,4 @@
-h1. Branches Explained
+h1. Branches explained
 
 The batman project that started with a basic protocol and a single userspace routing daemon, attracted quite some attention over the years which led to many new ideas and concepts meant to improve the project. These ideas often resulted in proof-of-concept "branches" of which some turned out to be impractical and disappeared but others came to stay. As a consequence different names were created to distinguish these concepts as the name "batman" became a broader term for everything around the project. This page aims to shed some light on all these different names to make it easier to understand the differences.
 
