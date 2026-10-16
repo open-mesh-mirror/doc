@@ -1,4 +1,8 @@
 h2. Getting Started
 
-* [[Download|Download]] - Get our latest releases, get access to our Git repositories
-* [[Contribute|How to contribute]] - How to report bugs, send comments, patches or suggestions
+* [[Download|Download]]
+** latest releases, git repositories and distribution packages
+* [[BranchesExplained|Branches explained]]
+** the different B.A.T.M.A.N. flavours (batmand, batman-adv, batctl, alfred, …) and their version numbers
+* [[FAQ]]
+** frequently asked questions about all B.A.T.M.A.N. projects
