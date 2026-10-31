@@ -13,6 +13,7 @@ Many thanks to everyone who contributed patches:
 * Chengfeng Ye <nicoyip.dev@gmail.com>
 * Deepanshu Kartikey <kartikey406@gmail.com>
 * Kees Cook <kees+treewide@kernel.org>
+* Kyle Zeng <kylebot@openai.com>
 * Peng Fan <peng.fan@nxp.com>
 * Simon Wunderlich <sw@simonwunderlich.de>
 * Sven Eckelmann <sven@narfation.org>
@@ -22,7 +23,7 @@ h2. batman-adv
 <pre>
 $ git describe origin/main
 v2026.3-49-gc1d440f3
-$ range=v2026.3..v2026.3-49-gc1d440f3
+$ range=v2026.3..v2026.3-76-g04071c46
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
@@ -72,6 +73,28 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|C
       batman-adv: tt: queue local DEL event under bucket lock
       batman-adv: tt: queue local DEL event before marking entry as pending
       batman-adv: compat: Add placeholder for __must_hold_share
+
+
+      batman-adv: mcast: validate tracker padding before forwarding
+      batman-adv: compat: use netns_immutable in Linux 6.12.114
+      batman-adv: compat: drop private copy of average.h
+      batman-adv: tpmeter: fix u32 truncation of reported bytes
+      batman-adv: dat: initialize orig_node of unfilled candidate slots
+      batman-adv: fix skb leak when hard_iface is being released
+      batman-adv: stop originator purge worker before freeing TT
+      batman-adv: tt: don't drop local events queued during TVLV update
+      batman-adv: tt: limit local table to single TVLV response size
+      batman-adv: tt: only transmit local ROAM flag together with DEL
+      batman-adv: tt: only update flags for TT events
+      batman-adv: tt: clear ROAM flag when re-adding a pending local client
+      batman-adv: tt: send ROAM_ADV on each roamed back client
+      batman-adv: tt: ignore ROAM flag of received ADD changes
+      batman-adv: document num_packets use as aggregation stop marker
+      batman-adv: tt: avoid stale changeset after TVLV allocation failure
+      batman-adv: tt: take local changes snapshot before TTVN decision
+      batman-adv: tt: don't drop last changeset for empty update
+      Revert "batman-adv: tt: clear ROAM flag when re-adding a pending local client"
+      batman-adv: tt: clear ROAM flag when re-adding a pending local client
 
 features
 ========
@@ -155,7 +178,7 @@ h2. alfred
 
 <pre>
 $ git describe origin/main
-v2026.3-2-gb175725
+v2026.3-45-gbf46956
 $ range=v2026.3..v2026.3-45-gbf46956
 $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
