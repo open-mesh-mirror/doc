@@ -1,10 +1,10 @@
-h1. DRAFT: Batman-adv 2026.3 released
+h1. DRAFT: Batman-adv 2026.4 released
 
-*Novemeber 3rd, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the November 2026 update for batman-adv! TODO Support for kernel older than 5.18 was dropped. Several bug fixes and code cleanups are included in this version.
+*Novemeber 3rd, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the November 2026 update for batman-adv! The translation table code was reorganized to allow safe modifications of the flags and states. Support for kernel older than 5.18 was dropped. Several bug fixes and code cleanups are included in this version.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
-https://downloads.open-mesh.org/batman/releases/batman-adv-2026.3/
+https://downloads.open-mesh.org/batman/releases/batman-adv-2026.4/
 
 h2. Thanks
 
@@ -28,26 +28,48 @@ $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-      batman-adv: Close OGM aggregation before transmission
-      batman-adv: avoid WARN_ON for orig_ifinfo allocation failure
 
-      batman-adv: dat: fix printing of unknown 4addr subtype
-      batman-adv: drop direction in _batadv_is_ap_isolated kernel-doc
-      batman-adv: bat_v: fix bonding candidate selection
-      batman-adv: clarify cut-off in batadv_v_neigh_is_sob kernel-doc
-      batman-adv: use more descriptive var names for is_similar_or_better
-      batman-adv: ensure u16 aligned mac address arrays on stack
-      batman-adv: ensure u16 aligned mac address in structs
-      batman-adv: compat: drop support for pre-C11 kernels
-      batman-adv: compat: add scoped_guard(spinlock_bh, ...) support
+
+
+
+features
+========
+
+
+tt protected flags
+==================
+
       batman-adv: tt: remove only the entry which was looked up from the hash
-      batman-adv: tt: extract code handling a roam on add
-      batman-adv: tt: simplify NEW flag transition code
-      batman-adv: tt: drop unnecessary cleanup goto in helpers
       batman-adv: tt: use protected flag modifications
       batman-adv: tt: transition NEW local entries only under lock
       batman-adv: tt: don't uncount never committed clients on pending purge
       batman-adv: tt: decrement count for committed client on local_remove
+      batman-adv: tt: clarify kernel doc for batadv_tt_local_set_pending_event()
+      batman-adv: tt: clarify kernel-doc for batadv_tt_global_purge_local
+      batman-adv: tt: clarify responsibility for roam flag during removal
+      batman-adv: tt: soften kernel-doc for batadv_tt_local_remove_now()
+      batman-adv: tt: only queue local del event after successful unlink
+      batman-adv: tt: queue local DEL event under bucket lock
+      batman-adv: tt: queue local DEL event before marking entry as pending
+
+new kernel version
+==================
+
+      batman-adv: compat: use netns_immutable in Linux 6.12.114
+      batman-adv: compat: drop private copy of average.h
+      batman-adv: compat: drop support for pre-C11 kernels
+      batman-adv: compat: add scoped_guard(spinlock_bh, ...) support
+      batman-adv: compat: Add placeholder for __must_hold_share
+      batman-adv: compat: support default alloc GFP mode
+
+
+coding style cleanup/refactoring
+================================
+
+      batman-adv: refresh kmalloc_obj() conversions
+      batman-adv: use assign_bit() where applicable
+      batman-adv: document num_packets use as aggregation stop marker
+      batman-adv: bat_iv: fix ogm_neigh_is_sob parameters references
       batman-adv: tt: look up wifi state of incoming interface in helper
       batman-adv: tt: extract allocation of new local entries
       batman-adv: tt: replace forward gotos in batadv_tt_local_add()
@@ -59,58 +81,16 @@ $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|C
       batman-adv: tt: extract removal of the superseded local entry
       batman-adv: tt: extract marking of a removed local entry
       batman-adv: tt: extract immediate purge of a local entry
+      batman-adv: tt: extract code handling a roam on add
       batman-adv: tt: drop the cleanup label from batadv_tt_local_remove()
-      batman-adv: bat_iv: fix ogm_neigh_is_sob parameters references
+      batman-adv: drop direction in _batadv_is_ap_isolated kernel-doc
+      batman-adv: clarify cut-off in batadv_v_neigh_is_sob kernel-doc
+      batman-adv: use more descriptive var names for is_similar_or_better
+      batman-adv: ensure u16 aligned mac address arrays on stack
+      batman-adv: ensure u16 aligned mac address in structs
+      batman-adv: tt: simplify NEW flag transition code
       batman-adv: correct batadv_hash_remove kdoc return type
-      batman-adv: tt: clarify kernel doc for batadv_tt_local_set_pending_event()
-      batman-adv: bla: avoid double free after failed backbone_hash alloc
-      batman-adv: tt: clarify kernel-doc for batadv_tt_global_purge_local
-      batman-adv: tt: clarify responsibility for roam flag during removal
-      batman-adv: tt: soften kernel-doc for batadv_tt_local_remove_now()
-      batman-adv: tt: only queue local del event after successful unlink
-      batman-adv: tt: reject VLAN/TT entries before reaching size limit
-      batman-adv: compat: support default alloc GFP mode
-      batman-adv: tt: queue local DEL event under bucket lock
-      batman-adv: tt: queue local DEL event before marking entry as pending
-      batman-adv: compat: Add placeholder for __must_hold_share
-
-
-      batman-adv: mcast: validate tracker padding before forwarding
-      batman-adv: compat: use netns_immutable in Linux 6.12.114
-      batman-adv: compat: drop private copy of average.h
-      batman-adv: tpmeter: fix u32 truncation of reported bytes
-      batman-adv: dat: initialize orig_node of unfilled candidate slots
-      batman-adv: fix skb leak when hard_iface is being released
-      batman-adv: stop originator purge worker before freeing TT
-      batman-adv: tt: don't drop local events queued during TVLV update
-      batman-adv: tt: limit local table to single TVLV response size
-      batman-adv: tt: only transmit local ROAM flag together with DEL
-      batman-adv: tt: only update flags for TT events
-      batman-adv: tt: clear ROAM flag when re-adding a pending local client
-      batman-adv: tt: send ROAM_ADV on each roamed back client
-      batman-adv: tt: ignore ROAM flag of received ADD changes
-      batman-adv: document num_packets use as aggregation stop marker
-      batman-adv: tt: avoid stale changeset after TVLV allocation failure
-      batman-adv: tt: take local changes snapshot before TTVN decision
-      batman-adv: tt: don't drop last changeset for empty update
-      Revert "batman-adv: tt: clear ROAM flag when re-adding a pending local client"
-      batman-adv: tt: clear ROAM flag when re-adding a pending local client
-
-features
-========
-
-
-
-new kernel version
-==================
-
-
-
-coding style cleanup/refactoring
-================================
-
-      batman-adv: refresh kmalloc_obj() conversions
-      batman-adv: use assign_bit() where applicable
+      batman-adv: tt: drop unnecessary cleanup goto in helpers
 
 various
 =======
@@ -118,14 +98,53 @@ various
 bugfixes
 ========
 
+      batman-adv: avoid WARN_ON for orig_ifinfo allocation failure
+      batman-adv: Close OGM aggregation before transmission
+      batman-adv: tpmeter: fix u32 truncation of reported bytes
+      batman-adv: dat: initialize orig_node of unfilled candidate slots
+      batman-adv: fix skb leak when hard_iface is being released
+      batman-adv: stop originator purge worker before freeing TT
+      batman-adv: tt: don't drop local events queued during TVLV update
+      batman-adv: tt: only transmit local ROAM flag together with DEL
+      batman-adv: tt: only update flags for TT events
+      batman-adv: tt: clear ROAM flag when re-adding a pending local client
+      batman-adv: tt: send ROAM_ADV on each roamed back client
+      batman-adv: tt: ignore ROAM flag of received ADD changes
+      batman-adv: tt: avoid stale changeset after TVLV allocation failure
+      batman-adv: tt: take local changes snapshot before TTVN decision
+      batman-adv: tt: don't drop last changeset for empty update
+      batman-adv: mcast: validate tracker padding before forwarding
+      batman-adv: bat_v: fix bonding candidate selection
+      batman-adv: tt: reject VLAN/TT entries before reaching size limit
+      batman-adv: tt: limit local table to single TVLV response size
 
-2026.3 (2026-11-03)
+
+2026.4 (2026-11-03)
 ===================
 
 * support latest kernels (5.18 - 7.4)
 * coding style cleanups and refactoring
+* improve locking and state handling for the translation table
 * bugs squashed:
 
+  - avoid WARN_ON for orig_ifinfo allocation failure
+  - bla: avoid double free after failed backbone_hash alloc
+  - bat_v: fix bonding candidate selection
+  - close OGM aggregation before transmission
+  - dat: fix printing of unknown 4addr subtype
+  - dat: initialize orig_node of unfilled candidate slots
+  - fix skb leak when hard_iface is being released
+  - mcast: validate tracker padding before forwarding
+  - stop originator purge worker before freeing TT
+  - tpmeter: fix u32 truncation of reported bytes
+  - tt: clear ROAM flag when re-adding a pending local client
+  - tt: don't drop local events queued during TVLV update
+  - tt: ignore ROAM flag of received ADD changes
+  - tt: limit local table to single TVLV response size
+  - tt: only transmit local ROAM flag together with DEL
+  - tt: only update flags for TT events
+  - tt: send ROAM_ADV on each roamed back client
+  - tt: take local changes snapshot before TTVN decision
 </pre>
 
 h2. batctl
@@ -167,7 +186,7 @@ bugfixes
 
 
 
-2026.3 (2026-11-03)
+2026.4 (2026-11-03)
 ===================
 
 * drop bisect_iv subcommand
@@ -184,50 +203,7 @@ $ git shortlog --email --no-merges "${range}"
 $ git log --no-merges "${range}"|grep -e '\(Reported\|Tested\|Acked\|Reviewed\|Co-authored\)-by'|sed 's/.*:/*/'|sort|uniq
 
 
-      alfred: gpsd: show unix-path option in the usage output
-      alfred: gpsd: reject too long unix socket paths
-      alfred: gpsd: fix counter underflow on leading carriage return
-      alfred: gpsd: handle short reads on the unix socket
-      alfred: gpsd: report failures while reading the answer
-      alfred: gpsd: don't drop the rest of the answer for a bogus dataset
-      alfred: gpsd: handle empty or not 0-terminated TPV
-      alfred: vis: reject too long unix socket paths
-      alfred: vis: keep interface names always in heap
-      alfred: vis: return query_rtnl_link error on failed send
-      alfred: vis: handle short reads on the unix socket
-      alfred: vis: report failures while reading the answer
-      alfred: vis: don't drop the rest of the answer for a bogus dataset
-      alfred: vis: fix jsondoc output for nodes without vis entries
-      alfred: vis: skip originators with unresolvable hard interface
-      alfred: mark alfred_change_bat_iface_v0 as packed
-      alfred: import batadv_netlink_policy from batctl
-      alfred: don't stop translation table dump after first entry
-      alfred: drop CAP_NET_RAW when binding to the device fails
-      alfred: free the correct capability set when cap_init() fails
-      alfred: don't treat empty datagrams as a socket read error
-      alfred: fix type of sendto() return
-      alfred: Use _exit() in the update command child process
-      alfred: Announce changed data only after it was stored
-      alfred: keep interface names always in heap
-      alfred: free interface parameters before assigning new
-      alfred: check strdup() failures during option parsing
-      alfred: reject invalid synchronization periods
-      alfred: reject too long unix socket paths
-      alfred: validate the IPv4 multicast group argument
-      alfred: don't leak event listener when epoll registration fails
-      alfred: dlose the client socket on unix_sock_req_data errors
-      alfred: Close the periodic timer fd on setup errors
-      alfred: fix error code from unix_sock_req_data_reply
-      alfred: avoid endless-loop when reading data from stdin fails
-      alfred: close the listening socket on daemon setup errors
-      alfred: handle short reads when waiting for daemon answer
-      alfred: fix off-by-one in client interface name length checks
-      alfred: update stored interface list on interface change
-      alfred: don't drop the mesh interface name on OOM
-      alfred: keep the running interfaces when reconfiguration fails
-      alfred: Report failure when the client refuses to change interfaces
-      alfred: don't check the "none" on network interface change
-      alfred: avoid leak of dataset on buffer allocation
+
 
 features
 ========
@@ -236,16 +212,90 @@ features
 coding style cleanup/refactoring
 ================================
 
+      alfred: gpsd: show unix-path option in the usage output
+      alfred: vis: keep interface names always in heap
+      alfred: vis: return query_rtnl_link error on failed send
+      alfred: mark alfred_change_bat_iface_v0 as packed
+      alfred: import batadv_netlink_policy from batctl
+      alfred: fix type of sendto() return
+      alfred: keep interface names always in heap
+      alfred: check strdup() failures during option parsing
+      alfred: reject invalid synchronization periods
+      alfred: reject too long unix socket paths
+      alfred: validate the IPv4 multicast group argument
+      alfred: free interface parameters before assigning new
+      alfred: gpsd: reject too long unix socket paths
+      alfred: vis: reject too long unix socket paths
+      alfred: Use _exit() in the update command child process
+      alfred: Close the periodic timer fd on setup errors
+      
 bugfixes
 ========
 
+      alfred: announce changed data only after it was stored
+      alfred: avoid endless-loop when reading data from stdin fails
+      alfred: avoid leak of dataset on buffer allocation
+      alfred: close the listening socket on daemon setup errors
+      alfred: dlose the client socket on unix_sock_req_data errors
+      alfred: don't check the "none" on network interface change
+      alfred: don't drop the mesh interface name on OOM
+      alfred: don't leak event listener when epoll registration fails
+      alfred: don't stop translation table dump after first entry
+      alfred: don't treat empty datagrams as a socket read error
+      alfred: drop CAP_NET_RAW when binding to the device fails
+      alfred: fix error code from unix_sock_req_data_reply
+      alfred: fix off-by-one in client interface name length checks
+      alfred: free the correct capability set when cap_init() fails
+      alfred: gpsd: don't drop the rest of the answer for a bogus dataset
+      alfred: gpsd: fix counter underflow on leading carriage return
+      alfred: gpsd: handle empty or not 0-terminated TPV
+      alfred: gpsd: handle short reads on the unix socket
+      alfred: gpsd: report failures while reading the answer
+      alfred: handle short reads when waiting for daemon answer
+      alfred: keep the running interfaces when reconfiguration fails
+      alfred: report failure when the client refuses to change interfaces
+      alfred: update stored interface list on interface change
+      alfred: vis: don't drop the rest of the answer for a bogus dataset
+      alfred: vis: fix jsondoc output for nodes without vis entries
+      alfred: vis: handle short reads on the unix socket
+      alfred: vis: report failures while reading the answer
+      alfred: vis: skip originators with unresolvable hard interface
 
 
-2026.3 (2026-11-03)
+2026.4 (2026-11-03)
 ===================
 
+* coding style cleanups and refactoring
 * bugs squashed:
 
+  - announce changed data only after it was stored
+  - avoid endless-loop when reading data from stdin fails
+  - avoid leak of dataset on buffer allocation
+  - close the listening socket on daemon setup errors
+  - close the client socket on unix_sock_req_data errors
+  - don't check the "none" on network interface change
+  - don't drop the mesh interface name on OOM
+  - don't leak event listener when epoll registration fails
+  - don't stop translation table dump after first entry
+  - don't treat empty datagrams as a socket read error
+  - drop CAP_NET_RAW when binding to the device fails
+  - fix error code from unix_sock_req_data_reply
+  - fix off-by-one in client interface name length checks
+  - free the correct capability set when cap_init() fails
+  - gpsd: don't drop the rest of the answer for a bogus dataset
+  - gpsd: fix counter underflow on leading carriage return
+  - gpsd: handle empty or not 0-terminated TPV
+  - gpsd: handle short reads on the unix socket
+  - gpsd: report failures while reading the answer
+  - handle short reads when waiting for daemon answer
+  - keep the running interfaces when reconfiguration fails
+  - report failure when the client refuses to change interfaces
+  - update stored interface list on interface change
+  - vis: don't drop the rest of the answer for a bogus dataset
+  - vis: fix jsondoc output for nodes without vis entries
+  - vis: handle short reads on the unix socket
+  - vis: report failures while reading the answer
+  - vis: skip originators with unresolvable hard interface
 </pre>
 
 
