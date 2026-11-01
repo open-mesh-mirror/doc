@@ -212,6 +212,10 @@ features
 coding style cleanup/refactoring
 ================================
 
+
+various
+=======
+
       alfred: gpsd: show unix-path option in the usage output
       alfred: vis: keep interface names always in heap
       alfred: vis: return query_rtnl_link error on failed send
