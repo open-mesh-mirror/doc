@@ -11,6 +11,7 @@ h2. Thanks
 Many thanks to everyone who contributed patches:
 
 * Chengfeng Ye <nicoyip.dev@gmail.com>
+* David Lutz <kpanic@ff3l.net>
 * Deepanshu Kartikey <kartikey406@gmail.com>
 * Kees Cook <kees+treewide@kernel.org>
 * Kyle Zeng <kylebot@openai.com>
@@ -117,6 +118,7 @@ bugfixes
       batman-adv: bat_v: fix bonding candidate selection
       batman-adv: tt: reject VLAN/TT entries before reaching size limit
       batman-adv: tt: limit local table to single TVLV response size
+      batman-adv: clear skbuff timestamp on send
 
 
 2026.4 (2026-11-03)
@@ -130,6 +132,7 @@ bugfixes
   - avoid WARN_ON for orig_ifinfo allocation failure
   - bla: avoid double free after failed backbone_hash alloc
   - bat_v: fix bonding candidate selection
+  - clear skbuff timestamp on send
   - close OGM aggregation before transmission
   - dat: fix printing of unknown 4addr subtype
   - dat: initialize orig_node of unfilled candidate slots
