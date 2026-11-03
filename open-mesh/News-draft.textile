@@ -1,6 +1,6 @@
 h1. DRAFT: Batman-adv 2026.4 released
 
-*Novemeber 3rd, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the November 2026 update for batman-adv! The translation table code was reorganized to allow safe modifications of the flags and states. Support for kernel older than 5.18 was dropped. Several bug fixes and code cleanups are included in this version.
+*Novemeber 3rd, 2026*: The B.A.T.M.A.N. team is excited to announce the release of the November 2026 update for batman-adv! The translation table code was reorganized to allow safe modifications of the flags and states. Support for kernel older than 5.18 was dropped. Also the batctl subcommand <code>bisect_iv</code> was removed. Several bug fixes and code cleanups are included in this version.
 
 Since the kernel module is always dependent on the specific Linux kernel it’s compiled against, providing precompiled binaries on our website is not feasible. As always, you can find the signed tarballs in the download section:
 
